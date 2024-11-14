@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    brut (1.0.0.alpha)
+    brut (0.0.1)
       dotenv
       factory_bot
       faker
