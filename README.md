@@ -19,3 +19,42 @@ Or install it yourself as:
 
     $ gem install brut
 
+## Developing
+
+The dev environment is managed by Docker and you are encouraged to use this. It's set up so you can edit your code on your computer
+with your editor, but all commands are run inside Docker, which should be more consistent across developer workstations.
+
+1. On Windows, setup WSL2
+2. Install Docker
+3. Build the image(s) you will use to start containers where development happens:
+
+   ```
+   dx/build
+   ```
+4. Start up the dev environment
+
+   ```
+   dx/start
+   ```
+5. At this point, you can "log in" to the virtual machine/docker container via:
+
+   ```
+   dx/exec bash
+   ```
+6. From there, you have a UNIX prompt where you can run all commands.  You can also run any command via:
+
+   ```
+   dx/exec ls -l # or whatever
+   ```
+
+   This is how you can configure your editor to issue commands and access their output.
+
+7. To set everything up:
+
+   ```
+   dx/exec bin/setup --no-credentials
+   ```
+
+   The `--no-credentials` means that you will not be able to push to GitHub or RubyGems from within the Docker container. This
+   ability is only needed by maintainers to push new versions of the gem. You can push to GitHub from your computer.
+
