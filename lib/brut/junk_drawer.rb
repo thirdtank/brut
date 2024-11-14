@@ -1,3 +1,4 @@
+require "tzinfo"
 class Clock
   def initialize(tzinfo_timezone)
     if tzinfo_timezone
