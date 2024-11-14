@@ -34,6 +34,16 @@ Gem::Specification.new do |spec|
   spec.executables   = spec.files.grep(%r{^exe/}) { |f| File.basename(f) }
   spec.require_paths = ["lib"]
 
+  spec.add_runtime_dependency "rexml"
+  spec.add_runtime_dependency "sequel"
+  spec.add_runtime_dependency "zeitwerk"
+  spec.add_runtime_dependency "i18n"
+  spec.add_runtime_dependency "semantic_logger"
+  spec.add_runtime_dependency "temple"
+  spec.add_runtime_dependency "factory_bot"
+  spec.add_runtime_dependency "faker"
+
+  spec.add_development_dependency "active_support"
   spec.add_development_dependency "bundler", "~> 1.17"
   spec.add_development_dependency "rspec", "~> 3.0"
 end
