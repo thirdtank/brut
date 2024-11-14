@@ -1,0 +1,13 @@
+services:
+  app:
+    image: ${IMAGE}
+    pull_policy: "missing"
+    init: true
+    volumes:
+      - type: bind
+        source: "./"
+        target: "/root/work"
+        consistency: "consistent"
+    entrypoint: /root/show-help-in-app-container-then-wait.sh
+    working_dir: /root/work
+
