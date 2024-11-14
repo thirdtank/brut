@@ -8,8 +8,8 @@ Gem::Specification.new do |spec|
   spec.authors       = ["David Bryant Copeland"]
   spec.email         = ["davec@thirdtank.com"]
 
-  spec.summary       = %q{Web Framework Built around Ruby, Web Standards, Simplicity, and Object-Orientation}
-  spec.description   = %q{An opinionated web framework build on web standards}
+  spec.summary       = %q{NOT YET RELEASED - Web Framework Built around Ruby, Web Standards, Simplicity, and Object-Orientation}
+  spec.description   = %q{NOT YET RELEASED - An opinionated web framework build on web standards}
   spec.homepage      = "https://naildrivin5.com"
 
   # Prevent pushing this gem to RubyGems.org. To allow pushes either set the 'allowed_push_host'
