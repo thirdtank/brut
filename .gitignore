@@ -1,7 +1,7 @@
 # this is where the gem is built - should not be checked in
 /pkg
 
-# This contains ssh configuration needed to perform actions
-# from inside the dev environment. As such, these are real
-# secrets and should never be checked in
-/dx/ssh-config
+# This contains ssh and RubyGems configuration needed to perform actions
+# from inside the dev environment. As such, these are real secrets and 
+# should never be checked in
+/dx/credentials
