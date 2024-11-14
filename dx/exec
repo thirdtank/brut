@@ -9,16 +9,20 @@ SCRIPT_DIR=$( cd -- "$( dirname -- "${0}" )" > /dev/null 2>&1 && pwd )
 require_command "docker"
 load_docker_compose_env
 
-usage_description="Execute a command inside the app's container."
-usage_args="[-s service] command"
+usage_description="Execute a command inside the app's container with ssh-agent active."
+usage_args="[-s service] [-A] command"
 usage_pre="exec.pre"
 usage_on_help "${usage_description}" "${usage_args}" "${usage_pre}" "" "${@}"
 
 SERVICE="${SERVICE_NAME:-${DEFAULT_SERVICE}}"
-while getopts "s:" opt "${@}"; do
+SSH_AGENT="ssh-agent "
+while getopts "s:A" opt "${@}"; do
   case ${opt} in
     s )
       SERVICE="${OPTARG}"
+      ;;
+    A )
+      SSH_AGENT="" 
       ;;
     \? )
       log "🛑" "Unknown option: ${opt}"
@@ -49,6 +53,6 @@ docker \
     --env-file "${ENV_FILE}" \
   exec \
     "${SERVICE}" \
-    "${@}"
+    ${SSH_AGENT} "${@}"
 
 # vim: ft=bash

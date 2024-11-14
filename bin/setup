@@ -2,6 +2,8 @@
 
 require_relative "bin_kit"
 require "optparse"
+require "pathname"
+require "fileutils"
 
 def setup(update_gems:)
   if update_gems
@@ -13,6 +15,92 @@ def setup(update_gems:)
     # bundle check indicates we need to
     system! "bundle check --no-color || bundle install --no-color --quiet"
   end
+
+  project_root = Pathname($0).dirname / ".."
+  ssh_config = project_root / "dx" / "ssh-config"
+  if ssh_config.exist?
+    if ssh_config.directory?
+      log "#{ssh_config} exists"
+    else
+      log "#{ssh_config} is not a directory - please delete it or move it elsewhere and re-run this script"
+      exit 1
+    end
+  else
+    log "#{ssh_config} doesn't exist - creating"
+    FileUtils.mkdir_p ssh_config
+  end
+
+  # https://docs.github.com/en/authentication/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent?platform=linux
+  key_file = ssh_config / "id_ed25519"
+
+  if key_file.exist?
+    log "#{key_file} exists already"
+  else
+    git_config_command = "git config --get user.email"
+    email = `#{git_config_command}`.chomp
+    if !$?.success?
+      log "Could not determine your email via #{git_config_command} - is your git set up properly?"
+      exit 1
+    end
+    log "Creating your key in #{key_file} using email #{email}."
+    log "You will be prompted for a passphrase, which you are encouraged to provide"
+    system! "ssh-keygen -t ed25519 -C #{email} -f \"#{key_file}\""
+    log ""
+    log "You must now add this to your GitHub profile in order to perform Git commands"
+    log ""
+    log "The key you just generated has a public key that should be available on your computer at"
+    log ""
+    log "   #{key_file.relative_path_from(project_root)}.pub"
+    log ""
+    log "Copy its contents and head to:"
+    log ""
+    log "   https://github.com/settings/keys"
+    log ""
+    log "Click 'New SSH key' and paste your key in, giving it a name like 'Brut Dev Env'"
+    log ""
+    log "(if this doesn't look right, check https://docs.github.com/en/authentication/connecting-to-github-with-ssh/adding-a-new-ssh-key-to-your-github-account)"
+    log ""
+    log "Hit return when done"
+    x = gets
+  end
+
+  log "Adding your SSH key to ssh-agent - you must provide your passphrase"
+  system! "ssh-add #{key_file}"
+
+  known_hosts_dest = Pathname("/") / "root" / ".ssh" / "known_hosts"
+  if known_hosts_dest.exist?
+    log "#{known_hosts_dest} exists, your ssh key should work with GitHub"
+  else
+    log "#{known_hosts_dest} does not exist"
+    known_hosts_source = ssh_config / "known_hosts"
+    if known_hosts_source.exist?
+      log "#{known_hosts_source} exists - copying it to #{known_hosts_dest}"
+      FileUtils.mkdir_p known_hosts_dest.dirname
+      FileUtils.chmod(0700,known_hosts_dest.dirname)
+      FileUtils.cp known_hosts_source, known_hosts_dest
+      FileUtils.chmod(0600,known_hosts_dest)
+    else
+      log "#{known_hosts_source} also does not exist. To create it, we'll connect to github.com"
+      log "NOTE: it will show you a fingerprint to verify authenticity. You should check it against:"
+      log ""
+      log "    https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/githubs-ssh-key-fingerprints"
+      log ""
+      log "       and proceed ONLY if the values match"
+      log ""
+      system("ssh -T git@github.com") # NOT system! because this may exit nonzero but still have succeeded
+      if $?.exitstatus == 255
+        log "SOMETHING MAY HAVE GONE WRONG!"
+      end
+      if known_hosts_dest.exist?
+        log "Copying #{known_hosts_dest} back to #{known_hosts_source} to use in the future"
+        FileUtils.cp known_hosts_dest,known_hosts_source
+      else
+        log "For some reason #{known_hosts_dest} was not created.  Future ssh commands may ask you to verify GitHub's fingerprint"
+      end
+    end
+    log "Your ssh key looks good"
+  end
+
 end
 
 
