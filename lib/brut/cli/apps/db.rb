@@ -43,7 +43,6 @@ class Brut::CLI::Apps::DB < Brut::CLI::App
 
   class Rebuild < Brut::CLI::Command
     description "Drop, re-create, and run migrations, effecitvely rebuilding the entire database"
-    opts.on("--[no-]seeds","Load seed data after applying migrations")
 
     requires_project_env default: "development"
 
@@ -63,11 +62,7 @@ class Brut::CLI::Apps::DB < Brut::CLI::App
     end
 
     def execute
-      result = delegate_to_commands(Drop, Create, Migrate)
-      if result.ok? && options.seeds?
-        result = delegate_to_command(Seed)
-      end
-      result
+      delegate_to_commands(Drop, Create, Migrate)
     end
   end
 

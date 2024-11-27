@@ -100,8 +100,8 @@ end}
       end
       classes
     end
-
   end
+
   class Component < Brut::CLI::Command
     description "Create a new component, template, and associated test"
     opts.on("--page","If set, this component is for a specific page and won't go with the other components")
@@ -183,6 +183,98 @@ end}
       out.puts "Component source is in        #{source_path.relative_path_from(Brut.container.project_root)}"
       out.puts "Component HTML template is in #{html_source_path.relative_path_from(Brut.container.project_root)}"
       out.puts "Component test is in          #{spec_path.relative_path_from(Brut.container.project_root)}"
+      0
+    end
+  end
+  class Page < Brut::CLI::Command
+    description "Create a new page, template, and associated test"
+    args "PageName"
+    def execute
+      if args.length != 1
+        raise "component requires exactly one argument, got #{args.length}"
+      end
+      class_name = RichString.new(args[0])
+      if class_name.to_s !~ /Page$/
+        class_name = RichString.new(class_name.to_s + "Page")
+      end
+
+      relative_path = class_name.underscorized
+
+      pages_src_dir    = Brut.container.pages_src_dir
+      pages_specs_dir  = Brut.container.pages_specs_dir
+      i18n_locales_dir = Brut.container.i18n_locales_dir
+
+      source_path      = Pathname( (pages_src_dir / relative_path).to_s + ".rb" )
+      html_source_path = Pathname( (pages_src_dir / relative_path).to_s + ".html.erb" )
+      spec_path        = Pathname( (pages_specs_dir / relative_path).to_s + ".spec.rb" )
+      app_translations = Pathname(  i18n_locales_dir / "en" / "2_app.rb")
+
+      exists = [
+        source_path,
+        html_source_path,
+        spec_path,
+      ].select(&:exist?)
+
+      if exists.any? && !global_options.overwrite?
+        exists.each do |path|
+          err.puts "'#{path.relative_path_from(Brut.container.project_root)}' exists already"
+        end
+        err.puts "Re-run with --overwrite to overwrite these files"
+        return 1
+      end
+
+      if global_options.dry_run?
+        puts "FileUtils.mkdir_p #{source_path.dirname}"
+        puts "FileUtils.mkdir_p #{html_source_path.dirname}"
+        puts "FileUtils.mkdir_p #{spec_path.dirname}"
+        puts "Would add a title to #{app_translations}"
+      else
+        FileUtils.mkdir_p source_path.dirname
+        FileUtils.mkdir_p html_source_path.dirname
+        FileUtils.mkdir_p spec_path.dirname
+
+        File.open(source_path,"w") do |file|
+          file.puts %{class #{class_name} < AppPage
+  def initialize
+  end
+end}
+        end
+        File.open(html_source_path,"w") do |file|
+          file.puts "<h1>#{class_name} is ready!</h1>"
+        end
+        File.open(spec_path,"w") do |file|
+          file.puts %{require "spec_helper"
+
+RSpec.describe #{class_name} do
+  it "should have tests" do
+    expect(true).to eq(false)
+  end
+end}
+        end
+        title = RichString.new(class_name).underscorized.humanized.to_s.capitalize
+        existing_translations = File.read(app_translations).split(/\n/)
+        inserted_translation = false
+        File.open(app_translations,"w") do |file|
+          existing_translations.each do |line|
+            if line =~ /^    pages:\s*{/
+              file.puts line
+              file.puts "      \"#{class_name}\": {\n"
+              file.puts "        title: \"#{title}\","
+              file.puts "      },"
+              inserted_translation = true
+            else
+            file.puts line
+            end
+          end
+        end
+        if !inserted_translation
+          err.puts "WARNING: Could not find a place to insert the translation for this page's title"
+          err.puts "         The page may not render properly the first time you load it"
+        end
+      end
+      out.puts "Page source is in        #{source_path.relative_path_from(Brut.container.project_root)}"
+      out.puts "Page HTML template is in #{html_source_path.relative_path_from(Brut.container.project_root)}"
+      out.puts "Page test is in          #{spec_path.relative_path_from(Brut.container.project_root)}"
       0
     end
   end

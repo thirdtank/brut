@@ -20,6 +20,7 @@ module Brut
     autoload(:Middleware, "brut/front_end/middleware")
     autoload(:Middlewares, "brut/front_end/middleware")
     autoload(:Page, "brut/front_end/page")
+    autoload(:Pages, "brut/front_end/page")
     autoload(:RequestContext, "brut/front_end/request_context")
     autoload(:RouteHook, "brut/front_end/route_hook")
     autoload(:RouteHooks, "brut/front_end/route_hook")

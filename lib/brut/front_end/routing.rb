@@ -35,7 +35,15 @@ class Brut::FrontEnd::Routing
   end
 
   def register_page(path)
-    route = PageRoute.new(path)
+    route = begin
+              PageRoute.new(path)
+            rescue Brut::Framework::Errors::NoClassForPath => ex
+              if Brut.container.project_env.development?
+                MissingRoute.new(path,ex)
+              else
+                raise ex
+              end
+            end
     @routes << route
     add_routing_method(route)
     route
@@ -162,7 +170,7 @@ class Brut::FrontEnd::Routing
   private
     def locate_handler_class(suffix,preposition, on_missing: :raise)
       if @path_template == "/"
-        return Module.const_get("HomePage")
+        return Module.const_get("HomePage") # XXX Needs error handling
       end
       path_parts = @path_template.split(/\//)[1..-1]
 
@@ -184,26 +192,36 @@ class Brut::FrontEnd::Routing
         array
       }
       part_names[-1] += suffix
-      part_names.inject(Module) { |mod,path_element|
-        mod.const_get(path_element,mod == Module)
-      }
-    rescue NameError => ex
-      if on_missing == :raise
-        module_message = if ex.receiver == Module
-                           "Could not find"
-                         else
-                           "Module '#{ex.receiver}' did not have"
-                         end
-        message = "Cannot find page class for route '#{@path_template}', which should be #{part_names.join("::")}. #{module_message} the class or module '#{ex.name}'"
-        raise message
-      else
-        nil
+      begin
+        part_names.inject(Module) { |mod,path_element|
+          mod.const_get(path_element,mod == Module)
+        }
+      rescue NameError => ex
+        if on_missing == :raise
+          raise Brut::Framework::Errors::NoClassForPath.new(
+            class_name_path: part_names,
+            path_template: @path_template,
+            name_error: ex,
+          )
+        else
+          nil
+        end
       end
     end
 
     def suffix = "Handler"
     def preposition = "With"
 
+  end
+
+  class MissingRoute < Route
+    attr_reader :exception
+    def initialize(path_template,ex)
+      @http_method   = Brut::FrontEnd::HttpMethod.new(:get)
+      @path_template = path_template
+      @handler_class = Brut::FrontEnd::Pages::Missing
+      @exception     = ex
+    end
   end
 
   class PageRoute < Route

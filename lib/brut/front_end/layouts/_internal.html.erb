@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta content="width=device-width,initial-scale=1" name="viewport">
+    <title>BRUT INTERNAL</title>
+    <meta content="website" property="og:type">
+    <%= component(Brut::FrontEnd::Components::PageIdentifier.new(self.page_name)) %>
+  </head>
+  <style>
+html {
+  font-family: system-ui, serif;
+  background: #fefefe;
+  color: #333;
+}
+code {
+  font-family: courier, monospace;
+}
+pre:has(code) {
+  display: inline-block;
+  background: black;
+  color: #88FF88;
+    padding: 0.5rem;
+      border-radius: 0.5rem;
+}
+pre code {
+  border:none;
+  background-color: transparent;
+  padding: 0;
+}
+h1, h2, h3, h4, h5, h6 {
+  line-height: 1.2;
+}
+p {
+  line-height: 1.4;
+  max-width: 60ch;
+}
+  </style>
+  <body>
+    <%= yield %>
+  </body>
+</html>

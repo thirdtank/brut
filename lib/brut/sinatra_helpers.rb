@@ -70,6 +70,7 @@ module Brut::SinatraHelpers
           constructor_args = request_context.as_constructor_args(
             page_class,
             request_params: params,
+            route: route,
           )
           page_instance = page_class.new(**constructor_args)
           result = page_instance.handle!

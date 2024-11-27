@@ -229,6 +229,13 @@ class Brut::Framework::Config
         project_root / "app" / "config"
       end
 
+      c.store_ensured_path(
+        "i18n_locales_dir",
+        "Path to where I18N locale files are stored"
+      ) do |config_dir|
+        config_dir / "i18n"
+      end
+
       c.store(
         "asset_metadata_file",
         Pathname,
@@ -242,17 +249,34 @@ class Brut::Framework::Config
         "layout_locator",
         "Brut::FrontEnd::Component::TemplateLocator",
         "Object to use to locate templates for layouts"
-      ) do |layouts_src_dir|
-        Brut::FrontEnd::Component::TemplateLocator.new(paths: layouts_src_dir,
+      ) do |layouts_src_dir,project_env,brut_internal_dir|
+        paths = if project_env.development?
+                  [ layouts_src_dir, brut_internal_dir / "lib" / "brut" / "front_end" / "layouts" ]
+                else
+                  layouts_src_dir
+                end
+        Brut::FrontEnd::Component::TemplateLocator.new(paths: paths,
                                                        extension: "html.erb")
+      end
+
+      c.store_required_path(
+        "brut_internal_dir",
+        "Location to where the Brut gem is installed."
+      ) do
+        (Pathname(__FILE__).dirname / ".." / ".." / "..").expand_path
       end
 
       c.store(
         "page_locator",
         "Brut::FrontEnd::Component::TemplateLocator",
         "Object to use to locate templates for pages"
-      ) do |pages_src_dir|
-        Brut::FrontEnd::Component::TemplateLocator.new(paths: pages_src_dir,
+      ) do |pages_src_dir,project_env,brut_internal_dir|
+        paths = if project_env.development?
+                  [ pages_src_dir, brut_internal_dir / "lib" / "brut" / "front_end" / "pages" ]
+                else
+                  pages_src_dir
+                end
+        Brut::FrontEnd::Component::TemplateLocator.new(paths: paths,
                                                        extension: "html.erb")
       end
 

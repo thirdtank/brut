@@ -45,3 +45,6 @@ private
 
 end
 
+module Brut::FrontEnd::Pages
+  autoload(:Missing,"brut/front_end/pages/missing.rb")
+end

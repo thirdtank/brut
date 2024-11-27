@@ -39,8 +39,8 @@ class Brut::FrontEnd::RequestContext
   end
 
   # Returns a hash suitable to passing into this class' constructor.
-  def as_constructor_args(klass, request_params:)
-    args_for_method(method: klass.instance_method(:initialize), request_params:, form: nil)
+  def as_constructor_args(klass, request_params:, route:nil)
+    args_for_method(method: klass.instance_method(:initialize), request_params:, form: nil, route:)
   end
 
   def as_method_args(object, method_name, request_params:,form:)
@@ -49,7 +49,7 @@ class Brut::FrontEnd::RequestContext
 
 private
 
-  def args_for_method(method:, request_params:, form: )
+  def args_for_method(method:, request_params:, form:,route:nil)
     args = {}
     method.parameters.each do |(type,name)|
 
@@ -64,6 +64,8 @@ private
         args[name] = self[name]
       elsif !form.nil? && name == :form
         args[name] = form
+      elsif !route.nil? && name == :route
+        args[name] = route
       elsif !request_params.nil? && (request_params[name.to_s] || request_params[name.to_sym])
         args[name] = request_params[name.to_s] || request_params[name.to_sym]
       elsif type == :keyreq
