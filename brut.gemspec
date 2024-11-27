@@ -37,6 +37,7 @@ Gem::Specification.new do |spec|
   spec.add_runtime_dependency "dotenv"
   spec.add_runtime_dependency "ostruct" # squelch some warning - this is not used
   spec.add_runtime_dependency "factory_bot"
+  spec.add_runtime_dependency "concurrent-ruby"
   spec.add_runtime_dependency "faker"
   spec.add_runtime_dependency "i18n"
   spec.add_runtime_dependency "nokogiri"
