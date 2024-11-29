@@ -191,7 +191,7 @@ end}
     args "PageName"
     def execute
       if args.length != 1
-        raise "component requires exactly one argument, got #{args.length}"
+        raise "page requires exactly one argument, got #{args.length}"
       end
       class_name = RichString.new(args[0])
       if class_name.to_s !~ /Page$/
@@ -275,6 +275,92 @@ end}
       out.puts "Page source is in        #{source_path.relative_path_from(Brut.container.project_root)}"
       out.puts "Page HTML template is in #{html_source_path.relative_path_from(Brut.container.project_root)}"
       out.puts "Page test is in          #{spec_path.relative_path_from(Brut.container.project_root)}"
+      0
+    end
+  end
+  class Form < Brut::CLI::Command
+    description "Create a new form and handler"
+    args "FormName"
+    def execute
+      if args.length != 1
+        raise "form requires exactly one argument, got #{args.length}"
+      end
+      normalized_arg = args[0].gsub(/Form$/,"").gsub(/Handler$/,"")
+
+      class_name         = RichString.new(normalized_arg + "Form")
+      handler_class_name = RichString.new(normalized_arg + "Handler")
+
+      relative_path         = class_name.underscorized
+      handler_relative_path = handler_class_name.underscorized
+
+      forms_src_dir      = Brut.container.forms_src_dir
+      handlers_src_dir   = Brut.container.handlers_src_dir
+      handlers_specs_dir = Brut.container.handlers_specs_dir
+
+      source_path         = Pathname( (forms_src_dir      / relative_path).to_s + ".rb" )
+      handler_source_path = Pathname( (handlers_src_dir   / handler_relative_path).to_s + ".rb" )
+      handler_spec_path   = Pathname( (handlers_specs_dir / handler_relative_path).to_s + ".spec.rb" )
+
+      exists = [
+        source_path,
+        handler_source_path,
+        handler_spec_path,
+      ].select(&:exist?)
+
+      if exists.any? && !global_options.overwrite?
+        exists.each do |path|
+          err.puts "'#{path.relative_path_from(Brut.container.project_root)}' exists already"
+        end
+        err.puts "Re-run with --overwrite to overwrite these files"
+        return 1
+      end
+
+      if global_options.dry_run?
+        out.puts "Ensure directories exist for source code:\n\n"
+        out.puts "  #{source_path.dirname}"
+        out.puts "  #{handler_source_path.dirname}"
+        out.puts "  #{handler_spec_path.dirname}"
+      else
+        FileUtils.mkdir_p source_path.dirname
+        FileUtils.mkdir_p handler_source_path.dirname
+        FileUtils.mkdir_p handler_spec_path.dirname
+
+        File.open(source_path,"w") do |file|
+          file.puts %{class #{class_name} < AppForm
+  input :some_field, minlength: 3
+end}
+        end
+        File.open(handler_source_path,"w") do |file|
+          file.puts %{class #{handler_class_name} < AppHandler
+  def handle(form:) # add other args here as needed
+    return http_status(503)
+  end
+end}
+        end
+        File.open(handler_spec_path,"w") do |file|
+          file.puts %{require "spec_helper"
+
+RSpec.describe #{handler_class_name} do
+  subject(:handler) { described_class.new }
+  describe "#handle!" do
+    it "needs tests" do
+      expect(true).to eq(false)
+    end
+  end
+end}
+        end
+      end
+      ## TODO: Extract or copy this to the other generators
+      class_name_length = [ class_name.length, handler_class_name.length, "Spec".length ].max
+      printf_string = if global_options.dry_run?
+                        "%-#{class_name_length}s would be created in %s\n"
+                      else
+                        "%-#{class_name_length}s in %s\n"
+                      end
+      out.puts "\n\n"
+      out.printf printf_string,class_name,source_path.relative_path_from(Brut.container.project_root)
+      out.printf printf_string,handler_class_name, handler_source_path.relative_path_from(Brut.container.project_root)
+      out.printf printf_string,"Spec", handler_spec_path.relative_path_from(Brut.container.project_root)
       0
     end
   end

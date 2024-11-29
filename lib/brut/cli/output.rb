@@ -22,6 +22,9 @@ class Brut::CLI::Output
   def print(*objects)
     @io.print(*objects)
   end
+  def printf(format_string,*objects)
+    @io.printf(@prefix + format_string,*objects)
+  end
 
   def flush
     @io.flush
