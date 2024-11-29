@@ -44,5 +44,6 @@ module Brut::FrontEnd
   module Handlers
     autoload(:CspReportingHandler,"brut/front_end/handlers/csp_reporting_handler")
     autoload(:LocaleDetectionHandler,"brut/front_end/handlers/locale_detection_handler")
+    autoload(:MissingHandler,"brut/front_end/handlers/missing_handler")
   end
 end

@@ -123,8 +123,21 @@ class Brut::Framework::MCP
     @sinatra_app = Class.new(Sinatra::Base)
     @sinatra_app.include(Brut::SinatraHelpers)
 
+    message = if Brut.container.project_env.development?
+                "Form submission did not include an authenticity token. All forms must include one. To add one, use the `form_tag` helper, or include <%= component(Brut::FrontEnd::Components::Inputs::CsrfToken) %> somewhere inside your <form> tag"
+              else
+                "Forbidden"
+              end
     default_middlewares = [
-      [ Rack::Protection::AuthenticityToken, [ { allow_if: ->(env) { env["PATH_INFO"] =~ /^\/__brut\// } } ] ],
+      [
+        Rack::Protection::AuthenticityToken,
+        [
+          {
+            allow_if: ->(env) { env["PATH_INFO"] =~ /^\/__brut\// },
+            message: message,
+          }
+        ]
+      ],
     ]
     if Brut.container.auto_reload_classes?
       default_middlewares << Brut::FrontEnd::Middlewares::ReloadApp

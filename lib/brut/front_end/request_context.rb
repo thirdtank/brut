@@ -43,13 +43,13 @@ class Brut::FrontEnd::RequestContext
     args_for_method(method: klass.instance_method(:initialize), request_params:, form: nil, route:)
   end
 
-  def as_method_args(object, method_name, request_params:,form:)
-    args_for_method(method: object.method(method_name), request_params:, form:)
+  def as_method_args(object, method_name, request_params:,form:,route:nil)
+    args_for_method(method: object.method(method_name), request_params:, form:,route:)
   end
 
 private
 
-  def args_for_method(method:, request_params:, form:,route:nil)
+  def args_for_method(method:, request_params:, form:,route:)
     args = {}
     method.parameters.each do |(type,name)|
 

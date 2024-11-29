@@ -21,6 +21,8 @@ class Brut::FrontEnd::Routing
     new_routes = @routes.map { |route|
       if route.class == Route
         route.class.new(route.http_method,route.path_template)
+      elsif route.class == MissingPage || route.class == MissingHandler
+        route.class.new(route.path_template,route.exception)
       else
         route.class.new(route.path_template)
       end
@@ -39,7 +41,7 @@ class Brut::FrontEnd::Routing
               PageRoute.new(path)
             rescue Brut::Framework::Errors::NoClassForPath => ex
               if Brut.container.project_env.development?
-                MissingRoute.new(path,ex)
+                MissingPage.new(path,ex)
               else
                 raise ex
               end
@@ -50,14 +52,30 @@ class Brut::FrontEnd::Routing
   end
 
   def register_form(path)
-    route = FormRoute.new(path)
+    route = begin
+              FormRoute.new(path)
+            rescue Brut::Framework::Errors::NoClassForPath => ex
+              if Brut.container.project_env.development?
+                MissingForm.new(path,ex)
+              else
+                raise ex
+              end
+            end
     @routes << route
     add_routing_method(route)
     route
   end
 
   def register_handler_only(path)
-    route = FormHandlerRoute.new(path)
+    route = begin
+              FormHandlerRoute.new(path)
+            rescue Brut::Framework::Errors::NoClassForPath => ex
+              if Brut.container.project_env.development?
+                MissingHandler.new(path,ex)
+              else
+                raise ex
+              end
+            end
     @routes << route
     add_routing_method(route)
     route
@@ -72,6 +90,7 @@ class Brut::FrontEnd::Routing
 
   def route(handler_class)
     route = @routes.detect { |route|
+      puts "Checking #{route.handler_class} against #{handler_class}"
       handler_class_match = route.handler_class.name == handler_class.name
       form_class_match = if route.respond_to?(:form_class)
                            route.form_class.name == handler_class.name
@@ -214,13 +233,48 @@ class Brut::FrontEnd::Routing
 
   end
 
-  class MissingRoute < Route
+  class MissingPage < Route
     attr_reader :exception
     def initialize(path_template,ex)
       @http_method   = Brut::FrontEnd::HttpMethod.new(:get)
       @path_template = path_template
-      @handler_class = Brut::FrontEnd::Pages::Missing
+      @handler_class = begin
+                         page_class = Class.new(Brut::FrontEnd::Pages::MissingPage)
+                         compressed_class_name = ex.class_name_path.join
+                         Module.const_set(:"BrutMissingPages#{compressed_class_name}",page_class)
+                         page_class
+                       end
       @exception     = ex
+    end
+  end
+
+  class MissingHandler < Route
+    attr_reader :exception
+    def initialize(path_template,ex)
+      @http_method   = Brut::FrontEnd::HttpMethod.new(:post)
+      @path_template = path_template
+      @handler_class = Brut::FrontEnd::Handlers::MissingHandler
+      @handler_class = begin
+                         handler_class = Class.new(Brut::FrontEnd::Handlers::MissingHandler)
+                         compressed_class_name = ex.class_name_path.join
+                         Module.const_set(:"BrutMissingHandlers#{compressed_class_name}",handler_class)
+                         handler_class
+                       end
+      @exception     = ex
+    end
+  end
+
+  class MissingForm < MissingHandler
+    attr_reader :form_class
+    def initialize(path_template,ex)
+      super
+      @form_class    = Brut::FrontEnd::Handlers::MissingHandler::Form
+      @form_class = begin
+                      form_class = Class.new(Brut::FrontEnd::Handlers::MissingHandler::Form)
+                      compressed_class_name = ex.class_name_path.join
+                      Module.const_set(:"BrutMissingForms#{compressed_class_name}",form_class)
+                      form_class
+                    end
     end
   end
 

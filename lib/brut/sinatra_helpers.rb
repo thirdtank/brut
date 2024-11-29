@@ -142,6 +142,7 @@ module Brut::SinatraHelpers
 
       route method, path do
         Brut.container.instrumentation.instrument(Brut::Instrumentation::HTTPEvent.new(name: type, http_method: method, path: path)) do
+          # This must be re-looked up per-request do allow reloading to work
           brut_route = Brut.container.routing.for(path:,method:)
 
           handler_class = brut_route.handler_class
@@ -155,7 +156,7 @@ module Brut::SinatraHelpers
                    form_class.new(params: params)
                  end
 
-          process_args = request_context.as_method_args(handler,:handle,request_params: params,form: form)
+          process_args = request_context.as_method_args(handler,:handle,request_params: params,form: form,route:brut_route)
 
           result = handler.handle!(**process_args)
 
