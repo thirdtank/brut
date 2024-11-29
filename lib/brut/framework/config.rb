@@ -117,49 +117,56 @@ class Brut::Framework::Config
         app_specs_dir / "front_end" / "js"
       end
 
-      c.store_required_path(
+      c.store_ensured_path(
         "front_end_src_dir",
         "Path to the root of the front end layer for the app"
       ) do |app_src_dir|
         app_src_dir / "front_end"
       end
 
-      c.store_required_path(
+      c.store_ensured_path(
         "components_src_dir",
         "Path to where components classes and templates are stored"
       ) do |front_end_src_dir|
         front_end_src_dir / "components"
       end
 
-      c.store_required_path(
+      c.store_ensured_path(
         "components_specs_dir",
         "Path to where tests of components classes are stored",
       ) do |app_specs_dir|
         app_specs_dir / "front_end" / "components"
       end
 
-      c.store_required_path(
+      c.store_ensured_path(
         "forms_src_dir",
         "Path to where form classes are stored"
       ) do |front_end_src_dir|
         front_end_src_dir / "forms"
       end
 
-      c.store_required_path(
+      c.store_ensured_path(
         "handlers_src_dir",
         "Path to where handlers are stored"
       ) do |front_end_src_dir|
         front_end_src_dir / "handlers"
       end
 
-      c.store_required_path(
+      c.store_ensured_path(
+        "handlers_specs_dir",
+        "Path to where tests of handler classes are stored",
+      ) do |app_specs_dir|
+        app_specs_dir / "front_end" / "handlers"
+      end
+
+      c.store_ensured_path(
         "svgs_src_dir",
         "Path to where svgs are stored"
       ) do |front_end_src_dir|
         front_end_src_dir / "svgs"
       end
 
-      c.store_required_path(
+      c.store_ensured_path(
         "images_src_dir",
         "Path to where images are stored"
       ) do |front_end_src_dir|
@@ -194,7 +201,7 @@ class Brut::Framework::Config
         front_end_src_dir / "js"
       end
 
-      c.store_required_path(
+      c.store_ensured_path(
         "back_end_src_dir",
         "Path to the root of the back end layer for the app"
       ) do |app_src_dir|
