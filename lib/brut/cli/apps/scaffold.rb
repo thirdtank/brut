@@ -333,7 +333,7 @@ end}
         File.open(handler_source_path,"w") do |file|
           file.puts %{class #{handler_class_name} < AppHandler
   def handle(form:) # add other args here as needed
-    raise "You need to implement your Handler#{form.class.input_definitions.length < 2 ? " and likely your Form as well" : ""}"
+    raise "You need to implement your Handler\#{form.class.input_definitions.length < 2 ? " and likely your Form as well" : ""}"
   end
 end}
         end
