@@ -90,7 +90,6 @@ class Brut::FrontEnd::Routing
 
   def route(handler_class)
     route = @routes.detect { |route|
-      puts "Checking #{route.handler_class} against #{handler_class}"
       handler_class_match = route.handler_class.name == handler_class.name
       form_class_match = if route.respond_to?(:form_class)
                            route.form_class.name == handler_class.name
