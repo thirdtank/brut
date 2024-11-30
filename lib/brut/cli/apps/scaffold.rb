@@ -10,7 +10,7 @@ class Brut::CLI::Apps::Scaffold < Brut::CLI::App
   end
 
   class Test < Brut::CLI::Command
-    description "Create a test for a given file in the app"
+    description "Create the shell of a unit test based on an existing source file"
     args "source_file_paths..."
     def execute
       if args.empty?
@@ -76,6 +76,85 @@ end}
         end
       end
 
+      0
+    end
+
+  private
+
+    def find_classes(ast,current_modules = [])
+      classes = []
+      if ast.nil?
+        return classes
+      end
+      new_module = nil
+      if ast.kind_of?(Prism::ClassNode)
+        classes << [ current_modules, ast ]
+        new_module = ast
+      elsif ast.kind_of?(Prism::ModuleNode)
+        new_module = ast
+      end
+      ast.child_nodes.each do |child|
+        new_current_modules = current_modules + [ new_module ]
+        result = find_classes(child, new_current_modules.compact)
+        classes = classes + result
+      end
+      classes
+    end
+  end
+
+  class E2ETest < Brut::CLI::Command
+    description "Create the shell of an end-to-end test"
+    args "test_name"
+    def self.command_name = "test:e2e"
+
+    opts.on("--path PATH","Path within the e2e tests to create the file")
+    def execute
+      if args.empty?
+        err.puts "'#{self.class.command_name}' requires a name"
+        return 1
+      end
+      test_name = args.join(" ").gsub(/\"/,"'")
+      test_file_name = args.join("_").gsub(/\W/,"_").gsub(/__+/,"_").downcase + ".spec.rb"
+      test_file_dir = Brut.container.e2e_specs_dir
+      if !options.path.nil?
+        test_file_dir = test_file_dir / options.path
+      end
+
+      path_to_test_file = test_file_dir / test_file_name
+
+      verb         = "Created"
+      dry_run_verb = "create"
+
+      if path_to_test_file.exist?
+        if global_options.overwrite?
+          verb         = "Overwrote"
+          dry_run_verb = "overwrite"
+        else
+          err.puts "#{path_to_test_file.relative_path_from(Brut.container.project_root)} exists. Use --overwrite to replace it"
+          return 1
+        end
+      end
+
+
+        code = %{require "spec_helper"
+
+RSpec.describe "#{test_name}" do
+  it "should have tests" do
+    page.goto("/")
+    expect(page).to be_page_for(page_class_here)
+  end
+end}
+      if global_options.dry_run?
+        out.puts "Will #{dry_run_verb} #{path_to_test_file.relative_path_from(Brut.container.project_root)} with this code:"
+        out.puts_no_prefix
+        out.puts_no_prefix code
+      else
+        FileUtils.mkdir_p test_file_dir
+        File.open(path_to_test_file,"w") do |file|
+          file.puts code
+        end
+        out.puts "#{verb} #{path_to_test_file.relative_path_from(Brut.container.project_root)}"
+      end
       0
     end
 
