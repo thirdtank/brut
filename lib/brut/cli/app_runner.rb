@@ -36,7 +36,7 @@ module Brut
               show_global_help(app_klass:,out:)
             else
               command_option_parser = command_klass.option_parser
-              show_command_help(global_option_parser:,command_option_parser:,command_klass:,out:)
+              show_command_help(global_option_parser:,command_option_parser:,command_klass:,out:,app_klass:)
             end
           end
           return result.to_i
@@ -133,13 +133,22 @@ module Brut
         option_parser.summarize do |line|
           out.puts_no_prefix line
         end
+        out.puts_no_prefix
+        out.puts_no_prefix "ENVIORNMENT VARIABLES"
+        out.puts_no_prefix
+        max_length = app_klass.env_vars.keys.map(&:length).max
+        printf_string = "    %-#{max_length}s - %s\n"
+        app_klass.env_vars.keys.sort.each do |var_name|
+          out.printf_no_prefix(printf_string,var_name,app_klass.env_vars[var_name])
+        end
+        out.puts_no_prefix
         if app_klass.commands.any?
           out.puts_no_prefix
           out.puts_no_prefix "COMMANDS"
           out.puts_no_prefix
           max_length = [ 4, app_klass.commands.map { |_| _.command_name.to_s.length }.max ].max
           printf_string = "    %-#{max_length}s - %s%s\n"
-          printf printf_string, "help", "Get help on a command",""
+          out.printf_no_prefix printf_string, "help", "Get help on a command",""
           app_klass.commands.sort_by(&:command_name).each  do |command|
             default_message = if command.name_matches?(app_klass.default_command)
                                 " (default)"
@@ -152,13 +161,13 @@ module Brut
                           else
                             command.description
                           end
-            printf printf_string, command.command_name, command.description, default_message
+            out.printf_no_prefix printf_string, command.command_name, command.description, default_message
           end
         end
         out.puts_no_prefix
       end
 
-      def show_command_help(global_option_parser:,command_option_parser:,command_klass:,out:)
+      def show_command_help(global_option_parser:,command_option_parser:,command_klass:,out:,app_klass:)
         banner = command_option_parser.banner % {
           app: $0,
           global_options: global_option_parser.top.list.length == 0 ? "" : "[global options]",
@@ -179,6 +188,16 @@ module Brut
         global_option_parser.summarize do |line|
           out.puts_no_prefix line
         end
+        out.puts_no_prefix
+        out.puts_no_prefix "ENVIORNMENT VARIABLES"
+        out.puts_no_prefix
+        all_vars = app_klass.env_vars.merge(command_klass.env_vars)
+        max_length = all_vars.keys.map(&:length).max
+        printf_string = "    %-#{max_length}s - %s\n"
+        all_vars.keys.sort.each do |var_name|
+          out.printf_no_prefix(printf_string,var_name,all_vars[var_name])
+        end
+        out.puts_no_prefix
         if command_option_parser.top.list.length > 0
           out.puts_no_prefix
           out.puts_no_prefix "COMMAND OPTIONS"
@@ -208,6 +227,7 @@ module Brut
         option_parser.on("--verbose","Set log level to '#{log_levels[0]}', which will produce maximum output") do
           ENV["LOG_LEVEL"] = log_levels[0]
         end
+        app_klass.env_var("LOG_LEVEL",purpose: "log level if --log-level or --verbose is omitted")
 
         hash = {}
         remaining_argv = option_parser.order!(into:hash)

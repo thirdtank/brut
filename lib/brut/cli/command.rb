@@ -27,6 +27,17 @@ class Brut::CLI::Command
       @args = new_args
     end
   end
+  def self.env_var(var_name=nil,purpose: nil)
+    if var_name.nil? || purpose.nil?
+      raise ArgumentError,"env_var requires a var_name and a purpose"
+    end
+    env_vars[var_name] = purpose
+  end
+
+  def self.env_vars
+    @env_vars ||= {
+    }
+  end
   def self.command_name = RichString.new(self.name.split(/::/).last).underscorized
   def self.name_matches?(string)
     self.command_name == string || self.command_name.to_s.gsub(/_/,"-") == string
@@ -49,6 +60,7 @@ class Brut::CLI::Command
     opts.on("--env=ENVIRONMENT","Project environment#{default_message}")
     @default_env = default
     @requires_project_env = true
+    self.env_var("RACK_ENV",purpose: "default project environment when --env is omitted")
   end
 
   def self.default_env           = @default_env

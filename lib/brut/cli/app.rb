@@ -11,6 +11,7 @@ class Brut::CLI::App
       constant.kind_of?(Class) && constant.ancestors.include?(Brut::CLI::Command) && constant.instance_methods.include?(:execute)
     }
   end
+
   def self.description(new_description=nil)
     if new_description.nil?
       return @description.to_s
@@ -18,6 +19,20 @@ class Brut::CLI::App
       @description = new_description
     end
   end
+
+  def self.env_var(var_name=nil,purpose: nil)
+    if var_name.nil? || purpose.nil?
+      raise ArgumentError,"env_var requires a var_name and a purpose"
+    end
+    env_vars[var_name] = purpose
+  end
+
+  def self.env_vars
+    @env_vars ||= {
+      "BRUT_CLI_RAISE_ON_ERROR" => "if set, shows backtrace on errors"
+    }
+  end
+
   def self.default_command(new_command_name=nil)
     if new_command_name.nil?
       return @default_command || "help"
@@ -42,6 +57,7 @@ class Brut::CLI::App
     opts.on("--env=ENVIRONMENT","Project environment#{default_message}")
     @default_env = ENV["RACK_ENV"] || default
     @requires_project_env = true
+    self.env_var("RACK_ENV",purpose: "default project environment when --env is omitted")
   end
 
   def self.default_env           = @default_env
