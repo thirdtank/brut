@@ -111,6 +111,13 @@ class Brut::Framework::Config
       end
 
       c.store_ensured_path(
+        "e2e_specs_dir",
+        "Path to the root of all end-to-end tests"
+      ) do |app_specs_dir|
+        app_specs_dir / "e2e"
+      end
+
+      c.store_ensured_path(
         "js_specs_dir",
         "Path to root of where all JS-based specs/tests are",
       ) do |app_specs_dir|
