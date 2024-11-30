@@ -1,14 +1,17 @@
-<h1>Cannot Find <code><%= class_name %></code></h1>
-<p>
+<main class="missing-page">
+  <h1>Route Not Implemented</h1>
+  <h2>Cannot Find <code><%= class_name %></code></h2>
+  <p>
     You defined <code><%= path_template %></code> in your app, however the class(es) that impelment it could not be found.
-</p>
-<% if scaffold_command %>
-<p>
-  To create the expected <%= types_of_files_created %>, run this command:
-</p>
-<pre><code>bin/scaffold <%= scaffold_command %> <%= class_name %></code></pre>
-<% else %>
-<p>
-  Something is wrong - Brut cannot figure out what sort of route you are trying to create. This is probably a bug!
-</p>
-<% end %>
+  </p>
+  <% if scaffold_command %>
+    <p>
+      To create the expected <%= types_of_files_created %>, run this command:
+    </p>
+    <pre><code>bin/scaffold <%= scaffold_command %> <%= class_name %></code></pre>
+  <% else %>
+    <p>
+      Something is wrong - Brut cannot figure out what sort of route you are trying to create. This is probably a bug!
+    </p>
+  <% end %>
+</main>
