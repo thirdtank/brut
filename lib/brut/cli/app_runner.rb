@@ -134,7 +134,7 @@ module Brut
           out.puts_no_prefix line
         end
         out.puts_no_prefix
-        out.puts_no_prefix "ENVIORNMENT VARIABLES"
+        out.puts_no_prefix "ENVIRONMENT VARIABLES"
         out.puts_no_prefix
         max_length = app_klass.env_vars.keys.map(&:length).max
         printf_string = "    %-#{max_length}s - %s\n"
@@ -189,7 +189,7 @@ module Brut
           out.puts_no_prefix line
         end
         out.puts_no_prefix
-        out.puts_no_prefix "ENVIORNMENT VARIABLES"
+        out.puts_no_prefix "ENVIRONMENT VARIABLES"
         out.puts_no_prefix
         all_vars = app_klass.env_vars.merge(command_klass.env_vars)
         max_length = all_vars.keys.map(&:length).max
