@@ -52,6 +52,7 @@ class Brut::FrontEnd::Forms::InputDefinition
              case name
              when "email" then "email"
              when "password" then "password"
+             when "password_confirmation" then "password"
              else
                "text"
              end
