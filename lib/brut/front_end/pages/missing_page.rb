@@ -1,5 +1,11 @@
 class Brut::FrontEnd::Pages::MissingPage < Brut::FrontEnd::Page
-  attr_reader :class_name, :path_template, :class_file, :scaffold_command, :types_of_files_created
+
+  attr_reader :class_name,
+              :path_template,
+              :class_file,
+              :scaffold_command,
+              :types_of_files_created
+
   def initialize(route:)
     @class_name = route.exception.class_name_path.join("::")
     @path_template = route.path_template
@@ -14,6 +20,9 @@ class Brut::FrontEnd::Pages::MissingPage < Brut::FrontEnd::Page
     elsif route.class == Brut::FrontEnd::Routing::MissingPage
       @scaffold_command       = "page"
       @types_of_files_created = "page class, HTML template, and test"
+    elsif route.class == Brut::FrontEnd::Routing::MissingPath
+      @scaffold_command       = "handler"
+      @types_of_files_created = "handler class, and test"
     else
       nil
     end

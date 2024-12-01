@@ -357,6 +357,79 @@ end}
       0
     end
   end
+  class Handler < Brut::CLI::Command
+    description "Create a handler"
+    args "HandlerName"
+    def execute
+      if args.length != 1
+        raise "handler requires exactly one argument, got #{args.length}"
+      end
+      normalized_arg = args[0].gsub(/Handler$/,"")
+
+      handler_class_name = RichString.new(normalized_arg + "Handler")
+
+      handler_relative_path = handler_class_name.underscorized
+
+      handlers_src_dir   = Brut.container.handlers_src_dir
+      handlers_specs_dir = Brut.container.handlers_specs_dir
+
+      handler_source_path = Pathname( (handlers_src_dir   / handler_relative_path).to_s + ".rb" )
+      handler_spec_path   = Pathname( (handlers_specs_dir / handler_relative_path).to_s + ".spec.rb" )
+
+      exists = [
+        handler_source_path,
+        handler_spec_path,
+      ].select(&:exist?)
+
+      if exists.any? && !global_options.overwrite?
+        exists.each do |path|
+          err.puts "'#{path.relative_path_from(Brut.container.project_root)}' exists already"
+        end
+        err.puts "Re-run with --overwrite to overwrite these files"
+        return 1
+      end
+
+      if global_options.dry_run?
+        out.puts "Ensure directories exist for source code:\n\n"
+        out.puts "  #{handler_source_path.dirname}"
+        out.puts "  #{handler_spec_path.dirname}"
+      else
+        FileUtils.mkdir_p handler_source_path.dirname
+        FileUtils.mkdir_p handler_spec_path.dirname
+
+        File.open(handler_source_path,"w") do |file|
+          file.puts %{class #{handler_class_name} < AppHandler
+  def handle() # add other args here as needed
+    raise "You need to implement your Handler"
+  end
+end}
+        end
+        File.open(handler_spec_path,"w") do |file|
+          file.puts %{require "spec_helper"
+
+RSpec.describe #{handler_class_name} do
+  subject(:handler) { described_class.new }
+  describe "#handle!" do
+    it "needs tests" do
+      expect(true).to eq(false)
+    end
+  end
+end}
+        end
+      end
+      ## TODO: Extract or copy this to the other generators
+      class_name_length = [ handler_class_name.length, "Spec".length ].max
+      printf_string = if global_options.dry_run?
+                        "%-#{class_name_length}s would be created in %s\n"
+                      else
+                        "%-#{class_name_length}s in %s\n"
+                      end
+      out.puts "\n\n"
+      out.printf printf_string,handler_class_name, handler_source_path.relative_path_from(Brut.container.project_root)
+      out.printf printf_string,"Spec", handler_spec_path.relative_path_from(Brut.container.project_root)
+      0
+    end
+  end
   class Form < Brut::CLI::Command
     description "Create a new form and handler"
     args "FormName"

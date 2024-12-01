@@ -23,6 +23,8 @@ class Brut::FrontEnd::Routing
         route.class.new(route.http_method,route.path_template)
       elsif route.class == MissingPage || route.class == MissingHandler
         route.class.new(route.path_template,route.exception)
+      elsif route.class == MissingPath
+        route.class.new(route.method,route.path_template,route.exception)
       else
         route.class.new(route.path_template)
       end
@@ -82,7 +84,15 @@ class Brut::FrontEnd::Routing
   end
 
   def register_path(path, method:)
-    route = Route.new(method, path)
+    route = begin
+              Route.new(method, path)
+            rescue Brut::Framework::Errors::NoClassForPath => ex
+              if Brut.container.project_env.development?
+                MissingPath.new(method,path,ex)
+              else
+                raise ex
+              end
+            end
     @routes << route
     add_routing_method(route)
     route
@@ -252,7 +262,21 @@ class Brut::FrontEnd::Routing
     def initialize(path_template,ex)
       @http_method   = Brut::FrontEnd::HttpMethod.new(:post)
       @path_template = path_template
-      @handler_class = Brut::FrontEnd::Handlers::MissingHandler
+      @handler_class = begin
+                         handler_class = Class.new(Brut::FrontEnd::Handlers::MissingHandler)
+                         compressed_class_name = ex.class_name_path.join
+                         Module.const_set(:"BrutMissingHandlers#{compressed_class_name}",handler_class)
+                         handler_class
+                       end
+      @exception     = ex
+    end
+  end
+
+  class MissingPath < Route
+    attr_reader :exception
+    def initialize(method,path_template,ex)
+      @http_method   = Brut::FrontEnd::HttpMethod.new(method)
+      @path_template = path_template
       @handler_class = begin
                          handler_class = Class.new(Brut::FrontEnd::Handlers::MissingHandler)
                          compressed_class_name = ex.class_name_path.join
@@ -267,7 +291,6 @@ class Brut::FrontEnd::Routing
     attr_reader :form_class
     def initialize(path_template,ex)
       super
-      @form_class    = Brut::FrontEnd::Handlers::MissingHandler::Form
       @form_class = begin
                       form_class = Class.new(Brut::FrontEnd::Handlers::MissingHandler::Form)
                       compressed_class_name = ex.class_name_path.join
