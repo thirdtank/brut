@@ -1,11 +1,11 @@
 class Brut::FrontEnd::RouteHooks::LocaleDetection < Brut::FrontEnd::RouteHook
-  def before(app_session:,env:)
+  def before(session:,env:)
     http_accept_language = Brut::I18n::HTTPAcceptLanguage.from_header(env["HTTP_ACCEPT_LANGUAGE"])
-    if !app_session.http_accept_language.known?
-      app_session.http_accept_language = http_accept_language
+    if !session.http_accept_language.known?
+      session.http_accept_language = http_accept_language
     end
     best_locale = nil
-    app_session.http_accept_language.weighted_locales.each do |weighted_locale|
+    session.http_accept_language.weighted_locales.each do |weighted_locale|
       if ::I18n.available_locales.include?(weighted_locale.locale.to_sym)
         best_locale = weighted_locale.locale.to_sym
         break
@@ -17,7 +17,7 @@ class Brut::FrontEnd::RouteHooks::LocaleDetection < Brut::FrontEnd::RouteHook
     if best_locale
       ::I18n.locale = best_locale
     else
-      SemanticLogger["Brut"].warn("None of the user's locales are available: #{app_session.http_accept_language}")
+      SemanticLogger["Brut"].warn("None of the user's locales are available: #{session.http_accept_language}")
     end
     continue
   end
