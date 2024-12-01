@@ -39,6 +39,9 @@ module Sequel
           end
           super
         end
+        def to_s
+          super.to_s + "[external_id:#{self.external_id}]"
+        end
       end
     end
   end
