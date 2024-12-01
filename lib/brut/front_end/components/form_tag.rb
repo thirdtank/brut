@@ -10,6 +10,9 @@ class Brut::FrontEnd::Components::FormTag < Brut::FrontEnd::Component
       if attributes[:method]
         raise ArgumentError, "You cannot specify both for: (#{form_class}) and and method: (#{attributes[:method]}) to a form_tag"
       end
+      if form_class.kind_of?(Brut::FrontEnd::Form)
+        form_class = form_class.class
+      end
       route = Brut.container.routing.route(form_class)
       attributes[:method] = route.http_method
       attributes[:action] = route.path
