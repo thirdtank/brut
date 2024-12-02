@@ -38,8 +38,15 @@ class Brut::SpecSupport::Matchers::HaveHTMLAttribute
       else
         result = result.first
       end
-    elsif (!result.kind_of?(Nokogiri::XML::Element))
-      @error = "Received a #{result.class} instead of a NodeSet or Element, as could be returned by `.css(...)`"
+    else
+      object_to_check = if result.kind_of?(SimpleDelegator)
+                          result.__getobj__
+                        else
+                          result
+                        end
+      if !object_to_check.kind_of?(Nokogiri::XML::Element)
+        @error = "Received a #{result.class} instead of a NodeSet or Element, as could be returned by `.css(...)`"
+      end
     end
     if !@error
       if attribute.kind_of?(Hash)
