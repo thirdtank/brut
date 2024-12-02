@@ -1,3 +1,4 @@
+require "prism"
 require "brut/cli"
 
 class Brut::CLI::Apps::Scaffold < Brut::CLI::App
