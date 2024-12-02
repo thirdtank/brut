@@ -63,9 +63,11 @@ module Brut::SinatraHelpers
       Brut.container.routing.register_page(path)
 
       get path do
-        Brut.container.instrumentation.instrument(Brut::Instrumentation::HTTPEvent.new(name: :get_page, http_method: "GET", path: path )) do
+        event = Brut::Instrumentation::HTTPEvent.new(name: :get_page, http_method: "GET", path: path)
+        Brut.container.instrumentation.instrument(event) do
           route = Brut.container.routing.for(path: path,method: :get)
           page_class = route.handler_class
+          event.details[:page_class] = page_class
           request_context = Thread.current.thread_variable_get(:request_context)
           constructor_args = request_context.as_constructor_args(
             page_class,
@@ -76,10 +78,13 @@ module Brut::SinatraHelpers
           result = page_instance.handle!
           case result
           in URI => uri
+            event.details[:result] = { redirect: uri.to_s }
             redirect to(uri.to_s)
           in Brut::FrontEnd::HttpStatus => http_status
+            event.details[:result] = { http_status: http_status.to_i }
             http_status.to_i
           else
+            event.details[:result] = { class: result.class }
             result
           end
         end
@@ -141,7 +146,8 @@ module Brut::SinatraHelpers
       path   = original_brut_route.path_template
 
       route method, path do
-        Brut.container.instrumentation.instrument(Brut::Instrumentation::HTTPEvent.new(name: type, http_method: method, path: path)) do
+        event = Brut::Instrumentation::HTTPEvent.new(name: type, http_method: method, path: path)
+        Brut.container.instrumentation.instrument(event) do
           # This must be re-looked up per-request do allow reloading to work
           brut_route = Brut.container.routing.for(path:,method:)
 
@@ -155,6 +161,7 @@ module Brut::SinatraHelpers
                  else
                    form_class.new(params: params)
                  end
+          event.details[:form_class] = form.class.name
 
           process_args = request_context.as_method_args(handler,:handle,request_params: params,form: form,route:brut_route)
 
@@ -162,17 +169,22 @@ module Brut::SinatraHelpers
 
           case result
           in URI => uri
+            event.details[:result] = { redirect: uri.to_s }
             redirect to(uri.to_s)
           in Brut::FrontEnd::Component => component_instance
-            render_html(component_instance).to_s
+            event.details[:result] = { render: component_instance.class }
+            render_html(component_instance, event:).to_s
           in [ Brut::FrontEnd::Component => component_instance, Brut::FrontEnd::HttpStatus => http_status ]
+            event.details[:result] = { render: component_instance.class, http_status: http_status.to_i }
             [
               http_status.to_i,
-              render_html(component_instance).to_s,
+              render_html(component_instance, event:).to_s,
             ]
           in Brut::FrontEnd::HttpStatus => http_status
+            event.details[:result] = { http_status: http_status.to_i }
             http_status.to_i
           in Brut::FrontEnd::Download => download
+            event.details[:result] = { download: true }
             [ 200, download.headers, download.data ]
           else
             raise NoMatchingPatternError, "Result from #{handler.class}'s handle! method was a #{result.class}, which cannot be used to understand the response to generate"
