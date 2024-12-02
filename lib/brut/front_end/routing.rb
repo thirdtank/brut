@@ -186,7 +186,11 @@ class Brut::FrontEnd::Routing
           path_part
         end
       }
-      uri = URI(path.join("/"))
+      joined_path = path.join("/")
+      if joined_path == ""
+        joined_path = "/"
+      end
+      uri = URI(joined_path)
       uri.query = URI.encode_www_form(query_string_params)
       uri
     end
