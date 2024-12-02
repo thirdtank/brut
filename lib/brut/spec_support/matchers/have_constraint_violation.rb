@@ -6,9 +6,9 @@ RSpec::Matchers.define :have_constraint_violation do |field,key:|
   failure_message do |form|
     analysis = Brut::SpecSupport::Matchers::HaveConstraintViolation.new(form,field,key)
     if analysis.found_field?
-      "#{field} did not have #{key} as a violation.  These keys were found: #{analysis.keys_on_field_found.map(&:to_s).join(", ")}"
+      "Field '#{field}' did not have key '#{key}' as a violation.  These keys were found: #{analysis.keys_on_field_found.map(&:to_s).join(", ")}"
     else
-      "#{field} had no errors.  These fields DID: #{analysis.fields_found.map(&:to_s).join(", ")}"
+      "Field '#{field}' had no errors.  These fields DID: #{analysis.fields_found.map(&:to_s).join(", ")}"
     end
   end
 
