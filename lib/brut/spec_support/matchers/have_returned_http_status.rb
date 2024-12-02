@@ -1,12 +1,16 @@
-RSpec::Matchers.define :have_returned_http_status do |http_status|
+RSpec::Matchers.define :have_returned_http_status do |http_status=nil|
   match do |result|
-    case result
-    in URI => uri
-      http_status == 302
-    in Brut::FrontEnd::HttpStatus => result_http_status
-      http_status == result_http_status.to_i
+    if http_status.nil?
+      result.kind_of?(Brut::FrontEnd::HttpStatus)
     else
-      http_status == 200
+      case result
+      in URI => uri
+        http_status == 302
+      in Brut::FrontEnd::HttpStatus => result_http_status
+        http_status == result_http_status.to_i
+      else
+        http_status == 200
+      end
     end
   end
 
@@ -21,7 +25,11 @@ RSpec::Matchers.define :have_returned_http_status do |http_status|
     end
   end
   failure_message_when_negated do |result|
-    "Result was rendered HTML instead of something else"
+    if http_status.nil?
+      "#{result} was rendered, but was not expecting an HTTP status"
+    else
+      "Got #{http_status} when not expected (#{result.class} was returned)"
+    end
   end
 
 end
