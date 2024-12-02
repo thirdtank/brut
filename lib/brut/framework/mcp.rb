@@ -129,11 +129,13 @@ class Brut::Framework::MCP
                 "Forbidden"
               end
     default_middlewares = [
+      [ Brut::FrontEnd::Middlewares::AnnotateBrutOwnedPaths ],
+      [ Brut::FrontEnd::Middlewares::Favicon ],
       [
         Rack::Protection::AuthenticityToken,
         [
           {
-            allow_if: ->(env) { env["PATH_INFO"] =~ /^\/__brut\// },
+            allow_if: ->(env) { env["brut.owned_path"] },
             message: message,
           }
         ]

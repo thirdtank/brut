@@ -10,7 +10,7 @@ class Brut::FrontEnd::Middlewares::ReloadApp < Brut::FrontEnd::Middleware
           else
             path.split(/\//)[0]
           end
-    reload = !["js","css","__brut"].include?(dir)
+    reload = !["static","js","css","__brut"].include?(dir)
     Brut.container.instrumentation.instrument(Brut::Instrumentation::Event.new(category: "middleware", subcategory: self.class.name, name: "call", details: { path:, reload: })) do
       if reload
         # We can only have one thread reloading stuff at a time, per process.
