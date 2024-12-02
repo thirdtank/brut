@@ -10,12 +10,18 @@ module Brut::SinatraHelpers
   end
 
   # @private
-  def render_html(component_or_page_instance)
+  def render_html(component_or_page_instance, event: nil)
     result = component_or_page_instance.render
     case result
     in Brut::FrontEnd::HttpStatus => http_status
+      if event
+        event.details[:render_html] = { http_status: http_status.to_i }
+      end
       http_status.to_i
     else
+      if event
+        event.details[:render_html] = { result: result.class }
+      end
       result
     end
   end
