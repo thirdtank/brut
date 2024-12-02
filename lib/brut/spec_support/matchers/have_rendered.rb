@@ -1,20 +1,13 @@
-RSpec::Matchers.define :have_rendered do
+RSpec::Matchers.define :have_rendered do |component_or_page|
   match do |result|
-    result.kind_of?(String) || result.kind_of?(Brut::FrontEnd::Templates::HTMLSafeString)
+    result.class.ancestors.include?(component_or_page)
   end
 
   failure_message do |result|
-    case result
-    in URI => uri
-      "Got a redirect to #{uri} instead of rendering"
-    in Brut::FrontEnd::HttpStatus => http_status
-      "Got an HTTP status of #{http_status} instead of rendering"
-    else
-      "Got an unexpected result: #{result.class} instead of a String"
-    end
+    "Expected a #{component_or_page} to be rendered, but got #{result}"
   end
   failure_message_when_negated do |result|
-    "Result was rendered HTML instead of something else"
+    "Got #{component_or_page} when not expected"
   end
 
 end
