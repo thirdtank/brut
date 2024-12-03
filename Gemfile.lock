@@ -2,6 +2,7 @@ PATH
   remote: .
   specs:
     brut (0.0.1)
+      concurrent-ruby
       dotenv
       factory_bot
       faker
@@ -112,6 +113,7 @@ GEM
     tzinfo-data (1.2024.2)
       tzinfo (>= 1.0.0)
     uri (1.0.2)
+    yard (0.9.37)
     zeitwerk (2.7.1)
 
 PLATFORMS
@@ -128,6 +130,7 @@ DEPENDENCIES
   bundler
   rake
   rspec (~> 3.0)
+  yard
 
 BUNDLED WITH
    2.5.23

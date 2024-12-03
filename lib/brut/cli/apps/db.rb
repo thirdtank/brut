@@ -32,7 +32,7 @@ class Brut::CLI::Apps::DB < Brut::CLI::App
       Dir["#{seeds_dir}/*.rb"].each do |file|
         require file
       end
-      seed_data = Brut::Backend::SeedData.new
+      seed_data = Brut::BackEnd::SeedData.new
       seed_data.setup!
       seed_data.load_seeds!
       0

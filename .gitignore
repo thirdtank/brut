@@ -5,3 +5,6 @@
 # from inside the dev environment. As such, these are real secrets and 
 # should never be checked in
 /dx/credentials
+
+# Don't know what this is for, so not checking it in.
+/.yardoc

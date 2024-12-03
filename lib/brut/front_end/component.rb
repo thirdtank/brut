@@ -116,18 +116,16 @@ class Brut::FrontEnd::Component
         if !component_instance.ancestors.include?(Brut::FrontEnd::Component)
           raise ArgumentError,"#{component_instance} is not a component and cannot be created"
         end
-        Thread.current.thread_variable_get(:request_context).
+        component_instance = Thread.current.thread_variable_get(:request_context).
           then { |request_context| request_context.as_constructor_args(component_instance,request_params: nil)
-        }.then { |constructor_args| component_instance.new(**constructor_args)
-        } => component_instance
+        }.then { |constructor_args| component_instance.new(**constructor_args) }
       end
       if !block.nil?
         component_instance.yielded_block = block
       end
       request_context = Thread.current.thread_variable_get(:request_context).
         then { |request_context| request_context.as_method_args(component_instance,:render,request_params: nil, form: nil)
-      }.then { |render_args| component_instance.render(**render_args).html_safe!
-      }
+      }.then { |render_args| component_instance.render(**render_args).html_safe! }
     end
 
     # Inline an SVG into the page.
