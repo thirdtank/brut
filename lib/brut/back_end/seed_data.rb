@@ -1,6 +1,6 @@
 require_relative "../factory_bot"
 module Brut
-  module Backend
+  module BackEnd
     class SeedData
       def self.inherited(seed_data_klass)
         @classes ||= []
