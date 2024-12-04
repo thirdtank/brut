@@ -15,7 +15,8 @@ class Brut::FrontEnd::HttpMethod
     self.class.name == other.class.name && self.to_s == other.to_s
   end
 
-  def get? = self.to_sym == :get
+  def get?  = self.to_sym == :get
+  def post? = self.to_sym == :post
 
 private
 
