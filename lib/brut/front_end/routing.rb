@@ -21,7 +21,7 @@ class Brut::FrontEnd::Routing
     new_routes = @routes.map { |route|
       if route.class == Route
         route.class.new(route.http_method,route.path_template)
-      elsif route.class == MissingPage || route.class == MissingHandler
+      elsif route.class == MissingPage || route.class == MissingHandler || route.class == MissingForm
         route.class.new(route.path_template,route.exception)
       elsif route.class == MissingPath
         route.class.new(route.method,route.path_template,route.exception)
@@ -174,12 +174,11 @@ class Brut::FrontEnd::Routing
         if path_part =~ /^:(.+)$/
           param_name = $1.to_sym
           if !query_string_params.key?(param_name)
-            query_string_params_for_message = if query_string_params.keys.any?
-                                                query_string_params.keys.map(&:to_s).join(", ")
-                                              else
-                                                "no params"
-                                              end
-            raise ArgumentError,"path for #{@handler_class} requires '#{param_name}' as a path parameter, but it was not specified to #path. Got #{query_string_params_for_message}"
+            raise Brut::Framework::Errors::MissingParameter.new(
+              param_name,
+              params_received: query_string_params.keys,
+              context: ":#{param_name} was used as a path parameter for #{@handler_class} (path '#{@path_template}')"
+            )
           end
           query_string_params.delete(param_name)
         else

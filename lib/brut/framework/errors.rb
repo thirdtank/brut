@@ -3,6 +3,7 @@ module Brut
     module Errors
       autoload(:Bug,"brut/framework/errors/bug")
       autoload(:NotFound,"brut/framework/errors/not_found")
+      autoload(:MissingParameter,"brut/framework/errors/missing_parameter")
       autoload(:AbstractMethod,"brut/framework/errors/abstract_method")
       autoload(:NoClassForPath,"brut/framework/errors/no_class_for_path")
       def bug!(message=nil)
