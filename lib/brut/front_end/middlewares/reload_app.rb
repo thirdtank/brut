@@ -25,7 +25,7 @@ class Brut::FrontEnd::Middlewares::ReloadApp < Brut::FrontEnd::Middleware
             Brut.container.asset_path_resolver.reload
             ::I18n.reload!
           rescue => ex
-            SemanticLogger[self.class].warn("Reload failed - your browser may not show you the latest code: #{ex.message}")
+            SemanticLogger[self.class].warn("Reload failed - your browser may not show you the latest code: #{ex.message}\n#{ex.backtrace}")
           end
         end
         # If another thread has a write lock, we wait here so that the reload can complete before serving
