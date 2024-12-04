@@ -8,3 +8,6 @@
 
 # Don't know what this is for, so not checking it in.
 /.yardoc
+
+# Ignore the docs for now
+/docs

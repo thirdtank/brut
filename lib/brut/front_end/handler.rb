@@ -1,3 +1,4 @@
+module Brut::FrontEnd
 # A handler responds to all HTTP requests other than those that render a page. It will be given any data it needs
 # to handle the request to its handle method.  You define this method to accept the parameters you expect.
 #
@@ -5,7 +6,6 @@
 # handle is called.  This is most useful in a base class to check for permissions or other cross-cutting concerns.
 #
 # Tests should call handle!
-module Brut::FrontEnd
   class Handler
     include Brut::FrontEnd::HandlingResults
 
