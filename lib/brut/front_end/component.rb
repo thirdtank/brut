@@ -8,6 +8,7 @@ module Brut::FrontEnd::Components
   autoload(:Inputs,"brut/front_end/components/input")
   autoload(:I18nTranslations,"brut/front_end/components/i18n_translations")
   autoload(:Timestamp,"brut/front_end/components/timestamp")
+  autoload(:Date,"brut/front_end/components/date")
   autoload(:PageIdentifier,"brut/front_end/components/page_identifier")
   autoload(:LocaleDetection,"brut/front_end/components/locale_detection")
 end
@@ -139,13 +140,34 @@ class Brut::FrontEnd::Component
     # the same value, but with any content hashes that are part of the filename.
     def asset_path(path) = Brut.container.asset_path_resolver.resolve(path)
 
-    # Render a form that should include CSRF protection.
-    def form_tag(**attributes,&block)
-      component(Brut::FrontEnd::Components::FormTag.new(**attributes,&block))
+    # Creates the form surrounding the contents of the block yielded to it. If the form's action is a POST, it will include a CSRF token.
+    # If the form's action is GET, it will not.
+    #
+    # the HTML attributes `:action` or `:method`. Both will be derived from this object.
+    # @param route_params [Hash] if the form requires route parameters, their values must be passed here so that the HTML `action`
+    # attribute can be constructed properly.
+    # @param html_attributes [Hash] any additional attributes for the `<form>` tag
+    # @option html_attributes [Class|Brut::FrontEnd::Form] :for the form object or class representing this HTML form. If you pass this, you may not pass
+    # @option html_attributes [String] «any-other-key» attributes to set on the `<form>` tag
+    # @yield No parameters given. This is expected to return additional markup to appear inside the `<form>` element.
+    def form_tag(route_params: {}, **html_attributes,&contents)
+      component(Brut::FrontEnd::Components::FormTag.new(route_params:, **html_attributes,&contents))
     end
 
+    # Creates a {Brut::FrontEnd::Components::Timestamp}.
+    #
+    # @param timestamp [Time] the timestamp to format/render.
+    # @param component_options [Hash] keyword arguments to pass to {Brut::FrontEnd::Components::Timestamp#initialize}
     def timestamp(timestamp, **component_options)
       component(Brut::FrontEnd::Components::Timestamp.new(**(component_options.merge(timestamp:))))
+    end
+
+    # Creates a {Brut::FrontEnd::Components::Date}.
+    #
+    # @param date [Date] the date to format/render.
+    # @param component_options [Hash] keyword arguments to pass to {Brut::FrontEnd::Components::Date#initialize}
+    def date(date, **component_options)
+      component(Brut::FrontEnd::Components::Date.new(**(component_options.merge(date:))))
     end
 
     def html_safe!(string)

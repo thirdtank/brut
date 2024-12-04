@@ -1,48 +1,35 @@
 require "rexml"
-# Represents a <form> HTML component
+# Represents a `<form>` HTML element that includes a CSRF token as needed. You likely want to use this class via the {Brut::FrontEnd::Component::Helpers#form_tag} method.
 class Brut::FrontEnd::Components::FormTag < Brut::FrontEnd::Component
-  def initialize(**attributes,&contents)
-    form_class = attributes.delete(:for)
+  # (see Brut::FrontEnd::Component::Helpers#form_tag)
+  def initialize(route_params: {}, **html_attributes,&contents)
+    form_class = html_attributes.delete(:for) # Cannot be a keyword arg, since for is a reserved word
     if !form_class.nil?
-      if attributes[:action]
-        raise ArgumentError, "You cannot specify both for: (#{form_class}) and and action: (#{attributes[:action]}) to a form_tag"
-      end
-      if attributes[:method]
-        raise ArgumentError, "You cannot specify both for: (#{form_class}) and and method: (#{attributes[:method]}) to a form_tag"
-      end
       if form_class.kind_of?(Brut::FrontEnd::Form)
         form_class = form_class.class
       end
-      route = Brut.container.routing.route(form_class)
-      attributes[:method] = route.http_method
-      attributes[:action] = route.path
+      if html_attributes[:action]
+        raise ArgumentError, "You cannot specify both for: (#{form_class}) and and action: (#{html_attributes[:action]}) to a form_tag"
+      end
+      if html_attributes[:method]
+        raise ArgumentError, "You cannot specify both for: (#{form_class}) and and method: (#{html_attributes[:method]}) to a form_tag"
+      end
+      begin
+        route = Brut.container.routing.route(form_class)
+        html_attributes[:method] = route.http_method
+        html_attributes[:action] = route.path(**route_params)
+      rescue Brut::Framework::Errors::MissingParameter
+        raise ArgumentError, "You specified #{form_class} (or an instance of it), but it requires more url parameters than were found in route_params: (or route_params: was omitted). Please add all required parameters to route_params: or use `action: #{form_class}.routing(..params..), method: [:get|:post]` instead"
+      end
     end
 
-    @include_csrf_token = true
     @csrf_token_omit_reasoning = nil
 
-    http_method = Brut::FrontEnd::HttpMethod.new(attributes[:method])
+    http_method = Brut::FrontEnd::HttpMethod.new(html_attributes[:method])
 
-    if http_method.get?
-      if attributes.key?(:no_csrf_token)
-        raise ArgumentError,":no_csrf_token is not allowed for form_tag when the HTTP method is a GET"
-      end
-      force_csrf_token = attributes.delete(:force_csrf_token)
-      if !force_csrf_token
-        @include_csrf_token = false
-        @csrf_token_omit_reasoning = "because this form's action is GET"
-      end
-    else
-      if attributes.key?(:force_csrf_token)
-        raise ArgumentError,":force_csrf_token is not allowed for form_tag when the HTTP method is not a GET"
-      end
-      no_csrf_token = attributes.delete(:no_csrf_token)
-      if no_csrf_token
-        @include_csrf_token = false
-        @csrf_token_omit_reasoning = "because :no_csrf_token was passed to form_tag"
-      end
-    end
-    @attributes = attributes
+    @include_csrf_token = http_method.post?
+    @csrf_token_omit_reasoning = http_method.get? ? "because this form's action is a GET" : nil
+    @attributes = html_attributes
     @contents = contents
   end
 
