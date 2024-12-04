@@ -150,6 +150,7 @@ module Brut::SinatraHelpers
 
       method = original_brut_route.http_method.to_s.upcase
       path   = original_brut_route.path_template
+      SemanticLogger["define_handled_route"].info("Defining '#{path}' for '#{method}' using '#{original_brut_route.handler_class}'")
 
       route method, path do
         event = Brut::Instrumentation::HTTPEvent.new(name: type, http_method: method, path: path)
