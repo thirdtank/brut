@@ -190,7 +190,7 @@ end}
       if args.length != 1
         raise "component requires exactly one argument, got #{args.length}"
       end
-      class_name = RichString.new(args[0])
+      class_name = RichString.new(args[0].capitalize)
       if class_name.to_s !~ /Component$/
         class_name = RichString.new(class_name.to_s + "Component")
       end
