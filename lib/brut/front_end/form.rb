@@ -76,7 +76,11 @@ class Brut::FrontEnd::Form
   def new? = @new
 
   # Access an input with the given name
-  def [](input_name) = @inputs.fetch(input_name.to_s)
+  def [](input_name)
+    @inputs.fetch(input_name.to_s)
+  rescue KeyError => ex
+    raise Brut::Framework::Errors::Bug, "Form does not define the input '#{input_name}'. You must add this to your form"
+  end
 
   # Returns true if this form has constraint violations.
   def constraint_violations? = !@inputs.values.all?(&:valid?)
