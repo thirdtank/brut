@@ -7,7 +7,7 @@ class Brut::FrontEnd::RequestContext
       xhr:,
       body:,
       csrf_token: Rack::Protection::AuthenticityToken.token(env["rack.session"]),
-      clock: Clock.new(session.timezone_from_browser),
+      clock: Clock.new(session.timezone),
     }
   end
 
