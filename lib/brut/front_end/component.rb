@@ -2,6 +2,7 @@ require "json"
 require "rexml"
 require_relative "template"
 
+# Components holds Brut-provided components that are of general use to any web app
 module Brut::FrontEnd::Components
   autoload(:FormTag,"brut/front_end/components/form_tag")
   autoload(:Input,"brut/front_end/components/input")
@@ -12,14 +13,27 @@ module Brut::FrontEnd::Components
   autoload(:PageIdentifier,"brut/front_end/components/page_identifier")
   autoload(:LocaleDetection,"brut/front_end/components/locale_detection")
 end
+
 # A Component is the top level class for managing the rendering of 
 # content.  A component is essentially an ERB template and a class whose
-# instance servces as it's binding.
+# instance servces as it's binding. It is very similar to a View Component, though
+# not quite as fancy.
 #
-# The component has a few more smarts and helpers.
+# When subclassing this to create a component, your initializer's signature will determine what data
+# is required for your component to work.  It can be anything, just keep in mind that any page or component
+# that uses your component must be able to provide those values.
+#
+# If your component does not override {#render} (which, generally, it won't), an ERB file is expected to exist alongside it in the
+# app.  For example, if you have a component named `Auth::LoginButtonComponent`, it would expected to be in
+# `app/src/front_end/components/auth/login_button_component.rb`.  Thus, Brut will also expect
+# `app/src/front_end/components/auth/login_button_component.html.erb` to exist as well. That ERB file is used with an instance of your
+# component's class to render the component's HTML.
+#
+# @see Brut::FrontEnd::Component::Helpers
 class Brut::FrontEnd::Component
   using Brut::FrontEnd::Templates::HTMLSafeString::Refinement
 
+  # @!visibility private
   class TemplateLocator
     def initialize(paths:, extension:)
       @paths     = Array(paths).map { |path| Pathname(path) }
@@ -43,6 +57,7 @@ class Brut::FrontEnd::Component
     end
   end
 
+  # @!visibility private
   class AssetPathResolver
     def initialize(metadata_file:)
       @metadata_file = metadata_file
@@ -59,8 +74,10 @@ class Brut::FrontEnd::Component
     end
   end
 
+  # Allows helpers that create components to pass the block they were given to the component
   attr_writer :yielded_block
 
+  # Intended to be called by subclasses to render the yielded block wherever it makes sense in their markup.
   def render_yielded_block
     if @yielded_block
       @yielded_block.().html_safe!
@@ -70,17 +87,25 @@ class Brut::FrontEnd::Component
 	end
 
   # The core method of a component. This is expected to return
-  # a string to be sent as a response to an HTTP request.
+  # a string to be sent as a response to an HTTP request. Generally, you should not call this method
+  # as it is intended to be called from {Brut::FrontEnd::Component::Helpers#component}.
   #
   # This implementation uses the associated template for the component
   # and sends it through ERB using this component as
   # the binding.
+  #
+  # You may override this method to provide your own HTML for the component. In doing so, you can add
+  # keyword args for data from the `RequestContext` you wish to receive. See {Brut::FrontEnd::RequestContext#as_method_args}.
+  #
+  # @return [Brut::FrontEnd::Templates::HTMLSafeString] string containing the component's HTML.
   def render
     Brut.container.component_locator.locate(self.template_name).
       then { |erb_file| Brut::FrontEnd::Template.new(erb_file) }.
       then { |template| template.render_template(self).html_safe! }
   end
 
+  # For components that are private to a page, this returns the name of the page they are a part of.
+  # This is used to allow a component to render a page's I18n strings.
   def page_name
     @page_name ||= begin
                      page = self.class.name.split(/::/).reduce(Module) { |accumulator,class_path_part|
@@ -98,7 +123,9 @@ class Brut::FrontEnd::Component
                    end
   end
 
+  # Used when an I18n string needs access to component-specific translations
   def self.component_name = self.name
+  # (see .component_name)
   def component_name = self.class.component_name
 
   # Helper methods that subclasses can use.
@@ -111,7 +138,17 @@ class Brut::FrontEnd::Component
 
     # Render a component. This is the primary way in which
     # view re-use happens.  The component instance will be able to locate its
-    # HTML template and render itself.
+    # HTML template and render itself.  {#render} is called with variables from the `RequestContext`
+    # as described in {Brut::FrontEnd::RequestContext#as_method_args}
+    #
+    # @param [Brut::FrontEnd::Component|Class] component_instance instance of the component to render. If a `Class`
+    #                                          is passed, it must extend {Brut::FrontEnd::Component}. It will created
+    #                                          based on the logic described in {Brut::FrontEnd::RequestContext#as_constructor_args}.
+    #                                          You would do this if your component needs to be injected with information 
+    #                                          not available to the page or component that is using it.
+    # @yield this block is passed to the `component_instance` via {#yielded_block=}.
+    #
+    # @return [Brut::FrontEnd::Templates::HTMLSafeString] of the rendered component.
     def component(component_instance,&block)
       if component_instance.kind_of?(Class)
         if !component_instance.ancestors.include?(Brut::FrontEnd::Component)
@@ -130,6 +167,8 @@ class Brut::FrontEnd::Component
     end
 
     # Inline an SVG into the page.
+    #
+    # @param [String] svg name of an SVG file, relative to where SVGs are stored.
     def svg(svg)
       Brut.container.svg_locator.locate(svg).then { |svg_file|
         File.read(svg_file).html_safe!
@@ -170,10 +209,14 @@ class Brut::FrontEnd::Component
       component(Brut::FrontEnd::Components::Date.new(**(component_options.merge(date:))))
     end
 
+    # Indicates a given string is safe to render directly as HTML. No escaping will happen.
+    #
+    # @param [String] string a string that should be marked as HTML safe
     def html_safe!(string)
       string.html_safe!
     end
 
+    # @!visibility private
     VOID_ELEMENTS = [
       :area,
       :base,
@@ -190,6 +233,25 @@ class Brut::FrontEnd::Component
       :wbr,
     ]
 
+    # Generate an HTML element safely in code.  This is useful if you don't want to create
+    # a separate ERB file, but still want to create a component.
+    #
+    # @param [String|Symbol] tag_name the name of the HTML tag to create.
+    # @param [Hash] html_attributes all the HTML attributes you wish to include in the element that is generated.  Values that
+    #                                 are `true` will be included without a value, and values that are `false` will be omitted.
+    # @yield Called to get any contents that should be put into this tag.  Void elements as defined by W3C may not have a block.
+    #
+    # @example Void element
+    #
+    #     html_tag(:img, src: "trellick.png") # => <img src="trellic.png">
+    #
+    # @example Nested elements
+    #
+    #     html_tag(:nav, class: "flex items-center") do
+    #       html_tag(:a, href="/") { "Home" } + 
+    #       html_tag(:a, href="/about") { "About" } + 
+    #       html_tag(:a, href="/contact") { "Contact" }
+    #     end
     def html_tag(tag_name, **html_attributes, &block)
       tag_name = tag_name.to_s.downcase.to_sym
       attributes_string = html_attributes.map { |key,value|

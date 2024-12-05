@@ -1,5 +1,10 @@
-
+# Class to provide access to the asset metadata used to serve up hashed assets. Generally, you will not interact with this class.
+#
+# @!visibility private
 class Brut::FrontEnd::AssetMetadata
+
+  # @param [String] asset_metadata_file to the asset metadata file
+  # @param [IO] out IO on which to write messaging
   def initialize(asset_metadata_file:,out:$stdout)
     @asset_metadata_file = asset_metadata_file
     @out = out
@@ -49,6 +54,7 @@ class Brut::FrontEnd::AssetMetadata
     end
   end
 
+  # @!visibility private
   class ESBuildMetafile
     def initialize(metafile:)
       @metafile = metafile
