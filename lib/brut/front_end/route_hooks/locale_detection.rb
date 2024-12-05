@@ -1,3 +1,7 @@
+# Detects the user's locale from the `Accept-Language` header and, if one of the locales has been set up in this app, configured
+# Ruby's `I18n` to use it.  This will also store the value in the session via {Brut::FrontEnd::Session#http_accept_language=}.
+#
+# @see https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Accept-Language
 class Brut::FrontEnd::RouteHooks::LocaleDetection < Brut::FrontEnd::RouteHook
   def before(session:,env:)
     http_accept_language = Brut::I18n::HTTPAcceptLanguage.from_header(env["HTTP_ACCEPT_LANGUAGE"])

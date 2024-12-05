@@ -1,3 +1,4 @@
+# Ages the flash every time there is a request
 class Brut::FrontEnd::RouteHooks::AgeFlash < Brut::FrontEnd::RouteHook
   def after(session:,request_context:)
     flash = request_context[:flash]

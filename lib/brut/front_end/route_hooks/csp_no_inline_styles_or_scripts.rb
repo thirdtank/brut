@@ -1,19 +1,16 @@
+# Sets content security policy headers that forbid inline scripts and inline styles.
+#
+# @see Brut::FrontEnd::RouteHooks::CSPNoInlineScripts
+# @see https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP
 class Brut::FrontEnd::RouteHooks::CSPNoInlineStylesOrScripts < Brut::FrontEnd::RouteHook
   def after(response:)
     response.headers["Content-Security-Policy"] = header_value
     continue
   end
 
-  def header_value
-    [
-      "default-src 'self'",
-      "script-src-elem 'self'",
-      "script-src-attr 'none'",
-      "style-src-elem 'self'",
-      "style-src-attr 'none'",
-    ].join("; ")
-  end
-
+  # Sets content security policy headers that only report the use inline scripts and inline styles, but do allow them.
+  # This is useful for existing apps where you want to migrate to a more secure policy, but cannot.
+  # @see Brut::FrontEnd::Handlers::CspReportingHandler
   class ReportOnly < Brut::FrontEnd::RouteHooks::CSPNoInlineStylesOrScripts
     def after(response:,request:)
       csp_reporting_path   = uri(Brut::FrontEnd::Handlers::CspReportingHandler.routing,request:)
@@ -27,6 +24,17 @@ class Brut::FrontEnd::RouteHooks::CSPNoInlineStylesOrScripts < Brut::FrontEnd::R
   end
 
 private
+
+  def header_value
+    [
+      "default-src 'self'",
+      "script-src-elem 'self'",
+      "script-src-attr 'none'",
+      "style-src-elem 'self'",
+      "style-src-attr 'none'",
+    ].join("; ")
+  end
+
 
   def uri(path,request:)
     # Adapted from Sinatra's innards

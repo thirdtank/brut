@@ -1,5 +1,6 @@
 require "temple"
 
+# Holds code related to rendering ERB templates
 module Brut::FrontEnd::Templates
   autoload(:HTMLSafeString,"brut/front_end/templates/html_safe_string")
   autoload(:ERBParser,"brut/front_end/templates/erb_parser")
@@ -8,9 +9,18 @@ module Brut::FrontEnd::Templates
   autoload(:ERBEngine,"brut/front_end/templates/erb_engine")
 end
 
-# Handles rendering HTML templates
+# Handles rendering HTML templates written in ERB.  This is a light wrapper around `Tilt`.
+# This also configured a few customizations to allow a Rails-like rendering of ERB:
+#
+# * HTML escaping by default
+# * Helpers that return {Brut::FrontEnd::Templates::HTMLSafeString}s won't be escaped
+#
+# @see https://github.com/rtomayko/tilt
 class Brut::FrontEnd::Template
 
+  # @!visibility private
+  # This sets up global state somewhere, even though we aren't using `TempleTemplate`
+  # anywhere.
   TempleTemplate = Temple::Templates::Tilt(Brut::FrontEnd::Templates::ERBEngine,
                                            register_as: "html.erb")
 
@@ -26,6 +36,7 @@ class Brut::FrontEnd::Template
     @tilt_template.render(...)
   end
 
+  # Convienience method to escape HTML in the canonical way.
   def self.escape_html(string)
     Brut::FrontEnd::Templates::EscapableFilter.escape_html(string)
   end

@@ -2,7 +2,7 @@
 #
 # https://github.com/hanami/view/blob/main/lib/hanami/view/erb/parser.rb
 #
-# That is licensed MIT and thus so is this.
+# That is licensed MIT and thus so is this file.
 #
 # Avoid changes to this file so it can be kept updated with Hanami.
 class Brut::FrontEnd::Templates::ERBParser < Temple::Parser

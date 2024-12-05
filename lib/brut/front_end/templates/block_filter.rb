@@ -1,10 +1,11 @@
-# This is a slightly modified copy if Hanamis' Filters::Block:
+# Allows rendering blocks in ERB the way Rails' helpers like `form_with` do.
+# This is a slightly modified copy of Hanami's `Filters::Block`.
 #
-# https://github.com/hanami/view/blob/main/lib/hanami/view/erb/filters/block.rb
-#
+# @see https://github.com/hanami/view/blob/main/lib/hanami/view/erb/filters/block.rb
 class Brut::FrontEnd::Templates::BlockFilter < Temple::Filter
   END_LINE_RE = /\bend\b/
 
+  # @!visibility private
   def on_erb_block(escape, code, content)
     tmp = unique_name
 

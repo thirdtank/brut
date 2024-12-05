@@ -5,7 +5,7 @@ require "pathname"
 docs_dir = (Pathname(__FILE__).dirname / "docs").expand_path.to_s
 desc "Generate YARD doc"
 task :docs do
-  system "bundle exec yard doc -o '#{docs_dir}' -m markdown"
+  system "bundle exec yard doc -o '#{docs_dir}' -m markdown --backtrace"
 end
 
 desc "Clean up droppings"

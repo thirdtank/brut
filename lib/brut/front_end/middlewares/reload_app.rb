@@ -1,3 +1,4 @@
+# Reloads the app without requiring a restart. This should only be used in development.  Every single request will trigger this.
 class Brut::FrontEnd::Middlewares::ReloadApp < Brut::FrontEnd::Middleware
   LOCK = Concurrent::ReadWriteLock.new
   def initialize(app)
