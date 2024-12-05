@@ -1,15 +1,20 @@
 module Sequel
   module Extensions
-    # Enhancements to migrations to encourage better practices and reduce boilerplate.
+    # Modifies and enhances Sequel's migrations DSL to default to best practices.
     #
-    # * If no primary key is specified, a primary key column named :id of type :int will be created
-    # * If no created_at is specified, a column name created_at of type timestamptz is created
-    # * create_table requires a comment: field
-    # * create_table accepts an external_id: true option that will create a unique citext called "external_id"
-    # * columns are non-null by default
-    # * foreign keys are non-null and an index is created
-    # * the `key` method allows specifying keys aka creating a unique constraint
+    # * If no primary key is specified, a primary key column named `id` of type `int` will be created.
+    # * If no `created_at` is specified, a column name `created_at` of type `timestamptz` is created.
+    # * `create_table` requires a `comment:` attribute that explains the purpose of the table.
+    # * `create_table` accepts an `external_id: true` attribute that will create a unique `citext` field named `external_id`. This is intended to be used with {Sequel::Plugins::ExternalId}.
+    # * Columns are non-null by default. To make a nullable column, use `null: true`.
+    # * Foreign keys are non-null by default and an index is created by default.
+    # * The `key` method allows specifying additional keys on the table. This effecitvely creates a unique constraint on the fields given to `key`.
     module BrutMigrations
+      # Overrides Sequel's `create_table`
+      #
+      # @param args [Object] the arguments to pass to Sequel's `create_table`.  If the last entry in `*args` is a `Hash`, new options are recognized:
+      # @option args [String] :comment String containing the table's description, included in the table definition. Required.
+      # @option args [true|false] :external_id If true, adds a `:citext` column named `external_id` that has a unique index on it.
       def create_table(*args)
         super
 
@@ -27,10 +32,15 @@ module Sequel
         end
       end
 
+      # Specifies a non-primary key based on the fields given. Effectively creates a unique index on these fields.
+      # Inside a `create_table` block, this can be called via `key`
+      #
+      # @param fields [Array] fields that should form the key.
       def add_key(fields)
         add_index fields, unique: true
       end
 
+      # Overrides Sequel's `add_column` to default `null: false`.
       def add_column(table,*args)
         options = args.last
         if options.is_a?(Hash)
