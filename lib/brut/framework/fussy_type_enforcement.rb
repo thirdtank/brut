@@ -1,17 +1,22 @@
-# Include this to enable methods to help with type checking.  Generally, you should not use this
-# unless there is a real concern that someone will pass the wrong type in and it would not be obvious
-# that they made this mistake.  Of note, this is preferred for widely used classes instead of trying
-# to convert arguments to whatever type the class needs.
+# Include this to enable methods to help with type checking.  Generally, you should not use this.
+# You should only really use this if all of the following are true:
+#
+# * Passing in the wrong type Would Be Bad.
+# * The developer passing it in would not easily be able to figure out what went wrong.
 module Brut::Framework::FussyTypeEnforcement
-  # Perform basic type checking, ideally inside a constructor when assigning ivars
+  # Perform basic type checking, ideally inside a constructor when assigning ivars.  This is really intended for internal
+  # classes that will not be exposed to user input, but rather to catch programmer bugs and programmer mis-use.
   #
-  # value:: the value that was given
-  # type_descriptor:: a class or an array of allowed values. If a class, value must be kind_of? that class. If an array,
-  #                   value must be one of the values in the array.
-  # variable_name_for_error_message:: the name of the variable so that error messages make sense
-  # required:: if true, the value may not be nil. If false, nil values are allowed and no real type checking is done. Note that a
-  #            string that is blank counts as nil, so a require string must not be blank.
-  # coerce:: if given, this is the symbol that will be used to coerce the value before type checking
+  # @param [Object] value the value that is to be type-checked
+  # @param [Class|Array<Object>] type_descriptor a class or an array of allowed values. If a class, `value` must be `kind_of?`
+  #                                              that class. If an array, `value` must be one of the values in the array.
+  # @param [String] variable_name_for_error_message the name of the variable begin type-checked so that error messages make sense
+  # @param [true|false] required if true, the value may not be nil. If false, nil values are allowed. Note that in this context
+  #                              a blank string counts as `nil`, so required strings may not be blank.
+  # @param [Symbol|false] coerce if set, this is the symbol that will be used to coerce the value before type checking.
+  #                              For example, if you accept a string but know it should be a number, pass in `:to_i`.
+  # @return [Object] the value, if it matches the expectations of its type
+  # @raise [ArgumentError] if the value doesn't confirm to the described type
   def type!(value,type_descriptor,variable_name_for_error_message, required: false, coerce: false)
 
     value_blank = value.nil? || ( value.kind_of?(String) && value.strip == "" )

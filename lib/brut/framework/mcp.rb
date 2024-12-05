@@ -7,9 +7,13 @@ require "semantic_logger"
 require "i18n"
 require "zeitwerk"
 
-# Represents the Brut framework and its behavior for the app that requires it.
-# Essentially, this handles all default configuration and default setup behavior.
+# The Master Control Program of Brut.  This handles all the bootstrapping and setup of your app. You are not
+# intended to use or interact with this class at all. End of line.
 class Brut::Framework::MCP
+
+  # Create the MCP.
+  #
+  # @param [Class] app_klass subclass of {Brut::Framework::App} representing the Brut app being started up and managed.
   def initialize(app_klass:)
     @config    = Brut::Framework::Config.new
     @booted    = false
@@ -18,6 +22,8 @@ class Brut::Framework::MCP
     self.configure!
   end
 
+  # Configure Brut and initialize the {Brut::Framework::App} subclass. This should, in theory, only set up values and other
+  # ancillary data needed to start the app. It should not connect to databases.
   def configure!
     @config.configure!
 
@@ -87,7 +93,7 @@ class Brut::Framework::MCP
     end
     Kernel.at_exit do
       begin
-      Brut.container.sequel_db_handle.disconnect
+        Brut.container.sequel_db_handle.disconnect
       rescue Sequel::DatabaseConnectionError
         SemanticLogger["Sequel::Database"].info "Not connected to database, so not disconnecting"
       end
@@ -99,7 +105,6 @@ class Brut::Framework::MCP
     sequel_db = Brut.container.sequel_db_handle
 
     Sequel::Model.db = sequel_db
-
 
     Sequel::Model.plugin :find_bang
     Sequel::Model.plugin :created_at
@@ -223,8 +228,9 @@ class Brut::Framework::MCP
 
     @booted = true
   end
+  # @!visibility private
   def sinatra_app = @sinatra_app
+  # @!visibility private
   def app = @app
-
 
 end

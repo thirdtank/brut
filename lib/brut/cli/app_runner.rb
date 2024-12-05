@@ -1,13 +1,20 @@
 module Brut
   module CLI
+    # Manages the execution of a CLI app that extends {Brut::CLI::App}. Generally you won't use this class directly, but will call
+    # {Brut::CLI.app}.
     class AppRunner
       include Brut::CLI::ExecutionResults
 
+      # Create the app runner with a class and project root
+      #
+      # @param [Class] app_klass The class of your app that extends {Brut::CLI::App}
+      # @param [Pathname] project_root path to the root of the project
       def initialize(app_klass:,project_root:)
         @app_klass    = app_klass
         @project_root = project_root
       end
 
+      # Runs the app, based on the CLI arguments and UNIX environment provided at the time of execution.
       def run!
         app_klass = @app_klass
         out       = Brut::CLI::Output.new(io: $stdout,prefix: "[ #{$0} ] ")

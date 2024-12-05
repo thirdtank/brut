@@ -1,6 +1,10 @@
 require_relative "../factory_bot"
 module Brut
   module BackEnd
+    # Base class and manager of Seed Data for the app.  Seed Data is data used for development. It is not for populating e.g.
+    # reference data or other stuff in production.
+    #
+    # Seed Data uses FactoryBot.
     class SeedData
       def self.inherited(seed_data_klass)
         @classes ||= []

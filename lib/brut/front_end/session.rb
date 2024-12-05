@@ -32,7 +32,7 @@ class Brut::FrontEnd::Session
 
   # Set the timezone as reported by the browser.
   #
-  # @param timezone [TZInfo::Timezone|String] The timezone, or name of a timezone suitable for use with {TZInfo::Timezone}.
+  # @param timezone [TZInfo::Timezone|String] The timezone, or name of a timezone suitable for use with `TZInfo::Timezone`.
   def timezone_from_browser=(timezone)
     if timezone.kind_of?(TZInfo::Timezone)
       timezone = timezone.name
@@ -42,7 +42,7 @@ class Brut::FrontEnd::Session
 
   # Set the session timezone, regardless of what the browser reports.
   #
-  # @param timezone [TZInfo::Timezone|String|nil] The timezone, or name of a timezone suitable for use with {TZInfo::Timezone}. Use
+  # @param timezone [TZInfo::Timezone|String|nil] The timezone, or name of a timezone suitable for use with `TZInfo::Timezone`. Use
   # `nil` to clear this value and use the browser's time zone.
   def timezone=(timezone)
     if timezone.kind_of?(TZInfo::Timezone)

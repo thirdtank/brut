@@ -34,6 +34,7 @@ class Brut::CLI::App
   # Call this to set the one-line description of your command line app.
   #
   # @param new_description [String] When present, sets the description of this app. When omitted, returns the current description.
+  # @return [String] the current description (if called with no parameters)
   def self.description(new_description=nil)
     if new_description.nil?
       return @description.to_s
@@ -45,7 +46,7 @@ class Brut::CLI::App
   # Call this for each environment variable your *app* responds to.  These would be variables that affect any of the subcommands. For
   # command-specific environment variables, see {Brut::CLI::Command.env_var}.
   #
-  # @param var_name [String] Declares that this app recognized this environment variable.
+  # @param var_name [String] Declares that this app recognizes this environment variable.
   # @param purpose [String] An explanation for how this environment variable affects the app. Used in documentation.
   def self.env_var(var_name,purpose:)
     env_vars[var_name] = purpose
@@ -72,7 +73,7 @@ class Brut::CLI::App
 
   # Provides access to an `OptionParser` you can use to declare flags and switches that should be accepted globally. The way to use
   # this is to call `.on` and provide a description for an option as you would to `OptionParser`. The only difference is that you
-  # should not pass a block to this.  When the command line is parsed, the resultsl will be placed into a {Brut::CLI::Options}
+  # should not pass a block to this.  When the command line is parsed, the results will be placed into a {Brut::CLI::Options}
   # instance made available to your command.
   #
   # @return [OptionParser]
@@ -88,7 +89,8 @@ class Brut::CLI::App
     self.option_parser
   end
 
-  # Returns the configured `OptionParser` used to parse the command line. If you don't want to call {.opts}, you can create and return
+  # Returns the configured `OptionParser` used to parse global portion of the command line.
+  # If you don't want to call {.opts}, you can create and return
   # a fully-formed `OptionParser` by overriding this method.  By default, it will create one with a conventional banner.
   #
   # @return [OptionParser]
@@ -178,9 +180,6 @@ class Brut::CLI::App
   # Called after all setup has been executed. Brut will have been started/loaded.  This will *not* be called if anything
   # caused execution to be aborted.
   def after_bootstrap
-  end
-
-  def configure!
   end
 
   # Executes the command.  Called by {Brut::CLI::AppRunner}.

@@ -8,9 +8,10 @@ module Brut::FrontEnd
 # Tests should call handle!
   class Handler
     include Brut::FrontEnd::HandlingResults
+    include Brut::Framework::Errors
 
     def handle(**)
-      raise Brut::Framework::Errors::AbstractMethod
+      abstract_method!
     end
 
     def handle!(**args)

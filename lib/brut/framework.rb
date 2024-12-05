@@ -1,4 +1,5 @@
 module Brut
+  # The Framework module holds a lot of Brut's internals, or classes that cut across the back end and front end.
   module Framework
     autoload(:App,"brut/framework/app")
     autoload(:Config,"brut/framework/config")

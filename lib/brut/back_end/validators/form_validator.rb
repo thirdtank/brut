@@ -1,13 +1,38 @@
-# Subclass this in your back-end to create a server-side
-# validator for your form.  This provides for a much
-# richer set of validations than you get from the browser, but
-# works basically the same way.
+# Provides a very light DSL to declaring server-side validations for your
+# {Brut::FrontEnd::Form} subclass. Unlike Active Record, these validations aren't mixed-into another object.
+# Your subclass of this class is a standalone object that will operate on a form.
+#
+# @example
+#     # Suppose you are creating a widget with a name and description.
+#     # The form requires name, but not description, however if
+#     # the user initiates a "publish" action from that form, the description is
+#     # required. This cannot be managed with HTML alone.
+#     class WidgetPublishValidator < Brut::BackEnd::Validators::FormValidator
+#       validate :description, required: true, minlength: 10
+#     end
+#
+#     # Then, in your back-end logic somewhere
+#
+#     validator = WidgetPublishValidator.new
+#     validator.validate(form)
+#     if form.constraint_violations?
+#       # return back to the user
+#     else
+#       # proceed with business logic
+#     end
+#
 class Brut::BackEnd::Validators::FormValidator
-  def self.validate(attribute,options)
+  # Called inside the subclass body to indicate that a given form input should be validated based on the given options
+  # @param [String|Symbol] input_name name of the input of the form
+  # @param [Hash] options options describing the validation to perform.
+  def self.validate(input_name,options)
     @@validations ||= {}
-    @@validations[attribute] = options
+    @@validations[input_name] = options
   end
 
+  # Validate the given form, calling {Brut::FrontEnd::Form#server_side_constraint_violation} on each validate failure found.
+  #
+  # @param [Brut::FrontEnd::Form] form the form to validate
   def validate(form)
     @@validations.each do |attribute,options|
       value = form.send(attribute)

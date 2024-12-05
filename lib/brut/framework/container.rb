@@ -1,6 +1,7 @@
 require "fileutils"
 
 module Brut
+  # Provides access to the singelton container that contains all of Brut's current configuration.
   def self.container(&block)
     @container ||= Brut::Framework::Container.new
     if !block.nil?
@@ -19,31 +20,51 @@ end
 # and can depend on other values in this container.
 #
 # There is no namespacing/hierarchy.
+#
+# In general, you should not create instances of this class, but you may need to access it via {Brut.container} in order to obtain
+# configuration values or set your own.
 class Brut::Framework::Container
   def initialize
     @container = {}
   end
 
-  # Store a named value for later.
+  # Store a named value for later.  You can use this to store static values, or dynamic values that require the values of other stored
+  # values.
   #
-  # name:: The name of the value. This should be a string that is a valid Ruby identifier.
-  # type:: Description of the type that the value should conform to. if this value is "boolean" or :boolean, then
-  #        the value will be coerced into `true` or `false`. Otherwise, this serves as documentation for now.
-  # description:: Documentation as to what this value is for.
-  # value:: if given, this is the value to use.
-  # block:: If value is omitted, block will be evaluated the first time the value is
-  #         fetched and is expected to return the value to use for all subsequent
-  #         requests.
+  # @param [String] name The name of the value. This should be a string that is a valid Ruby identifier. If `type` is a boolean, this
+  #                      parameter must end in a question mark.
+  # @param [String] type Description of the type that the value should conform to. if this value is "boolean" or :boolean, then
+  #                      the value will be coerced into `true` or `false`. Otherwise, this serves as only documentation for now.
+  # @param [String] description Documentation as to what this value is for.
+  # @param [Object] value if given, this is the value to use. If the value you want is dynamically determined, or you want to create
+  #                       it lazily, pass a block.
+  # @param [true|false] allow_app_override if true, the app may override this value. Default is false, which means the app cannot.
+  #                                        This is mostly useful for Brut internals to ensure the app doesnt' wreak havoc 
+  #                                        on things it should not mess with.
+  # @param [true|false] allow_nil if true, this value may be nil and if `allow_app_override` is true, the app can override the value
+  #                               to be `nil`.  The default is false, which means `nil` is not allowed. Generally, you don't want
+  #                               `nil`.  `nil` is no good for nobody.
+  # @yield [*any] Yields any existing configuration values to the block as *positional parameters*.
+  #               The names of the parameters must match the name of another configuration value.
+  # @yieldreturn [Object] the value to use for this configuration option.  This is memoized, so the block will not be called again.
   #
-  #         The block can receive parameters and those parameters names must
-  #         match other values stored in this container.  Those values are passed in.
+  # @example Storing a static value
   #
-  #         For example, if you have the value `project_root`, you can then set another
-  #         value called `tmp_dir` that uses `project_root` like so:
+  #     container.store("num_retries",Integer,"Number of times to retry",10)
   #
-  #         ```
-  #         container.store("tmp_dir") { |project_root| project_root / "tmp" }
-  #         ```
+  # @example Storing a dynamic value based on another one
+  #
+  #     container.store("num_retries",Integer,"Number of times to retry",10)
+  #     container.store("max_retry_ms",Integer,"Number of times to retry") { |num_retries|
+  #       num_retries * 100
+  #     }
+  #
+  # @see #store_required_path
+  # @see #store_ensured_path
+  #
+  # @raise [ArgumentError] if the name has already been specified, if this is a boolean and the name doesn't
+  #                        end in a question mark, or if this a `Pathname` and the name does not end in `_dir`
+  #                        or `_file`.
   def store(name,type,description,value=:use_block,allow_app_override: false,allow_nil: false,&block)
     # TODO: Check that value / block is used properly
     name = name.to_s
@@ -72,6 +93,16 @@ class Brut::Framework::Container
     self
   end
 
+  # Called by your app to override an existing value.  The value must be overridable (see {#store}).  Generally, you should call this
+  # in the initializer of your {Brut::Framework::App} subclass.  Calling this after the fact may not have the affect you want.
+  #
+  # @param [String|Symbol] name name of the value to override. Will be coerced to a String. This name must have been previously
+  #                             configured.
+  # @param [Object] value if given, this is the value to use. If omitted, the block is called
+  #
+  # @yield [*any] Yields any existing configuration values to the block as *positional parameters*.
+  #               The names of the parameters must match the name of another configuration value.
+  # @yieldreturn [Object] the value to use for this configuration option.  This is memoized, so the block will not be called again.
   def override(name,value=:use_block,&block)
     name = name.to_s
     if !@container[name]
@@ -88,46 +119,77 @@ class Brut::Framework::Container
   end
 
   # Store a value that represents a path that must exist. The value will
-  # be assumed to be of type Pathname
+  # be assumed to be a `Pathname` and the `name` must end in `_dir` or `_file`.
+  # Note that the value's existence is not checked until it is requested. When it is,
+  # an exception will be raised if it does not exist.
+  #
+  # @param [Symbol|String] name of this value. Must end in `_dir` or `_file`.
+  # @param description [String] description documentation of what this value is for
+  # @param [Object] value if given, this is the value to use. If omitted, the block is called
+  #
+  # @yield [*any] Yields any existing configuration values to the block as *positional parameters*.
+  #               The names of the parameters must match the name of another configuration value.
+  # @yieldreturn [Object] the value to use for this configuration option.  This is memoized, so the block will not be called again.
   def store_required_path(name,description,value=:use_block,&block)
     self.store(name,Pathname,description,value,&block)
     @container[name][:required_path] = true
     self
   end
 
-  # Store a value that represents a path that can be created if
-  # it does not exist. The path won't be created until the value is 
-  # accessed the first time. The value will
-  # be assumed to be of type Pathname
+  # Store a value that represents a path that will be created if it doesn't exist.
+  # The value will be assumed to be a `Pathname` and the `name` must end in `_dir` or `_file`.
+  #
+  # This is preferred over {#store_required_path} so that you don't have to have a bunch of `.keep` files hanging around
+  # just for your version control system.  The path will be created as a directory whenever it is first accessed.
+  #
+  # @param [Symbol|String] name of this value. Must end in `_dir` or `_file` (though ending it in `_file` doesn't make much sense).
+  # @param description [String] description documentation of what this value is for
+  # @param [Object] value if given, this is the value to use. If omitted, the block is called
+  #
+  # @yield [*any] Yields any existing configuration values to the block as *positional parameters*.
+  #               The names of the parameters must match the name of another configuration value.
+  # @yieldreturn [Object] the value to use for this configuration option.  This is memoized, so the block will not be called again.
   def store_ensured_path(name,description,value=:use_block,&block)
     self.store(name,Pathname,description,value,&block)
     @container[name][:ensured_path] = true
     self
   end
 
-  # Fetch a value by using its name as a method to instances of this class.
+  # Provides method-like access to configured values. Only configured values will respond and only
+  # if the accessor method is called without parameters and without a block. See {#fetch}.
+  #
+  # @example
+  #
+  #     Brut.container.store("num_retries",Integer,"Number of times to retry",10)
+  #     Brut.container.num_retries # => 10
   def method_missing(sym,*args,&block)
     if args.length == 0 && block.nil? && self.respond_to_missing?(sym)
-      fetch_value(sym.to_s)
+      fetch(sym.to_s)
     else
       super.method_missing(sym,*args,&block)
     end
   end
 
-  # Implemented to go along with method_missing
+  # Required for good decorum when overriding {#method_missing}.
+  #
+  # @param [String|Symbol] name the name of a previously-configured value.
+  #
+  # @return [true|false] true if `name` has been configured
   def respond_to_missing?(name,include_private=false)
     @container.key?(name.to_s)
   end
 
-
-  # Fetch a value given a name.
+  # Fetch the value given a name.  For lazily-defined values, this will call all necessary blocks needed to determine the value. Thus,
+  # any number of other blocks could be called, depending on what values are needed.
+  #
+  # @param name [Symbol|String] the name of the value to fetch.
+  #
+  # @return [Object] the configured value, if it has been configured. Note that if the value was defined with `allow_nil: true`
+  #                  passed to {#store}, `nil` could be returned.
+  # @raise [KeyError] if `name` has not been previously stored
+  # @raise [Brut::Framework::Errors::NotFound] if a path stored with {#store_required_path} does not exist
   def fetch(name)
-    fetch_value(name.to_s)
-  end
-
-private
-
-  def fetch_value(name)
+    name = name.to_s
     # TODO: Provide a cleanr impl and better error checking if things go wrong
     x = @container.fetch(name)
 
@@ -158,11 +220,16 @@ private
     handle_path_values(name,x)
     x[:value]
   end
+private
 
   def handle_path_values(name,contained_value)
     value = contained_value[:value]
     if contained_value[:required_path] && !Dir.exist?(value)
-      raise "For value '#{name}', the directory is represents must exist, but does not: '#{value}'"
+      raise Brut::Framework::Errors::NotFound.new(
+        resource_name: value,
+        id: name,
+        contetx: "For value '#{name}', the directory is represents must exist, but does not: '#{value}'"
+      )
     end
     if contained_value[:ensured_path]
       FileUtils.mkdir_p value

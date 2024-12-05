@@ -1,32 +1,12 @@
 require_relative "project_environment"
 require "pathname"
 
-# Exists to hold configuration for the Brut framework.
-# This is a wrapper around a series of calls to Brut.container.store
-# but is a class and thus invokable, so that the configuration can
-# be controlled.
+# Holds configuration for the framework and your app.  In general, you should not interact with this class, however it's source code
+# is a good reference for what is configured by default by Brut.
 class Brut::Framework::Config
 
-  class DockerPathComponent
-    PATH_REGEXP = /\A[a-z0-9]+(-|_)?[a-z0-9]+\z/
-    def initialize(string)
-      if string.to_s.match?(PATH_REGEXP)
-        @string = string
-      else
-        raise ArgumentError.new("Value must be only lower case letters, digits, and may have at most one underscore: '#{string}'")
-      end
-    end
-
-    def to_str = @string
-    def to_s = self.to_str
-  end
-
-  class AppId < DockerPathComponent
-  end
-
-  class AppOrganizationName < DockerPathComponent
-  end
-
+  # Configures all defaults.  In general, this attempts to be lazy in setting things up, so calling this should not attempt to make a
+  # connection to your database.
   def configure!
     Brut.container do |c|
       # Brut Stuff that should not be changed

@@ -1,4 +1,7 @@
 module Brut
+  # Spec Support holds various matchers and helpers useful when writing tests with RSpec.
+  # Note that this module and it's contents aren't loaded by default when you `require "brut"`.
+  # Your app's `spec_helper.rb` should require these properly.
   module SpecSupport
   end
 end
