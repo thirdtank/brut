@@ -1,10 +1,12 @@
+# Receives content security policy violations and logs them. This is set up in {Brut::Framework::MCP}, however CSP reporting is
+# configured in {Brut::FrontEnd::RouteHooks::CSPNoInlineStylesOrScripts::ReportOnly}.
 class Brut::FrontEnd::Handlers::CspReportingHandler < Brut::FrontEnd::Handler
   def handle(body:)
     begin
       parsed = JSON.parse(body.read)
-      SemanticLogger["brut:__brut/csp-reporting"].info(parsed)
+      SemanticLogger[self.class].info(parsed)
     rescue => ex
-      SemanticLogger["brut:__brut/locale"].warn("Got #{ex} from /__brut/locale instead of a parseable JSON object")
+      SemanticLogger[self.class].warn("Got #{ex} instead of a parseable JSON object")
     end
     http_status(200)
   end

@@ -1,4 +1,11 @@
+# Generates an HTML `<input>` field.
 class Brut::FrontEnd::Components::Inputs::TextField < Brut::FrontEnd::Components::Input
+  # Creates the appropriate input for the given {Brut::FrontEnd::Form} and input name.
+  # Generally, you want to use this method over the initializer.
+  #
+  # @param [Brut::FrontEnd::Form} form The form that is being rendered. This method will consult this class to understand the requirements on this input so its HTML is generated correctly.
+  # @param [String] input_name the name of the input, which should be a member of `form`
+  # @param [Hash] html_attributes any additional HTML attributes to include on the `<input>` element.
   def self.for_form_input(form:, input_name:, html_attributes: {})
     default_html_attributes = {}
     input = form[input_name]
@@ -37,6 +44,10 @@ class Brut::FrontEnd::Components::Inputs::TextField < Brut::FrontEnd::Components
     end
     Brut::FrontEnd::Components::Inputs::TextField.new(default_html_attributes.merge(html_attributes))
   end
+
+  # Create an instance
+  #
+  # @param [Hash] attributes HTML attributes to put on the element.
   def initialize(attributes)
     @sanitized_attributes = attributes.map { |key,value|
         [

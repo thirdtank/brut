@@ -33,6 +33,7 @@ class Brut::FrontEnd::Components::FormTag < Brut::FrontEnd::Component
     @contents = contents
   end
 
+  # @!visibility private
   def render
     attribute_string = @attributes.map { |key,value|
       key = key.to_s

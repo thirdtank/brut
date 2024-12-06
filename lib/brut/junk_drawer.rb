@@ -1,5 +1,11 @@
 require "tzinfo"
+# Models a clock, which is a time in the context of a time zone.  This theoretically makes it easier to get the time and date at the time zone of the user.
 class Clock
+  # Create a clock in the given timezone.  If `tzinfo_timezone` is non-`nil`, that value is the time zone of the clock, and all `Time`
+  # instances returned will be in that time zone.  If `tzinfo_timezone` is `nil`, then `ENV["TZ"]` is consulted. If the value of that
+  # environment variable is a valid timezone, it is used. Otherwise, UTC is used.
+  #
+  # @param [TZInfo::Timezone] tzinfo_timezone if present, this is the timezone of the clock.
   def initialize(tzinfo_timezone)
     if tzinfo_timezone
       @timezone = tzinfo_timezone
@@ -16,15 +22,18 @@ class Clock
     end
   end
 
+  # Get the current time in the configured timezone
   def now
     Time.now(in: @timezone)
   end
 
+  # Convert the given time to this clock's time zone
   def in_time_zone(time)
     @timezone.to_local(time)
   end
 end
 
+# A wrapper around a string to avoid adding a ton of methods to `String`.
 class RichString
   def initialize(string)
     @string = string.to_s
