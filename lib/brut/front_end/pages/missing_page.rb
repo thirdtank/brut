@@ -1,3 +1,6 @@
+# Used in development when a route has been mapped, but no class exists for the page. This
+# renders a hopefully helpful message in the browser to allow the developer to know what 
+# next steps to take.
 class Brut::FrontEnd::Pages::MissingPage < Brut::FrontEnd::Page
 
   attr_reader :class_name,

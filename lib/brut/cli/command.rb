@@ -18,8 +18,7 @@ class Brut::CLI::Command
   end
 
 
-  # Call this to set a more detailed description of this command. Currently, this should not be formatted and will be shown all on one
-  # line.
+  # Call this to set a an additional detailed description of this command. Currently, this should not be formatted and will be shown all on one line. This is shown after the `description`, so this text can follow from that, without having to restate it.
   #
   # @param new_description [String] When present, sets the detailed description of this command. When omitted, returns the current detailed description.
   # @return [String] the current detailed description (if called with no parameters)
