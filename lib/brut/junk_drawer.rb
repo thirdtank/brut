@@ -54,6 +54,23 @@ class RichString
     }.join("")
   end
 
+  # Capitalizes the string, with the ability to only capitalize the first letter.
+  #
+  # If `options` includes `:first_only`, then only the first letter of the string is capitalized. The remaining letters are left
+  # alone.  If `option` does not include `:first_only`, this capitalizes like Ruby's standard library, which is to lower case all
+  # letters save for the first.
+  #
+  # @param [Array] options options suitable for Ruby's built-in `String#capitalize` method
+  # @return [RichString] a new string where the wrapped string has been capitalized
+  def capitalize(*options)
+    if options.include?(:first_only)
+      options.delete(:first_only)
+      self.class.new(@string[0].capitalize(*options) + @string[1..-1])
+    else
+      self.class.new(@string.capitalize(*options))
+    end
+  end
+
   def humanized
     RichString.new(@string.tr("_-"," "))
   end

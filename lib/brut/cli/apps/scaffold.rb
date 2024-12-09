@@ -184,13 +184,14 @@ end}
 
   class Component < Brut::CLI::Command
     description "Create a new component, template, and associated test"
+    detailed_description "New components go in the `components/` folder of your app, however using --page will create a 'page private' component.  To do that, the component name must be an inner class of an existing page, for example HomePage::Welcome. This component goes in a sub-folder inside the `pages/` area of your app"
     opts.on("--page","If set, this component is for a specific page and won't go with the other components")
     args "ComponentName"
     def execute
       if args.length != 1
         raise "component requires exactly one argument, got #{args.length}"
       end
-      class_name = RichString.new(args[0].capitalize)
+      class_name = RichString.new(args[0]).capitalize(:first_only)
       if class_name.to_s !~ /Component$/
         class_name = RichString.new(class_name.to_s + "Component")
       end
