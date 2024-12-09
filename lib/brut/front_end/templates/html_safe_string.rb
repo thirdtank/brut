@@ -10,6 +10,7 @@ class Brut::FrontEnd::Templates::HTMLSafeString
       def html_safe? = false
     end
   end
+  using Refinement
 
   # @return [String] the underlying string being wrapped
   attr_reader :string
