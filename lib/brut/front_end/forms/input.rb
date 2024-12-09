@@ -35,8 +35,11 @@ class Brut::FrontEnd::Forms::Input
   #
   # When this method completes, the value of {#validity_state} could change.
   #
-  # @param [String] new_value the value for the input
+  # @param [String] new_value the value for the input.  Empty strings are coerced to `nil`
   def value=(new_value)
+    if new_value.kind_of?(String) && new_value.strip == ""
+      new_value = nil
+    end
     value_missing = new_value.nil? || (new_value.kind_of?(String) && new_value.strip == "")
     missing = if self.required
                 value_missing
@@ -69,7 +72,11 @@ class Brut::FrontEnd::Forms::Input
                        false
                      end
 
-    pattern_mismatch = false
+    pattern_mismatch = if self.pattern && !value_missing && !type_mismatch
+                         !new_value.match?(Regexp.new(self.pattern))
+                       else
+                         false
+                       end
     step_mismatch = false
 
     @validity_state = Brut::FrontEnd::Forms::ValidityState.new(
