@@ -8,8 +8,7 @@ module Brut::FrontEnd::Components
   autoload(:Input,"brut/front_end/components/input")
   autoload(:Inputs,"brut/front_end/components/input")
   autoload(:I18nTranslations,"brut/front_end/components/i18n_translations")
-  autoload(:Timestamp,"brut/front_end/components/timestamp")
-  autoload(:Date,"brut/front_end/components/date")
+  autoload(:Time,"brut/front_end/components/time")
   autoload(:PageIdentifier,"brut/front_end/components/page_identifier")
   autoload(:LocaleDetection,"brut/front_end/components/locale_detection")
 end
@@ -193,20 +192,14 @@ class Brut::FrontEnd::Component
       component(Brut::FrontEnd::Components::FormTag.new(route_params:, **html_attributes,&contents))
     end
 
-    # Creates a {Brut::FrontEnd::Components::Timestamp}.
+    # Creates a {Brut::FrontEnd::Components::Time}.
     #
-    # @param timestamp [Time] the timestamp to format/render.
-    # @param component_options [Hash] keyword arguments to pass to {Brut::FrontEnd::Components::Timestamp#initialize}
-    def timestamp(timestamp, **component_options)
-      component(Brut::FrontEnd::Components::Timestamp.new(**(component_options.merge(timestamp:))))
-    end
-
-    # Creates a {Brut::FrontEnd::Components::Date}.
-    #
-    # @param date [Date] the date to format/render.
-    # @param component_options [Hash] keyword arguments to pass to {Brut::FrontEnd::Components::Date#initialize}
-    def date(date, **component_options)
-      component(Brut::FrontEnd::Components::Date.new(**(component_options.merge(date:))))
+    # @param timestamp [Time] the timestamp to format/render. Mutually exclusive with `date`.
+    # @param date [Date] the date to format/render. Mutually exclusive with `timestamp`.
+    # @param component_options [Hash] keyword arguments to pass to {Brut::FrontEnd::Components::Time#initialize}
+    def time_tag(timestamp:nil,date:nil, **component_options)
+      args = component_options.merge(timestamp:,date:)
+      component(Brut::FrontEnd::Components::Time.new(**args))
     end
 
     # Indicates a given string is safe to render directly as HTML. No escaping will happen.
