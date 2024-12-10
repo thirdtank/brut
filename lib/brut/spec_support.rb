@@ -9,6 +9,8 @@ require_relative "spec_support/matcher"
 require_relative "spec_support/component_support"
 require_relative "spec_support/handler_support"
 require_relative "spec_support/general_support"
+require_relative "spec_support/e2e_test_server"
+require_relative "spec_support/rspec_setup"
 require_relative "factory_bot"
 # Convention here is different. We don't want to autoload
 # a lot of stuff, since RSpec pollutes the Object namespace.
