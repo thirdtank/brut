@@ -23,11 +23,15 @@ class Clock
   end
 
   # Get the current time in the configured timezone
+  #
+  # @return [Time] the time now in the time zone of this clock
   def now
     Time.now(in: @timezone)
   end
 
   # Convert the given time to this clock's time zone
+  # @param [Time] time a timestamp you wish to conver to this clock's time zone
+  # @return [Time] a new `Time` in the timezone of this clock.
   def in_time_zone(time)
     @timezone.to_local(time)
   end
