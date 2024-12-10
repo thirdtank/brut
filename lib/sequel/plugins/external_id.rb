@@ -28,10 +28,11 @@ module Sequel
       def self.apply(model,*args,&block)
         @global_prefix = (args.first || {})[:global_prefix]
       end
+      def self.global_prefix = @global_prefix
 
       module ClassMethods
-      # @!visibility private
-        attr_reader :global_prefix
+        # @!visibility private
+        def global_prefix = Sequel::Plugins::ExternalId.global_prefix
         # Called inside a model's body to indicate that this model has an `external_id` that this plugin should manage and what
         # prefix should be used.  Calling this will also alter {InstanceMethods#to_s} to include this id in the string representation.
         #
