@@ -8,6 +8,7 @@ class Brut::FrontEnd::Components::Inputs::TextField < Brut::FrontEnd::Components
   # @param [Hash] html_attributes any additional HTML attributes to include on the `<input>` element.
   def self.for_form_input(form:, input_name:, html_attributes: {})
     default_html_attributes = {}
+    html_attributes = html_attributes.map { |key,value| [ key.to_s, value ] }.to_h
     input = form[input_name]
     default_html_attributes["required"] = input.required
     default_html_attributes["pattern"]  = input.pattern
