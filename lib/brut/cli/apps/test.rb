@@ -20,7 +20,6 @@ class Brut::CLI::Apps::Test < Brut::CLI::App
     def rspec_command
       parts = [
         "bin/rspec",
-        "-b",
         "-I", Brut.container.app_specs_dir,
         "-I", Brut.container.app_src_dir,
         "-I lib/", # not needed when Brut is gemified
@@ -66,7 +65,7 @@ class Brut::CLI::Apps::Test < Brut::CLI::App
     opts.on("--[no-]rebuild-after", "If true, test database is rebuilt after tests are run (default true)")
     opts.on("--seed SEED", "Set the random seed to allow duplicating a test run")
     args "specs_to_run..."
-    env_var("E2E_RECORD_VIDEOS",purpose: "If set to 'true', videos of each test run are saved in `./videos`")
+    env_var("E2E_RECORD_VIDEOS",purpose: "If set to 'true', videos of each test run are saved in `./tmp/e2e-videos`")
     env_var("E2E_TIMEOUT_MS",purpose: "ms to wait for any browser activity before failing the test. And here you didn't think you'd get away without using sleep in browse-based tests?")
     env_var("LOGGER_LEVEL_FOR_TESTS",purpose: "Can be set to debug, info, warn, error, or fatal to control logging during tests. Defaults to 'warn' to avoid verbose test output")
 

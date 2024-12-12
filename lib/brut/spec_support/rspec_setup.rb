@@ -27,6 +27,11 @@
 #   - Jobs are cleared before each test
 #   - For end-to-end tests, Redis is flushed and actual Sidekiq is used instead of testing mode
 #
+# You can set certain metadata to change behavior:
+#
+# * `e2e_timeout` - number of milliseconds to wait until an end-to-end test gives up on a selector being found.  The default is 5,000 (5 seconds). Use this only if there's no other way to keep your test from needing more than 5 seconds.
+#
+#
 # @example
 #     RSpec.configure do |config|
 #       rspec_setup = Brut::SpecSupport::RSpecSetup.new(rspec_config: config)
@@ -79,13 +84,11 @@ class Brut::SpecSupport::RSpecSetup
 
     @config.around do |example|
 
-      request_context   = Thread.current.thread_variable_get(:request_context)
-      is_component      = example.metadata[:component]
-      is_page           = example.metadata[:page]
-      is_e2e            = example.metadata[:e2e]
-      e2e_timeout       = example.metadata[:e2e_timeout] || 5_000
+      needs_request_context = example.metadata[:component] ||
+                              example.metadata[:handler]   ||
+                              example.metadata[:page]
 
-      if is_component
+      if needs_request_context
         session = {
           "session_id" => "test-session-id",
           "csrf" => "test-csrf-token"
@@ -103,13 +106,16 @@ class Brut::SpecSupport::RSpecSetup
         )
         Thread.current.thread_variable_set(:request_context, request_context)
         example.example_group.let(:request_context) { request_context }
+      end
+      if example.metadata[:component]
         example.example_group.let(:component_name) { described_class.component_name }
       end
-      if is_page
+      if example.metadata[:page]
         example.example_group.let(:page_name) { described_class.page_name }
       end
 
-      if is_e2e
+      if example.metadata[:e2e]
+        e2e_timeout = (ENV["E2E_TIMEOUT_MS"] || example.metadata[:e2e_timeout] || 5_000).to_i
         optional_sidekiq_support.disable_sidekiq_testing do
           Brut::SpecSupport::E2ETestServer.instance.start
           Playwright.create(playwright_cli_executable_path: "./node_modules/.bin/playwright") do |playwright|
@@ -118,10 +124,10 @@ class Brut::SpecSupport::RSpecSetup
                 baseURL: "http://0.0.0.0:6503/",
               }
               if ENV["E2E_RECORD_VIDEOS"]
-                context_options[:record_video_dir] =  Brut.container.project_root / "videos"
+                context_options[:record_video_dir] = Brut.container.tmp_dir / "e2e-videos"
               end
               browser_context = browser.new_context(**context_options)
-              browser_context.default_timeout = (ENV["E2E_TIMEOUT_MS"] || e2e_timeout).to_i
+              browser_context.default_timeout = e2e_timeout
               example.example_group.let(:page) { browser_context.new_page }
               example.run
               browser_context.close
@@ -136,9 +142,6 @@ class Brut::SpecSupport::RSpecSetup
           example.run
           raise Sequel::Rollback
         end
-      end
-      if is_component
-        Thread.current.thread_variable_set(:request_context,request_context)
       end
     end
     @config.after(:suite) do
