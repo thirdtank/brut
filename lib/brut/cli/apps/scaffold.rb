@@ -274,8 +274,8 @@ end}
       if args.length != 1
         raise "page requires exactly one argument, got #{args.length}"
       end
-      class_name = RichString.new(args[0])
-      if class_name.to_s !~ /Page$/
+      class_name = RichString.new(args[0]).capitalize(:first_only)
+      if class_name.to_s !~ /Component$/
         class_name = RichString.new(class_name.to_s + "Page")
       end
 
@@ -387,7 +387,7 @@ end}
         exists.each do |path|
           err.puts "'#{path.relative_path_from(Brut.container.project_root)}' exists already"
         end
-        err.puts "Re-run with --overwrite to overwrite these files"
+        err.puts "Re-run with global option --overwrite to overwrite these files"
         return 1
       end
 
@@ -439,7 +439,7 @@ end}
       if args.length != 1
         raise "form requires exactly one argument, got #{args.length}"
       end
-      normalized_arg = args[0].gsub(/Form$/,"").gsub(/Handler$/,"")
+      normalized_arg = RichString.new(args[0]).camelize.to_s.gsub(/Form$/,"").gsub(/Handler$/,"")
 
       class_name         = RichString.new(normalized_arg + "Form")
       handler_class_name = RichString.new(normalized_arg + "Handler")
@@ -465,7 +465,7 @@ end}
         exists.each do |path|
           err.puts "'#{path.relative_path_from(Brut.container.project_root)}' exists already"
         end
-        err.puts "Re-run with --overwrite to overwrite these files"
+        err.puts "Re-run with global option --overwrite to overwrite these files"
         return 1
       end
 
@@ -546,7 +546,7 @@ end}
 
       if existing_files.any? && !global_options.overwrite?
         relative_paths = existing_files.map { |_,pathname| pathname.relative_path_from(Brut.container.project_root) }
-        err.puts "Some files to be generated already exist. Set --overwrite to overwrite them:"
+        err.puts "Some files to be generated already exist. Set global option --overwrite to overwrite them:"
         relative_paths.each do |file|
           err.puts file
         end

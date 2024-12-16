@@ -18,3 +18,20 @@ class Brut::CLI::SystemExecError < Brut::CLI::Error
     @exit_status = exit_status
   end
 end
+
+class Brut::CLI::InvalidOption < Brut::CLI::Error
+  def initialize(option_parser_parse_error, context:)
+    args = option_parser_parse_error.args
+    count_message = if option_parser_parse_error.args.length == 1
+                      "isn't a valid option"
+                    else
+                      "aren't valid options"
+                    end
+    type_message = if context.kind_of?(Class)
+                     "for the '#{context.command_name}' command"
+                   else
+                     "for the app globally"
+                   end
+    super("#{args.join(", ")} #{count_message} #{type_message}")
+  end
+end

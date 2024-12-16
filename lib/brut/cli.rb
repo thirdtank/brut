@@ -32,6 +32,7 @@ module Brut
     autoload(:Command, "brut/cli/command")
     autoload(:Error, "brut/cli/error")
     autoload(:SystemExecError, "brut/cli/error")
+    autoload(:InvalidOption, "brut/cli/error")
     autoload(:ExecutionResults, "brut/cli/execution_results")
     autoload(:Options, "brut/cli/options")
     autoload(:Output, "brut/cli/output")

@@ -59,7 +59,11 @@ module Brut
         end
 
         command_argv = remaining_argv[1..-1] || []
-        args = command_option_parser.parse!(command_argv,into:command_options)
+        begin
+          args = command_option_parser.parse!(command_argv,into:command_options)
+        rescue OptionParser::ParseError => ex
+          raise Brut::CLI::InvalidOption.new(ex, context: command_klass)
+        end
 
         cli_app = app_klass.new(global_options:, out:, err:, executor:)
         cmd = command_klass.new(command_options:Brut::CLI::Options.new(command_options),global_options:, args:, out:, err:, executor:)
@@ -240,6 +244,8 @@ module Brut
         remaining_argv = option_parser.order!(into:hash)
         global_options = Brut::CLI::Options.new(hash)
         [ continue_execution, remaining_argv, global_options, option_parser ]
+      rescue OptionParser::ParseError => ex
+        raise Brut::CLI::InvalidOption.new(ex, context: :global)
       end
     end
   end
