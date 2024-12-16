@@ -63,7 +63,7 @@ class RichString
 
   def camelize
     @string.to_s.split(/[_-]/).map { |part|
-      part.capitalize
+      RichString.new(part).capitalize(:first_only).to_s
     }.join("")
   end
 
