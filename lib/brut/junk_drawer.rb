@@ -38,6 +38,10 @@ class Clock
     end
   end
 
+  def today
+    self.now.to_date
+  end
+
   # Convert the given time to this clock's time zone
   # @param [Time] time a timestamp you wish to conver to this clock's time zone
   # @return [Time] a new `Time` in the timezone of this clock.

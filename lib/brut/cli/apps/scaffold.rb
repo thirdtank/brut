@@ -68,7 +68,7 @@ end}
         }
 
         if global_options.dry_run?
-          puts code
+          out.puts code
         else
           FileUtils.mkdir_p destination.dirname
           File.open(destination,"w") do |file|
@@ -234,9 +234,9 @@ end}
       end
 
       if global_options.dry_run?
-        puts "FileUtils.mkdir_p #{source_path.dirname}"
-        puts "FileUtils.mkdir_p #{html_source_path.dirname}"
-        puts "FileUtils.mkdir_p #{spec_path.dirname}"
+        out.puts "FileUtils.mkdir_p #{source_path.dirname}"
+        out.puts "FileUtils.mkdir_p #{html_source_path.dirname}"
+        out.puts "FileUtils.mkdir_p #{spec_path.dirname}"
       else
         FileUtils.mkdir_p source_path.dirname
         FileUtils.mkdir_p html_source_path.dirname
@@ -274,10 +274,7 @@ end}
       if args.length != 1
         raise "page requires exactly one argument, got #{args.length}"
       end
-      class_name = RichString.new(args[0]).capitalize(:first_only)
-      if class_name.to_s !~ /Component$/
-        class_name = RichString.new(class_name.to_s + "Page")
-      end
+      class_name = RichString.new(RichString.new(args[0]).camelize.to_s.gsub(/Page$/,"") + "Page")
 
       relative_path = class_name.underscorized
 
@@ -305,10 +302,10 @@ end}
       end
 
       if global_options.dry_run?
-        puts "FileUtils.mkdir_p #{source_path.dirname}"
-        puts "FileUtils.mkdir_p #{html_source_path.dirname}"
-        puts "FileUtils.mkdir_p #{spec_path.dirname}"
-        puts "Would add a title to #{app_translations}"
+        out.puts "FileUtils.mkdir_p #{source_path.dirname}"
+        out.puts "FileUtils.mkdir_p #{html_source_path.dirname}"
+        out.puts "FileUtils.mkdir_p #{spec_path.dirname}"
+        out.puts "Would add a title to #{app_translations}"
       else
         FileUtils.mkdir_p source_path.dirname
         FileUtils.mkdir_p html_source_path.dirname
@@ -353,6 +350,7 @@ end}
           err.puts "         The page may not render properly the first time you load it"
         end
       end
+      out.puts "Class                    #{class_name}"
       out.puts "Page source is in        #{source_path.relative_path_from(Brut.container.project_root)}"
       out.puts "Page HTML template is in #{html_source_path.relative_path_from(Brut.container.project_root)}"
       out.puts "Page test is in          #{spec_path.relative_path_from(Brut.container.project_root)}"
