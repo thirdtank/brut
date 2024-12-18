@@ -11,6 +11,7 @@ module Brut::FrontEnd::Components
   autoload(:Time,"brut/front_end/components/time")
   autoload(:PageIdentifier,"brut/front_end/components/page_identifier")
   autoload(:LocaleDetection,"brut/front_end/components/locale_detection")
+  autoload(:ConstraintViolations,"brut/front_end/components/constraint_violations")
 end
 
 # A Component is the top level class for managing the rendering of 
@@ -200,6 +201,17 @@ class Brut::FrontEnd::Component
     def time_tag(timestamp:nil,date:nil, **component_options)
       args = component_options.merge(timestamp:,date:)
       component(Brut::FrontEnd::Components::Time.new(**args))
+    end
+
+    def constraint_violations(form:, input_name:, message_html_attributes: {}, **html_attributes)
+      component(
+        Brut::FrontEnd::Components::ConstraintViolations.new(
+          form:,
+          input_name:,
+          message_html_attributes:,
+          **html_attributes
+        )
+      )
     end
 
     # Indicates a given string is safe to render directly as HTML. No escaping will happen.
