@@ -130,6 +130,10 @@ module Brut::I18n::BaseMethods
     end
   end
 
+  def l(date_like, format: :default)
+    ::I18n::l(date_like,format: format)
+  end
+
   def this_field_value
     @__this_field_value ||= ::I18n.t("general.cv.this_field", raise: true)
   end
