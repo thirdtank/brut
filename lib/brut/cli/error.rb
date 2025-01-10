@@ -2,7 +2,7 @@
 # trace.
 class Brut::CLI::Error < StandardError
 end
-# Called when a child process executed by {Brut::CLI::Executor} returns a nonzero exit status.
+# Raised when a child process executed by {Brut::CLI::Executor} returns a nonzero exit status.
 #
 # @see Brut::CLI::Executor#system!
 class Brut::CLI::SystemExecError < Brut::CLI::Error
@@ -19,6 +19,8 @@ class Brut::CLI::SystemExecError < Brut::CLI::Error
   end
 end
 
+# Raised when an `OptionParser::ParseError` is caught to provide a more useful
+# error message given the global/command optiona dichotomy.
 class Brut::CLI::InvalidOption < Brut::CLI::Error
   def initialize(option_parser_parse_error, context:)
     args = option_parser_parse_error.args
