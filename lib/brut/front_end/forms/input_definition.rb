@@ -54,6 +54,7 @@ class Brut::FrontEnd::Forms::InputDefinition
   # @param [true|false] required true if this field is required, false otherwise. Default is `true` unless `type` is `"checkbox"`.
   # @param [Integer] step Step value for ranged inputs.  A value that is not on a step is considered invalid.
   # @param [String] type the type of input to create. Should be a value from the HTML spec. Default is based on the value of `name`. If `email`, `type` is `email`. If `password` or `password_confirmation`, type is `password`. Otherwise `text`.
+  # @param [true|false] array If true, the form will expect multiple values for this input.  The values will be available as an array. Any values omitted by the user will be present as empty strings.
   #
   #
   # @see https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input INPUT Element
@@ -67,7 +68,8 @@ class Brut::FrontEnd::Forms::InputDefinition
     pattern: nil,
     required: :based_on_type,
     step: nil,
-    type: nil
+    type: nil,
+    array: false
   )
     name = name.to_s
     type = if type.nil?
@@ -96,11 +98,15 @@ class Brut::FrontEnd::Forms::InputDefinition
     @required  = type!( required  , [true, false]             , "required", required: true)
     @step      = type!( step      , Numeric                   , "step")
     @type      = type!( type      , INPUT_TYPES_TO_CLASS.keys , "type", required: true)
+    @array     = type!( array     , [true, false]             , "array", required: true)
 
     if @pattern.nil? && type == "email"
       @pattern = /^[^@]+@[^@]+\.[^@]+$/.source
     end
   end
+
+  def array? = @array
+
 
   # Create an Input based on this definition, initializing it with the given value.
   def make_input(value:)

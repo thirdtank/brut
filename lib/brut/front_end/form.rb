@@ -58,7 +58,7 @@ class Brut::FrontEnd::Form
   def [](input_name)
     @inputs.fetch(input_name.to_s)
   rescue KeyError => ex
-    raise Brut::Framework::Errors::Bug, "Form does not define the input '#{input_name}'. You must add this to your form"
+    raise Brut::Framework::Errors::Bug, "Form does not define the input '#{input_name}'. You must add this to your form. Found these inputs: #{@inputs.keys.join(', ')}"
   end
 
   # Returns true if this form has constraint violations.
@@ -112,6 +112,7 @@ private
       in TrueClass  then hash[key] = "true"
       in FalseClass then hash[key] = "false"
       in NilClass   then # it's fine
+      in Array      then hash[key] = value
       else
         if Brut.container.project_env.test?
           raise ArgumentError, "Got #{value.class} for #{key} in params hash, which is not expected"

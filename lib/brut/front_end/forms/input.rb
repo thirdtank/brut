@@ -16,6 +16,9 @@ class Brut::FrontEnd::Forms::Input
   def initialize(input_definition:, value:)
     @input_definition = input_definition
     @validity_state = Brut::FrontEnd::Forms::ValidityState.new
+    if input_definition.array?
+      value ||= []
+    end
     self.value=(value)
   end
 
@@ -27,7 +30,8 @@ class Brut::FrontEnd::Forms::Input
                                        :pattern,
                                        :required,
                                        :step,
-                                       :type
+                                       :type,
+                                       :array?
 
   # Set the value, analyzing it for constraint violations based on the input's definition.
   # This is essentially duplicating whatever the browser would be doing on its end, thus allowing

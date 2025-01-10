@@ -12,11 +12,15 @@ class Brut::FrontEnd::Forms::SelectInput
   def initialize(input_definition:, value:)
     @input_definition = input_definition
     @validity_state = Brut::FrontEnd::Forms::ValidityState.new
+    if input_definition.array?
+      value ||= []
+    end
     self.value=(value)
   end
 
   def_delegators :"@input_definition", :name,
-                                       :required
+                                       :required,
+                                       :array?
 
   # (see Brut::FrontEnd::Forms::Input#value=)
   def value=(new_value)

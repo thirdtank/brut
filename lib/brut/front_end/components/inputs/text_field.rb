@@ -5,15 +5,26 @@ class Brut::FrontEnd::Components::Inputs::TextField < Brut::FrontEnd::Components
   #
   # @param [Brut::FrontEnd::Form} form The form that is being rendered. This method will consult this class to understand the requirements on this input so its HTML is generated correctly.
   # @param [String] input_name the name of the input, which should be a member of `form`
+  # @param [:not_applicable|Integer] index if this input is part of an array, this is the index into that array. This is used to get the input's value.
   # @param [Hash] html_attributes any additional HTML attributes to include on the `<input>` element.
-  def self.for_form_input(form:, input_name:, html_attributes: {})
+  def self.for_form_input(form:, input_name:, index: :not_applicable, html_attributes: {})
     default_html_attributes = {}
     html_attributes = html_attributes.map { |key,value| [ key.to_s, value ] }.to_h
     input = form[input_name]
+
+    if input.array? && index == :not_applicable
+      raise ArgumentError,"Input '#{input_name}' is an array, however index was not supplied to `for_form_input`"
+    end
+
     default_html_attributes["required"] = input.required
     default_html_attributes["pattern"]  = input.pattern
     default_html_attributes["type"]     = input.type
-    default_html_attributes["name"]     = input.name
+    default_html_attributes["name"]     = if input.array?
+                                            "#{input.name}[]"
+                                          else
+                                            input.name
+                                          end
+
     if input.max
       default_html_attributes["max"] = input.max
     end
@@ -29,11 +40,17 @@ class Brut::FrontEnd::Components::Inputs::TextField < Brut::FrontEnd::Components
     if input.step
       default_html_attributes["step"] = input.step
     end
+    value = if input.array?
+              input.value[index]
+            else
+              input.value
+            end
+
     if input.type == "checkbox"
       default_html_attributes["value"] = "true"
-      default_html_attributes["checked"] = input.value == "true"
+      default_html_attributes["checked"] = value == "true"
     else
-      default_html_attributes["value"] = input.value
+      default_html_attributes["value"] = value
     end
     if !form.new? && !input.valid?
       default_html_attributes["data-invalid"] = true

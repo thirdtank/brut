@@ -30,8 +30,13 @@ class Brut::FrontEnd::Components::Inputs::Select < Brut::FrontEnd::Components::I
         end
       end
     end
+    name = if input.array?
+             "#{input.name}[]"
+           else
+             input.name
+           end
     Brut::FrontEnd::Components::Inputs::Select.new(
-      name: input.name,
+      name: name,
       options:,
       selected_value:,
       value_attribute:,

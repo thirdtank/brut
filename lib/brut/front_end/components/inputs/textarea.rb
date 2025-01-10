@@ -5,12 +5,23 @@ class Brut::FrontEnd::Components::Inputs::Textarea < Brut::FrontEnd::Components:
   #
   # @param [Brut::FrontEnd::Form} form The form that is being rendered. This method will consult this class to understand the requirements on this textarea so its HTML is generated correctly.
   # @param [String] input_name the name of the input, which should be a member of `form`
+  # @param [:not_applicable|Integer] index if this input is part of an array, this is the index into that array. This is used to get the input's value.
   # @param [Hash] html_attributes any additional HTML attributes to include on the `<textarea>` element.
-  def self.for_form_input(form:, input_name:, html_attributes: {})
+  def self.for_form_input(form:, input_name:, index: :not_applicable, html_attributes: {})
     default_html_attributes = {}
+
     input = form[input_name]
+
+    if input.array? && index == :not_applicable
+      raise ArgumentError,"Input '#{input_name}' is an array, however index was not supplied to `for_form_input`"
+    end
+
     default_html_attributes["required"] = input.required
-    default_html_attributes["name"]     = input.name
+    default_html_attributes["name"]     = if input.array?
+                                            "#{input.name}[]"
+                                          else
+                                            input.name
+                                          end
     if input.maxlength
       default_html_attributes["maxlength"] = input.maxlength
     end
@@ -25,7 +36,12 @@ class Brut::FrontEnd::Components::Inputs::Textarea < Brut::FrontEnd::Components:
         end
       end
     end
-    Brut::FrontEnd::Components::Inputs::Textarea.new(default_html_attributes.merge(html_attributes), input.value)
+    value = if input.array?
+              input.value[index]
+            else
+              input.value
+            end
+    Brut::FrontEnd::Components::Inputs::Textarea.new(default_html_attributes.merge(html_attributes), value)
   end
   # Create an instance
   #
