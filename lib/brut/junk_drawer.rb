@@ -52,6 +52,12 @@ end
 
 # A wrapper around a string to avoid adding a ton of methods to `String`.
 class RichString
+  def self.from_string(string,blank_is_nil:true)
+    if string.to_s.strip == "" && blank_is_nil
+      return nil
+    end
+    self.new(string)
+  end
   def initialize(string)
     @string = string.to_s
   end
