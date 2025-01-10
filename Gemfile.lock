@@ -80,6 +80,7 @@ GEM
     rackup (2.2.1)
       rack (>= 3)
     rake (13.2.1)
+    rdiscount (2.2.7.3)
     rexml (3.3.9)
     rspec (3.13.0)
       rspec-core (~> 3.13.0)
@@ -129,6 +130,7 @@ DEPENDENCIES
   brut!
   bundler
   rake
+  rdiscount
   rspec (~> 3.0)
   yard
 
