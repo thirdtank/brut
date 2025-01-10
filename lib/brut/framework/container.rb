@@ -49,11 +49,9 @@ class Brut::Framework::Container
   # @yieldreturn [Object] the value to use for this configuration option.  This is memoized, so the block will not be called again.
   #
   # @example Storing a static value
-  #
   #     container.store("num_retries",Integer,"Number of times to retry",10)
   #
   # @example Storing a dynamic value based on another one
-  #
   #     container.store("num_retries",Integer,"Number of times to retry",10)
   #     container.store("max_retry_ms",Integer,"Number of times to retry") { |num_retries|
   #       num_retries * 100
@@ -159,7 +157,6 @@ class Brut::Framework::Container
   # if the accessor method is called without parameters and without a block. See {#fetch}.
   #
   # @example
-  #
   #     Brut.container.store("num_retries",Integer,"Number of times to retry",10)
   #     Brut.container.num_retries # => 10
   def method_missing(sym,*args,&block)

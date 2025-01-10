@@ -42,7 +42,7 @@
 class Brut::SpecSupport::RSpecSetup
   # Create the setup with the given RSpec configuration.
   #
-  # @param [RSpec::Core::Configuration] config yielded from `RSpec.configure`
+  # @param [RSpec::Core::Configuration] rspec_config yielded from `RSpec.configure`
   def initialize(rspec_config:)
     @config = rspec_config
     SemanticLogger.default_level = ENV.fetch("LOGGER_LEVEL_FOR_TESTS","warn")

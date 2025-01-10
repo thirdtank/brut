@@ -50,7 +50,7 @@ class Brut::Framework::App
   # Configure a {Brut::FrontEnd::RouteHook} to be called before each request.
   #
   # @param [String] klass_name The name of the class that extends {Brut::FrontEnd::RouteHook} and implements #before.  This uses the
-  # name to avoid loading issues.
+  #                            name (not the class itself) to avoid loading issues.
   #
   # @return [Array] If no parameters given, returns all configured before hooks.
   def self.before(klass_name=nil)
@@ -65,7 +65,7 @@ class Brut::Framework::App
   # Configure a {Brut::FrontEnd::RouteHook} to be called after each request.
   #
   # @param [String] klass_name The name of the class that extends {Brut::FrontEnd::RouteHook} and implements #after.  This uses the
-  # name to avoid loading issues.
+  #                            name (not the class itself) to avoid loading issues.
   #
   # @return [Array] If no parameters given, returns all configured after hooks.
   def self.after(klass_name=nil)
