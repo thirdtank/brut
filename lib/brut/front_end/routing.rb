@@ -109,7 +109,11 @@ class Brut::FrontEnd::Routing
       handler_class_match || form_class_match
     }
     if !route
-      raise ArgumentError,"There is no configured route for #{handler_class}"
+      if handler_class.ancestors.include?(Brut::FrontEnd::Form)
+        raise ArgumentError,"There is no configured route for the form #{handler_class} and/or the handler class for this form doesn't exist"
+      else
+        raise ArgumentError,"There is no configured route for #{handler_class}"
+      end
     end
     route
   end
