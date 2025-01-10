@@ -1,4 +1,20 @@
+# Container for request-specific information that serves as the source of what can be automaticall passed to various methods by Brut.
+#
+# The intention for this class is to provide access to the 80% of stuff needed by most requests, to alleviate the need to have to dig
+# into `env` or the Rack request.  This also allows arbitrary information to be inserted and made available later.
+#
+# Several methods of Brut objects take keyword arguments in their initializer or a particular method.  The names of those keyword
+# arguments correspond to values that are contained by this class.  Thus, if you are creating, say, a {Brut::FrontEnd::Page} subclass,
+# and create an initializer for it that accepts the `clock:` keyword argument, the managed instance of {Clock} will be passed into it
+# when Brut creates an instance of the class.
 class Brut::FrontEnd::RequestContext
+  # Create a new RequestContext based on some of the information provided by Rack
+  #
+  # @param [Hash] env the Rack `env` object, as available to any middleware
+  # @param [Brut::FrontEnd::Session] session the current session, noting that this is the Brut (or your app) session class and not the Rack session.
+  # @param [Brut::FrontEnd::Flash] flash the current flash
+  # @param [true|false] xhr true if this is an XHR request.
+  # @param [Object] body the `request.body` as provided by Rack
   def initialize(env:,session:,flash:,xhr:,body:)
     @hash = {
       env:,
@@ -12,11 +28,20 @@ class Brut::FrontEnd::RequestContext
   end
 
 
+  # Set an arbitrary value that can be injected later
+  # @param [String|Symbol] key the name of the value. This is converted to a symbol.
+  # @param [Object] value the value to map. Should not be nil.
   def []=(key,value)
     key = key.to_sym
     @hash[key] = value
   end
 
+  # Access the given value, raising an exception if it has not been set or if it's nil. 
+  # @param [String|Symbol] key the value to fetch.
+  #
+  # @return [Object] the mapped value
+  #
+  # @raise [ArgumentError] if `key` was never mapped or maps to `nil`.
   def fetch(key)
     if self.key?(key)
       value = self[key]
@@ -30,19 +55,94 @@ class Brut::FrontEnd::RequestContext
     end
   end
 
+  # Access a given value, returning `nil` if it's not mapped or is `nil`
+  # @param [String|Symbol] key the value to get
+  # @return [Object] the mapped value
   def [](key)
     @hash[key.to_sym]
   end
 
+  # Check if a given value has been mapped.
+  # @param [String|Symbol] key the value to check
+  # @return [true|false] if the value is mapped. Note that if `nil` was injected, this method returns `true`.
   def key?(key)
     @hash.key?(key.to_sym)
   end
 
-  # Returns a hash suitable to passing into this class' constructor.
+  # Based on `klass`' constructor, returns a Hash that maps all keywords it requires to the values stored in this
+  # `RequestContext`. It is assumed that `request_params:` contains the query parameters so they can be injected.
+  # The {Brut::FrontEnd::Routing::Route} can also be injected to pass in.
+  #
+  # @example
+  #     class SomeClass
+  #       def initialize(flash:,clock:,date:)
+  #         # ...
+  #       end
+  #     end
+  #    
+  #     hash = request_context.as_constructor_args(
+  #       SomeClass,
+  #       request_params: { date: "2024-11-11" }
+  #     )
+  #    
+  #     # hash contains:
+  #     # {
+  #     #   flash: «Flash used to create the RequestContext»,
+  #     #   clock: «Clock used to create the RequestContext»,
+  #     #   date: "2024-11-11",
+  #     # }
+  #    
+  #     object = SomeClass.new(**hash)
+  #
+  # @param [Class] klass a class that is to be instantiated entirely by the contents of this `RequestContext`.
+  # @param [Hash] request_params Query string parameters provided by Rack.
+  # @param [Brut::FrontEnd::Routing::Route] route the route that triggered the request.
+  # @return [Hash] can be splatted to keyword arguments and passed to the constructor of `klass`
+  #
+  # @raise [ArgumentError] if the constructor has any non-keyword arguments, or if any required keyword argument is
+  #                        not present in this `RequestContext`.
   def as_constructor_args(klass, request_params:, route:nil)
     args_for_method(method: klass.instance_method(:initialize), request_params:, form: nil, route:)
   end
 
+  # Based on `object`' method, returns a Hash that maps all keywords it requires to the values stored in this
+  # `RequestContext`. It is assumed that `request_params:` contains the query parameters so they can be injected.
+  # It is also assumed that `form:` is the {Brut::FrontEnd::Form} that is provided as part of the request.
+  # The {Brut::FrontEnd::Routing::Route} can also be injected to pass in.
+  #
+  # @example
+  #     class SomeClass
+  #       def doit(flash:,clock:,date:)
+  #         # ...
+  #       end
+  #     end
+  #    
+  #     object = SomeClass.new
+  #    
+  #     hash = request_context.as_method_args(
+  #       object,
+  #       :doit,
+  #       request_params: { date: "2024-11-11" }
+  #     )
+  #    
+  #     # hash contains:
+  #     # {
+  #     #   flash: «Flash used to create the RequestContext»,
+  #     #   clock: «Clock used to create the RequestContext»,
+  #     #   date: "2024-11-11",
+  #     # }
+  #    
+  #     result = object.doit(**hash)
+  #
+  # @param [Class] object an object whose method is to be called that requires some of the contents of this `RequestContext`.
+  # @param [Symbol] method_name name of the method that will be called.
+  # @param [Hash] request_params Query string parameters provided by Rack.
+  # @param [Brut::FrontEnd::Routing::Route] route the route that triggered the request.
+  # @param [Brut::FrontEnd::Form] form the form that was submitted with this request. May be `nil`.
+  # @return [Hash] can be splatted to keyword arguments and passed to the constructor of `klass`
+  #
+  # @raise [ArgumentError] if the method has any non-keyword arguments, or if any required keyword argument is
+  #                        not present in this `RequestContext`.
   def as_method_args(object, method_name, request_params:,form:,route:nil)
     args_for_method(method: object.method(method_name), request_params:, form:,route:)
   end
