@@ -203,6 +203,7 @@ class Brut::FrontEnd::Component
       component(Brut::FrontEnd::Components::Time.new(**args))
     end
 
+    # Render the {Brut::FrontEnd::Components::ConstraintViolations} component for the given form's input.
     def constraint_violations(form:, input_name:, message_html_attributes: {}, **html_attributes)
       component(
         Brut::FrontEnd::Components::ConstraintViolations.new(

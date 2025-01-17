@@ -24,6 +24,9 @@ class Brut::FrontEnd::Forms::ValidityState
   # Returns true if there are no constraint violations
   def valid? = @constraint_violations.empty?
 
+  # Returns true if there are constraint violations
+  def constraint_violations? = !self.valid?
+
   # Set a server-side constraint violation. This is essentially arbitrary and dependent
   # on your use-case.
   #
