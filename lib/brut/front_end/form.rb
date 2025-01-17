@@ -40,8 +40,18 @@ class Brut::FrontEnd::Form
     @params = params.except(*unknown_params)
     @new = params_empty?(@params)
     @inputs = self.class.input_definitions.map { |name,input_definition|
-      input = input_definition.make_input(value: @params[name] || @params[name.to_sym])
-      [ name, input ]
+      value = @params[name] || @params[name.to_sym]
+      inputs = if value.kind_of?(Array)
+                 value.map { |one_value|
+                   input_definition.make_input(value: one_value)
+                 }
+               else
+                 [
+                   input_definition.make_input(value:)
+                 ]
+               end
+
+      [ name, inputs ]
     }.to_h
   end
 
@@ -54,15 +64,31 @@ class Brut::FrontEnd::Form
   # Access an input with the given name
   #
   # @param [String|Symbol] input_name the name of the input, as passed to {Brut::FrontEnd::Forms::InputDeclarations#input} et. al.
+  # @param [Integer] index the index of the input, when using arrays.
   # @return [Brut::FrontEnd::Forms::Input]
-  def [](input_name)
+  def input(input_name, index: nil)
+    index ||= 0
+    inputs = self.inputs(input_name)
+    input = inputs[index]
+    if input.nil?
+      input_definition = self.class.input_definitions.fetch(input_name.to_s)
+      input = input_definition.make_input(value:"")
+      inputs[index] = input
+    end
+    input
+  end
+
+  # Return all inputs for the given name.
+  # @param [String|Symbol] input_name the name of the input, as passed to {Brut::FrontEnd::Forms::InputDeclarations#input} et. al.
+  # @return [Brut::FrontEnd::Forms::Input]
+  def inputs(input_name)
     @inputs.fetch(input_name.to_s)
   rescue KeyError => ex
     raise Brut::Framework::Errors::Bug, "Form does not define the input '#{input_name}'. You must add this to your form. Found these inputs: #{@inputs.keys.join(', ')}"
   end
 
   # Returns true if this form has constraint violations.
-  def constraint_violations? = !@inputs.values.all?(&:valid?)
+  def constraint_violations? = !@inputs.values.flatten.all?(&:valid?)
 
   # Set a server-side constraint violation on a given input's name.
   #
@@ -70,9 +96,11 @@ class Brut::FrontEnd::Form
   # @param [String] key the i18n key fragment representing the constraint. Assume this will be appended to `general.cv.be.` in order
   # to form the entire key.
   # @param [Hash] context additional information about the violation, typically interpolated values for the I18n message.
-  def server_side_constraint_violation(input_name:, key:, context:{})
-    self[input_name].server_side_constraint_violation(key,context)
+  def server_side_constraint_violation(input_name:, key:, index: nil, context:{})
+    index ||= 0
+    self.input(input_name, index:).server_side_constraint_violation(key,context)
   end
+
 
   # Returns a map of any input with a constraint violation and the list of violations. The keys in the hash are input names and the
   # values are arrays of {Brut::FrontEnd::Forms::ValidityState} instances.
@@ -81,22 +109,27 @@ class Brut::FrontEnd::Form
   # @return [Hash] map of input names to arrays of validity states
   #
   def constraint_violations(server_side_only: false)
-    @inputs.map { |input_name, input|
-      if input.valid?
-        nil
-      else
-        [
-          input_name,
-          input.validity_state.select { |constraint|
-            if server_side_only
-              !constraint.client_side?
-            else
-              true
-            end
-          }
-        ]
-      end
-    }.compact.to_h
+    @inputs.map { |input_name, inputs|
+      inputs.map.with_index { |input,index|
+        if input.valid?
+          nil
+        else
+          [
+            input_name,
+            [
+              input.validity_state.select { |constraint|
+                if server_side_only
+                  !constraint.client_side?
+                else
+                  true
+                end
+              },
+              index
+            ]
+          ]
+        end
+      }.compact
+    }.select { !it.empty? }.flatten(1).to_h
   end
 
 private

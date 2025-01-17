@@ -1,14 +1,26 @@
-RSpec::Matchers.define :have_constraint_violation do |field,key:|
+RSpec::Matchers.define :have_constraint_violation do |field,key:,index:nil|
   match do |form|
-    Brut::SpecSupport::Matchers::HaveConstraintViolation.new(form,field,key).matches?
+    Brut::SpecSupport::Matchers::HaveConstraintViolation.new(form,field,key,index).matches?
   end
 
   failure_message do |form|
-    analysis = Brut::SpecSupport::Matchers::HaveConstraintViolation.new(form,field,key)
+    analysis = Brut::SpecSupport::Matchers::HaveConstraintViolation.new(form,field,key,index)
     if analysis.found_field?
       "Field '#{field}' did not have key '#{key}' as a violation.  These keys were found: #{analysis.keys_on_field_found.map(&:to_s).join(", ")}"
     else
-      "Field '#{field}' had no errors.  These fields DID: #{analysis.fields_found.map(&:to_s).join(", ")}"
+      field_searched_for = if index.nil?
+                             field
+                           else
+                             "#{field}, index #{index}"
+                           end
+      fields_with_errors = analysis.fields_found.map { |(field,index)|
+        if index.nil?
+          field
+        else
+          "#{field}, index #{index}"
+        end
+      }.join(", ")
+      "Field '#{field_searched_for}' had no errors.  These fields DID: #{fields_with_errors}"
     end
   end
 
@@ -21,21 +33,22 @@ class Brut::SpecSupport::Matchers::HaveConstraintViolation
   attr_reader :fields_found
   attr_reader :keys_on_field_found
 
-  def initialize(form, field, key)
+  def initialize(form, field, key, index)
     if !form.kind_of?(Brut::FrontEnd::Form)
       raise "#{self.class} only works with forms, not #{form.class}"
     end
     @form  = form
     @field = field.to_s
     @key   = key.to_s
+    @index = index || 0
 
     @matches             = false
     @found_field         = false
     @fields_found        = Set.new
     @keys_on_field_found = Set.new
 
-    @form.constraint_violations.each do |input_name, constraint_violations|
-      if input_name.to_s == @field
+    @form.constraint_violations.each do |input_name, (constraint_violations, index)|
+      if input_name.to_s == @field && index == @index
         @found_field = true
         constraint_violations.each do |constraint_violation|
           if constraint_violation.key.to_s == @key
@@ -45,7 +58,7 @@ class Brut::SpecSupport::Matchers::HaveConstraintViolation
           end
         end
       else
-        @fields_found << input_name.to_s
+        @fields_found << [ input_name.to_s, index ]
       end
     end
   end

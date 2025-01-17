@@ -27,8 +27,25 @@ module Brut::FrontEnd::Forms::InputDeclarations
   def add_input_definition(input_definition)
     @input_definitions ||= {}
     @input_definitions[input_definition.name] = input_definition
-    define_method input_definition.name do
-      self[input_definition.name].value
+    if input_definition.array?
+      define_method input_definition.name do |index=nil|
+        if index.nil?
+          raise ArgumentError,"#{input_definition.name} is an array - you must provide an index to access one of its values"
+        end
+        self.input(input_definition.name, index:).value
+      end
+      define_method "#{input_definition.name}_each" do |&block|
+        self.inputs(input_definition.name).each_with_index do |input,i|
+          block.(input.value,i)
+        end
+      end
+    else
+      define_method input_definition.name do |index_that_should_be_omitted=nil|
+        if !index_that_should_be_omitted.nil?
+          raise ArgumentError,"#{input_definition.name} is not an array - do not provide an index when accessing its value"
+        end
+        self.input(input_definition.name, index: 0).value
+      end
     end
   end
 
@@ -45,7 +62,13 @@ module Brut::FrontEnd::Forms::InputDeclarations
     end
   end
 
+  # Return a map of input names to input definitions
+  #
+  # @return [Hash<String,Brut::FrontEnd::Forms::InputDefinition>] a map of all defined input names to the definitions.
+  #
   # @!visibility private
-  def input_definitions = @input_definitions || {}
+  def input_definitions
+    @input_definitions ||= {}
+  end
 end
 

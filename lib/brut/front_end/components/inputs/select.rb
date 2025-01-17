@@ -9,6 +9,7 @@ class Brut::FrontEnd::Components::Inputs::Select < Brut::FrontEnd::Components::I
   # @param [Object] selected_value The currently-selected value for the select. Can be `nil` if nothing is selected.
   # @param [Symbol|String] value_attribute the name of an attribute or no-parameter method that can be called on objects inside `options` to get the value to use in the select input.  This should be unique amongst the options, and is usually an id.
   # @param [Symbol|String] option_text_attribute the name of an attribute or no-parameter method that can be called on objects inside `options` to get the actual text of the option shown to the user.  This should probably allow for I18n.
+  # @param [Integer] index if this input is part of an array, this is the index into that array. This is used to get the input's value.
   # @param [Hash] html_attributes any additional HTML attributes to include on the `<select>` element.
   # @param [false|true|Hash] include_blank configure how and if to include a blank element in the select. If this is false, there will be no blank element. If it's `true`, there will be one with no value nor text.  If this is a `Hash` it must contain a `value:` key and `text_content:` key to be used as the `value` attribute and option text content, respectively.
   def self.for_form_input(form:,
@@ -18,9 +19,11 @@ class Brut::FrontEnd::Components::Inputs::Select < Brut::FrontEnd::Components::I
                           include_blank: false,
                           value_attribute:,
                           option_text_attribute:,
+                          index: nil,
                           html_attributes: {})
     default_html_attributes = {}
-    input = form[input_name]
+    index ||= 0
+    input = form.input(input_name, index:)
     default_html_attributes["required"] = input.required
     if !form.new? && !input.valid?
       default_html_attributes["data-invalid"] = true

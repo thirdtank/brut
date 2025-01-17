@@ -24,17 +24,20 @@ class Brut::FrontEnd::Components::ConstraintViolations < Brut::FrontEnd::Compone
   # @param [Brut::FrontEnd::Form] form the form in which this component is being rendered.
   # @param [String|Symbol] input_name the name of the input, based on what was used in the form object.
   # @param [Hash] html_attributes attributes to be placed on the outer `<brut-cv-messages>` element.
+  # @param [Integer] index index of the input, for array-based inputs
   # @param [Hash] message_html_attributes attributes to be placed on each inner `<brut-cv>` element.
-  def initialize(form:, input_name:, message_html_attributes: {}, **html_attributes)
-    @form                    = form
-    @input_name              = input_name
-    @html_attributes         = html_attributes
-    @message_html_attributes = message_html_attributes
+  def initialize(form:, input_name:, index: nil, message_html_attributes: {}, **html_attributes)
+    @form                    =  form
+    @input_name              =  input_name
+    @array                   = !index.nil?
+    @index                   =  index || 0
+    @html_attributes         =  html_attributes
+    @message_html_attributes =  message_html_attributes
   end
 
   def render
     html_attributes = {
-      "input-name": @input_name
+      "input-name": @array ? "#{@input_name}[]" : @input_name
     }.merge(@html_attributes)
 
     message_html_attributes = {
@@ -42,7 +45,7 @@ class Brut::FrontEnd::Components::ConstraintViolations < Brut::FrontEnd::Compone
     }.merge(@message_html_attributes)
 
     html_tag("brut-cv-messages", **html_attributes) do
-      @form[@input_name].validity_state.select { |constraint|
+      @form.input(@input_name, index: @index).validity_state.select { |constraint|
         !constraint.client_side?
       }.map { |constraint|
         html_tag("brut-cv",**message_html_attributes) do
