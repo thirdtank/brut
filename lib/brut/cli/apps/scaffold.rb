@@ -431,16 +431,30 @@ end}
     end
   end
   class Form < Brut::CLI::Command
+    class Route < Brut::FrontEnd::Routing::FormRoute
+      def initialize(path_template)
+        path_template = "/#{path_template}".gsub(/\/\//,"/")
+        super(path_template)
+      end
+      def locate_handler_class(suffix,preposition, on_missing: :raise)
+        begin
+          super(suffix,preposition,on_missing: :raise).name.split(/::/)
+        rescue Brut::Framework::Errors::NoClassForPath => ex
+          class_name_path = ex.class_name_path
+          ex.class_name_path
+        end
+      end
+    end
     description "Create a new form and handler"
-    args "FormName"
+    args "form_route"
     def execute
       if args.length != 1
         raise "form requires exactly one argument, got #{args.length}"
       end
-      normalized_arg = RichString.new(args[0]).camelize.to_s.gsub(/Form$/,"").gsub(/Handler$/,"")
+      route = Route.new(args[0])
 
-      class_name         = RichString.new(normalized_arg + "Form")
-      handler_class_name = RichString.new(normalized_arg + "Handler")
+      class_name         = RichString.from_string(route.form_class.join("::"))
+      handler_class_name = RichString.from_string(route.handler_class.join("::"))
 
       relative_path         = class_name.underscorized
       handler_relative_path = handler_class_name.underscorized
@@ -452,6 +466,7 @@ end}
       source_path         = Pathname( (forms_src_dir      / relative_path).to_s + ".rb" )
       handler_source_path = Pathname( (handlers_src_dir   / handler_relative_path).to_s + ".rb" )
       handler_spec_path   = Pathname( (handlers_specs_dir / handler_relative_path).to_s + ".spec.rb" )
+      app_path            = Pathname( Brut.container.app_src_dir / "app.rb" )
 
       exists = [
         source_path,
@@ -467,30 +482,25 @@ end}
         return 1
       end
 
-      if global_options.dry_run?
-        out.puts "Ensure directories exist for source code:\n\n"
-        out.puts "  #{source_path.dirname}"
-        out.puts "  #{handler_source_path.dirname}"
-        out.puts "  #{handler_spec_path.dirname}"
-      else
-        FileUtils.mkdir_p source_path.dirname
-        FileUtils.mkdir_p handler_source_path.dirname
-        FileUtils.mkdir_p handler_spec_path.dirname
+      FileUtils.mkdir_p source_path.dirname,         noop: global_options.dry_run?
+      FileUtils.mkdir_p handler_source_path.dirname, noop: global_options.dry_run?
+      FileUtils.mkdir_p handler_spec_path.dirname,   noop: global_options.dry_run?
 
-        File.open(source_path,"w") do |file|
-          file.puts %{class #{class_name} < AppForm
+      form_code = %{class #{class_name} < AppForm
   input :some_field, minlength: 3
 end}
-        end
-        File.open(handler_source_path,"w") do |file|
-          file.puts %{class #{handler_class_name} < AppHandler
-  def handle(form:) # add other args here as needed
+      handler_code = begin
+        handle_params = ([ :form ] + route.path_params).map { |param|
+          "#{param}:"
+        }.join(", ")
+        %{class #{handler_class_name} < AppHandler
+  def handle(#{handle_params}) # add other args here as needed
     raise "You need to implement your Handler\#{form.class.input_definitions.length < 2 ? " and likely your Form as well" : ""}"
   end
 end}
-        end
-        File.open(handler_spec_path,"w") do |file|
-          file.puts %{require "spec_helper"
+                     end
+
+      spec_code = %{require "spec_helper"
 
 RSpec.describe #{handler_class_name} do
   subject(:handler) { described_class.new }
@@ -500,19 +510,61 @@ RSpec.describe #{handler_class_name} do
     end
   end
 end}
+
+      route_code = "form \"#{route.path_template}\""
+
+      if global_options.dry_run?
+        out.puts app_path.relative_path_from(Brut.container.project_root)
+        out.puts "will contain:\n\n#{route_code}\n\n"
+        out.puts source_path.relative_path_from(Brut.container.project_root)
+        out.puts "will contain:\n\n#{form_code}\n\n"
+        out.puts handler_source_path.relative_path_from(Brut.container.project_root)
+        out.puts "will contain:\n\n#{handler_code}\n\n"
+        out.puts handler_spec_path.relative_path_from(Brut.container.project_root)
+        out.puts "will contain:\n\n#{spec_code}\n\n"
+      else
+        class_name_length = [ class_name.length, handler_class_name.length, "Spec".length ].max
+        printf_string = "%-#{class_name_length}s in %s\n"
+        out.puts "\n\n"
+        out.printf printf_string,class_name,source_path.relative_path_from(Brut.container.project_root)
+        out.printf printf_string,handler_class_name, handler_source_path.relative_path_from(Brut.container.project_root)
+        out.printf printf_string,"Spec", handler_spec_path.relative_path_from(Brut.container.project_root)
+
+        app_contents = File.read(app_path).split(/\n/)
+        found_routes = false
+        routes_existed = false
+        File.open(app_path,"w") do |file|
+          in_routes = false
+          app_contents.each do |line|
+            if line =~ /^  routes do\s*$/
+              in_routes = true
+            end
+            if in_routes && line.include?(route_code)
+              routes_existed = true
+            end
+            if in_routes && line =~ /^  end\s*$/
+              if !routes_existed
+                out.puts "Inserted route into #{app_path.relative_path_from(Brut.container.project_root)}"
+                file.puts "    #{route_code}"
+              end
+              found_routes = true
+              in_routes = false
+            end
+            file.puts line
+          end
+        end
+
+        File.open(source_path,"w") { it.puts form_code }
+        File.open(handler_source_path,"w") { it.puts handler_code }
+        File.open(handler_spec_path,"w") { it.puts spec_code }
+        if !found_routes
+          out.puts "Could not find routes declaration in #{app_path.relative_path_from(Brut.container.project_root)}"
+          out.puts "Please add this to wherever you have defined your routes:\n\n#{route_code}\n\n"
+        elsif routes_existed
+          out.puts "Routes declaration in #{app_path.relative_path_from(Brut.container.project_root)} contained the route defition already"
+          out.puts "Please make sure everything is correct.  Here is the defintion that was not inserted:\n\n#{route_code}"
         end
       end
-      ## TODO: Extract or copy this to the other generators
-      class_name_length = [ class_name.length, handler_class_name.length, "Spec".length ].max
-      printf_string = if global_options.dry_run?
-                        "%-#{class_name_length}s would be created in %s\n"
-                      else
-                        "%-#{class_name_length}s in %s\n"
-                      end
-      out.puts "\n\n"
-      out.printf printf_string,class_name,source_path.relative_path_from(Brut.container.project_root)
-      out.printf printf_string,handler_class_name, handler_source_path.relative_path_from(Brut.container.project_root)
-      out.printf printf_string,"Spec", handler_spec_path.relative_path_from(Brut.container.project_root)
       0
     end
   end
