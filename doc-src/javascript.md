@@ -6,7 +6,7 @@ Brut does not prevent you from using any front-end framework you like.  You can 
 Brut is based around server-generated HTML and the web platform.  This means that Brut would like you to use custom elements for any
 client-side behavior you need, and to do so with progressive enhancement.
 
-To that end, Brut included BrutJS, which is a set of custom elements and ancillary JavaScript you can use to build client-side
+To that end, Brut includes BrutJS, which is a set of custom elements and ancillary JavaScript you can use to build client-side
 behavior.
 
 By default, your `index.js` will look like this:
@@ -31,7 +31,7 @@ Please refer to BrutJS's documentation for everything that is included, but here
 {file:doc-src/forms.md Forms} outlines Brut's server-side form support.  Brut provides custom elements to allow you to unify client
 and server side constraint validations, and make the process a bit easier to manage with CSS.
 
-First, surround a form with a `<brut-form>` will place `data-submitted` onto the `<form>` *only* when the user attempts to submit the
+First, surrounding a form with a `<brut-form>` will place `data-submitted` onto the `<form>` *only* when the user attempts to submit the
 form.  You can use this in your CSS to prevent showing error messages before a user has submitted.
 
 Second, you can use `<brut-cv-messages>` and `<brut-cv>` to control the error messages that are shown when the browser detects
@@ -61,7 +61,7 @@ component.  Along with `for_form_input`, the following HTML will be generated:
 
 When any element of the form causes a validity event to be fired, `<brut-form>` will locate the appropriate `<brut-cv-messages>` and
 insert the appropriate `<brut-cv>` elements.  Suppose the user submitted this form. Since the `name` input is required, the form
-submission wouldn't happen, and the resulting HTMl would look like so:
+submission wouldn't happen, and the resulting HTML would look like so:
 
     <label>
       <input type="text" name="name" required>
@@ -75,7 +75,7 @@ Now, assuming your layout used `<brut-i18n-translation>` custom elements, for ex
 
     <brut-i18n-translation key="general.cv.fe.valueMissing">%{field} is required</brut-i18n-translation>
 
-The `<brut-cv>` custom element will find this and replace its `textContent`, result in the following HTML:
+The `<brut-cv>` custom element will find this and replace its `textContent`, resulting   in the following HTML:
 
     <label>
       <input type="text" name="name" required>
@@ -103,7 +103,7 @@ was given, but it's taken already, `ConstraintViolations` would render this HTML
 
 ### Confirming Dangerous Actions
 
-Often, you wan to use JavaScript to confirm the submission of a form whose action is considered dangerous to the user or hard to undo.
+Often, you want to use JavaScript to confirm the submission of a form whose action is considered dangerous to the user or hard to undo.
 This can be achieved with `<brut-confirm-submit>`
 
     <form>
@@ -116,7 +116,7 @@ This can be achieved with `<brut-confirm-submit>`
 By default, this will use the browser's built-in `window.confirm`, however you can also use a `<dialog>` element as well.
 
 If the generated HTML includes a `<dialog>`, you can surround it with `<brut-confirmation-dialog>` to indicate it should be used for
-confirmation.  The `<dialog>` should have an `<h1>` where the message will be placed and two buttons, one wiht `value="ok"` and one
+confirmation.  The `<dialog>` should have an `<h1>` where the message will be placed and two buttons, one with `value="ok"` and one
 with `value="cancel"`.
 
 
@@ -134,7 +134,7 @@ button with `value` of `"ok"`, the form submission goes through. Otherwise, it d
 ### Ajax Form Submission
 
 To submit a form via Ajax, you can use `<brut-ajax-submit>` around the `<button>` that should submit the form with Ajax.  This element
-attempts to provide a fault-tolerante user experience and will set various attributes on itself to allow you to change styling during
+attempts to provide a fault-tolerant user experience and will set various attributes on itself to allow you to change styling during
 the various phases of the request.
 
 If the submission works, it will fire a `brut:submitok` event that your custom code can receive and do whatever makes the most sense
@@ -171,7 +171,7 @@ When the browser renders this—assuming JavaScript is enabled—it will render 
 You wouldn't want to do this, but this simple element demonstrates both how to make your own and that custom elements in your app are
 properly configured.
 
-This element is very close to a vanilla custom element, but it extends `BaseCustomElement`, which is provided by Brut, which includes
+This element is very close to a vanilla custom element, but it extends `BaseCustomElement`, which is provided by BrutJS, which includes
 z few quality-of-life improvements. Let's walk through the code.
 
 First, we extends `BaseCustomElement` (which extends `HTMLElement`) and define a static attribute, `tagName` that will be the
@@ -182,7 +182,8 @@ element's tag name you can use in your HTML:
     class Example extends BaseCustomElement {
       static tagName = "cc-example"
 
-Next, we'll define the attributes of our element using `observedAttributes`, which is part of the custom element spec:
+Next, we'll define the attributes of our element using `observedAttributes`, which is part of the custom element spec (and not
+specific to BrutJS):
 
       static observedAttributes = [
         "transform",
@@ -196,7 +197,7 @@ Next, we'll set a private attribute to hold a default value for the `transform` 
       #transform = "upper"
 
 Now, we want to know when `transform` changes.  Normally, you'd implement `attributeChangedCallback` and check its `name` parameter.
-`BaseCustomElement` allows you to do this more directly by created a `xxxChangedCallback` method for each attribute in
+`BaseCustomElement` allows you to do this more directly by creating a `xxxChangedCallback` method for each attribute in
 `observedAttributes` that you want to know about.  For `transform`, that means implementing `transformChangedCallback`:
 
       transformChangedCallback({newValue}) {

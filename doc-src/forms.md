@@ -73,14 +73,14 @@ validations, and "name" is only two characters, the form object will see that th
 ### Define Your Handler
 
 Handlers are like controller methods in Rails - they receive the data from a request and process it.  Unlike a Rails controller, a
-Handler is a normal class. It implements the method `handle!`.  The method signature you use for `handle!` determines what data will
-be passed into it.  The return value of `handle!` determines what happens after processing is complete.
+Handler is a normal class. It implements the method `handle`.  The method signature you use for `handle` determines what data will
+be passed into it.  The return value of `handle` determines what happens after processing is complete.
 
 Suppose that creating a widget requires that the name be unique.  If it's not, we re-render the page containing the form and show the
 user the errors.  Suppose that the page in question is `/new_widget`, which would be the class `NewWidgetPage`.
 
     class NewWidgetHandler < AppHandler
-      def handle!(form:)
+      def handle(form:)
         if !form.constraint_violations?
           if DB::Widget[name: form.name]
             form.server_side_constraint_violation(input_name: :name, key: :not_unique)

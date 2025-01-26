@@ -27,7 +27,7 @@ You can create these with `bin/scaffold`:
 
     bin/scaffold form NewWidget
 
-`action` is used when you have a form to submit, but it has no user controlers to collect the data to submit.  This is akin to Rails'
+`action` is used when you have a form to submit, but it has no user controls to collect the data to submit.  This is akin to Rails'
 `button_to` where the URL describes everything needed to handle a user's action.  In the example above, you can imagine a form with a
 method to `/archive_widget/<%= widget.id %>` that has a button labeled "Archive Widget".  All that's needed is to submit to the
 server.
