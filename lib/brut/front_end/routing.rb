@@ -173,6 +173,16 @@ class Brut::FrontEnd::Routing
       @handler_class = self.locate_handler_class(self.suffix,self.preposition)
     end
 
+    def path_params
+      @path_template.split(/\//).map { |path_part|
+        if path_part =~ /^:(.+)$/
+          $1.to_sym
+        else
+          nil
+        end
+      }.compact
+    end
+
     def path(**query_string_params)
       path = @path_template.split(/\//).map { |path_part|
         if path_part =~ /^:(.+)$/
