@@ -4,6 +4,7 @@ module Brut
     # errors
     module Errors
       autoload(:Bug,"brut/framework/errors/bug")
+      autoload(:NotImplemented,"brut/framework/errors/not_implemented")
       autoload(:NotFound,"brut/framework/errors/not_found")
       autoload(:MissingParameter,"brut/framework/errors/missing_parameter")
       autoload(:AbstractMethod,"brut/framework/errors/abstract_method")
