@@ -182,11 +182,22 @@ class Brut::FrontEnd::Component
     # Creates the form surrounding the contents of the block yielded to it. If the form's action is a POST, it will include a CSRF token.
     # If the form's action is GET, it will not.
     #
-    # the HTML attributes `:action` or `:method`. Both will be derived from this object.
+    # @example Route without parameters
+    #   <%= form_tag(for: NewWidgetForm, class: "new-form") do %>
+    #     <input type="text" name="name">
+    #     <button>Create</button>
+    #   <% end %>
+    #
+    # @example Route with parameters
+    #   <%= form_tag(for: SaveWidgetWithIdForm, route_params: { id: widget.external_id }, class: "new-form") do %>
+    #     <input type="text" name="name">
+    #     <button>Save</button>
+    #   <% end %>
+    #
     # @param route_params [Hash] if the form requires route parameters, their values must be passed here so that the HTML `action`
     # attribute can be constructed properly.
     # @param html_attributes [Hash] any additional attributes for the `<form>` tag
-    # @option html_attributes [Class|Brut::FrontEnd::Form] :for the form object or class representing this HTML form. If you pass this, you may not pass
+    # @option html_attributes [Class|Brut::FrontEnd::Form] :for the form object or class representing this HTML form. If you pass this, you may not pass the HTML attributes `:action` or `:method`. Both will be derived from this object.
     # @option html_attributes [String] «any-other-key» attributes to set on the `<form>` tag
     # @yield No parameters given. This is expected to return additional markup to appear inside the `<form>` element.
     def form_tag(route_params: {}, **html_attributes,&contents)
