@@ -357,80 +357,7 @@ end}
       0
     end
   end
-  class Handler < Brut::CLI::Command
-    description "Create a handler"
-    args "HandlerName"
-    def execute
-      if args.length != 1
-        raise "handler requires exactly one argument, got #{args.length}"
-      end
-      normalized_arg = args[0].gsub(/Handler$/,"")
-
-      handler_class_name = RichString.new(normalized_arg + "Handler")
-
-      handler_relative_path = handler_class_name.underscorized
-
-      handlers_src_dir   = Brut.container.handlers_src_dir
-      handlers_specs_dir = Brut.container.handlers_specs_dir
-
-      handler_source_path = Pathname( (handlers_src_dir   / handler_relative_path).to_s + ".rb" )
-      handler_spec_path   = Pathname( (handlers_specs_dir / handler_relative_path).to_s + ".spec.rb" )
-
-      exists = [
-        handler_source_path,
-        handler_spec_path,
-      ].select(&:exist?)
-
-      if exists.any? && !global_options.overwrite?
-        exists.each do |path|
-          err.puts "'#{path.relative_path_from(Brut.container.project_root)}' exists already"
-        end
-        err.puts "Re-run with global option --overwrite to overwrite these files"
-        return 1
-      end
-
-      if global_options.dry_run?
-        out.puts "Ensure directories exist for source code:\n\n"
-        out.puts "  #{handler_source_path.dirname}"
-        out.puts "  #{handler_spec_path.dirname}"
-      else
-        FileUtils.mkdir_p handler_source_path.dirname
-        FileUtils.mkdir_p handler_spec_path.dirname
-
-        File.open(handler_source_path,"w") do |file|
-          file.puts %{class #{handler_class_name} < AppHandler
-  def handle() # add other args here as needed
-    raise "You need to implement your Handler"
-  end
-end}
-        end
-        File.open(handler_spec_path,"w") do |file|
-          file.puts %{require "spec_helper"
-
-RSpec.describe #{handler_class_name} do
-  subject(:handler) { described_class.new }
-  describe "#handle!" do
-    it "needs tests" do
-      expect(true).to eq(false)
-    end
-  end
-end}
-        end
-      end
-      ## TODO: Extract or copy this to the other generators
-      class_name_length = [ handler_class_name.length, "Spec".length ].max
-      printf_string = if global_options.dry_run?
-                        "%-#{class_name_length}s would be created in %s\n"
-                      else
-                        "%-#{class_name_length}s in %s\n"
-                      end
-      out.puts "\n\n"
-      out.printf printf_string,handler_class_name, handler_source_path.relative_path_from(Brut.container.project_root)
-      out.printf printf_string,"Spec", handler_spec_path.relative_path_from(Brut.container.project_root)
-      0
-    end
-  end
-  class Form < Brut::CLI::Command
+  class Action < Brut::CLI::Command
     class Route < Brut::FrontEnd::Routing::FormRoute
       def initialize(path_template)
         path_template = "/#{path_template}".gsub(/\/\//,"/")
@@ -445,34 +372,39 @@ end}
         end
       end
     end
-    description "Create a new form and handler"
-    args "form_route"
-    def execute
+    description "Create a handler for an action"
+    args "action_route"
+    opts.on "--http-method=METHOD", "If present, the action will be a path available on the given route and this HTTP method. If omitted, this will create an action available via POST"
+    def execute(form: false)
       if args.length != 1
-        raise "form requires exactly one argument, got #{args.length}"
+        raise "#{self.class.command_name} requires exactly one argument, got #{args.length}"
       end
       route = Route.new(args[0])
 
-      class_name         = RichString.from_string(route.form_class.join("::"))
+      form_class_name    = RichString.from_string(route.form_class.join("::"))
       handler_class_name = RichString.from_string(route.handler_class.join("::"))
 
-      relative_path         = class_name.underscorized
+      relative_path         = form_class_name.underscorized
       handler_relative_path = handler_class_name.underscorized
 
       forms_src_dir      = Brut.container.forms_src_dir
       handlers_src_dir   = Brut.container.handlers_src_dir
       handlers_specs_dir = Brut.container.handlers_specs_dir
 
-      source_path         = Pathname( (forms_src_dir      / relative_path).to_s + ".rb" )
+      form_source_path    = Pathname( (forms_src_dir      / relative_path).to_s + ".rb" )
       handler_source_path = Pathname( (handlers_src_dir   / handler_relative_path).to_s + ".rb" )
       handler_spec_path   = Pathname( (handlers_specs_dir / handler_relative_path).to_s + ".spec.rb" )
       app_path            = Pathname( Brut.container.app_src_dir / "app.rb" )
 
-      exists = [
-        source_path,
+      paths_to_check = [
         handler_source_path,
         handler_spec_path,
-      ].select(&:exist?)
+      ]
+      if form
+        paths_to_check << form_source_path
+      end
+
+      exists = paths_to_check.select(&:exist?)
 
       if exists.any? && !global_options.overwrite?
         exists.each do |path|
@@ -482,19 +414,24 @@ end}
         return 1
       end
 
-      FileUtils.mkdir_p source_path.dirname,         noop: global_options.dry_run?
+      if form
+        FileUtils.mkdir_p form_source_path.dirname, noop: global_options.dry_run?
+      end
       FileUtils.mkdir_p handler_source_path.dirname, noop: global_options.dry_run?
       FileUtils.mkdir_p handler_spec_path.dirname,   noop: global_options.dry_run?
 
-      form_code = %{class #{class_name} < AppForm
+      form_code = %{class #{form_class_name} < AppForm
   input :some_field, minlength: 3
 end}
       handler_code = begin
-        handle_params = ([ :form ] + route.path_params).map { |param|
-          "#{param}:"
-        }.join(", ")
+                       handle_params = []
+                       if form
+                         handle_params << :form
+                       end
+                       handle_params += route.path_params
+                       handle_params_code = handle_params.map { "#{it}:" }.join(", ")
         %{class #{handler_class_name} < AppHandler
-  def handle(#{handle_params}) # add other args here as needed
+  def handle(#{handle_params_code}) # add other args here as needed
     raise "You need to implement your Handler\#{form.class.input_definitions.length < 2 ? " and likely your Form as well" : ""}"
   end
 end}
@@ -511,22 +448,32 @@ RSpec.describe #{handler_class_name} do
   end
 end}
 
-      route_code = "form \"#{route.path_template}\""
+      route_code = if form
+                     "form \"#{route.path_template}\""
+                   elsif options.http_method.nil?
+                     "action \"#{route.path_template}\""
+                   else
+                     "path \"#{route.path_template}\", method: :#{options.http_method.downcase}"
+                   end
 
       if global_options.dry_run?
         out.puts app_path.relative_path_from(Brut.container.project_root)
         out.puts "will contain:\n\n#{route_code}\n\n"
-        out.puts source_path.relative_path_from(Brut.container.project_root)
-        out.puts "will contain:\n\n#{form_code}\n\n"
+        if form
+          out.puts form_source_path.relative_path_from(Brut.container.project_root)
+          out.puts "will contain:\n\n#{form_code}\n\n"
+        end
         out.puts handler_source_path.relative_path_from(Brut.container.project_root)
         out.puts "will contain:\n\n#{handler_code}\n\n"
         out.puts handler_spec_path.relative_path_from(Brut.container.project_root)
         out.puts "will contain:\n\n#{spec_code}\n\n"
       else
-        class_name_length = [ class_name.length, handler_class_name.length, "Spec".length ].max
+        class_name_length = [ form_class_name.length, handler_class_name.length, "Spec".length ].max
         printf_string = "%-#{class_name_length}s in %s\n"
         out.puts "\n\n"
-        out.printf printf_string,class_name,source_path.relative_path_from(Brut.container.project_root)
+        if form
+          out.printf printf_string,form_class_name,form_source_path.relative_path_from(Brut.container.project_root)
+        end
         out.printf printf_string,handler_class_name, handler_source_path.relative_path_from(Brut.container.project_root)
         out.printf printf_string,"Spec", handler_spec_path.relative_path_from(Brut.container.project_root)
 
@@ -554,7 +501,9 @@ end}
           end
         end
 
-        File.open(source_path,"w") { it.puts form_code }
+        if form
+          File.open(form_source_path,"w") { it.puts form_code }
+        end
         File.open(handler_source_path,"w") { it.puts handler_code }
         File.open(handler_spec_path,"w") { it.puts spec_code }
         if !found_routes
@@ -568,6 +517,16 @@ end}
       0
     end
   end
+
+  class Form < Action
+    description "Create a form and handler"
+    args "form_route"
+
+    def execute
+      super(form:true)
+    end
+  end
+
   class CustomElementTest < Brut::CLI::Command
     description "Create a test for a custom element in your app"
     args "path_to_js_files..."
