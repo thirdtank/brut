@@ -3,7 +3,7 @@ require "delegate"
 class Brut::SpecSupport::EnhancedNode < SimpleDelegator
   include RSpec::Matchers
 
-  # Return the Nokogiri::XML::Node for the given CSS selector.
+  # Return the only Nokogiri::XML::Node for the given CSS selector, if it exists.
   # If the selector matches more than one element, the test fails. If the selector 
   # matches one element, it is returned, and nil is returned if no elements match.
   def e(css_selector)
@@ -17,12 +17,24 @@ class Brut::SpecSupport::EnhancedNode < SimpleDelegator
     end
   end
 
-  # Retun the Nokogiri::XML::Node for the given CSS selector. If there is not
+  # Assert exactly one Nokogiri::XML::Node exists for the given CSS selector and return it. If there is not
   # exactly one matching node, the test fails.
   def e!(css_selector)
     element = css(css_selector)
     if (element.kind_of?(Nokogiri::XML::NodeSet))
       expect(element.length).to eq(1),"#{css_selector} matched #{element.length} elements, not exactly 1:\n\n#{to_html}"
+      return Brut::SpecSupport::EnhancedNode.new(element.first)
+    else
+      expect([Nokogiri::XML::Node, Nokogiri::XML::Element]).to include(element.class)
+      return Brut::SpecSupport::EnhancedNode.new(element)
+    end
+  end
+
+  # Return ths first Nokogiri::XML::Node for the given CSS selector. If there are no
+  # matching nodes, the test fails.
+  def first!(css_selector)
+    element = css(css_selector)
+    if (element.kind_of?(Nokogiri::XML::NodeSet))
       return Brut::SpecSupport::EnhancedNode.new(element.first)
     else
       expect([Nokogiri::XML::Node, Nokogiri::XML::Element]).to include(element.class)
