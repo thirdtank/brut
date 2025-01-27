@@ -1,9 +1,11 @@
 require_relative "flash_support"
 require_relative "session_support"
+require_relative "clock_support"
 require_relative "enhanced_node"
 module Brut::SpecSupport::ComponentSupport
   include Brut::SpecSupport::FlashSupport
   include Brut::SpecSupport::SessionSupport
+  include Brut::SpecSupport::ClockSupport
   include Brut::I18n::ForHTML
 
   def render(component,&block)
