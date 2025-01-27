@@ -5,10 +5,12 @@ module Brut::FrontEnd::Forms
   autoload(:InputDeclarations, "brut/front_end/forms/input_declarations")
   autoload(:InputDefinition, "brut/front_end/forms/input_definition")
   autoload(:SelectInputDefinition, "brut/front_end/forms/select_input_definition")
+  autoload(:RadioButtonGroupInputDefinition, "brut/front_end/forms/radio_button_group_input_definition")
   autoload(:ConstraintViolation, "brut/front_end/forms/constraint_violation")
   autoload(:ValidityState, "brut/front_end/forms/validity_state")
   autoload(:Input, "brut/front_end/forms/input")
   autoload(:SelectInput, "brut/front_end/forms/select_input")
+  autoload(:RadioButtonGroupInput, "brut/front_end/forms/radio_button_group_input")
 end
 
 # Base class for forms you create to process an HTML form. Generally, your form subclasses will only declare their inputs using
@@ -132,9 +134,13 @@ class Brut::FrontEnd::Form
     }.select { !it.empty? }.flatten(1).to_h
   end
 
-private
-
+  # Template method that is used to determine if the params given to the form's initializer
+  # represent an empty value.  By default, this returns true if those params were nil or empty.
+  # You'd override this if there are values you want to initialize a form with that aren't considered
+  # values provided by the user.  This can allow a form with values in it to be considered un-submitted.
   def params_empty?(params) = params.nil? || params.empty?
+
+private
 
   def convert_to_string_or_nil(hash)
     hash.each do |key,value|

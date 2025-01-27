@@ -23,6 +23,22 @@ module Brut::FrontEnd::Forms::InputDeclarations
     )
   end
 
+  # Declares a radio button group, which will manifest as one or more `<input type="radio">` tags that all use the same
+  # value for their `name` attribute.  Unlike `input` or `select`, this method is declaring one or more actual
+  # input tags.
+  #
+  # Note that this is not where you would define the possible values for the group. That is done in
+  # {Brut::FrontEnd::Components::Inputs::RadioButton.for_form_input}.
+  #
+  # @param [String] name The name of the group (used in the `name` attribute)
+  # @param [Hash] attributes Attributes to be used on the tag that represent its contraints. See
+  # {Brut::FrontEnd::Forms::RadioButtonGroupInputDefinition}
+  def radio_button_group(name,attributes={})
+    self.add_input_definition(
+      Brut::FrontEnd::Forms::RadioButtonGroupInputDefinition.new(**(attributes.merge(name: name)))
+    )
+  end
+
   # @!visibility private
   def add_input_definition(input_definition)
     @input_definitions ||= {}
