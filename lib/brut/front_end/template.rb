@@ -7,6 +7,7 @@ module Brut::FrontEnd::Templates
   autoload(:EscapableFilter,"brut/front_end/templates/escapable_filter")
   autoload(:BlockFilter,"brut/front_end/templates/block_filter")
   autoload(:ERBEngine,"brut/front_end/templates/erb_engine")
+  autoload(:Locator,"brut/front_end/templates/locator")
 end
 
 # Handles rendering HTML templates written in ERB.  This is a light wrapper around `Tilt`.

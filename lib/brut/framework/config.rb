@@ -241,7 +241,7 @@ class Brut::Framework::Config
 
       c.store(
         "layout_locator",
-        "Brut::FrontEnd::Component::TemplateLocator",
+        "Brut::FrontEnd::Templates::Locator",
         "Object to use to locate templates for layouts"
       ) do |layouts_src_dir,project_env,brut_internal_dir|
         paths = if project_env.development?
@@ -249,8 +249,8 @@ class Brut::Framework::Config
                 else
                   layouts_src_dir
                 end
-        Brut::FrontEnd::Component::TemplateLocator.new(paths: paths,
-                                                       extension: "html.erb")
+        Brut::FrontEnd::Templates::Locator.new(paths: paths,
+                                               extension: "html.erb")
       end
 
       c.store_required_path(
@@ -262,7 +262,7 @@ class Brut::Framework::Config
 
       c.store(
         "page_locator",
-        "Brut::FrontEnd::Component::TemplateLocator",
+        "Brut::FrontEnd::Templates::Locator",
         "Object to use to locate templates for pages"
       ) do |pages_src_dir,project_env,brut_internal_dir|
         paths = if project_env.development?
@@ -270,26 +270,26 @@ class Brut::Framework::Config
                 else
                   pages_src_dir
                 end
-        Brut::FrontEnd::Component::TemplateLocator.new(paths: paths,
-                                                       extension: "html.erb")
+        Brut::FrontEnd::Templates::Locator.new(paths: paths,
+                                               extension: "html.erb")
       end
 
       c.store(
         "component_locator",
-        "Brut::FrontEnd::Component::TemplateLocator",
+        "Brut::FrontEnd::Templates::Locator",
         "Object to use to locate templates for components"
       ) do |components_src_dir, pages_src_dir|
-        Brut::FrontEnd::Component::TemplateLocator.new(paths: [ components_src_dir, pages_src_dir ],
-                                                       extension: "html.erb")
+        Brut::FrontEnd::Templates::Locator.new(paths: [ components_src_dir, pages_src_dir ],
+                                               extension: "html.erb")
       end
 
       c.store(
         "svg_locator",
-        "Brut::FrontEnd::Component::TemplateLocator",
+        "Brut::FrontEnd::Templates::Locator",
         "Object to use to locate SVGs"
       ) do |svgs_src_dir|
-        Brut::FrontEnd::Component::TemplateLocator.new(paths: svgs_src_dir,
-                                                       extension: "svg")
+        Brut::FrontEnd::Templates::Locator.new(paths: svgs_src_dir,
+                                               extension: "svg")
       end
 
       c.store(

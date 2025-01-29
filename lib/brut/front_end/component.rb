@@ -33,29 +33,6 @@ end
 class Brut::FrontEnd::Component
   using Brut::FrontEnd::Templates::HTMLSafeString::Refinement
 
-  # @!visibility private
-  class TemplateLocator
-    def initialize(paths:, extension:)
-      @paths     = Array(paths).map { |path| Pathname(path) }
-      @extension = extension
-    end
-
-    def locate(base_name)
-      paths_to_try = @paths.map { |path|
-        path / "#{base_name}.#{@extension}"
-      }
-      paths_found = paths_to_try.select { |path|
-        path.exist?
-      }
-      if paths_found.empty?
-        raise "Could not locate template for #{base_name}. Tried: #{paths_to_try.map(&:to_s).join(', ')}"
-      end
-      if paths_found.length > 1
-        raise "Found more than one valid pat for #{base_name}.  You must rename your files to disambiguate them. These paths were all found: #{paths_found.map(&:to_s).join(', ')}"
-      end
-      return paths_found[0]
-    end
-  end
 
   # @!visibility private
   class AssetPathResolver
