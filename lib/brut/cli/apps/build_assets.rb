@@ -8,13 +8,13 @@ class Brut::CLI::Apps::BuildAssets < Brut::CLI::App
   requires_project_env
   default_command :all
   configure_only!
+  opts.on("--[no-]clean", "If set, any old files from previous runs are deleted. If omitted, is false in production and true otherwise")
 
   class All < Brut::CLI::Command
     description "Build all assets"
-    opts.on("--[no-]clean","If set the metadata file used to map the files to their hashed values is deleted before assets are built")
 
     def execute
-      if options.clean?(default: true)
+      if global_options.clean?(default: global_options.env != "production")
         asset_metadata_file = Brut.container.asset_metadata_file
         out.puts "Removing #{asset_metadata_file}"
         FileUtils.rm_f(asset_metadata_file)
@@ -40,7 +40,6 @@ This is to ensure that any images your code references will end up in the public
 
   class CSS < Brut::CLI::Command
     description "Builds a single CSS file suitable for sending to the browser"
-    opts.on("--clean","If set, any .css files hanging around from a prevous build are deleted. Not recommended in production environments")
 
     detailed_description %{
       This produces a hashed file in every environment, in order to keep environments consistent and reduce differences.  If your CSS file references images, fonts, or other assets via url() or other CSS functions, those files will be hashed and copied into the output directory where CSS is served.
@@ -54,7 +53,7 @@ This is to ensure that any images your code references will end up in the public
       esbuild_metafile    = Brut.container.tmp_dir / "build-css-meta.json"
       asset_metadata_file = Brut.container.asset_metadata_file
 
-      if options.clean?
+      if global_options.clean?(default: global_options.env != "production")
         out.puts "Cleaning old CSS files from #{Brut.container.css_bundle_output_dir}"
         Dir[Brut.container.css_bundle_output_dir / "*.*"].each do |file|
           if File.file?(file)
@@ -80,7 +79,6 @@ This is to ensure that any images your code references will end up in the public
   end
   class JS < Brut::CLI::Command
     description "Builds and bundles JavaScript destined for the browser"
-    opts.on("--clean","If set, any .js files hanging around from a prevous build are deleted. Not recommended in production environments")
     opts.on("--output-file=FILE","Bundle to create that will be sent to the browser, relative to the JS public folder. Default is app.js")
     opts.on("--source-file=FILE","Entry point used to create the bundle, relative to the source JS folder. Default is index.js")
 
@@ -91,7 +89,7 @@ This is to ensure that any images your code references will end up in the public
       asset_metadata_file = Brut.container.asset_metadata_file
 
       name_with_hash_regexp = /app\/public\/(?<path>.+)\/(?<name>.+)\-(?<hash>.+)\.js/
-      if options.clean?
+      if global_options.clean?(default: global_options.env != "production")
         out.puts "Cleaning old JS files from #{Brut.container.js_bundle_output_dir}"
         Dir[Brut.container.js_bundle_output_dir / "*.*"].each do |file|
           if File.file?(file)
