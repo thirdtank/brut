@@ -6,6 +6,7 @@ class Brut::CLI::Apps::Scaffold < Brut::CLI::App
   opts.on("--overwrite", "If set, any files that exists already will be overwritten by new scaffolds")
   opts.on("--dry-run", "If set, no files are changed. You will see output of what would happen without this flag")
 
+
   def before_execute
     ENV["RACK_ENV"] = "development"
   end
@@ -268,29 +269,45 @@ end}
     end
   end
   class Page < Brut::CLI::Command
+    class Route < Brut::FrontEnd::Routing::PageRoute
+      def initialize(path_template)
+        path_template = "/#{path_template}".gsub(/\/\//,"/")
+        super(path_template)
+      end
+      def locate_handler_class(suffix,preposition, on_missing: :raise)
+        begin
+          super(suffix,preposition,on_missing: :raise).name.split(/::/)
+        rescue Brut::Framework::Errors::NoClassForPath => ex
+          class_name_path = ex.class_name_path
+          ex.class_name_path
+        end
+      end
+    end
     description "Create a new page, template, and associated test"
-    args "PageName"
+    args "page_route"
     def execute
       if args.length != 1
         raise "page requires exactly one argument, got #{args.length}"
       end
-      class_name = RichString.new(RichString.new(args[0]).camelize.to_s.gsub(/Page$/,"") + "Page")
+      route = Route.new(args[0])
 
-      relative_path = class_name.underscorized
+      page_class_name    = RichString.from_string(route.handler_class.join("::"))
+      page_relative_path = page_class_name.underscorized
 
       pages_src_dir    = Brut.container.pages_src_dir
       pages_specs_dir  = Brut.container.pages_specs_dir
       i18n_locales_dir = Brut.container.i18n_locales_dir
 
-      source_path      = Pathname( (pages_src_dir / relative_path).to_s + ".rb" )
-      html_source_path = Pathname( (pages_src_dir / relative_path).to_s + ".html.erb" )
-      spec_path        = Pathname( (pages_specs_dir / relative_path).to_s + ".spec.rb" )
-      app_translations = Pathname(  i18n_locales_dir / "en" / "2_app.rb")
+      page_source_path     = Pathname( (pages_src_dir   / page_relative_path).to_s + ".rb" )
+      template_source_path = Pathname( (pages_src_dir   / page_relative_path).to_s + ".html.erb" )
+      page_spec_path       = Pathname( (pages_specs_dir / page_relative_path).to_s + ".spec.rb" )
+      app_path             = Pathname( Brut.container.app_src_dir / "app.rb" )
+      app_translations     = Pathname(  i18n_locales_dir / "en" / "2_app.rb")
 
       exists = [
-        source_path,
-        html_source_path,
-        spec_path,
+        page_source_path,
+        template_source_path,
+        page_spec_path,
       ].select(&:exist?)
 
       if exists.any? && !global_options.overwrite?
@@ -301,47 +318,55 @@ end}
         return 1
       end
 
-      if global_options.dry_run?
-        out.puts "FileUtils.mkdir_p #{source_path.dirname}"
-        out.puts "FileUtils.mkdir_p #{html_source_path.dirname}"
-        out.puts "FileUtils.mkdir_p #{spec_path.dirname}"
-        out.puts "Would add a title to #{app_translations}"
-      else
-        FileUtils.mkdir_p source_path.dirname
-        FileUtils.mkdir_p html_source_path.dirname
-        FileUtils.mkdir_p spec_path.dirname
+      FileUtils.mkdir_p page_source_path.dirname,     noop: global_options.dry_run?
+      FileUtils.mkdir_p template_source_path.dirname, noop: global_options.dry_run?
+      FileUtils.mkdir_p page_spec_path.dirname,       noop: global_options.dry_run?
 
-        File.open(source_path,"w") do |file|
-          file.puts %{class #{class_name} < AppPage
-  def initialize
+      route_code = "page \"#{route.path_template}\""
+
+      page_class_code = %{class #{page_class_name} < AppPage
+  def initialize # add needed arguments here
   end
 end}
-        end
-        File.open(html_source_path,"w") do |file|
-          file.puts "<h1>#{class_name} is ready!</h1>"
-        end
-        File.open(spec_path,"w") do |file|
-          file.puts %{require "spec_helper"
+      template_code = %{<h1>#{page_class_name} is ready!</h1>}
+      page_spec_code = %{require "spec_helper"
 
-RSpec.describe #{class_name} do
+RSpec.describe #{page_class_name} do
   it "should have tests" do
     expect(true).to eq(false)
   end
 end}
-        end
-        title = RichString.new(class_name).underscorized.humanized.to_s.capitalize
+
+      title = RichString.new(page_class_name).underscorized.humanized.to_s.capitalize
+      translations_code = "       \"#{page_class_name}\": {\n         title: \"#{title}\",\n       \},"
+
+      if global_options.dry_run?
+        out.puts app_path.relative_path_from(Brut.container.project_root)
+        out.puts "will contain:\n\n#{route_code}\n\n"
+        out.puts page_source_path.relative_path_from(Brut.container.project_root)
+        out.puts "will contain:\n\n#{page_class_code}\n\n"
+        out.puts template_source_path.relative_path_from(Brut.container.project_root)
+        out.puts "will contain:\n\n#{template_code}\n\n"
+        out.puts page_spec_path.relative_path_from(Brut.container.project_root)
+        out.puts "will contain:\n\n#{page_spec_code}\n\n"
+        out.puts app_translations.relative_path_from(Brut.container.project_root)
+        out.puts "will contain:\n\n#{translations_code}\n\n"
+      else
+
+        File.open(page_source_path,"w")     { it.puts page_class_code }
+        File.open(template_source_path,"w") { it.puts template_code }
+        File.open(page_spec_path,"w")       { it.puts page_spec_path }
+
         existing_translations = File.read(app_translations).split(/\n/)
         inserted_translation = false
         File.open(app_translations,"w") do |file|
           existing_translations.each do |line|
             if line =~ /^    pages:\s*{/
               file.puts line
-              file.puts "      \"#{class_name}\": {\n"
-              file.puts "        title: \"#{title}\","
-              file.puts "      },"
+              file.puts translations_code
               inserted_translation = true
             else
-            file.puts line
+              file.puts line
             end
           end
         end
@@ -349,11 +374,23 @@ end}
           err.puts "WARNING: Could not find a place to insert the translation for this page's title"
           err.puts "         The page may not render properly the first time you load it"
         end
+
+        routes_editor = RoutesEditor.new(app_path:,out:)
+        routes_editor.add_route!(route_code:)
+
+        if !routes_editor.found_routes?
+          out.puts "Could not find routes declaration in #{app_path.relative_path_from(Brut.container.project_root)}"
+          out.puts "Please add this to wherever you have defined your routes:\n\n#{route_code}\n\n"
+        elsif routes_editor.routes_existed?
+          out.puts "Routes declaration in #{app_path.relative_path_from(Brut.container.project_root)} contained the route defition already"
+          out.puts "Please make sure everything is correct.  Here is the defintion that was not inserted:\n\n#{route_code}"
+        end
       end
-      out.puts "Class                    #{class_name}"
-      out.puts "Page source is in        #{source_path.relative_path_from(Brut.container.project_root)}"
-      out.puts "Page HTML template is in #{html_source_path.relative_path_from(Brut.container.project_root)}"
-      out.puts "Page test is in          #{spec_path.relative_path_from(Brut.container.project_root)}"
+      out.puts "Page source is in        #{page_source_path.relative_path_from(Brut.container.project_root)}"
+      out.puts "Page HTML template is in #{template_source_path.relative_path_from(Brut.container.project_root)}"
+      out.puts "Page test is in          #{page_spec_path.relative_path_from(Brut.container.project_root)}"
+      out.puts "Added title to           #{app_translations.relative_path_from(Brut.container.project_root)}"
+      out.puts "Added route to           #{app_path.relative_path_from(Brut.container.project_root)}"
       0
     end
   end
@@ -477,39 +514,18 @@ end}
         out.printf printf_string,handler_class_name, handler_source_path.relative_path_from(Brut.container.project_root)
         out.printf printf_string,"Spec", handler_spec_path.relative_path_from(Brut.container.project_root)
 
-        app_contents = File.read(app_path).split(/\n/)
-        found_routes = false
-        routes_existed = false
-        File.open(app_path,"w") do |file|
-          in_routes = false
-          app_contents.each do |line|
-            if line =~ /^  routes do\s*$/
-              in_routes = true
-            end
-            if in_routes && line.include?(route_code)
-              routes_existed = true
-            end
-            if in_routes && line =~ /^  end\s*$/
-              if !routes_existed
-                out.puts "Inserted route into #{app_path.relative_path_from(Brut.container.project_root)}"
-                file.puts "    #{route_code}"
-              end
-              found_routes = true
-              in_routes = false
-            end
-            file.puts line
-          end
-        end
+        routes_editor = RoutesEditor.new(app_path:,out:)
+        routes_editor.add_route!(route_code:)
 
         if form
           File.open(form_source_path,"w") { it.puts form_code }
         end
         File.open(handler_source_path,"w") { it.puts handler_code }
         File.open(handler_spec_path,"w") { it.puts spec_code }
-        if !found_routes
+        if !routes_editor.found_routes?
           out.puts "Could not find routes declaration in #{app_path.relative_path_from(Brut.container.project_root)}"
           out.puts "Please add this to wherever you have defined your routes:\n\n#{route_code}\n\n"
-        elsif routes_existed
+        elsif routes_editor.routes_existed?
           out.puts "Routes declaration in #{app_path.relative_path_from(Brut.container.project_root)} contained the route defition already"
           out.puts "Please make sure everything is correct.  Here is the defintion that was not inserted:\n\n#{route_code}"
         end
@@ -594,4 +610,41 @@ describe("#{description}", () => {
       0
     end
   end
+
+  class RoutesEditor
+    def initialize(app_path:,out:)
+      @app_path       = app_path
+      @out            = out
+      @found_routes   = false
+      @routes_existed = false
+    end
+
+    def found_routes?   = @found_routes
+    def routes_existed? = @routes_existed
+
+    def add_route!(route_code:)
+      app_contents = File.read(@app_path).split(/\n/)
+      File.open(@app_path,"w") do |file|
+        in_routes = false
+        app_contents.each do |line|
+          if line =~ /^  routes do\s*$/
+            in_routes = true
+          end
+          if in_routes && line.include?(route_code)
+            @routes_existed = true
+          end
+          if in_routes && line =~ /^  end\s*$/
+            if !@routes_existed
+              @out.puts "Inserted route into #{@app_path.relative_path_from(Brut.container.project_root)}"
+              file.puts "    #{route_code}"
+            end
+            @found_routes = true
+            in_routes = false
+          end
+          file.puts line
+        end
+      end
+    end
+  end
 end
+
