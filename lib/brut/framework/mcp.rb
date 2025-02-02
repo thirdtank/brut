@@ -108,6 +108,7 @@ class Brut::Framework::MCP
 
     Sequel::Model.plugin :find_bang
     Sequel::Model.plugin :created_at
+    Sequel::Model.plugin :table_select
 
     if !Brut.container.external_id_prefix.nil?
       Sequel::Model.plugin :external_id, global_prefix: Brut.container.external_id_prefix
