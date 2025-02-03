@@ -8,6 +8,9 @@ module Brut::SpecSupport::ComponentSupport
   include Brut::SpecSupport::ClockSupport
   include Brut::I18n::ForHTML
 
+  # Render a component into its text representation.  This mimics what happens when a component is used
+  # inside a template.  You typically don't want this, but should use {#render_and_parse}, since that will
+  # parse the HTML.
   def render(component,&block)
     if component.kind_of?(Brut::FrontEnd::Page)
       if !block.nil?
@@ -20,6 +23,20 @@ module Brut::SpecSupport::ComponentSupport
     end
   end
 
+  # Render a component and parse it into a Nokogiri Node for examination.
+  #
+  # @example
+  #
+  #   result = render_and_parse(HeaderComponent.new(title: "Hello!")
+  #   expect(result.e!("h1").text).to eq("Hello!")
+  #
+  # @example Using context
+  #   result = render_and_parse(TableRow.new([ "one", "two" ]), context: "tbody")
+  #
+  # @param [Brut::FrontEnd::Component] component the component instance you wish to render. This should be set up to simulate the test
+  # you are running.
+  # @yield if the component requires or accepts a yielded block, this is how you do that in the test.
+  # @return [Brut::SpecSupport::EnhancedNode] a wrapper around a Nokogiri node to provide convienience methods.
   def render_and_parse(component,&block)
     rendered_text = render(component,&block)
     if !rendered_text.kind_of?(String) && !rendered_text.kind_of?(Brut::FrontEnd::Templates::HTMLSafeString)
@@ -27,12 +44,12 @@ module Brut::SpecSupport::ComponentSupport
     end
     nokogiri_node = Nokogiri::HTML5(rendered_text)
     if !component.kind_of?(Brut::FrontEnd::Page)
-      component_html = nokogiri_node.css("body")
-      if !component_html
-        raise "#{component.class} did not render HTML properly: #{rendered_text}"
+      nokogiri_node = Nokogiri::HTML5.fragment(rendered_text.to_s.chomp, max_errors: 100, context: "template")
+      if nokogiri_node.errors.any?
+        raise "#{component.class} render invalid HTML:\n\n#{rendered_text}\n\nErrors: #{nokogiri_node.errors.join(", ")}"
       end
 
-      non_blank_text_elements = component_html.children.select { |element|
+      non_blank_text_elements = nokogiri_node.children.select { |element|
         is_text  = element.kind_of?(Nokogiri::XML::Text)
         is_blank = element.text.to_s.strip == ""
 
