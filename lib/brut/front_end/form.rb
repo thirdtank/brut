@@ -140,6 +140,18 @@ class Brut::FrontEnd::Form
   # values provided by the user.  This can allow a form with values in it to be considered un-submitted.
   def params_empty?(params) = params.nil? || params.empty?
 
+  # Return this form as a hash, which is a map of its parameters' current values. This is not simply
+  # a filtered version of what was passed into the initializer.  This will only have the keys for the inputs
+  # this form defines.  Those keys will be strings, not symbols.  The values will be
+  # either `nil`, a String, or an array of strings.   Not every input defined by this form
+  # will be represented as a key in the resulting hash—only those keys that were passed to the initializer.
+  # @return [Hash<String,nil|String|Array<String>>] the form's params as a hash.
+  def to_h
+    @params.map { |key,value|
+      [ key.to_s, value ]
+    }.to_h
+  end
+
 private
 
   def convert_to_string_or_nil(hash)
