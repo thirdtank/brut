@@ -362,7 +362,7 @@ end}
 
         File.open(page_source_path,"w")     { it.puts page_class_code }
         File.open(template_source_path,"w") { it.puts template_code }
-        File.open(page_spec_path,"w")       { it.puts page_spec_path }
+        File.open(page_spec_path,"w")       { it.puts page_spec_code }
 
         existing_translations = File.read(app_translations).split(/\n/)
         inserted_translation = false
