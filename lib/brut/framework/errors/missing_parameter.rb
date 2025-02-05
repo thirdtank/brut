@@ -7,6 +7,6 @@ class Brut::Framework::Errors::MissingParameter < Brut::Framework::Error
   # @param [Array<String|Symbol>] params_received the parameters that were received in the context that generated this error
   # @param [String] context Any additional context to understand the error
   def initialize(missing_param, params_received:, context:)
-    super("Parameter '#{missing_param}' was not available. Received params: '#{params_received.empty? ? 'no params' : params_received.join(', ')}'. #{context}")
+    super("Parameter '#{missing_param}' was not available. Received params: #{params_received.empty? ? 'no params' : "'" + params_received.join(', ') + "'"}. #{context}")
   end
 end
