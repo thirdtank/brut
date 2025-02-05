@@ -324,8 +324,15 @@ end}
 
       route_code = "page \"#{route.path_template}\""
 
+      initializer_params = route.path_params
+      initializer_params_code = if initializer_params.empty?
+                                  ""
+                                else
+                                  "(" + initializer_params.map { "#{it}:" }.join(", ") + ")"
+                                end
+
       page_class_code = %{class #{page_class_name} < AppPage
-  def initialize # add needed arguments here
+  def initialize#{initializer_params_code} # add needed arguments here
   end
 end}
       template_code = %{<h1>#{page_class_name} is ready!</h1>}
