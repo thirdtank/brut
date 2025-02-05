@@ -4,10 +4,11 @@ module Sequel
     module FindBang
       module ClassMethods
         # Calls `first!`, but provides a more helpful error message when no records are found.
+        # @raise [Brut::Framework::Errors::NotFound]
         def find!(**args)
           self.first!(**args)
         rescue Sequel::NoMatchingRow => ex
-          raise Sequel::NoMatchingRow.new(ex.message + "; #{args.inspect}")
+          raise Brut::Framework::Errors::NotFound.new(resource_name: self.name,search_terms: args.inspect,context: ex.message)
         end
       end
     end
