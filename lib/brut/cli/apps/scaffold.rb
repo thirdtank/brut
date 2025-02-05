@@ -467,6 +467,11 @@ end}
       form_code = %{class #{form_class_name} < AppForm
   input :some_field, minlength: 3
 end}
+      handle_method_code = if form
+                             'raise "You need to implement your Handler\#{form.class.input_definitions.length < 2 ? " and likely your Form as well" : ""}"'
+                           else
+                             raise "You need to implement your Handler"
+                           end
       handler_code = begin
                        handle_params = []
                        if form
@@ -476,7 +481,7 @@ end}
                        handle_params_code = handle_params.map { "#{it}:" }.join(", ")
         %{class #{handler_class_name} < AppHandler
   def handle(#{handle_params_code}) # add other args here as needed
-    raise "You need to implement your Handler\#{form.class.input_definitions.length < 2 ? " and likely your Form as well" : ""}"
+    #{handle_method_code}
   end
 end}
                      end
