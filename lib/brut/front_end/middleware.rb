@@ -7,5 +7,6 @@ module Brut::FrontEnd
     autoload(:Favicon,"brut/front_end/middlewares/favicon")
     autoload(:ReloadApp,"brut/front_end/middlewares/reload_app")
     autoload(:AnnotateBrutOwnedPaths,"brut/front_end/middlewares/annotate_brut_owned_paths")
+    autoload(:OpenTelemetrySpan,"brut/front_end/middlewares/open_telemetry_span")
   end
 end

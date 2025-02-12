@@ -6,6 +6,9 @@ require "sequel"
 require "semantic_logger"
 require "i18n"
 require "zeitwerk"
+require "opentelemetry/sdk"
+require "opentelemetry/exporter/otlp"
+
 
 # The Master Control Program of Brut.  This handles all the bootstrapping and setup of your app. You are not
 # intended to use or interact with this class at all. End of line.
@@ -77,6 +80,7 @@ class Brut::Framework::MCP
     else
       SemanticLogger["Brut"].info("Classes will not be auto-reloaded")
     end
+
     @loader.setup
     @app = @app_klass.new
   end
@@ -98,6 +102,25 @@ class Brut::Framework::MCP
         SemanticLogger["Sequel::Database"].info "Not connected to database, so not disconnecting"
       end
     end
+    OpenTelemetry::SDK.configure do |c|
+      c.service_name = @app.id
+      if ENV["OTEL_TRACES_EXPORTER"]
+        SemanticLogger[self.class].info "OTEL_TRACES_EXPORTER was set (to '#{ENV['OTEL_TRACES_EXPORTER']}'), so Brut's OTel logging is disabled"
+      else
+        c.add_span_processor(
+          OpenTelemetry::SDK::Trace::Export::SimpleSpanProcessor.new(
+            Brut::Instrumentation::LoggerSpanExporter.new
+          )
+        )
+      end
+    end
+
+    Brut.container.store(
+      "tracer",
+      OpenTelemetry::SDK::Trace::Tracer,
+      "Tracer for Open Telemetry",
+      OpenTelemetry.tracer_provider.tracer(@app.id)
+    )
 
     Sequel::Database.extension :pg_array
     Sequel::Database.extension :brut_instrumentation
@@ -120,9 +143,6 @@ class Brut::Framework::MCP
     else
       SemanticLogger["Brut"].info("Lazily loading app's classes")
     end
-    Brut.container.instrumentation.subscribe do |event:,start:,stop:,exception:|
-      SemanticLogger["Instrumentation"].info("#{event.category}/#{event.subcategory}/#{event.name}: #{start}/#{stop} = #{stop-start}: #{exception&.message} (#{event.details})")
-    end
     @app.boot!
 
     require "sinatra/base"
@@ -136,6 +156,7 @@ class Brut::Framework::MCP
                 "Forbidden"
               end
     default_middlewares = [
+      [ Brut::FrontEnd::Middlewares::OpenTelemetrySpan ],
       [ Brut::FrontEnd::Middlewares::AnnotateBrutOwnedPaths ],
       [ Brut::FrontEnd::Middlewares::Favicon ],
       [
@@ -152,7 +173,16 @@ class Brut::Framework::MCP
       default_middlewares << Brut::FrontEnd::Middlewares::ReloadApp
     end
 
-    middlewares = default_middlewares + @app.class.middleware
+    middlewares = default_middlewares + @app.class.middleware.map { |(middleware,args,block)|
+      if !middleware.kind_of?(Class)
+        klass = middleware.to_s.split(/::/).reduce(Module) { |mod,part|
+          mod.const_get(part)
+        }
+        [ klass, args, block ]
+      else
+        [ middleware, args, block ]
+      end
+    }
 
     middlewares.each do |(middleware,args,block)|
       @sinatra_app.use(middleware,*args,&block)
@@ -180,46 +210,50 @@ class Brut::Framework::MCP
         @sinatra_app.send(method) do
           args = {}
 
-          hook_method.parameters.each do |(type,name)|
-            if name.to_s == "**" || name.to_s == "*"
-              raise ArgumentError,"#{method.class}##{method.name} accepts '#{name}' and not keyword args. Define it in your class to accept the keyword arguments your method needs"
-            end
-            if ![ :key,:keyreq ].include?(type)
-              raise ArgumentError,"#{name} is not a keyword arg, but is a #{type}"
+          Brut.container.instrumentation.span("brut.#{method}.hook", class: klass_name) do |span|
+            hook_method.parameters.each do |(type,name)|
+              if name.to_s == "**" || name.to_s == "*"
+                raise ArgumentError,"#{method.class}##{method.name} accepts '#{name}' and not keyword args. Define it in your class to accept the keyword arguments your method needs"
+              end
+              if ![ :key,:keyreq ].include?(type)
+                raise ArgumentError,"#{name} is not a keyword arg, but is a #{type}"
+              end
+
+              if name == :request_context
+                args[name] = Thread.current.thread_variable_get(:request_context)
+              elsif name == :session
+                args[name] = Brut.container.session_class.new(rack_session: session)
+              elsif name == :request
+                args[name] = request
+              elsif name == :response
+                args[name] = response
+              elsif name == :env
+                args[name] = env
+              elsif type == :keyreq
+                raise ArgumentError,"#{method} argument '#{name}' is required, but it's not available in a #{method} hook"
+              else
+                # this keyword arg has a default value which will be used
+              end
             end
 
-            if name == :request_context
-              args[name] = Thread.current.thread_variable_get(:request_context)
-            elsif name == :session
-              args[name] = Brut.container.session_class.new(rack_session: session)
-            elsif name == :request
-              args[name] = request
-            elsif name == :response
-              args[name] = response
-            elsif name == :env
-              args[name] = env
-            elsif type == :keyreq
-              raise ArgumentError,"#{method} argument '#{name}' is required, but it's not available in a #{method} hook"
+            hook = klass.new
+            span.add_prefixed_attributes("#{method}.args",args.map { |k,v| [ k,v.class] }.to_h )
+            result = hook.send(method,**args)
+            span.add_attributes(result:)
+            case result
+            in URI => uri
+              redirect to(uri.to_s)
+            in Brut::FrontEnd::HttpStatus => http_status
+              halt http_status.to_i
+            in FalseClass
+              halt 500
+            in NilClass
+              nil
+            in TrueClass
+              nil
             else
-              # this keyword arg has a default value which will be used
+              raise NoMatchingPatternError, "Result from #{method} hook #{klass}'s #{method} method was a #{result.class} (#{result.to_s} as a string), which cannot be used to understand the response to generate. Return nil or true if processing should proceed"
             end
-          end
-
-          hook = klass.new
-          result = hook.send(method,**args)
-          case result
-          in URI => uri
-            redirect to(uri.to_s)
-          in Brut::FrontEnd::HttpStatus => http_status
-            halt http_status.to_i
-          in FalseClass
-            halt 500
-          in NilClass
-            nil
-          in TrueClass
-            nil
-          else
-            raise NoMatchingPatternError, "Result from #{method} hook #{klass}'s #{method} method was a #{result.class} (#{result.to_s} as a string), which cannot be used to understand the response to generate. Return nil or true if processing should proceed"
           end
         end
       end

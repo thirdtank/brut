@@ -136,7 +136,7 @@ class Brut::FrontEnd::RequestContext
   #
   # @param [Class] object an object whose method is to be called that requires some of the contents of this `RequestContext`.
   # @param [Symbol] method_name name of the method that will be called.
-  # @param [Hash] request_params Query string parameters provided by Rack.
+  # @param [Hash] request_params Query string parameters provided by Rack. Note that any parameter whose value is the empty string will be coerced to `nil`.
   # @param [Brut::FrontEnd::Routing::Route] route the route that triggered the request.
   # @param [Brut::FrontEnd::Form] form the form that was submitted with this request. May be `nil`.
   # @return [Hash] can be splatted to keyword arguments and passed to the constructor of `klass`
@@ -167,7 +167,7 @@ private
       elsif !route.nil? && name == :route
         args[name] = route
       elsif !request_params.nil? && (request_params[name.to_s] || request_params[name.to_sym])
-        args[name] = request_params[name.to_s] || request_params[name.to_sym]
+        args[name] = RichString.new(request_params[name.to_s] || request_params[name.to_sym]).to_s_or_nil
       elsif type == :keyreq
         request_params_message = if request_params.nil?
                                    "no request params provied"

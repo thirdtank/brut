@@ -309,15 +309,10 @@ class Brut::Framework::Config
 
       c.store(
         "instrumentation",
-        Brut::Instrumentation::Basic,
+        Brut::Instrumentation::OpenTelemetry,
         "Interface for recording instrumentable events and subscribing to them",
-      ) do |project_env|
-        if project_env.production?
-          Brut::Instrumentation::Basic.new
-        else
-          Brut::Instrumentation::Basic::TypeChecking.new
-        end
-      end
+        Brut::Instrumentation::OpenTelemetry.new
+      )
 
       # App can override
 
@@ -428,6 +423,36 @@ class Brut::Framework::Config
         allow_app_override: true,
         allow_nil: true,
       )
+
+      c.store(
+        "local_hostname",
+        String,
+        "If present, this is an additional host on which your app responds locally. Useful if you have local domain names set up for dev",
+        nil,
+        allow_app_override: true,
+        allow_nil: true
+      )
+
+
+      c.store(
+        "permitted_hosts",
+        Array,
+        "An array of hostnames or IPAddr objects representing which hosts this app will respond to",
+      ) do |local_hostname,project_env|
+        if project_env.production?
+          []
+        else
+          [
+            local_hostname,
+            "localhost",
+            ".localhost",
+            ".test",
+            IPAddr.new("0.0.0.0/0"),
+            IPAddr.new("::/0"),
+          ].compact
+        end
+      end
+
     end
   end
 end

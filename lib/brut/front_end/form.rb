@@ -18,8 +18,6 @@ end
 # for processing them or for testing.
 class Brut::FrontEnd::Form
 
-  include SemanticLogger::Loggable
-
   extend Brut::FrontEnd::Forms::InputDeclarations
 
   # @!visibility private
@@ -37,7 +35,7 @@ class Brut::FrontEnd::Form
       self.class.input_definitions.key?(key)
     }
     if unknown_params.any?
-      logger.info "Ignoring unknown params", keys: unknown_params
+      Brut.container.instrumentation.add_attributes(ignored_unknown_params: unknown_params)
     end
     @params = params.except(*unknown_params)
     @new = params_empty?(@params)
@@ -168,7 +166,7 @@ private
         if Brut.container.project_env.test?
           raise ArgumentError, "Got #{value.class} for #{key} in params hash, which is not expected"
         else
-          logger.warn("Got #{value.class} for #{key} in params hash, which is not expected")
+          Brut.container.instrumentation.add_event("convert_to_string_or_nil: Unknown class in params hash", class: value.class, key: key)
         end
       end
     end

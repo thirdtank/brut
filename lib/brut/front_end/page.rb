@@ -32,8 +32,10 @@ class Brut::FrontEnd::Page < Brut::FrontEnd::Component
   def handle!
     case before_render
     in URI => uri
+      Brut.container.instrumentation.add_event("before_render got a URI", uri: uri)
       uri
     in Brut::FrontEnd::HttpStatus => http_status
+      Brut.container.instrumentation.add_event("before_render got status", http_status: http_status)
       http_status
     else
       render
@@ -55,8 +57,11 @@ class Brut::FrontEnd::Page < Brut::FrontEnd::Component
     template = Brut.container.page_locator.locate(self.template_name).
       then { |erb_file| Brut::FrontEnd::Template.new(erb_file) }
 
+    Brut.container.instrumentation.add_event("templates found", layout: layout_template.template_file_path, page: template.template_file_path)
+
+    page = template.render_template(self).html_safe!
     layout_template.render_template(self) do
-      template.render_template(self).html_safe!
+      page
     end
   end
 

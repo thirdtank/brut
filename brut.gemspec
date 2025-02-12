@@ -34,6 +34,7 @@ Gem::Specification.new do |spec|
   spec.executables   = spec.files.grep(%r{^exe/}) { |f| File.basename(f) }
   spec.require_paths = ["lib"]
 
+  spec.add_runtime_dependency "irb"
   spec.add_runtime_dependency "dotenv"
   spec.add_runtime_dependency "ostruct" # squelch some warning - this is not used
   spec.add_runtime_dependency "factory_bot"
@@ -53,6 +54,8 @@ Gem::Specification.new do |spec|
   spec.add_runtime_dependency "tzinfo"
   spec.add_runtime_dependency "tzinfo-data"
   spec.add_runtime_dependency "zeitwerk"
+  spec.add_runtime_dependency "opentelemetry-sdk"
+  spec.add_runtime_dependency "opentelemetry-exporter-otlp"
 
   spec.add_development_dependency "activesupport"
   spec.add_development_dependency "rspec", "~> 3.0"
@@ -60,4 +63,5 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "rake"
   spec.add_development_dependency "yard"
   spec.add_development_dependency "rdiscount"
+  spec.add_development_dependency "rdoc"
 end

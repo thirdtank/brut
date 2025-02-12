@@ -127,6 +127,7 @@ class Brut::FrontEnd::Component
     #
     # @return [Brut::FrontEnd::Templates::HTMLSafeString] of the rendered component.
     def component(component_instance,&block)
+      Brut.container.instrumentation.span("component") do |span|
       if component_instance.kind_of?(Class)
         if !component_instance.ancestors.include?(Brut::FrontEnd::Component)
           raise ArgumentError,"#{component_instance} is not a component and cannot be created"
@@ -134,13 +135,19 @@ class Brut::FrontEnd::Component
         component_instance = Thread.current.thread_variable_get(:request_context).
           then { |request_context| request_context.as_constructor_args(component_instance,request_params: nil)
         }.then { |constructor_args| component_instance.new(**constructor_args) }
+        span.add_attributes("global_component" => true, "class" => component_instance.class.name)
+      else
+        span.add_attributes("global_component" => false, "class" => component_instance.class.name)
       end
       if !block.nil?
         component_instance.yielded_block = block
       end
-      request_context = Thread.current.thread_variable_get(:request_context).
-        then { |request_context| request_context.as_method_args(component_instance,:render,request_params: nil, form: nil)
-      }.then { |render_args| component_instance.render(**render_args).html_safe! }
+      Thread.current.thread_variable_get(:request_context).then {
+        it.as_method_args(component_instance,:render,request_params: nil, form: nil)
+      }.then { |render_args|
+        component_instance.render(**render_args).html_safe!
+      }
+      end
     end
 
     # Inline an SVG into the page.

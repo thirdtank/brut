@@ -7,7 +7,8 @@ class Brut::FrontEnd::Middlewares::Favicon < Brut::FrontEnd::Middleware
     if env["PATH_INFO"] =~ /^\/favicon.ico/
       return [
         301,
-        { "location" => "/static/images/favicon.ico" }
+        { "location" => "/static/images/favicon.ico" },
+        [],
       ]
     end
     @app.call(env)

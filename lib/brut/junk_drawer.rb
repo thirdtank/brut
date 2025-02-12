@@ -16,7 +16,7 @@ class Clock
       @timezone = begin
                     TZInfo::Timezone.get(ENV["TZ"])
                   rescue TZInfo::InvalidTimezoneIdentifier => ex
-                    SemanticLogger[self.class.name].warn("#{ex} from ENV['TZ'] value '#{ENV['TZ']}'")
+                    Brut.container.instrumentation.record_exception(ex, class: self.class, invalid_env_tz: ENV['TZ'])
                     nil
                   end
     end

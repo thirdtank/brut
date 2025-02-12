@@ -8,7 +8,8 @@ class Brut::FrontEnd::Handlers::LocaleDetectionHandler < Brut::FrontEnd::Handler
   def handle(body:,session:)
     begin
       parsed = JSON.parse(body.read)
-      SemanticLogger["brut:__brut/locale"].info("Got #{parsed.class}/#{parsed}")
+      Brut.container.instrumentation.add_attributes(parsed_body: parsed)
+      Brut.container.instrumentation.add_attributes(parsed_class: parsed.class)
       if parsed.kind_of?(Hash)
         locale   = parsed["locale"]
         timezone = parsed["timeZone"]
@@ -17,11 +18,9 @@ class Brut::FrontEnd::Handlers::LocaleDetectionHandler < Brut::FrontEnd::Handler
         if !session.http_accept_language.known?
           session.http_accept_language = Brut::I18n::HTTPAcceptLanguage.from_browser(locale)
         end
-      else
-        SemanticLogger[self.class].warn("Got a #{parsed.class} from /__brut/locale instead of a hash")
       end
     rescue => ex
-      SemanticLogger[self.class].warn("Got #{ex} from /__brut/locale instead of a parseable JSON object")
+      Brut.container.instrumentation.record_exception(ex)
     end
     http_status(200)
   end

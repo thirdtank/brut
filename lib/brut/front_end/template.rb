@@ -25,12 +25,15 @@ class Brut::FrontEnd::Template
   TempleTemplate = Temple::Templates::Tilt(Brut::FrontEnd::Templates::ERBEngine,
                                            register_as: "html.erb")
 
+  attr_reader :template_file_path
+
   # Wraps a string that is deemed safe to insert into
   # HTML without escaping it.  This allows stuff like
   # <%= component(SomeComponent) %> to work without
   # having to remember to <%== all the time.
   def initialize(template_file_path)
-    @tilt_template = Tilt.new(template_file_path)
+    @template_file_path = template_file_path
+    @tilt_template = Tilt.new(@template_file_path)
   end
 
   def render_template(...)

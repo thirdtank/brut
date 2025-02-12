@@ -4,9 +4,9 @@ class Brut::FrontEnd::Handlers::CspReportingHandler < Brut::FrontEnd::Handler
   def handle(body:)
     begin
       parsed = JSON.parse(body.read)
-      SemanticLogger[self.class].info(parsed)
+      Brut.container.instrumentation.add_attributes(parsed)
     rescue => ex
-      SemanticLogger[self.class].warn("Got #{ex} instead of a parseable JSON object")
+      Brut.container.instrumentation.record_exception(ex)
     end
     http_status(200)
   end

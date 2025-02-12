@@ -3,8 +3,6 @@ require "uri"
 # Holds the registered routes for this app.
 class Brut::FrontEnd::Routing
 
-  include SemanticLogger::Loggable
-
   def initialize
     @routes = Set.new
   end
@@ -155,8 +153,6 @@ class Brut::FrontEnd::Routing
   end
 
   class Route
-
-    include SemanticLogger::Loggable
 
     attr_reader :handler_class, :path_template, :http_method
 

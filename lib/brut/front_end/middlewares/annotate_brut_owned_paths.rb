@@ -7,6 +7,7 @@ class Brut::FrontEnd::Middlewares::AnnotateBrutOwnedPaths < Brut::FrontEnd::Midd
   end
   def call(env)
     if env["PATH_INFO"] =~ /^\/__brut\//
+      Brut.container.instrumentation.add_attributes("brut.owned_path" => true)
       env["brut.owned_path"] = true
     end
     @app.call(env)

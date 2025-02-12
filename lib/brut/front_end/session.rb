@@ -35,7 +35,7 @@ class Brut::FrontEnd::Session
     begin
       TZInfo::Timezone.get(tz_name)
     rescue TZInfo::InvalidTimezoneIdentifier => ex
-      SemanticLogger[self.class.name].warn(ex)
+      Brut.container.instrumentation.record_exception(ex, class: self.class)
       nil
     end
   end
@@ -79,7 +79,7 @@ class Brut::FrontEnd::Session
       begin
         timezone = TZInfo::Timezone.get(tz_name)
       rescue TZInfo::InvalidTimezoneIdentifier => ex
-        SemanticLogger[self.class.name].warn("Somehow, an invalid time zone was stored in the __brut_timezone_override: '#{tz_name}' (#{ex}")
+        Brut.container.instrumentation.record_exception(ex, class: self.class, invalid_tz_name: tz_name)
       end
     end
     if timezone.nil?
@@ -89,7 +89,7 @@ class Brut::FrontEnd::Session
       begin
         timezone = TZInfo::Timezone.get(ENV["TZ"])
       rescue TZInfo::InvalidTimezoneIdentifier => ex
-        SemanticLogger[self.class.name].warn("Somehow, an invalid time zone was stored in the ENV['TZ']: '#{ENV['TZ']}' (#{ex}")
+        Brut.container.instrumentation.record_exception(ex, class: self.class, invalid_env_tz: ENV['TZ'])
         nil
       end
     end
