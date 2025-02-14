@@ -87,7 +87,11 @@ class Brut::FrontEnd::Session
     end
     if timezone.nil?
       begin
-        timezone = TZInfo::Timezone.get(ENV["TZ"])
+        timezone = if ENV["TZ"]
+                     TZInfo::Timezone.get(ENV["TZ"])
+                   else
+                     nil
+                   end
       rescue TZInfo::InvalidTimezoneIdentifier => ex
         Brut.container.instrumentation.record_exception(ex, class: self.class, invalid_env_tz: ENV['TZ'])
         nil
