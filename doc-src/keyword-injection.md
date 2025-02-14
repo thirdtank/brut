@@ -1,15 +1,14 @@
 # Keyword Injection
 
 Brut is desiged around classes and objects, as compared to modules and DSLs.  Almost everything you do when creating your app is to
-create a class that has an initializer and implements one or more methods.  But these initalizers and methods often need information
+create a class that has an initializer and implements one or more methods.  But, these initalizers and methods often need information
 from the request that Brut is managing.
 
 In a basic Rack or Sinatra app, you would access stuff like query parameters or the session by using Rack's API.  This can be tedious
 and error-prone.  Brut will inject certain values into your class based on the keyword arguments of the initializer or method.
 
 For example, a {file:doc-src/pages.md Page} requires you to implement an initializer. That initializer's keyword arguments define what
-information is needed. Brut provides that information. This is a form of dependency injection and it can simplify your code if used
-effectively.
+information is needed. Brut provides that information when it creates the object. This is a form of dependency injection and it can simplify your code if used effectively.
 
 Consider this route:
 
@@ -38,13 +37,15 @@ controls some rendering of the page.  To access it, declare it as a keyword arg 
 
 In any request, the following information is available to be injected:
 
-* `env:` - The Rack env.
 * `session:` - An instance of your app's {Brut::FrontEnd::Session} subclass for the current visitor's session.
 * `flash:` - An instance of your app's {Brut::FrontEnd::Flash} subclass.
 * `xhr:` - true if this was an Ajax request.
 * `body:` - the body submitted, if any.
 * `csrf_token:` - The current CSRF token.
 * `clock:` - A {Clock} to be used to access the current time in the visitor's time zone.
+* `http_*` - any parameter that starts with `http_` is assumed to be for an HTTP header. For example, `http_accept_language` would be
+given the value for the "Accept-Language" header.  See the section on HTTP headers below.
+* `env:` - The Rack env.  This is discouraged, but available if you can't get what you want directly
 
 Depending on the context, other information is available:
 
@@ -59,6 +60,31 @@ A {Brut::FrontEnd::RouteHook} is slightly different. Only the following data is 
 * `:request` - The Rack request
 * `:response` - The Rack response
 * `env:` - The Rack env.
+
+### HTTP Headers
+
+Since any header can be sent with a request, Brut allows you to access them, including non-standard ones.  Rack (which is based on CGI), provides access to all HTTP headers in the `env` by taking the header name, replacing dashes ("-") with underscores ("\_"), and prepending `http_` to the name, then uppercasing it.  Thus, "User-Agent" becomes `HTTP_USER_AGENT`.
+
+Because Ruby parameters and variables must start with a lower-case letter, Brut uses the lowercased version of the Rack/CGI variable.
+Thus, to receive the "User-Agent", you would declare the keyword parameter `http_user_agent`.
+
+Further, because headers come from the client and may not be under your control, the value that is actually injected depends on a few
+things:
+
+* If your keyword arg is required, i.e. there is no default value:
+  - If the header was not provided, `nil` is injected.
+  - If the header *was* provided, it's value is injected, even if it's the empty string.
+* If your keyword arg is optional, i.e.  it has a default value
+  - If the header was not provided, no value is injected, and your code will receive the default value.
+  - If the header *was* provided, it's value is injected, even if it's the empty string.
+
+### Ordering and Disambiguation
+
+You are discouraged from using builtin keys for your own data or request parameters.  For example, you should not have a query string
+parameter named `env` as this conflicts with the builtin `env` that Brut will inject.
+
+Since you can inject your own data (see below), you are free to corrupt the request context.  Please don't do this. Brut may actively
+prevent this in the future.
 
 You can also use the request context to put your own data that can be injected.
 

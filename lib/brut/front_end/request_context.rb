@@ -162,6 +162,13 @@ private
 
       if self.key?(name)
         args[name] = self[name]
+      elsif name.to_s =~ /^http_[^_]+/
+        header_value = self[:env][name.to_s.upcase]
+        if header_value
+          args[name] = header_value
+        elsif type == :keyreq
+          args[name] = nil
+        end
       elsif !form.nil? && name == :form
         args[name] = form
       elsif !route.nil? && name == :route
