@@ -12,6 +12,7 @@ module Brut::FrontEnd::Components
   autoload(:PageIdentifier,"brut/front_end/components/page_identifier")
   autoload(:LocaleDetection,"brut/front_end/components/locale_detection")
   autoload(:ConstraintViolations,"brut/front_end/components/constraint_violations")
+  autoload(:Traceparent,"brut/front_end/components/traceparent")
 end
 
 # A Component is the top level class for managing the rendering of 
@@ -127,7 +128,8 @@ class Brut::FrontEnd::Component
     #
     # @return [Brut::FrontEnd::Templates::HTMLSafeString] of the rendered component.
     def component(component_instance,&block)
-      Brut.container.instrumentation.span("component") do |span|
+      component_name = component_instance.kind_of?(Class) ? component_instance.name : component_instance.class.name
+      Brut.container.instrumentation.span(component_name) do |span|
       if component_instance.kind_of?(Class)
         if !component_instance.ancestors.include?(Brut::FrontEnd::Component)
           raise ArgumentError,"#{component_instance} is not a component and cannot be created"

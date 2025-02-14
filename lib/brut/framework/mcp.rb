@@ -210,7 +210,7 @@ class Brut::Framework::MCP
         @sinatra_app.send(method) do
           args = {}
 
-          Brut.container.instrumentation.span("brut.#{method}.hook", class: klass_name) do |span|
+          Brut.container.instrumentation.span("#{klass_name}.#{method}") do |span|
             hook_method.parameters.each do |(type,name)|
               if name.to_s == "**" || name.to_s == "*"
                 raise ArgumentError,"#{method.class}##{method.name} accepts '#{name}' and not keyword args. Define it in your class to accept the keyword arguments your method needs"

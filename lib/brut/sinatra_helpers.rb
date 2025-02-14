@@ -7,6 +7,7 @@ module Brut::SinatraHelpers
     sinatra_app.set :public_folder, Brut.container.public_root_dir
     sinatra_app.path("/__brut/csp-reporting",method: :post)
     sinatra_app.path("/__brut/locale_detection",method: :post)
+    sinatra_app.path("/__brut/instrumentation",method: :get)
     sinatra_app.set :host_authorization, permitted_hosts: Brut.container.permitted_hosts
   end
 
@@ -64,28 +65,28 @@ module Brut::SinatraHelpers
       Brut.container.routing.register_page(path)
 
       get path do
-      Brut.container.instrumentation.span("GET #{path}") do |span|
         route = Brut.container.routing.for(path: path,method: :get)
         page_class = route.handler_class
-        request_context = Thread.current.thread_variable_get(:request_context)
-        constructor_args = request_context.as_constructor_args(
-          page_class,
-          request_params: params,
-          route: route,
-        )
-        span.add_prefixed_attributes("initializer.args", constructor_args.map { |k,v| [k.to_s,v.class.name] }.to_h)
-        page_instance = page_class.new(**constructor_args)
-        result = page_instance.handle!
-        span.add_attributes(page_class: page_class, result: result.class)
-        case result
-        in URI => uri
-          redirect to(uri.to_s)
-        in Brut::FrontEnd::HttpStatus => http_status
-          http_status.to_i
-        else
-          result
+        Brut.container.instrumentation.span(page_class.name, path: path) do |span|
+          request_context = Thread.current.thread_variable_get(:request_context)
+          constructor_args = request_context.as_constructor_args(
+            page_class,
+            request_params: params,
+            route: route,
+          )
+          span.add_prefixed_attributes("initializer.args", constructor_args.map { |k,v| [k.to_s,v.class.name] }.to_h)
+          page_instance = page_class.new(**constructor_args)
+          result = page_instance.handle!
+          span.add_attributes(result_class: result.class)
+          case result
+          in URI => uri
+            redirect to(uri.to_s)
+          in Brut::FrontEnd::HttpStatus => http_status
+            http_status.to_i
+          else
+            result
+          end
         end
-      end
       end
     end
 
