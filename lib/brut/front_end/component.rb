@@ -212,6 +212,12 @@ class Brut::FrontEnd::Component
       )
     end
 
+    # Create an HTML input tag for the given input of a form.  This is a convieniece method
+    # that calls {Brut::FrontEnd::Components::Input::TextField.for_form_input}.
+    def input_tag(form:, input_name:, index: nil, **html_attributes)
+      component(Brut::FrontEnd::Components::Inputs::TextField.for_form_input(form:,input_name:,index:,html_attributes:))
+    end
+
     # Indicates a given string is safe to render directly as HTML. No escaping will happen.
     #
     # @param [String] string a string that should be marked as HTML safe
