@@ -5,10 +5,18 @@ class Brut::FrontEnd::Components::Traceparent < Brut::FrontEnd::Component
     carrier = {}
     current_context = OpenTelemetry::Context.current
     propagator.inject(carrier, context: current_context)
-    @traceparent = carrier.fetch("traceparent")
+    @traceparent = carrier["traceparent"]
   end
 
   def render
-    html_tag(:meta, name: "traceparent", content: @traceparent)
+    attributes = {
+      name: "traceparent"
+    }
+    if @traceparent
+      attributes[:content] = @traceparent
+    else
+      attributes["data-no-traceparent"] = "no traceparent was available - this component may have been rendered outside of an existing OpenTelemetry context"
+    end
+    html_tag(:meta, **attributes)
   end
 end
