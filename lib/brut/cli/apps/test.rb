@@ -66,6 +66,7 @@ class Brut::CLI::Apps::Test < Brut::CLI::App
     opts.on("--seed SEED", "Set the random seed to allow duplicating a test run")
     args "specs_to_run..."
     env_var("E2E_RECORD_VIDEOS",purpose: "If set to 'true', videos of each test run are saved in `./tmp/e2e-videos`")
+    env_var("E2E_SLOW_MO",purpose: "If set to, will attempt to slow operations down by this many milliseconds")
     env_var("E2E_TIMEOUT_MS",purpose: "ms to wait for any browser activity before failing the test. And here you didn't think you'd get away without using sleep in browse-based tests?")
     env_var("LOGGER_LEVEL_FOR_TESTS",purpose: "Can be set to debug, info, warn, error, or fatal to control logging during tests. Defaults to 'warn' to avoid verbose test output")
 
@@ -80,7 +81,15 @@ class Brut::CLI::Apps::Test < Brut::CLI::App
       if options.build_assets?
         system!({ "RACK_ENV" => "test" }, "bin/build-assets")
       end
-      system!({ "NODE_DISABLE_COLORS" => "1" },"npx mocha #{Brut.container.js_specs_dir} --no-color --extension 'spec.js' --recursive")
+      begin
+        system!({ "NODE_DISABLE_COLORS" => "1" },"npx mocha #{Brut.container.js_specs_dir} --no-color --extension 'spec.js' --recursive")
+      rescue Brut::CLI::SystemExecError => ex
+        if ex.exit_status == 1
+          out.puts "mocha exited 1 - assuming this is because there are no test files and that this is intentional"
+        else
+          raise ex
+        end
+      end
       0
     end
   end

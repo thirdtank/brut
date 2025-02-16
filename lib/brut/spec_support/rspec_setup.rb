@@ -119,7 +119,13 @@ class Brut::SpecSupport::RSpecSetup
         optional_sidekiq_support.disable_sidekiq_testing do
           Brut::SpecSupport::E2ETestServer.instance.start
           Playwright.create(playwright_cli_executable_path: "./node_modules/.bin/playwright") do |playwright|
-            playwright.chromium.launch(headless: true) do |browser|
+            launch_args = {
+              headless: true,
+            }
+            if ENV["E2E_SLOW_MO"]
+              launch_args[:slowMo] = ENV["E2E_SLOW_MO"].to_i
+            end
+            playwright.chromium.launch(**launch_args) do |browser|
               context_options = {
                 baseURL: "http://0.0.0.0:6503/",
               }
