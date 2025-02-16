@@ -78,12 +78,22 @@ class Brut::FrontEnd::Handlers::InstrumentationHandler < Brut::FrontEnd::Handler
     propagator = OpenTelemetry::Trace::Propagation::TraceContext::TextMapPropagator.new
     extracted_context = propagator.extract(carrier)
     OpenTelemetry::Context.with_current(extracted_context) do
-      otel_span = Brut.container.tracer.start_span(span.name, start_timestamp: span.start_timestamp, attributes: span.attributes)
-      span.events.each do |event|
-        otel_span.add_event(event.name,timestamp: event.timestamp, attributes: event.attributes)
-      end
-      otel_span.finish(end_timestamp: span.end_timestamp)
+      record_span(span)
     end
     http_status(200)
   end
+
+private
+
+  def record_span(span)
+    otel_span = Brut.container.tracer.start_span(span.name, start_timestamp: span.start_timestamp, attributes: span.attributes)
+    span.events.each do |event|
+      otel_span.add_event(event.name,timestamp: event.timestamp, attributes: event.attributes)
+    end
+    span.spans.each do |inner_span|
+      record_span(inner_span)
+    end
+    otel_span.finish(end_timestamp: span.end_timestamp)
+  end
+
 end
