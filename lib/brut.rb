@@ -9,9 +9,6 @@ require_relative "brut/framework"
 #
 # Have fun!
 module Brut
-
-  VERSION = "0.0.1"
-
   # In Brut, the _front end_ is considered anything that interacts directly with a web browser or HTTP.  This includes rendering HTML,
   # managing JavaScript and CSS, and processing form submissions.  It contrasts to {Brut::BackEnd}, which handles the business logic
   # and database.
