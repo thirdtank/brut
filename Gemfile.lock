@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    brut (0.0.1)
+    brut (0.0.2)
       concurrent-ruby
       dotenv
       factory_bot
