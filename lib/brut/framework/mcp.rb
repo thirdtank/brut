@@ -2,87 +2,54 @@ require_relative "container"
 require_relative "config"
 require_relative "../junk_drawer"
 require_relative "app"
+
 require "sequel"
+
 require "semantic_logger"
+require_relative "patch_semantic_logger"
+
 require "i18n"
 require "zeitwerk"
 require "opentelemetry/sdk"
 require "opentelemetry/exporter/otlp"
 
-
 # The Master Control Program of Brut.  This handles all the bootstrapping and setup of your app. You are not
 # intended to use or interact with this class at all. End of line.
 class Brut::Framework::MCP
 
-  # Create the MCP.
+  # Create and configure the MCP.  The app will not work until {#boot!} has been called, however most of the core configuration
+  # will be available via `Brut.container`.
+  #
+  # In particular, when this initializer is done, the following will be set up:
+  #
+  # * Logging
+  # * I18n
+  # * Zeitwerk
+  # * Initial values and configuration from {Brut::Framework::Config#configure!}.  Note that some values in there are static and some
+  # are lazily-evaluated, i.e. their values will only be calculated when fetched.
+  #
+  # In general, you shouldn't have to interact with this class directly, however for posterity, there are basically two ways in which
+  # to do so:
+  #
+  # * Create the instance and *do not* call `boot!`.  This is what you'd do if you can't or don't want to connect to external services
+  # like the database.  For example, when Brut builds assets, it does not call `boot!`.
+  # * Create the intance and immediately call `boot!`.  This is what happens most of the time, in particular when the app is started
+  # up by Puma to start serving requests.
+  #
+  # What you should avoid doing is creating an instance of this class and performing logic before later calling `boot!`.
   #
   # @param [Class] app_klass subclass of {Brut::Framework::App} representing the Brut app being started up and managed.
   def initialize(app_klass:)
     @config    = Brut::Framework::Config.new
     @booted    = false
     @loader    = Zeitwerk::Loader.new
-    @app_klass = app_klass
-    self.configure!
-  end
-
-  # Configure Brut and initialize the {Brut::Framework::App} subclass. This should, in theory, only set up values and other
-  # ancillary data needed to start the app. It should not connect to databases.
-  def configure!
     @config.configure!
 
-    project_root = Brut.container.project_root
-    project_env  = Brut.container.project_env
+    setup_logging
+    setup_i18n
+    setup_zeitwerk
 
-    SemanticLogger.default_level = Brut.container.log_level
-    semantic_logger_appenders = Brut.container.semantic_logger_appenders
-    if semantic_logger_appenders.kind_of?(Hash)
-      semantic_logger_appenders = [ semantic_logger_appenders ]
-    end
-    if semantic_logger_appenders.length == 0
-      raise "No loggers are set up - something is wrong"
-    end
-    semantic_logger_appenders.each do |appender|
-      SemanticLogger.add_appender(**appender)
-    end
-    SemanticLogger["Brut"].info("Logging set up")
-
-    i18n_locales_dir = Brut.container.i18n_locales_dir
-    locales = Dir[i18n_locales_dir / "*"].map { |_|
-      Pathname(_).basename
-    }
-    ::I18n.load_path += Dir[i18n_locales_dir / "**/*.rb"]
-    ::I18n.available_locales = locales.map(&:to_s).map(&:to_sym)
-
-    Brut.container.store(
-      "zeitwerk_loader",
-      @loader.class,
-      "Zeitwerk Loader configured for this app",
-      @loader
-    )
-
-    Dir[Brut.container.front_end_src_dir / "*"].each do |dir|
-      if Pathname(dir).directory?
-        @loader.push_dir(dir)
-      end
-    end
-    Dir[Brut.container.back_end_src_dir / "*"].each do |dir|
-      if Pathname(dir).directory?
-        @loader.push_dir(dir)
-      end
-    end
-    @loader.ignore(Brut.container.migrations_dir)
-    @loader.inflector.inflect(
-      "db" => "DB"
-    )
-    if Brut.container.auto_reload_classes?
-      SemanticLogger["Brut"].info("Auto-reloaded configured")
-      @loader.enable_reloading
-    else
-      SemanticLogger["Brut"].info("Classes will not be auto-reloaded")
-    end
-
-    @loader.setup
-    @app = @app_klass.new
+    @app = app_klass.new
   end
 
   # Starts up the internals of Brut and that app so that it can receive requests from
@@ -101,6 +68,26 @@ class Brut::Framework::MCP
       rescue Sequel::DatabaseConnectionError
         SemanticLogger["Sequel::Database"].info "Not connected to database, so not disconnecting"
       end
+    end
+    Sequel::Database.extension :pg_array
+
+    sequel_db = Brut.container.sequel_db_handle
+
+    Sequel::Model.db = sequel_db
+
+    Sequel::Model.plugin :find_bang
+    Sequel::Model.plugin :created_at
+    Sequel::Model.plugin :table_select
+    Sequel::Model.plugin :skip_saving_columns
+
+    if !Brut.container.external_id_prefix.nil?
+      Sequel::Model.plugin :external_id, global_prefix: Brut.container.external_id_prefix
+    end
+    if Brut.container.eager_load_classes?
+      SemanticLogger["Brut"].info("Eagerly loading app's classes")
+      @loader.eager_load
+    else
+      SemanticLogger["Brut"].info("Lazily loading app's classes")
     end
     OpenTelemetry::SDK.configure do |c|
       c.service_name = @app.id
@@ -121,28 +108,8 @@ class Brut::Framework::MCP
       "Tracer for Open Telemetry",
       OpenTelemetry.tracer_provider.tracer(@app.id)
     )
-
-    Sequel::Database.extension :pg_array
     Sequel::Database.extension :brut_instrumentation
 
-    sequel_db = Brut.container.sequel_db_handle
-
-    Sequel::Model.db = sequel_db
-
-    Sequel::Model.plugin :find_bang
-    Sequel::Model.plugin :created_at
-    Sequel::Model.plugin :table_select
-    Sequel::Model.plugin :skip_saving_columns
-
-    if !Brut.container.external_id_prefix.nil?
-      Sequel::Model.plugin :external_id, global_prefix: Brut.container.external_id_prefix
-    end
-    if Brut.container.eager_load_classes?
-      SemanticLogger["Brut"].info("Eagerly loading app's classes")
-      @loader.eager_load
-    else
-      SemanticLogger["Brut"].info("Lazily loading app's classes")
-    end
     @app.boot!
 
     require "sinatra/base"
@@ -264,9 +231,67 @@ class Brut::Framework::MCP
 
     @booted = true
   end
+
   # @!visibility private
   def sinatra_app = @sinatra_app
   # @!visibility private
   def app = @app
 
+private
+
+  def setup_logging
+    SemanticLogger.default_level = Brut.container.log_level
+    semantic_logger_appenders = Brut.container.semantic_logger_appenders
+    if semantic_logger_appenders.kind_of?(Hash)
+      semantic_logger_appenders = [ semantic_logger_appenders ]
+    end
+    if semantic_logger_appenders.length == 0
+      raise "No loggers are set up - something is wrong"
+    end
+    semantic_logger_appenders.each do |appender|
+      SemanticLogger.add_appender(**appender)
+    end
+    SemanticLogger["Brut"].info("Logging set up")
+  end
+
+  def setup_i18n
+
+    i18n_locales_dir = Brut.container.i18n_locales_dir
+    locales = Dir[i18n_locales_dir / "*"].map { Pathname(it).basename }
+    ::I18n.load_path += Dir[i18n_locales_dir / "**/*.rb"]
+    ::I18n.available_locales = locales.map(&:to_s).map(&:to_sym)
+  end
+
+  def setup_zeitwerk
+
+    Brut.container.store(
+      "zeitwerk_loader",
+      @loader.class,
+      "Zeitwerk Loader configured for this app",
+      @loader
+    )
+
+    Dir[Brut.container.front_end_src_dir / "*"].each do |dir|
+      if Pathname(dir).directory?
+        @loader.push_dir(dir)
+      end
+    end
+    Dir[Brut.container.back_end_src_dir / "*"].each do |dir|
+      if Pathname(dir).directory?
+        @loader.push_dir(dir)
+      end
+    end
+    @loader.ignore(Brut.container.migrations_dir)
+    @loader.inflector.inflect(
+      "db" => "DB"
+    )
+    if Brut.container.auto_reload_classes?
+      SemanticLogger["Brut"].info("Auto-reloaded configured")
+      @loader.enable_reloading
+    else
+      SemanticLogger["Brut"].info("Classes will not be auto-reloaded")
+    end
+
+    @loader.setup
+  end
 end
