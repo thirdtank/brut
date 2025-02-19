@@ -282,6 +282,7 @@ private
       end
     end
     @loader.ignore(Brut.container.migrations_dir)
+    @loader.ignore(Brut.container.db_seeds_dir)
     @loader.inflector.inflect(
       "db" => "DB"
     )
