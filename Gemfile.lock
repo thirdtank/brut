@@ -1,11 +1,8 @@
 PATH
   remote: .
   specs:
-    brut (0.0.2)
+    brut (0.0.3)
       concurrent-ruby
-      dotenv
-      factory_bot
-      faker
       i18n
       irb
       nokogiri
@@ -188,6 +185,9 @@ DEPENDENCIES
   activesupport
   brut!
   bundler
+  dotenv
+  factory_bot
+  faker
   rake
   rdiscount
   rdoc
