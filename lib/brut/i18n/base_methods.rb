@@ -31,6 +31,8 @@ module Brut::I18n::BaseMethods
   #               is a `Brut::FrontEnd::Page` or is a page component.  It's `page_name` will be used to create
   #               a key based on the value of `page:`: `pages.«page_name».«page: value»`.
   #               if `component:` is included, the behavior is the same but for `component` instead of `page`.
+  #               Note that if the page– or component–specific key is not found, this will check
+  #               `general.«page: value»`.
   # @option interpolated_values [Numeric] count Special interpolation to control pluralization.
   #
   # @raise [I18n::MissingTranslation] if no translation is found
@@ -66,6 +68,9 @@ module Brut::I18n::BaseMethods
   # @example Using page:
   #   # in your translations file
   #   en: {
+  #     general: {
+  #       new_widget: "Make a New Widget",
+  #     },
   #     pages: {
   #       HomePage: {
   #         new_widget: "Create new Widget"
@@ -79,6 +84,8 @@ module Brut::I18n::BaseMethods
   #   t(page: :new_widget) # => Create new Widget
   #   # in your code for WidgetsPage
   #   t(page: :new_widget) # => Create New
+  #   # in your code for SomeOtherEPage
+  #   t(page: :new_widget) # => Make a New Widget
   #
   # @example Using page: with an array
   #   # in your translations file
@@ -104,13 +111,17 @@ module Brut::I18n::BaseMethods
         raise ArgumentError, "You may only specify page or component, not both"
       end
 
+      subkey = nil
       if page
-        key = ["pages.#{self.page_name}.#{Array(page).join('.')}"]
+        subkey = Array(page).join(".")
+        key = ["pages.#{self.page_name}.#{subkey}"]
       elsif component
-        key = ["components.#{self.component_name}.#{Array(component).join('.')}"]
+        subkey = Array(component).join(".")
+        key = ["components.#{self.component_name}.#{subkey}"]
       else
         raise ArgumentError, "If you omit an explicit key, you must specify page or component"
       end
+      key << "general.#{subkey}"
     else
       key = Array(key).join('.')
       key = [key,"general.#{key}"]
