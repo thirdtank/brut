@@ -65,8 +65,17 @@ def setup(update_gems:,setup_credentials:)
       x = gets
     end
 
-    log "Adding your SSH key to ssh-agent - you must provide your passphrase"
-    system! "ssh-add #{key_file}"
+    log "Checking if ssh-agent has your SSH key"
+    out,_err = capture!("ssh-keygen -lf #{key_file}")
+    sha256 = out.split(/SHA256:/)[1].split(/\s+/)[0]
+    command = "ssh-add -l | grep #{sha256} > /dev/null"
+    log "Running '#{command}' to check"
+    if system(command)
+      log "SSH Key is in ssh agent"
+    else
+      log "Adding your SSH key to ssh-agent - you must provide your passphrase"
+      system! "ssh-add #{key_file}"
+    end
 
     known_hosts_dest = Pathname("/") / "root" / ".ssh" / "known_hosts"
     if known_hosts_dest.exist?
