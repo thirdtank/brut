@@ -470,7 +470,7 @@ end}
       handle_method_code = if form
                              'raise "You need to implement your Handler\#{form.class.input_definitions.length < 2 ? " and likely your Form as well" : ""}"'
                            else
-                             raise "You need to implement your Handler"
+                             'raise "You need to implement your Handler"'
                            end
       handler_code = begin
                        handle_params = []
