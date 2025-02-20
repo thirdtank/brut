@@ -1,6 +1,8 @@
 require_relative "flash_support"
 require_relative "clock_support"
 require_relative "session_support"
+
+# Convienience methods for testing handlers.
 module Brut::SpecSupport::HandlerSupport
   include Brut::SpecSupport::FlashSupport
   include Brut::SpecSupport::ClockSupport

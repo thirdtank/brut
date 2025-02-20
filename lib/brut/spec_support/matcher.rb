@@ -1,3 +1,4 @@
+# Holds custom matchers useful in various tests.
 module Brut::SpecSupport::Matchers
 end
 require_relative "matchers/be_a_bug"

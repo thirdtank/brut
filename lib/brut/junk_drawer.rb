@@ -8,7 +8,7 @@ class Clock
   #
   # @param [TZInfo::Timezone] tzinfo_timezone if present, this is the timezone of the clock.
   # @param [Time] now if omitted, uses `Time.now` when asked the current time. Otherwises, uses this value, as a `Time` for
-  # now.  Don't do this unless you are testing.
+  #               now.  Don't do this unless you are testing.
   def initialize(tzinfo_timezone, now: nil)
     if tzinfo_timezone
       @timezone = tzinfo_timezone

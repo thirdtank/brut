@@ -1,5 +1,7 @@
 require "delegate"
 
+# A delegator to a Nokogiri Node that provides convienience methods
+# for navigating the DOM inside a test.
 class Brut::SpecSupport::EnhancedNode < SimpleDelegator
   include RSpec::Matchers
 

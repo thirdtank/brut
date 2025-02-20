@@ -41,7 +41,7 @@ class Brut::FrontEnd::Templates::Locator
   # @param [String] base_name the base name of a file that is expected to have a template.  This is searched relative to the paths
   # provided to the constructor, so it may have nested paths
   # @return [String] path to the template for the given `base_name`
-  # @raises StandardError if zero or more than one templates are found
+  # @raise StandardError if zero or more than one templates are found
   def locate(base_name)
     paths_to_try = @paths.map { |path|
       path / "#{base_name}.#{@extension}"

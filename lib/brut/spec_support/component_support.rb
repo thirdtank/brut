@@ -2,6 +2,8 @@ require_relative "flash_support"
 require_relative "session_support"
 require_relative "clock_support"
 require_relative "enhanced_node"
+
+# Convienience methods for writing tests of components or pages.
 module Brut::SpecSupport::ComponentSupport
   include Brut::SpecSupport::FlashSupport
   include Brut::SpecSupport::SessionSupport
@@ -66,10 +68,12 @@ module Brut::SpecSupport::ComponentSupport
     Brut::SpecSupport::EnhancedNode.new(nokogiri_node)
   end
 
+  # @!visibility private
   def routing_for(klass,**args)
     Brut.container.routing.uri(klass,**args)
   end
 
+  # Escape HTML using the same code Brut uses for rendering templates.
   def escape_html(...)
     Brut::FrontEnd::Templates::EscapableFilter.escape_html(...)
   end
