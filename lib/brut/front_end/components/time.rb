@@ -11,6 +11,9 @@ class Brut::FrontEnd::Components::Time < Brut::FrontEnd::Component
   # @param attribute_format [Symbol] the I18n format key fragment to use to locate the strftime format for formatting *the `datetime` attribute* of the HTML element that this component renders. Generally, you want to leave this as the default of `:iso_8601`, however if you need to change it, you can.  This value is appeneded to `"time.formats."` to form the complete key. `skip_year_if_same` is not used for this value.
   # @param only_contains_class [Hash] exists because `class` is a reserved word
   # @option only_contains_class [String] :class the value to use for the `class` attribute.
+  # @yield No parameters given. This is expected to return markup to appear inside the `<form>` element. If provided, this component
+  # will still render the `datetime` attribute, but not the inside.  This is useful if you have a customized date or time display that
+  # you would like to be accessible.  If omitted, the tag's contents will be the formated date or timestamp.
   def initialize(
     timestamp: nil,
     date: nil,
@@ -18,7 +21,8 @@ class Brut::FrontEnd::Components::Time < Brut::FrontEnd::Component
     skip_year_if_same: true,
     skip_dow_if_not_this_week: true,
     attribute_format: :iso_8601,
-    **only_contains_class
+    **only_contains_class,
+    &contents
   )
     require_exactly_one!(timestamp:,date:)
 
@@ -65,6 +69,7 @@ class Brut::FrontEnd::Components::Time < Brut::FrontEnd::Component
     @format           = found_format.to_sym
     @attribute_format = attribute_format.to_sym
     @class_attribute  = only_contains_class[:class] || ""
+    @contents         = contents
   end
 
   def render(clock:)
@@ -77,7 +82,11 @@ class Brut::FrontEnd::Components::Time < Brut::FrontEnd::Component
     datetime_attribute = ::I18n.l(adjusted_value,format: @attribute_format)
 
     html_tag(:time, class: @class_attribute, datetime: datetime_attribute) do
-      ::I18n.l(adjusted_value,format: @format)
+      if @contents
+        @contents.()
+      else
+        ::I18n.l(adjusted_value,format: @format)
+      end
     end
   end
 

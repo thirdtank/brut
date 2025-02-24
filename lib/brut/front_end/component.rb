@@ -197,9 +197,10 @@ class Brut::FrontEnd::Component
     # @param timestamp [Time] the timestamp to format/render. Mutually exclusive with `date`.
     # @param date [Date] the date to format/render. Mutually exclusive with `timestamp`.
     # @param component_options [Hash] keyword arguments to pass to {Brut::FrontEnd::Components::Time#initialize}
-    def time_tag(timestamp:nil,date:nil, **component_options)
+    # @yield See {Brut::FrontEnd::Components::Time#initialize}
+    def time_tag(timestamp:nil,date:nil, **component_options, &contents)
       args = component_options.merge(timestamp:,date:)
-      component(Brut::FrontEnd::Components::Time.new(**args))
+      component(Brut::FrontEnd::Components::Time.new(**args,&contents))
     end
 
     # Render the {Brut::FrontEnd::Components::ConstraintViolations} component for the given form's input.
