@@ -60,7 +60,7 @@ class Brut::FrontEnd::Component
     if @yielded_block
       @yielded_block.().html_safe!
     else
-      raise Brut::FrontEnd::Errors::Bug, "No block was yielded to #{self.class.name}"
+      raise Brut::Framework::Errors::Bug, "No block was yielded to #{self.class.name}"
 		end
 	end
 
