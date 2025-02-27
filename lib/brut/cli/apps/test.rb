@@ -81,15 +81,7 @@ class Brut::CLI::Apps::Test < Brut::CLI::App
       if options.build_assets?
         system!({ "RACK_ENV" => "test" }, "bin/build-assets")
       end
-      begin
-        system!({ "NODE_DISABLE_COLORS" => "1" },"npx mocha #{Brut.container.js_specs_dir} --no-color --extension 'spec.js' --recursive")
-      rescue Brut::CLI::SystemExecError => ex
-        if ex.exit_status == 1
-          out.puts "mocha exited 1 - assuming this is because there are no test files and that this is intentional"
-        else
-          raise ex
-        end
-      end
+      system!({ "NODE_DISABLE_COLORS" => "1" },"npx mocha #{Brut.container.js_specs_dir} --no-color --extension 'spec.js' --recursive")
       0
     end
   end
