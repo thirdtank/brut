@@ -31,8 +31,7 @@ module Brut::FrontEnd::Forms::InputDeclarations
   # {Brut::FrontEnd::Components::Inputs::RadioButton.for_form_input}.
   #
   # @param [String] name The name of the group (used in the `name` attribute)
-  # @param [Hash] attributes Attributes to be used on the tag that represent its contraints. See
-  # {Brut::FrontEnd::Forms::RadioButtonGroupInputDefinition}
+  # @param [Hash] attributes Attributes to be used on the tag that represent its contraints. See {Brut::FrontEnd::Forms::RadioButtonGroupInputDefinition}
   def radio_button_group(name,attributes={})
     self.add_input_definition(
       Brut::FrontEnd::Forms::RadioButtonGroupInputDefinition.new(**(attributes.merge(name: name)))
