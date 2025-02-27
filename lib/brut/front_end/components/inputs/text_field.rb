@@ -10,7 +10,6 @@ class Brut::FrontEnd::Components::Inputs::TextField < Brut::FrontEnd::Components
   def self.for_form_input(form:, input_name:, index: nil, html_attributes: {})
     default_html_attributes = {}
     html_attributes = html_attributes.map { |key,value| [ key.to_s, value ] }.to_h
-    index ||= 0
     input = form.input(input_name, index:)
 
     default_html_attributes["required"] = input.required
@@ -40,8 +39,8 @@ class Brut::FrontEnd::Components::Inputs::TextField < Brut::FrontEnd::Components
     value = input.value
 
     if input.type == "checkbox"
-      default_html_attributes["value"] = "true"
-      default_html_attributes["checked"] = value == "true"
+      default_html_attributes["value"] = (index || true).to_s
+      default_html_attributes["checked"] = !!value
     else
       default_html_attributes["value"] = value
     end

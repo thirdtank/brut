@@ -37,7 +37,33 @@ class Brut::FrontEnd::Form
     if unknown_params.any?
       Brut.container.instrumentation.add_attributes(ignored_unknown_params: unknown_params)
     end
-    @params = params.except(*unknown_params)
+    @params = params.except(*unknown_params).map { |name,value|
+        input_definition = begin
+                             self.class.input_definitions[name] || self.class.input_definitions.fetch(name.to_s)
+                           rescue KeyError
+                             raise "cannot find input definition for '#{name}'. Have these: #{self.class.input_definitions.keys.inspect}"
+                           end
+      if value.kind_of?(Array)
+        input_definition = begin
+                             self.class.input_definitions[name] || self.class.input_definitions.fetch(name.to_s)
+                           rescue KeyError
+                             raise "cannot find input definition for '#{name}'. Have these: #{self.class.input_definitions.keys.inspect}"
+                           end
+        if input_definition.respond_to?(:type) && input_definition.type == "checkbox"
+          if value.all? { it.to_s =~ /^\d+$/ }
+            # the values represent the indexes of which checkboxes were checked
+            new_values = []
+            value.each do |index_as_string|
+              index = Integer(index_as_string)
+              new_values[index] = true
+            end
+            value = new_values.map { !!it }
+          end
+        end
+      end
+      [ name, value ]
+    }.to_h
+
     @new = params_empty?(@params)
     @inputs = self.class.input_definitions.map { |name,input_definition|
       value = @params[name] || @params[name.to_sym]
