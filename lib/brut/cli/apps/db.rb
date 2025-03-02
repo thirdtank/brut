@@ -37,7 +37,7 @@ class Brut::CLI::Apps::DB < Brut::CLI::App
       seed_data.load_seeds!
       0
     rescue Sequel::UniqueConstraintViolation => ex
-      out.puts "Seed data may have already been loaded: #{ex}"
+      raise "Seed data may have already been loaded: #{ex}"
     end
   end
 
