@@ -35,10 +35,13 @@ class Brut::FrontEnd::Flash
 
   # Set the "notice", which is an informational message.  The value is intended to be an I18N key.
   #
-  # @param [String] notice the I18n key of the notice.  You can use any value you like, but you should decide one way or the other,
-  # because it will be confusing to use an I18n key sometimes and sometimes a message.
+  # @param [String|Array] notice the I18n key of the notice. If this is an array, it will be joined with dots to form an I18n key.
   def notice=(notice)
-    self[:notice] = notice
+    self[:notice] = if notice
+                      Array(notice).map(&:to_s).join(".")
+                    else
+                      notice
+                    end
   end
   # Access the notice. See {#notice=}
   def notice = self[:notice]
@@ -48,10 +51,13 @@ class Brut::FrontEnd::Flash
 
   # Set the "alert", which is an important error message.  The value is intended to be an I18N key.
   #
-  # @param [String] alert the I18n key of the notice.  You can use any value you like, but you should decide one way or the other,
-  # because it will be confusing to use an I18n key sometimes and sometimes a message.
+  # @param [String|Array] alert the I18n key of the notice.  If this is an array, it will be joined with dots to form an I18n eky.
   def alert=(alert)
-    self[:alert] = alert
+    self[:alert] = if alert
+                      Array(alert).map(&:to_s).join(".")
+                    else
+                      alert
+                    end
   end
   # Access the alert. See {#alert=}
   def alert = self[:alert]
