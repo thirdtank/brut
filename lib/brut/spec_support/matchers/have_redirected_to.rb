@@ -18,7 +18,17 @@ RSpec::Matchers.define :have_redirected_to do |page_or_uri,**page_params|
     if page_or_uri.kind_of?(URI)
       "Expected #{page_or_uri} but got #{result}"
     elsif page_or_uri.ancestors.include?(Brut::FrontEnd::Page)
-      "Expected #{page_or_uri}'s routing (#{page_or_uri.routing(**page_params)}), but got #{result}"
+      result_explanation = case result
+                           when Brut::FrontEnd::Page
+                             "#{result.page_name} was rendered directly"
+                           when Brut::FrontEnd::HttpStatus
+                             "got HTTP status code #{result}"
+                           when URI
+                             "got a redirect to #{result} instead"
+                           else
+                             "got a #{result.class} instead"
+                           end
+      "Expected redirect to #{page_or_uri}, but #{result_explanation}"
     else
       "Unknown error occured or bug with have_redirected_to"
     end
