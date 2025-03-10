@@ -8,6 +8,12 @@ class Brut::FrontEnd::RouteHooks::CSPNoInlineStylesOrScripts < Brut::FrontEnd::R
     continue
   end
 
+  # TODO: A way for app to pass in stuff to modify this in part.
+  # In particular a hash for a <style>, calculated as follows:
+  # - textContent is sha265'ed
+  # - that is Base64'ed
+  # - that is put as 'sha256–«base64edvalue»` into the directive
+
   # Sets content security policy headers that only report the use inline scripts and inline styles, but do allow them.
   # This is useful for existing apps where you want to migrate to a more secure policy, but cannot.
   # @see Brut::FrontEnd::Handlers::CspReportingHandler
@@ -26,6 +32,8 @@ class Brut::FrontEnd::RouteHooks::CSPNoInlineStylesOrScripts < Brut::FrontEnd::R
 private
 
   def header_value
+    x = "sha256-d21f9b773d3cfad25f041a96ab08376e944e9ad4843f2060ecbdbefb12d91b1d"
+    x = "sha256-0h+bdz08+tJfBBqWqwg3bpROmtSEPyBg7L2++xLZGx0="
     [
       "default-src 'self'",
       "script-src-elem 'self'",

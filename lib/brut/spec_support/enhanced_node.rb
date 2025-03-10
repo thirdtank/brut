@@ -37,6 +37,7 @@ class Brut::SpecSupport::EnhancedNode < SimpleDelegator
   def first!(css_selector)
     element = css(css_selector)
     if (element.kind_of?(Nokogiri::XML::NodeSet))
+      expect(element.first).not_to eq(nil), "No elements matching #{css_selector}"
       return Brut::SpecSupport::EnhancedNode.new(element.first)
     else
       expect([Nokogiri::XML::Node, Nokogiri::XML::Element]).to include(element.class)
