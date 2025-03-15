@@ -139,9 +139,6 @@ class Brut::FrontEnd::Routing
 
   def add_routing_method(route)
     handler_class = route.handler_class
-    if handler_class.respond_to?(:routing) && handler_class.method(:routing).owner != Brut::FrontEnd::Form
-      raise ArgumentError,"#{handler_class} (that handles path #{route.path_template}) got it's ::routing method from #{handler_class.method(:routing).owner}, meaning it has overridden the value fro Brut::FrontEnd::Form"
-    end
     form_class = route.respond_to?(:form_class) ? route.form_class : nil
     [ handler_class, form_class ].compact.each do |klass|
       klass.class_eval do
@@ -180,6 +177,7 @@ class Brut::FrontEnd::Routing
     end
 
     def path(**query_string_params)
+      anchor = query_string_params.delete(:anchor) || query_string_params.delete("anchor")
       path = @path_template.split(/\//).map { |path_part|
         if path_part =~ /^:(.+)$/
           param_name = $1.to_sym
@@ -198,6 +196,9 @@ class Brut::FrontEnd::Routing
       joined_path = path.join("/")
       if joined_path == ""
         joined_path = "/"
+      end
+      if anchor
+        joined_path = joined_path + "#" + URI.encode_uri_component(anchor)
       end
       uri = URI(joined_path)
       uri.query = URI.encode_www_form(query_string_params)
