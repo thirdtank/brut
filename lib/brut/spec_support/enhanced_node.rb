@@ -12,7 +12,12 @@ class Brut::SpecSupport::EnhancedNode < SimpleDelegator
     element = css(css_selector)
     if (element.kind_of?(Nokogiri::XML::NodeSet))
       expect(element.length).to be < 2
-      return Brut::SpecSupport::EnhancedNode.new(element.first)
+      first_element = element.first
+      if first_element
+        return Brut::SpecSupport::EnhancedNode.new(first_element)
+      else
+        return nil
+      end
     else
       expect([Nokogiri::XML::Node, Nokogiri::XML::Element]).to include(element.class)
       return Brut::SpecSupport::EnhancedNode.new(element)
