@@ -186,11 +186,12 @@ class Brut::FrontEnd::Component
     end
 
     # Render the {Brut::FrontEnd::Components::ConstraintViolations} component for the given form's input.
-    def constraint_violations(form:, input_name:, message_html_attributes: {}, **html_attributes)
+    def constraint_violations(form:, input_name:, index: nil, message_html_attributes: {}, **html_attributes)
       component(
         Brut::FrontEnd::Components::ConstraintViolations.new(
           form:,
           input_name:,
+          index:,
           message_html_attributes:,
           **html_attributes
         )
