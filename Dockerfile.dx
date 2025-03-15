@@ -2,7 +2,7 @@ FROM ruby:3.3
 
 SHELL [ "/bin/bash", "-o", "pipefail", "-c" ]
 
-ENV DEBIAN_FRONTEND noninteractive
+ENV DEBIAN_FRONTEND=noninteractive
 
 # These packages are needed to set up other repos to install other
 # packages and/or are useful in installing other software
