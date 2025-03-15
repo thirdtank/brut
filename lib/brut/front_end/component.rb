@@ -52,8 +52,10 @@ class Brut::FrontEnd::Component
     end
   end
 
-  # Allows helpers that create components to pass the block they were given to the component
-  attr_writer :yielded_block
+  # Allows helpers that create components to pass the block they were given to the component.
+  # This can be read for the purposes of nested components passing a yielded block to an inner
+  # component
+  attr_accessor :yielded_block
 
   # Intended to be called by subclasses to render the yielded block wherever it makes sense in their markup.
   def render_yielded_block
