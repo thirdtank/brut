@@ -19,6 +19,9 @@ class Brut::FrontEnd::Page < Brut::FrontEnd::Component
   # Returns the name of the layout for this page.  This string is used to find an ERB file in `app/src/front_end/layouts`. Every page
   # must have a layout. If you wish to render a page with no layout, create an empty layout in your app and use that.
   #
+  # Note that the layout can be dynamic. It is requested when {#render} is called, so you can override this
+  # method and use any ivar set in your constructor to change what layout is used.
+  #
   # @return [String] The name of the layout. May not be `nil`.
   def layout = "default"
 
