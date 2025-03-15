@@ -42,7 +42,11 @@ module Brut::SpecSupport::ComponentSupport
   def render_and_parse(component,&block)
     rendered_text = render(component,&block)
     if !rendered_text.kind_of?(String) && !rendered_text.kind_of?(Brut::FrontEnd::Templates::HTMLSafeString)
-      raise "#{component.class} returned a #{rendered_text.class} - you should not attempt to parse this.  Instead, call render(component)"
+      if rendered_text.kind_of?(URI::Generic)
+        raise "#{component.class} redirected to #{rendered_text} instead of rendering"
+      else
+        raise "#{component.class} returned a #{rendered_text.class} - you should not attempt to parse this.  Instead, call render(component)"
+      end
     end
     nokogiri_node = Nokogiri::HTML5(rendered_text)
     if !component.kind_of?(Brut::FrontEnd::Page)
@@ -65,7 +69,11 @@ module Brut::SpecSupport::ComponentSupport
       end
       nokogiri_node = non_blank_text_elements[0]
     end
-    Brut::SpecSupport::EnhancedNode.new(nokogiri_node)
+    if nokogiri_node
+      Brut::SpecSupport::EnhancedNode.new(nokogiri_node)
+    else
+      nil
+    end
   end
 
   # @!visibility private
