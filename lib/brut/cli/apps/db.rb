@@ -13,12 +13,10 @@ class Brut::CLI::Apps::DB < Brut::CLI::App
     def handle_bootstrap_exception(ex)
       case ex
       when Sequel::DatabaseConnectionError
-        err.puts "Database needs to be created"
-        stop_execution
+        abort_execution("Database needs to be created")
       when Sequel::DatabaseError
         if ex.cause.kind_of?(PG::UndefinedTable)
-          err.puts "Migrations need to be run"
-          stop_execution
+          abort_execution("Migrations need to be run")
         else
           super
         end
@@ -87,6 +85,7 @@ class Brut::CLI::Apps::DB < Brut::CLI::App
         stop_execution
       when Sequel::DatabaseError
         if ex.cause.kind_of?(PG::UndefinedTable)
+          out.puts ex.message
           out.puts "Migrations need to be run"
           continue_execution
         else
@@ -151,8 +150,7 @@ class Brut::CLI::Apps::DB < Brut::CLI::App
     def handle_bootstrap_exception(ex)
       case ex
       when Sequel::DatabaseConnectionError
-        err.puts "Database does not exist. Create it first"
-        stop_execution
+        abort_execution("Database does not exist. Create it first")
       when Sequel::DatabaseError
         if ex.cause.kind_of?(PG::UndefinedTable)
           # ignoring - we are running migrations which will address this
