@@ -5,6 +5,16 @@ module Brut::SpecSupport::GeneralSupport
   end
 
   module ClassMethods
+    def implementation_is_needed(check_again_at:)
+      check_again_at = if check_again_at.kind_of?(Time)
+                         check_again_at
+                       else
+                         check_again_at = Date.parse(check_again_at).to_time
+                       end
+      it "has no tests for now, but they are needed eventually" do
+        expect(Time.now < check_again_at).to eq(true),"It's after #{check_again_at}. Implementation is needed"
+      end
+    end
     # To pass bin/test audit with a class whose implementation is trivial, call this inside the RSpec `describe` block. This is better
     # than an empty test as it makes it more explicit that you believe the implementation is trivial enough to not require a test. You
     # can also set an expiration for this thinking.
@@ -23,7 +33,7 @@ module Brut::SpecSupport::GeneralSupport
         if check_again_at.nil?
           expect(true).to eq(true)
         else
-          expect(Time.now < check_again_at).to eq(true),"I'ts after #{check_again_at}. Check that the implementation of the class under test is still trivial. If it is, update or remove check_again_at:"
+          expect(Time.now < check_again_at).to eq(true),"It's after #{check_again_at}. Check that the implementation of the class under test is still trivial. If it is, update or remove check_again_at:"
         end
       end
     end
