@@ -33,7 +33,7 @@ class Brut::Framework::MCP
   #
   # * Create the instance and *do not* call `boot!`.  This is what you'd do if you can't or don't want to connect to external services
   # like the database.  For example, when Brut builds assets, it does not call `boot!`.
-  # * Create the intance and immediately call `boot!`.  This is what happens most of the time, in particular when the app is started
+  # * Create the instance and immediately call `boot!`.  This is what happens most of the time, in particular when the app is started
   # up by Puma to start serving requests.
   #
   # What you should avoid doing is creating an instance of this class and performing logic before later calling `boot!`.
