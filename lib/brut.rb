@@ -50,6 +50,7 @@ module Brut
   # will be in the back end, Brut is far less prescriptive about how to manage that than it is the front end.
   module BackEnd
     autoload(:Validators, "brut/back_end/validator")
+    autoload(:Sidekiq, "brut/back_end/sidekiq")
     # Do not put SeedData here - it must be loaded only when needed
   end
   # I18n is where internationalization and localization support lives.
