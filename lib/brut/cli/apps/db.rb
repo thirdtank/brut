@@ -189,7 +189,9 @@ class Brut::CLI::Apps::DB < Brut::CLI::App
         formatted
       }
       Brut.container.sequel_db_handle.logger = logger
-      Sequel::Migrator.run(Brut.container.sequel_db_handle,migrations_dir)
+      Brut.container.instrumentation.span("migrations.run") do
+        Sequel::Migrator.run(Brut.container.sequel_db_handle,migrations_dir)
+      end
       out.puts "Migrations applied"
     end
   end

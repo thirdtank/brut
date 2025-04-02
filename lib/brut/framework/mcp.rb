@@ -100,6 +100,14 @@ class Brut::Framework::MCP
           )
         )
       end
+
+      if defined?(OpenTelemetry::Instrumentation::Sidekiq)
+        c.use 'OpenTelemetry::Instrumentation::Sidekiq', {
+          span_naming: :job_class,
+        }
+      else
+        SemanticLogger[self.class].info "OpenTelemetry::Instrumentation::Sidekiq is not loaded, so Sidekiq traces will not be captured"
+      end
     end
 
     Brut.container.store(

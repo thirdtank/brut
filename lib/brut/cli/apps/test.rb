@@ -40,21 +40,29 @@ class Brut::CLI::Apps::Test < Brut::CLI::App
     def execute
       Brut.container.sequel_db_handle.disconnect
       if options.rebuild?(default: rebuild_by_default?)
-        out.puts "Rebuilding test database schema"
-        system! "bin/db rebuild --env=test"
+        Brut.container.instrumentation.span("schema.rebuild.before") do
+          out.puts "Rebuilding test database schema"
+          system! "bin/db rebuild --env=test"
+        end
       end
-      if args.empty?
-        out.puts "Running all tests"
-        system! "#{rspec_command} #{Brut.container.app_specs_dir}/"
-      else
-        test_args = args.map { |_|
-          '"' + Shellwords.escape(_) + '"'
-        }.join(" ")
-        system! "#{rspec_command} #{test_args}"
+      Brut.container.instrumentation.span("tests.run") do |span|
+        if args.empty?
+          span.add_attributes(tests: :all)
+          out.puts "Running all tests"
+          system! "#{rspec_command} #{Brut.container.app_specs_dir}/"
+        else
+          span.add_attributes(tests: args.length)
+          test_args = args.map { |_|
+            '"' + Shellwords.escape(_) + '"'
+          }.join(" ")
+          system! "#{rspec_command} #{test_args}"
+        end
       end
       if options.rebuild_after?(default: rebuild_after_by_default?)
-        out.puts "Re-Rebuilding test database schema"
-        system! "bin/db rebuild --env=test"
+        Brut.container.instrumentation.span("schema.rebuild.after") do
+          out.puts "Re-Rebuilding test database schema"
+          system! "bin/db rebuild --env=test"
+        end
       end
       0
     end

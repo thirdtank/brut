@@ -208,7 +208,14 @@ class Brut::CLI::App
       return bootstrap_result
     end
     after_bootstrap
-    as_execution_result(command.execute)
+    if self.class.configure_only?
+      as_execution_result(command.execute)
+    else
+      result = Brut.container.instrumentation.span("CLI.#{$0}", class: self.class.name) do |span|
+        as_execution_result(command.execute)
+      end
+      result
+    end
   rescue Brut::CLI::Error => ex
     abort_execution(ex.message)
   end
