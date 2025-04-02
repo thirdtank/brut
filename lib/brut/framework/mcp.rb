@@ -70,6 +70,7 @@ class Brut::Framework::MCP
       end
     end
     Sequel::Database.extension :pg_array
+    Sequel::Database.extension :pg_json
 
     sequel_db = Brut.container.sequel_db_handle
 
