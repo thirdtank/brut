@@ -17,6 +17,9 @@ require "opentelemetry/exporter/otlp"
 # intended to use or interact with this class at all. End of line.
 class Brut::Framework::MCP
 
+  @otel_shutdown = Concurrent::AtomicBoolean.new(false)
+  def self.otel_shutdown = @otel_shutdown
+
   # Create and configure the MCP.  The app will not work until {#boot!} has been called, however most of the core configuration
   # will be available via `Brut.container`.
   #
@@ -66,58 +69,34 @@ class Brut::Framework::MCP
       begin
         Brut.container.sequel_db_handle.disconnect
       rescue Sequel::DatabaseConnectionError
-        SemanticLogger["Sequel::Database"].info "Not connected to database, so not disconnecting"
+        SemanticLogger[self.class].info "Not connected to database, so not disconnecting"
+      end
+      otel_configured = OpenTelemetry.tracer_provider.is_a?(OpenTelemetry::SDK::Trace::TracerProvider)
+      if otel_configured
+        if $PROGRAM_NAME =~ /^sidekiq/
+          SemanticLogger[self.class].info "Assuming we are sidekiq, which will shutdown OpenTelemetry, so doing nothing", program: $PROGRAM_NAME
+        else
+          if self.class.otel_shutdown.make_true
+            SemanticLogger[self.class].info "Shutting down OpenTelemetry", program: $PROGRAM_NAME
+            OpenTelemetry.tracer_provider.shutdown
+          else
+            SemanticLogger[self.class].info "OpenTelemetry already shutdown", program: $PROGRAM_NAME
+          end
+        end
+      else
+        SemanticLogger[self.class].info "OpenTelemetry was not configured, so no shutdown needed", program: $PROGRAM_NAME
       end
     end
-    Sequel::Database.extension :pg_array
-    Sequel::Database.extension :pg_json
 
-    sequel_db = Brut.container.sequel_db_handle
+    boot_postgres!
+    boot_otel!
 
-    Sequel::Model.db = sequel_db
-
-    Sequel::Model.plugin :find_bang
-    Sequel::Model.plugin :created_at
-    Sequel::Model.plugin :table_select
-    Sequel::Model.plugin :skip_saving_columns
-
-    if !Brut.container.external_id_prefix.nil?
-      Sequel::Model.plugin :external_id, global_prefix: Brut.container.external_id_prefix
-    end
     if Brut.container.eager_load_classes?
       SemanticLogger["Brut"].info("Eagerly loading app's classes")
       @loader.eager_load
     else
       SemanticLogger["Brut"].info("Lazily loading app's classes")
     end
-    OpenTelemetry::SDK.configure do |c|
-      c.service_name = @app.id
-      if ENV["OTEL_TRACES_EXPORTER"]
-        SemanticLogger[self.class].info "OTEL_TRACES_EXPORTER was set (to '#{ENV['OTEL_TRACES_EXPORTER']}'), so Brut's OTel logging is disabled"
-      else
-        c.add_span_processor(
-          OpenTelemetry::SDK::Trace::Export::SimpleSpanProcessor.new(
-            Brut::Instrumentation::LoggerSpanExporter.new
-          )
-        )
-      end
-
-      if defined?(OpenTelemetry::Instrumentation::Sidekiq)
-        c.use 'OpenTelemetry::Instrumentation::Sidekiq', {
-          span_naming: :job_class,
-        }
-      else
-        SemanticLogger[self.class].info "OpenTelemetry::Instrumentation::Sidekiq is not loaded, so Sidekiq traces will not be captured"
-      end
-    end
-
-    Brut.container.store(
-      "tracer",
-      OpenTelemetry::SDK::Trace::Tracer,
-      "Tracer for Open Telemetry",
-      OpenTelemetry.tracer_provider.tracer(@app.id)
-    )
-    Sequel::Database.extension :brut_instrumentation
 
     @app.boot!
 
@@ -303,5 +282,54 @@ private
     end
 
     @loader.setup
+  end
+
+  def boot_postgres!
+    Sequel::Database.extension :pg_array
+    Sequel::Database.extension :pg_json
+
+    sequel_db = Brut.container.sequel_db_handle
+
+    Sequel::Model.db = sequel_db
+
+    Sequel::Model.plugin :find_bang
+    Sequel::Model.plugin :created_at
+    Sequel::Model.plugin :table_select
+    Sequel::Model.plugin :skip_saving_columns
+
+    if !Brut.container.external_id_prefix.nil?
+      Sequel::Model.plugin :external_id, global_prefix: Brut.container.external_id_prefix
+    end
+    Sequel::Database.extension :brut_instrumentation
+  end
+
+  def boot_otel!
+    OpenTelemetry::SDK.configure do |c|
+      c.service_name = @app.id
+      if ENV["OTEL_TRACES_EXPORTER"]
+        SemanticLogger[self.class].info "OTEL_TRACES_EXPORTER was set (to '#{ENV['OTEL_TRACES_EXPORTER']}'), so Brut's OTel logging is disabled"
+      else
+        c.add_span_processor(
+          OpenTelemetry::SDK::Trace::Export::SimpleSpanProcessor.new(
+            Brut::Instrumentation::LoggerSpanExporter.new
+          )
+        )
+      end
+
+      if defined?(OpenTelemetry::Instrumentation::Sidekiq)
+        c.use 'OpenTelemetry::Instrumentation::Sidekiq', {
+          span_naming: :job_class,
+        }
+      else
+        SemanticLogger[self.class].info "OpenTelemetry::Instrumentation::Sidekiq is not loaded, so Sidekiq traces will not be captured"
+      end
+    end
+
+    Brut.container.store(
+      "tracer",
+      OpenTelemetry::SDK::Trace::Tracer,
+      "Tracer for Open Telemetry",
+      OpenTelemetry.tracer_provider.tracer(@app.id)
+    )
   end
 end

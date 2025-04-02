@@ -26,12 +26,7 @@ module Brut
     # @param project_root [Pathname] the path to the root of your project. This is needed before the Brut framework is initialized so
     # it must be specified explicitly.
     def self.app(app_klass, project_root:)
-      Brut::CLI::AppRunner.new(app_klass:,project_root:).run!.tap {
-        otel_configured = OpenTelemetry.tracer_provider.is_a?(OpenTelemetry::SDK::Trace::TracerProvider)
-        if otel_configured
-          OpenTelemetry.tracer_provider.shutdown
-        end
-      }
+      Brut::CLI::AppRunner.new(app_klass:,project_root:).run!
     end
     autoload(:App, "brut/cli/app")
     autoload(:Command, "brut/cli/command")
