@@ -15,13 +15,15 @@ class Brut::FrontEnd::RequestContext
   # @param [Brut::FrontEnd::Flash] flash the current flash
   # @param [true|false] xhr true if this is an XHR request.
   # @param [Object] body the `request.body` as provided by Rack
-  def initialize(env:,session:,flash:,xhr:,body:)
+  # @param [URI] host URI the `request.host` and `request.scheme`, and `request.port` as provided by Rack
+  def initialize(env:,session:,flash:,xhr:,body:,host:)
     @hash = {
       env:,
       session:,
       flash:,
       xhr:,
       body:,
+      host:,
       csrf_token: Rack::Protection::AuthenticityToken.token(env["rack.session"]),
       clock: Clock.new(session.timezone),
     }

@@ -424,6 +424,15 @@ class Brut::Framework::Config
         allow_nil: true,
       )
 
+      Brut.container.store(
+        "fallback_host",
+        URI,
+        "Hostname to use in situations where the request is not available",
+        nil,
+        allow_app_override: true,
+        allow_nil: true
+      )
+
       c.store(
         "local_hostname",
         String,

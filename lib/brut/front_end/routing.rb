@@ -116,7 +116,25 @@ class Brut::FrontEnd::Routing
     route
   end
 
-  def uri(handler_class, with_method: :any, **rest)
+  def path(handler_class, with_method: :any, **rest)
+    route = self.route_for(handler_class, with_method:)
+    route.path(**rest)
+  end
+
+  def url(handler_class, with_method: :any, **rest)
+    route = self.route_for(handler_class, with_method:)
+    route.url(**rest)
+  end
+
+  def inspect
+    @routes.map { |route|
+      "#{route.http_method}:#{route.path_template} - #{route.handler_class.name}"
+    }.join("\n")
+  end
+
+private
+
+  def route_for(handler_class, with_method: :any)
     route = self.route(handler_class)
     route_allowed_for_method = if with_method == :any
                                  true
@@ -128,14 +146,9 @@ class Brut::FrontEnd::Routing
     if !route_allowed_for_method
       raise ArgumentError,"The route for '#{handler_class}' (#{route.path}) is not supported by HTTP method '#{with_method}'"
     end
-    route.path(**rest)
+    route
   end
 
-  def inspect
-    @routes.map { |route|
-      "#{route.http_method}:#{route.path_template} - #{route.handler_class.name}"
-    }.join("\n")
-  end
 
   def add_routing_method(route)
     handler_class = route.handler_class
@@ -143,7 +156,10 @@ class Brut::FrontEnd::Routing
     [ handler_class, form_class ].compact.each do |klass|
       klass.class_eval do
         def self.routing(**args)
-          Brut.container.routing.uri(self,**args)
+          Brut.container.routing.path(self,**args)
+        end
+        def self.full_routing(**args)
+          Brut.container.routing.url(self,**args)
         end
       end
     end
@@ -205,11 +221,31 @@ class Brut::FrontEnd::Routing
       uri
     end
 
+    def url(**query_string_params)
+      request_context = Thread.current.thread_variable_get(:request_context)
+      path = self.path(**query_string_params)
+      host = if request_context
+               request_context[:host]
+             end
+      host ||= Brut.container.fallback_host
+      host.merge(path)
+    rescue ArgumentError => ex
+      request_context_note = if request_context
+                               "the RequestContext did not contain request.host, which is unusual"
+                             else
+                               "the RequestContext was not available (likely due to calling `full_routing` outside an HTTP request)"
+                             end
+      raise Brut::Framework::Errors::MissingConfiguration(
+        :fallback_host,
+        "Attempting to get the full URL for route #{self.path_template}, #{request_context_note}, and Brut.container.fallback_host was not set.  You must set this value if you expect to generate complete URLs outside of an HTTP request")
+    end
+
     def ==(other)
       self.method == other.method && self.path == other.path
     end
 
   private
+
     def locate_handler_class(suffix,preposition, on_missing: :raise)
       if @path_template == "/"
         return Module.const_get("HomePage") # XXX Needs error handling

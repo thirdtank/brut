@@ -15,7 +15,7 @@ module Brut::FrontEnd::HandlingResults
     if !klass.kind_of?(Class)
       raise ArgumentError,"redirect_to should be given a Class, not a #{klass.class}"
     end
-    Brut.container.routing.uri(klass,with_method: :get,**query_string_params)
+    Brut.container.routing.path(klass,with_method: :get,**query_string_params)
   end
 
   # Return this to return an HTTP status code from a number or string containing the code.

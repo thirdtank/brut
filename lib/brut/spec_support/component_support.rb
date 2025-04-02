@@ -78,7 +78,7 @@ module Brut::SpecSupport::ComponentSupport
 
   # @!visibility private
   def routing_for(klass,**args)
-    Brut.container.routing.uri(klass,**args)
+    Brut.container.routing.path(klass,**args)
   end
 
   # Escape HTML using the same code Brut uses for rendering templates.

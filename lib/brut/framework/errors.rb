@@ -7,6 +7,7 @@ module Brut
       autoload(:NotImplemented,"brut/framework/errors/not_implemented")
       autoload(:NotFound,"brut/framework/errors/not_found")
       autoload(:MissingParameter,"brut/framework/errors/missing_parameter")
+      autoload(:MissingConfiguration,"brut/framework/errors/missing_configuration")
       autoload(:AbstractMethod,"brut/framework/errors/abstract_method")
       autoload(:NoClassForPath,"brut/framework/errors/no_class_for_path")
       # Raises {Brut::Framework::Errors::Bug}

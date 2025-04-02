@@ -103,6 +103,7 @@ class Brut::SpecSupport::RSpecSetup
           flash: empty_flash,
           body: nil,
           xhr: false,
+          host: URI("https://example.com")
         )
         Thread.current.thread_variable_set(:request_context, request_context)
         example.example_group.let(:request_context) { request_context }
