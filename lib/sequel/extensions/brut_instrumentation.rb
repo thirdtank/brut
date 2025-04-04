@@ -4,7 +4,13 @@ module Sequel
     module BrutInstrumentation
       # @!visibility private
       def log_connection_yield(sql,conn,args=nil)
-        Brut.container.instrumentation.span("SQL", sql: sql) do |span|
+        otel_attributes = {
+          "db.system" => "sql",
+          "db.system.name" => "postgresql",
+          "db.query.text" => sql,
+          "prefix" => false,
+        }
+        Brut.container.instrumentation.span("SQL", **otel_attributes) do |span|
           super
         end
       end

@@ -35,7 +35,7 @@ class Brut::FrontEnd::Form
       self.class.input_definitions.key?(key)
     }
     if unknown_params.any?
-      Brut.container.instrumentation.add_attributes(ignored_unknown_params: unknown_params)
+      Brut.container.instrumentation.add_attributes(prefix: :brut, ignored_unknown_params: unknown_params.join(","))
     end
     @params = params.except(*unknown_params).map { |name,value|
         input_definition = begin

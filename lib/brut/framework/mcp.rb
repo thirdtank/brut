@@ -53,6 +53,17 @@ class Brut::Framework::MCP
     setup_zeitwerk
 
     @app = app_klass.new
+    otel_prefix = if @app.id == @app.organization
+                    @app.id
+                  else
+                    "#{@app.organization}.#{@app.id}"
+                  end
+    Brut.container.store(
+      "otel_attribute_prefix",
+      "String",
+      "Prefix for all OTel attributes set by the app",
+      otel_prefix
+    )
   end
 
   # Starts up the internals of Brut and that app so that it can receive requests from
@@ -88,8 +99,8 @@ class Brut::Framework::MCP
       end
     end
 
-    boot_postgres!
     boot_otel!
+    boot_postgres!
 
     if Brut.container.eager_load_classes?
       SemanticLogger["Brut"].info("Eagerly loading app's classes")
@@ -194,7 +205,7 @@ class Brut::Framework::MCP
             hook = klass.new
             span.add_prefixed_attributes("#{method}.args",args.map { |k,v| [ k,v.class] }.to_h )
             result = hook.send(method,**args)
-            span.add_attributes(result:)
+            span.add_prefixed_attributes("brut", result_class: result.class)
             case result
             in URI => uri
               redirect to(uri.to_s)
@@ -289,6 +300,7 @@ private
     Sequel::Database.extension :pg_json
 
     sequel_db = Brut.container.sequel_db_handle
+    sequel_db.extension :brut_instrumentation
 
     Sequel::Model.db = sequel_db
 
@@ -300,7 +312,6 @@ private
     if !Brut.container.external_id_prefix.nil?
       Sequel::Model.plugin :external_id, global_prefix: Brut.container.external_id_prefix
     end
-    Sequel::Database.extension :brut_instrumentation
   end
 
   def boot_otel!

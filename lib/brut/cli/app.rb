@@ -211,7 +211,7 @@ class Brut::CLI::App
     if self.class.configure_only?
       as_execution_result(command.execute)
     else
-      result = Brut.container.instrumentation.span("CLI.#{$0}", class: self.class.name) do |span|
+      result = Brut.container.instrumentation.span("CLI #{$0}", prefix: "brut.cli", class: self.class.name) do |span|
         as_execution_result(command.execute)
       end
       result

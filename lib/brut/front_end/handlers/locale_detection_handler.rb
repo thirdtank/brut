@@ -8,8 +8,13 @@ class Brut::FrontEnd::Handlers::LocaleDetectionHandler < Brut::FrontEnd::Handler
   def handle(body:,session:)
     begin
       parsed = JSON.parse(body.read)
-      Brut.container.instrumentation.add_attributes(parsed_body: parsed)
-      Brut.container.instrumentation.add_attributes(parsed_class: parsed.class)
+
+      Brut.container.instrumentation.add_attributes(
+        prefix: "brut.locale-detection",
+        parsed_body: parsed,
+        parsed_class: parsed.class
+      )
+
       if parsed.kind_of?(Hash)
         locale   = parsed["locale"]
         timezone = parsed["timeZone"]

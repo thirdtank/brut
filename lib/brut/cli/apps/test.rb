@@ -47,11 +47,11 @@ class Brut::CLI::Apps::Test < Brut::CLI::App
       end
       Brut.container.instrumentation.span("tests.run") do |span|
         if args.empty?
-          span.add_attributes(tests: :all)
+          span.add_prefixed_attributes("brut.cli.test", tests: :all)
           out.puts "Running all tests"
           system! "#{rspec_command} #{Brut.container.app_specs_dir}/"
         else
-          span.add_attributes(tests: args.length)
+          span.add_prefixed_attributes("brut.cli.test", tests: args.length)
           test_args = args.map { |_|
             '"' + Shellwords.escape(_) + '"'
           }.join(" ")

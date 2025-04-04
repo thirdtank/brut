@@ -65,19 +65,28 @@ module Brut::SinatraHelpers
       Brut.container.routing.register_page(path)
 
       get path do
-        route = Brut.container.routing.for(path: path,method: :get)
-        page_class = route.handler_class
-        Brut.container.instrumentation.span(page_class.name, path: path) do |span|
+        brut_route = Brut.container.routing.for(path: path,method: :get)
+        page_class = brut_route.handler_class
+        path_template = brut_route.path_template
+
+        root_span = env["brut.otel.root_span"]
+        if root_span
+          root_span.name = "GET #{path_template}"
+          root_span.add_attributes("http.route" => path_template)
+        end
+
+        Brut.container.instrumentation.span(page_class.name) do |span|
+          span.add_prefixed_attributes("brut", type: :page, class: page_class)
           request_context = Thread.current.thread_variable_get(:request_context)
           constructor_args = request_context.as_constructor_args(
             page_class,
             request_params: params,
-            route: route,
+            route: brut_route,
           )
-          span.add_prefixed_attributes("initializer.args", constructor_args.map { |k,v| [k.to_s,v.class.name] }.to_h)
+          span.add_prefixed_attributes("brut.initializer.args", constructor_args.map { |k,v| [k.to_s,v.class.name] }.to_h)
           page_instance = page_class.new(**constructor_args)
           result = page_instance.handle!
-          span.add_attributes(result_class: result.class)
+          span.add_prefixed_attributes("brut", result_class: result.class)
           case result
           in URI => uri
             redirect to(uri.to_s)
@@ -148,37 +157,55 @@ module Brut::SinatraHelpers
         # This must be re-looked up per-request do allow reloading to work
         brut_route = Brut.container.routing.for(path:,method:)
 
+        path_template = brut_route.path_template
+
+        root_span = env["brut.otel.root_span"]
+        if root_span
+          root_span.name = "#{method} #{path_template}"
+          root_span.add_attributes("http.route" => path_template)
+        end
+
         handler_class = brut_route.handler_class
-        form_class    = brut_route.respond_to?(:form_class) ? brut_route.form_class : nil
 
-        request_context = Thread.current.thread_variable_get(:request_context)
-        handler = handler_class.new
-        form = if form_class.nil?
-                 nil
-               else
-                 form_class.new(params: params)
-               end
+        Brut.container.instrumentation.span(handler_class.name) do |span|
 
-        process_args = request_context.as_method_args(handler,:handle,request_params: params,form: form,route:brut_route)
+          form_class = brut_route.respond_to?(:form_class) ? brut_route.form_class : nil
 
-        result = handler.handle!(**process_args)
+          span.add_prefixed_attributes("brut",
+            type: form_class ? :form : :action,
+            class: handler_class,
+            form_class: form_class,
+          )
 
-        case result
-        in URI => uri
-          redirect to(uri.to_s)
-        in Brut::FrontEnd::Component => component_instance
-          render_html(component_instance).to_s
-        in [ Brut::FrontEnd::Component => component_instance, Brut::FrontEnd::HttpStatus => http_status ]
-          [
-            http_status.to_i,
-            render_html(component_instance).to_s,
-          ]
-        in Brut::FrontEnd::HttpStatus => http_status
-          http_status.to_i
-        in Brut::FrontEnd::Download => download
-          [ 200, download.headers, download.data ]
-        else
-          raise NoMatchingPatternError, "Result from #{handler.class}'s handle! method was a #{result.class}, which cannot be used to understand the response to generate"
+          request_context = Thread.current.thread_variable_get(:request_context)
+          handler = handler_class.new
+          form = if form_class.nil?
+                   nil
+                 else
+                   form_class.new(params: params)
+                 end
+
+          process_args = request_context.as_method_args(handler,:handle,request_params: params,form: form,route:brut_route)
+
+          result = handler.handle!(**process_args)
+
+          case result
+          in URI => uri
+            redirect to(uri.to_s)
+          in Brut::FrontEnd::Component => component_instance
+            render_html(component_instance).to_s
+          in [ Brut::FrontEnd::Component => component_instance, Brut::FrontEnd::HttpStatus => http_status ]
+            [
+              http_status.to_i,
+              render_html(component_instance).to_s,
+            ]
+          in Brut::FrontEnd::HttpStatus => http_status
+            http_status.to_i
+          in Brut::FrontEnd::Download => download
+            [ 200, download.headers, download.data ]
+          else
+            raise NoMatchingPatternError, "Result from #{handler.class}'s handle! method was a #{result.class}, which cannot be used to understand the response to generate"
+          end
         end
       end
     end

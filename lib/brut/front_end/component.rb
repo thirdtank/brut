@@ -79,7 +79,8 @@ class Brut::FrontEnd::Component
   #
   # @return [Brut::FrontEnd::Templates::HTMLSafeString] string containing the component's HTML.
   def render
-    Brut.container.instrumentation.span("#{self.class}.render") do |span|
+    Brut.container.instrumentation.span("#{self.class} render") do |span|
+      span.add_prefixed_attributes("brut", type: :component, class: self.class.name)
       Brut.container.component_locator.locate(self.template_name).
         then { Brut::FrontEnd::Template.new(it) }.
         then { it.render_template(self).html_safe! }
@@ -133,7 +134,7 @@ class Brut::FrontEnd::Component
     # @return [Brut::FrontEnd::Templates::HTMLSafeString] of the rendered component.
     def component(component_instance,&block)
       component_name = component_instance.kind_of?(Class) ? component_instance.name : component_instance.class.name
-      Brut.container.instrumentation.span(component_name) do |span|
+      Brut.container.instrumentation.span("component #{component_name}") do |span|
         if component_instance.kind_of?(Class)
           if !component_instance.ancestors.include?(Brut::FrontEnd::Component)
             raise ArgumentError,"#{component_instance} is not a component and cannot be created"
@@ -141,9 +142,9 @@ class Brut::FrontEnd::Component
           component_instance = Thread.current.thread_variable_get(:request_context).
             then { |request_context| request_context.as_constructor_args(component_instance,request_params: nil)
             }.then { |constructor_args| component_instance.new(**constructor_args) }
-          span.add_attributes("global_component" => true, "class" => component_instance.class.name)
+          span.add_prefixed_attributes("brut", "global_component" => true)
         else
-          span.add_attributes("global_component" => false, "class" => component_instance.class.name)
+          span.add_prefixed_attributes("brut", "global_component" => false)
         end
         if !block.nil?
           component_instance.yielded_block = block
