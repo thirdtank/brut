@@ -132,7 +132,18 @@ class Brut::FrontEnd::Form
   # values are arrays of {Brut::FrontEnd::Forms::ValidityState} instances.
   #
   # @param [true|false] server_side_only if true, only server side constraints are returned.
-  # @return [Hash] map of input names to arrays of validity states
+  # @return [Hash<String|Array[2]>] a map of input names to arrays of constraint violations.  The first element in the
+  # array is the validity state for the input, which is a {Brut::FrontEnd::Forms::ValidityState} instance.  The second
+  # element is the index of the input in the array.  This index is used when you have more than one field with the same
+  # name.
+  #
+  # @example iterationg
+  # form.constraint_violations.each do |input_name, (constraint_violations,index)|
+  #   # input_name is the input's name, e.g. "email"
+  #   # constraint_violations is an array of {Brut::FrontEnd::Forms::ValidityState} instances, one for each
+  #   #                       problem with the field's value
+  #   # index is the index of the input in the array, e.g. 0  for the first email field, 1 for the second, etc.
+  # end
   #
   def constraint_violations(server_side_only: false)
     @inputs.map { |input_name, inputs|
@@ -179,15 +190,17 @@ class Brut::FrontEnd::Form
 private
 
   def convert_to_string_or_nil(hash)
+    converted_hash = {}
     hash.each do |key,value|
+      key = key.to_s
       case value
-      in Hash       then convert_to_string_or_nil(value)
-      in String     then hash[key] = RichString.new(value).to_s_or_nil
-      in Numeric    then hash[key] = value.to_s
-      in TrueClass  then hash[key] = "true"
-      in FalseClass then hash[key] = "false"
-      in NilClass   then # it's fine
-      in Array      then hash[key] = value
+      in Hash       then converted_hash[key] = convert_to_string_or_nil(value)
+      in String     then converted_hash[key] = RichString.new(value).to_s_or_nil
+      in Numeric    then converted_hash[key] = value.to_s
+      in TrueClass  then converted_hash[key] = "true"
+      in FalseClass then converted_hash[key] = "false"
+      in NilClass   then converted_hash[key] = nil
+      in Array      then converted_hash[key] = value
       else
         if Brut.container.project_env.test?
           raise ArgumentError, "Got #{value.class} for #{key} in params hash, which is not expected"
@@ -196,5 +209,6 @@ private
         end
       end
     end
+    converted_hash
   end
 end
