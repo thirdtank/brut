@@ -40,7 +40,7 @@ class Brut::FrontEnd::Components::Inputs::TextField < Brut::FrontEnd::Components
 
     if input.type == "checkbox"
       default_html_attributes["value"] = (index || true).to_s
-      default_html_attributes["checked"] = !!value
+      default_html_attributes["checked"] = value == "true"
     else
       default_html_attributes["value"] = value
     end
