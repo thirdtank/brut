@@ -177,6 +177,8 @@ private
         args[name] = route
       elsif !request_params.nil? && (request_params[name.to_s] || request_params[name.to_sym])
         args[name] = RichString.new(request_params[name.to_s] || request_params[name.to_sym]).to_s_or_nil
+      elsif name == :raw_params
+        args[name] = request_params || {}
       elsif type == :keyreq
         request_params_message = if request_params.nil?
                                    "no request params provied"

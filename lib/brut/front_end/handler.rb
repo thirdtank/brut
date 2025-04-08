@@ -19,6 +19,8 @@ module Brut::FrontEnd
     # * Array of two items, with the first being an Instance of {Brut::FrontEnd::Component} and the second being an {Brut::FrontEnd::HttpStatus} -  renders that component or page, but responds with the given HTTP status. Useful for Ajax requests that don't return 200, but do return useful content.
     # * Instance of {Brut::FrontEnd::HttpStatus} - returns just that status code. Typically you would do this by calling {Brut::FrontEnd::HandlingResults#http_status}
     # * Instance of {Brut::FrontEnd::Download} - sends a file download to the browser.
+    # * Instance of {Brut::FrontEnd::GenericResponse} - sends itself as the rack response. Use this only if
+    # you cannot use one of the other options
     #
     # @return [URI|Brut::FrontEnd::Component,Array,Brut::FrontEnd::HttpStatus,Brut::FrontEnd::Download]
     def handle(**)

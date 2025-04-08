@@ -203,6 +203,8 @@ module Brut::SinatraHelpers
             http_status.to_i
           in Brut::FrontEnd::Download => download
             [ 200, download.headers, download.data ]
+          in Brut::FrontEnd::GenericResponse => response
+            response.to_ary
           else
             raise NoMatchingPatternError, "Result from #{handler.class}'s handle! method was a #{result.class}, which cannot be used to understand the response to generate"
           end
