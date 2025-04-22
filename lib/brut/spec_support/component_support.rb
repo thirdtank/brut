@@ -14,11 +14,20 @@ module Brut::SpecSupport::ComponentSupport
   # inside a template.  You typically don't want this, but should use {#render_and_parse}, since that will
   # parse the HTML.
   def render(component,&block)
-    if component.kind_of?(Brut::FrontEnd::Page)
+    is_page = component.respond_to?(:page_template) || component.kind_of?(Brut::FrontEnd::Page)
+    if is_page
       if !block.nil?
         raise "pages do not accept blocks - do not pass one to render_and_parse"
       end
       component.handle!
+    elsif component.kind_of?(Phlex::HTML)
+      if block.nil?
+        component.call
+      else
+        component.call do
+          component.raw(component.safe(block.()))
+        end
+      end
     else
       component.yielded_block = block
       component.render
@@ -49,7 +58,8 @@ module Brut::SpecSupport::ComponentSupport
       end
     end
     nokogiri_node = Nokogiri::HTML5(rendered_text)
-    if !component.kind_of?(Brut::FrontEnd::Page)
+    is_page = component.respond_to?(:page_template) || component.kind_of?(Brut::FrontEnd::Page)
+    if !is_page
       nokogiri_node = Nokogiri::HTML5.fragment(rendered_text.to_s.chomp, max_errors: 100, context: "template")
       if nokogiri_node.errors.any?
         raise "#{component.class} render invalid HTML:\n\n#{rendered_text}\n\nErrors: #{nokogiri_node.errors.join(", ")}"

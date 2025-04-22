@@ -57,14 +57,20 @@ class Brut::FrontEnd::Page < Brut::FrontEnd::Component
     layout_template = Brut.container.layout_locator.locate(self.layout).
       then { |layout_erb_file| Brut::FrontEnd::Template.new(layout_erb_file) }
 
-    template = Brut.container.page_locator.locate(self.template_name).
-      then { |erb_file| Brut::FrontEnd::Template.new(erb_file) }
+    if self.respond_to?(:phlex_component)
+      layout_template.render_template(self) do
+        self.phlex_component.call.html_safe!
+      end
+    else
+      template = Brut.container.page_locator.locate(self.template_name).
+        then { |erb_file| Brut::FrontEnd::Template.new(erb_file) }
 
-    Brut.container.instrumentation.add_event("templates found", layout: layout_template.template_file_path, page: template.template_file_path)
+      Brut.container.instrumentation.add_event("templates found", layout: layout_template.template_file_path, page: template.template_file_path)
 
-    page = template.render_template(self).html_safe!
-    layout_template.render_template(self) do
-      page
+      page = template.render_template(self).html_safe!
+      layout_template.render_template(self) do
+        page
+      end
     end
   end
 

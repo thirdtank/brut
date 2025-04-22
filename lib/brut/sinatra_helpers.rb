@@ -85,7 +85,9 @@ module Brut::SinatraHelpers
           )
           span.add_prefixed_attributes("brut.initializer.args", constructor_args.map { |k,v| [k.to_s,v.class.name] }.to_h)
           page_instance = page_class.new(**constructor_args)
+
           result = page_instance.handle!
+
           span.add_prefixed_attributes("brut", result_class: result.class)
           case result
           in URI => uri
@@ -197,7 +199,14 @@ module Brut::SinatraHelpers
           in [ Brut::FrontEnd::Component => component_instance, Brut::FrontEnd::HttpStatus => http_status ]
             [
               http_status.to_i,
-              render_html(component_instance).to_s,
+              component_instance.call.to_s,
+            ]
+          in Phlex::HTML => component_instance
+            component_instance.call.to_s
+          in [ Phlex::HTML => component_instance, Brut::FrontEnd::HttpStatus => http_status ]
+            [
+              http_status.to_i,
+              component_instance.call.to_s,
             ]
           in Brut::FrontEnd::HttpStatus => http_status
             http_status.to_i

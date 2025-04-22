@@ -136,24 +136,34 @@ class Brut::FrontEnd::Component
       component_name = component_instance.kind_of?(Class) ? component_instance.name : component_instance.class.name
       Brut.container.instrumentation.span("component #{component_name}") do |span|
         if component_instance.kind_of?(Class)
-          if !component_instance.ancestors.include?(Brut::FrontEnd::Component)
+          is_brut_component = component_instance.ancestors.include?(Brut::FrontEnd::Component)
+          is_phlex_component = defined?(Phlex::HTML) && component_instance.ancestors.include?(Phlex::HTML)
+          if !is_brut_component && !is_phlex_component
             raise ArgumentError,"#{component_instance} is not a component and cannot be created"
           end
-          component_instance = Thread.current.thread_variable_get(:request_context).
-            then { |request_context| request_context.as_constructor_args(component_instance,request_params: nil)
-            }.then { |constructor_args| component_instance.new(**constructor_args) }
+          component_instance = Brut::FrontEnd::RequestContext.inject(component_instance)
           span.add_prefixed_attributes("brut", "global_component" => true)
         else
           span.add_prefixed_attributes("brut", "global_component" => false)
         end
-        if !block.nil?
-          component_instance.yielded_block = block
+        if component_instance.kind_of?(Brut::FrontEnd::Component)
+          if !block.nil?
+            component_instance.yielded_block = block
+          end
+          Thread.current.thread_variable_get(:request_context).then {
+            it.as_method_args(component_instance,:render,request_params: nil, form: nil)
+          }.then { |render_args|
+            component_instance.render(**render_args).html_safe!
+          }
+        else
+          if block.nil?
+            component_instance.call.html_safe!
+          else
+            component_instance.call do
+              component_instance.raw(component_instance.safe(block.()))
+            end.html_safe!.to_s
+          end
         end
-        Thread.current.thread_variable_get(:request_context).then {
-          it.as_method_args(component_instance,:render,request_params: nil, form: nil)
-        }.then { |render_args|
-          component_instance.render(**render_args).html_safe!
-        }
       end
     end
 

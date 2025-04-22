@@ -8,6 +8,16 @@
 # and create an initializer for it that accepts the `clock:` keyword argument, the managed instance of {Clock} will be passed into it
 # when Brut creates an instance of the class.
 class Brut::FrontEnd::RequestContext
+
+  # Create an instance of klass injected with the request context.
+  def self.inject(klass, request_params: nil)
+    instance = Thread.current.thread_variable_get(:request_context).
+      then { |request_context|
+        request_context.as_constructor_args(klass,request_params:)
+      }.then { |constructor_args|
+        klass.new(**constructor_args) 
+      }
+  end
   # Create a new RequestContext based on some of the information provided by Rack
   #
   # @param [Hash] env the Rack `env` object, as available to any middleware
