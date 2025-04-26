@@ -195,15 +195,8 @@ module Brut::SinatraHelpers
           in URI => uri
             redirect to(uri.to_s)
           in Brut::FrontEnd::Component => component_instance
-            render_html(component_instance).to_s
-          in [ Brut::FrontEnd::Component => component_instance, Brut::FrontEnd::HttpStatus => http_status ]
-            [
-              http_status.to_i,
-              component_instance.call.to_s,
-            ]
-          in Phlex::HTML => component_instance
             component_instance.call.to_s
-          in [ Phlex::HTML => component_instance, Brut::FrontEnd::HttpStatus => http_status ]
+          in [ Brut::FrontEnd::Component => component_instance, Brut::FrontEnd::HttpStatus => http_status ]
             [
               http_status.to_i,
               component_instance.call.to_s,

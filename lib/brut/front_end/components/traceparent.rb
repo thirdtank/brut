@@ -1,5 +1,5 @@
 # Renders the traceparent value for the current trace so that the front-end can add additional spans.
-class Brut::FrontEnd::Components::Traceparent < Brut::FrontEnd::Component2
+class Brut::FrontEnd::Components::Traceparent < Brut::FrontEnd::Component
   def initialize
     propagator = OpenTelemetry::Trace::Propagation::TraceContext::TextMapPropagator.new
     carrier = {}

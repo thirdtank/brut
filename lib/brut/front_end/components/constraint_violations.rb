@@ -18,7 +18,7 @@
 # they will not have the `server-side` attribute.
 #
 # You will most commonly use this component via {Brut::FrontEnd::Component::Helpers#constraint_violations}.
-class Brut::FrontEnd::Components::ConstraintViolations < Brut::FrontEnd::Component2
+class Brut::FrontEnd::Components::ConstraintViolations < Brut::FrontEnd::Component
   # Create a new ConstraintViolations component
   #
   # @param [Brut::FrontEnd::Form] form the form in which this component is being rendered.

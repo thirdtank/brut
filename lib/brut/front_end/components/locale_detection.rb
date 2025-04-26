@@ -6,7 +6,7 @@
 #
 # This element doesn't need to do this if the server has this information.  This component handles creating the right HTML to either
 # ask the browser to send it, or not.
-class Brut::FrontEnd::Components::LocaleDetection < Brut::FrontEnd::Component2
+class Brut::FrontEnd::Components::LocaleDetection < Brut::FrontEnd::Component
   def initialize(session:)
     @timezone = session.timezone_from_browser
     @locale   = session.http_accept_language.known? ? session.http_accept_language.weighted_locales.first&.locale : nil

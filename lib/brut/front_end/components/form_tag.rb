@@ -1,6 +1,6 @@
 require "rexml"
 # Represents a `<form>` HTML element that includes a CSRF token as needed. You likely want to use this class via the {Brut::FrontEnd::Component::Helpers#form_tag} method.
-class Brut::FrontEnd::Components::FormTag < Brut::FrontEnd::Component2
+class Brut::FrontEnd::Components::FormTag < Brut::FrontEnd::Component
   # Creates the form surrounding the contents of the block yielded to it. If the form's action is a POST, it will include a CSRF token.
   # If the form's action is GET, it will not.
   #

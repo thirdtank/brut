@@ -27,7 +27,6 @@ module Brut
   module FrontEnd
     autoload(:AssetMetadata, "brut/front_end/asset_metadata")
     autoload(:Component, "brut/front_end/component")
-    autoload(:Component2, "brut/front_end/component")
     autoload(:Components, "brut/front_end/component")
     autoload(:Download, "brut/front_end/download")
     autoload(:Flash, "brut/front_end/flash")

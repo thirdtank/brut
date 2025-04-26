@@ -31,8 +31,27 @@ end
 # component's class to render the component's HTML.
 #
 # @see Brut::FrontEnd::Component::Helpers
-class Brut::FrontEnd::Component
-  using Brut::FrontEnd::Templates::HTMLSafeString::Refinement
+class Brut::FrontEnd::Component < Phlex::HTML
+
+  include Brut::Framework::Errors
+  include Brut::I18n::ForHTML
+
+  register_element :brut_confirm_submit
+  register_element :brut_confirmation_dialog
+  register_element :brut_cv
+  register_element :brut_ajax_submit
+  register_element :brut_autosubmit
+  register_element :brut_confirm_submit
+  register_element :brut_confirmation_dialog
+  register_element :brut_cv
+  register_element :brut_cv_messages
+  register_element :brut_copy_to_clipboard
+  register_element :brut_form
+  register_element :brut_i18n_translation
+  register_element :brut_locale_detection
+  register_element :brut_message
+  register_element :brut_tabs
+  register_element :brut_tracing
 
 
   # @!visibility private
@@ -52,43 +71,30 @@ class Brut::FrontEnd::Component
     end
   end
 
-  # Allows helpers that create components to pass the block they were given to the component.
-  # This can be read for the purposes of nested components passing a yielded block to an inner
-  # component
-  attr_accessor :yielded_block
-
-  # Intended to be called by subclasses to render the yielded block wherever it makes sense in their markup.
-  def render_yielded_block
-    if @yielded_block
-      @yielded_block.().html_safe!
-    else
-      raise Brut::Framework::Errors::Bug, "No block was yielded to #{self.class.name}"
-		end
-	end
-
-  # The core method of a component. This is expected to return
-  # a string to be sent as a response to an HTTP request. Generally, you should not call this method
-  # as it is intended to be called from {Brut::FrontEnd::Component::Helpers#component}.
-  #
-  # This implementation uses the associated template for the component
-  # and sends it through ERB using this component as
-  # the binding.
-  #
-  # You may override this method to provide your own HTML for the component. In doing so, you can add
-  # keyword args for data from the `RequestContext` you wish to receive. See {Brut::FrontEnd::RequestContext#as_method_args}.
-  #
-  # @return [Brut::FrontEnd::Templates::HTMLSafeString] string containing the component's HTML.
-  def render
-    Brut.container.instrumentation.span("#{self.class} render") do |span|
-      span.add_prefixed_attributes("brut", type: :component, class: self.class.name)
-      Brut.container.component_locator.locate(self.template_name).
-        then { Brut::FrontEnd::Template.new(it) }.
-        then { it.render_template(self).html_safe! }
-    end
+  def inline_svg(svg)
+    Brut.container.svg_locator.locate(svg).then { |svg_file|
+      File.read(svg_file)
+    }.then { |svg_content|
+      raw(safe(svg_content))
+    }
   end
 
-  # For components that are private to a page, this returns the name of the page they are a part of.
-  # This is used to allow a component to render a page's I18n strings.
+  def time_tag(timestamp:nil,**component_options, &contents)
+    args = component_options.merge(timestamp:)
+    render Brut::FrontEnd::Components::Time.new(**args,&contents)
+  end
+
+  def form_tag(**args, &block)
+    render Brut::FrontEnd::Components::FormTag.new(**args,&block)
+  end
+
+  def global_component(component_klass)
+    render Brut::FrontEnd::RequestContext.inject(component_klass)
+  end
+
+  def self.component_name = self.name
+  def component_name = self.class.component_name
+
   def page_name
     @page_name ||= begin
                      page = self.class.name.split(/::/).reduce(Module) { |accumulator,class_path_part|
@@ -100,221 +106,12 @@ class Brut::FrontEnd::Component
                      }
                      if page.ancestors.include?(Brut::FrontEnd::Page)
                        page.name
+                     elsif page.respond_to?(:page_name)
+                       page.page_name
                      else
                        raise "#{self.class} is not nested inside a page, so #page_name should not have been called"
                      end
                    end
   end
 
-  # Used when an I18n string needs access to component-specific translations
-  def self.component_name = self.name
-  # (see .component_name)
-  def component_name = self.class.component_name
-
-  # Helper methods that subclasses can use.
-  # This is a separate module to distinguish the public
-  # interface of this class (`render`) from these helper methods
-  # that are useful to subclasses and their templates.
-  #
-  # This is not intended to be extracted or used outside this class!
-  module Helpers
-
-    # Render a component. This is the primary way in which
-    # view re-use happens.  The component instance will be able to locate its
-    # HTML template and render itself.  {#render} is called with variables from the `RequestContext`
-    # as described in {Brut::FrontEnd::RequestContext#as_method_args}
-    #
-    # @param [Brut::FrontEnd::Component|Class] component_instance instance of the component to render. If a `Class`
-    #                                          is passed, it must extend {Brut::FrontEnd::Component}. It will created
-    #                                          based on the logic described in {Brut::FrontEnd::RequestContext#as_constructor_args}.
-    #                                          You would do this if your component needs to be injected with information 
-    #                                          not available to the page or component that is using it.
-    # @yield this block is passed to the `component_instance` via {#yielded_block=}.
-    #
-    # @return [Brut::FrontEnd::Templates::HTMLSafeString] of the rendered component.
-    def component(component_instance,&block)
-      component_name = component_instance.kind_of?(Class) ? component_instance.name : component_instance.class.name
-      Brut.container.instrumentation.span("component #{component_name}") do |span|
-        if component_instance.kind_of?(Class)
-          is_brut_component = component_instance.ancestors.include?(Brut::FrontEnd::Component)
-          is_phlex_component = defined?(Phlex::HTML) && component_instance.ancestors.include?(Phlex::HTML)
-          if !is_brut_component && !is_phlex_component
-            raise ArgumentError,"#{component_instance} is not a component and cannot be created"
-          end
-          component_instance = Brut::FrontEnd::RequestContext.inject(component_instance)
-          span.add_prefixed_attributes("brut", "global_component" => true)
-        else
-          span.add_prefixed_attributes("brut", "global_component" => false)
-        end
-        if component_instance.kind_of?(Brut::FrontEnd::Component)
-          if !block.nil?
-            component_instance.yielded_block = block
-          end
-          Thread.current.thread_variable_get(:request_context).then {
-            it.as_method_args(component_instance,:render,request_params: nil, form: nil)
-          }.then { |render_args|
-            component_instance.render(**render_args).html_safe!
-          }
-        else
-          if block.nil?
-            component_instance.call.html_safe!
-          else
-            component_instance.call do
-              component_instance.raw(component_instance.safe(block.()))
-            end.html_safe!.to_s
-          end
-        end
-      end
-    end
-
-    # Inline an SVG into the page.
-    #
-    # @param [String] svg name of an SVG file, relative to where SVGs are stored.
-    def svg(svg)
-      Brut.container.svg_locator.locate(svg).then { |svg_file|
-        File.read(svg_file).html_safe!
-      }
-    end
-
-    # Given a public path to an asset—the value you'd use in HTML—return
-    # the same value, but with any content hashes that are part of the filename.
-    def asset_path(path) = Brut.container.asset_path_resolver.resolve(path)
-
-    # (see Brut::FrontEnd::Components::FormTag)
-    def form_tag(route_params: {}, **html_attributes,&contents)
-      component(Brut::FrontEnd::Components::FormTag.new(route_params:, **html_attributes,&contents))
-    end
-
-    # Creates a {Brut::FrontEnd::Components::Time}.
-    #
-    # @param timestamp [Time] the timestamp to format/render. Mutually exclusive with `date`.
-    # @param date [Date] the date to format/render. Mutually exclusive with `timestamp`.
-    # @param component_options [Hash] keyword arguments to pass to {Brut::FrontEnd::Components::Time#initialize}
-    # @yield See {Brut::FrontEnd::Components::Time#initialize}
-    def time_tag(timestamp:nil,date:nil, **component_options, &contents)
-      args = component_options.merge(timestamp:,date:)
-      component(Brut::FrontEnd::Components::Time.new(**args,&contents))
-    end
-
-    # Render the {Brut::FrontEnd::Components::ConstraintViolations} component for the given form's input.
-    def constraint_violations(form:, input_name:, index: nil, message_html_attributes: {}, **html_attributes)
-      component(
-        Brut::FrontEnd::Components::ConstraintViolations.new(
-          form:,
-          input_name:,
-          index:,
-          message_html_attributes:,
-          **html_attributes
-        )
-      )
-    end
-
-    # Create an HTML input tag for the given input of a form.  This is a convieniece method
-    # that calls {Brut::FrontEnd::Components::Inputs::TextField.for_form_input}.
-    def input_tag(form:, input_name:, index: nil, **html_attributes)
-      component(Brut::FrontEnd::Components::Inputs::TextField.for_form_input(form:,input_name:,index:,html_attributes:))
-    end
-
-    # Indicates a given string is safe to render directly as HTML. No escaping will happen.
-    #
-    # @param [String] string a string that should be marked as HTML safe
-    def html_safe!(string)
-      string.html_safe!
-    end
-
-    # @!visibility private
-    VOID_ELEMENTS = [
-      :area,
-      :base,
-      :br,
-      :col,
-      :embed,
-      :hr,
-      :img,
-      :input,
-      :link,
-      :meta,
-      :source,
-      :track,
-      :wbr,
-    ]
-
-    # Generate an HTML element safely in code.  This is useful if you don't want to create
-    # a separate ERB file, but still want to create a component.
-    #
-    # @param [String|Symbol] tag_name the name of the HTML tag to create.
-    # @param [Hash] html_attributes all the HTML attributes you wish to include in the element that is generated.  Values that
-    #                                 are `true` will be included without a value, and values that are `false` will be omitted.
-    # @yield Called to get any contents that should be put into this tag.  Void elements as defined by W3C may not have a block.
-    #
-    # @example Void element
-    #
-    #     html_tag(:img, src: "trellick.png") # => <img src="trellic.png">
-    #
-    # @example Nested elements
-    #
-    #     html_tag(:nav, class: "flex items-center") do
-    #       html_tag(:a, href="/") { "Home" } + 
-    #       html_tag(:a, href="/about") { "About" } + 
-    #       html_tag(:a, href="/contact") { "Contact" }
-    #     end
-    def html_tag(tag_name, **html_attributes, &block)
-      tag_name = tag_name.to_s.downcase.to_sym
-      attributes_string = html_attributes.map { |key,value|
-        [
-          key.to_s.gsub(/[\s\"\'>\/=]/,"-"),
-          value
-        ]
-      }.select { |key,value|
-        !value.nil?
-      }.map { |key,value|
-        if value == true
-          key
-        elsif value == false
-          ""
-        else
-          REXML::Attribute.new(key,value).to_string
-        end
-      }.join(" ")
-      contents = (block.nil? ? nil : block.()).to_s
-      if VOID_ELEMENTS.include?(tag_name)
-        if !contents.empty?
-          raise ArgumentError,"#{tag_name} may not have child nodes"
-        end
-        html_safe!(%{<#{tag_name} #{attributes_string}>})
-      else
-        html_safe!(%{<#{tag_name} #{attributes_string}>#{contents}</#{tag_name}>})
-      end
-    end
-  end
-  include Helpers
-  include Brut::I18n::ForHTML
-
-private
-
-  def binding_scope = binding
-
-  # Determines the canonical name/location of the template used for this
-  # component.  It does this base do the class name. CameCase is converted
-  # to snake_case. 
-  def template_name = RichString.new(self.class.name).underscorized.to_s.gsub(/^components\//,"")
-end
-class Brut::FrontEnd::Component2 < Phlex::HTML
-  include Brut::I18n::ForHTML
-  register_element :brut_confirm_submit
-  register_element :brut_confirmation_dialog
-  register_element :brut_cv
-  register_element :brut_ajax_submit
-  register_element :brut_autosubmit
-  register_element :brut_confirm_submit
-  register_element :brut_confirmation_dialog
-  register_element :brut_cv
-  register_element :brut_cv_messages
-  register_element :brut_copy_to_clipboard
-  register_element :brut_form
-  register_element :brut_i18n_translation
-  register_element :brut_locale_detection
-  register_element :brut_message
-  register_element :brut_tabs
-  register_element :brut_tracing
 end

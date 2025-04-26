@@ -12,50 +12,8 @@
 # pages's class to render the page's HTML.
 #
 # @see Brut::FrontEnd::Component
-class Brut::FrontEnd::Page < Phlex::HTML#Brut::FrontEnd::Component
+class Brut::FrontEnd::Page < Brut::FrontEnd::Component
   include Brut::FrontEnd::HandlingResults
-  include Brut::Framework::Errors
-  include Brut::I18n::ForHTML
-
-  register_element :brut_confirm_submit
-  register_element :brut_confirmation_dialog
-  register_element :brut_cv
-  register_element :brut_ajax_submit
-  register_element :brut_autosubmit
-  register_element :brut_confirm_submit
-  register_element :brut_confirmation_dialog
-  register_element :brut_cv
-  register_element :brut_cv_messages
-  register_element :brut_copy_to_clipboard
-  register_element :brut_form
-  register_element :brut_i18n_translation
-  register_element :brut_locale_detection
-  register_element :brut_message
-  register_element :brut_tabs
-  register_element :brut_tracing
-
-  def inline_svg(svg)
-    Brut.container.svg_locator.locate(svg).then { |svg_file|
-      File.read(svg_file)
-    }.then { |svg_content|
-      raw(safe(svg_content))
-    }
-  end
-
-  def time_tag(timestamp:nil,**component_options, &contents)
-    args = component_options.merge(timestamp:)
-    render Brut::FrontEnd::Components::Time.new(**args,&contents)
-  end
-
-  def form_tag(**args, &block)
-    render Brut::FrontEnd::Components::FormTag.new(**args,&block)
-  end
-
-  def global_component(component_klass)
-    render Brut::FrontEnd::RequestContext.inject(component_klass)
-  end
-
-
 
   # Returns the name of the layout for this page.  This string is used to find an ERB file in `app/src/front_end/layouts`. Every page
   # must have a layout. If you wish to render a page with no layout, create an empty layout in your app and use that.
@@ -71,7 +29,6 @@ class Brut::FrontEnd::Page < Phlex::HTML#Brut::FrontEnd::Component
   #
   # @return [URI|Brut::FrontEnd::HttpStatus|Object] If you return a `URI` (mostly likely by returning the result of calling {Brut::FrontEnd::HandlingResults#redirect_to}), the user is redirected and {#render} is never called. If you return a {Brut::FrontEnd::HttpStatus} (mostly likely by returning the result of calling {Brut::FrontEnd::HandlingResults#http_status}), {#render} is skipped and that status is returned with no content.  If anything else is returned, {#render} is called as normal.
   def before_render = nil
-
 
   def with_layout(&block)
     layout_class = Module.const_get(
