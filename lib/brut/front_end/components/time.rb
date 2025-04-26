@@ -1,6 +1,6 @@
 require "rexml"
 # Renders a date or timestamp accessibly, using the `<time>` element. Likely you will use this via the {Brut::FrontEnd::Component::Helpers#time_tag} method. This will account for the current request's time zone. See {Clock}.
-class Brut::FrontEnd::Components::Time < Brut::FrontEnd::Component
+class Brut::FrontEnd::Components::Time < Brut::FrontEnd::Component2
   include Brut::I18n::ForHTML
   # Creates the component
   # @param timestamp [Time] the timestamp you wish to render. Mutually exclusive with `date`.
@@ -21,13 +21,18 @@ class Brut::FrontEnd::Components::Time < Brut::FrontEnd::Component
     skip_year_if_same: true,
     skip_dow_if_not_this_week: true,
     attribute_format: :iso_8601,
-    **only_contains_class,
-    &contents
+    clock: :from_request_context,
+    **only_contains_class
   )
     require_exactly_one!(timestamp:,date:)
 
     @date_only = timestamp.nil?
     @timestamp = timestamp || date
+    @clock     = if clock == :from_request_context
+                   Brut::FrontEnd::RequestContext.current[:clock]
+                 else
+                   clock
+                 end
 
     formats = [ format ]
     use_no_year = skip_year_if_same && @timestamp.year == Time.now.year
@@ -69,21 +74,20 @@ class Brut::FrontEnd::Components::Time < Brut::FrontEnd::Component
     @format           = found_format.to_sym
     @attribute_format = attribute_format.to_sym
     @class_attribute  = only_contains_class[:class] || ""
-    @contents         = contents
   end
 
-  def render(clock:)
+  def view_template
     adjusted_value = if @date_only
                        @timestamp
                      else
-                       clock.in_time_zone(@timestamp)
+                       @clock.in_time_zone(@timestamp)
                      end
 
     datetime_attribute = ::I18n.l(adjusted_value,format: @attribute_format)
 
-    html_tag(:time, class: @class_attribute, datetime: datetime_attribute) do
-      if @contents
-        @contents.()
+    time(class: @class_attribute, datetime: datetime_attribute) do
+      if block_given?
+        yield
       else
         ::I18n.l(adjusted_value,format: @format)
       end

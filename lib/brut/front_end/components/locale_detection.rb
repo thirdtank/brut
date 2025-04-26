@@ -6,16 +6,16 @@
 #
 # This element doesn't need to do this if the server has this information.  This component handles creating the right HTML to either
 # ask the browser to send it, or not.
-class Brut::FrontEnd::Components::LocaleDetection < Brut::FrontEnd::Component
+class Brut::FrontEnd::Components::LocaleDetection < Brut::FrontEnd::Component2
   def initialize(session:)
     @timezone = session.timezone_from_browser
     @locale   = session.http_accept_language.known? ? session.http_accept_language.weighted_locales.first&.locale : nil
     @url      = Brut::FrontEnd::Handlers::LocaleDetectionHandler.routing
   end
 
-  def render
+  def view_template
     attributes = {
-      "url" => @url,
+      "url" => @url.to_s,
     }
     if @timezone
       attributes["timezone-from-server"] = @timezone.name
@@ -27,6 +27,6 @@ class Brut::FrontEnd::Components::LocaleDetection < Brut::FrontEnd::Component
       attributes["show-warnings"] = true
     end
 
-    html_tag("brut-locale-detection",**attributes)
+    brut_locale_detection(**attributes)
   end
 end

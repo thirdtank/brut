@@ -300,7 +300,8 @@ private
   def template_name = RichString.new(self.class.name).underscorized.to_s.gsub(/^components\//,"")
 end
 class Brut::FrontEnd::Component2 < Phlex::HTML
-    register_element :brut_confirm_submit
+  include Brut::I18n::ForHTML
+  register_element :brut_confirm_submit
   register_element :brut_confirmation_dialog
   register_element :brut_cv
   register_element :brut_ajax_submit
