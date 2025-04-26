@@ -14,18 +14,18 @@ class Brut::FrontEnd::Components::Inputs::RadioButton < Brut::FrontEnd::Componen
   # @param [Hash] html_attributes any additional HTML attributes to include on the `<input>` element.
   def self.for_form_input(form:, input_name:, value:, html_attributes: {})
     default_html_attributes = {}
-    html_attributes = html_attributes.map { |key,value| [ key.to_s, value ] }.to_h
+    html_attributes = html_attributes.map { |key,value| [ key.to_sym, value ] }.to_h
     input = form.input(input_name)
 
-    default_html_attributes["required"] = input.required
-    default_html_attributes["type"]     = "radio"
-    default_html_attributes["name"]     = input.name
-    default_html_attributes["value"]    = value
+    default_html_attributes[:required] = input.required
+    default_html_attributes[:type]     = "radio"
+    default_html_attributes[:name]     = input.name
+    default_html_attributes[:value]    = value
 
     selected_value = input.value
 
     if selected_value == value
-      default_html_attributes["checked"] = true
+      default_html_attributes[:checked] = true
     end
 
     if !form.new? && !input.valid?

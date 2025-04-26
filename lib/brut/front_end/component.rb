@@ -299,3 +299,21 @@ private
   # to snake_case. 
   def template_name = RichString.new(self.class.name).underscorized.to_s.gsub(/^components\//,"")
 end
+class Brut::FrontEnd::Component2 < Phlex::HTML
+    register_element :brut_confirm_submit
+  register_element :brut_confirmation_dialog
+  register_element :brut_cv
+  register_element :brut_ajax_submit
+  register_element :brut_autosubmit
+  register_element :brut_confirm_submit
+  register_element :brut_confirmation_dialog
+  register_element :brut_cv
+  register_element :brut_cv_messages
+  register_element :brut_copy_to_clipboard
+  register_element :brut_form
+  register_element :brut_i18n_translation
+  register_element :brut_locale_detection
+  register_element :brut_message
+  register_element :brut_tabs
+  register_element :brut_tracing
+end

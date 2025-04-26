@@ -11,6 +11,6 @@ module Brut::FrontEnd::Components
   end
 
   # Base class for all inputs
-  class Input < Brut::FrontEnd::Component
+  class Input < Brut::FrontEnd::Component2
   end
 end

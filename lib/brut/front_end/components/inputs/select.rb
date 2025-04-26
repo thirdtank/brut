@@ -21,10 +21,11 @@ class Brut::FrontEnd::Components::Inputs::Select < Brut::FrontEnd::Components::I
                           option_text_attribute:,
                           index: nil,
                           html_attributes: {})
+    html_attributes = html_attributes.map { |key,value| [ key.to_sym, value ] }.to_h
     default_html_attributes = {}
     index ||= 0
     input = form.input(input_name, index:)
-    default_html_attributes["required"] = input.required
+    default_html_attributes[:required] = input.required
     if !form.new? && !input.valid?
       default_html_attributes["data-invalid"] = true
       input.validity_state.each do |constraint,violated|
@@ -61,36 +62,28 @@ class Brut::FrontEnd::Components::Inputs::Select < Brut::FrontEnd::Components::I
     @selected_value        = selected_value
     @value_attribute       = value_attribute
     @option_text_attribute = option_text_attribute
+    @html_attributes      = html_attributes
 
-    html_attributes["name"] = name
-    @sanitized_attributes  = html_attributes.map { |key,value|
-        [
-          key.to_s.gsub(/[\s\"\'>\/=]/,"-"),
-          value
-        ]
-    }.select { |key,value|
-      !value.nil?
-    }.to_h
+    @html_attributes[:name] = name
   end
 
-  def render
-    html_tag(:select,**@sanitized_attributes) {
-      options = @options.map { |option|
+  def view_template
+    select(**@html_attributes) {
+      if @include_blank
+        option(**@include_blank.option_attributes) {
+          @include_blank.text_content
+        }
+      end
+      options = @options.each do |option|
         value = option.send(@value_attribute)
         option_attributes = { value: value }
         if value == @selected_value
           option_attributes[:selected] = true
         end
-        html_tag(:option,**option_attributes) {
+        option(**option_attributes) {
           option.send(@option_text_attribute)
         }
-      }
-      if @include_blank
-        options.unshift(html_tag(:option,**@include_blank.option_attributes) {
-          @include_blank.text_content
-        })
       end
-      options.join("\n")
     }
   end
 private

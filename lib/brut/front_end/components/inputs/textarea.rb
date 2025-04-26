@@ -8,22 +8,23 @@ class Brut::FrontEnd::Components::Inputs::Textarea < Brut::FrontEnd::Components:
   # @param [Integer] index if this input is part of an array, this is the index into that array. This is used to get the input's value.
   # @param [Hash] html_attributes any additional HTML attributes to include on the `<textarea>` element.
   def self.for_form_input(form:, input_name:, index: nil, html_attributes: {})
+    html_attributes = html_attributes.map { |key,value| [ key.to_sym, value ] }.to_h
     default_html_attributes = {}
 
     index ||= 0
     input = form.input(input_name, index:)
 
-    default_html_attributes["required"] = input.required
-    default_html_attributes["name"]     = if input.array?
+    default_html_attributes[:required] = input.required
+    default_html_attributes[:name]     = if input.array?
                                             "#{input.name}[]"
                                           else
                                             input.name
                                           end
     if input.maxlength
-      default_html_attributes["maxlength"] = input.maxlength
+      default_html_attributes[:maxlength] = input.maxlength
     end
     if input.minlength
-      default_html_attributes["minlength"] = input.minlength
+      default_html_attributes[:minlength] = input.minlength
     end
     if !form.new? && !input.valid?
       default_html_attributes["data-invalid"] = true
@@ -41,31 +42,15 @@ class Brut::FrontEnd::Components::Inputs::Textarea < Brut::FrontEnd::Components:
   # @param [Hash] attributes HTML attributes to put on the element.
   # @param [String] value the value to place inside the text area
   def initialize(attributes, value)
-    @sanitized_attributes = attributes.map { |key,value|
-        [
-          key.to_s.gsub(/[\s\"\'>\/=]/,"-"),
-          value
-        ]
-    }.select { |key,value|
-      !value.nil?
-    }.to_h
-    @value = value
+    @attributes = attributes
+    @value      = value
   end
 
-  def sanitized_attributes = @sanitized_attributes
+  def invalid? = @attributes["data-invalid"] == true
 
-  def render
-    attribute_string = @sanitized_attributes.map { |key,value|
-      if value == true
-        key
-      elsif value == false
-        ""
-      else
-        REXML::Attribute.new(key,value).to_string
-      end
-    }.join(" ")
-    %{
-      <textarea #{attribute_string}>#{ @value }</textarea>
+  def view_template
+    textarea(**@attributes) {
+      @value
     }
   end
 end
