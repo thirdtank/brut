@@ -255,10 +255,10 @@ class Brut::Framework::Config
 
       c.store(
         "asset_path_resolver",
-        "Brut::FrontEnd::Component::AssetPathResolver",
+        "Brut::FrontEnd::AssetPathResolver",
         "Object to use to resolve logical asset paths to actual asset paths"
       ) do |asset_metadata_file|
-        Brut::FrontEnd::Component::AssetPathResolver.new(metadata_file: asset_metadata_file)
+        Brut::FrontEnd::AssetPathResolver.new(metadata_file: asset_metadata_file)
       end
 
       c.store(
