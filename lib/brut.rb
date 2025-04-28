@@ -10,14 +10,7 @@ require_relative "brut/framework"
 # Have fun!
 module Brut
   autoload(:FrontEnd, "brut/front_end")
-  # The _back end_ of a Brut app is where your app's business logic and database are managed.  While the bulk of your Brut app's code
-  # will be in the back end, Brut is far less prescriptive about how to manage that than it is the front end.
-  module BackEnd
-    autoload(:Validators, "brut/back_end/validator")
-    autoload(:Sidekiq, "brut/back_end/sidekiq")
-    # Do not put SeedData here - it must be loaded only when needed
-  end
-  # I18n is where internationalization and localization support lives.
+  autoload(:BackEnd, "brut/back_end")
   autoload(:I18n, "brut/i18n")
   autoload(:Instrumentation,"brut/instrumentation")
   autoload(:SinatraHelpers, "brut/sinatra_helpers")
