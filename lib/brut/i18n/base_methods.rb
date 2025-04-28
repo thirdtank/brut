@@ -169,7 +169,7 @@ module Brut::I18n::BaseMethods
     }
     escaped_interpolated_values = interpolated_values.map { |key,value|
       if value.kind_of?(String)
-        [ key, Brut::FrontEnd::Template.escape_html(value) ]
+        [ key, CGI.escapeHTML(value) ]
       else
         [ key, value ]
       end

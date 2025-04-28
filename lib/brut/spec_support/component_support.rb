@@ -15,13 +15,12 @@ module Brut::SpecSupport::ComponentSupport
   # inside a template.  You typically don't want this, but should use {#render_and_parse}, since that will
   # parse the HTML.
   def render(component,&block)
-    is_page = component.respond_to?(:page_template) || component.kind_of?(Brut::FrontEnd::Page)
-    if is_page
+    if component.kind_of?(Brut::FrontEnd::Page)
       if !block.nil?
         raise "pages do not accept blocks - do not pass one to render_and_parse"
       end
       component.handle!
-    elsif component.kind_of?(Phlex::HTML)
+    else
       if block.nil?
         component.call
       else
@@ -29,9 +28,6 @@ module Brut::SpecSupport::ComponentSupport
           component.raw(component.safe(block.()))
         end
       end
-    else
-      component.yielded_block = block
-      component.render
     end
   end
 
@@ -51,7 +47,7 @@ module Brut::SpecSupport::ComponentSupport
   # @return [Brut::SpecSupport::EnhancedNode] a wrapper around a Nokogiri node to provide convienience methods.
   def render_and_parse(component,&block)
     rendered_text = render(component,&block)
-    if !rendered_text.kind_of?(String) && !rendered_text.kind_of?(Brut::FrontEnd::Templates::HTMLSafeString)
+    if !rendered_text.kind_of?(String)
       if rendered_text.kind_of?(URI::Generic)
         raise "#{component.class} redirected to #{rendered_text} instead of rendering"
       else
@@ -59,8 +55,7 @@ module Brut::SpecSupport::ComponentSupport
       end
     end
     nokogiri_node = Nokogiri::HTML5(rendered_text)
-    is_page = component.respond_to?(:page_template) || component.kind_of?(Brut::FrontEnd::Page)
-    if !is_page
+    if !component.kind_of?(Brut::FrontEnd::Page)
       nokogiri_node = Nokogiri::HTML5.fragment(rendered_text.to_s.chomp, max_errors: 100, context: "template")
       if nokogiri_node.errors.any?
         raise "#{component.class} render invalid HTML:\n\n#{rendered_text}\n\nErrors: #{nokogiri_node.errors.join(", ")}"
@@ -90,10 +85,5 @@ module Brut::SpecSupport::ComponentSupport
   # @!visibility private
   def routing_for(klass,**args)
     Brut.container.routing.path(klass,**args)
-  end
-
-  # Escape HTML using the same code Brut uses for rendering templates.
-  def escape_html(...)
-    Brut::FrontEnd::Templates::EscapableFilter.escape_html(...)
   end
 end
