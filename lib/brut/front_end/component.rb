@@ -6,11 +6,13 @@ module Brut::FrontEnd::Components
   autoload(:Input,"brut/front_end/components/input")
   autoload(:Inputs,"brut/front_end/components/input")
   autoload(:I18nTranslations,"brut/front_end/components/i18n_translations")
-  autoload(:Time,"brut/front_end/components/time")
+  autoload(:TimeTag,"brut/front_end/components/time_tag")
   autoload(:PageIdentifier,"brut/front_end/components/page_identifier")
   autoload(:LocaleDetection,"brut/front_end/components/locale_detection")
   autoload(:ConstraintViolations,"brut/front_end/components/constraint_violations")
   autoload(:Traceparent,"brut/front_end/components/traceparent")
+
+  extend Phlex::Kit
 end
 
 # A Component is the top level class for managing the rendering of 
@@ -61,7 +63,7 @@ class Brut::FrontEnd::Component < Phlex::HTML
 
   def time_tag(timestamp:nil,**component_options, &contents)
     args = component_options.merge(timestamp:)
-    render Brut::FrontEnd::Components::Time.new(**args,&contents)
+    render Brut::FrontEnd::Components::TimeTag.new(**args,&contents)
   end
 
   def form_tag(**args, &block)
