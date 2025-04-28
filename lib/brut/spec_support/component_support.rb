@@ -8,8 +8,7 @@ module Brut::SpecSupport::ComponentSupport
   include Brut::SpecSupport::FlashSupport
   include Brut::SpecSupport::SessionSupport
   include Brut::SpecSupport::ClockSupport
-  include Brut::I18n::ForHTML
-  def safe(x) = x
+  include Brut::I18n::BaseMethods
 
   # Render a component into its text representation.  This mimics what happens when a component is used
   # inside a template.  You typically don't want this, but should use {#render_and_parse}, since that will

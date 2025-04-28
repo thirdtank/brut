@@ -133,7 +133,7 @@ module Brut::I18n::BaseMethods
       block_contents = safe(capture(&block))
       rest[:block] = block_contents
     end
-    safe(t_direct(key,**rest))
+    t_direct(key,**rest)
   rescue I18n::MissingInterpolationArgument => ex
     if ex.key.to_s == "block"
       raise ArgumentError,"One of the keys #{key.join(", ")} contained a %{block} interpolation value: '#{ex.string}'. This means you must use t_html *and* yield a block to it"
