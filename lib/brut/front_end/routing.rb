@@ -1,4 +1,5 @@
 require "uri"
+require "phlex"
 
 # Holds the registered routes for this app.
 class Brut::FrontEnd::Routing
@@ -218,11 +219,11 @@ private
       end
       uri = URI(joined_path)
       uri.query = URI.encode_www_form(query_string_params)
-      uri
+      uri.extend(Phlex::SGML::SafeObject)
     end
 
     def url(**query_string_params)
-      request_context = Thread.current.thread_variable_get(:request_context)
+      request_context = Brut::FrontEnd::RequestContext.current
       path = self.path(**query_string_params)
       host = if request_context
                request_context[:host]

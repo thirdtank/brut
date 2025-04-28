@@ -77,8 +77,7 @@ module Brut::SinatraHelpers
 
         Brut.container.instrumentation.span(page_class.name) do |span|
           span.add_prefixed_attributes("brut", type: :page, class: page_class)
-          request_context = Thread.current.thread_variable_get(:request_context)
-          constructor_args = request_context.as_constructor_args(
+          constructor_args = Brut::FrontEnd::RequestContext.current.as_constructor_args(
             page_class,
             request_params: params,
             route: brut_route,
@@ -179,7 +178,6 @@ module Brut::SinatraHelpers
             form_class: form_class,
           )
 
-          request_context = Thread.current.thread_variable_get(:request_context)
           handler = handler_class.new
           form = if form_class.nil?
                    nil
@@ -187,7 +185,7 @@ module Brut::SinatraHelpers
                    form_class.new(params: params)
                  end
 
-          process_args = request_context.as_method_args(handler,:handle,request_params: params,form: form,route:brut_route)
+          process_args = Brut::FrontEnd::RequestContext.current.as_method_args(handler,:handle,request_params: params,form: form,route:brut_route)
 
           result = handler.handle!(**process_args)
 

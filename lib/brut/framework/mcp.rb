@@ -186,7 +186,7 @@ class Brut::Framework::MCP
               end
 
               if name == :request_context
-                args[name] = Thread.current.thread_variable_get(:request_context)
+                args[name] = Brut::FrontEnd::RequestContext.current
               elsif name == :session
                 args[name] = Brut.container.session_class.new(rack_session: session)
               elsif name == :request

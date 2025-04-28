@@ -1,4 +1,3 @@
-require "rexml"
 # Represents a `<form>` HTML element that includes a CSRF token as needed. You likely want to use this class via the {Brut::FrontEnd::Component::Helpers#form_tag} method.
 class Brut::FrontEnd::Components::FormTag < Brut::FrontEnd::Component
   # Creates the form surrounding the contents of the block yielded to it. If the form's action is a POST, it will include a CSRF token.
@@ -37,7 +36,7 @@ class Brut::FrontEnd::Components::FormTag < Brut::FrontEnd::Component
       begin
         route = Brut.container.routing.route(form_class)
         html_attributes[:method] = route.http_method
-        html_attributes[:action] = route.path(**route_params).to_s # XXX:
+        html_attributes[:action] = route.path(**route_params)
       rescue Brut::Framework::Errors::MissingParameter
         raise ArgumentError, "You specified #{form_class} (or an instance of it), but it requires more url parameters than were found in route_params: (or route_params: was omitted). Please add all required parameters to route_params: or use `action: #{form_class}.routing(..params..), method: [:get|:post]` instead"
       end
@@ -49,7 +48,7 @@ class Brut::FrontEnd::Components::FormTag < Brut::FrontEnd::Component
 
     @include_csrf_token = http_method.post?
     @csrf_token_omit_reasoning = http_method.get? ? "because this form's action is a GET" : nil
-    @attributes = html_attributes.merge(method: http_method.to_s) # XXX
+    @attributes = html_attributes.merge(method: http_method)
   end
 
   def view_template

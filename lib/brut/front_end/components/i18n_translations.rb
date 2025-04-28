@@ -1,5 +1,3 @@
-require "rexml"
-
 # Produces `<brut-i18n-translation>` entries for the given values. This is used for client-side constraint violation messaging with
 # JavaScript.  The `<brut-constraint-violation-message>` tag uses these keys to produce messages on the client.
 #

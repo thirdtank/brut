@@ -15,7 +15,7 @@ class Brut::FrontEnd::Components::LocaleDetection < Brut::FrontEnd::Component
 
   def view_template
     attributes = {
-      "url" => @url.to_s,
+      "url" => @url,
     }
     if @timezone
       attributes["timezone-from-server"] = @timezone.name
