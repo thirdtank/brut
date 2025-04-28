@@ -1,7 +1,3 @@
-require "json"
-require "rexml"
-require_relative "template"
-
 # Components holds Brut-provided components that are of general use to any web app
 module Brut::FrontEnd::Components
   autoload(:FormTag,"brut/front_end/components/form_tag")

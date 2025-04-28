@@ -196,11 +196,16 @@ module Brut::SinatraHelpers
             redirect to(uri.to_s)
           in Brut::FrontEnd::Component => component_instance
             component_instance.call.to_s
-          in [ Brut::FrontEnd::Component => component_instance, Brut::FrontEnd::HttpStatus => http_status ]
+          in [
+            Brut::FrontEnd::Component  => component_instance,
+            Brut::FrontEnd::HttpStatus => http_status,
+          ]
+
             [
               http_status.to_i,
               component_instance.call.to_s,
             ]
+
           in Brut::FrontEnd::HttpStatus => http_status
             http_status.to_i
           in Brut::FrontEnd::Download => download

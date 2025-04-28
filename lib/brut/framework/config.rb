@@ -238,21 +238,6 @@ class Brut::Framework::Config
         config_dir / "asset_metadata.json"
       end
 
-
-      c.store(
-        "layout_locator",
-        "Brut::FrontEnd::Templates::Locator",
-        "Object to use to locate templates for layouts"
-      ) do |layouts_src_dir,project_env,brut_internal_dir|
-        paths = if project_env.development?
-                  [ layouts_src_dir, brut_internal_dir / "lib" / "brut" / "front_end" / "layouts" ]
-                else
-                  layouts_src_dir
-                end
-        Brut::FrontEnd::Templates::Locator.new(paths: paths,
-                                               extension: "html.erb")
-      end
-
       c.store_required_path(
         "brut_internal_dir",
         "Location to where the Brut gem is installed."
@@ -261,35 +246,11 @@ class Brut::Framework::Config
       end
 
       c.store(
-        "page_locator",
-        "Brut::FrontEnd::Templates::Locator",
-        "Object to use to locate templates for pages"
-      ) do |pages_src_dir,project_env,brut_internal_dir|
-        paths = if project_env.development?
-                  [ pages_src_dir, brut_internal_dir / "lib" / "brut" / "front_end" / "pages" ]
-                else
-                  pages_src_dir
-                end
-        Brut::FrontEnd::Templates::Locator.new(paths: paths,
-                                               extension: "html.erb")
-      end
-
-      c.store(
-        "component_locator",
-        "Brut::FrontEnd::Templates::Locator",
-        "Object to use to locate templates for components"
-      ) do |components_src_dir, pages_src_dir|
-        Brut::FrontEnd::Templates::Locator.new(paths: [ components_src_dir, pages_src_dir ],
-                                               extension: "html.erb")
-      end
-
-      c.store(
         "svg_locator",
-        "Brut::FrontEnd::Templates::Locator",
+        "Brut::FrontEnd::InlineSvgLocator",
         "Object to use to locate SVGs"
       ) do |svgs_src_dir|
-        Brut::FrontEnd::Templates::Locator.new(paths: svgs_src_dir,
-                                               extension: "svg")
+        Brut::FrontEnd::InlineSvgLocator.new(paths: svgs_src_dir)
       end
 
       c.store(
