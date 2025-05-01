@@ -74,6 +74,30 @@ class Brut::FrontEnd::Component < Phlex::HTML
     render Brut::FrontEnd::RequestContext.inject(component_klass)
   end
 
+  def constraint_violations(form:, input_name:, index: nil, message_html_attributes: {}, **html_attributes)
+    render(
+      Brut::FrontEnd::Components::ConstraintViolations.new(
+        form:,
+        input_name:,
+        index:,
+        message_html_attributes:,
+        **html_attributes
+      )
+    )
+  end
+
+  # Create an HTML input tag for the given input of a form.  This is a convieniece method
+  # that calls {Brut::FrontEnd::Components::Inputs::TextField.for_form_input}.
+  def input_tag(form:, input_name:, index: nil, **html_attributes)
+    render(
+      Brut::FrontEnd::Components::Inputs::TextField.for_form_input(
+        form:,
+        input_name:,
+        index:,
+        html_attributes:)
+    )
+  end
+
   def self.component_name = self.name
   def component_name = self.class.component_name
 
