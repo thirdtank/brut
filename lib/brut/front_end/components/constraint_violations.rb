@@ -37,7 +37,7 @@ class Brut::FrontEnd::Components::ConstraintViolations < Brut::FrontEnd::Compone
 
   def view_template
     html_attributes = {
-      "input-name": @array ? "#{@input_name}[]" : @input_name
+      "input-name": @array ? "#{@input_name}[]" : @input_name.to_s,
     }.merge(@html_attributes)
 
     message_html_attributes = {
