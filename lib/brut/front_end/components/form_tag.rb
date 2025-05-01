@@ -1,4 +1,3 @@
-require "rexml"
 # Represents a `<form>` HTML element that includes a CSRF token as needed. You likely want to use this class via the {Brut::FrontEnd::Component::Helpers#form_tag} method.
 class Brut::FrontEnd::Components::FormTag < Brut::FrontEnd::Component
   # Creates the form surrounding the contents of the block yielded to it. If the form's action is a POST, it will include a CSRF token.
@@ -22,7 +21,7 @@ class Brut::FrontEnd::Components::FormTag < Brut::FrontEnd::Component
   # @option html_attributes [Class|Brut::FrontEnd::Form] :for the form object or class representing this HTML form *or* the class of a handler the form should submit to. If you pass this, you may not pass the HTML attributes `:action` or `:method`. Both will be derived from this object.
   # @option html_attributes [String] «any-other-key» attributes to set on the `<form>` tag
   # @yield No parameters given. This is expected to return additional markup to appear inside the `<form>` element.
-  def initialize(route_params: {}, **html_attributes,&contents)
+  def initialize(route_params: {}, **html_attributes)
     form_class = html_attributes.delete(:for) # Cannot be a keyword arg, since for is a reserved word
     if !form_class.nil?
       if form_class.kind_of?(Brut::FrontEnd::Form)
@@ -49,34 +48,23 @@ class Brut::FrontEnd::Components::FormTag < Brut::FrontEnd::Component
 
     @include_csrf_token = http_method.post?
     @csrf_token_omit_reasoning = http_method.get? ? "because this form's action is a GET" : nil
-    @attributes = html_attributes
-    @contents = contents
+    @attributes = html_attributes.merge(method: http_method)
   end
 
-  # @!visibility private
-  def render
-    attribute_string = @attributes.map { |key,value|
-      key = key.to_s
-      if value == true
-        key
-      elsif value == false
-        ""
-      else
-        REXML::Attribute.new(key,value).to_string
+  def view_template
+    form(**@attributes) do
+      if @include_csrf_token
+        render Brut::FrontEnd::RequestContext.inject(Brut::FrontEnd::Components::Inputs::CsrfToken)
+      elsif Brut.container.project_env.development?
+        comment do
+          "CSRF Token omitted #{@csrf_token_omit_reasoning} (this message only appears in development)"
+        end
       end
-    }.join(" ")
-    csrf_token_component = if @include_csrf_token
-                             component(Brut::FrontEnd::Components::Inputs::CsrfToken)
-                           elsif Brut.container.project_env.development?
-                             html_safe!("<!-- CSRF Token omitted #{@csrf_token_omit_reasoning} (this message only appears in development) -->")
-                           else
-                             ""
-                           end
-    %{
-      <form #{attribute_string}>
-        #{ csrf_token_component }
-        #{ @contents.() }
-      </form>
-    }
+      if block_given?
+        yield
+      end
+    end
   end
+
+
 end

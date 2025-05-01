@@ -31,27 +31,27 @@ class Brut::FrontEnd::Components::ConstraintViolations < Brut::FrontEnd::Compone
     @input_name              =  input_name
     @array                   = !index.nil?
     @index                   =  index || 0
-    @html_attributes         =  html_attributes
-    @message_html_attributes =  message_html_attributes
+    @html_attributes         =  html_attributes.map {|name,value| [ name.to_sym, value ] }.to_h
+    @message_html_attributes =  message_html_attributes.map {|name,value| [ name.to_sym, value ] }.to_h
   end
 
-  def render
+  def view_template
     html_attributes = {
-      "input-name": @array ? "#{@input_name}[]" : @input_name
+      "input-name": @array ? "#{@input_name}[]" : @input_name.to_s,
     }.merge(@html_attributes)
 
     message_html_attributes = {
       "server-side": true,
     }.merge(@message_html_attributes)
 
-    html_tag("brut-cv-messages", **html_attributes) do
+    brut_cv_messages(**html_attributes) do
       @form.input(@input_name, index: @index).validity_state.select { |constraint|
         !constraint.client_side?
-      }.map { |constraint|
-        html_tag("brut-cv",**message_html_attributes) do
-          t("cv.be.#{constraint}", **constraint.context).capitalize
+      }.each do |constraint|
+        brut_cv(**message_html_attributes) do
+          t("cv.be.#{constraint}", **constraint.context)
         end
-      }.join("\n")
+      end
     end
   end
 end

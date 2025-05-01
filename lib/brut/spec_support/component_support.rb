@@ -8,7 +8,7 @@ module Brut::SpecSupport::ComponentSupport
   include Brut::SpecSupport::FlashSupport
   include Brut::SpecSupport::SessionSupport
   include Brut::SpecSupport::ClockSupport
-  include Brut::I18n::ForHTML
+  include Brut::I18n::BaseMethods
 
   # Render a component into its text representation.  This mimics what happens when a component is used
   # inside a template.  You typically don't want this, but should use {#render_and_parse}, since that will
@@ -20,8 +20,13 @@ module Brut::SpecSupport::ComponentSupport
       end
       component.handle!
     else
-      component.yielded_block = block
-      component.render
+      if block.nil?
+        component.call
+      else
+        component.call do
+          component.raw(component.safe(block.()))
+        end
+      end
     end
   end
 
@@ -41,7 +46,7 @@ module Brut::SpecSupport::ComponentSupport
   # @return [Brut::SpecSupport::EnhancedNode] a wrapper around a Nokogiri node to provide convienience methods.
   def render_and_parse(component,&block)
     rendered_text = render(component,&block)
-    if !rendered_text.kind_of?(String) && !rendered_text.kind_of?(Brut::FrontEnd::Templates::HTMLSafeString)
+    if !rendered_text.kind_of?(String)
       if rendered_text.kind_of?(URI::Generic)
         raise "#{component.class} redirected to #{rendered_text} instead of rendering"
       else
@@ -79,10 +84,5 @@ module Brut::SpecSupport::ComponentSupport
   # @!visibility private
   def routing_for(klass,**args)
     Brut.container.routing.path(klass,**args)
-  end
-
-  # Escape HTML using the same code Brut uses for rendering templates.
-  def escape_html(...)
-    Brut::FrontEnd::Templates::EscapableFilter.escape_html(...)
   end
 end

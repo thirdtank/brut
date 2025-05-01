@@ -77,15 +77,16 @@ module Brut::SinatraHelpers
 
         Brut.container.instrumentation.span(page_class.name) do |span|
           span.add_prefixed_attributes("brut", type: :page, class: page_class)
-          request_context = Thread.current.thread_variable_get(:request_context)
-          constructor_args = request_context.as_constructor_args(
+          constructor_args = Brut::FrontEnd::RequestContext.current.as_constructor_args(
             page_class,
             request_params: params,
             route: brut_route,
           )
           span.add_prefixed_attributes("brut.initializer.args", constructor_args.map { |k,v| [k.to_s,v.class.name] }.to_h)
           page_instance = page_class.new(**constructor_args)
+
           result = page_instance.handle!
+
           span.add_prefixed_attributes("brut", result_class: result.class)
           case result
           in URI => uri
@@ -177,7 +178,6 @@ module Brut::SinatraHelpers
             form_class: form_class,
           )
 
-          request_context = Thread.current.thread_variable_get(:request_context)
           handler = handler_class.new
           form = if form_class.nil?
                    nil
@@ -185,7 +185,7 @@ module Brut::SinatraHelpers
                    form_class.new(params: params)
                  end
 
-          process_args = request_context.as_method_args(handler,:handle,request_params: params,form: form,route:brut_route)
+          process_args = Brut::FrontEnd::RequestContext.current.as_method_args(handler,:handle,request_params: params,form: form,route:brut_route)
 
           result = handler.handle!(**process_args)
 
@@ -193,12 +193,17 @@ module Brut::SinatraHelpers
           in URI => uri
             redirect to(uri.to_s)
           in Brut::FrontEnd::Component => component_instance
-            render_html(component_instance).to_s
-          in [ Brut::FrontEnd::Component => component_instance, Brut::FrontEnd::HttpStatus => http_status ]
+            component_instance.call.to_s
+          in [
+            Brut::FrontEnd::Component  => component_instance,
+            Brut::FrontEnd::HttpStatus => http_status,
+          ]
+
             [
               http_status.to_i,
-              render_html(component_instance).to_s,
+              component_instance.call.to_s,
             ]
+
           in Brut::FrontEnd::HttpStatus => http_status
             http_status.to_i
           in Brut::FrontEnd::Download => download

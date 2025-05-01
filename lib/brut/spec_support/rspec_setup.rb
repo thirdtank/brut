@@ -80,6 +80,7 @@ class Brut::SpecSupport::RSpecSetup
     @config.include Brut::SpecSupport::GeneralSupport
     @config.include Brut::SpecSupport::ComponentSupport, component: true
     @config.include Brut::SpecSupport::HandlerSupport, handler: true
+    @config.include Brut::SpecSupport::E2eSupport, e2e: true
     @config.include Playwright::Test::Matchers, e2e: true
 
     @config.around do |example|

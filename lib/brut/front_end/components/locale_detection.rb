@@ -13,7 +13,7 @@ class Brut::FrontEnd::Components::LocaleDetection < Brut::FrontEnd::Component
     @url      = Brut::FrontEnd::Handlers::LocaleDetectionHandler.routing
   end
 
-  def render
+  def view_template
     attributes = {
       "url" => @url,
     }
@@ -27,6 +27,6 @@ class Brut::FrontEnd::Components::LocaleDetection < Brut::FrontEnd::Component
       attributes["show-warnings"] = true
     end
 
-    html_tag("brut-locale-detection",**attributes)
+    brut_locale_detection(**attributes)
   end
 end

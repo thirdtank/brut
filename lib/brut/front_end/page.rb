@@ -14,7 +14,6 @@
 # @see Brut::FrontEnd::Component
 class Brut::FrontEnd::Page < Brut::FrontEnd::Component
   include Brut::FrontEnd::HandlingResults
-  using Brut::FrontEnd::Templates::HTMLSafeString::Refinement
 
   # Returns the name of the layout for this page.  This string is used to find an ERB file in `app/src/front_end/layouts`. Every page
   # must have a layout. If you wish to render a page with no layout, create an empty layout in your app and use that.
@@ -31,42 +30,34 @@ class Brut::FrontEnd::Page < Brut::FrontEnd::Component
   # @return [URI|Brut::FrontEnd::HttpStatus|Object] If you return a `URI` (mostly likely by returning the result of calling {Brut::FrontEnd::HandlingResults#redirect_to}), the user is redirected and {#render} is never called. If you return a {Brut::FrontEnd::HttpStatus} (mostly likely by returning the result of calling {Brut::FrontEnd::HandlingResults#http_status}), {#render} is skipped and that status is returned with no content.  If anything else is returned, {#render} is called as normal.
   def before_render = nil
 
-  # @!visibility private
+  def with_layout(&block)
+    layout_class = Module.const_get(
+      layout_class = RichString.new([
+        self.layout,
+        "layout"
+      ].join("_")).camelize
+    )
+    render layout_class.new(page_name:,&block)
+  end
+
+
   def handle!
     case before_render
     in URI => uri
-      Brut.container.instrumentation.add_event("before_render got a URI", uri: uri)
       uri
     in Brut::FrontEnd::HttpStatus => http_status
-      Brut.container.instrumentation.add_event("before_render got status", http_status: http_status)
       http_status
     else
-      render
+      self.call
     end
   end
 
-  # The core method of a page, which overrides {Brut::FrontEnd::Component#render}. This is expected to return
-  # a string to be sent as a response to an HTTP request. Generally, you should not call this method as it is
-  # called by Brut when your page is requested.
-  #
-  # Also, generally don't override this unles you need to do something unusual.  Overriding this will completely bypass the layout
-  # system and skip all ERB processing. Unlike {Brut::FrontEnd::Component#render}, overriding this method does not provide access to injected data from the request context.
-  #
-  # @return [Brut::FrontEnd::Templates::HTMLSafeString] string containing the page's full HTML.
-  def render
-    layout_template = Brut.container.layout_locator.locate(self.layout).
-      then { |layout_erb_file| Brut::FrontEnd::Template.new(layout_erb_file) }
-
-    template = Brut.container.page_locator.locate(self.template_name).
-      then { |erb_file| Brut::FrontEnd::Template.new(erb_file) }
-
-    Brut.container.instrumentation.add_event("templates found", layout: layout_template.template_file_path, page: template.template_file_path)
-
-    page = template.render_template(self).html_safe!
-    layout_template.render_template(self) do
-      page
+  def view_template
+    with_layout do
+      page_template
     end
   end
+
 
   # @return [String] name of this page for use in debugging or for whatever reason you may want to dynamically refer to the page's name.  The default value is the class name.
   def self.page_name = self.name
@@ -76,10 +67,6 @@ class Brut::FrontEnd::Page < Brut::FrontEnd::Component
 
   # @!visibility private
   def component_name = raise Brut::Framework::Errors::Bug,"#{self.class} is not a component"
-
-private
-
-  def template_name = RichString.new(self.class.name).underscorized.to_s.gsub(/^pages\//,"")
 
 end
 

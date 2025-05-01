@@ -1,5 +1,9 @@
+require "phlex"
+
 # Wrapper around an HTTP Method, ensuring it contains only a valid value.
 class Brut::FrontEnd::HttpMethod
+  include Phlex::SGML::SafeObject
+
   # Create an HTTP method from a string.
   #
   # @param [String|Symbol] string a string containing an HTTP method name. Case insensitive, and can be a symbol.

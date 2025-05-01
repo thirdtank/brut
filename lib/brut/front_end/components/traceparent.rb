@@ -8,15 +8,14 @@ class Brut::FrontEnd::Components::Traceparent < Brut::FrontEnd::Component
     @traceparent = carrier["traceparent"]
   end
 
-  def render
+  def view_template
     attributes = {
-      name: "traceparent"
+      name: "traceparent",
+      content: @traceparent,
     }
-    if @traceparent
-      attributes[:content] = @traceparent
-    else
+    if !@traceparent
       attributes["data-no-traceparent"] = "no traceparent was available - this component may have been rendered outside of an existing OpenTelemetry context"
     end
-    html_tag(:meta, **attributes)
+    meta(**attributes)
   end
 end

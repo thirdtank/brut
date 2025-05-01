@@ -9,40 +9,39 @@ class Brut::FrontEnd::Components::Inputs::TextField < Brut::FrontEnd::Components
   # @param [Hash] html_attributes any additional HTML attributes to include on the `<input>` element.
   def self.for_form_input(form:, input_name:, index: nil, html_attributes: {})
     default_html_attributes = {}
-    html_attributes = html_attributes.map { |key,value| [ key.to_s, value ] }.to_h
+    html_attributes = html_attributes.map { |key,value| [ key.to_sym, value ] }.to_h
     input = form.input(input_name, index:)
 
-    default_html_attributes["required"] = input.required
-    default_html_attributes["pattern"]  = input.pattern
-    default_html_attributes["type"]     = input.type
-    default_html_attributes["name"]     = if input.array?
+    default_html_attributes[:required] = input.required
+    default_html_attributes[:pattern]  = input.pattern
+    default_html_attributes[:type]     = input.type
+    default_html_attributes[:name]     = if input.array?
                                             "#{input.name}[]"
                                           else
                                             input.name
                                           end
 
     if input.max
-      default_html_attributes["max"] = input.max
+      default_html_attributes[:max] = input.max
     end
     if input.maxlength
-      default_html_attributes["maxlength"] = input.maxlength
+      default_html_attributes[:maxlength] = input.maxlength
     end
     if input.min
-      default_html_attributes["min"] = input.min
+      default_html_attributes[:min] = input.min
     end
     if input.minlength
-      default_html_attributes["minlength"] = input.minlength
-    end
+      default_html_attributes[:minlength] = input.minlength end
     if input.step
-      default_html_attributes["step"] = input.step
+      default_html_attributes[:step] = input.step
     end
     value = input.value
 
     if input.type == "checkbox"
-      default_html_attributes["value"] = (index || true).to_s
-      default_html_attributes["checked"] = value == "true"
+      default_html_attributes[:value] = (index || true).to_s
+      default_html_attributes[:checked] = value == "true"
     else
-      default_html_attributes["value"] = value
+      default_html_attributes[:value] = value.to_s
     end
     if !form.new? && !input.valid?
       default_html_attributes["data-invalid"] = true
@@ -55,30 +54,16 @@ class Brut::FrontEnd::Components::Inputs::TextField < Brut::FrontEnd::Components
     Brut::FrontEnd::Components::Inputs::TextField.new(default_html_attributes.merge(html_attributes))
   end
 
+  def invalid? = @attributes["data-invalid"] == true
+
   # Create an instance
   #
   # @param [Hash] attributes HTML attributes to put on the element.
   def initialize(attributes)
-    @sanitized_attributes = attributes.map { |key,value|
-        [
-          key.to_s.gsub(/[\s\"\'>\/=]/,"-"),
-          value
-        ]
-    }.select { |key,value|
-      !value.nil?
-    }.to_h
+    @attributes = attributes
   end
 
-  def render
-    attribute_string = @sanitized_attributes.map { |key,value|
-      if value == true
-        key
-      elsif value == false
-        ""
-      else
-        REXML::Attribute.new(key,value).to_string
-      end
-    }.join(" ")
-    "<input #{attribute_string}>"
+  def view_template
+    input(**@attributes)
   end
 end

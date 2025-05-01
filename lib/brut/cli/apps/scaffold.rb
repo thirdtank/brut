@@ -184,7 +184,7 @@ end}
   end
 
   class Component < Brut::CLI::Command
-    description "Create a new component, template, and associated test"
+    description "Create a new component and associated test"
     detailed_description "New components go in the `components/` folder of your app, however using --page will create a 'page private' component.  To do that, the component name must be an inner class of an existing page, for example HomePage::Welcome. This component goes in a sub-folder inside the `pages/` area of your app"
     opts.on("--page","If set, this component is for a specific page and won't go with the other components")
     args "ComponentName"
@@ -217,12 +217,10 @@ end}
       end
 
       source_path      = Pathname( (components_src_dir / relative_path).to_s + ".rb" )
-      html_source_path = Pathname( (components_src_dir / relative_path).to_s + ".html.erb" )
       spec_path        = Pathname( (components_specs_dir / relative_path).to_s + ".spec.rb" )
 
       exists = [
         source_path,
-        html_source_path,
         spec_path,
       ].select(&:exist?)
 
@@ -236,21 +234,20 @@ end}
 
       if global_options.dry_run?
         out.puts "FileUtils.mkdir_p #{source_path.dirname}"
-        out.puts "FileUtils.mkdir_p #{html_source_path.dirname}"
         out.puts "FileUtils.mkdir_p #{spec_path.dirname}"
       else
         FileUtils.mkdir_p source_path.dirname
-        FileUtils.mkdir_p html_source_path.dirname
         FileUtils.mkdir_p spec_path.dirname
 
         File.open(source_path,"w") do |file|
           file.puts %{class #{class_name} < AppComponent
   def initialize
   end
+
+  def view_template
+    h2 { "Welcome to your new template" }
+  end
 end}
-        end
-        File.open(html_source_path,"w") do |file|
-          file.puts "<h1>#{class_name} is ready!</h1>"
         end
         File.open(spec_path,"w") do |file|
           file.puts %{require "spec_helper"
@@ -262,9 +259,8 @@ RSpec.describe #{class_name} do
 end}
         end
       end
-      out.puts "Component source is in        #{source_path.relative_path_from(Brut.container.project_root)}"
-      out.puts "Component HTML template is in #{html_source_path.relative_path_from(Brut.container.project_root)}"
-      out.puts "Component test is in          #{spec_path.relative_path_from(Brut.container.project_root)}"
+      out.puts "Component source is in #{source_path.relative_path_from(Brut.container.project_root)}"
+      out.puts "Component test is in   #{spec_path.relative_path_from(Brut.container.project_root)}"
       0
     end
   end
@@ -283,7 +279,7 @@ end}
         end
       end
     end
-    description "Create a new page, template, and associated test"
+    description "Create a new page and associated test"
     args "page_route"
     def execute
       if args.length != 1
@@ -299,14 +295,12 @@ end}
       i18n_locales_dir = Brut.container.i18n_locales_dir
 
       page_source_path     = Pathname( (pages_src_dir   / page_relative_path).to_s + ".rb" )
-      template_source_path = Pathname( (pages_src_dir   / page_relative_path).to_s + ".html.erb" )
       page_spec_path       = Pathname( (pages_specs_dir / page_relative_path).to_s + ".spec.rb" )
       app_path             = Pathname( Brut.container.app_src_dir / "app.rb" )
       app_translations     = Pathname(  i18n_locales_dir / "en" / "2_app.rb")
 
       exists = [
         page_source_path,
-        template_source_path,
         page_spec_path,
       ].select(&:exist?)
 
@@ -319,7 +313,6 @@ end}
       end
 
       FileUtils.mkdir_p page_source_path.dirname,     noop: global_options.dry_run?
-      FileUtils.mkdir_p template_source_path.dirname, noop: global_options.dry_run?
       FileUtils.mkdir_p page_spec_path.dirname,       noop: global_options.dry_run?
 
       route_code = "page \"#{route.path_template}\""
@@ -334,8 +327,11 @@ end}
       page_class_code = %{class #{page_class_name} < AppPage
   def initialize#{initializer_params_code} # add needed arguments here
   end
+
+  def page_template
+    h1 { "#{page_class_name} is ready!" }
+  end
 end}
-      template_code = %{<h1>#{page_class_name} is ready!</h1>}
       page_spec_code = %{require "spec_helper"
 
 RSpec.describe #{page_class_name} do
@@ -352,8 +348,6 @@ end}
         out.puts "will contain:\n\n#{route_code}\n\n"
         out.puts page_source_path.relative_path_from(Brut.container.project_root)
         out.puts "will contain:\n\n#{page_class_code}\n\n"
-        out.puts template_source_path.relative_path_from(Brut.container.project_root)
-        out.puts "will contain:\n\n#{template_code}\n\n"
         out.puts page_spec_path.relative_path_from(Brut.container.project_root)
         out.puts "will contain:\n\n#{page_spec_code}\n\n"
         out.puts app_translations.relative_path_from(Brut.container.project_root)
@@ -361,7 +355,6 @@ end}
       else
 
         File.open(page_source_path,"w")     { it.puts page_class_code }
-        File.open(template_source_path,"w") { it.puts template_code }
         File.open(page_spec_path,"w")       { it.puts page_spec_code }
 
         existing_translations = File.read(app_translations).split(/\n/)
@@ -393,11 +386,10 @@ end}
           out.puts "Please make sure everything is correct.  Here is the defintion that was not inserted:\n\n#{route_code}"
         end
       end
-      out.puts "Page source is in        #{page_source_path.relative_path_from(Brut.container.project_root)}"
-      out.puts "Page HTML template is in #{template_source_path.relative_path_from(Brut.container.project_root)}"
-      out.puts "Page test is in          #{page_spec_path.relative_path_from(Brut.container.project_root)}"
-      out.puts "Added title to           #{app_translations.relative_path_from(Brut.container.project_root)}"
-      out.puts "Added route to           #{app_path.relative_path_from(Brut.container.project_root)}"
+      out.puts "Page source is in #{page_source_path.relative_path_from(Brut.container.project_root)}"
+      out.puts "Page test is in   #{page_spec_path.relative_path_from(Brut.container.project_root)}"
+      out.puts "Added title to    #{app_translations.relative_path_from(Brut.container.project_root)}"
+      out.puts "Added route to    #{app_path.relative_path_from(Brut.container.project_root)}"
       0
     end
   end

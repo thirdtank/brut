@@ -1,4 +1,3 @@
-require "rexml"
 module Brut::FrontEnd::Components
 
   # Holds components designed to render HTML `<input>` and other form components.
