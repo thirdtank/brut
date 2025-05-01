@@ -1,6 +1,11 @@
-# Interface for translations.  This is prefered over using Ruby's I18n directly.
-# This is intended to be mixed-in to any class that requires this, so that you can more
-# expediently access the `t` method.
+# Interface for translations, preferred over Ruby's I18n classes. Note that this is a
+# base module and not intended to be directly used in your classes.  Include one of
+# the other modules in this namespace:
+#
+# * {Brut::I18n::ForHTML} for components or pages, or anything use Phlex
+# * {Brut::I18n::ForCLI} for CLI apps
+# * {Brut::I18n::ForBackEnd} for back-end classes that aren't generating HTML
+#
 module Brut::I18n::BaseMethods
 
   # Access a translation and insert interpolated elemens as needed. This will use the provided key to determine

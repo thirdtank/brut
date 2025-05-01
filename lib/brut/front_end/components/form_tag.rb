@@ -21,7 +21,7 @@ class Brut::FrontEnd::Components::FormTag < Brut::FrontEnd::Component
   # @option html_attributes [Class|Brut::FrontEnd::Form] :for the form object or class representing this HTML form *or* the class of a handler the form should submit to. If you pass this, you may not pass the HTML attributes `:action` or `:method`. Both will be derived from this object.
   # @option html_attributes [String] «any-other-key» attributes to set on the `<form>` tag
   # @yield No parameters given. This is expected to return additional markup to appear inside the `<form>` element.
-  def initialize(route_params: {}, **html_attributes,&contents)
+  def initialize(route_params: {}, **html_attributes)
     form_class = html_attributes.delete(:for) # Cannot be a keyword arg, since for is a reserved word
     if !form_class.nil?
       if form_class.kind_of?(Brut::FrontEnd::Form)
@@ -60,7 +60,9 @@ class Brut::FrontEnd::Components::FormTag < Brut::FrontEnd::Component
           "CSRF Token omitted #{@csrf_token_omit_reasoning} (this message only appears in development)"
         end
       end
-      yield
+      if block_given?
+        yield
+      end
     end
   end
 
