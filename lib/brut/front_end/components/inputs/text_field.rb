@@ -41,7 +41,7 @@ class Brut::FrontEnd::Components::Inputs::TextField < Brut::FrontEnd::Components
       default_html_attributes[:value] = (index || true).to_s
       default_html_attributes[:checked] = value == "true"
     else
-      default_html_attributes[:value] = value.to_s
+      default_html_attributes[:value] = value.nil? ? nil : value.to_s
     end
     if !form.new? && !input.valid?
       default_html_attributes["data-invalid"] = true
