@@ -1,4 +1,4 @@
-# Renders a date or timestamp accessibly, using the `<time>` element. Likely you will use this via the {Brut::FrontEnd::Component::Helpers#time_tag} method. This will account for the current request's time zone. See {Clock}.
+# Renders a date or timestamp accessibly, using the `<time>` element. Likely you will use this via the {Brut::FrontEnd::Component#time_tag} method. This will account for the current request's time zone. See {Clock}.
 class Brut::FrontEnd::Components::TimeTag < Brut::FrontEnd::Component
   include Brut::I18n::ForHTML
   # Creates the component

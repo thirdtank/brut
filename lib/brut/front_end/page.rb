@@ -1,46 +1,44 @@
-# A page backs a web page.  A page renders everything in the browser window.  Technically, it is exactly like a component except that
-# it can have a layout.
+# A Page backs a web page, which handles rendering everything in a browser window when a URL is requested.
+# Technically, a page is identical to a {Brut::FrontEnd::Component}, except that a page has a layout.
+# A {Brut::FrontEnd::Layout} is common HTML that surrounds your page's HTML.
+# Your page is a Phlex component, but instead of implementing `view_template`, you
+# implement {#page_template} to ensure the layout is used.
 #
-# When subclassing this to create a page, your initializer's signature will determine what data
-# is required for your page to work.  It can be anything, just keep in mind that any component your page uses may
-# require additional data.
+# To create a page, after defining a route, subclass this class (or, more likely, your app's `AppPage`) and
+# provide an initializer that accepts keyword arguments.  The names of these arguments will be used to locate the
+# values that Brut will pass in when creating your page object.
 #
-# If your page does not override {#render} (which, generally, it won't), an ERB file is expected to exist alongside it in the
-# app.  For example, if you have a page named `Auth::LoginPage`, it would expected to be in
-# `app/src/front_end/pages/auth/login_page.rb`.  Thus, Brut will also expect
-# `app/src/front_end/pages/auth/login_page.html.erb` to exist as well. That ERB file is used with an instance of your
-# pages's class to render the page's HTML.
+# Consult Brut's documentation on keyword injection to know what values you may use and how values are located.
 #
 # @see Brut::FrontEnd::Component
+# @see Brut::FrontEnd::Layout
 class Brut::FrontEnd::Page < Brut::FrontEnd::Component
   include Brut::FrontEnd::HandlingResults
 
-  # Returns the name of the layout for this page.  This string is used to find an ERB file in `app/src/front_end/layouts`. Every page
-  # must have a layout. If you wish to render a page with no layout, create an empty layout in your app and use that.
+  # Returns the name of the layout for this page.  This string is used to find a class named
+  # `«camelized-layout»Layout` in your app.  The default value is "default", meaning that the class
+  # `DefaultLayout` will be used.
   #
-  # Note that the layout can be dynamic. It is requested when {#render} is called, so you can override this
+  # Note that the layout can be dynamic. It is requested when {#page_template} is called, so you can override this
   # method and use any ivar set in your constructor to change what layout is used.
+  #
+  # If your page does not need a layout, you have two options:
+  #
+  # * Create your own blank layout named, e.g. `BlankLayout` and have this method return `"blank"`.
+  # * Implement `view_template` instead of `page_template`, thus overriding this class' implementation that uses
+  #   layouts.
   #
   # @return [String] The name of the layout. May not be `nil`.
   def layout = "default"
 
-  # Called after the page is created, but before {#render} is called.  This allows you to do any pre-flight checks and potentially
+  # Called after the page is created, but before {#page_template} is called.  This allows you to do any pre-flight checks and potentially
   # redirect the user or produce an error.
   #
-  # @return [URI|Brut::FrontEnd::HttpStatus|Object] If you return a `URI` (mostly likely by returning the result of calling {Brut::FrontEnd::HandlingResults#redirect_to}), the user is redirected and {#render} is never called. If you return a {Brut::FrontEnd::HttpStatus} (mostly likely by returning the result of calling {Brut::FrontEnd::HandlingResults#http_status}), {#render} is skipped and that status is returned with no content.  If anything else is returned, {#render} is called as normal.
+  # @return [URI|Brut::FrontEnd::HttpStatus|Object] If you return a `URI` (mostly likely by returning the result of calling {Brut::FrontEnd::HandlingResults#redirect_to}), the user is redirected and no HTML is generated. If you return a {Brut::FrontEnd::HttpStatus} (mostly likely by returning the result of calling {Brut::FrontEnd::HandlingResults#http_status}), HTML generation is skipped and that status is returned with no content.  If anything else is returned, HTML is generated normal.
   def before_render = nil
 
-  def with_layout(&block)
-    layout_class = Module.const_get(
-      layout_class = RichString.new([
-        self.layout,
-        "layout"
-      ].join("_")).camelize
-    )
-    render layout_class.new(page_name:,&block)
-  end
-
-
+  # Core method of this class. Do not override. This handles the use of {#before_render} and is what Brut
+  # calls to possibly render the page.
   def handle!
     case before_render
     in URI => uri
@@ -52,6 +50,15 @@ class Brut::FrontEnd::Page < Brut::FrontEnd::Component
     end
   end
 
+  # Override this method to produce your page's HTML. You are intended to call Phlex
+  # methods here. Anything you can do inside the Phlex-standard `view_template` method, you can 
+  # do here. The only difference is that this will all be rendered in the context of your configured
+  # {#layout}.
+  def page_template = abstract_method!
+
+  # Phlex's API to produce markup. Do not override this or you will lose your layout.
+  # This implementation locates the configured layout, renders it, and renders {#page_template}
+  # inside.
   def view_template
     with_layout do
       page_template
@@ -67,6 +74,24 @@ class Brut::FrontEnd::Page < Brut::FrontEnd::Component
 
   # @!visibility private
   def component_name = raise Brut::Framework::Errors::Bug,"#{self.class} is not a component"
+
+private
+
+  # Locates the layout class and uses it to render itself, along
+  # with the block given.
+  #
+  # @!visibility private
+  def with_layout(&block)
+    layout_class = Module.const_get(
+      layout_class = RichString.new([
+        self.layout,
+        "layout"
+      ].join("_")).camelize
+    )
+    render layout_class.new(page_name:,&block)
+  end
+
+
 
 end
 

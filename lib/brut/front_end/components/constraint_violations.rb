@@ -17,7 +17,7 @@
 # Note that if you are using `<brut-form>` then `<brut-cv>` elements will be inserted into the `<brut-cv-messages>` element, however
 # they will not have the `server-side` attribute.
 #
-# You will most commonly use this component via {Brut::FrontEnd::Component::Helpers#constraint_violations}.
+# You will most commonly use this component via {Brut::FrontEnd::Component#constraint_violations}.
 class Brut::FrontEnd::Components::ConstraintViolations < Brut::FrontEnd::Component
   # Create a new ConstraintViolations component
   #

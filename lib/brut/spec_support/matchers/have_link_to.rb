@@ -1,3 +1,4 @@
+# Component/Page
 RSpec::Matchers.define :have_link_to do |page_klass,**args|
   match do |node|
     node.css("a[href='#{page_klass.routing(**args)}']").any?

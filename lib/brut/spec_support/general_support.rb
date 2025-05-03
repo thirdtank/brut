@@ -5,6 +5,9 @@ module Brut::SpecSupport::GeneralSupport
   end
 
   module ClassMethods
+    # Used to indicate that a test does need to be written, but that
+    # its implementation can wait until a given date before causing
+    # `bin/ci` to fail the test suite.
     def implementation_is_needed(check_again_at:)
       check_again_at = if check_again_at.kind_of?(Time)
                          check_again_at

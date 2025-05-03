@@ -6,9 +6,10 @@ module Brut
   # that your CLI will respond to. See {Brut::CLI::app}.
   module CLI
 
-    # Execute your CLI based on its command line invocation.  You would call this method inside the executable file placed in `bin/`
-    # in your project.  For example, if you have `YourApp::CLI::CleanOldFiles` and you wish to execute it via `bin/clean-files`, you'd
-    # create `bin/clean-files` like so:
+    # Execute your CLI based on its command line invocation.  You would call this method inside the
+    # executable file placed in `bin/` in your project. 
+    # For example, if you have `YourApp::CLI::CleanOldFiles` and you wish to execute
+    # it via `bin/clean-files`, you'd create `bin/clean-files` like so:
     #
     # ```
     # #!/usr/bin/env ruby

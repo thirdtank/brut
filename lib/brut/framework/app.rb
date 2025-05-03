@@ -1,9 +1,10 @@
 # An "App" in Brut paralance is the collection of source code and configuration that is needed to operate
 # a website. This includes everything needed to serve HTTP requests, but also includes ancillary
-# tasks and any related files required for the app to exist and function.  Your app will have an `App` class that subclasses this
-# class.
+# tasks and any related files required for the app to exist and function.
+# Your app will have an `App` class that subclasses this class.
 #
-# When your app is initialized, Brut will have been configured, but access to internal resources may not be available.  It is here
+# When your app is initialized, Brut will have been configured,
+# but access to internal resources may not be available.  It is here
 # that you can override configuration values or do any other setup before everything boots.
 class Brut::Framework::App
   include Brut::Framework::Errors
@@ -18,7 +19,8 @@ class Brut::Framework::App
   # actions where an app needs to exist inside some organizational context.
   def organization = id
 
-  # Call this in your app's definition to define your app's routes. The contents of the block will be evaluated in the context of
+  # Call this in your app's definition to define your app's routes.
+  # The contents of the block will be evaluated in the context of
   # {Brut::SinatraHelpers::ClassMethods}, and the methods there are generally the ones you should be calling.
   #
   # You can call this multiple times and the routes will be concatenated together.
@@ -81,7 +83,7 @@ class Brut::Framework::App
   # code required *after* Brut has been set up and started.  You can rely on the
   # database being available. Any attempts to override configuration values
   # may not succeed.  This is called after the framework has booted, but before
-  # your apps' routes are set up.
+  # your app's routes are set up.
   def boot!
   end
 

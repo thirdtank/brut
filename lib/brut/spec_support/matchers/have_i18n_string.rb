@@ -1,9 +1,6 @@
+# Component/Page
 RSpec::Matchers.define :have_i18n_string do |key,**args|
-  include Brut::I18n::ForHTML
-
-  # XXX: Figure out how to not have to do this
-  def safe(x) = x
-  def capture(&block) = block.()
+  include Brut::I18n::ForBackEnd
 
   match do |nokogiri_node|
 

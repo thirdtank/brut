@@ -1,3 +1,4 @@
+# E2E
 RSpec::Matchers.define :be_page_for do |klass|
   match do |page|
     meta = page.locator("meta[name='class']")

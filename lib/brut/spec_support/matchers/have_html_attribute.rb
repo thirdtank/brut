@@ -1,3 +1,4 @@
+# Component/Page
 RSpec::Matchers.define :have_html_attribute do |attribute|
   if attribute.kind_of?(Hash)
     if attribute.keys.length != 1

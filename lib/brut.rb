@@ -1,10 +1,11 @@
 require_relative "brut/framework"
 
-# Brut is a way to make web apps with Ruby. It focuses on web standards, object-orientation, and other fundamentals. Brut seeks to
-# minimize abstractions where possible.
+# Brut is a way to make web apps with Ruby. It focuses on web standards, object-orientation, and other
+# fundamentals. Brut seeks to minimize abstractions where possible.
 #
-# Brut encourages the use of the browser's technology and encourages you to build a web app based on good practices that are set up by
-# default.  Brut may not look easy, but it aims to be simple.  It attempts to minimize dependencies and complexity, while leveraging
+# Brut encourages the use of the browser's technology and encourages you to build a web app based
+# on good practices that are set up by default.  Brut may not look easy, but it aims to be simple.
+# It attempts to minimize dependencies and complexity, while leveraging
 # common tested Ruby libraries related to web development.
 #
 # Have fun!

@@ -16,21 +16,19 @@ module Brut::FrontEnd::Components
 end
 
 # A Component is the top level class for managing the rendering of 
-# content.  A component is essentially an ERB template and a class whose
-# instance servces as it's binding. It is very similar to a View Component, though
-# not quite as fancy.
+# content.  It is a Phlex component with additional features.
+# Components are the primary mechanism for managing view complexity and managing
+# markup re-use in Brut.
 #
-# When subclassing this to create a component, your initializer's signature will determine what data
-# is required for your component to work.  It can be anything, just keep in mind that any page or component
-# that uses your component must be able to provide those values.
+# To create a component, subclass this class (or, more likely, your app's `AppComponent`) and
+# provide an initializer that accepts keyword arguments.  The names of these arguments will be used to locate the
+# values that Brut will pass in when creating your component object.
 #
-# If your component does not override {#render} (which, generally, it won't), an ERB file is expected to exist alongside it in the
-# app.  For example, if you have a component named `Auth::LoginButtonComponent`, it would expected to be in
-# `app/src/front_end/components/auth/login_button_component.rb`.  Thus, Brut will also expect
-# `app/src/front_end/components/auth/login_button_component.html.erb` to exist as well. That ERB file is used with an instance of your
-# component's class to render the component's HTML.
+# Consult Brut's documentation on keyword injection to know what values you may use and how values are located.
 #
-# @see Brut::FrontEnd::Component::Helpers
+# Becuase this is a Phlex component, you must implement `view_template` and make calls to Phlex's API to create
+# the markup for your component.
+#
 class Brut::FrontEnd::Component < Phlex::HTML
 
   include Brut::Framework::Errors
@@ -53,6 +51,13 @@ class Brut::FrontEnd::Component < Phlex::HTML
   register_element :brut_tabs
   register_element :brut_tracing
 
+  # Inline an SVG that is part of your app.
+  #
+  # @param [String] svg path to the SVG file, relative to where SVGs are
+  #        stored, which is `app/src/front_end/svgs` or where `Brut.container.svg_locator` is
+  #        looking
+  #
+  # @see Brut::FrontEnd::InlineSvgLocator
   def inline_svg(svg)
     Brut.container.svg_locator.locate(svg).then { |svg_file|
       File.read(svg_file)
@@ -61,19 +66,27 @@ class Brut::FrontEnd::Component < Phlex::HTML
     }
   end
 
+  # Include a {Brut::FrontEnd::Components::TimeTag} in your markup.
   def time_tag(timestamp:nil,**component_options, &contents)
     args = component_options.merge(timestamp:)
     render Brut::FrontEnd::Components::TimeTag.new(**args,&contents)
   end
 
+  # Include a {Brut::FrontEnd::Components::FormTag} in your markup.
   def form_tag(**args, &block)
     render Brut::FrontEnd::Components::FormTag.new(**args,&block)
   end
 
+  # Include a component in your markup that you would like Brut to instantiate.
+  # This will use keyword injection to create the component, which means that if the component
+  # doesn't require any data from this component, you do not need to pass through those values.
+  # For example, you may have a component that renders the flash message.  To avoid requiring your component to
+  # be passed the flash, a global component can be injected with it from Brut.
   def global_component(component_klass)
     render Brut::FrontEnd::RequestContext.inject(component_klass)
   end
 
+  # include a {Brut::FrontEnd::Components::ConstraintViolations} in your markup.
   def constraint_violations(form:, input_name:, index: nil, message_html_attributes: {}, **html_attributes)
     render(
       Brut::FrontEnd::Components::ConstraintViolations.new(
@@ -98,9 +111,19 @@ class Brut::FrontEnd::Component < Phlex::HTML
     )
   end
 
+  # The name of this component, used for debugging and other purposes. Do not
+  # override this.
   def self.component_name = self.name
+
+  # Calls {.component_name} as a convienience. Do not override this.
   def component_name = self.class.component_name
 
+  # For page components (components that are private/nested to a page), this returns
+  # the name of the page in which they are nested. This is mostly useful for
+  # locating page-specific I18n translations.
+  #
+  # @raise If this component is not nested inside a page
+  # @see Brut::I18n::BaseMethods#t
   def page_name
     @page_name ||= begin
                      page = self.class.name.split(/::/).reduce(Module) { |accumulator,class_path_part|

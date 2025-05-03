@@ -1,5 +1,7 @@
-# Manages the interpretation of dev/test/prod. The canonical instance is available via `Brut.container.project_env`.  Generally, you
-# should avoid basing logic on this, or at least contain the conditional behavior to the configuration values. But, you do you.
+# Manages the interpretation of dev/test/prod. The canonical instance is available 
+# via `Brut.container.project_env`.  Generally, you
+# should avoid basing logic on this, or at least contain the conditional behavior
+# to the configuration values. But, you do you.
 class Brut::Framework::ProjectEnvironment
   # Create the project environment based on the string
   # @param [String] string_value value from e.g. `ENV["RACK_ENV"]` to use to set the environment
@@ -20,6 +22,8 @@ class Brut::Framework::ProjectEnvironment
   def test?        = @value == "test"
   # @return [true|false] true is this is production
   def production?  = @value == "production"
+
+  def staging? = raise "Staging is a lie, please consider feature flags or literally any other way to manage in-development features of your app. I promise you, you will regret ever having to do anything with a staging server"
 
   # @return [String] the string value (which should be suitable for the constructor)
   def to_s = @value

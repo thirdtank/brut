@@ -21,7 +21,8 @@ end
 #
 # There is no namespacing/hierarchy.
 #
-# In general, you should not create instances of this class, but you may need to access it via {Brut.container} in order to obtain
+# In general, you should not create instances of this class, but you may
+# need to access it via {Brut.container} in order to obtain
 # configuration values or set your own.
 class Brut::Framework::Container
   def initialize
@@ -92,7 +93,7 @@ class Brut::Framework::Container
   end
 
   # Called by your app to override an existing value.  The value must be overridable (see {#store}).  Generally, you should call this
-  # in the initializer of your {Brut::Framework::App} subclass.  Calling this after the fact may not have the affect you want.
+  # in the initializer of your {Brut::Framework::App} subclass.  Calling this after the fact may not have the effect you want.
   #
   # @param [String|Symbol] name name of the value to override. Will be coerced to a String. This name must have been previously
   #                             configured.

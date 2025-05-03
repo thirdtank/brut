@@ -1,3 +1,7 @@
+# Class to interact with the OpenTelemetry standard in a simpler way than
+# the provided Ruby gem does.  In general, you should use this class
+# via `Brut.container.instrumentation`, and you should *not* use the 
+# OpenTelemetry ruby library directly.  You probably wouldn't want to, anyway.
 class Brut::Instrumentation::OpenTelemetry
   # Create a span around the given block of code.
   #

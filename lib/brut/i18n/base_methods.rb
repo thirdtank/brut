@@ -23,12 +23,12 @@ module Brut::I18n::BaseMethods
   # to `t("email.required", field: "E-mail address")` would generate `"E-mail address is required"`.
   #
   # @param [String,Symbol,Array<String>,Array<Symbol>] key used to create one or more keys to be translated.
-  #        This value's behavior is designed to a balance predictabilitiy in what actual key is chosen
+  #        This value's behavior is designed to balance predictabilitiy in what actual key is chosen
   #        but without needless repetition on a page.  If this value is provided, and is an array, the values
   #        are joined with "." to form a key.  If the value is not an array, that value is used directly.
   #        Given this key, two values are checked for a translation: the key itself and 
   #        the key inside "general.".  If this value is *not* provided, it is expected
-  #        taht the `**rest` hash includes page: or component:.  See that parameter and the example.
+  #        that the `**rest` hash includes page: or component:.  See that parameter and the example.
   #
   # @param [Hash] rest values to use for interpolation of the key's translation. If `key` is omitted,
   #               this hash should have a value for either `page:` or `component:` (not both).  If
@@ -39,6 +39,16 @@ module Brut::I18n::BaseMethods
   #               Note that if the page– or component–specific key is not found, this will check
   #               `general.«page: value»`.
   # @option interpolated_values [Numeric] count Special interpolation to control pluralization.
+  # @yield Nothing is yielded if a block is given, however the value returned is used for the `%{block}`
+  #        interpolation value.
+  # @yieldreturn [String] The value to use for the `%{block}` interpolation value.  There is some nuance to
+  #                       how this works.  The value returned is given to `capture`, and that value
+  #                       is given to `safe`.  Outside of an HTML-rendering context, these methods
+  #                       simply pass through the contents of the block.  In an HTML-rendering
+  #                       context, however, these methods are assumed to be from
+  #                       [`Phlex::HTML`](https://phlex.fun).  `capture` will create a new Phlex
+  #                       context and capture any HTML built inside the block.  That HTML is assumed
+  #                       to be safe, thus `safe` is called to communicate this to Phlex.
   #
   # @raise [I18n::MissingTranslation] if no translation is found
   # @raise [I18n::MissingInterpolationArgument] if interpolation arguments are missing, or if the key
@@ -89,7 +99,7 @@ module Brut::I18n::BaseMethods
   #   t(page: :new_widget) # => Create new Widget
   #   # in your code for WidgetsPage
   #   t(page: :new_widget) # => Create New
-  #   # in your code for SomeOtherEPage
+  #   # in your code for SomeOtherPage
   #   t(page: :new_widget) # => Make a New Widget
   #
   # @example Using page: with an array
@@ -106,6 +116,30 @@ module Brut::I18n::BaseMethods
   #   }
   #   # in your code for HomePage
   #   t(page: [ :captions, :new ]) # => New Widgets
+  #
+  # @example Using a block with Phlex
+  #   # in your translations file
+  #   en: {
+  #     greeting: "Hello there %{name}, you may %{block}",
+  #   }
+  #   # Inside a component where
+  #   # Brut::I18n::ForHTML has been included
+  #   def view_template
+  #     h1 do
+  #       raw(t(:greeting), name: user.name) do
+  #         a(href: "https://support.example.com") do
+  #           "contact support"
+  #         end
+  #       end
+  #     end
+  #   end
+  #   # This will produce this HTML, assuming user.name is "Pat":
+  #   <h1>
+  #     Hell there Pat, you may
+  #     <a href="https://support.example.com">
+  #       contact support
+  #     </a>
+  #   </h1>
   def t(key=:look_in_rest,**rest,&block)
     if key == :look_in_rest
 

@@ -1,11 +1,13 @@
 require_relative "project_environment"
 require "pathname"
 
-# Holds configuration for the framework and your app.  In general, you should not interact with this class, however it's source code
-# is a good reference for what is configured by default by Brut.
+# Holds configuration for the framework and your app.  In general, you 
+# should not interact with this class, however it's source code is a good 
+# reference for what is configured by default by Brut.
 class Brut::Framework::Config
 
-  # Configures all defaults.  In general, this attempts to be lazy in setting things up, so calling this should not attempt to make a
+  # Configures all defaults.  In general, this attempts to be lazy in
+  # setting things up, so calling this should not attempt to make a
   # connection to your database.
   def configure!
     Brut.container do |c|

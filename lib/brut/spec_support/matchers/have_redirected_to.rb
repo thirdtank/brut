@@ -1,3 +1,4 @@
+# Page
 RSpec::Matchers.define :have_redirected_to do |page_or_uri,**page_params|
   match do |result|
     if page_or_uri.kind_of?(URI)

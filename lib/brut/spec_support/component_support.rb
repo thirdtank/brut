@@ -10,9 +10,17 @@ module Brut::SpecSupport::ComponentSupport
   include Brut::SpecSupport::ClockSupport
   include Brut::I18n::BaseMethods
 
-  # Render a component into its text representation.  This mimics what happens when a component is used
-  # inside a template.  You typically don't want this, but should use {#render_and_parse}, since that will
-  # parse the HTML.
+  # Render a component or page into its text representation.  This mimics what happens when Brut renders
+  # the page or component.  Note that pages don't always return Strings, for example if `before_render`
+  # returns a redirect.
+  #
+  # When testing a component, call {#render_and_parse} instead of this. When testing a page that will
+  # always render HTML, again call {#render_and_parse}.
+  #
+  # When using this, there are some matchers that can help assert what the page has done:
+  #
+  # * `have_redirected_to` to check that the page redirected elsewhere, instead of rendering.
+  # * `have_returned_http_status` to check that the page returned an HTTP status instead of rendering.
   def render(component,&block)
     if component.kind_of?(Brut::FrontEnd::Page)
       if !block.nil?
@@ -30,7 +38,13 @@ module Brut::SpecSupport::ComponentSupport
     end
   end
 
-  # Render a component and parse it into a Nokogiri Node for examination.
+  # Render a component or page and parse it into a Nokogiri Node for examination.  There are several matchers
+  # you can use with the return value of this method:
+  #
+  # * `have_html_attribute` to check if a node has a value for an HTML attribute.
+  # * `have_i18n_string` to check if the text of a node is exactly an i18n string you have set up.
+  # * `have_link_to` to check that a node contains a link to a page or page routing
+  #
   #
   # @example
   #
