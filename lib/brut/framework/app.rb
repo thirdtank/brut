@@ -33,6 +33,69 @@ class Brut::Framework::App
     end
   end
 
+  # Call this to specify what happens when an unhandled exception occurs.  You may call this mulitple times,
+  # however note that if an error is caught that matches more than one block's condition, the one that is called
+  # will be the first one declared.
+  #
+  # The only deviation from this rule is when you call this
+  # without any condition.  Doing that establishes the behavior for a "catch all" handler, which is
+  # only called when no other configured block can handle the exception. You can declare
+  # this at any time. **Do note** the "catch all" handler is more of a best effort. Brut is currently
+  # based on Sinatra which provides no way to arbitrarily catch all exceptions.  What Brut does here is to 
+  # explicitly catch the range of http status codes from 400 to 999.
+  #
+  # Note that Brut will record the exception via OpenTelemetry so you should not do this in your handlers.  It
+  # would be preferable to instead record an event if you want to have observability from your error handlers.
+  #
+  # @param [Class|Integer|Range<Integer>] condition if given this specifies the conditions under which the given
+  #        block will handle the error.  If omitted, this block will handle any error that doesn't have a more
+  #        specific handler configured.  Meaning of values:
+  #        * A class - this is an exception class that, if caught, triggers the handler
+  #        * An integer - this is an HTTP status code that, if returned, triggers the handler
+  #        * A range of integers - this is a range of HTTP status codes that, if returned, triggers the handler
+  # @yield [Exception] the block is given two named parameters: `exception:` and `http_status_code:`. Your block
+  #        can declare both, either, or none.  Any that are declared will be given values.  At least one
+  #        will be non-`nil`, however are encouraged to code defensively inside this block.
+  # @yieldparam [Exception] exception: the exception that was raised. This will be `nil`
+  #             if the error was caused by an HTTP status code.
+  # @yieldparam [Integer] http_status_code: the HTTP status code that was returned. If `exception:` is
+  #             not `nil`, this value is highly likely to be 500.
+  # @yieldreturn The block should return a valid Rack response. For now.
+  def self.error(condition=:catch_all, &block)
+    @error_blocks ||= {}
+    if block.nil?
+      raise ArgumentError, "You must provide a block to error"
+    end
+    parameters = block.parameters.reject { |type,name|
+      type == :keyreq && [ :http_status_code, :exception ].include?(name)
+    }
+    if parameters.any?
+      messages = parameters.map { |type,name|
+        case type
+        when :keyreq
+          "required keyword parameter '#{name}:'"
+        when :key
+          "optional keyword parameter '#{name}:'"
+        when :rest
+          "rest parameter '#{name}'"
+        when :opt
+          "optional parameter '#{name}'"
+        when :req
+          "required parameter '#{name}'"
+        else
+          "unknown parameter '#{name}'"
+        end
+      }
+      raise ArgumentError, "Your error handler block may only accept exception: and http_status_code: as required keyword parameters.  The following parameters were found:\n  #{messages.join("\n  ")}"
+    end
+    if @error_blocks[condition]
+      raise ArgumentError, "You have already configured error handling for condition '#{condition.to_s}'"
+    end
+    @error_blocks[condition] = block
+  end
+
+  def self.error_blocks = @error_blocks || {}
+
   # Add a Rack middleware to your app. Middlewares are configured in the order in which you call this method.
   #
   # @param [Class] middleware a class that implements [Rack Middleware](https://github.com/rack/rack/blob/main/SPEC.rdoc).

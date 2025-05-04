@@ -43,10 +43,31 @@ class Brut::Instrumentation::OpenTelemetry
                            timestamp:)
   end
 
+  # Record an exception.  In general, use this only if:
+  #
+  # * You need to have the parent span record this particular exception
+  # * You are not going to re-raise the exception.
+  #
+  # Otherwise, look at {#record_and_reraise_exception!}.
+  #
+  # @param [Exception] ex the exception to record.
+  # @param [Hash] attributes any attributes to attach that will show up in your OTel provider
   def record_exception(ex,attributes=nil)
     current_span = OpenTelemetry::Trace.current_span
     current_span.record_exception(ex,attributes: NormalizedAttributes.new(nil,attributes).to_h)
   end
+
+  # Record an exception and re-raise it. This is useful if you want
+  # the exception recorded as part of the parent span, but still plan
+  # to let it raise.  Don't do this for every exception you intend to raise.
+  # @param [Exception] ex the exception to record.
+  # @param [Hash] attributes any attributes to attach that will show up in your OTel provider
+  # @raise [Exception] the exception passed in.
+  def record_and_reraise_exception(ex,attributes=nil)
+    reecord_exception(ex,attributes)
+    raise ex
+  end
+
 
   # Adds attributes to the span, converting the hash or keyword arguments to strings. This will use
   # the app's Otel prefix for all attributes, so you do not have to prefix them.

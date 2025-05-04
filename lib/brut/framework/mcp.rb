@@ -116,8 +116,69 @@ class Brut::Framework::MCP
     @sinatra_app = Class.new(Sinatra::Base)
     @sinatra_app.include(Brut::SinatraHelpers)
 
+    safely_record_exception = ->(exception,http_status_code) {
+      begin
+      if exception.nil?
+        Brut.container.instrumentation.add_event("error triggered without exception", http_status_code:)
+      else
+        Brut.container.instrumentation.record_exception(exception, http_status_code:)
+      end
+      rescue => ex
+        begin
+          SemanticLogger[self.class].error(
+            "Error recording exception",
+            original_excerption: exception, 
+            exception: ex)
+        rescue => ex2
+          $stderr.puts "While handling an error recording an exception, we get another error from SemanticLogger." + [
+            [ :original_exception,  exception,  ].join(": "),
+            [ :exception_from_recording_exception,  ex, ].join(": "),
+            [ :exception_from_semantic_logger,  ex2 ].join(": "),
+
+          ].join(", ")
+        end
+      end
+    }
+
+    @app.class.error_blocks.each do |condition,block|
+      puts "Setting up error handling for #{condition}"
+      if condition != :catch_all
+        @sinatra_app.error(condition) do
+          puts "Error block triggered"
+          exception = request.env["sinatra.error"]
+          safely_record_exception.(exception, response.status)
+          block_args = if exception
+                         puts "Exception: #{exception.class}"
+                         { exception: }
+                       else
+                         puts "HTTP: #{response.status}"
+                         { http_status_code: response.status }
+                       end
+          block.(**block_args)
+        end
+      end
+    end
+    if @app.class.error_blocks[:catch_all]
+      block = @app.class.error_blocks[:catch_all]
+      block_args = block.parameters.map { |(type,name)|
+        [ name, nil ]
+      }.to_h
+      @sinatra_app.error(400..999) do
+        exception = request.env["sinatra.error"]
+        safely_record_exception.(exception, response.status)
+        if block_args.key?(:exception)
+          block_args[:exception] = exception
+        end
+        if block_args.key?(:http_status_code)
+          block_args[:http_status_code] = response.status
+        end
+        block.(**block_args)
+      end
+    else
+    end
+
     message = if Brut.container.project_env.development?
-                "Form submission did not include an authenticity token. All forms must include one. To add one, use the `form_tag` helper, or include <%= component(Brut::FrontEnd::Components::Inputs::CsrfToken) %> somewhere inside your <form> tag"
+                "Form submission did not include an authenticity token. All forms must include one. To add one, use the `form_tag` helper, or include Brut::FrontEnd::Components::Inputs::CsrfToken somewhere inside your <form> tag"
               else
                 "Forbidden"
               end
