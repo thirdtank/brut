@@ -218,7 +218,11 @@ private
         joined_path = joined_path + "#" + URI.encode_uri_component(anchor)
       end
       uri = URI(joined_path)
-      uri.query = URI.encode_www_form(query_string_params)
+      query_string = URI.encode_www_form(query_string_params)
+      if query_string.to_s.strip != ""
+        uri.query = query_string
+      end
+
       uri.extend(Phlex::SGML::SafeObject)
     end
 
