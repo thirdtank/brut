@@ -45,10 +45,8 @@ class Brut::FrontEnd::Components::Inputs::TextField < Brut::FrontEnd::Components
     end
     if !form.new? && !input.valid?
       default_html_attributes["data-invalid"] = true
-      input.validity_state.each do |constraint,violated|
-        if violated
-          default_html_attributes["data-#{constraint}"] = true
-        end
+      input.validity_state.each do |constraint|
+        default_html_attributes["data-#{constraint}"] = true
       end
     end
     Brut::FrontEnd::Components::Inputs::TextField.new(default_html_attributes.merge(html_attributes))
