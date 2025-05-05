@@ -1,12 +1,24 @@
 module Brut::FrontEnd
-  # A handler responds to all HTTP requests other than those that render a page. It will be given any data it needs
-  # to handle the request to its {#handle} method, which you must implement. 
-  # You define this method to accept the parameters you expect. See {Brut::FrontEnd::RequestContext} for how that works.
+  # A handler responds to all HTTP requests other than those that render a page.
+  # Like a page, the handler is initialized with any of the data it needs.  The {#handle} method will
+  # be called to perform whatever action is needed, and its return value will determine what
+  # ther esponse will be.
   #
-  # You may also define `before_handle` which will be given any subset of those parameters and can perform logic before
-  # handle is called.  This is most useful in a base class to check for permissions or other cross-cutting concerns.
+  # To create a handler, after defining a route or form,
+  # subclass this class (or, more likely, your app's `AppHandler`) and
+  # provide an initializer that accepts keyword arguments.  The names of these arguments will be used
+  # to locate the values that Brut will pass in when creating your page object. If your handler
+  # is for a form, be sure to include the `form:` keyword argument.
   #
-  # The primary method of this class is {#handle!} which you should not override, but *should* call in a test.
+  # Consult Brut's documentation on keyword injection to know what values you may use and how values are located.
+  #
+  # Then, implement {#handle} to perform whatever logic is needed to handle the request.
+  #
+  # You may also define `before_handle` which will be called before {#handle} to potentially abort
+  # the request.  This is mostly useful if you have a base class for some of your handlers and want to
+  # share cross-cutting logic.
+  #
+  # Note that the public API for handlers is {#handle!}, which is what you should call in a test.
   class Handler
     include Brut::FrontEnd::HandlingResults
     include Brut::Framework::Errors
@@ -27,32 +39,22 @@ module Brut::FrontEnd
       abstract_method!
     end
 
+    # Override this to performa any checks before {#handle} is called.  This should
+    # return `nil` if {#handle} should proceed to be called. Generally, you don't need to override
+    # this as {#handle} can include the logic.  Where this is useful is to share cross-cutting logic
+    # across other handlers.
+    #
+    # @return [URI|Brut::FrontEnd::Component,Array,Brut::FrontEnd::HttpStatus,Brut::FrontEnd::Download] See
+    #         {#handle} for what each return value means.
+    def before_handle = nil
+
     # Called by Brut to handle the request. Do not override this. If your handler responds to `before_handle` that is called with the
     # same args as you have defined for {#handle}. If `before_handle` returns anything other than `nil`, that value is returned and
     # should be one of the values documented in {#handle}.  If `before_handle` returns `nil`, {#handle} is called and whatever it
     # returns is returned here.
     def handle!(**args)
       result = nil
-      if self.respond_to?(:before_handle)
-        before_handle_args = self.method(:before_handle).parameters.map { |(type,name)|
-          if type == :keyreq
-            if args.key?(name)
-              [ name, args[name] ]
-            else
-              raise ArgumentError,"before_handle requires keyword arg '#{name}' but `handle` did not receive it. It must"
-            end
-          elsif type == :key
-            if args.key?(name)
-              [ name, args[name] ]
-            else
-              nil
-            end
-          else
-            raise ArgumentError,"before_handle must only have keyword args. Got '#{name}' of type '#{type}'"
-          end
-        }.compact.to_h
-        result = self.before_handle(**before_handle_args)
-      end
+      result = self.before_handle
       if result.nil?
         result = self.handle(**args)
       end

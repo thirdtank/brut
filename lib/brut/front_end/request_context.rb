@@ -112,12 +112,13 @@ class Brut::FrontEnd::RequestContext
   # @param [Class] klass a class that is to be instantiated entirely by the contents of this `RequestContext`.
   # @param [Hash] request_params Query string parameters provided by Rack.
   # @param [Brut::FrontEnd::Routing::Route] route the route that triggered the request.
+  # @param [Brut::FrontEnd::Form] form the form, if available
   # @return [Hash] can be splatted to keyword arguments and passed to the constructor of `klass`
   #
   # @raise [ArgumentError] if the constructor has any non-keyword arguments, or if any required keyword argument is
   #                        not present in this `RequestContext`.
-  def as_constructor_args(klass, request_params:, route:nil)
-    args_for_method(method: klass.instance_method(:initialize), request_params:, form: nil, route:)
+  def as_constructor_args(klass, request_params:, route:nil, form: nil)
+    args_for_method(method: klass.instance_method(:initialize), request_params:, form: , route:)
   end
 
   # Based on `object`' method, returns a Hash that maps all keywords it requires to the values stored in this

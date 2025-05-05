@@ -179,14 +179,25 @@ module Brut::SinatraHelpers
             form_class: form_class,
           )
 
-          handler = handler_class.new
           form = if form_class.nil?
                    nil
                  else
                    form_class.new(params: params)
                  end
 
+          constructor_args = Brut::FrontEnd::RequestContext.current.as_constructor_args(
+            handler_class,
+            request_params: params,
+            route: brut_route,
+            form: form,
+          )
+
+          handler = handler_class.new(**constructor_args)
+
           process_args = Brut::FrontEnd::RequestContext.current.as_method_args(handler,:handle,request_params: params,form: form,route:brut_route)
+          if process_args.any?
+            SemanticLogger[self.class].warn("#{handler_class} accepts args to its handle method - this should be moved to the initializer")
+          end
 
           result = handler.handle!(**process_args)
 
