@@ -5,9 +5,13 @@
 # {Brut::FrontEnd::Session#http_accept_language=} *only* if the `Accept-Language` header did not provide a value that is supported by
 # the app.
 class Brut::FrontEnd::Handlers::LocaleDetectionHandler < Brut::FrontEnd::Handler
-  def handle(body:,session:)
+  def initialize(body:,session:)
+    @body    = body
+    @session = session
+  end
+  def handle
     begin
-      parsed = JSON.parse(body.read)
+      parsed = JSON.parse(@body.read)
 
       Brut.container.instrumentation.add_attributes(
         prefix: "brut.locale-detection",
@@ -19,9 +23,9 @@ class Brut::FrontEnd::Handlers::LocaleDetectionHandler < Brut::FrontEnd::Handler
         locale   = parsed["locale"]
         timezone = parsed["timeZone"]
 
-        session.timezone_from_browser = timezone
-        if !session.http_accept_language.known?
-          session.http_accept_language = Brut::I18n::HTTPAcceptLanguage.from_browser(locale)
+        @session.timezone_from_browser = timezone
+        if !@session.http_accept_language.known?
+          @session.http_accept_language = Brut::I18n::HTTPAcceptLanguage.from_browser(locale)
         end
       end
     rescue => ex

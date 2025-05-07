@@ -65,12 +65,16 @@ class Brut::FrontEnd::Handlers::InstrumentationHandler < Brut::FrontEnd::Handler
     def as_carrier = { "traceparent" => @value }
   end
 
-  def handle(http_tracestate:, http_traceparent:)
-    traceparent = TraceParent.from_header(http_traceparent)
-    span        = Span.from_header(http_tracestate)
+  def initialize(http_tracestate:, http_traceparent:)
+    @http_tracestate  = http_tracestate
+    @http_traceparent = http_traceparent
+  end
+  def handle
+    traceparent = TraceParent.from_header(@http_traceparent)
+    span        = Span.from_header(@http_tracestate)
 
     if span.nil? || traceparent.nil?
-      SemanticLogger[self.class].info "Missing traceparent or span: #{http_tracestate}, #{http_traceparent}"
+      SemanticLogger[self.class].info "Missing traceparent or span: #{@http_tracestate}, #{@http_traceparent}"
       return http_status(400)
     end
 
