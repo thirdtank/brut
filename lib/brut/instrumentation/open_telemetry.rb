@@ -63,7 +63,7 @@ class Brut::Instrumentation::OpenTelemetry
   # @param [Exception] ex the exception to record.
   # @param [Hash] attributes any attributes to attach that will show up in your OTel provider
   # @raise [Exception] the exception passed in.
-  def record_and_reraise_exception(ex,attributes=nil)
+  def record_and_reraise_exception!(ex,attributes=nil)
     reecord_exception(ex,attributes)
     raise ex
   end
@@ -71,11 +71,21 @@ class Brut::Instrumentation::OpenTelemetry
 
   # Adds attributes to the span, converting the hash or keyword arguments to strings. This will use
   # the app's Otel prefix for all attributes, so you do not have to prefix them.
-  # If you need to set standard attributes, you should use {Brut::Instrumentation::OpenTelemetry::Span#add_prefixed_attributes} instead.
+  # If you need to set standard attributes, you should use {#add_prefixed_attributes} instead.
   # @param [Hash] attributes any attributes to attach to the event.
   def add_attributes(attributes)
     current_span = OpenTelemetry::Trace.current_span
     current_span.add_attributes(NormalizedAttributes.new(:detect,attributes).to_h)
+  end
+
+  # Adds attributes to the span, prefixing each key with the given prefix, then converting the hash or keyword arguments to strings.  For example, if the prefix is 'my_app' and you add the attributes 'type' and 'reason', the actual attribute names will be 'my_app.type' and 'my_app.reason'.
+  #
+  # @see #add_attributes
+  def add_prefixed_attributes(prefix,attributes)
+    current_span = OpenTelemetry::Trace.current_span
+    current_span.add_attributes(
+      NormalizedAttributes.new(prefix,attributes).to_h
+    )
   end
 
 private

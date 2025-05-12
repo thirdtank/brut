@@ -28,7 +28,6 @@ end
 #
 # Becuase this is a Phlex component, you must implement `view_template` and make calls to Phlex's API to create
 # the markup for your component.
-#
 class Brut::FrontEnd::Component < Phlex::HTML
 
   include Brut::Framework::Errors
@@ -114,33 +113,33 @@ class Brut::FrontEnd::Component < Phlex::HTML
   # The name of this component, used for debugging and other purposes. Do not
   # override this.
   def self.component_name = self.name
-
-  # Calls {.component_name} as a convienience. Do not override this.
+  # Convenience method to get the component name. This just calls the class
+  # method {.component_name}.
   def component_name = self.class.component_name
 
-  # For page components (components that are private/nested to a page), this returns
-  # the name of the page in which they are nested. This is mostly useful for
-  # locating page-specific I18n translations.
-  #
-  # @raise If this component is not nested inside a page
-  # @see Brut::I18n::BaseMethods#t
-  def page_name
-    @page_name ||= begin
-                     page = self.class.name.split(/::/).reduce(Module) { |accumulator,class_path_part|
-                       if accumulator.ancestors.include?(Brut::FrontEnd::Page)
-                         accumulator
-                       else
-                         accumulator.const_get(class_path_part)
-                       end
-                     }
-                     if page.ancestors.include?(Brut::FrontEnd::Page)
-                       page.name
-                     elsif page.respond_to?(:page_name)
-                       page.page_name
-                     else
-                       raise "#{self.class} is not nested inside a page, so #page_name should not have been called"
-                     end
-                   end
-  end
+  # True if this component is page private.
+  # @!visibility private
+  def page_private? = !!self.containing_page_class
 
+  # Returns the {Brut::FrontEnd::Page.page_name} of the page containing this component, 
+  # if it is {#page_private?}. Do not call if it's not.
+  # @!visibility private
+  def containing_page_name = self.containing_page_class.page_name
+
+private
+
+  def containing_page_class
+    page_class = self.class.name.split(/::/).reduce(Module) { |accumulator,class_path_part|
+      if accumulator.ancestors.include?(Brut::FrontEnd::Page)
+        accumulator
+      else
+        accumulator.const_get(class_path_part)
+      end
+    }
+    if page_class.ancestors.include?(Brut::FrontEnd::Page)
+      page_class
+    else
+      nil
+    end
+  end
 end

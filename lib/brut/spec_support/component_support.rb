@@ -8,7 +8,7 @@ module Brut::SpecSupport::ComponentSupport
   include Brut::SpecSupport::FlashSupport
   include Brut::SpecSupport::SessionSupport
   include Brut::SpecSupport::ClockSupport
-  include Brut::I18n::BaseMethods
+  include Brut::I18n::ForBackEnd # XXX: Maybe need a "ForSpecs"?
 
   # Render a component or page into its text representation.  This mimics what happens when Brut renders
   # the page or component.  Note that pages don't always return Strings, for example if `before_render`

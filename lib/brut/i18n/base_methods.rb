@@ -6,43 +6,66 @@
 # * {Brut::I18n::ForCLI} for CLI apps
 # * {Brut::I18n::ForBackEnd} for back-end classes that aren't generating HTML
 #
+# This module assumes the existence of a three-method protocol that's used for HTML escaping in an
+# HTML-generating web context:
+#
+# * `capture` accepts the block yieled to {#t} and returns whatever it generates.  This needs to exist
+#   because Phlex's API renders to an internal buffer by default.  This module needs to allow Phlex
+#   API methods to render to a different buffer.
+# * `safe` accepts a string and returns a string that is presumed to be HTML safe.
+# * `html_escape` accepts a string and returns a string that is HTML escaped.
+#
+# This module does not implement these methods and assumes that either the class using this module will
+# implement them or that a submodule being used does.  All submodules provided by Brut provide implementations,
+# so this information is only relevant if you are using this module directly.
 module Brut::I18n::BaseMethods
 
   # Access a translation and insert interpolated elemens as needed. This will use the provided key to determine
-  # the actual full key to the translation, as described below.  The value returned is not HTML escaped,
-  # assuming that you have not placed HTML injections in your own translation files.  Interpolated
-  # values *are* HTML escaped, so external input is safe to provide.
-  #
-  # This method also may take a block, and the results of the block are inserted into the `%{block}`
-  # interpolation value in the i18n string, if it's present.
+  # the actual full key to the translation, as described below. See {Brut::I18n::ForHTML#t} for details
+  # on how this works in the context of a {Brut::FrontEnd::Component} or {Brut::FrontEnd::Page}.
   #
   # Any missing interpolation will result in an exception, *except* for the value `field`. When
   # a string has `%{field}` in it, but `field:` is omitted in this call, the value for 
-  # `"general.cv.this_field"` is used. This value, in English, is "this field", so a call
+  # `"cv.this_field"` is used. This value, in English, is "this field", so a call
   # to `t("email.required")` would generate `"This field is required"`, while a call
   # to `t("email.required", field: "E-mail address")` would generate `"E-mail address is required"`.
   #
   # @param [String,Symbol,Array<String>,Array<Symbol>] key used to create one or more keys to be translated.
-  #        This value's behavior is designed to balance predictabilitiy in what actual key is chosen
-  #        but without needless repetition on a page.  If this value is provided, and is an array, the values
-  #        are joined with "." to form a key.  If the value is not an array, that value is used directly.
-  #        Given this key, two values are checked for a translation: the key itself and 
-  #        the key inside "general.".  If this value is *not* provided, it is expected
-  #        that the `**rest` hash includes page: or component:.  See that parameter and the example.
+  #        This value's behavior balances predictabilitiy with what key is used and some flexibilty
+  #        to allow page– or component–specific translations when needed, and fallbacks when not.
   #
-  # @param [Hash] rest values to use for interpolation of the key's translation. If `key` is omitted,
-  #               this hash should have a value for either `page:` or `component:` (not both).  If
-  #               `page:` is present, it is assumed that the class that has included this module
-  #               is a `Brut::FrontEnd::Page` or is a page component.  It's `page_name` will be used to create
-  #               a key based on the value of `page:`: `pages.«page_name».«page: value»`.
-  #               if `component:` is included, the behavior is the same but for `component` instead of `page`.
-  #               Note that if the page– or component–specific key is not found, this will check
-  #               `general.«page: value»`.
+  #        When an array if given, the values are turned into strings and joined with a "." to
+  #        form a full key.
+  #
+  #        Depending on what class this module is mixed into, additional keys will be tried:
+  #
+  #        * If this is a page, `pages.«page_name».` will be prepended and tried before the key passed in.
+  #          If the `pages.«page_name»` version is not found, the exact key passed in is checked.
+  #        * If this is a page private component, `pages.«page_name».` will be prepended and tried before
+  #          the key passed in. The value for `«page_name»` is determined by the outer class that this
+  #          component is a part of.
+  #        * If this is a component (include if it is a page private component),
+  #          `components.«component_name».` will be prepended and tried before the key passed in.
+  #          If the `components.«component_name»` version is not found, the exact key passed in is checked.
+  #
+  #        The priority of the keys are as follows:
+  #
+  #        1. Component key is checked (unless this is a page)
+  #        2. Page key is checked (unless this is a non-page private component)
+  #        3. The literal key passed-in is checked
+  #
+  #        If no value is found for any key an exception is raised.
+  #
+  # @param [Hash] interpolated_values values to use for interpolation of the key's translation. Note that if
+  #        `:block` is part of this has, you may not pass a block to this method.  Note also
+  #        that `:count` can be used if the key is expected to be pluralized.  This value
+  #        is required for keys that are designed for pluralization. See examples below.
   # @option interpolated_values [Numeric] count Special interpolation to control pluralization.
-  # @yield Nothing is yielded if a block is given, however the value returned is used for the `%{block}`
-  #        interpolation value.
+  # @option interpolated_values [String] block Value to use for `%{block}`. If this is used, a block may not be
+  #                             yielded.
+  # @yield If a block is passed, it is used for the value of `%{block}`. No parameters are yielded to the block.
   # @yieldreturn [String] The value to use for the `%{block}` interpolation value.  There is some nuance to
-  #                       how this works.  The value returned is given to `capture`, and that value
+  #                       how this works.  The value returned is given to `capture`, and *that* value
   #                       is given to `safe`.  Outside of an HTML-rendering context, these methods
   #                       simply pass through the contents of the block.  In an HTML-rendering
   #                       context, however, these methods are assumed to be from
@@ -57,25 +80,17 @@ module Brut::I18n::BaseMethods
   # @example Simplest usage
   #   # in your translations file
   #   en: {
-  #     general: {
-  #       hello: "Hi!"
-  #     },
-  #     formalized: {
-  #       hello: "Greetings!"
-  #     }
+  #     hello: "Hi!"
   #   }
   #   # in your code
   #   t(:hello) # => Hi!
-  #   t("formalized.hello") # => Greetings!
   #
   # @example Using an array for the key
   #   # in your translations file
   #   en: {
-  #     general: {
-  #       actions: {
-  #         edit: "Make an edit"
-  #       }
-  #     },
+  #     actions: {
+  #       edit: "Make an edit"
+  #     }
   #   }
   #   # in your code
   #   t([:actions, :edit]) # => Make an edit
@@ -83,9 +98,7 @@ module Brut::I18n::BaseMethods
   # @example Using page:
   #   # in your translations file
   #   en: {
-  #     general: {
-  #       new_widget: "Make a New Widget",
-  #     },
+  #     new_widget: "Make a New Widget",
   #     pages: {
   #       HomePage: {
   #         new_widget: "Create new Widget"
@@ -96,28 +109,61 @@ module Brut::I18n::BaseMethods
   #     },
   #   }
   #   # in your code for HomePage
-  #   t(page: :new_widget) # => Create new Widget
+  #   t(:new_widget) # => Create new Widget
   #   # in your code for WidgetsPage
-  #   t(page: :new_widget) # => Create New
+  #   t(:new_widget) # => Create New
   #   # in your code for SomeOtherPage
-  #   t(page: :new_widget) # => Make a New Widget
+  #   t(:new_widget) # => Make a New Widget
   #
-  # @example Using page: with an array
+  # @example Using in a component
   #   # in your translations file
   #   en: {
-  #     pages: {
-  #       WidgetsPage: {
-  #         new_widget: "Create New"
-  #         captions: {
-  #           new: "New Widgets"
+  #     status: {
+  #       ready: "Available",
+  #       stalled: "Stalled",
+  #       completed: "Done",
+  #     },
+  #     components: {
+  #       TagComponent: {
+  #         status: {
+  #           ready: "Ready",
+  #           stalled: "Waiting",
   #         }
   #       },
   #     },
   #   }
-  #   # in your code for HomePage
-  #   t(page: [ :captions, :new ]) # => New Widgets
+  #   # in your code for TagComponent
+  #   t(page: [ :status, :ready ]) # => Ready
+  #   t(page: [ :status, :completed ]) # => Done
+  #   # in your code for StatusComponent
+  #   t(page: [ :status, :ready ]) # => Available
+  #   t(page: [ :status, :completed ]) # => Done
   #
-  # @example Using a block with Phlex
+  # @example Using in a page-private component
+  #   # in your translations file
+  #   en: {
+  #     status: {
+  #       ready: "Available",
+  #       stalled: "Stalled",
+  #       completed: "Done",
+  #     },
+  #     pages: {
+  #       WidgetsPage: {
+  #         new_widget: "Create New",
+  #         nevermind: "Don't Create One",
+  #       },
+  #     }
+  #     components: {
+  #       "WidgetsPage::WidgetComponent": {
+  #         new_widget: "Make New Widget",
+  #       },
+  #     },
+  #   }
+  #   # in your code for WidgetsPage::WidgetComponent
+  #   t(page: :new_widget) # => Make New Widget
+  #   t(page: :nevermind) # => Don't Create One
+  #
+  # @example Using a block in a page or component
   #   # in your translations file
   #   en: {
   #     greeting: "Hello there %{name}, you may %{block}",
@@ -140,42 +186,35 @@ module Brut::I18n::BaseMethods
   #       contact support
   #     </a>
   #   </h1>
-  def t(key=:look_in_rest,**rest,&block)
-    if key == :look_in_rest
+  def t(key,**interpolated_values,&block)
+    keys_to_check = []
+    key = Array(key).join('.')
+    is_page_private_component = self.kind_of?(Brut::FrontEnd::Component) &&
+                                self.page_private?
+    is_page                   = self.kind_of?(Brut::FrontEnd::Page)
+    is_component              = self.kind_of?(Brut::FrontEnd::Component) && !is_page
 
-      page      = rest.delete(:page)
-      component = rest.delete(:component)
-
-      if !page.nil? && !component.nil?
-        raise ArgumentError, "You may only specify page or component, not both"
-      end
-
-      subkey = nil
-      if page
-        subkey = Array(page).join(".")
-        key = ["pages.#{self.page_name}.#{subkey}"]
-      elsif component
-        subkey = Array(component).join(".")
-        key = ["components.#{self.component_name}.#{subkey}"]
-      else
-        raise ArgumentError, "If you omit an explicit key, you must specify page or component"
-      end
-      key << "general.#{subkey}"
-    else
-      key = Array(key).join('.')
-      key = [key,"general.#{key}"]
+    if is_component
+      keys_to_check << "components.#{self.component_name}.#{key}"
     end
+    if is_page
+      keys_to_check << "pages.#{self.page_name}.#{key}"
+    elsif is_page_private_component
+      keys_to_check << "pages.#{self.containing_page_name}.#{key}"
+    end
+    keys_to_check << key
+
     if !block.nil?
-      if rest[:block]
+      if interpolated_values[:block]
         raise ArgumentError,"t was given a block and a block: param. You can't do both "
       end
       block_contents = safe(capture(&block))
-      rest[:block] = block_contents
+      interpolated_values[:block] = block_contents
     end
-    t_direct(key,**rest)
+    t_direct(keys_to_check,**interpolated_values.merge(key_given: key))
   rescue I18n::MissingInterpolationArgument => ex
     if ex.key.to_s == "block"
-      raise ArgumentError,"One of the keys #{key.join(", ")} contained a %{block} interpolation value: '#{ex.string}'. This means you must use t_html *and* yield a block to it"
+      raise ArgumentError,"One of the keys #{key.join(", ")} contained a %{block} interpolation value: '#{ex.string}'. This means you must yield a block to `t`"
     else
       raise
     end
@@ -186,7 +225,7 @@ module Brut::I18n::BaseMethods
   end
 
   def this_field_value
-    @__this_field_value ||= ::I18n.t("general.cv.this_field", raise: true)
+    @__this_field_value ||= ::I18n.t("cv.this_field", raise: true)
   end
 
   # Directly access translations without trying to be smart about deriving the key.  This is useful
@@ -194,28 +233,43 @@ module Brut::I18n::BaseMethods
   #
   # @param [Array<String>,Array<Symbol>] keys list of keys representing what is to be translated. The
   #                                           first key found will be used. If no key in the list is found
-  #                                           will raise a I18n::MissingTranslation
+  #                                           will raise a I18n::MissingTranslation. 
   # @param [Hash] interpolated_values value to use for interpolation of the key's translation
   # @option interpolated_values [Numeric] count Special interpolation to control pluralization.
+  # @option interpolated_values [String|Symbol] key_given If included, this is not used for interpolation, but
+  #                                             will be used in error messages to represent the key
+  #                                             given to `t`.
   #
   # @raise [I18n::MissingTranslation] if no translation is found
   # @raise [I18n::MissingInterpolationArgument] if interpolation arguments are missing, or if the key
   #                                             has pluralizations and no count: was given
   def t_direct(keys,interpolated_values={})
     keys = Array(keys).map(&:to_sym)
+    key_given = interpolated_values.delete(:key_given)
     default_interpolated_values = {
       field: this_field_value,
     }
     escaped_interpolated_values = interpolated_values.map { |key,value|
       if value.kind_of?(String)
-        [ key, CGI.escapeHTML(value) ]
+        [ key, html_escape(value) ]
       else
         [ key, value ]
       end
     }.to_h
     result = ::I18n.t(keys.first, default: keys[1..-1],raise: true, **default_interpolated_values.merge(escaped_interpolated_values))
     if result.kind_of?(Hash)
-      raise I18n::MissingInterpolationArgument.new(:count,interpolated_values,keys.join(","))
+      incorrect_pluralization = result.keys.none? { |key| key == :one }
+      if incorrect_pluralization
+        key_message = if key_given
+                        "Key '#{key_given}'"
+                      else
+                        "One of the keys"
+                      end
+        raise Brut::Framework::Errors::Bug,
+          "#{key_message} resulted in a Hash that doesn't appear to be created for pluralizations. This means that you may have given a key expecting it to map to a translation but it is actually a namespace for other keys.  Please adjust your translations file to avoid this situation. Keys checked:\n#{keys.join(", ")}\nSub keys found:\n#{result.keys.join(', ')}"
+      else
+        raise I18n::MissingInterpolationArgument.new(:count,interpolated_values,keys.join(","))
+      end
     end
     result
   end

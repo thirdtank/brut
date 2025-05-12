@@ -72,9 +72,6 @@ class Brut::FrontEnd::Page < Brut::FrontEnd::Component
   # Convienience method for {.page_name}.
   def page_name = self.class.page_name
 
-  # @!visibility private
-  def component_name = raise Brut::Framework::Errors::Bug,"#{self.class} is not a component"
-
 private
 
   # Locates the layout class and uses it to render itself, along
@@ -88,6 +85,7 @@ private
         "layout"
       ].join("_")).camelize
     )
+    Brut.container.instrumentation.add_prefixed_attributes("brut", layout_class: layout_class)
     render layout_class.new(page_name:,&block)
   end
 

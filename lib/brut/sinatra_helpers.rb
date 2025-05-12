@@ -195,6 +195,7 @@ module Brut::SinatraHelpers
           handler = handler_class.new(**constructor_args)
 
           result = handler.handle!
+          span.add_prefixed_attributes("brut", result_class: result.class)
 
           case result
           in URI => uri
