@@ -35,12 +35,12 @@ class Brut::FrontEnd::Page < Brut::FrontEnd::Component
   # redirect the user or produce an error.
   #
   # @return [URI|Brut::FrontEnd::HttpStatus|Object] If you return a `URI` (mostly likely by returning the result of calling {Brut::FrontEnd::HandlingResults#redirect_to}), the user is redirected and no HTML is generated. If you return a {Brut::FrontEnd::HttpStatus} (mostly likely by returning the result of calling {Brut::FrontEnd::HandlingResults#http_status}), HTML generation is skipped and that status is returned with no content.  If anything else is returned, HTML is generated normal.
-  def before_render = nil
+  def before_generate = nil
 
-  # Core method of this class. Do not override. This handles the use of {#before_render} and is what Brut
+  # Core method of this class. Do not override. This handles the use of {#before_generate} and is what Brut
   # calls to possibly render the page.
   def handle!
-    case before_render
+    case before_generate
     in URI => uri
       uri
     in Brut::FrontEnd::HttpStatus => http_status

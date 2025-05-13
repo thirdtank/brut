@@ -10,21 +10,21 @@ module Brut::SpecSupport::ComponentSupport
   include Brut::SpecSupport::ClockSupport
   include Brut::I18n::ForBackEnd # XXX: Maybe need a "ForSpecs"?
 
-  # Render a component or page into its text representation.  This mimics what happens when Brut renders
-  # the page or component.  Note that pages don't always return Strings, for example if `before_render`
+  # Generate a component or page into its text representation.  This mimics what happens when Brut generates
+  # the page or component.  Note that pages don't always return Strings, for example if `before_generate`
   # returns a redirect.
   #
-  # When testing a component, call {#render_and_parse} instead of this. When testing a page that will
-  # always render HTML, again call {#render_and_parse}.
+  # When testing a component, call {#generate_and_parse} instead of this. When testing a page that will
+  # always generate HTML, again call {#generate_and_parse}.
   #
   # When using this, there are some matchers that can help assert what the page has done:
   #
-  # * `have_redirected_to` to check that the page redirected elsewhere, instead of rendering.
-  # * `have_returned_http_status` to check that the page returned an HTTP status instead of rendering.
-  def render(component,&block)
+  # * `have_redirected_to` to check that the page redirected elsewhere, instead of generating HTML.
+  # * `have_returned_http_status` to check that the page returned an HTTP status instead of generating HTML.
+  def generate_result(component,&block)
     if component.kind_of?(Brut::FrontEnd::Page)
       if !block.nil?
-        raise "pages do not accept blocks - do not pass one to render_and_parse"
+        raise "pages do not accept blocks - do not pass one to generate_result or generate_and_parse"
       end
       component.handle!
     else
@@ -48,30 +48,30 @@ module Brut::SpecSupport::ComponentSupport
   #
   # @example
   #
-  #   result = render_and_parse(HeaderComponent.new(title: "Hello!")
+  #   result = generate_and_parse(HeaderComponent.new(title: "Hello!")
   #   expect(result.e!("h1").text).to eq("Hello!")
   #
   # @example Using context
-  #   result = render_and_parse(TableRow.new([ "one", "two" ]), context: "tbody")
+  #   result = generate_and_parse(TableRow.new([ "one", "two" ]), context: "tbody")
   #
-  # @param [Brut::FrontEnd::Component] component the component instance you wish to render. This should be set up to simulate the test
+  # @param [Brut::FrontEnd::Component] component the component instance you wish to generate. This should be set up to simulate the test
   # you are running.
   # @yield if the component requires or accepts a yielded block, this is how you do that in the test.
   # @return [Brut::SpecSupport::EnhancedNode] a wrapper around a Nokogiri node to provide convienience methods.
-  def render_and_parse(component,&block)
-    rendered_text = render(component,&block)
+  def generate_and_parse(component,&block)
+    rendered_text = generate_result(component,&block)
     if !rendered_text.kind_of?(String)
       if rendered_text.kind_of?(URI::Generic)
-        raise "#{component.class} redirected to #{rendered_text} instead of rendering"
+        raise "#{component.class} redirected to #{rendered_text} instead of generating HTML"
       else
-        raise "#{component.class} returned a #{rendered_text.class} - you should not attempt to parse this.  Instead, call render(component)"
+        raise "#{component.class} returned a #{rendered_text.class} - you should not attempt to parse this.  Instead, call generate(component)"
       end
     end
     nokogiri_node = Nokogiri::HTML5(rendered_text)
     if !component.kind_of?(Brut::FrontEnd::Page)
       nokogiri_node = Nokogiri::HTML5.fragment(rendered_text.to_s.chomp, max_errors: 100, context: "template")
       if nokogiri_node.errors.any?
-        raise "#{component.class} render invalid HTML:\n\n#{rendered_text}\n\nErrors: #{nokogiri_node.errors.join(", ")}"
+        raise "#{component.class} generated invalid HTML:\n\n#{rendered_text}\n\nErrors: #{nokogiri_node.errors.join(", ")}"
       end
 
       non_blank_text_elements = nokogiri_node.children.select { |element|
@@ -84,7 +84,7 @@ module Brut::SpecSupport::ComponentSupport
       }
 
       if non_blank_text_elements.size != 1
-        raise "#{component.class} rendered #{non_blank_text_elements.size} elements other than blank text:\n\n#{non_blank_text_elements.map(&:name)}. Components should render a single element:\n#{rendered_text}"
+        raise "#{component.class} generated #{non_blank_text_elements.size} elements other than blank text:\n\n#{non_blank_text_elements.map(&:name)}. Components should generate a single element:\n#{rendered_text}"
       end
       nokogiri_node = non_blank_text_elements[0]
     end
