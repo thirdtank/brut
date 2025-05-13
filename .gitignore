@@ -6,8 +6,10 @@
 # should never be checked in
 /dx/credentials
 
-# Don't know what this is for, so not checking it in.
+# Holds metadat during YARD builds. Don't need this checked in
 /.yardoc
+# Location of YARD templates, this is temporary
+/.yard
 
 # Ignore the docs for now
 /docs
