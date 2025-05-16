@@ -54,7 +54,7 @@ module Brut
         command_option_parser = command_klass.option_parser
 
         command_option_parser.on("-h", "--help", "Get help on this command") do
-          show_command_help(global_option_parser:,command_option_parser:,command_klass:,out:)
+          show_command_help(global_option_parser:,command_option_parser:,command_klass:,out:,app_klass:)
           return 0
         end
 
