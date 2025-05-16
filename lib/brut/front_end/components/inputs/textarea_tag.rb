@@ -1,5 +1,5 @@
 # Generates an HTML `<textarea>` field.
-class Brut::FrontEnd::Components::Inputs::Textarea < Brut::FrontEnd::Components::Input
+class Brut::FrontEnd::Components::Inputs::TextareaTag < Brut::FrontEnd::Components::Input
   # Creates the appropriate textarea for the given {Brut::FrontEnd::Form} and input name.
   # Generally, you want to use this method over the initializer.
   #
@@ -35,7 +35,7 @@ class Brut::FrontEnd::Components::Inputs::Textarea < Brut::FrontEnd::Components:
       end
     end
     value = input.value
-    Brut::FrontEnd::Components::Inputs::Textarea.new(default_html_attributes.merge(html_attributes), value)
+    Brut::FrontEnd::Components::Inputs::TextareaTag.new(default_html_attributes.merge(html_attributes), value)
   end
   # Create an instance
   #

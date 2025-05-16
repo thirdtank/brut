@@ -72,12 +72,6 @@ class Brut::FrontEnd::Component < Phlex::HTML
       }
     end
 
-    # Convenience method for 
-    # {Brut::FrontEnd::Components::TimeTag.new}.
-    def time_tag(...)
-      Brut::FrontEnd::Components::TimeTag.new(...)
-    end
-
     # Return a component that you would like Brut to instantiate.
     # This will use keyword injection to create the component, which means that if the component
     # doesn't require any data from this component, you do not need to pass through those values.
