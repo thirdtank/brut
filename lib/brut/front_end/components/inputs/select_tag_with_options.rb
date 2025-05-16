@@ -1,5 +1,5 @@
 # Renders an HTML `<select>`.
-class Brut::FrontEnd::Components::Inputs::Select < Brut::FrontEnd::Components::Input
+class Brut::FrontEnd::Components::Inputs::SelectTagWithOptions < Brut::FrontEnd::Components::Input
   # Creates the appropriate select input for the given {Brut::FrontEnd::Form} and input name.
   # Generally, you want to use this method over the initializer.
   #
@@ -26,7 +26,7 @@ class Brut::FrontEnd::Components::Inputs::Select < Brut::FrontEnd::Components::I
   #        no value or text.  If this is a `Hash` it must contain a `value:` key and a `text_content:` key
   #        to be used as the `value` attribute and option text content, respectively.
   #
-  # @return [Brut::FrontEnd::Components::Inputs::Select] the select input ready to be placed into a view.
+  # @return [Brut::FrontEnd::Components::Inputs::SelectTagWithOptions] the select input ready to be placed into a view.
   def self.for_form_input(form:,
                           input_name:,
                           options:,
@@ -54,7 +54,7 @@ class Brut::FrontEnd::Components::Inputs::Select < Brut::FrontEnd::Components::I
              input.name
            end
 
-    Brut::FrontEnd::Components::Inputs::Select.new(
+    Brut::FrontEnd::Components::Inputs::SelectTagWithOptions.new(
       name: name,
       options:,
       selected_value: input.value,

@@ -4,7 +4,7 @@ module Brut::FrontEnd::Components
   module Inputs
     autoload(:InputTag,"brut/front_end/components/inputs/input_tag")
     autoload(:RadioButton,"brut/front_end/components/inputs/radio_button")
-    autoload(:Select,"brut/front_end/components/inputs/select")
+    autoload(:SelectTagWithOptions,"brut/front_end/components/inputs/select_tag_with_options")
     autoload(:Textarea,"brut/front_end/components/inputs/textarea")
     autoload(:CsrfToken,"brut/front_end/components/inputs/csrf_token")
   end

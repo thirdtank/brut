@@ -103,9 +103,9 @@ class Brut::FrontEnd::Component < Phlex::HTML
     end
 
     # Convenience method for 
-    # {Brut::FrontEnd::Components::Inputs::Select.for_form_input}.
+    # {Brut::FrontEnd::Components::Inputs::SelectTagWithOptions.for_form_input}.
     def select_tag_with_options(...)
-      Brut::FrontEnd::Components::Inputs::Select.for_form_input(...)
+      Brut::FrontEnd::Components::Inputs::SelectTagWithOptions.for_form_input(...)
     end
   end
   include Helpers
