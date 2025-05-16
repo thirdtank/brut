@@ -50,65 +50,65 @@ class Brut::FrontEnd::Component < Phlex::HTML
   register_element :brut_tabs
   register_element :brut_tracing
 
-  # Inline an SVG that is part of your app.
-  #
-  # @param [String] svg path to the SVG file, relative to where SVGs are
-  #        stored, which is `app/src/front_end/svgs` or where `Brut.container.svg_locator` is
-  #        looking
-  #
-  # @see Brut::FrontEnd::InlineSvgLocator
-  def inline_svg(svg)
-    Brut.container.svg_locator.locate(svg).then { |svg_file|
-      File.read(svg_file)
-    }.then { |svg_content|
-      raw(safe(svg_content))
-    }
-  end
+  # Module for the various "free methods" available to all components.
+  # Generally, we don't want to build up mega-classes with lots of modules, but
+  # this provides a nice, singular namespace to document the helpers as apart
+  # from the various methods of the component.
+  module Helpers
+    # Render an inline an SVG that is part of your app. **Note** this does not
+    # return the SVG's contents, but it renders it into the current Phlex
+    # context.
+    #
+    # @param [String] svg path to the SVG file, relative to where SVGs are
+    #        stored, which is `app/src/front_end/svgs` or where `Brut.container.svg_locator` is
+    #        looking
+    #
+    # @see Brut::FrontEnd::InlineSvgLocator
+    def inline_svg(svg)
+      Brut.container.svg_locator.locate(svg).then { |svg_file|
+        File.read(svg_file)
+      }.then { |svg_content|
+        raw(safe(svg_content))
+      }
+    end
 
-  # Include a {Brut::FrontEnd::Components::TimeTag} in your markup.
-  def time_tag(timestamp:nil,**component_options, &contents)
-    args = component_options.merge(timestamp:)
-    render Brut::FrontEnd::Components::TimeTag.new(**args,&contents)
-  end
+    # Convenience method for 
+    # {Brut::FrontEnd::Components::TimeTag.new}.
+    def time_tag(...)
+      Brut::FrontEnd::Components::TimeTag.new(...)
+    end
 
-  # Include a {Brut::FrontEnd::Components::FormTag} in your markup.
-  def form_tag(**args, &block)
-    render Brut::FrontEnd::Components::FormTag.new(**args,&block)
-  end
+    # Return a component that you would like Brut to instantiate.
+    # This will use keyword injection to create the component, which means that if the component
+    # doesn't require any data from this component, you do not need to pass through those values.
+    # For example, you may have a component that renders the flash message.  To avoid requiring your component to
+    # be passed the flash, a global component can be injected with it from Brut.
+    #
+    # @return [Object] instance of `component_klass`, as created by Brut. This will
+    #         not render the component.
+    def global_component(component_klass)
+      Brut::FrontEnd::RequestContext.inject(component_klass)
+    end
 
-  # Include a component in your markup that you would like Brut to instantiate.
-  # This will use keyword injection to create the component, which means that if the component
-  # doesn't require any data from this component, you do not need to pass through those values.
-  # For example, you may have a component that renders the flash message.  To avoid requiring your component to
-  # be passed the flash, a global component can be injected with it from Brut.
-  def global_component(component_klass)
-    render Brut::FrontEnd::RequestContext.inject(component_klass)
-  end
+    # Convenience method for 
+    # {Brut::FrontEnd::Components::ConstraintViolations.new}.
+    def constraint_violations(...)
+      Brut::FrontEnd::Components::ConstraintViolations.new(...)
+    end
 
-  # include a {Brut::FrontEnd::Components::ConstraintViolations} in your markup.
-  def constraint_violations(form:, input_name:, index: nil, message_html_attributes: {}, **html_attributes)
-    render(
-      Brut::FrontEnd::Components::ConstraintViolations.new(
-        form:,
-        input_name:,
-        index:,
-        message_html_attributes:,
-        **html_attributes
-      )
-    )
-  end
+    # Convenience method for 
+    # {Brut::FrontEnd::Components::Inputs::TextField.for_form_input}.
+    def input_tag(...)
+      Brut::FrontEnd::Components::Inputs::TextField.for_form_input(...)
+    end
 
-  # Create an HTML input tag for the given input of a form.  This is a convieniece method
-  # that calls {Brut::FrontEnd::Components::Inputs::TextField.for_form_input}.
-  def input_tag(form:, input_name:, index: nil, **html_attributes)
-    render(
-      Brut::FrontEnd::Components::Inputs::TextField.for_form_input(
-        form:,
-        input_name:,
-        index:,
-        html_attributes:)
-    )
+    # Convenience method for 
+    # {Brut::FrontEnd::Components::Inputs::Select.for_form_input}.
+    def select_tag_with_options(...)
+      Brut::FrontEnd::Components::Inputs::Select.for_form_input(...)
+    end
   end
+  include Helpers
 
   # The name of this component, used for debugging and other purposes. Do not
   # override this.
