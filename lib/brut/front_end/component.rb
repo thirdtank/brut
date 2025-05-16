@@ -83,24 +83,6 @@ class Brut::FrontEnd::Component < Phlex::HTML
     def global_component(component_klass)
       Brut::FrontEnd::RequestContext.inject(component_klass)
     end
-
-    # Convenience method for 
-    # {Brut::FrontEnd::Components::ConstraintViolations.new}.
-    def constraint_violations(...)
-      Brut::FrontEnd::Components::ConstraintViolations.new(...)
-    end
-
-    # Convenience method for 
-    # {Brut::FrontEnd::Components::Inputs::InputTag.for_form_input}.
-    def input_tag(...)
-      Brut::FrontEnd::Components::Inputs::InputTag.for_form_input(...)
-    end
-
-    # Convenience method for 
-    # {Brut::FrontEnd::Components::Inputs::SelectTagWithOptions.for_form_input}.
-    def select_tag_with_options(...)
-      Brut::FrontEnd::Components::Inputs::SelectTagWithOptions.for_form_input(...)
-    end
   end
   include Helpers
 
