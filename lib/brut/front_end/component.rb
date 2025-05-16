@@ -97,9 +97,9 @@ class Brut::FrontEnd::Component < Phlex::HTML
     end
 
     # Convenience method for 
-    # {Brut::FrontEnd::Components::Inputs::TextField.for_form_input}.
+    # {Brut::FrontEnd::Components::Inputs::InputTag.for_form_input}.
     def input_tag(...)
-      Brut::FrontEnd::Components::Inputs::TextField.for_form_input(...)
+      Brut::FrontEnd::Components::Inputs::InputTag.for_form_input(...)
     end
 
     # Convenience method for 

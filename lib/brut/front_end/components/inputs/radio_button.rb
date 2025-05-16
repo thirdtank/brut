@@ -3,7 +3,7 @@
 # internal to the {Brut::FrontEnd::Form} treat the radio button group as a single input with
 # a single name and value.  When it comes time to generate HTML, this class is used
 # to generate a single radio button from a group.
-class Brut::FrontEnd::Components::Inputs::RadioButton < Brut::FrontEnd::Components::Inputs::TextField
+class Brut::FrontEnd::Components::Inputs::RadioButton < Brut::FrontEnd::Components::Inputs::InputTag
   # Creates a radio button that is part of a radio button group.  You should call this
   # method once for each radio button in the group.
   #
