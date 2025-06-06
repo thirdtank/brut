@@ -9,9 +9,10 @@ class Brut::FrontEnd::Forms::SelectInput
   attr_reader :validity_state
 
   # (see Brut::FrontEnd::Forms::Input#initialize)
-  def initialize(input_definition:, value:)
+  def initialize(input_definition:, value:, index:)
     @input_definition = input_definition
     @validity_state = Brut::FrontEnd::Forms::ValidityState.new
+    @index = index
     self.value=(value)
   end
 

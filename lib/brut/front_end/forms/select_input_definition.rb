@@ -21,7 +21,7 @@ class Brut::FrontEnd::Forms::SelectInputDefinition
   def array? = @array
 
   # Create an Input based on this defitition, initializing it with the given value.
-  def make_input(value:)
-    Brut::FrontEnd::Forms::SelectInput.new(input_definition: self, value: value)
+  def make_input(value:, index:)
+    Brut::FrontEnd::Forms::SelectInput.new(input_definition: self, value:, index:)
   end
 end

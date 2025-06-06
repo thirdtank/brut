@@ -109,7 +109,10 @@ class Brut::FrontEnd::Forms::InputDefinition
 
 
   # Create an Input based on this definition, initializing it with the given value.
-  def make_input(value:)
-    Brut::FrontEnd::Forms::Input.new(input_definition: self, value: value)
+  # @param [String] value the value to give this input initially.
+  # @param [Integer] index the index of this input, if it is part of an array of
+  # inputs. `nil` is allowed only if the input definition is not for an array.
+  def make_input(value:, index:)
+    Brut::FrontEnd::Forms::Input.new(input_definition: self, value:, index:)
   end
 end

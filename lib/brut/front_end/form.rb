@@ -68,12 +68,12 @@ class Brut::FrontEnd::Form
     @inputs = self.class.input_definitions.map { |name,input_definition|
       value = @params[name] || @params[name.to_sym]
       inputs = if value.kind_of?(Array)
-                 value.map { |one_value|
-                   input_definition.make_input(value: one_value)
+                 value.map.with_index { |one_value, index|
+                   input_definition.make_input(value: one_value, index:)
                  }
                else
                  [
-                   input_definition.make_input(value:)
+                   input_definition.make_input(value:, index: nil)
                  ]
                end
 
@@ -98,7 +98,7 @@ class Brut::FrontEnd::Form
     input = inputs[index]
     if input.nil?
       input_definition = self.class.input_definitions.fetch(input_name.to_s)
-      input = input_definition.make_input(value:"")
+      input = input_definition.make_input(value:"", index:)
       inputs[index] = input
     end
     input

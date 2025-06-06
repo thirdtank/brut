@@ -13,9 +13,10 @@ class Brut::FrontEnd::Forms::Input
   # Create the input with the given definition and value
   # @param [Brut::FrontEnd::Forms::InputDefinition] input_definition
   # @param [String] value
-  def initialize(input_definition:, value:)
+  def initialize(input_definition:, value:, index:)
     @input_definition = input_definition
     @validity_state = Brut::FrontEnd::Forms::ValidityState.new
+    @index = index
     self.value=(value)
   end
 

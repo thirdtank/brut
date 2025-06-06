@@ -8,9 +8,9 @@ class Brut::FrontEnd::Components::Inputs::InputTag < Brut::FrontEnd::Components:
   # @param [Integer] index if this input is part of an array, this is the index into that array. This is used to get the input's value.
   # @param [Hash] html_attributes any additional HTML attributes to include on the `<input>` element.
   def self.for_form_input(form:, input_name:, index: nil, **html_attributes)
+    input = form.input(input_name, index:)
     default_html_attributes = {}
     html_attributes = html_attributes.map { |key,value| [ key.to_sym, value ] }.to_h
-    input = form.input(input_name, index:)
 
     default_html_attributes[:required] = input.required
     default_html_attributes[:pattern]  = input.pattern

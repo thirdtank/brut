@@ -23,7 +23,7 @@ class Brut::FrontEnd::Forms::RadioButtonGroupInputDefinition
   def array? = @array
 
   # Create an Input based on this defitition, initializing it with the given value.
-  def make_input(value:)
-    Brut::FrontEnd::Forms::RadioButtonGroupInput.new(input_definition: self, value: value)
+  def make_input(value:, index:)
+    Brut::FrontEnd::Forms::RadioButtonGroupInput.new(input_definition: self, value:, index:)
   end
 end
