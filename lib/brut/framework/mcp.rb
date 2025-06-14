@@ -141,17 +141,13 @@ class Brut::Framework::MCP
     }
 
     @app.class.error_blocks.each do |condition,block|
-      puts "Setting up error handling for #{condition}"
       if condition != :catch_all
         @sinatra_app.error(condition) do
-          puts "Error block triggered"
           exception = request.env["sinatra.error"]
           safely_record_exception.(exception, response.status)
           block_args = if exception
-                         puts "Exception: #{exception.class}"
                          { exception: }
                        else
-                         puts "HTTP: #{response.status}"
                          { http_status_code: response.status }
                        end
           block.(**block_args)
