@@ -1,0 +1,20 @@
+#!/usr/bin/env ruby
+
+require "optparse"
+require "pathname"
+require "fileutils"
+
+options = {}
+OptionParser.new do |opts|
+  opts.banner = "Usage: docs [options]"
+
+  opts.on("-h", "--help", "Display this help message") do
+    puts opts
+    exit
+  end
+end.parse!
+
+dot_com_dir = (Pathname(__FILE__).dirname / ".." / "brutrb.com" ).expand_path.to_s
+FileUtils.chdir dot_com_dir do
+  system "bin/dev"
+end

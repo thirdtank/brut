@@ -1,0 +1,24 @@
+#!/usr/bin/env ruby
+
+require "optparse"
+require "pathname"
+require "fileutils"
+
+options = {}
+OptionParser.new do |opts|
+  opts.banner = "Usage: docs [options]"
+
+  opts.on("-h", "--help", "Display this help message") do
+    puts opts
+    exit
+  end
+end.parse!
+
+docs_dir = (Pathname(__FILE__).dirname / ".." / "brutrb.com" / "public" / "api" ).expand_path.to_s
+system(
+  "bundle exec yard doc -o '#{docs_dir}' -m markdown -M rdiscount --backtrace"
+)
+
+FileUtils.chdir docs_dir do
+  FileUtils.cp "index.html", "vitepress_too_smart_for_own_good.html"
+end

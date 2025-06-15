@@ -16,8 +16,8 @@ def setup(update_gems:,setup_credentials:)
     system! "bundle check --no-color || bundle install --no-color --quiet"
   end
 
+  project_root = Pathname($0).dirname / ".."
   if setup_credentials
-    project_root = Pathname($0).dirname / ".."
     credentials_dir = project_root / "dx" / "credentials"
     if credentials_dir.exist?
       if credentials_dir.directory?
@@ -131,6 +131,11 @@ def setup(update_gems:,setup_credentials:)
         log "Then copy ~/.gem/credentials into #{gem_credentials_source} and re-run this script"
         exit 1
       end
+    end
+
+    log "Setting up brutrb.com"
+    FileUtils.chdir project_root / "brutrb.com" do
+      system! "bin/setup"
     end
   else
     log "Not setting up GitHub or RubyGems credentials. You won't be able to push the gem"

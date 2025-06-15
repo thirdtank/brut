@@ -13,3 +13,7 @@
 
 # Ignore the docs for now
 /docs
+
+# This is where generated API docs go
+/brutrb.com/public/api
+/brutrb.com/node_modules

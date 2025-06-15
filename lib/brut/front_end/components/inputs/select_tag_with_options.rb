@@ -85,8 +85,6 @@ class Brut::FrontEnd::Components::Inputs::SelectTagWithOptions < Brut::FrontEnd:
   #        This will be called on each element of `options` to get the value used for the `<option>`'s
   #        text content.  The value returned by `option_text_attribute` need not be unique, though if it
   #        is not unique, it will certainly be confusing.
-  # @param [Integer] index if this input is part of an array, this is the index into that array.
-  #        This is used to get the input's value.
   # @param [Hash] html_attributes any additional HTML attributes to include on the `<select>` element.
   # @param [false|true|Hash] include_blank configure how and if to include a blank element in the select.
   #        If this is false, there will be no blank element. If it's `true`, there will be one with

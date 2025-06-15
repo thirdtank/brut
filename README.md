@@ -48,10 +48,3 @@ with your editor, but all commands are run inside Docker, which should be more c
    The `--no-credentials` means that you will not be able to push to GitHub or RubyGems from within the Docker container. This
    ability is only needed by maintainers to push new versions of the gem. You can push to GitHub from your computer.
 
-## Docs
-
-* See {file:doc-src/architecture.md Architecture}
-* See {file:doc-src/pages.md Pages and Components}
-* See {file:doc-src/forms.md Forms}
-* See {file:docs-src/keyword-injection.md Keyword Injection}
-* See {file:docs-src/route-hooks.md Route Hooks}

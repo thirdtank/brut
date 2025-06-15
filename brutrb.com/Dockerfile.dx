@@ -1,0 +1,8 @@
+FROM node:22
+
+ENV DEBIAN_FRONTEND=noninteractive
+RUN apt-get -y update
+
+# This entrypoint produces a nice help message and waits around for you to do
+# something with the container.
+COPY dx/show-help-in-app-container-then-wait.sh /root
