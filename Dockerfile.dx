@@ -1,4 +1,4 @@
-FROM ruby:3.3
+FROM ruby:3.4
 
 SHELL [ "/bin/bash", "-o", "pipefail", "-c" ]
 
@@ -10,8 +10,8 @@ RUN apt-get -y clean && \
     apt-get -y update && \
     apt-get install --quiet --yes ca-certificates curl gnupg rsync
 
-# Install NODE per https://github.com/nodesource/distributions?tab=readme-ov-file#using-debian-as-root-nodejs-20
-RUN curl -fsSL https://deb.nodesource.com/setup_20.x -o /tmp/nodesource_setup.sh && \
+# Install NODE per https://github.com/nodesource/distributions?tab=readme-ov-file#using-debian-as-root-nodejs-22
+RUN curl -fsSL https://deb.nodesource.com/setup_22.x -o /tmp/nodesource_setup.sh && \
     bash /tmp/nodesource_setup.sh && \
     apt-get install -y nodejs
 
