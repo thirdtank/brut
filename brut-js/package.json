@@ -1,0 +1,34 @@
+{
+  "name": "brut-js",
+  "version": "0.0.20",
+  "type": "module",
+  "keywords": [ "WebComponents", "Custom Elements" ],
+  "bugs": {
+    "url": "https://github.com/thirdtank/brut-js/issues",
+    "email": "davec@naildrivin5.com"
+  },
+  "exports": {
+    ".": "./src/index.js",
+    "./testing": "./src/testing/index.js"
+  },
+  "repository": "https://github.com/thirdtank/brut-js",
+  "author": {
+    "name": "David Copeland",
+    "email": "davec@naildrivin5.com",
+    "url": "https://naildrivin5.com"
+  },
+  "description": "Custom Elements Available via BrutRb",
+  "license": "Hippocratic-2.1",
+  "scripts": {
+    "docs": "jsdoc --configure jsdoc.config.json --readme README.md --destination docs --recurse src/",
+    "test": "mocha specs --no-color --extension 'spec.js' --recursive",
+    "test:one": "mocha --no-color --extension 'spec.js' --recursive",
+    "bundle": "esbuild --sourcemap --bundle src/appForTestingOnly.js --outfile=specs/public/js/bundle.js"
+  },
+  "devDependencies": {
+    "esbuild": "^0.24.0",
+    "jsdoc": "^4.0.4",
+    "jsdom": "^25.0.1",
+    "mocha": "^10.8.2"
+  }
+}
