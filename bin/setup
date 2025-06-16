@@ -133,6 +133,31 @@ def setup(update_gems:,setup_credentials:)
       end
     end
 
+    npm_credentials_dest = Pathname("/") / "root" / ".npmrc"
+    if npm_credentials_dest.exist?
+      log "NPM credentials look good"
+    else
+      log "#{npm_credentials_dest} doesn't exist - creating"
+      FileUtils.mkdir_p npm_credentials_dest.dirname
+      npm_credentials_source = credentials_dir / "npmrc"
+      if npm_credentials_source.exist?
+        log "#{npm_credentials_source} exists - copying it to #{npm_credentials_dest}"
+        FileUtils.cp npm_credentials_source,npm_credentials_dest
+      else
+        log "#{npm_credentials_source} must contain an NPM credentials file"
+        log ""
+        log "If you don't have a ~/.npmrc file on your computer, create one:"
+        log "  1. On your computer (not inside Docker), run this:"
+        log ""
+        log "     npm adduser"
+        log ""
+        log "  2. Then follow the instructions.  When it's done ~/.npmrc will have been created"
+        log ""
+        log "Copy ~/.npmrc into #{npm_credentials_source} and re-run this script"
+        exit 1
+      end
+    end
+
     log "Setting up Brut-JS"
     FileUtils.chdir project_root / "brut-js" do
       system! "bin/setup"
