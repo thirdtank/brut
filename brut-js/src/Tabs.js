@@ -69,6 +69,7 @@ import BaseCustomElement from "./BaseCustomElement"
  *   <h3>Spam</h3>
  * </section>
  *
+ * @customElement brut-tabs
  */
 class Tabs extends BaseCustomElement {
   static tagName = "brut-tabs"

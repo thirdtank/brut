@@ -19,6 +19,8 @@ import BaseCustomElement from "./BaseCustomElement"
  *   <input type="text" value="notes">
  *   <button>Save</button>
  * </form>
+ *
+ * @customElement brut-autosubmit
  */
 class Autosubmit extends BaseCustomElement {
   static tagName = "brut-autosubmit"

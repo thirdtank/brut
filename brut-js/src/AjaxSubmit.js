@@ -4,7 +4,7 @@ import ConstraintViolationMessage from "./ConstraintViolationMessage"
 
 /** Wraps a `<BUTTON>` assumed to be inside a form to indicate that, when clicked, it should submit
  * the form it's a part of via AJAX. It accounts for network failures and timeouts.
- * 
+ *
  * The general flow is as follows:
  *
  * 1. When the button is clicked, the form's validity is checked. If it's not valid, nothing happens.
@@ -55,6 +55,8 @@ import ConstraintViolationMessage from "./ConstraintViolationMessage"
  *     <button>Save</button>
 *    </brut-ajax-submit>
  * </form>
+ *
+ * @customelement brut-ajax-submit
  */
 class AjaxSubmit extends BaseCustomElement {
   static tagName = "brut-ajax-submit"

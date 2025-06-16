@@ -1,13 +1,11 @@
 # JavaScript
 
 Brut provides basic bundling using [esbuild](https://esbuild.github.io/).  Brut does not support nor prevent the
-use of any front-end framework.  Brut does, however, include [Brut-JS], a lightweight library of HTML custom
+use of any front-end framework.  Brut does, however, include [BrutJS](/brut-js), a lightweight library of HTML custom
 elements and utility code.  These elements can provide a fair bit of front-end functionality using progressive
 enhancement without the need for a framework.
 
 ## Overview
-
-### Managing Your App's JavaScript
 
 All your app's JavaScript lives in `app/src/front_end/js`, or in modules you bring in via `package.json`.  Brut
 will *bundle* all of that up into a single `.js` file that is served up with your app.  Brut does this by using
@@ -94,40 +92,6 @@ def view_template
 
 The `asset_path` helper takes a logical path—`/js/app.js`—and returns the actual path the browser can use.  More
 details on this can be found in [assets](/assets).
-
-### Using Brut-JS
-
-By default, your app is set up to use Brut-JS, although you can remove it by removing a few lines of code.
-Here's what `app/src/front_end/js/index.js` looks like initially:
-
-```javascript
-import { BrutCustomElements } from "brut-js"
-
-document.addEventListener("DOMContentLoaded", () => {
-  BrutCustomElements.define()
-})
-``` 
-
-A custom element must be explicitly defined to allow it to work.  While you can define Brut's custom elements individually, the `define` method on `BrutCustomElements` is set up to define them all for you.  Brut-JS uses standard HTML custom elements. These should interoperate with any framework code you have, and should remain inert if you don't use them.
-
-Given this setup, you can use any of the elements in your templates.  `Brut::FrontEnd::Component`—the base class
-for all HTML-generation in a Brut app—configures Phlex to use these custom elements.  For example, you can
-confirm the submission of any form like so:
-
-```ruby
-def view_template
-  form do
-    input type: "text", name: "name"
-    brut_confirm_submit message: "Are you sure?" do
-      button { "Submit" }
-    end
-  end
-end
-```
-
-> [!WARNING]
-> You can remove Brut-JS entirely, but several features won't be available if you do. Locale Detection,
-> localized client-side constraint violation messaging, and client-side observability won't work.
 
 ## Testing
 

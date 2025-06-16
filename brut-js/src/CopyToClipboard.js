@@ -31,6 +31,8 @@ import BaseCustomElement from "./BaseCustomElement"
  * <brut-copy-to-clipboard element="code">
  *   <button>Copy</button>
  * </brut-copy-to-clipboard>
+ *
+ * @customElement brut-copy-to-clipboard
  */
 class CopyToClipboard extends BaseCustomElement {
   static tagName = "brut-copy-to-clipboard"

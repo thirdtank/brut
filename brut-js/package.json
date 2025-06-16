@@ -27,7 +27,6 @@
   },
   "devDependencies": {
     "esbuild": "^0.24.0",
-    "jsdoc": "^4.0.4",
     "jsdom": "^25.0.1",
     "mocha": "^10.8.2"
   }

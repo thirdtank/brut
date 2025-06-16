@@ -1,6 +1,10 @@
 {
+    "opts": {
+      "template": "./jsdoc-theme"
+    },
     "plugins": [
-	    "plugins/markdown"
+      "plugins/markdown",
+      "./jsdoc-plugins/customElementTag.cjs"
     ],
     "recurseDepth": 10,
     "source": {

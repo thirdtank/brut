@@ -13,8 +13,9 @@ import I18nTranslation from "./I18nTranslation"
  *
  * @see I18nTranslation
  * @see ConstraintViolationMessage
+ *
+ * @customElement brut-message
  */
-
 class Message extends BaseCustomElement {
   static tagName = "brut-message"
   static observedAttributes = [

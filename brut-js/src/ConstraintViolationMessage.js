@@ -22,6 +22,8 @@ import I18nTranslation from "./I18nTranslation"
  * @see I18nTranslation
  * @see ConstraintViolationMessages
  * @see Message
+ *
+ * @customElement brut-cv
  */
 class ConstraintViolationMessage extends BaseCustomElement {
   static tagName = "brut-cv"

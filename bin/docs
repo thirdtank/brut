@@ -14,11 +14,14 @@ OptionParser.new do |opts|
   end
 end.parse!
 
-docs_dir = (Pathname(__FILE__).dirname / ".." / "brutrb.com" / "public" / "api" ).expand_path.to_s
+public_dir = (Pathname(__FILE__).dirname / ".." / "brutrb.com" / "public" ).expand_path.to_s
+docs_dir   =  public_dir + "/api"
+brutjs_dir = (Pathname(__FILE__).dirname / ".." / "brut-js" ).expand_path.to_s
+
 system(
   "bundle exec yard doc -o '#{docs_dir}' -m markdown -M rdiscount --backtrace"
 )
 
-FileUtils.chdir docs_dir do
-  FileUtils.cp "index.html", "vitepress_too_smart_for_own_good.html"
+FileUtils.chdir brutjs_dir do
+  system("bin/build")
 end

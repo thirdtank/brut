@@ -59,6 +59,8 @@ import { BaseCustomElement } from "brut-js"
  *
  * @see {@link https://www.w3.org/TR/trace-context/}
  * @see external:Performance
+ *
+ * @customElement brut-tracing
  */
 class Tracing extends BaseCustomElement {
   static tagName = "brut-tracing"

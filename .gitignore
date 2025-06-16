@@ -16,4 +16,9 @@
 
 # This is where generated API docs go
 /brutrb.com/public/api
+/brutrb.com/public/brut-js/api
+/brutrb.com/.vitepress/cache
 /brutrb.com/node_modules
+/brut-js/node_modules
+/brut-js/docs/node_modules
+/brut-js/specs/public/js

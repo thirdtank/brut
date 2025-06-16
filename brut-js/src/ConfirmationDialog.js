@@ -26,6 +26,8 @@ import RichString from "./RichString"
  *     <button value="cancel">Nevermind</button>
  *   </dialog>
  * </brut-confirmation-dialog>
+ *
+ * @customElement brut-confirmation-dialog
  */
 class ConfirmationDialog extends BaseCustomElement {
   static tagName = "brut-confirmation-dialog"

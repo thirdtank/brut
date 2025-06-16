@@ -17,6 +17,8 @@ import ConstraintViolationMessage from "./ConstraintViolationMessage"
  * @see Form
  * @see ConstraintViolationMessage
  * @see AjaxSubmit
+ *
+ * @customElement brut-cv-messages
  */
 class ConstraintViolationMessages extends BaseCustomElement {
   static tagName = "brut-cv-messages"

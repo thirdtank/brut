@@ -3,7 +3,8 @@
 set -e
 SCRIPT_DIR=$(dirname "$0")
 ROOT_DIR=$(realpath "$SCRIPT_DIR/..")
-npx jsdoc --configure   ${ROOT_DIR}/jsdoc.config.json \
+cd ${ROOT_DIR}/docs
+npx jsdoc --configure   ${ROOT_DIR}/docs/jsdoc.config.json \
           --readme      ${ROOT_DIR}/README.md \
           --destination ${ROOT_DIR}/../brutrb.com/public/brut-js/api \
           --recurse     ${ROOT_DIR}/src/

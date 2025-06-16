@@ -25,6 +25,8 @@ import ConfirmationDialog from "./ConfirmationDialog"
  * @property {string} dialog - optional ID of the `brut-confirmation-dialog` to use instead of `window.confirm`.
  *                             If there is no such dialog or the id references the wrong element type,
  *                             `window.confirm` will be used.  Setting `show-warnings` will generate a warning for this.
+ *
+ * @customElement brut-confirm-submit
  */
 class ConfirmSubmit extends BaseCustomElement {
   static tagName = "brut-confirm-submit"

@@ -61,6 +61,8 @@ import ConstraintViolationMessages from "./ConstraintViolationMessages"
  *
  * @property {boolean} submitted-invalid - set by this element when the form is submitted. Does not trigger any behavior and can be used in CSS.
  * @see ConstraintViolationMessages
+ *
+ * @customElement brut-form
  */
 class Form extends BaseCustomElement {
   static tagName = "brut-form"

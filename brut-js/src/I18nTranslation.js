@@ -12,6 +12,8 @@ import BaseCustomElement from "./BaseCustomElement"
  *
  * @example
  * <brut-i18n-translation key="greeting" value="Hello %{username}"></brut-i18n-translation>
+ *
+ * @customElement brut-i18n-translation
  */
 class I18nTranslation extends BaseCustomElement {
   static tagName = "brut-i18n-translation"

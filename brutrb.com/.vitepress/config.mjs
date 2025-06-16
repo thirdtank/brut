@@ -1,5 +1,6 @@
 import { defineConfig } from 'vitepress'
 import rdocLinker from './plugins/rdocLinker'
+import jsdocLinker from './plugins/jsdocLinker'
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
@@ -14,7 +15,8 @@ export default defineConfig({
       { text: 'Home', link: '/' },
       { text: 'Getting Started', link: '/getting-started' },
       { text: 'Overview', link: '/overview' },
-      { text: 'API', link: '/api/vitepress_too_smart_for_own_good.html' },
+      { text: 'Brut API', link: '/api/index.html', target: "_self" },
+      { text: 'BrutJS API', link: '/brut-js/api/index.html', target: "_self" },
     ],
     outline: [ 2, 3] ,
     sidebar: [
@@ -43,6 +45,7 @@ export default defineConfig({
           { text: "JavaScript", link: "/javascript" },
           { text: "CSS", link: "/css" },
           { text: "Assets", link: "/assets" },
+          { text: "BrutJS", link: "/brut-js" },
         ]
       },
       {
@@ -95,6 +98,7 @@ export default defineConfig({
   markdown: {
     config(md) {
       md.use(rdocLinker)
+      md.use(jsdocLinker)
     }
   }
 })
