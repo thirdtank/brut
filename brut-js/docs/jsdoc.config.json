@@ -4,7 +4,7 @@
     },
     "plugins": [
       "plugins/markdown",
-      "./jsdoc-plugins/customElementTag.cjs"
+      "./jsdoc-plugins/customElementTag"
     ],
     "recurseDepth": 10,
     "source": {
