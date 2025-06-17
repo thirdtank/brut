@@ -2,3 +2,6 @@
   --vp-font-family-base: 'Helvetica Neue', 'Nimbus Sans', sans-serif;
   --vp-font-family-mono: Courier, monospace;
 }
+.image-bg {
+  display: none;
+}

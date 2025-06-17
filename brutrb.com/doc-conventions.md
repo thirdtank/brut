@@ -2,15 +2,13 @@
 
 ## Terminology
 
-Brut attempts to use existing terminology where possible, particularly where that technology applies to the web
-platform.  For example, there is not a thing called "CSS variables", rather the term is "custom properties". HTML entities are *elements* or *tags* that have *attributes*. As another example, HTML doesn't have *validations*, rather it as *constraints*, which can be *violated*.
+Brut attempts to use existing terminology where possible, particularly where that technology applies to the web platform.  For example, there is not a thing called "CSS variables", rather the term is "custom properties". HTML entities are *elements* or *tags* that have *attributes*. As another example, HTML doesn't have *validations*, rather it as *constraints*, which can be *violated*.
 
-When speaking about Ruby, we prefer the term *initializer* over constructor, *parameters* over arguments, and
-*methods* over messages.  We also prefer *tests* over specs, however test files *are* located in `specs/` and
-named `*.spec.rb` to be consistent with RSpec's nomenclature.  We prefer *end-to-end* or *e2e* tests instead of
-browser tests or request specs. 
+When speaking about Ruby, we prefer the term *initializer* over constructor, *parameters* over arguments, and *methods* over messages.  We also prefer *tests* over specs, however test files *are* located in `specs/` and named `*.spec.rb` to be consistent with RSpec's nomenclature.  We prefer *end-to-end* or *e2e* tests instead of browser tests or request specs. 
 
-Lastly, Brut doesn't render HTML, it *generates* it.  The browser renders the HTML for the website's visitor.
+Further, Brut doesn't render HTML, it *generates* it.  The browser renders the HTML for the website's visitor.
+
+Lastly, the documentation tries to talk about the person accessing a website as a "vistor" not a "user". Though the "user" nomenclature is near-ossified in software development, we feel "visitor" is more apt.
 
 ## Structure of These Documents
 
@@ -27,14 +25,14 @@ are provided.  This section should be marked with a date to allow you to underst
 information. It may not always be up to date, but this can help further clarify what is happening under the
 covers and why.
 
-## LLMs and Other Artificially-Intellgient Support
+## Names of the Library and Associated Modules
 
-We strive to have all documentation written by a real person.  None of this documentation is produced by a
-machine, although spelling and grammar corrections will certainly have been suggested by automated tools.
+This framework is called "Brut" though may be called "BrutRB".  It lives at `brutrb.com`.
 
-We expect an LLM to be able to digest this documentation and source code and provide alternate analysis of how
-Brut works and how to use it.  We hope such analysis is correct and useful, however that cannot be guaranteed, so
-this documentation is the second best source of truth, the source code being the best.
+The JavaScript library is called "BrutJS", but is `brut-js` in code or the filesystem. "Brut-JS" is wrong, as is `brut_js`.
+
+The CSS library is called "BrutCSS", but is `brut-css` in code or the filesystem. "Brut-CSS" is wrong, as is "brut-css".
+
 
 ## On Using VitePress
 

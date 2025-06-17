@@ -29,6 +29,7 @@ export default defineConfig({
           { text: "Documentation Conventions", link: "/doc-conventions" },
           { text: "Tutorial", link: "/tutorial" },
           { text: "Dev Environment", link: "/dev-environment" },
+          { text: "AI", link: "/ai" },
         ]
       },
       {
