@@ -5,7 +5,7 @@ complex custom elements can benefit from a unit test.  Spoiler: this is not goin
 
 ## Overview
 
-Brut-JS provides a testing module that uses JSDom to allow you to test your custom elements.  There are
+BrutJS provides a testing module that uses JSDom to allow you to test your custom elements.  There are
 downsides to JSDom, but it's the simplest way to achieve a reasonably-useful unit test.
 
 You can use `bin/scaffold` to create a test, which will create a `.spec.js` file in `specs/front_end/js/`.

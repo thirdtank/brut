@@ -96,7 +96,7 @@ details on this can be found in [assets](/assets).
 ## Testing
 
 Client-side behavior is best tested with end-to-end tests, however you can simplify your end-to-end tests by
-creating unit tests of your custom elements.  Brut-JS provides support for this. TBD LINK.
+creating unit tests of your custom elements.  BrutJS provides support for this. TBD LINK.
 
 ## Recommended Practices
 

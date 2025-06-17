@@ -158,7 +158,7 @@ def setup(update_gems:,setup_credentials:)
       end
     end
 
-    log "Setting up Brut-JS"
+    log "Setting up BrutJS"
     FileUtils.chdir project_root / "brut-js" do
       system! "bin/setup"
     end

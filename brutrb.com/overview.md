@@ -262,7 +262,7 @@ end
 
 Brut does not include a front-end framework, however it doesn't prevent you from using one.  Brut *does* include a configuration of esbuild that will serve you well for most situations. esbuild is also configured to bundle and manage your CSS.  This, coupled with recent advancements in CSS means that you don't need something like SASS.  You can use standard `@import` statements to manage your CSS across multiple files and use CSS nesting to namespace your classes.
 
-Brut provides a JavaScript *library* called Brut-JS. Brut-JS is mostly a set of custom elements that act as HTML Web Components, progressively enhancing markup you manage and style with common behaviors. Some of these components are used to provide localized messaging for client-side constraint violations.  You can use these with any other client-side framework, or just use them on their own. You can also skip using them entirely and provide your own solution.
+Brut provides a JavaScript *library* called BrutJS. BrutJS is mostly a set of custom elements that act as HTML Web Components, progressively enhancing markup you manage and style with common behaviors. Some of these components are used to provide localized messaging for client-side constraint violations.  You can use these with any other client-side framework, or just use them on their own. You can also skip using them entirely and provide your own solution.
 
 ### Database Schema
 

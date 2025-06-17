@@ -5,7 +5,7 @@ progressively enhancing your HTML.
 
 ## Overview
 
-By default, your app is set up to use Brut-JS.  This is done by defining all the custom elements it
+By default, your app is set up to use BrutJS.  This is done by defining all the custom elements it
 provides. Their source code is included in your JavaScript bundle, but they do not do anything until you
 use one of the custom elements.
 
@@ -55,13 +55,13 @@ of what each one does.
 | `<brut-tracing>`             | Sends observability data back to the server to unify a server-side request with client-side tracing.|
 
 > [!NOTE]
-> Brut-JS's elements were created only to solve specific issues in the apps Brut was initially used for.
+> BrutJS's elements were created only to solve specific issues in the apps Brut was initially used for.
 > It's hoped that more elements will be added to provide a more feature-complete set of primitives to
 > create client-side enhancements.
 
 ### Creating Your Own Custom Elements
 
-Brut-JS includes a base class, [`BaseCustomElement`](/brut-js/api/BaseCustomElement.html), you can use to
+BrutJS includes a base class, [`BaseCustomElement`](/brut-js/api/BaseCustomElement.html), you can use to
 create your own custom elements with a bit more help, but not too much.
 
 The documentation for `BaseCustomElement` has an example, but here are the features you get (noting that
@@ -99,7 +99,7 @@ of massive JS payloads that show white screens on low bandwidth/low performance 
 Thus, Brut recommends you design your app to work in a tranditional multi-page app sort of way, then
 *enhance* as needed using autonomous custom elements.
 
-You can, of course, bring in whatever framework you like and use that in the normal way.  Brut-JS's custom
+You can, of course, bring in whatever framework you like and use that in the normal way.  BrutJS's custom
 elements should work with any framework.
 
 ## Testing
