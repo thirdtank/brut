@@ -16,6 +16,12 @@ def setup(update_gems:,setup_credentials:)
     system! "bundle check --no-color || bundle install --no-color --quiet"
   end
 
+  log "Installing Ruby LSP"
+  system! "gem install ruby-lsp"
+
+  log "Installing JS/TS and CSS LSPs"
+  system! "npm install -g typescript typescript-language-server vscode-langservers-extracted"
+
   project_root = Pathname($0).dirname / ".."
   if setup_credentials
     credentials_dir = project_root / "dx" / "credentials"
@@ -160,6 +166,11 @@ def setup(update_gems:,setup_credentials:)
 
     log "Setting up BrutJS"
     FileUtils.chdir project_root / "brut-js" do
+      system! "bin/setup"
+    end
+
+    log "Setting up BrutCSS"
+    FileUtils.chdir project_root / "brut-css" do
       system! "bin/setup"
     end
 
