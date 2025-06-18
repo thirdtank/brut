@@ -1,4 +1,4 @@
-# AI Use and Notes
+# AI Declaration and Notes
 
 LLMs and AI tools are a current fact of life.  We feel it's important to be realistic and up front about
 how they affect this project.
@@ -8,8 +8,8 @@ how they affect this project.
 I created [declare-ai.org](https://declare-ai.org/) to allow precise documentation of how AI is used in a
 project. It defines four levels of AI use:
 
-1. No involvement at all
-2. Non-create assistance, such as the completions GitHub copilot may make while you are typing
+1. No involvement at all.
+2. Non-create assistance, such as the completions GitHub Copilot may make while you are typing.
 3. Creative assistance, where an AI generated a large amount of code that you then modified. An example would be using a tool like Cursor to write code for your review.
 4. Completely Produced by an AI, for example if you used Stable Diffusion to create your icon.
 
@@ -32,7 +32,7 @@ If some code is level 2—non-creative assistance—that is probably fine.
 As of this writing—June 17, 2025—the library has no automated tests.  The `adrs.cloud` app serves as the
 test suite.
 
-That said, as tests are developed, the must never be written entirely by an AI without human review (level 4).  Our preference is that all tests comply with level 1 or level 2, however we are open to creative assistance for tests as might be provided by a tool like Cursor.
+That said, as tests are developed, they must never be written entirely by an AI without human review (level 4).  Our preference is that all tests comply with level 1 or level 2, however we are open to creative assistance for tests as might be provided by a tool like Cursor.
 
 In any case, the author of a test should understand it and the maintainers must be able to understand and
 modify all tests without the use of AI tools.
@@ -58,9 +58,9 @@ The logo is level 4 - ChatGPT created it. I'd love to have a real person make a 
 something to get this launched.  Please reach out if you want to make a better one + other assets. I'm
 willing to pay a real person.
 
-## AI Helping to Understand Brut
+## AI That Teachs You About Brut Does Not Currently Exist
 
-Due to how LLMs work, there is naturally nothing in any single model about Brut at all.  Anything an
+Due to how LLMs work, there is naturally nothing in any model about Brut.  Anything an
 existing model tells you about Brut is **100% untrustworthy**.  We hope to allow LLMs to consume Brut's
 code, documentation, and examples, so it can be an additional source of help, but currently that is not
 the case.
