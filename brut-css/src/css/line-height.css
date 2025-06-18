@@ -1,0 +1,9 @@
+.lh-solid {
+  line-height: var(--lh-solid);
+}
+.lh-title {
+  line-height: var(--lh-title);
+}
+.lh-copy {
+  line-height: var(--lh-copy);
+}

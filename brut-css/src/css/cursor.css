@@ -1,0 +1,18 @@
+.cursor-default {
+  cursor: default;
+}
+.pointer {
+  cursor: pointer;
+}
+.cursor-pointer {
+  cursor: pointer;
+}
+.cursor-progress {
+  cursor: progress;
+}
+.cursor-move {
+  cursor: move;
+}
+.cursor-grab {
+  cursor: grab;
+}

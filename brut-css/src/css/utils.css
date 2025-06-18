@@ -1,0 +1,44 @@
+.p {
+  max-width: var(--tw);
+  line-height: var(--lh-copy);
+}
+.collapse {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+.sr-only {
+  position: absolute;
+  left: -10000px;
+  top: auto;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+.undo-sr-only {
+  position: static;
+  padding: 0;
+  margin: 0;
+  clip: auto;
+  white-space: normal;
+  width: auto;
+  height: auto;
+  overflow: visible;
+}
+.debug * {
+  outline: 1px solid gold;
+}
+.debug-red * {
+  outline: 1px solid red;
+}
+.debug-green * {
+  outline: 1px solid green;
+}
+.debug-blue * {
+  outline: 1px solid blue;
+}
+.debug-grid-16 {
+  background: transparent url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAMklEQVR4AWOgCLz/b0epAa6UGuBOqQHOQHLUgFEDnAbcBZ4UGwDOkiCnkIhdgNgNxAYAiYlD+8sEuo8AAAAASUVORK5CYII=) repeat top left;
+}
+.debug-grid {
+  background: transparent url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAICAYAAADED76LAAAAFElEQVR4AWPAC97/9x0eCsAEPgwAVLshdpENIxcAAAAASUVORK5CYII=) repeat top left;
+}

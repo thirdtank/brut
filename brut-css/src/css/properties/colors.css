@@ -1,0 +1,124 @@
+:root {
+/* Color palette for Brut CSS */
+/*
+ * Black
+ *
+ * Blacks
+ */
+--black: #000000;
+--black-ish: #131313;
+
+/*
+ * Blue
+ *
+ * Tints/Shades for blue
+ */
+--blue-100: #000E1C;
+--blue-200: #00172F;
+--blue-300: #002E5E;
+--blue-400: #004E9E;
+--blue-500: #0069d5;
+--blue-600: #50A6FF;
+--blue-700: #A9D3FF;
+--blue-800: #E4F1FF;
+--blue-900: #F9FCFF;
+
+/*
+ * Gray
+ *
+ * Tints/Shades for gray
+ */
+--gray-100: #0F0F10;
+--gray-200: #1A1A1B;
+--gray-300: #333336;
+--gray-400: #56565B;
+--gray-500: #74747B;
+--gray-600: #ADADB1;
+--gray-700: #D7D7D9;
+--gray-800: #F2F2F3;
+--gray-900: #FCFCFC;
+
+/*
+ * Green
+ *
+ * Tints/Shades for green
+ */
+--green-100: #071B0E;
+--green-200: #0C2D17;
+--green-300: #175A2E;
+--green-400: #27984D;
+--green-500: #37CB69;
+--green-600: #89E0A6;
+--green-700: #C5F0D4;
+--green-800: #EDFAF2;
+--green-900: #FBFEFC;
+
+/*
+ * Orange
+ *
+ * Tints/Shades for orange
+ */
+--orange-100: #1E0E00;
+--orange-200: #331800;
+--orange-300: #673000;
+--orange-400: #AD5000;
+--orange-500: #EA6C00;
+--orange-600: #FFA75C;
+--orange-700: #FFD4AF;
+--orange-800: #FFF2E6;
+--orange-900: #FFFCF9;
+
+/*
+ * Purple
+ *
+ * Tints/Shades for purple
+ */
+--purple-100: #0E071B;
+--purple-200: #170C2D;
+--purple-300: #2E175A;
+--purple-400: #4D2798;
+--purple-500: #6937cb;
+--purple-600: #A689E0;
+--purple-700: #D4C5F0;
+--purple-800: #F2EDFA;
+--purple-900: #FCFBFE;
+
+/*
+ * Red
+ *
+ * Tints/Shades for red
+ */
+--red-100: #1E0200;
+--red-200: #320300;
+--red-300: #640600;
+--red-400: #A80A00;
+--red-500: #E30D00;
+--red-600: #FF6258;
+--red-700: #FFB2AD;
+--red-800: #FFE7E6;
+--red-900: #FFFAF9;
+
+/*
+ * White
+ *
+ * Whites
+ */
+--white: #FFFFFF;
+--white-ish: #FBFBFB;
+
+/*
+ * Yellow
+ *
+ * Tints/Shades for yellow
+ */
+--yellow-100: #242402;
+--yellow-200: #3D3D04;
+--yellow-300: #797907;
+--yellow-400: #CCCC0C;
+--yellow-500: #F3F331;
+--yellow-600: #F8F885;
+--yellow-700: #FCFCC3;
+--yellow-800: #FEFEEC;
+--yellow-900: #FFFFFB;
+
+}

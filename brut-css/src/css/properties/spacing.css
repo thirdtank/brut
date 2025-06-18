@@ -1,0 +1,29 @@
+:root {
+--sp-1: 0.25rem;
+--sp-2: 0.5rem;
+--sp-3: 1rem;
+--sp-4: 2rem;
+--sp-5: 4rem;
+--sp-6: 8rem;
+--sp-7: 12rem;
+--sp-8: 16rem;
+
+/* Negative values for spacing */
+--sp--1: calc(-1 * var(--sp-1));
+--sp--2: calc(-1 * var(--sp-2));
+--sp--3: calc(-1 * var(--sp-3));
+--sp--4: calc(-1 * var(--sp-4));
+--sp--5: calc(-1 * var(--sp-5));
+--sp--6: calc(-1 * var(--sp-6));
+--sp--7: calc(-1 * var(--sp-7));
+--sp--8: calc(-1 * var(--sp-8));
+
+--sp2x-1: calc(2 * var(--sp-1));
+--sp2x-2: calc(2 * var(--sp-2));
+--sp2x-3: calc(2 * var(--sp-3));
+--sp2x-4: calc(2 * var(--sp-4));
+--sp2x-5: calc(2 * var(--sp-5));
+--sp2x-6: calc(2 * var(--sp-6));
+--sp2x-7: calc(2 * var(--sp-7));
+--sp2x-8: calc(2 * var(--sp-8));
+}

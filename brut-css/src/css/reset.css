@@ -1,0 +1,102 @@
+/*
+ * Reset Styles
+ *
+ * This is adapted from https://github.com/sindresorhus/modern-normalize but some things were omitted.
+ *
+ * Namely, anything that appeared to be a design choice, or that didn't seem to actually apply
+ * to baesline browsers any longer.
+ */
+
+/* `border-box` is generally agreed to be a better default box model. */
+*,
+::before,
+::after {
+	box-sizing: border-box;
+}
+
+/* When orientation changes on iOS, font sizing can get messed up. Allegedly. */
+html {
+	-webkit-text-size-adjust: 100%;
+}
+
+/* In general, we don't want margins by default as this is rarely desired and can create confusion
+ * before you have started applying styles.
+ */
+body {
+	margin: 0;
+}
+
+
+/** Safari and Chrome do not use the ideal font weight for `b` or `strong` elements. */
+b, strong {
+	font-weight: bolder;
+}
+
+/** Browsers can show a smaller font size for code, pre, etc., which is not usually desired.  This
+ * tries to make the font size of these elements match the surrounding font size. */
+code, kbd, samp, pre {
+  font-size: 1em;
+}
+
+
+/** Attempt to prevent `sub` and `sup` from affect the line-height in browsers. */
+sub,
+sup {
+	font-size: 75%;
+	line-height: 0;
+	position: relative;
+	vertical-align: baseline;
+}
+
+sub {
+	bottom: -0.25em;
+}
+
+sup {
+	top: -0.5em;
+}
+
+/* Attempt to get form elements to use the font chosen on the page and not the sytstem
+ * font.  Further, removing margins that some browser may have set, so that behavior is consistent
+ * and predictable before styling has been applied 
+ */
+button,
+input,
+optgroup,
+select,
+textarea {
+	font-family: inherit;
+	margin: 0;
+}
+
+/* Attempt to get Mobile Safari to render unstyled buttons in a way that looks
+ * like a button, despite all efforst by Alan Dye to the contrary.
+ *
+ * Note that this uses "input" explicitly, because this is targeting inputs,
+ * not just any element using the type attribute.
+ */
+button,
+input[type='button'],
+input[type='reset'],
+input[type='submit'] {
+	-webkit-appearance: button;
+}
+
+/* Attempt to create predictable spacing for `legend` elements, in case the stars
+ * have aligned and someone is using them. */
+legend {
+	padding: 0;
+}
+
+
+/** Chrome and Firefox can use the wrong alignment at times. This attempts to fix that. */
+progress {
+	vertical-align: baseline;
+}
+
+/* Correct the cursor style of increment and decrement buttons in Safari. */
+::-webkit-inner-spin-button,
+::-webkit-outer-spin-button {
+	height: auto;
+}
+

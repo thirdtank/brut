@@ -1,0 +1,51 @@
+.ttn {
+  text-transform: none;
+}
+.ttu {
+  text-transform: uppercase;
+}
+.ttl {
+  text-transform: lowercase;
+}
+.ttc {
+  text-transform: capitalize;
+}
+.tdn {
+  text-decoration: none;
+}
+.tdu, .u {
+  text-decoration: underline;
+}
+.tds {
+  text-decoration: line-through;
+}
+.tdo {
+  text-decoration: overline;
+}
+.indent-0 {
+  text-indent: 0;
+}
+.indent-1 {
+  text-indent: var(--indent-1);
+}
+.indent-2 {
+  text-indent: var(--indent-2);
+}
+.indent-3 {
+  text-indent: var(--indent-3);
+}
+.indent--1 {
+  text-indent: var(--indent--1);
+}
+.indent--2 {
+  text-indent: var(--indent--2);
+}
+.indent--3 {
+  text-indent: var(--indent--3);
+}
+.truncate {
+  text-overflow: ellipsis;
+}
+.clip {
+  text-overflow: clip;
+}

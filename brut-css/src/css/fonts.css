@@ -1,0 +1,96 @@
+.ff-sans {
+  font-family: var(--ff-sans);
+}
+.ff-serif {
+  font-family: var(--ff-serif);
+}
+.ff-mono {
+  font-family: var(--ff-mono);
+}
+.ff-cursive {
+  font-family: var(--ff-cursive);
+}
+.ff-fantasy {
+  font-family: var(--ff-fantasy);
+}
+.f-1 {
+  font-size: var(--fs-1);
+}
+.f-2 {
+  font-size: var(--fs-2);
+}
+.f-3 {
+  font-size: var(--fs-3);
+}
+.f-4 {
+  font-size: var(--fs-4);
+}
+.f-5 {
+  font-size: var(--fs-5);
+}
+.f-6 {
+  font-size: var(--fs-6);
+}
+.f-7 {
+  font-size: var(--fs-7);
+}
+.f-8 {
+  font-size: var(--fs-8);
+}
+.f-9 {
+  font-size: var(--fs-9);
+}
+.fw-normal {
+  font-weight: normal;
+}
+.fw-bold {
+  font-weight: bold;
+}
+.fw-1 {
+  font-weight: 100;
+}
+.fw-2 {
+  font-weight: 200;
+}
+.fw-3 {
+  font-weight: 300;
+}
+.fw-4 {
+  font-weight: 400;
+}
+.fw-5 {
+  font-weight: 500;
+}
+.fw-6 {
+  font-weight: 600;
+}
+.fw-7 {
+  font-weight: 700;
+}
+.fw-8 {
+  font-weight: 800;
+}
+.fw-9 {
+  font-weight: 900;
+}
+.fs-normal {
+  font-style: normal;
+}
+.fs-italic {
+  font-style: italic;
+}
+.fv-sc {
+  font-variant: small-caps;
+}
+.fv-normal {
+  font-variant: normal;
+}
+.b {
+  font-weight: bold;
+}
+.i {
+  font-style: italic;
+}
+.sc {
+  font-variant: small-caps;
+}

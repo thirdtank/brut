@@ -1,0 +1,195 @@
+.h-1 {
+  height: var(--sp2x-1);
+}
+.h-2 {
+  height: var(--sp2x-2);
+}
+.h-3 {
+  height: var(--sp2x-3);
+}
+.h-4 {
+  height: var(--sp2x-4);
+}
+.h-5 {
+  height: var(--sp2x-5);
+}
+.h-6 {
+  height: var(--sp2x-6);
+}
+.h-7 {
+  height: var(--sp2x-7);
+}
+.h-8 {
+  height: var(--sp2x-8);
+}
+.h-10 {
+  height: 10%;
+}
+.h-20 {
+  height: 20%;
+}
+.h-25 {
+  height: 25%;
+}
+.h-30 {
+  height: 30%;
+}
+.h-40 {
+  height: 40%;
+}
+.h-50 {
+  height: 50%;
+}
+.h-60 {
+  height: 60%;
+}
+.h-70 {
+  height: 70%;
+}
+.h-75 {
+  height: 75%;
+}
+.h-80 {
+  height: 80%;
+}
+.h-90 {
+  height: 90%;
+}
+.h-100 {
+  height: 100%;
+}
+.h-third {
+  height: calc(100% / 3);
+}
+.h-two-thirds {
+  height: calc(100% / 1.5);
+}
+.h-10vh {
+  height: 10vh;
+}
+.h-20vh {
+  height: 20vh;
+}
+.h-30vh {
+  height: 30vh;
+}
+.h-40vh {
+  height: 40vh;
+}
+.h-50vh {
+  height: 50vh;
+}
+.h-60vh {
+  height: 60vh;
+}
+.h-70vh {
+  height: 70vh;
+}
+.h-80vh {
+  height: 80vh;
+}
+.h-90vh {
+  height: 90vh;
+}
+.h-100vh {
+  height: 100vh;
+}
+.h-auto {
+  height: auto;
+}
+.max-height-1 {
+  max-height: var(--sp2x-1);
+}
+.max-height-2 {
+  max-height: var(--sp2x-2);
+}
+.max-height-3 {
+  max-height: var(--sp2x-3);
+}
+.max-height-4 {
+  max-height: var(--sp2x-4);
+}
+.max-height-5 {
+  max-height: var(--sp2x-5);
+}
+.max-height-6 {
+  max-height: var(--sp2x-6);
+}
+.max-height-7 {
+  max-height: var(--sp2x-7);
+}
+.max-height-8 {
+  max-height: var(--sp2x-8);
+}
+.max-height-10 {
+  max-height: 10%;
+}
+.max-height-20 {
+  max-height: 20%;
+}
+.max-height-25 {
+  max-height: 25%;
+}
+.max-height-30 {
+  max-height: 30%;
+}
+.max-height-40 {
+  max-height: 40%;
+}
+.max-height-50 {
+  max-height: 50%;
+}
+.max-height-60 {
+  max-height: 60%;
+}
+.max-height-70 {
+  max-height: 70%;
+}
+.max-height-75 {
+  max-height: 75%;
+}
+.max-height-80 {
+  max-height: 80%;
+}
+.max-height-90 {
+  max-height: 90%;
+}
+.max-height-100 {
+  max-height: 100%;
+}
+.max-height-third {
+  max-height: calc(100% / 3);
+}
+.max-height-two-thirds {
+  max-height: calc(100% / 1.5);
+}
+.max-height-10vh {
+  max-height: 10vh;
+}
+.max-height-20vh {
+  max-height: 20vh;
+}
+.max-height-30vh {
+  max-height: 30vh;
+}
+.max-height-40vh {
+  max-height: 40vh;
+}
+.max-height-50vh {
+  max-height: 50vh;
+}
+.max-height-60vh {
+  max-height: 60vh;
+}
+.max-height-70vh {
+  max-height: 70vh;
+}
+.max-height-80vh {
+  max-height: 80vh;
+}
+.max-height-90vh {
+  max-height: 90vh;
+}
+.max-height-100vh {
+  max-height: 100vh;
+}

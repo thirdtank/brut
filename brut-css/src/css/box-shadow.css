@@ -1,0 +1,42 @@
+.shadow-1 {
+  box-shadow: rgb(135, 135, 135) 1px 1px 4px 0px;
+}
+.shadow-2 {
+  box-shadow: rgb(135, 135, 135) 1px 1px 10.64px 0px;
+}
+.shadow-3 {
+  box-shadow: rgb(135, 135, 135) 1px 1px 15.022px 0px;
+}
+.shadow-4 {
+  box-shadow: rgb(135, 135, 135) 1px 1px 22.297px 0px;
+}
+.shadow-5 {
+  box-shadow: rgb(135, 135, 135) 1px 1px 34.373px 0px;
+}
+.shadow-6 {
+  box-shadow: rgb(135, 135, 135) 1px 1px 54.419px 0px;
+}
+.shadow-none {
+  box-shadow: none;
+}
+.inset-shadow-1 {
+  box-shadow: rgb(106, 106, 106) 1px 1px 4px -1px inset;
+}
+.inset-shadow-2 {
+  box-shadow: rgb(106, 106, 106) 1px 1px 5.52px -1.043px inset;
+}
+.inset-shadow-3 {
+  box-shadow: rgb(106, 106, 106) 1px 1px 8.195px -1.193px inset;
+}
+.inset-shadow-4 {
+  box-shadow: rgb(106, 106, 106) 1px 1px 12.903px -1.485px inset;
+}
+.inset-shadow-5 {
+  box-shadow: rgb(106, 106, 106) 1px 1px 21.190px -1.986px inset;
+}
+.inset-shadow-6 {
+  box-shadow: rgb(106, 106, 106) 1px 1px 35.774px -2.802px inset;
+}
+.inset-shadow-none {
+  box-shadow: none;
+}

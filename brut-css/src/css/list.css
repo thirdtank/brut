@@ -1,0 +1,27 @@
+.lst-none {
+  list-style-type: none;
+}
+.lst-disc {
+  list-style-type: disc;
+}
+.lst-circle {
+  list-style-type: circle;
+}
+.lst-square {
+  list-style-type: square;
+}
+.lst-decimal {
+  list-style-type: decimal;
+}
+.lst-lower-roman {
+  list-style-type: lower-roman;
+}
+.lst-upper-roman {
+  list-style-type: upper-roman;
+}
+.lsp-inside {
+  list-style-position: inside;
+}
+.lsp-outside {
+  list-style-position: outside;
+}

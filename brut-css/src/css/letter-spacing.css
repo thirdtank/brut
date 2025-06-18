@@ -1,0 +1,12 @@
+.tracked {
+  letter-spacing: var(--ls);
+}
+.tracked-tight {
+  letter-spacing: var(--ls-tight);
+}
+.tracked-mega {
+  letter-spacing: var(--ls-mega);
+}
+.tracked-none {
+  letter-spacing: var(--ls-none);
+}
