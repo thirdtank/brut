@@ -1,20 +1,30 @@
 import fs                              from "node:fs"
 import postcss                         from "postcss"
 import postcssImport                   from "postcss-import"
-import mergeRootCustomPropertiesPlugin from "./mergeRootCustomPropertiesPlugin.js"
-import addMediaQueriesPlugin           from "./addMediaQueriesPlugin.js"
+import mergeRootCustomPropertiesPlugin from "./post-css-plugins/mergeRootCustomPropertiesPlugin.js"
+import addMediaQueriesPlugin           from "./post-css-plugins/addMediaQueriesPlugin.js"
+import addPseudoClassesPlugin          from "./post-css-plugins/addPseudoClassesPlugin.js"
 import parseCLI                        from "./cli.js"
 import mediaQueryConfigParser          from "./mediaQueryConfigParser.js"
+import pseudoClassConfigParser         from "./pseudoClassConfigParser.js"
 
-const generateCSS = ({input,output,mediaQueryConfig}) => {
+const generateCSS = ({input,output,mediaQueryConfig,pseudoClassConfig}) => {
 
-  const inputCSS = fs.readFileSync(input.filename, 'utf8')
-  const mediaQueries = mediaQueryConfigParser(mediaQueryConfig.filename)
+  const inputCSS      = fs.readFileSync(input.filename, 'utf8')
+  const mediaQueries  = mediaQueryConfigParser(mediaQueryConfig.filename)
+  const pseudoClasses = pseudoClassConfigParser(pseudoClassConfig.filename)
+
   let error = false
   mediaQueries.forEach( (mediaQuery) => {
     if (mediaQuery.isError()) {
       error = true
       console.log(`Error with media query '${mediaQuery.rawQuery}': ${mediaQuery.error}`)
+    }
+  })
+  pseudoClasses.forEach( (pseudoClass) => {
+    if (pseudoClass.isError()) {
+      error = true
+      console.log(`Error with pseudo class '${pseudoClass.rule}': ${pseudoClass.error}`)
     }
   })
   if (error) {
@@ -26,6 +36,7 @@ const generateCSS = ({input,output,mediaQueryConfig}) => {
       postcssImport(),
       mergeRootCustomPropertiesPlugin(),
       addMediaQueriesPlugin(mediaQueries),
+      addPseudoClassesPlugin(pseudoClasses),
     ]
   ).process(
     inputCSS, { from: input.filename }

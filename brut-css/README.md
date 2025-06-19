@@ -89,21 +89,36 @@ app in a more traditional way:
 ### Pseudo Class config
 
 Pseudo-classes, such as `:hover` can be useful in some situations, so having a utility for them is
-possible.  In BrutCSS, pseudo-classes a prefixes, so `hover-blue-300` would apply `blue-300` only on
+possible.  In BrutCSS, pseudo-classes are prefixes, so `hover-blue-300` would apply `blue-300` only on
 hover.
 
-Because many pseudo classes aren't relevant or commonly-used for all styles, Your pseudo-class
-configuration must opt into classes based on the files used in Brut's `src/css/*.css` structure.
+Because many pseudo classes aren't relevant or commonly-used for all situations, you will only want pseudo classes on some
+elements.
 
-This configuration file uses the proprietary `@`-rule, `@brut-pseudo` which accepts two arguments: the
-the pseudo class and the prefix to use.  It accepts a block that contains one or more `@brut-pseudo-file`
-`@`-rules that themselves take on argument: the file on which the styles will apply.
+BrutCSS allows you to specify the elements in three ways:
 
-For example, this will set up a hover pseudo-class for colors:
+* Specify the exact class, e.g. `bg-white`
+* Specify a prefix for all classes with that prefix, e.g. `bg-`
+* The special keyword `color`, which targets the classes that set `color:`
+
+This configuration file uses the proprietary `@`-rule, `@brut-pseudo` which accepts two required arguments and one optional:
+
+1. The pseudo class to target (without the `:`), e.g. `hover`
+2. The prefix to use, e.g. `hov`
+3. [For hover only] true if the hover styles should be wrapped in `@media(hover: hover) { ... }`. Default is false.
+
+The class then accepts a block that contains other proprietary `@`-rules:
+
+* `@brut-class(«class name»)`
+* `@brut-classes-with-prefix(«prefix»)`
+* `@brut-colors`
+
+For example, this will set up a hover pseudo-class for foreground and background colors:
 
 ```css
 @brut-pseudo(hover hov) {
-  @brut-pseudo-file(colors.css);
+  @brut-classes-with-prefix(bg-)
+  @brut-colors
 }
 ```
 
@@ -115,25 +130,12 @@ hov-red-400:hover {
 }
 ```
 
-The `@brut-pseudo` can be surrounded by a media query that will be carried through to the defined styles.
-For example, if you don't want hover states to be in effect for devices whose primary input method doesn't
-support them, you'd do this:
+You'd use this like so:
 
-```css
-@media (hover: hover) {
-  @brut-pseudo(hover hov) {
-    @brut-pseudo-file(colors.css);
-  }
-}
+```html
+<a href="#" class="blue-400 hov-red-400">Click Me</a>
 ```
 
-This would create css like so:
+By default, this link would be blue, but on hover it would be red.
 
-```css
-@media (hover: hover) {
-  hov-red-400:hover {
-    color: var(--red-400);
-  }
-  /* And all other hov-prefixes CSS */
-}
-```
+

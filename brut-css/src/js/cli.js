@@ -1,11 +1,13 @@
-import { parseArgs }        from "node:util"
-import InputFile            from "./cli-args/InputFile.js"
-import MediaQueryConfigFile from "./cli-args/MediaQueryConfigFile.js"
-import OutputFile           from "./cli-args/OutputFile.js"
+import { parseArgs }         from "node:util"
+import InputFile             from "./cli/InputFile.js"
+import MediaQueryConfigFile  from "./cli/MediaQueryConfigFile.js"
+import PseudoClassConfigFile from "./cli/PseudoClassConfigFile.js"
+import OutputFile            from "./cli/OutputFile.js"
 
 const cliArgs = [
   InputFile,
   MediaQueryConfigFile,
+  PseudoClassConfigFile,
   OutputFile,
 ]
 

@@ -1,0 +1,15 @@
+/* Not-small screens, essentially anything that is likely not a mobile device.
+ * @suffix ns
+ */
+@media screen and (min-width: 30em) {
+}
+/* Medium-sized screens.
+ * @suffix m
+ */
+@media screen and (min-width: 30em) and (max-width: 60em) {
+}
+/* Large screens.
+ * @suffix l
+ */
+@media screen and (min-width: 60em) {
+}
