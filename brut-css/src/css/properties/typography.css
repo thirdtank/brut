@@ -1,0 +1,224 @@
+/* Typography.  These properties control fonts, font sizes, spacing, and other text-related values.
+ *
+ * @category typography
+ */
+/*
+ * The modular scale of fonts.  This is a ten-step scale with 0 being the smallest font, 2 being the body font, and 9
+ * being the largest.  These values should be enough for any text need.
+ *
+ * @scale font-size
+ */
+
+/* The smallest size in the scale. This is intended for rare uses where you need text, but it's readability is
+ * not paramount.
+ */
+@property --fs-0 {
+  syntax: "<length>";
+  inherits: true;
+  initial-value: 0.675rem;
+}
+/** The second smallest size in the scale. This should be used frequently when smaller-than-body text is needed.
+ * This size should be readonable by most people on most screens, assuming proper contrast ratios
+ */
+@property --fs-1 {
+  syntax: "<length>";
+  inherits: true;
+  initial-value: 0.875rem;
+}
+
+/** The standard body font size.  Any normal text should be set in this and it should always be
+ * `1rem` so that it matches the browsers font size.
+ */
+@property --fs-2 {
+  syntax: "<length>";
+  inherits: true;
+  initial-value: 1rem;
+}
+
+/** The third step in the font size scale, slightly bigger than the body font. */
+@property --fs-3 {
+  syntax: "<length>";
+  inherits: true;
+  initial-value: 1.25rem;
+}
+/** The fourth step in the font size scale, two steps larger than the body font. */
+@property --fs-4 {
+  syntax: "<length>";
+  inherits: true;
+  initial-value: 1.5rem;
+}
+/** The fifth step in the font size scale, three steps larger than the body font. */
+@property --fs-5 {
+  syntax: "<length>";
+  inherits: true;
+  initial-value: 2.25rem;
+}
+/** The sixth step in the font size scale, four steps larger than the body font. */
+@property --fs-6 {
+  syntax: "<length>";
+  inherits: true;
+  initial-value: 3rem;
+}
+/** The seventh step in the font size scale, five steps larger than the body font. */
+@property --fs-7 {
+  syntax: "<length>";
+  inherits: true;
+  initial-value: 4.25rem;
+}
+/** The eighth step in the font size scale, six steps larger than the body font. */
+@property --fs-8 {
+  syntax: "<length>";
+  inherits: true;
+  initial-value: 5rem;
+}
+/** The largest font in the scale. */
+@property --fs-9 {
+  syntax: "<length>";
+  inherits: true;
+  initial-value: 6rem;
+}
+
+/* Font faces.  You will likely want to customize these. If you are using non-system fonts, you'll need
+ * to make sure to set up `@font-face` rules in your CSS.  If you need to use different fonts
+ * at different weights, you should be able to achievec this with multiple `@font-face` rules that use
+ * the same `font-family`, but different `font-weight` values.
+ *
+ * @group font-faces
+ */
+
+/* Sans-serif font stack, based on "Geometric Humanist" from [Modern Font Stacks](https://modernfontstacks.com/) */
+@property --ff-sans {
+  syntax: "<string>#";
+  inherits: true;
+  initial-value: Avenir, Montserrat, Corbel, 'URW Gothic', source-sans-pro, sans-serif;
+}
+/* Serif font stack, based on "Transitional" from [Modern Font Stacks](https://modernfontstacks.com/) */
+@property --ff-serif {
+  syntax: "<string>#";
+  inherits: true;
+  initial-value: Charter, 'Bitstream Charter', 'Sitka Text', Cambria, serif;
+}
+/* Monospaced font stack, based on "Monospace Slab Serif" from [Modern Font Stacks](https://modernfontstacks.com/) */
+@property --ff-mono {
+  syntax: "<string>#";
+  inherits: true;
+  initial-value: 'Nimbus Mono PS', 'Courier New', monospace;
+}
+/* Cursive font stack, based on "Handwritten" from [Modern Font Stacks](https://modernfontstacks.com/) */
+@property --ff-cursive {
+  syntax: "<string>#";
+  inherits: true;
+  initial-value: 'Segoe Print', 'Bradley Hand', Chilanka, TSCu_Comic, casual, cursive;
+}
+/* Fantasy font stack */
+@property --ff-fantasy {
+  syntax: "<string>#";
+  inherits: true;
+  initial-value: 'Party Let', fantasy;
+}
+
+/* Indents.  The are three indent levels, which should be sufficient for most needs. 1 is the least amount of indent
+ * and three is the most.
+ *
+ * @scale indent
+ */
+/* Smallest indent of the scale */
+@property --indent-1 {
+  syntax: "<length>";
+  inherits: true;
+  initial-value: 1em;
+}
+/* Middle indent of the scale */
+@property --indent-2 {
+  syntax: "<length>";
+  inherits: true;
+  initial-value: 1.5em;
+}
+/* Largest indent of the scale */
+@property --indent-3 {
+  syntax: "<length>";
+  inherits: true;
+  initial-value: 2em;
+}
+
+/** Text width.  This is not a numeric scale, but rather a semantic one. There is a standard width
+ * for text, then a wider one and a narrow one. That will suffice for most needs.
+ *
+ * @scale text-width
+ */
+/* A text width suitable for any copy that a person is going to read. */
+@property --tw {
+  syntax: "<length>";
+  inherits: true;
+  initial-value: 60ch;
+}
+/* A text width that is still readable, but slightly wider. */
+@property --tw-wide {
+  syntax: "<length>";
+  inherits: true;
+  initial-value: 75ch;
+}
+/* A text width that is still readable, but slightly narrower. */
+@property --tw-narrow {
+  syntax: "<length>";
+  inherits: true;
+  initial-value: 50ch;
+}
+
+/** Letter spacing values.  These are not in a numeric scale, but rather a semantic
+ * one.  You likely don't need a lot of possible values, so these four should be sufficient for most needs.
+ *
+ * @scale letter-spacing 
+ */
+
+/** A slightly more spread out letter spacing, perhaps to make all-caps more readable. */
+@property --ls-tracked {
+  syntax: "<length> | normal";
+  inherits: true;
+  initial-value: 0.1em;
+}
+/** A slightly tight letter spacing */
+@property --ls-tight {
+  syntax: "<length> | normal";
+  inherits: true;
+  initial-value: -0.05em;
+}
+/** A pronounced wide letter spacing */
+@property --ls-mega {
+  syntax: "<length> | normal";
+  inherits: true;
+  initial-value: 0.25em;
+}
+/** Normal/default letter spacing. */
+@property --ls-none {
+  syntax: "<length> | normal";
+  inherits: true;
+  initial-value: normal;
+}
+
+/** Line height/leading values.  These are not in a numeric scale, but rather a semantic
+ * one. There is a value for copy, one for titles, and one for solid text blocks.  These should suffice for most situations.
+ *
+ * @scale line-height
+ */
+
+/** Line height used for solid/compact text */
+@property --lh-solid {
+  syntax: "<length>|<number>|<percentage>|normal";
+  inherits: true;
+  initial-value: 1;
+}
+
+/** Line height used for titles */
+@property --lh-title {
+  syntax: "<length>|<number>|<percentage>|normal";
+  inherits: true;
+  initial-value: 1.25;
+}
+
+/** Line height used for copy */
+@property --lh-copy {
+  syntax: "<length>|<number>|<percentage>|normal";
+  inherits: true;
+  initial-value: 1.5;
+}

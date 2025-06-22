@@ -5,6 +5,11 @@
  *
  * Namely, anything that appeared to be a design choice, or that didn't seem to actually apply
  * to baesline browsers any longer.
+ * @category reset
+ */
+
+/* Reset styles aren't classes to be used. Comments here explain why these are the way they are.
+ * @group reset
  */
 
 /* `border-box` is generally agreed to be a better default box model. */
@@ -27,19 +32,19 @@ body {
 }
 
 
-/** Safari and Chrome do not use the ideal font weight for `b` or `strong` elements. */
+/* Safari and Chrome do not use the ideal font weight for `b` or `strong` elements. */
 b, strong {
 	font-weight: bolder;
 }
 
-/** Browsers can show a smaller font size for code, pre, etc., which is not usually desired.  This
+/* Browsers can show a smaller font size for code, pre, etc., which is not usually desired.  This
  * tries to make the font size of these elements match the surrounding font size. */
 code, kbd, samp, pre {
   font-size: 1em;
 }
 
 
-/** Attempt to prevent `sub` and `sup` from affect the line-height in browsers. */
+/* Attempt to prevent `sub` and `sup` from affect the line-height in browsers. */
 sub,
 sup {
 	font-size: 75%;
@@ -89,7 +94,7 @@ legend {
 }
 
 
-/** Chrome and Firefox can use the wrong alignment at times. This attempts to fix that. */
+/* Chrome and Firefox can use the wrong alignment at times. This attempts to fix that. */
 progress {
 	vertical-align: baseline;
 }

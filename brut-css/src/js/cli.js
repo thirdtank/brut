@@ -18,8 +18,13 @@ const showHelp = () => {
   console.log()
   console.log("OPTIONS")
   console.log()
+  let maxFieldLength = 0
   cliArgs.forEach( (argClass) => {
-    console.log("  -%s/%s - %s",argClass.shortField,`--${argClass.field}`.padEnd(18),argClass.description)
+    maxFieldLength = Math.max(maxFieldLength,argClass.longField.length)
+  })
+
+  cliArgs.forEach( (argClass) => {
+    console.log("  -%s/%s - %s",argClass.shortField,`--${argClass.longField}`.padEnd(maxFieldLength + 2),argClass.description)
     if (argClass.isArray()) {
       console.log("                          [use multiple times for mulitple values]")
     }

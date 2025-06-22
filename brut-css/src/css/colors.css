@@ -1,3 +1,13 @@
+/* Color palette classes.  This classes provide six colors and gray, in 9 shades each.  There are also
+ * two blacks and two whites.  Each color scale ranges from 100 being the darkest and 900 being the brightest.  These
+ * extremes should be quite pale and close to black and white, respectively.
+ *
+ * @category color
+ */
+
+/* Red foreground.
+ * @scale red
+ */
 .red-100 {
   color: var(--red-100);
 }
@@ -25,6 +35,9 @@
 .red-900 {
   color: var(--red-900);
 }
+/* Red background.
+ * @scale bg-red
+ */
 .bg-red-100 {
   background-color: var(--red-100);
 }
@@ -52,6 +65,9 @@
 .bg-red-900 {
   background-color: var(--red-900);
 }
+/* Red borders.
+ * @scale bc-red
+ */
 .bc-red-100 {
   border-color: var(--red-100);
 }
@@ -79,6 +95,9 @@
 .bc-red-900 {
   border-color: var(--red-900);
 }
+/* Orange foreground.
+ * @scale orange
+ */
 .orange-100 {
   color: var(--orange-100);
 }
@@ -106,6 +125,9 @@
 .orange-900 {
   color: var(--orange-900);
 }
+/* Orange background.
+ * @scale bg-orange
+ */
 .bg-orange-100 {
   background-color: var(--orange-100);
 }
@@ -133,6 +155,9 @@
 .bg-orange-900 {
   background-color: var(--orange-900);
 }
+/* Orange borders.
+ * @scale bc-orange
+ */
 .bc-orange-100 {
   border-color: var(--orange-100);
 }
@@ -160,6 +185,9 @@
 .bc-orange-900 {
   border-color: var(--orange-900);
 }
+/* Yellow foreground.
+ * @scale yellow
+ */
 .yellow-100 {
   color: var(--yellow-100);
 }
@@ -187,6 +215,9 @@
 .yellow-900 {
   color: var(--yellow-900);
 }
+/* Yellow background.
+ * @scale bg-yellow
+ */
 .bg-yellow-100 {
   background-color: var(--yellow-100);
 }
@@ -214,6 +245,9 @@
 .bg-yellow-900 {
   background-color: var(--yellow-900);
 }
+/* Yellow borders.
+ * @scale bc-yellow
+ */
 .bc-yellow-100 {
   border-color: var(--yellow-100);
 }
@@ -241,6 +275,9 @@
 .bc-yellow-900 {
   border-color: var(--yellow-900);
 }
+/* Green foreground.
+ * @scale green
+ */
 .green-100 {
   color: var(--green-100);
 }
@@ -268,6 +305,9 @@
 .green-900 {
   color: var(--green-900);
 }
+/* Green background.
+ * @scale bg-green
+ */
 .bg-green-100 {
   background-color: var(--green-100);
 }
@@ -295,6 +335,9 @@
 .bg-green-900 {
   background-color: var(--green-900);
 }
+/* Green borders.
+ * @scale bc-green
+ */
 .bc-green-100 {
   border-color: var(--green-100);
 }
@@ -322,6 +365,9 @@
 .bc-green-900 {
   border-color: var(--green-900);
 }
+/* Blue foreground.
+ * @scale blue
+ */
 .blue-100 {
   color: var(--blue-100);
 }
@@ -349,6 +395,9 @@
 .blue-900 {
   color: var(--blue-900);
 }
+/* Blue background.
+ * @scale bg-blue
+ */
 .bg-blue-100 {
   background-color: var(--blue-100);
 }
@@ -376,6 +425,9 @@
 .bg-blue-900 {
   background-color: var(--blue-900);
 }
+/* Blue borders.
+ * @scale bc-blue
+ */
 .bc-blue-100 {
   border-color: var(--blue-100);
 }
@@ -403,6 +455,9 @@
 .bc-blue-900 {
   border-color: var(--blue-900);
 }
+/* Purple foreground.
+ * @scale purple
+ */
 .purple-100 {
   color: var(--purple-100);
 }
@@ -430,6 +485,9 @@
 .purple-900 {
   color: var(--purple-900);
 }
+/* Purple background.
+ * @scale bg-purple
+ */
 .bg-purple-100 {
   background-color: var(--purple-100);
 }
@@ -457,6 +515,9 @@
 .bg-purple-900 {
   background-color: var(--purple-900);
 }
+/* Purple borders.
+ * @scale bc-purple
+ */
 .bc-purple-100 {
   border-color: var(--purple-100);
 }
@@ -484,6 +545,9 @@
 .bc-purple-900 {
   border-color: var(--purple-900);
 }
+/* Gray foreground.
+ * @scale gray
+ */
 .gray-100 {
   color: var(--gray-100);
 }
@@ -511,6 +575,9 @@
 .gray-900 {
   color: var(--gray-900);
 }
+/* Gray background.
+ * @scale bg-gray
+ */
 .bg-gray-100 {
   background-color: var(--gray-100);
 }
@@ -538,6 +605,9 @@
 .bg-gray-900 {
   background-color: var(--gray-900);
 }
+/* Gray borders.
+ * @scale bc-gray
+ */
 .bc-gray-100 {
   border-color: var(--gray-100);
 }
@@ -565,6 +635,10 @@
 .bc-gray-900 {
   border-color: var(--gray-900);
 }
+
+/* Black and Whites
+ * @group black-and-white
+ */
 .black {
   color: var(--black);
 }

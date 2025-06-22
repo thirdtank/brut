@@ -1,0 +1,354 @@
+/* Positioning utilities.
+ * @category positioning
+ */
+
+/* Z-index.  This is a six-step scale with 9999 and auto added.  Please note that `z-index` may  not do what you want
+ * if you don't understand stacking contexts.
+ *
+ * @see Stacking Context https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_positioned_layout/Stacking_context.html
+ * @scale z-index
+ */
+.z-0 {
+  z-index: 0;
+}
+.z-1 {
+  z-index: 1;
+}
+.z-2 {
+  z-index: 2;
+}
+.z-3 {
+  z-index: 3;
+}
+.z-4 {
+  z-index: 4;
+}
+.z-5 {
+  z-index: 5;
+}
+.z-9999 {
+  z-index: 9999;
+}
+.z-auto {
+  z-index: auto;
+}
+
+/* Vertical alignment. Please be aware that `vertical-align` only applies to inline, inline-block, and table-cell elements.
+ * As such, confidently vertically aligning things remains a just out of reach for the human race.
+ * @group vertical-align
+ */
+.va-baseline {
+  vertical-align: baseline;
+}
+.va-middle {
+  vertical-align: middle;
+}
+.va-top {
+  vertical-align: top;
+}
+.va-bottom {
+  vertical-align: bottom;
+}
+
+/* Positions
+ * @group position
+ */
+.pos-static {
+  position: static;
+}
+.pos-relative {
+  position: relative;
+}
+.pos-absolute {
+  position: absolute;
+}
+.pos-fixed {
+  position: fixed;
+}
+.pos-sticky {
+  position: sticky;
+}
+
+/* Top/Left/Right/Bottom.  These are 17-step scales from -8 to positive 8, based on the {property-scale:spacing} scale properties. 
+ *
+ * @scale top-left-right-bottom
+ */
+.top-0 {
+  top: 0;
+}
+.top-1 {
+  top: var(--sp-1);
+}
+.top-2 {
+  top: var(--sp-2);
+}
+.top-3 {
+  top: var(--sp-3);
+}
+.top-4 {
+  top: var(--sp-4);
+}
+.top-5 {
+  top: var(--sp-5);
+}
+.top-6 {
+  top: var(--sp-6);
+}
+.top-7 {
+  top: var(--sp-7);
+}
+.top-8 {
+  top: var(--sp-8);
+}
+.top--1 {
+  top: calc( -1 * var(--sp-1));
+}
+.top--2 {
+  top: calc( -1 * var(--sp-2));
+}
+.top--3 {
+  top: calc( -1 * var(--sp-3));
+}
+.top--4 {
+  top: calc( -1 * var(--sp-4));
+}
+.top--5 {
+  top: calc( -1 * var(--sp-5));
+}
+.top--6 {
+  top: calc( -1 * var(--sp-6));
+}
+.top--7 {
+  top: calc( -1 * var(--sp-7));
+}
+.top--8 {
+  top: calc( -1 * var(--sp-8));
+}
+.left-0 {
+  left: 0;
+}
+.left-1 {
+  left: var(--sp-1);
+}
+.left-2 {
+  left: var(--sp-2);
+}
+.left-3 {
+  left: var(--sp-3);
+}
+.left-4 {
+  left: var(--sp-4);
+}
+.left-5 {
+  left: var(--sp-5);
+}
+.left-6 {
+  left: var(--sp-6);
+}
+.left-7 {
+  left: var(--sp-7);
+}
+.left-8 {
+  left: var(--sp-8);
+}
+.left--1 {
+  left: calc( -1 * var(--sp-1));
+}
+.left--2 {
+  left: calc( -1 * var(--sp-2));
+}
+.left--3 {
+  left: calc( -1 * var(--sp-3));
+}
+.left--4 {
+  left: calc( -1 * var(--sp-4));
+}
+.left--5 {
+  left: calc( -1 * var(--sp-5));
+}
+.left--6 {
+  left: calc( -1 * var(--sp-6));
+}
+.left--7 {
+  left: calc( -1 * var(--sp-7));
+}
+.left--8 {
+  left: calc( -1 * var(--sp-8));
+}
+.right-0 {
+  right: 0;
+}
+.right-1 {
+  right: var(--sp-1);
+}
+.right-2 {
+  right: var(--sp-2);
+}
+.right-3 {
+  right: var(--sp-3);
+}
+.right-4 {
+  right: var(--sp-4);
+}
+.right-5 {
+  right: var(--sp-5);
+}
+.right-6 {
+  right: var(--sp-6);
+}
+.right-7 {
+  right: var(--sp-7);
+}
+.right-8 {
+  right: var(--sp-8);
+}
+.right--1 {
+  right: calc( -1 * var(--sp-1));
+}
+.right--2 {
+  right: calc( -1 * var(--sp-2));
+}
+.right--3 {
+  right: calc( -1 * var(--sp-3));
+}
+.right--4 {
+  right: calc( -1 * var(--sp-4));
+}
+.right--5 {
+  right: calc( -1 * var(--sp-5));
+}
+.right--6 {
+  right: calc( -1 * var(--sp-6));
+}
+.right--7 {
+  right: calc( -1 * var(--sp-7));
+}
+.right--8 {
+  right: calc( -1 * var(--sp-8));
+}
+.bottom-0 {
+  bottom: 0;
+}
+.bottom-1 {
+  bottom: var(--sp-1);
+}
+.bottom-2 {
+  bottom: var(--sp-2);
+}
+.bottom-3 {
+  bottom: var(--sp-3);
+}
+.bottom-4 {
+  bottom: var(--sp-4);
+}
+.bottom-5 {
+  bottom: var(--sp-5);
+}
+.bottom-6 {
+  bottom: var(--sp-6);
+}
+.bottom-7 {
+  bottom: var(--sp-7);
+}
+.bottom-8 {
+  bottom: var(--sp-8);
+}
+.bottom--1 {
+  bottom: calc( -1 * var(--sp-1));
+}
+.bottom--2 {
+  bottom: calc( -1 * var(--sp-2));
+}
+.bottom--3 {
+  bottom: calc( -1 * var(--sp-3));
+}
+.bottom--4 {
+  bottom: calc( -1 * var(--sp-4));
+}
+.bottom--5 {
+  bottom: calc( -1 * var(--sp-5));
+}
+.bottom--6 {
+  bottom: calc( -1 * var(--sp-6));
+}
+.bottom--7 {
+  bottom: calc( -1 * var(--sp-7));
+}
+.bottom--8 {
+  bottom: calc( -1 * var(--sp-8));
+}
+
+/* Floats: they still exist!
+ *
+ * @group floats
+ */
+.f-l {
+  float: left;
+}
+.f-r {
+  float: right;
+}
+.f-n {
+  float: none;
+}
+
+/* Background positions
+ * @group background-position
+ */
+.bgp-t {
+  background-position: top;
+}
+.bgp-b {
+  background-position: bottom;
+}
+.bgp-l {
+  background-position: left;
+}
+.bgp-r {
+  background-position: right;
+}
+.bgp-c {
+  background-position: center;
+}
+.bgp-tr {
+  background-position: top right;
+}
+.bgp-tl {
+  background-position: top left;
+}
+.bgp-br {
+  background-position: bottom right;
+}
+.bgp-bl {
+  background-position: bottom left;
+}
+.bgp-cr {
+  background-position: center right;
+}
+.bgp-cl {
+  background-position: center left;
+}
+.bgp-ct {
+  background-position: center top;
+}
+.bgp-cb {
+  background-position: center bottom;
+}
+.bgr {
+  background-repeat: repeat;
+}
+.bgr-x {
+  background-repeat: repeat-x;
+}
+.bgr-y {
+  background-repeat: repeat-y;
+}
+.bgr-s {
+  background-repeat: space;
+}
+.bgr-r {
+  background-repeat: round;
+}
+.bg-none {
+  background-repeat: no-repeat;
+}

@@ -28,7 +28,7 @@ class PseudoClass {
   }
 
   #exactlyOneDot(selector) {
-    return selector.startsWith(".") && (selector.lastIndexOf(".") == 0)
+    return selector.startsWith(".") && (selector.lastIndexOf(".") == 0) && selector.indexOf(" ") == -1
   }
 }
 class ParseError {

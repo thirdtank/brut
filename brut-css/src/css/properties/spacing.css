@@ -1,29 +1,140 @@
-:root {
---sp-1: 0.25rem;
---sp-2: 0.5rem;
---sp-3: 1rem;
---sp-4: 2rem;
---sp-5: 4rem;
---sp-6: 8rem;
---sp-7: 12rem;
---sp-8: 16rem;
+/* 
+ * Spacing properties.  These are used as the basis of widths, heights, margins, paddings, etc.
+ * There are eight steps in the scale, 1 being the smallest, and 8 being the largest.  They should
+ * provide an adequate number of possible values for spacings such that you can quickly audit them
+ * to figure out what you need.
+ *
+ * Spacings are based on rems, so that they are consistent across the entire document.
+ *
+ * @category spacing
+ */
 
-/* Negative values for spacing */
---sp--1: calc(-1 * var(--sp-1));
---sp--2: calc(-1 * var(--sp-2));
---sp--3: calc(-1 * var(--sp-3));
---sp--4: calc(-1 * var(--sp-4));
---sp--5: calc(-1 * var(--sp-5));
---sp--6: calc(-1 * var(--sp-6));
---sp--7: calc(-1 * var(--sp-7));
---sp--8: calc(-1 * var(--sp-8));
+/*
+ * Basic spaces used for margins and paddings.
+ *
+ * @scale spacing
+ */
+@property --sp-1 {
+  syntax: "<length>";
+  inherits: true;
+  initial-value: 0.25rem;
+}
+@property --sp-2 {
+  syntax: "<length>";
+  inherits: true;
+  initial-value: 0.5rem;
+}
+@property --sp-3 {
+  syntax: "<length>";
+  inherits: true;
+  initial-value: 1rem;
+}
+@property --sp-4 {
+  syntax: "<length>";
+  inherits: true;
+  initial-value: 2rem;
+}
+@property --sp-5 {
+  syntax: "<length>";
+  inherits: true;
+  initial-value: 4rem;
+}
+@property --sp-6 {
+  syntax: "<length>";
+  inherits: true;
+  initial-value: 8rem;
+}
+@property --sp-7 {
+  syntax: "<length>";
+  inherits: true;
+  initial-value: 12rem;
+}
+@property --sp-8 {
+  syntax: "<length>";
+  inherits: true;
+  initial-value: 16rem;
+}
 
---sp2x-1: calc(2 * var(--sp-1));
---sp2x-2: calc(2 * var(--sp-2));
---sp2x-3: calc(2 * var(--sp-3));
---sp2x-4: calc(2 * var(--sp-4));
---sp2x-5: calc(2 * var(--sp-5));
---sp2x-6: calc(2 * var(--sp-6));
---sp2x-7: calc(2 * var(--sp-7));
---sp2x-8: calc(2 * var(--sp-8));
+/* Spacing for widths and heights.  Generally, widths and heights need more pronounced options
+ * than margins and paddings.  Thus, the fourth step of the width scale is much larger than the fourth
+ * step of the spacing scale.  The values here are double their respective spacing values.
+ *
+ * @scale widths-heights
+ */
+@property --wh-1 {
+  syntax: "<length>";
+  inherits: true;
+  initial-value: 0.5rem;
+}
+@property --wh-2 {
+  syntax: "<length>";
+  inherits: true;
+  initial-value: 1rem;
+}
+@property --wh-3 {
+  syntax: "<length>";
+  inherits: true;
+  initial-value: 2rem;
+}
+@property --wh-4 {
+  syntax: "<length>";
+  inherits: true;
+  initial-value: 4rem;
+}
+@property --wh-5 {
+  syntax: "<length>";
+  inherits: true;
+  initial-value: 8rem;
+}
+@property --wh-6 {
+  syntax: "<length>";
+  inherits: true;
+  initial-value: 16rem;
+}
+@property --wh-7 {
+  syntax: "<length>";
+  inherits: true;
+  initial-value: 24rem;
+}
+@property --wh-8 {
+  syntax: "<length>";
+  inherits: true;
+  initial-value: 32rem;
+}
+/*
+ * Border widths.  This is a five-step scale, with 1 being the smallest and 5 being the largest.  
+ * These should provide adequate options for borders.  These don't use the
+ * {group:spacing} scales mostly for aesthetic reasons.
+ *
+ * @scale border-widths
+ */
+/** Smallest border width */
+@property --bw-1 {
+  syntax: "<length>";
+  inherits: true;
+  initial-value: 0.125rem;
+}
+/** Second smallest border width */
+@property --bw-2 {
+  syntax: "<length>";
+  inherits: true;
+  initial-value: 0.25rem;
+}
+/** Middle border width */
+@property --bw-3 {
+  syntax: "<length>";
+  inherits: true;
+  initial-value: 0.5rem;
+}
+/** Second largest border width */
+@property --bw-4 {
+  syntax: "<length>";
+  inherits: true;
+  initial-value: 1rem;
+}
+/** Largest border width */
+@property --bw-5 {
+  syntax: "<length>";
+  inherits: true;
+  initial-value: 2rem;
 }

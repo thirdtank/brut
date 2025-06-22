@@ -1,0 +1,473 @@
+/* Typography classes.  These allow you to control how text is displayed and rendered.  In particular, 
+ * this contains the modular scale of font sizes, but also contains many other text rendering options.
+ *
+ * @category typography
+ */
+
+/* Font families for sans, serif, monospace, cursive, and fantasy.  The idea is that your design would not have more than one
+ * font of each type, so you'd set  custom properties with the fonts you like, then use e.g. `.ff-sans` anywhere you wanted
+ * Sans Serif and `ff-serif` anywhere you wanted yourt Serif font.
+ *
+ * @group font-family
+ */
+
+/** Set the contents in the chosen sans-serif font 
+ * @example Typical
+ *    <p class="ff-sans">Things should be what they are</p>
+ */
+.ff-sans {
+  font-family: var(--ff-sans);
+}
+/** Set the contents in the chosen sans-serif font 
+ * @example
+ *    <p class="ff-serif">Things should be what they are</p>
+ */
+.ff-serif {
+  font-family: var(--ff-serif);
+}
+/** Set the contents in the chosen monospace font 
+ * @example
+ *    <p class="ff-mono">Things should be what they are</p>
+ */
+.ff-mono {
+  font-family: var(--ff-mono);
+}
+/** Set the contents in the chosen cursive/handwriting font 
+ * @example
+ *    <p class="ff-cursive">Things should be what they are</p>
+ */
+.ff-cursive {
+  font-family: var(--ff-cursive);
+}
+/** Set the contents in the chosen fantasy font 
+ * @example
+ *    <p class="ff-fantasy">Things should be what they are</p>
+ */
+.ff-fantasy {
+  font-family: var(--ff-fantasy);
+}
+
+/* The modular scale of font sizes.  This provides 10 total steps, which should give you enough font sizes for any needed.
+ * 0 is the smallest and 9 is the largest.
+ *
+ * @scale font-size
+ */
+
+/* The smallest font. Note that this is likely very small and not legible in all situations. It's here in case you really
+ * need something quite tiny, but try to use {f-1} if you can.
+ *
+ * @example
+ *     <p class="f-0">Things should be what they are</p>
+ */
+.f-0 {
+  font-size: var(--fs-0);
+}
+/** The second smallest font, which you should use general when you need something smaller than the body font.
+ *
+ * @example
+ *    <p class="f-1">Things should be what they are</p>
+ */
+.f-1 {
+  font-size: var(--fs-1);
+}
+/** The body font size, appropriate for all general text.  By default, this should be `1rem`, which will match the user
+ * agent's configured font size
+ *
+ * @example
+ *    <p class="f-2">Things should be what they are</p>
+ */
+.f-2 {
+  font-size: var(--fs-2);
+}
+/** Third step of the scale, one steps larger than the body font.
+ * @example
+ *     <p class="f-3">Things should be what they are</p>
+ */
+.f-3 {
+  font-size: var(--fs-3);
+}
+/** Fourth step of the scale, two steps larger than the body font.
+ * @example
+ *     <p class="f-4">Things should be what they are</p>
+ */
+.f-4 {
+  font-size: var(--fs-4);
+}
+/** Fifth step of the scale, three steps larger than the body font.
+ * @example
+ *     <p class="f-5">Things should be what they are</p>
+ */
+.f-5 {
+  font-size: var(--fs-5);
+}
+/** Sixth step of the scale, four steps larger than the body font.
+ * @example
+ *     <p class="f-6">Things should be what they are</p>
+ */
+.f-6 {
+  font-size: var(--fs-6);
+}
+/** Seventh step of the scale, five steps larger than the body font.
+ * @example
+ *     <p class="f-7">Things should be what they are</p>
+ */
+.f-7 {
+  font-size: var(--fs-7);
+}
+/** Eighth step of the scale, six steps larger than the body font.
+ * @example
+ *     <p class="f-8">Things should be what they are</p>
+ */
+.f-8 {
+  font-size: var(--fs-8);
+}
+/** Largest size font 
+ * @example
+ *     <p class="f-9">Things should be what they are</p>
+ */
+.f-9 {
+  font-size: var(--fs-9);
+}
+
+/* Font Weights.  These go from 1 to 9, representing 100's, along with a normal class to undo any font weight.
+ * Note that, depending on your font, not every weight will look distinct.
+ *
+ * @scale font-weights
+ */
+
+/* Normal font weight.
+ * @example
+ *     <p class="fw-normal">Things should be what they are</p>
+ */
+.fw-normal {
+  font-weight: normal;
+}
+/* Bold font weight.
+ * @example
+ *     <p class="fw-bold">Things should be what they are</p>
+ */
+.fw-bold {
+  font-weight: bold;
+}
+
+/* Shorthand for a bold font.
+ * @example
+ *     <p class="b">Things should be what they are</p>
+ */
+.b {
+  font-weight: bold;
+}
+/* Lightest font weight.
+ * @example
+ *     <p class="fw-1">Things should be what they are</p>
+ */
+.fw-1 {
+  font-weight: 100;
+}
+/*
+ * @example
+ *     <p class="fw-2">Things should be what they are</p>
+ */
+.fw-2 {
+  font-weight: 200;
+}
+/*
+ * @example
+ *     <p class="fw-3">Things should be what they are</p>
+ */
+.fw-3 {
+  font-weight: 300;
+}
+/*
+ * @example
+ *     <p class="fw-4">Things should be what they are</p>
+ */
+.fw-4 {
+  font-weight: 400;
+}
+/*
+ * @example
+ *     <p class="fw-5">Things should be what they are</p>
+ */
+.fw-5 {
+  font-weight: 500;
+}
+/*
+ * @example
+ *     <p class="fw-6">Things should be what they are</p>
+ */
+.fw-6 {
+  font-weight: 600;
+}
+/*
+ * @example
+ *     <p class="fw-7">Things should be what they are</p>
+ */
+.fw-7 {
+  font-weight: 700;
+}
+/*
+ * @example
+ *     <p class="fw-8">Things should be what they are</p>
+ */
+.fw-8 {
+  font-weight: 800;
+}
+/* Heaviest font weight.
+ * @example
+ *     <p class="fw-9">Things should be what they are</p>
+ */
+.fw-9 {
+  font-weight: 900;
+}
+
+/* Font styles and variants.
+ *
+ * @group styles-variants
+ */
+
+/* Normal styling, typically roman.
+ * @example
+ *     <p class="fs-normal">Things should be what they are</p>
+ */
+.fs-normal {
+  font-style: normal;
+}
+
+/* Italic or slanted styling, depend on the font.
+ * @example
+ *     <p class="fs-italic">Things should be what they are</p>
+ */
+.fs-italic {
+  font-style: italic;
+}
+
+/* Shorthand for italic
+ * @example
+ *     <p class="i">Things should be what they are</p>
+ */
+.i {
+  font-style: italic;
+}
+
+/* Small caps variant
+ * @example
+ *     <p class="fv-sc">Things should be what they are</p>
+ */
+.fv-sc {
+  font-variant: small-caps;
+}
+
+/* Shorthand for small-caps
+ * @example
+ *     <p class="sc">Things should be what they are</p>
+ */
+.sc {
+  font-variant: small-caps;
+}
+/* Normal variant
+ * @example
+ *     <p class="fv-normal">Things should be what they are</p>
+ */
+.fv-normal {
+  font-variant: normal;
+}
+
+
+/* Letterspacing/tracking.  This scale is semantic, since you likely don't need that many values
+ * to achnieve whatever design you are looking for.
+ *
+ * @group tracking
+ */
+
+/* Slightly increased spacing, useful for cleaning up all-caps titles.
+ * @example
+ *     <p class="tracked">Things should be what they are</p>
+ */
+.tracked {
+  letter-spacing: var(--ls-tracked);
+}
+/* Tight spacing.
+ * @example
+ *     <p class="tracked-tight">Things should be what they are</p>
+ */
+.tracked-tight {
+  letter-spacing: var(--ls-tight);
+}
+/* Significantly increased spacing, useful for special effects.
+ * @example
+ *     <p class="tracked-mega">Things should be what they are</p>
+ */
+.tracked-mega {
+  letter-spacing: var(--ls-mega);
+}
+
+/* Normal letter spacing.
+ * @example
+ *     <p class="tracked-none">Things should be what they are</p>
+ */
+.tracked-none {
+  letter-spacing: var(--ls-none);
+}
+
+
+
+
+/* Line heights/leading.  This is a semantic scale providing three useful values.
+ *
+ * @group leading
+ */
+/* No line height, for creating solid blocks of text.
+ * @example
+ *     <p class="lh-solid">Things should be what they are</p>
+ */
+.lh-solid {
+  line-height: var(--lh-solid);
+}
+
+/* Leading appropriate for titles, which can be somewhat tighter than normal text.
+ * @example
+ *     <p class="lh-title">Things should be what they are</p>
+ */
+.lh-title {
+  line-height: var(--lh-title);
+}
+
+/* Leading appropriate for copy or other longform text.
+ * @example
+ *     <p class="lh-copy">Things should be what they are</p>
+ * @see p
+ */
+.lh-copy {
+  line-height: var(--lh-copy);
+}
+
+
+/* Text alignment.
+ *
+ * @group text-align
+ */
+/* Right alignment
+ * @example
+ *     <p class="w-100 tr">Things should be what they are</p>
+ */
+.tr {
+  text-align: right;
+}
+/* Center-aligned text.
+ * @example
+ *     <p class="w-100 tc">Things should be what they are</p>
+ */
+.tc {
+  text-align: center;
+}
+/* Left-aligned text.
+ * @example
+ *     <p class="w-100 tl">Things should be what they are</p>
+ */
+.tl {
+  text-align: left;
+}
+
+
+/* Text transformations.
+ *
+ * @group text-transform
+ */
+.ttn {
+  text-transform: none;
+}
+.ttu {
+  text-transform: uppercase;
+}
+.ttl {
+  text-transform: lowercase;
+}
+.ttc {
+  text-transform: capitalize;
+}
+.tdn {
+  text-decoration: none;
+}
+.tdu, .u {
+  text-decoration: underline;
+}
+.tds {
+  text-decoration: line-through;
+}
+.tdo {
+  text-decoration: overline;
+}
+
+/* Text indents. This is a seven-step scale with -3 to positive 3.
+ * @scale indent
+ */
+.indent--3 {
+  text-indent: calc( -1 * var(--indent-3));
+}
+.indent--2 {
+  text-indent: calc( -1 * var(--indent-2));
+}
+.indent--1 {
+  text-indent: calc( -1 * var(--indent-1));
+}
+.indent-0 {
+  text-indent: 0;
+}
+.indent-1 {
+  text-indent: var(--indent-1);
+}
+.indent-2 {
+  text-indent: var(--indent-2);
+}
+.indent-3 {
+  text-indent: var(--indent-3);
+}
+
+/* Text overflow
+ *
+ * @group text-overflow
+ */
+.truncate {
+  text-overflow: ellipsis;
+}
+.clip {
+  text-overflow: clip;
+}
+
+
+/* Whitespace  
+ *
+ * @group whitespace
+ */
+.ws-normal {
+  white-space: normal;
+}
+.ws-nowrap {
+  white-space: nowrap;
+}
+.ws-pre {
+  white-space: pre;
+}
+
+/* Maximum widths useful for text blocks.
+ *
+ * @group measure
+ */
+
+/* A standard text width useful for any occassion. This should provide a comfortable reading experience for any font and
+ * size.
+ */
+.measure {
+  max-width: var(--tw);
+}
+
+/* A slighter wider, but still readable width */
+.measure-wide {
+  max-width: var(--tw-wide);
+}
+
+/* A slighter narrower, but still readable width */
+.measure-narrow {
+  max-width: var(--tw-narrow);
+}

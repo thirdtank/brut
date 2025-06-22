@@ -8,21 +8,24 @@ export default class InputFile extends ParsedArg {
   static shortField  = "i"
 
   static parse(values) {
-    const filename = values[this.field]
+    const filename = values[this.longField]
     if (filename) {
       if (fs.existsSync(filename)) {
-        return new InputFile(filename)
+        return new this(filename)
       }
       else {
-        return new CLIArgError(this.field,`File '${filename}' does not exist`)
+        return new CLIArgError(this.longField,`File '${filename}' does not exist`)
       }
     }
     else {
-      return new CLIArgError(this.field,"is required")
+      return this._handleNoValue()
     }
   }
   constructor(filename) {
     super()
     this.filename = filename
+  }
+  static _handleNoValue() {
+    return new CLIArgError(this.field,"is required")
   }
 }

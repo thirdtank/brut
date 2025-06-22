@@ -1,124 +1,455 @@
-:root {
-/* Color palette for Brut CSS */
 /*
- * Black
+ * Color palette.  Brut provides six colors plus gray at nine shades each.  There are also two shades each of black and
+ * white.  
  *
- * Blacks
- */
---black: #000000;
---black-ish: #131313;
-
-/*
- * Blue
+ * Colors are available as `--color-XXX` where `XXX` is a value from darkest to 900, with 100 being the darkest and lightest being the
+ * lightest.  As there are nine shades in each color's scale, that means the values are 100, 200, 300, 400, 500, 600,
+ * 700, 800, 900.
  *
- * Tints/Shades for blue
- */
---blue-100: #000E1C;
---blue-200: #00172F;
---blue-300: #002E5E;
---blue-400: #004E9E;
---blue-500: #0069d5;
---blue-600: #50A6FF;
---blue-700: #A9D3FF;
---blue-800: #E4F1FF;
---blue-900: #F9FCFF;
-
-/*
- * Gray
+ * For black and white, there is `--black` or `--white` which is designed to be pure black or white, respectively, and then
+ * `--black-ish` and `--white-ish`, which are designed to be a touch lighter or darker, respectively.
  *
- * Tints/Shades for gray
- */
---gray-100: #0F0F10;
---gray-200: #1A1A1B;
---gray-300: #333336;
---gray-400: #56565B;
---gray-500: #74747B;
---gray-600: #ADADB1;
---gray-700: #D7D7D9;
---gray-800: #F2F2F3;
---gray-900: #FCFCFC;
-
-/*
- * Green
+ * To use your own colors, the simplest thing to do is override these variables.  This works well if you are satisfied with
+ * six total colors plus gray and nine shades of each. If not, you will need to define new variables and then declare
+ * the requisite classes.  See {styles:colors} for an example.
  *
- * Tints/Shades for green
+ * @category colors
  */
---green-100: #071B0E;
---green-200: #0C2D17;
---green-300: #175A2E;
---green-400: #27984D;
---green-500: #37CB69;
---green-600: #89E0A6;
---green-700: #C5F0D4;
---green-800: #EDFAF2;
---green-900: #FBFEFC;
 
-/*
- * Orange
- *
- * Tints/Shades for orange
+/* Blues
+ * @scale blue 
  */
---orange-100: #1E0E00;
---orange-200: #331800;
---orange-300: #673000;
---orange-400: #AD5000;
---orange-500: #EA6C00;
---orange-600: #FFA75C;
---orange-700: #FFD4AF;
---orange-800: #FFF2E6;
---orange-900: #FFFCF9;
+/* The darkest shade of blue */
+@property --blue-100 {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: #000E1C;
+}
+/* The second darkest shade of blue */
+@property --blue-200 {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: #00172F;
+}
+/* The third darkest shade of blue */
+@property --blue-300 {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: #002E5E;
+}
+/* The shade just darker than middle of blue */
+@property --blue-400 {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: #004E9E;
+}
+/* The middle shade of blue */
+@property --blue-500 {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: #0069d5;
+}
+/* The shade just lighter than middle of blue */
+@property --blue-600 {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: #50A6FF;
+}
+/* The third lightest shade of blue */
+@property --blue-700 {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: #A9D3FF;
+}
+/* The second lightest shade of blue */
+@property --blue-800 {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: #E4F1FF;
+}
+/* The lightest shade of blue */
+@property --blue-900 {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: #F9FCFF;
+}
 
-/*
- * Purple
- *
- * Tints/Shades for purple
+/* Grays
+ * @scale gray 
  */
---purple-100: #0E071B;
---purple-200: #170C2D;
---purple-300: #2E175A;
---purple-400: #4D2798;
---purple-500: #6937cb;
---purple-600: #A689E0;
---purple-700: #D4C5F0;
---purple-800: #F2EDFA;
---purple-900: #FCFBFE;
+/* The darkest shade of gray */
+@property --gray-100 {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: #0F0F10;
+}
+/* The second darkest shade of gray */
+@property --gray-200 {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: #1A1A1B;
+}
+/* The third darkest shade of gray */
+@property --gray-300 {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: #333336;
+}
+/* The shade just darker than middle of gray */
+@property --gray-400 {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: #56565B;
+}
+/* The middle shade of gray */
+@property --gray-500 {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: #74747B;
+}
+/* The shade just lighter than middle of gray */
+@property --gray-600 {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: #ADADB1;
+}
+/* The third lightest shade of gray */
+@property --gray-700 {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: #D7D7D9;
+}
+/* The second lightest shade of gray */
+@property --gray-800 {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: #F2F2F3;
+}
+/* The lightest shade of gray */
+@property --gray-900 {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: #FCFCFC;
+}
 
-/*
- * Red
- *
- * Tints/Shades for red
+/* Greens
+ * @scale green 
  */
---red-100: #1E0200;
---red-200: #320300;
---red-300: #640600;
---red-400: #A80A00;
---red-500: #E30D00;
---red-600: #FF6258;
---red-700: #FFB2AD;
---red-800: #FFE7E6;
---red-900: #FFFAF9;
+/* The darkest shade of green */
+@property --green-100 {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: #071B0E;
+}
+/* The second darkest shade of green */
+@property --green-200 {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: #0C2D17;
+}
+/* The third darkest shade of green */
+@property --green-300 {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: #175A2E;
+}
+/* The shade just darker than middle of green */
+@property --green-400 {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: #27984D;
+}
+/* The middle shade of green */
+@property --green-500 {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: #37CB69;
+}
+/* The shade just lighter than middle of green */
+@property --green-600 {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: #89E0A6;
+}
+/* The third lightest shade of green */
+@property --green-700 {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: #C5F0D4;
+}
+/* The second lightest shade of green */
+@property --green-800 {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: #EDFAF2;
+}
+/* The lightest shade of green */
+@property --green-900 {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: #FBFEFC;
+}
 
-/*
- * White
- *
- * Whites
+/* Oranges
+ * @scale orange 
  */
---white: #FFFFFF;
---white-ish: #FBFBFB;
+/* The darkest shade of orange */
+@property --orange-100 {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: #1E0E00;
+}
+/* The second darkest shade of orange */
+@property --orange-200 {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: #331800;
+}
+/* The third darkest shade of orange */
+@property --orange-300 {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: #673000;
+}
+/* The shade just darker than middle of orange */
+@property --orange-400 {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: #AD5000;
+}
+/* The middle shade of orange */
+@property --orange-500 {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: #EA6C00;
+}
+/* The shade just lighter than middle of orange */
+@property --orange-600 {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: #FFA75C;
+}
+/* The third lightest shade of orange */
+@property --orange-700 {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: #FFD4AF;
+}
+/* The second lightest shade of orange */
+@property --orange-800 {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: #FFF2E6;
+}
+/* The lightest shade of orange */
+@property --orange-900 {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: #FFFCF9;
+}
 
-/*
- * Yellow
- *
- * Tints/Shades for yellow
+/* Purples
+ * @scale purple 
  */
---yellow-100: #242402;
---yellow-200: #3D3D04;
---yellow-300: #797907;
---yellow-400: #CCCC0C;
---yellow-500: #F3F331;
---yellow-600: #F8F885;
---yellow-700: #FCFCC3;
---yellow-800: #FEFEEC;
---yellow-900: #FFFFFB;
+/* The darkest shade of purple */
+@property --purple-100 {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: #0E071B;
+}
+/* The second darkest shade of purple */
+@property --purple-200 {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: #170C2D;
+}
+/* The third darkest shade of purple */
+@property --purple-300 {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: #2E175A;
+}
+/* The shade just darker than middle of purple */
+@property --purple-400 {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: #4D2798;
+}
+/* The middle shade of purple */
+@property --purple-500 {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: #6937cb;
+}
+/* The shade just lighter than middle of purple */
+@property --purple-600 {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: #A689E0;
+}
+/* The third lightest shade of purple */
+@property --purple-700 {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: #D4C5F0;
+}
+/* The second lightest shade of purple */
+@property --purple-800 {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: #F2EDFA;
+}
+/* The lightest shade of purple */
+@property --purple-900 {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: #FCFBFE;
+}
 
+/* Reds
+ * @scale red 
+ */
+/* The darkest shade of red */
+@property --red-100 {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: #1E0200;
+}
+/* The second darkest shade of red */
+@property --red-200 {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: #320300;
+}
+/* The third darkest shade of red */
+@property --red-300 {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: #640600;
+}
+/* The shade just darker than middle of red */
+@property --red-400 {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: #A80A00;
+}
+/* The middle shade of red */
+@property --red-500 {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: #E30D00;
+}
+/* The shade just lighter than middle of red */
+@property --red-600 {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: #FF6258;
+}
+/* The third lightest shade of red */
+@property --red-700 {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: #FFB2AD;
+}
+/* The second lightest shade of red */
+@property --red-800 {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: #FFE7E6;
+}
+/* The lightest shade of red */
+@property --red-900 {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: #FFFAF9;
+}
+
+/* Yellows
+ * @scale yellow 
+ */
+/* The darkest shade of yellow */
+@property --yellow-100 {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: #242402;
+}
+/* The second darkest shade of yellow */
+@property --yellow-200 {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: #3D3D04;
+}
+/* The third darkest shade of yellow */
+@property --yellow-300 {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: #797907;
+}
+/* The shade just darker than middle of yellow */
+@property --yellow-400 {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: #CCCC0C;
+}
+/* The middle shade of yellow */
+@property --yellow-500 {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: #F3F331;
+}
+/* The shade just lighter than middle of yellow */
+@property --yellow-600 {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: #F8F885;
+}
+/* The third lightest shade of yellow */
+@property --yellow-700 {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: #FCFCC3;
+}
+/* The second lightest shade of yellow */
+@property --yellow-800 {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: #FEFEEC;
+}
+/* The lightest shade of yellow */
+@property --yellow-900 {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: #FFFFFB;
+}
+
+/* Blacks
+ * @scale black 
+ */
+/* Pure black */
+@property --black {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: #000000;
+}
+/* Very slightly lighter than pure black */
+@property --black-ish {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: #131313;
+}
+
+/* Whites
+ * @scale white 
+ */
+/* Pure white. */
+@property --white {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: #FFFFFF;
+}
+/* Very slightly darker than pure white */
+@property --white-ish {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: #FBFBFB;
 }

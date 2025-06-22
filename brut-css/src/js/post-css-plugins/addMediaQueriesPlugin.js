@@ -10,10 +10,19 @@ const addMediaQueriesPlugin = (mediaQueries) => {
         root.walkRules( (rule) => {
           if (rule.selector !== ":root") {
             const cloned = rule.clone();
+            let changedSelectors = false
             if (mediaQuery.suffix) {
-              cloned.selectors = cloned.selectors.map(sel => sel + `-${mediaQuery.suffix}`)
+              cloned.selectors = cloned.selectors.map( (selector) => {
+                if ( selector.startsWith(".") && (selector.lastIndexOf(".") == 0) && selector.indexOf(" ") == -1 ) {
+                  changedSelectors = true
+                  return selector + `-${mediaQuery.suffix}`
+                }
+                else {
+                  return selector
+                }
+              })
             }
-            if (atRule) {
+            if (atRule && changedSelectors) {
               atRule.append(cloned)
             }
             else {
