@@ -1,74 +1,10 @@
 <!doctype html>
 <html class="ma-0 pa-0 h-100" lang="en">
-  <head>
-    <link rel="stylesheet" href="brut.css">
-    <link rel="stylesheet" href="docs.css">
-  </head>
-  <body class="flex flex-column ff-sans ma-0 pa-0 h-100">
-    <header class="pos-sticky top-0 bg-gray-700 pa-3 z-5 shadow-1">
-      <div class="flex gap-3 justify-between items-center">
-      <h1>BrutCSS Reference Documentation</h1>
-      <ul class="lst-none pl-0 flex gap-2 justify-end items-center">
-        <form class="flex items-center gap-1 mr-3">
-          <label>
-          <input type="search" placeholder="e.g. padding-left" class="pa-2 br-2 ba bc-gray-600 bg-white-ish gray-200">
-          <span class="sr-only">Search term</span>
-          </label>
-          <button class="ph-3 pv-2 bg-white gray-100 ba bc-gray-500 br-3 hover-bg-gray-800 pointer flex items-center justify-between">
-            <span class="mr-2">Search</span>
-            <kbd>&#8984;</kbd>
-            <kbd>/</kbd>
-          </button>
-        </form>
-        <li>BrutRB</li>
-        <span aria-hidden="true">&middot;</span>
-        <li>BrutJS</li>
-        <span aria-hidden="true">&middot;</span>
-        <li>Code</li>
-      </ul>
-      </div>
-    </header>
-    <main class="flex overflow-hidden flex-grow-1 flex-shrink-1 flex-basis-0 pos-relative">
-      <nav class="overflow-y-auto ph-3 pv-2 w-20 bg-gray-800 gray-200 h-100 shadow-1">
-        <%- include("includes/nav.html.ejs", { nav: nav }) %>
-      </nav>
-      <section class="overflow-y-auto h-100 flex-grow-1 flex-shrink-1 flex-basis-0 flex flex-column">
-        <div class="ph-3 pv-2 flex items-start gap-2 justify-between">
-          <article>
-            <h2>Overview</h2>
-            <p>
-              BrutCSS is a CSS library that provides single-purpose utility classes. It's designed to allow you to quickly prototype and build UIs in your HTML or HTML templating system without having to worry about CSS while you are designing.
-            </p>
-            <p>
-              BrutCSS is <strong>not</strong> a way to fully style a web app or web site without writing CSS.  You are expected to eventually use CSS as originally intended as your US is solidified.  BrutCSS provides several custom properties you can use with your custom CSS that will ensure consistency with BrutCSS's single-purpose classes.
-            </p>
-            <p>
-              We feel this is the best way to iterate on UIs quickly, but also to achieve longer-term stability with your CSS, as well as to take advantage of autonomous custom elements, which can be difficult to fully leverage with a pure utility-only approach.
-            </p>
-          </article>
-          <div class="ma-0 overflow-y-auto pa-2 w-20 h-100 pos-absolute top-0 right-2">
-            <div class="pa-3 ba bc-gray-700 bg-gray-900 br-3 shadow-1">
-              <h3>On this Page</h3>
-              <ul class="lst-none ma-0 pa-0">
-                <li>One</li>
-                <li>One</li>
-                <li>One</li>
-                <li>One</li>
-                <li>One</li>
-                <li>One</li>
-                <li>One</li>
-                <li>One</li>
-              </ul>
-            </div>
-          </div>
-        </div>
-        <footer class="bg-black white mt-auto">
-          <p class="tc">
-            Copyright &copy; 2025 David Byrant Copeland.
-          </p>
-        </footer>
-      </section>
-    </main>
-  </body>
+  <%- include("includes/head.html.ejs") %>
+  <%- include("includes/body-and-header.html.ejs", { nav: nav }) %>
+  <article>
+    <h2>A Utility-Based CSS Framework For Getting Started</h2>
+  </article>
+  <%- include("includes/footer-and-rest.html.ejs") %>
 </html>
 

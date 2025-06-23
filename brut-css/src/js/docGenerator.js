@@ -1,80 +1,141 @@
 import ejs from "ejs"
 import fs from "node:fs"
 import path from "node:path"
+import markdownit from "markdown-it"
 
 class Title {
-  static fromId(id) {
-    const nameWithoutPrefix = id.replace(/^\d+_/, '').replace(/\..*$/,'')
-    return new this(nameWithoutPrefix.
+  static fromDirName(dirName) {
+    const nameWithoutPrefix = dirName.replace(/^\d+_/, '').replace(/\..*$/,'')
+    const title = nameWithoutPrefix.
       split('-').
       map(word => word.charAt(0).toUpperCase() + word.slice(1)).
-      join(' '))
+      join(' ')
+    return new this(title, dirName)
   }
-  constructor(title) {
+  constructor(title, sortKey) {
     this.title = title
+    this.sortKey = sortKey
   }
   toString() { return this.title }
 }
+
 class Page {
-  constructor(pagePath, uri) {
-    this.pagePath = pagePath
-    this.id = path.basename(pagePath)
-    this.uri = uri
-    this.title = Title.fromId(this.id).toString()
+  constructor(pathToPageTemplate, pathToPageContent, pathToPageOutput) {
+    this.pathToPageTemplate = pathToPageTemplate
+    this.pathToPageContent = pathToPageContent
+    this.uri = pathToPageOutput
   }
-  static compare(a,b) { return a.id.localeCompare(b.id) }
+  get title() {
+    return Title.fromDirName(path.basename(this.pathToPageContent))
+  }
+  static compare(a,b) { return a.title.sortKey.localeCompare(b.title.sortKey) }
+
+  generate(outputDirName, nav) {
+    console.log("Generating %s from %s using %s", this.uri, this.pathToPageTemplate, this.pathToPageContent)
+    const contents = fs.readFileSync(this.pathToPageContent, "utf8")
+    let htmlContent = null
+    if (path.extname(this.pathToPageContent) === ".md") {
+      const markdown = new markdownit({
+        html: true,
+        linkify: true,
+        typographer: true,
+      })
+      htmlContent = markdown.render(contents)
+    }
+    else if (path.extname(this.pathToPageContent) === ".html") {
+      htmlContent = contents
+    }
+    else {
+      throw `Unsupported file type for ${this.pathToPageContent}. Only .md and .html are supported.`
+    }
+    const html = ejs.render(fs.readFileSync(this.pathToPageTemplate, "utf8"), {
+      nav:nav,
+      content: htmlContent
+    }, {
+      filename: this.pathToPageTemplate
+    })
+    const destinationFile = path.join(outputDirName, this.uri)
+    fs.mkdirSync(path.dirname(destinationFile), { recursive: true })
+    fs.writeFileSync(destinationFile, html, "utf8")
+    console.log("Wrote %s", destinationFile)
+  }
 }
+
+class PropertiesPage extends Page {
+  constructor(pathToPageContent, pathToPageOutput, category) {
+    super(pathToPageContent, null, pathToPageOutput)
+    this.category = category
+  }
+  get title() { return Title.fromDirName(this.category.name) }
+  generate(outputDirName, nav) {
+    const html = ejs.render(fs.readFileSync(this.pathToPageTemplate, "utf8"), {
+      nav:nav,
+      category: this.category,
+    }, {
+      filename: this.pathToPageTemplate
+    })
+    const destinationFile = path.join(outputDirName, this.uri)
+    fs.mkdirSync(path.dirname(destinationFile), { recursive: true })
+    fs.writeFileSync(destinationFile, html, "utf8")
+    console.log("Wrote %s", destinationFile)
+  }
+}
+
+class ClassesPage extends PropertiesPage {
+}
+
 class NavSection {
   static fromPath(sourcePath, parsedDocumentation) {
-    const id = path.basename(sourcePath)
-    if (id.match(/^\d+_properties$/)) {
-      return new PropertiesSection(sourcePath,id, parsedDocumentation)
+    const basename = path.basename(sourcePath)
+    if (basename.match(/^\d+_properties$/)) {
+      return new PropertiesSection(sourcePath, parsedDocumentation)
     }
-    if (id.match(/^\d+_classes/)) {
-      return new ClassesSection(sourcePath,id, parsedDocumentation)
+    if (basename.match(/^\d+_classes/)) {
+      return new ClassesSection(sourcePath, parsedDocumentation)
     }
-    return new StaticPagesSection(sourcePath,id)
+    return new StaticPagesSection(sourcePath)
   }
 }
 
 class PropertiesSection extends NavSection {
-  constructor(sourcePath, id, parsedDocumentation) {
+  constructor(sourcePath, parsedDocumentation) {
     super()
-    this.categoryTemplate = path.join(sourcePath, "category.html.ejs")
-    this.id = id
+    this.categoryTemplate = path.join(sourcePath, "page.html.ejs")
+    if (!fs.existsSync(this.categoryTemplate)) {
+      throw `No category template found at ${this.categoryTemplate}`
+    }
     this.parsedDocumentation = parsedDocumentation
+    this.uriBase = path.basename(sourcePath).replace(/^\d+_/,"")
   }
-  get title() { return "Properties" }
+  get title() { return new Title("Properties",this.sortKey) }
   get items() {
     return this.parsedDocumentation.propertyCategories.map( (category) => {
-      return {
-        title: Title.fromId(category.name).toString(),
-        uri: path.join(this.id, category.name),
-      }
+      return new PropertiesPage(this.categoryTemplate, path.join(this.uriBase, category.name) + ".html", category)
     })
   }
 }
 
 class ClassesSection extends PropertiesSection {
 
-  get title() { return "Classes" }
+  get title() { return new Title("Classes",this.sortKey) }
   get items() {
     return this.parsedDocumentation.classCategories.map( (category) => {
-      return {
-        title: Title.fromId(category.name).toString(),
-        uri: path.join(this.id, category.name),
-      }
+      return new ClassesPage(this.categoryTemplate, path.join(this.uriBase, category.name) + ".html", category)
     })
   }
 }
 
 class StaticPagesSection extends NavSection {
-  constructor(sourcePath, id) {
+  constructor(sourcePath) {
     super()
     this.sourcePath = sourcePath
-    this.id = id
+    this.pageTemplate = path.join(sourcePath, "page.html.ejs")
+    if (!fs.existsSync(this.pageTemplate)) {
+      throw `No category template found at ${this.pageTemplate}`
+    }
 
-    this.title = Title.fromId(this.id).toString()
+    const basename = path.basename(sourcePath)
+    this.title = Title.fromDirName(basename)
 
     this.items = []
 
@@ -84,13 +145,21 @@ class StaticPagesSection extends NavSection {
       if (stat.isDirectory()) {
         throw `${fullPath} is a directroy. ${sourcePath} may only includes files`
       }
-      this.items.push(new Page(fullPath, path.join(this.id,file)))
+      if (file != "page.html.ejs") {
+        const pathToPageOutput = path.join(
+          ...path.join(basename, file).split(path.sep).map( (part) => {
+            return part.replace(/^\d+_/,"").replace(/\..*$/,".html")
+          })
+        )
+        this.items.push(new Page(this.pageTemplate, fullPath, pathToPageOutput))
+      }
     })
     this.items.sort(Page.compare)
   }
 
-  static compare(a,b) { return a.id.localeCompare(b.id) }
+  static compare(a,b) { return a.title.sortKey.localeCompare(b.title.sortKey) }
 }
+
 const docGenerator = (outputDirName, templateDirName, parsedDocumentation) => {
   const nav = []
   const pages = []
@@ -125,18 +194,12 @@ const docGenerator = (outputDirName, templateDirName, parsedDocumentation) => {
       console.log("Copied non-EJS file %s to %s", file, destinationFile)
     }
   })
+  nav.forEach( (navSection) => {
+    navSection.items.forEach( (page) => {
+      page.generate(outputDirName, nav)
+    })
+  })
   return
-  const x = ejs.render(`
-  <% parsedDocumentation.propertyCategories.forEach( (category) => { %>
-    <h2><%= category.name %></h2>
-    <p><%= category.description %></p>
-    <ul>
-      <% category.scales.forEach( (scale) => { %>
-        <li><%= scale.name %>: <%= scale.description %></li>
-      <% }) %>
-    </ul>
-  <% }) %>`, { parsedDocumentation: parsedDocumentation })
-  console.log(x)
 }
 
 export default docGenerator

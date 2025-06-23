@@ -29,3 +29,15 @@ nav ul {
   }
 }
 
+dl.property-grid {
+  display: grid;
+  grid-template-columns: max-content 1fr;
+  gap: var(--sp-2);
+  margin: 0;
+  dt {
+    font-weight: 600;
+  }
+  dd {
+    margin: 0;
+  }
+}

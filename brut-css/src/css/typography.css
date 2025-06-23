@@ -460,17 +460,41 @@
 
 /* A standard text width useful for any occassion. This should provide a comfortable reading experience for any font and
  * size.
+ *
+ * @example
+ *     <p class="measure">
+ *       A core tenet of design is that same should be same, while different be then different.
+ *       Meaning: if two elements are intended to be the same sort of thing, or reference the same
+ *       sort of information, they should have clear consonance and harmony.  Conversely, if
+ *       two elements are unrelated, they should be quite clearly different.
+ *     </p>
  */
 .measure {
   max-width: var(--tw);
 }
 
-/* A slighter wider, but still readable width */
+/* A slighter wider, but still readable width.
+ * @example
+ *     <p class="measure-wide">
+ *       A core tenet of design is that same should be same, while different be then different.
+ *       Meaning: if two elements are intended to be the same sort of thing, or reference the same
+ *       sort of information, they should have clear consonance and harmony.  Conversely, if
+ *       two elements are unrelated, they should be quite clearly different.
+ *     </p>
+ */
 .measure-wide {
   max-width: var(--tw-wide);
 }
 
-/* A slighter narrower, but still readable width */
+/* A slighter narrower, but still readable width.
+ * @example
+ *     <p class="measure-narrow">
+ *       A core tenet of design is that same should be same, while different be then different.
+ *       Meaning: if two elements are intended to be the same sort of thing, or reference the same
+ *       sort of information, they should have clear consonance and harmony.  Conversely, if
+ *       two elements are unrelated, they should be quite clearly different.
+ *     </p>
+ */
 .measure-narrow {
   max-width: var(--tw-narrow);
 }

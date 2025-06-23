@@ -1,0 +1,8 @@
+set -e
+node src/js/build.js \
+  -m config/media-queries-all.css \
+  -p config/pseudo-classes-all.css \
+  -i src/css/index.css \
+  -o src/docs/brut.css \
+  -d generated-docs \
+  -t src/docs

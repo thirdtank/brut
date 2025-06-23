@@ -1,0 +1,47 @@
+<!doctype html>
+<html class="ma-0 pa-0 h-100" lang="en">
+  <%- include("../includes/head.html.ejs") %>
+  <%- include("../includes/body-and-header.html.ejs", { nav: nav }) %>
+  <article>
+    <h2 class="f-5"><%= category.title %> Custom Properties</h2>
+    <p class="p">
+      <%- category.descriptionHTML %>
+    </p>
+    <% category.scales.forEach( (scale) => { %>
+      <h3 class="f-4 mt-4" id="scale-<%= scale.name %>"><%= scale.title %></h3>
+      <p class="p">
+        <%- scale.descriptionHTML %>
+      </p>
+      <% scale.properties.forEach( (property) => { %>
+        <h4 class="f-3 fw-3 mt-4" id="property-<%= property.name %>"><code><%= property.name %></code></h4>
+        <div class="ml-3">
+        <p class="p">
+          <%- property.descriptionHTML %>
+        </p>
+        <dl class="property-grid">
+          <dt>Type:</dt>
+          <dd>
+            <code><%= property.type %></code>
+          </dd>
+          <dt>Value:</dt>
+          <dd>
+            <code><%= property.value %></code>
+          </dd>
+        </dl>
+        </div>
+      <% }) %>
+    <% }) %>
+  </article>
+  <div class="ma-0 overflow-y-auto pa-2 w-20 h-100 pos-absolute top-0 right-2">
+    <div class="pa-3 ba bc-gray-700 bg-gray-900 br-3 shadow-1">
+      <h3>On this Page</h3>
+      <ul class="lst-none ma-0 pa-0">
+      <% category.scales.forEach( (scale) => { %>
+        <li><a href="#scale-<%= scale.name %>"><%= scale.title %></a></li>
+      <% }) %>
+      </ul>
+    </div>
+  </div>
+  <%- include("../includes/footer-and-rest.html.ejs") %>
+</html>
+

@@ -1,0 +1,30 @@
+  <body class="flex flex-column ff-sans ma-0 pa-0 h-100">
+    <header class="pos-sticky top-0 bg-gray-700 pa-3 z-5 shadow-1">
+      <div class="flex gap-3 justify-between items-center">
+      <h1>BrutCSS Reference Documentation</h1>
+      <ul class="lst-none pl-0 flex gap-2 justify-end items-center">
+        <form class="flex items-center gap-1 mr-3">
+          <label>
+          <input type="search" placeholder="e.g. padding-left" class="pa-2 br-2 ba bc-gray-600 bg-white-ish gray-200">
+          <span class="sr-only">Search term</span>
+          </label>
+          <button class="ph-3 pv-2 bg-white gray-100 ba bc-gray-500 br-3 hover-bg-gray-800 pointer flex items-center justify-between">
+            <span class="mr-2">Search</span>
+            <kbd>&#8984;</kbd>
+            <kbd>/</kbd>
+          </button>
+        </form>
+        <li>BrutRB</li>
+        <span aria-hidden="true">&middot;</span>
+        <li>BrutJS</li>
+        <span aria-hidden="true">&middot;</span>
+        <li>Code</li>
+      </ul>
+      </div>
+    </header>
+    <main class="flex overflow-hidden flex-grow-1 flex-shrink-1 flex-basis-0 pos-relative">
+      <nav class="overflow-y-auto ph-3 pv-2 w-20 bg-gray-800 gray-200 h-100 shadow-1">
+        <%- include("nav.html.ejs", { nav: nav }) %>
+      </nav>
+      <section class="overflow-y-auto h-100 flex-grow-1 flex-shrink-1 flex-basis-0 flex flex-column">
+        <div class="ph-3 pv-2 flex items-start gap-2 justify-between">

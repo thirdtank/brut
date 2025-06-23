@@ -1,0 +1,57 @@
+<!doctype html>
+<html class="ma-0 pa-0 h-100" lang="en">
+  <%- include("../includes/head.html.ejs") %>
+  <%- include("../includes/body-and-header.html.ejs", { nav: nav }) %>
+  <article>
+    <h2 class="f-5"><%= category.title %> Custom Properties</h2>
+    <p class="p">
+      <%- category.descriptionHTML %>
+    </p>
+    <% category.scales.forEach( (scale) => { %>
+      <h3 class="f-4 mt-4" id="scale-<%= scale.name %>"><%= scale.title %></h3>
+      <p class="p">
+        <%- scale.descriptionHTML %>
+      </p>
+      <% scale.rules.forEach( (rule) => { %>
+        <h4 class="f-3 fw-3 mt-4" id="rule-<%= rule.selector %>"><code><%= rule.selector %></code></h4>
+        <div class="ml-3">
+        <p class="p">
+          <%- rule.descriptionHTML %>
+        </p>
+        <% if (rule.examples.length > 0) { %>
+          <h5 class="f-2 ttu">
+            <% if (rule.examples.length > 1) { %>
+              Examples
+            <% } else { %>
+              Example
+            <% } %>
+          </h5>
+          <% rule.examples.forEach( (example) => { %>
+            <% if (example.name) { %>
+              <h6 class="f-1 fw-bold mt-2"><%= example.name %></h6>
+            <% } %>
+            <div class="mv-3 pa-3">
+              <pre class="pa-2 bg-black green-600 br-3"><%= example.code.join("\n") %></pre>
+              <div class="pa-2 br-3 ba bc-black bg-gray-800">
+              <%- example.code.join("\n") %>
+              </div>
+            </div>
+          <% }) %>
+        <% } %>
+        </div>
+      <% }) %>
+    <% }) %>
+  </article>
+  <div class="ma-0 overflow-y-auto pa-2 w-20 h-100 pos-absolute top-0 right-2">
+    <div class="pa-3 ba bc-gray-700 bg-gray-900 br-3 shadow-1">
+      <h3>On this Page</h3>
+      <ul class="lst-none ma-0 pa-0">
+      <% category.scales.forEach( (scale) => { %>
+        <li><a href="#scale-<%= scale.name %>"><%= scale.title %></a></li>
+      <% }) %>
+      </ul>
+    </div>
+  </div>
+  <%- include("../includes/footer-and-rest.html.ejs") %>
+</html>
+

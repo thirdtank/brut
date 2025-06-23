@@ -1,0 +1,9 @@
+@brut-pseudo(hover hover) {
+  @brut-classes-with-prefix(bg-);
+  @brut-class(tdu);
+  @brut-colors;
+}
+@brut-pseudo(disabled disabled) {
+  @brut-classes-with-prefix(bg-gray);
+  @brut-classes-with-prefix(gray-);
+}

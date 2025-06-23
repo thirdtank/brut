@@ -1,4 +1,4 @@
-import postcss from "postcss"
+import markdownit from "markdown-it"
 
 import { parse as commentParser } from "comment-parser"
 
@@ -43,7 +43,7 @@ class ParsedComment {
     const tags = this.parsedComment.tags
     const exampleTags = tags.filter(tag => tag.tag === 'example')
     return exampleTags.map( (example) => {
-      return { name: example.name, code: example.description } 
+      return { name: example.name, code: example.source.map( (x) => x.tokens.description ) } 
     })
   }
 
@@ -190,6 +190,18 @@ class Category {
     this.description = description
     this.scales = []
   }
+  get title() {
+    return this.name.charAt(0).toUpperCase() + this.name.slice(1)
+  }
+
+  get descriptionHTML() {
+    const markdown = new markdownit({
+      html: true,
+      linkify: true,
+      typographer: true,
+    })
+    return markdown.render(this.description)
+  }
 }
 class RuleCategory extends Category {}
 class PropertyCategory extends Category {}
@@ -199,6 +211,17 @@ class Group {
     this.name = name
     this.description = description
     this.type = type
+  }
+  get title() {
+    return this.name.charAt(0).toUpperCase() + this.name.slice(1)
+  }
+  get descriptionHTML() {
+    const markdown = new markdownit({
+      html: true,
+      linkify: true,
+      typographer: true,
+    })
+    return markdown.render(this.description)
   }
 }
 
@@ -223,6 +246,14 @@ class Property {
     this.type = type
     this.description = description
   }
+  get descriptionHTML() {
+    const markdown = new markdownit({
+      html: true,
+      linkify: true,
+      typographer: true,
+    })
+    return markdown.render(this.description)
+  }
 }
 class Rule {
   constructor(selector, description, examples, code) {
@@ -230,6 +261,19 @@ class Rule {
     this.description = description
     this.examples = examples
     this.code = code
+  }
+  get descriptionHTML() {
+    if (this.description) {
+      const markdown = new markdownit({
+        html: true,
+        linkify: true,
+        typographer: true,
+      })
+      return markdown.render(this.description)
+    }
+    else {
+      return ""
+    }
   }
 }
 
