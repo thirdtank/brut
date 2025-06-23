@@ -1,0 +1,10 @@
+<% nav.forEach( (navSection) => { %>
+  <h3><%= navSection.title %></h3>
+  <ul class="pl-3">
+  <% navSection.items.forEach( (item) => { %>
+      <li>
+        <a class="black-ish tdu tdn-ns hover-tdu-ns" href="<%= item.uri %>"><%= item.title %></a>
+      </li>
+  <% }) %>
+  </ul>
+<% }) %>

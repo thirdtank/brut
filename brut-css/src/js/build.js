@@ -1,4 +1,5 @@
 import fs                                 from "node:fs"
+import path                               from "node:path"
 import postcss                            from "postcss"
 import postcssImport                      from "postcss-import"
 
@@ -10,9 +11,17 @@ import generateDocumentationPlugin        from "./post-css-plugins/generateDocum
 import mediaQueryConfigParser             from "./mediaQueryConfigParser.js"
 import pseudoClassConfigParser            from "./pseudoClassConfigParser.js"
 
+import docGenerator                       from "./docGenerator.js"
 import parseCLI                           from "./cli.js"
 
-const generateCSS = ({input,output,mediaQueryConfig,pseudoClassConfig}) => {
+const generateCSS = ({
+  input,
+  output,
+  mediaQueryConfig,
+  pseudoClassConfig,
+  docsDir,
+  docsTemplateSourceDir
+}) => {
 
   const inputCSS      = fs.readFileSync(input.filename, 'utf8')
   const mediaQueries  = mediaQueryConfigParser(mediaQueryConfig.filename)
@@ -40,19 +49,37 @@ const generateCSS = ({input,output,mediaQueryConfig,pseudoClassConfig}) => {
     generateRootCustomPropertiesPlugin(),
   ]
 
-  const parsedDocumentation = {}
 
-  postCSSPlugins.push(generateDocumentationPlugin(parsedDocumentation))
-  postCSSPlugins.push(addMediaQueriesPlugin(mediaQueries))
+  let parsedDocumentation = null
+  if (docsDir.dirname) {
+    if (!docsTemplateSourceDir.dirname) {
+      console.log("You must provide docs-template-source-dir when supplying docs-dir")
+      process.exit(1)
+    }
+    parsedDocumentation = {}
+    postCSSPlugins.push(generateDocumentationPlugin(parsedDocumentation))
+  }
   postCSSPlugins.push(addPseudoClassesPlugin(pseudoClasses))
+  postCSSPlugins.push(addMediaQueriesPlugin(mediaQueries))
 
 
   postcss(postCSSPlugins).process(
     inputCSS, { from: input.filename }
   ).then( result => {
     fs.writeFileSync(output.filename,result.css,"utf8")
-    fs.writeFileSync(output.filename + ".json",JSON.stringify(parsedDocumentation))
+    if (docsDir.dirname) {
+      fs.mkdirSync(docsDir.dirname, { recursive: true })
+      fs.readdirSync(docsDir.dirname).forEach( (relativePath) => {
+        const fullPath = path.join(docsDir.dirname,relativePath)
+        fs.rmSync(fullPath,{recursive: true})
+      })
+      docGenerator(docsDir.dirname, docsTemplateSourceDir.dirname, parsedDocumentation)
+      console.log(`✅ Docs built to ${docsDir.dirname}`)
+    }
     console.log(`✅ CSS built to ${output.filename}`)
+  }).catch( (error) => {
+    console.log("Error: %o", error)
+    process.exit(1)
   })
 }
 

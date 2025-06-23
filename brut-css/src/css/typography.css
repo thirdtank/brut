@@ -389,7 +389,10 @@
 .tdn {
   text-decoration: none;
 }
-.tdu, .u {
+.tdu {
+  text-decoration: underline;
+}
+.u {
   text-decoration: underline;
 }
 .tds {

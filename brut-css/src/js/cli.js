@@ -3,12 +3,16 @@ import InputFile             from "./cli/InputFile.js"
 import MediaQueryConfigFile  from "./cli/MediaQueryConfigFile.js"
 import PseudoClassConfigFile from "./cli/PseudoClassConfigFile.js"
 import OutputFile            from "./cli/OutputFile.js"
+import DocsDir               from "./cli/DocsDir.js"
+import DocsTemplateSourceDir from "./cli/DocsTemplateSourceDir.js"
 
 const cliArgs = [
   InputFile,
   MediaQueryConfigFile,
   PseudoClassConfigFile,
   OutputFile,
+  DocsDir,
+  DocsTemplateSourceDir,
 ]
 
 const parseArgsOptions = Object.fromEntries(cliArgs.map( (argClass) => argClass.toParseArgsOption() ))

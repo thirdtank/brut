@@ -68,7 +68,6 @@ class DocState {
       if (this.currentCategory) {
         this.propertyCategories.push(this.currentCategory)
       }
-      console.log("No longer inside properties")
       this.currentCategory = null
       this.currentScale = null
     }
@@ -88,7 +87,9 @@ class DocState {
 
   newCategory(parsedComment) {
     if (this.insideProperties) {
-      this.propertyCategories.push(this.currentCategory)
+      if (this.currentCategory) {
+        this.propertyCategories.push(this.currentCategory)
+      }
       this.currentCategory = new PropertyCategory(
         parsedComment.category,
         parsedComment.description
@@ -96,7 +97,9 @@ class DocState {
     }
     else {
       this.insideRules = true
-      this.classCategories.push(this.currentCategory)
+      if (this.currentCategory) {
+        this.classCategories.push(this.currentCategory)
+      }
       this.currentCategory = new RuleCategory(
         parsedComment.category,
         parsedComment.description
@@ -267,7 +270,9 @@ const generateDocumentationPlugin = (parsedDocumentation) => {
       })
       state.done()
       parsedDocumentation.propertyCategories = state.propertyCategories
-      parsedDocumentation.classCategories = state.classCategories
+      parsedDocumentation.classCategories = state.classCategories.filter( (category) => {
+        return category.name != "reset"
+      })
     }
   }
 }

@@ -15,7 +15,12 @@ const addMediaQueriesPlugin = (mediaQueries) => {
               cloned.selectors = cloned.selectors.map( (selector) => {
                 if ( selector.startsWith(".") && (selector.lastIndexOf(".") == 0) && selector.indexOf(" ") == -1 ) {
                   changedSelectors = true
-                  return selector + `-${mediaQuery.suffix}`
+                  if (selector.indexOf(":") == -1) {
+                    return selector + `-${mediaQuery.suffix}`
+                  }
+                  else {
+                    return selector.replace(/:(.*)$/, `-${mediaQuery.suffix}:$1`)
+                  }
                 }
                 else {
                   return selector

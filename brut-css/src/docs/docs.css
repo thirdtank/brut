@@ -1,0 +1,31 @@
+h1, h2, h3, h4, h5, h6 {
+  margin: 0;
+}
+p:not([class]) {
+  max-width: var(--tw);
+}
+h1 { font-size: var(--fs-6); }
+h2 { font-size: var(--fs-5); }
+h3 {
+  font-size: var(--fs-3);
+}
+nav h3 {
+  text-transform: uppercase;
+  font-weight: 300;
+  color: var(--gray-400);
+  letter-spacing: var(--ls);
+}
+nav ul {
+  list-style-type: none;
+  margin-top: var(--sp-2);
+  margin-bottom: var(--sp-2);
+  margin-right: 0;
+  margin-left: 0;
+  padding-bottom: var(--sp-2);
+  li {
+    line-height: var(--lh-copy);
+    margin-top: var(--sp-1);
+    margin-bottom: var(--sp-1);
+  }
+}
+
