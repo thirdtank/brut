@@ -3,11 +3,23 @@ h1, h2, h3, h4, h5, h6 {
 }
 p:not([class]) {
   max-width: var(--tw);
+  color: var(--gray-400);
 }
-h1 { font-size: var(--fs-6); }
-h2 { font-size: var(--fs-5); }
+a:not([class]),
+a:not([class]):visited {
+  color: var(--blue-300);
+}
+h1 {
+  font-size: var(--fs-6);
+  color: var(--gray-200);
+}
+h2 {
+  font-size: var(--fs-5);
+  color: var(--gray-200);
+}
 h3 {
   font-size: var(--fs-3);
+  color: var(--gray-200);
 }
 nav h3 {
   text-transform: uppercase;

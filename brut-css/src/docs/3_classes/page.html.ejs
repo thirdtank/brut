@@ -3,10 +3,13 @@
   <%- include("../includes/head.html.ejs") %>
   <%- include("../includes/body-and-header.html.ejs", { nav: nav }) %>
   <article>
-    <h2 class="f-5"><%= category.title %> Classes</h2>
-    <p class="p">
+    <h2 class="}-5"><%= category.title %> Classes</h2>
+    <% if ( typeof(colorsCategory) != "undefined" ) { %>
       <%- category.descriptionHTML %>
-    </p>
+      <%- include("color-demo.html.ejs", { colorsCategory: colorsCategory }) %>
+    <% } else { %>
+      <%- category.descriptionHTML %>
+    <% } %>
     <% if (category.seeLinks.length > 0) { %>
       <h3 class="f-2 b">See Also</h3>
       <ul>
@@ -54,7 +57,7 @@
             <% if (example.name) { %>
               <h6 class="f-1 fw-bold mt-2"><%= example.name %></h6>
             <% } %>
-            <div class="mv-3 pa-3">
+            <div class="mv-3">
               <pre class="pa-2 bg-black green-600 br-3"><%= example.code.join("\n") %></pre>
               <div class="pa-2 br-3 ba bc-black bg-gray-800">
               <%- example.code.join("\n") %>
@@ -67,7 +70,7 @@
     <% }) %>
   </article>
   <div class="ma-0 overflow-y-auto pa-2 w-20 h-100 pos-absolute top-0 right-2">
-    <div class="pa-3 ba bc-gray-700 bg-gray-900 br-3 shadow-1">
+    <div class="pa-3 ba bc-gray-700 bg-gray-900 br-3 inset-shadow-1">
       <h3>On this Page</h3>
       <ul class="lst-none ma-0 pa-0">
       <% category.scales.forEach( (scale) => { %>

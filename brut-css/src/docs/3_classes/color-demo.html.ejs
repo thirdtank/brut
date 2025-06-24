@@ -1,0 +1,31 @@
+<div class="pa-3 inset-shadow-1 br-3 mb-3">
+<table class="collapse">
+  <thead>
+    <tr>
+      <th role="none"></th>
+      <% colorsCategory.scales[0].rules.forEach( (rule, i) => { %>
+        <th class="pa-2 tc ff-mono"><%= (i+1) * 100 %></th>
+      <% }) %>
+    </tr>
+  </thead>
+<% colorsCategory.scales.forEach( (scale) => { %>
+    <% if (scale.title == "Black") { %>
+    <thead>
+      <tr>
+        <th role="none"></th>
+        <th class="pa-2 tc"><em class="fw-normal">pure</em></th>
+        <th class="pa-2 tc ff-mono">-ish</th>
+      </tr>
+    </thead>
+    <% } %>
+  <tr>
+    <th class="pa-2 tr ff-mono"><%= scale.title %></th>
+    <% scale.rules.forEach( (rule, i) => {
+         const bgClass = "bg-" + rule.selector.slice(1)
+    %>
+    <td class="pa-2"><div class="br-3 w-4 h-3 <%= ( (i > 6) || rule.selector.startsWith('.white') ) ? 'ba bc-gray-700' : '' %> <%= bgClass %>">&nbsp;</div></td>
+    <% }) %>
+  </tr>
+<% }) %>
+</table>
+</div>

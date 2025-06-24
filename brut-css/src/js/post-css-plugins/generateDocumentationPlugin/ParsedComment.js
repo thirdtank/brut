@@ -21,22 +21,30 @@ class ParsedComment {
     return this.parsedComment.description
   }
 
+  get isCategory() {
+    return this.category.length > 0
+  }
+
   get category() {
     const tags = this.parsedComment.tags
     const categoryTag = tags.find(tag => tag.tag === 'category')
-    return categoryTag ? categoryTag.name : null
+    return categoryTag ? [ categoryTag.name, categoryTag.description ] : []
+  }
+
+  get isScaleOrGroup() {
+    return this.scale.length > 0 || this.group.length > 0
   }
 
   get scale() {
     const tags = this.parsedComment.tags
     const scaleTag = tags.find(tag => tag.tag === 'scale')
-    return scaleTag ? scaleTag.name : null
+    return scaleTag ? [ scaleTag.name, scaleTag.description ] : []
   }
 
   get group() {
     const tags = this.parsedComment.tags
-    const scaleTag = tags.find(tag => tag.tag === 'group')
-    return scaleTag ? scaleTag.name : null
+    const groupTag = tags.find(tag => tag.tag === 'group')
+    return groupTag ? [ groupTag.name, groupTag.description ] : []
   }
 
   get examples() {

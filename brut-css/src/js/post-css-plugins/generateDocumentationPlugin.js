@@ -10,10 +10,10 @@ const generateDocumentationPlugin = (parsedDocumentation) => {
       root.walk(node => {
         if (node.type === 'comment') {
           const parsedComment = new ParsedComment(node.text)
-          if (parsedComment.category) {
+          if (parsedComment.isCategory) {
             state.newCategory(parsedComment)
           }
-          else if ( (parsedComment.scale) || (parsedComment.group) ) {
+          else if ( parsedComment.isScaleOrGroup ) {
             state.newScale(parsedComment)
           }
           else {

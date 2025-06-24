@@ -319,7 +319,7 @@
 
 /* Line heights/leading.  This is a semantic scale providing three useful values.
  *
- * @group leading
+ * @group leading Leading/Line Height
  */
 /* No line height, for creating solid blocks of text.
  * @example
@@ -459,7 +459,7 @@
 
 /* Maximum widths useful for text blocks.
  *
- * @group measure
+ * @group measure Measure/Text Width
  */
 
 /* A standard text width useful for any occassion. This should provide a comfortable reading experience for any font and

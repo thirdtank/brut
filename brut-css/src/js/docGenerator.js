@@ -92,20 +92,30 @@ class TemplatePage extends Page {
 }
 
 class PropertiesPage extends TemplatePage {
-  constructor(pathToPageContent, pathToPageOutput, category) {
+  constructor(pathToPageContent, pathToPageOutput, category, parsedDocumentation) {
     super(pathToPageContent, pathToPageOutput)
     console.log("Creating PropertiesPage %s for %s", pathToPageContent, category.name)
     this.category = category
+    this.colorsCategory  = parsedDocumentation.classCategories.find( (category) => category.ref == "class-category:foreground-colors" )
   }
   get documentationRef() { return this.category.ref }
   get title() { return Title.fromDirName(this.category.name) }
   generate(outputDirName, nav) {
-    const html = ejs.render(fs.readFileSync(this.pathToPageTemplate, "utf8"), {
+    const locals = {
       nav:nav,
       category: this.category,
-    }, {
-      filename: this.pathToPageTemplate
-    })
+    }
+    if ( (this.category.ref == "class-category:foreground-colors") ||
+         (this.category.ref == "class-category:background-colors") ||
+         (this.category.ref == "class-category:border-colors") ) {
+      locals.colorsCategory = this.colorsCategory
+    }
+
+    const html = ejs.render(fs.readFileSync(this.pathToPageTemplate, "utf8"),
+      locals,
+      {
+        filename: this.pathToPageTemplate
+      })
     const destinationFile = path.join(outputDirName, this.uri)
     fs.mkdirSync(path.dirname(destinationFile), { recursive: true })
     fs.writeFileSync(destinationFile, html, "utf8")
@@ -144,7 +154,12 @@ class PropertiesSection extends NavSection {
   get items() {
     return this.parsedDocumentation.propertyCategories.map( (category) => {
       return {
-        page: new PropertiesPage(this.categoryTemplate, path.join(this.uriBase, category.name) + ".html", category)
+        page: new PropertiesPage(
+          this.categoryTemplate,
+          path.join(this.uriBase, category.name) + ".html",
+          category,
+          this.parsedDocumentation,
+        )
       }
     })
   }
@@ -155,7 +170,11 @@ class ClassesSection extends PropertiesSection {
   get items() {
     return this.parsedDocumentation.classCategories.map( (category) => {
       return {
-        page: new ClassesPage(this.categoryTemplate, path.join(this.uriBase, category.name) + ".html", category)
+        page: new ClassesPage(
+          this.categoryTemplate,
+          path.join(this.uriBase, category.name) + ".html",
+          category,
+          this.parsedDocumentation)
       }
     })
   }
@@ -285,21 +304,24 @@ class Documentation {
 
   #decorate(parsedDocumentation) {
     parsedDocumentation.propertyCategories.forEach( (category) => {
-      category.title = category.name.split(/-/).map( (part) => {
+      category.title = category.explicitTitle || category.name.split(/-/).map( (part) => {
         return part.charAt(0).toUpperCase() + part.slice(1)
       }).join(" ")
       category.scales.forEach( (scale) => {
-        scale.title = scale.name.split(/-/).map( (part) => {
+        if (!scale.name) {
+          throw `Scale ${scale.ref}.${JSON.stringify(scale)} has no name`
+        }
+        scale.title = scale.explicitTitle || scale.name.split(/-/).map( (part) => {
           return part.charAt(0).toUpperCase() + part.slice(1)
         }).join(" ")
       })
     })
     parsedDocumentation.classCategories.forEach( (category) => {
-      category.title = category.name.split(/-/).map( (part) => {
+      category.title = category.explicitTitle || category.name.split(/-/).map( (part) => {
         return part.charAt(0).toUpperCase() + part.slice(1)
       }).join(" ")
       category.scales.forEach( (scale) => {
-        scale.title = scale.name.split(/-/).map( (part) => {
+        scale.title = scale.explicitTitle || scale.name.split(/-/).map( (part) => {
           return part.charAt(0).toUpperCase() + part.slice(1)
         }).join(" ")
       })

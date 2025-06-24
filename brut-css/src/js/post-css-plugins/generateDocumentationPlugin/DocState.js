@@ -65,7 +65,8 @@ class DocState {
         this.propertyCategories.push(this.currentCategory)
       }
       this.currentCategory = new PropertyCategory({
-        name: parsedComment.category,
+        name: parsedComment.category[0],
+        explicitTitle: parsedComment.category[1],
         description: parsedComment.description,
         sees: parsedComment.sees,
       })
@@ -76,7 +77,8 @@ class DocState {
         this.classCategories.push(this.currentCategory)
       }
       this.currentCategory = new RuleCategory({
-        name: parsedComment.category,
+        name: parsedComment.category[0],
+        explicitTitle: parsedComment.category[1],
         description: parsedComment.description,
         sees: parsedComment.sees,
       })
@@ -92,21 +94,25 @@ class DocState {
         console.log(parsedComment)
         throw this.root.error(`Something is wrong - no current category: ${parsedComment}`)
       }
+      const groupAttributes = {
+        description: parsedComment.description,
+        sees: parsedComment.sees,
+      }
+      if (parsedComment.scale.length != 0) {
+        groupAttributes.name = parsedComment.scale[0]
+        groupAttributes.explicitTitle = parsedComment.scale[1]
+        groupAttributes.type = "scale"
+      }
+      else {
+        groupAttributes.name = parsedComment.group[0]
+        groupAttributes.explicitTitle = parsedComment.group[1]
+        groupAttributes.type = "group"
+      }
       if (this.insideProperties) {
-        this.currentScale = new PropertyGroup({
-          name: parsedComment.scale || parsedComment.group,
-          description: parsedComment.description,
-          type: parsedComment.scale ? "scale" : "group",
-          sees: parsedComment.sees,
-        })
+        this.currentScale = new PropertyGroup(groupAttributes)
       }
       else if (this.insideRules) {
-        this.currentScale = new RuleGroup({
-          name: parsedComment.scale || parsedComment.group,
-          description: parsedComment.description,
-          type: parsedComment.scale ? "scale" : "group",
-          sees: parsedComment.sees,
-        })
+        this.currentScale = new RuleGroup(groupAttributes)
       }
       this.refs[this.currentScale.ref] = this.currentScale
       this.currentCategory.scales.push(this.currentScale)
@@ -125,7 +131,7 @@ class DocState {
       throw this.root.error(`Inside a category, the next comment must establish a scale`)
     }
     else {
-      throw this.root.error(`While parsing comments from @property definitions, encountered a comment without an @category. The comments inside the @property blocks must begine with a comment with the @category tag: ${parsedComment.normalizedComment}`)
+      throw this.root.error(`While parsing comments from @property definitions, encountered a comment without an @category. The comments inside the @property blocks must begin with a comment with the @category tag: ${parsedComment.normalizedComment}`)
     }
   }
   pushProperty(node) {

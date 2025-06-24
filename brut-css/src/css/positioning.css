@@ -71,7 +71,7 @@
 
 /* Top/Left/Right/Bottom.  These are 17-step scales from -8 to positive 8, based on the {property-scale:spacing} scale properties. 
  *
- * @scale top-left-right-bottom
+ * @scale top-left-right-bottom Top/Left/Right/Bottom
  */
 .top-0 {
   top: 0;

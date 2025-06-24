@@ -1,677 +1,3502 @@
-/* Color palette classes.  This classes provide six colors and gray, in 9 shades each.  There are also
- * two blacks and two whites.  Each color scale ranges from 100 being the darkest and 900 being the brightest.  These
- * extremes should be quite pale and close to black and white, respectively.
+
+/* Foreground colors.  For red, orange, yellow, green, blue, purple, and gray, there are 
+ * nine steps in the scale, from 100 being darkest to 900 being lightest.  Black and white have only
+ * two steps: pure black/white and slightly off black/white.  The colors and shades are shown in the table below.
  *
- * @category colors
+ * @category foreground-colors
+ * @see property-category:colors
  */
+    
 
-/* Red foreground.
- * @scale red
- */
-.red-100 {
-  color: var(--red-100);
-}
-.red-200 {
-  color: var(--red-200);
-}
-.red-300 {
-  color: var(--red-300);
-}
-.red-400 {
-  color: var(--red-400);
-}
-.red-500 {
-  color: var(--red-500);
-}
-.red-600 {
-  color: var(--red-600);
-}
-.red-700 {
-  color: var(--red-700);
-}
-.red-800 {
-  color: var(--red-800);
-}
-.red-900 {
-  color: var(--red-900);
-}
-/* Red background.
- * @scale bg-red
- */
-.bg-red-100 {
-  background-color: var(--red-100);
-}
-.bg-red-200 {
-  background-color: var(--red-200);
-}
-.bg-red-300 {
-  background-color: var(--red-300);
-}
-.bg-red-400 {
-  background-color: var(--red-400);
-}
-.bg-red-500 {
-  background-color: var(--red-500);
-}
-.bg-red-600 {
-  background-color: var(--red-600);
-}
-.bg-red-700 {
-  background-color: var(--red-700);
-}
-.bg-red-800 {
-  background-color: var(--red-800);
-}
-.bg-red-900 {
-  background-color: var(--red-900);
-}
-/* Red borders.
- * @scale bc-red
- */
-.bc-red-100 {
-  border-color: var(--red-100);
-}
-.bc-red-200 {
-  border-color: var(--red-200);
-}
-.bc-red-300 {
-  border-color: var(--red-300);
-}
-.bc-red-400 {
-  border-color: var(--red-400);
-}
-.bc-red-500 {
-  border-color: var(--red-500);
-}
-.bc-red-600 {
-  border-color: var(--red-600);
-}
-.bc-red-700 {
-  border-color: var(--red-700);
-}
-.bc-red-800 {
-  border-color: var(--red-800);
-}
-.bc-red-900 {
-  border-color: var(--red-900);
-}
-/* Orange foreground.
- * @scale orange
- */
-.orange-100 {
-  color: var(--orange-100);
-}
-.orange-200 {
-  color: var(--orange-200);
-}
-.orange-300 {
-  color: var(--orange-300);
-}
-.orange-400 {
-  color: var(--orange-400);
-}
-.orange-500 {
-  color: var(--orange-500);
-}
-.orange-600 {
-  color: var(--orange-600);
-}
-.orange-700 {
-  color: var(--orange-700);
-}
-.orange-800 {
-  color: var(--orange-800);
-}
-.orange-900 {
-  color: var(--orange-900);
-}
-/* Orange background.
- * @scale bg-orange
- */
-.bg-orange-100 {
-  background-color: var(--orange-100);
-}
-.bg-orange-200 {
-  background-color: var(--orange-200);
-}
-.bg-orange-300 {
-  background-color: var(--orange-300);
-}
-.bg-orange-400 {
-  background-color: var(--orange-400);
-}
-.bg-orange-500 {
-  background-color: var(--orange-500);
-}
-.bg-orange-600 {
-  background-color: var(--orange-600);
-}
-.bg-orange-700 {
-  background-color: var(--orange-700);
-}
-.bg-orange-800 {
-  background-color: var(--orange-800);
-}
-.bg-orange-900 {
-  background-color: var(--orange-900);
-}
-/* Orange borders.
- * @scale bc-orange
- */
-.bc-orange-100 {
-  border-color: var(--orange-100);
-}
-.bc-orange-200 {
-  border-color: var(--orange-200);
-}
-.bc-orange-300 {
-  border-color: var(--orange-300);
-}
-.bc-orange-400 {
-  border-color: var(--orange-400);
-}
-.bc-orange-500 {
-  border-color: var(--orange-500);
-}
-.bc-orange-600 {
-  border-color: var(--orange-600);
-}
-.bc-orange-700 {
-  border-color: var(--orange-700);
-}
-.bc-orange-800 {
-  border-color: var(--orange-800);
-}
-.bc-orange-900 {
-  border-color: var(--orange-900);
-}
-/* Yellow foreground.
- * @scale yellow
- */
-.yellow-100 {
-  color: var(--yellow-100);
-}
-.yellow-200 {
-  color: var(--yellow-200);
-}
-.yellow-300 {
-  color: var(--yellow-300);
-}
-.yellow-400 {
-  color: var(--yellow-400);
-}
-.yellow-500 {
-  color: var(--yellow-500);
-}
-.yellow-600 {
-  color: var(--yellow-600);
-}
-.yellow-700 {
-  color: var(--yellow-700);
-}
-.yellow-800 {
-  color: var(--yellow-800);
-}
-.yellow-900 {
-  color: var(--yellow-900);
-}
-/* Yellow background.
- * @scale bg-yellow
- */
-.bg-yellow-100 {
-  background-color: var(--yellow-100);
-}
-.bg-yellow-200 {
-  background-color: var(--yellow-200);
-}
-.bg-yellow-300 {
-  background-color: var(--yellow-300);
-}
-.bg-yellow-400 {
-  background-color: var(--yellow-400);
-}
-.bg-yellow-500 {
-  background-color: var(--yellow-500);
-}
-.bg-yellow-600 {
-  background-color: var(--yellow-600);
-}
-.bg-yellow-700 {
-  background-color: var(--yellow-700);
-}
-.bg-yellow-800 {
-  background-color: var(--yellow-800);
-}
-.bg-yellow-900 {
-  background-color: var(--yellow-900);
-}
-/* Yellow borders.
- * @scale bc-yellow
- */
-.bc-yellow-100 {
-  border-color: var(--yellow-100);
-}
-.bc-yellow-200 {
-  border-color: var(--yellow-200);
-}
-.bc-yellow-300 {
-  border-color: var(--yellow-300);
-}
-.bc-yellow-400 {
-  border-color: var(--yellow-400);
-}
-.bc-yellow-500 {
-  border-color: var(--yellow-500);
-}
-.bc-yellow-600 {
-  border-color: var(--yellow-600);
-}
-.bc-yellow-700 {
-  border-color: var(--yellow-700);
-}
-.bc-yellow-800 {
-  border-color: var(--yellow-800);
-}
-.bc-yellow-900 {
-  border-color: var(--yellow-900);
-}
-/* Green foreground.
- * @scale green
- */
-.green-100 {
-  color: var(--green-100);
-}
-.green-200 {
-  color: var(--green-200);
-}
-.green-300 {
-  color: var(--green-300);
-}
-.green-400 {
-  color: var(--green-400);
-}
-.green-500 {
-  color: var(--green-500);
-}
-.green-600 {
-  color: var(--green-600);
-}
-.green-700 {
-  color: var(--green-700);
-}
-.green-800 {
-  color: var(--green-800);
-}
-.green-900 {
-  color: var(--green-900);
-}
-/* Green background.
- * @scale bg-green
- */
-.bg-green-100 {
-  background-color: var(--green-100);
-}
-.bg-green-200 {
-  background-color: var(--green-200);
-}
-.bg-green-300 {
-  background-color: var(--green-300);
-}
-.bg-green-400 {
-  background-color: var(--green-400);
-}
-.bg-green-500 {
-  background-color: var(--green-500);
-}
-.bg-green-600 {
-  background-color: var(--green-600);
-}
-.bg-green-700 {
-  background-color: var(--green-700);
-}
-.bg-green-800 {
-  background-color: var(--green-800);
-}
-.bg-green-900 {
-  background-color: var(--green-900);
-}
-/* Green borders.
- * @scale bc-green
- */
-.bc-green-100 {
-  border-color: var(--green-100);
-}
-.bc-green-200 {
-  border-color: var(--green-200);
-}
-.bc-green-300 {
-  border-color: var(--green-300);
-}
-.bc-green-400 {
-  border-color: var(--green-400);
-}
-.bc-green-500 {
-  border-color: var(--green-500);
-}
-.bc-green-600 {
-  border-color: var(--green-600);
-}
-.bc-green-700 {
-  border-color: var(--green-700);
-}
-.bc-green-800 {
-  border-color: var(--green-800);
-}
-.bc-green-900 {
-  border-color: var(--green-900);
-}
-/* Blue foreground.
- * @scale blue
- */
-.blue-100 {
-  color: var(--blue-100);
-}
-.blue-200 {
-  color: var(--blue-200);
-}
-.blue-300 {
-  color: var(--blue-300);
-}
-.blue-400 {
-  color: var(--blue-400);
-}
-.blue-500 {
-  color: var(--blue-500);
-}
-.blue-600 {
-  color: var(--blue-600);
-}
-.blue-700 {
-  color: var(--blue-700);
-}
-.blue-800 {
-  color: var(--blue-800);
-}
-.blue-900 {
-  color: var(--blue-900);
-}
-/* Blue background.
- * @scale bg-blue
- */
-.bg-blue-100 {
-  background-color: var(--blue-100);
-}
-.bg-blue-200 {
-  background-color: var(--blue-200);
-}
-.bg-blue-300 {
-  background-color: var(--blue-300);
-}
-.bg-blue-400 {
-  background-color: var(--blue-400);
-}
-.bg-blue-500 {
-  background-color: var(--blue-500);
-}
-.bg-blue-600 {
-  background-color: var(--blue-600);
-}
-.bg-blue-700 {
-  background-color: var(--blue-700);
-}
-.bg-blue-800 {
-  background-color: var(--blue-800);
-}
-.bg-blue-900 {
-  background-color: var(--blue-900);
-}
-/* Blue borders.
- * @scale bc-blue
- */
-.bc-blue-100 {
-  border-color: var(--blue-100);
-}
-.bc-blue-200 {
-  border-color: var(--blue-200);
-}
-.bc-blue-300 {
-  border-color: var(--blue-300);
-}
-.bc-blue-400 {
-  border-color: var(--blue-400);
-}
-.bc-blue-500 {
-  border-color: var(--blue-500);
-}
-.bc-blue-600 {
-  border-color: var(--blue-600);
-}
-.bc-blue-700 {
-  border-color: var(--blue-700);
-}
-.bc-blue-800 {
-  border-color: var(--blue-800);
-}
-.bc-blue-900 {
-  border-color: var(--blue-900);
-}
-/* Purple foreground.
- * @scale purple
- */
-.purple-100 {
-  color: var(--purple-100);
-}
-.purple-200 {
-  color: var(--purple-200);
-}
-.purple-300 {
-  color: var(--purple-300);
-}
-.purple-400 {
-  color: var(--purple-400);
-}
-.purple-500 {
-  color: var(--purple-500);
-}
-.purple-600 {
-  color: var(--purple-600);
-}
-.purple-700 {
-  color: var(--purple-700);
-}
-.purple-800 {
-  color: var(--purple-800);
-}
-.purple-900 {
-  color: var(--purple-900);
-}
-/* Purple background.
- * @scale bg-purple
- */
-.bg-purple-100 {
-  background-color: var(--purple-100);
-}
-.bg-purple-200 {
-  background-color: var(--purple-200);
-}
-.bg-purple-300 {
-  background-color: var(--purple-300);
-}
-.bg-purple-400 {
-  background-color: var(--purple-400);
-}
-.bg-purple-500 {
-  background-color: var(--purple-500);
-}
-.bg-purple-600 {
-  background-color: var(--purple-600);
-}
-.bg-purple-700 {
-  background-color: var(--purple-700);
-}
-.bg-purple-800 {
-  background-color: var(--purple-800);
-}
-.bg-purple-900 {
-  background-color: var(--purple-900);
-}
-/* Purple borders.
- * @scale bc-purple
- */
-.bc-purple-100 {
-  border-color: var(--purple-100);
-}
-.bc-purple-200 {
-  border-color: var(--purple-200);
-}
-.bc-purple-300 {
-  border-color: var(--purple-300);
-}
-.bc-purple-400 {
-  border-color: var(--purple-400);
-}
-.bc-purple-500 {
-  border-color: var(--purple-500);
-}
-.bc-purple-600 {
-  border-color: var(--purple-600);
-}
-.bc-purple-700 {
-  border-color: var(--purple-700);
-}
-.bc-purple-800 {
-  border-color: var(--purple-800);
-}
-.bc-purple-900 {
-  border-color: var(--purple-900);
-}
-/* Gray foreground.
- * @scale gray
- */
-.gray-100 {
-  color: var(--gray-100);
-}
-.gray-200 {
-  color: var(--gray-200);
-}
-.gray-300 {
-  color: var(--gray-300);
-}
-.gray-400 {
-  color: var(--gray-400);
-}
-.gray-500 {
-  color: var(--gray-500);
-}
-.gray-600 {
-  color: var(--gray-600);
-}
-.gray-700 {
-  color: var(--gray-700);
-}
-.gray-800 {
-  color: var(--gray-800);
-}
-.gray-900 {
-  color: var(--gray-900);
-}
-/* Gray background.
- * @scale bg-gray
- */
-.bg-gray-100 {
-  background-color: var(--gray-100);
-}
-.bg-gray-200 {
-  background-color: var(--gray-200);
-}
-.bg-gray-300 {
-  background-color: var(--gray-300);
-}
-.bg-gray-400 {
-  background-color: var(--gray-400);
-}
-.bg-gray-500 {
-  background-color: var(--gray-500);
-}
-.bg-gray-600 {
-  background-color: var(--gray-600);
-}
-.bg-gray-700 {
-  background-color: var(--gray-700);
-}
-.bg-gray-800 {
-  background-color: var(--gray-800);
-}
-.bg-gray-900 {
-  background-color: var(--gray-900);
-}
-/* Gray borders.
- * @scale bc-gray
- */
-.bc-gray-100 {
-  border-color: var(--gray-100);
-}
-.bc-gray-200 {
-  border-color: var(--gray-200);
-}
-.bc-gray-300 {
-  border-color: var(--gray-300);
-}
-.bc-gray-400 {
-  border-color: var(--gray-400);
-}
-.bc-gray-500 {
-  border-color: var(--gray-500);
-}
-.bc-gray-600 {
-  border-color: var(--gray-600);
-}
-.bc-gray-700 {
-  border-color: var(--gray-700);
-}
-.bc-gray-800 {
-  border-color: var(--gray-800);
-}
-.bc-gray-900 {
-  border-color: var(--gray-900);
-}
 
-/* Black and Whites
- * @group black-and-white
+/* Red shades.
+ *
+ * @scale foreground-red Red
+ * @see property-scale:red
  */
-.black {
-  color: var(--black);
-}
-.black-ish {
-  color: var(--black-ish);
-}
-.bg-black {
-  background-color: var(--black);
-}
-.bg-black-ish {
-  background-color: var(--black-ish);
-}
-.bc-black {
-  border-color: var(--black);
-}
-.bc-black-ish {
-  border-color: var(--black-ish);
-}
-.white {
-  color: var(--white);
-}
-.white-ish {
-  color: var(--white-ish);
-}
-.bg-white {
-  background-color: var(--white);
-}
-.bg-white-ish {
-  background-color: var(--white-ish);
-}
-.bc-white {
-  border-color: var(--white);
-}
-.bc-white-ish {
-  border-color: var(--white-ish);
-}
+      
+
+
+/* Red at weight 100 (darkest).
+ * @example
+ *   <div class="bg-white pa-2">
+ *     <code class="red-100">
+ *       .red-100
+ *     </code>
+ *   </div>
+ */
+ .red-100 {
+   color: var(--red-100);
+ }
+
+        
+
+
+/* Red at weight 200 (second darkest).
+ * @example
+ *   <div class="bg-white pa-2">
+ *     <code class="red-200">
+ *       .red-200
+ *     </code>
+ *   </div>
+ */
+ .red-200 {
+   color: var(--red-200);
+ }
+
+        
+
+
+/* Red at weight 300.
+ * @example
+ *   <div class="bg-white pa-2">
+ *     <code class="red-300">
+ *       .red-300
+ *     </code>
+ *   </div>
+ */
+ .red-300 {
+   color: var(--red-300);
+ }
+
+        
+
+
+/* Red at weight 400.
+ * @example
+ *   <div class="bg-white pa-2">
+ *     <code class="red-400">
+ *       .red-400
+ *     </code>
+ *   </div>
+ */
+ .red-400 {
+   color: var(--red-400);
+ }
+
+        
+
+
+/* Red at weight 500.
+ * @example
+ *   <div class="bg-black pa-2">
+ *     <code class="red-500">
+ *       .red-500
+ *     </code>
+ *   </div>
+ */
+ .red-500 {
+   color: var(--red-500);
+ }
+
+        
+
+
+/* Red at weight 600 ().
+ * @example
+ *   <div class="bg-black pa-2">
+ *     <code class="red-600">
+ *       .red-600
+ *     </code>
+ *   </div>
+ */
+ .red-600 {
+   color: var(--red-600);
+ }
+
+        
+
+
+/* Red at weight 700 ().
+ * @example
+ *   <div class="bg-black pa-2">
+ *     <code class="red-700">
+ *       .red-700
+ *     </code>
+ *   </div>
+ */
+ .red-700 {
+   color: var(--red-700);
+ }
+
+        
+
+
+/* Red at weight 800 (second lightest).
+ * @example
+ *   <div class="bg-black pa-2">
+ *     <code class="red-800">
+ *       .red-800
+ *     </code>
+ *   </div>
+ */
+ .red-800 {
+   color: var(--red-800);
+ }
+
+        
+
+
+/* Red at weight 900 (lightest).
+ * @example
+ *   <div class="bg-black pa-2">
+ *     <code class="red-900">
+ *       .red-900
+ *     </code>
+ *   </div>
+ */
+ .red-900 {
+   color: var(--red-900);
+ }
+
+        
+
+/* Orange shades.
+ *
+ * @scale foreground-orange Orange
+ * @see property-scale:orange
+ */
+      
+
+
+/* Orange at weight 100 (darkest).
+ * @example
+ *   <div class="bg-white pa-2">
+ *     <code class="orange-100">
+ *       .orange-100
+ *     </code>
+ *   </div>
+ */
+ .orange-100 {
+   color: var(--orange-100);
+ }
+
+        
+
+
+/* Orange at weight 200 (second darkest).
+ * @example
+ *   <div class="bg-white pa-2">
+ *     <code class="orange-200">
+ *       .orange-200
+ *     </code>
+ *   </div>
+ */
+ .orange-200 {
+   color: var(--orange-200);
+ }
+
+        
+
+
+/* Orange at weight 300.
+ * @example
+ *   <div class="bg-white pa-2">
+ *     <code class="orange-300">
+ *       .orange-300
+ *     </code>
+ *   </div>
+ */
+ .orange-300 {
+   color: var(--orange-300);
+ }
+
+        
+
+
+/* Orange at weight 400.
+ * @example
+ *   <div class="bg-white pa-2">
+ *     <code class="orange-400">
+ *       .orange-400
+ *     </code>
+ *   </div>
+ */
+ .orange-400 {
+   color: var(--orange-400);
+ }
+
+        
+
+
+/* Orange at weight 500.
+ * @example
+ *   <div class="bg-black pa-2">
+ *     <code class="orange-500">
+ *       .orange-500
+ *     </code>
+ *   </div>
+ */
+ .orange-500 {
+   color: var(--orange-500);
+ }
+
+        
+
+
+/* Orange at weight 600 ().
+ * @example
+ *   <div class="bg-black pa-2">
+ *     <code class="orange-600">
+ *       .orange-600
+ *     </code>
+ *   </div>
+ */
+ .orange-600 {
+   color: var(--orange-600);
+ }
+
+        
+
+
+/* Orange at weight 700 ().
+ * @example
+ *   <div class="bg-black pa-2">
+ *     <code class="orange-700">
+ *       .orange-700
+ *     </code>
+ *   </div>
+ */
+ .orange-700 {
+   color: var(--orange-700);
+ }
+
+        
+
+
+/* Orange at weight 800 (second lightest).
+ * @example
+ *   <div class="bg-black pa-2">
+ *     <code class="orange-800">
+ *       .orange-800
+ *     </code>
+ *   </div>
+ */
+ .orange-800 {
+   color: var(--orange-800);
+ }
+
+        
+
+
+/* Orange at weight 900 (lightest).
+ * @example
+ *   <div class="bg-black pa-2">
+ *     <code class="orange-900">
+ *       .orange-900
+ *     </code>
+ *   </div>
+ */
+ .orange-900 {
+   color: var(--orange-900);
+ }
+
+        
+
+/* Yellow shades.
+ *
+ * @scale foreground-yellow Yellow
+ * @see property-scale:yellow
+ */
+      
+
+
+/* Yellow at weight 100 (darkest).
+ * @example
+ *   <div class="bg-white pa-2">
+ *     <code class="yellow-100">
+ *       .yellow-100
+ *     </code>
+ *   </div>
+ */
+ .yellow-100 {
+   color: var(--yellow-100);
+ }
+
+        
+
+
+/* Yellow at weight 200 (second darkest).
+ * @example
+ *   <div class="bg-white pa-2">
+ *     <code class="yellow-200">
+ *       .yellow-200
+ *     </code>
+ *   </div>
+ */
+ .yellow-200 {
+   color: var(--yellow-200);
+ }
+
+        
+
+
+/* Yellow at weight 300.
+ * @example
+ *   <div class="bg-white pa-2">
+ *     <code class="yellow-300">
+ *       .yellow-300
+ *     </code>
+ *   </div>
+ */
+ .yellow-300 {
+   color: var(--yellow-300);
+ }
+
+        
+
+
+/* Yellow at weight 400.
+ * @example
+ *   <div class="bg-white pa-2">
+ *     <code class="yellow-400">
+ *       .yellow-400
+ *     </code>
+ *   </div>
+ */
+ .yellow-400 {
+   color: var(--yellow-400);
+ }
+
+        
+
+
+/* Yellow at weight 500.
+ * @example
+ *   <div class="bg-black pa-2">
+ *     <code class="yellow-500">
+ *       .yellow-500
+ *     </code>
+ *   </div>
+ */
+ .yellow-500 {
+   color: var(--yellow-500);
+ }
+
+        
+
+
+/* Yellow at weight 600 ().
+ * @example
+ *   <div class="bg-black pa-2">
+ *     <code class="yellow-600">
+ *       .yellow-600
+ *     </code>
+ *   </div>
+ */
+ .yellow-600 {
+   color: var(--yellow-600);
+ }
+
+        
+
+
+/* Yellow at weight 700 ().
+ * @example
+ *   <div class="bg-black pa-2">
+ *     <code class="yellow-700">
+ *       .yellow-700
+ *     </code>
+ *   </div>
+ */
+ .yellow-700 {
+   color: var(--yellow-700);
+ }
+
+        
+
+
+/* Yellow at weight 800 (second lightest).
+ * @example
+ *   <div class="bg-black pa-2">
+ *     <code class="yellow-800">
+ *       .yellow-800
+ *     </code>
+ *   </div>
+ */
+ .yellow-800 {
+   color: var(--yellow-800);
+ }
+
+        
+
+
+/* Yellow at weight 900 (lightest).
+ * @example
+ *   <div class="bg-black pa-2">
+ *     <code class="yellow-900">
+ *       .yellow-900
+ *     </code>
+ *   </div>
+ */
+ .yellow-900 {
+   color: var(--yellow-900);
+ }
+
+        
+
+/* Green shades.
+ *
+ * @scale foreground-green Green
+ * @see property-scale:green
+ */
+      
+
+
+/* Green at weight 100 (darkest).
+ * @example
+ *   <div class="bg-white pa-2">
+ *     <code class="green-100">
+ *       .green-100
+ *     </code>
+ *   </div>
+ */
+ .green-100 {
+   color: var(--green-100);
+ }
+
+        
+
+
+/* Green at weight 200 (second darkest).
+ * @example
+ *   <div class="bg-white pa-2">
+ *     <code class="green-200">
+ *       .green-200
+ *     </code>
+ *   </div>
+ */
+ .green-200 {
+   color: var(--green-200);
+ }
+
+        
+
+
+/* Green at weight 300.
+ * @example
+ *   <div class="bg-white pa-2">
+ *     <code class="green-300">
+ *       .green-300
+ *     </code>
+ *   </div>
+ */
+ .green-300 {
+   color: var(--green-300);
+ }
+
+        
+
+
+/* Green at weight 400.
+ * @example
+ *   <div class="bg-white pa-2">
+ *     <code class="green-400">
+ *       .green-400
+ *     </code>
+ *   </div>
+ */
+ .green-400 {
+   color: var(--green-400);
+ }
+
+        
+
+
+/* Green at weight 500.
+ * @example
+ *   <div class="bg-black pa-2">
+ *     <code class="green-500">
+ *       .green-500
+ *     </code>
+ *   </div>
+ */
+ .green-500 {
+   color: var(--green-500);
+ }
+
+        
+
+
+/* Green at weight 600 ().
+ * @example
+ *   <div class="bg-black pa-2">
+ *     <code class="green-600">
+ *       .green-600
+ *     </code>
+ *   </div>
+ */
+ .green-600 {
+   color: var(--green-600);
+ }
+
+        
+
+
+/* Green at weight 700 ().
+ * @example
+ *   <div class="bg-black pa-2">
+ *     <code class="green-700">
+ *       .green-700
+ *     </code>
+ *   </div>
+ */
+ .green-700 {
+   color: var(--green-700);
+ }
+
+        
+
+
+/* Green at weight 800 (second lightest).
+ * @example
+ *   <div class="bg-black pa-2">
+ *     <code class="green-800">
+ *       .green-800
+ *     </code>
+ *   </div>
+ */
+ .green-800 {
+   color: var(--green-800);
+ }
+
+        
+
+
+/* Green at weight 900 (lightest).
+ * @example
+ *   <div class="bg-black pa-2">
+ *     <code class="green-900">
+ *       .green-900
+ *     </code>
+ *   </div>
+ */
+ .green-900 {
+   color: var(--green-900);
+ }
+
+        
+
+/* Blue shades.
+ *
+ * @scale foreground-blue Blue
+ * @see property-scale:blue
+ */
+      
+
+
+/* Blue at weight 100 (darkest).
+ * @example
+ *   <div class="bg-white pa-2">
+ *     <code class="blue-100">
+ *       .blue-100
+ *     </code>
+ *   </div>
+ */
+ .blue-100 {
+   color: var(--blue-100);
+ }
+
+        
+
+
+/* Blue at weight 200 (second darkest).
+ * @example
+ *   <div class="bg-white pa-2">
+ *     <code class="blue-200">
+ *       .blue-200
+ *     </code>
+ *   </div>
+ */
+ .blue-200 {
+   color: var(--blue-200);
+ }
+
+        
+
+
+/* Blue at weight 300.
+ * @example
+ *   <div class="bg-white pa-2">
+ *     <code class="blue-300">
+ *       .blue-300
+ *     </code>
+ *   </div>
+ */
+ .blue-300 {
+   color: var(--blue-300);
+ }
+
+        
+
+
+/* Blue at weight 400.
+ * @example
+ *   <div class="bg-white pa-2">
+ *     <code class="blue-400">
+ *       .blue-400
+ *     </code>
+ *   </div>
+ */
+ .blue-400 {
+   color: var(--blue-400);
+ }
+
+        
+
+
+/* Blue at weight 500.
+ * @example
+ *   <div class="bg-black pa-2">
+ *     <code class="blue-500">
+ *       .blue-500
+ *     </code>
+ *   </div>
+ */
+ .blue-500 {
+   color: var(--blue-500);
+ }
+
+        
+
+
+/* Blue at weight 600 ().
+ * @example
+ *   <div class="bg-black pa-2">
+ *     <code class="blue-600">
+ *       .blue-600
+ *     </code>
+ *   </div>
+ */
+ .blue-600 {
+   color: var(--blue-600);
+ }
+
+        
+
+
+/* Blue at weight 700 ().
+ * @example
+ *   <div class="bg-black pa-2">
+ *     <code class="blue-700">
+ *       .blue-700
+ *     </code>
+ *   </div>
+ */
+ .blue-700 {
+   color: var(--blue-700);
+ }
+
+        
+
+
+/* Blue at weight 800 (second lightest).
+ * @example
+ *   <div class="bg-black pa-2">
+ *     <code class="blue-800">
+ *       .blue-800
+ *     </code>
+ *   </div>
+ */
+ .blue-800 {
+   color: var(--blue-800);
+ }
+
+        
+
+
+/* Blue at weight 900 (lightest).
+ * @example
+ *   <div class="bg-black pa-2">
+ *     <code class="blue-900">
+ *       .blue-900
+ *     </code>
+ *   </div>
+ */
+ .blue-900 {
+   color: var(--blue-900);
+ }
+
+        
+
+/* Purple shades.
+ *
+ * @scale foreground-purple Purple
+ * @see property-scale:purple
+ */
+      
+
+
+/* Purple at weight 100 (darkest).
+ * @example
+ *   <div class="bg-white pa-2">
+ *     <code class="purple-100">
+ *       .purple-100
+ *     </code>
+ *   </div>
+ */
+ .purple-100 {
+   color: var(--purple-100);
+ }
+
+        
+
+
+/* Purple at weight 200 (second darkest).
+ * @example
+ *   <div class="bg-white pa-2">
+ *     <code class="purple-200">
+ *       .purple-200
+ *     </code>
+ *   </div>
+ */
+ .purple-200 {
+   color: var(--purple-200);
+ }
+
+        
+
+
+/* Purple at weight 300.
+ * @example
+ *   <div class="bg-white pa-2">
+ *     <code class="purple-300">
+ *       .purple-300
+ *     </code>
+ *   </div>
+ */
+ .purple-300 {
+   color: var(--purple-300);
+ }
+
+        
+
+
+/* Purple at weight 400.
+ * @example
+ *   <div class="bg-white pa-2">
+ *     <code class="purple-400">
+ *       .purple-400
+ *     </code>
+ *   </div>
+ */
+ .purple-400 {
+   color: var(--purple-400);
+ }
+
+        
+
+
+/* Purple at weight 500.
+ * @example
+ *   <div class="bg-black pa-2">
+ *     <code class="purple-500">
+ *       .purple-500
+ *     </code>
+ *   </div>
+ */
+ .purple-500 {
+   color: var(--purple-500);
+ }
+
+        
+
+
+/* Purple at weight 600 ().
+ * @example
+ *   <div class="bg-black pa-2">
+ *     <code class="purple-600">
+ *       .purple-600
+ *     </code>
+ *   </div>
+ */
+ .purple-600 {
+   color: var(--purple-600);
+ }
+
+        
+
+
+/* Purple at weight 700 ().
+ * @example
+ *   <div class="bg-black pa-2">
+ *     <code class="purple-700">
+ *       .purple-700
+ *     </code>
+ *   </div>
+ */
+ .purple-700 {
+   color: var(--purple-700);
+ }
+
+        
+
+
+/* Purple at weight 800 (second lightest).
+ * @example
+ *   <div class="bg-black pa-2">
+ *     <code class="purple-800">
+ *       .purple-800
+ *     </code>
+ *   </div>
+ */
+ .purple-800 {
+   color: var(--purple-800);
+ }
+
+        
+
+
+/* Purple at weight 900 (lightest).
+ * @example
+ *   <div class="bg-black pa-2">
+ *     <code class="purple-900">
+ *       .purple-900
+ *     </code>
+ *   </div>
+ */
+ .purple-900 {
+   color: var(--purple-900);
+ }
+
+        
+
+/* Gray shades.
+ *
+ * @scale foreground-gray Gray
+ * @see property-scale:gray
+ */
+      
+
+
+/* Gray at weight 100 (darkest).
+ * @example
+ *   <div class="bg-white pa-2">
+ *     <code class="gray-100">
+ *       .gray-100
+ *     </code>
+ *   </div>
+ */
+ .gray-100 {
+   color: var(--gray-100);
+ }
+
+        
+
+
+/* Gray at weight 200 (second darkest).
+ * @example
+ *   <div class="bg-white pa-2">
+ *     <code class="gray-200">
+ *       .gray-200
+ *     </code>
+ *   </div>
+ */
+ .gray-200 {
+   color: var(--gray-200);
+ }
+
+        
+
+
+/* Gray at weight 300.
+ * @example
+ *   <div class="bg-white pa-2">
+ *     <code class="gray-300">
+ *       .gray-300
+ *     </code>
+ *   </div>
+ */
+ .gray-300 {
+   color: var(--gray-300);
+ }
+
+        
+
+
+/* Gray at weight 400.
+ * @example
+ *   <div class="bg-white pa-2">
+ *     <code class="gray-400">
+ *       .gray-400
+ *     </code>
+ *   </div>
+ */
+ .gray-400 {
+   color: var(--gray-400);
+ }
+
+        
+
+
+/* Gray at weight 500.
+ * @example
+ *   <div class="bg-black pa-2">
+ *     <code class="gray-500">
+ *       .gray-500
+ *     </code>
+ *   </div>
+ */
+ .gray-500 {
+   color: var(--gray-500);
+ }
+
+        
+
+
+/* Gray at weight 600 ().
+ * @example
+ *   <div class="bg-black pa-2">
+ *     <code class="gray-600">
+ *       .gray-600
+ *     </code>
+ *   </div>
+ */
+ .gray-600 {
+   color: var(--gray-600);
+ }
+
+        
+
+
+/* Gray at weight 700 ().
+ * @example
+ *   <div class="bg-black pa-2">
+ *     <code class="gray-700">
+ *       .gray-700
+ *     </code>
+ *   </div>
+ */
+ .gray-700 {
+   color: var(--gray-700);
+ }
+
+        
+
+
+/* Gray at weight 800 (second lightest).
+ * @example
+ *   <div class="bg-black pa-2">
+ *     <code class="gray-800">
+ *       .gray-800
+ *     </code>
+ *   </div>
+ */
+ .gray-800 {
+   color: var(--gray-800);
+ }
+
+        
+
+
+/* Gray at weight 900 (lightest).
+ * @example
+ *   <div class="bg-black pa-2">
+ *     <code class="gray-900">
+ *       .gray-900
+ *     </code>
+ *   </div>
+ */
+ .gray-900 {
+   color: var(--gray-900);
+ }
+
+        
+
+/* Blacks.
+ *
+ * @scale foreground-black Black
+ * @see property-scale:black
+ */
+      
+
+
+/* Black (pure).
+ * @example
+ *   <div class="bg-white pa-2">
+ *     <code class="black">
+ *       .black
+ *     </code>
+ *   </div>
+ */
+ .black {
+   color: var(--black);
+ }
+
+        
+
+
+/* Black (slightly off).
+ * @example
+ *   <div class="bg-white pa-2">
+ *     <code class="black-ish">
+ *       .black-ish
+ *     </code>
+ *   </div>
+ */
+ .black-ish {
+   color: var(--black-ish);
+ }
+
+        
+
+/* Whites.
+ *
+ * @scale foreground-white White
+ * @see property-scale:white
+ */
+      
+
+
+/* White (pure).
+ * @example
+ *   <div class="bg-black pa-2">
+ *     <code class="white">
+ *       .white
+ *     </code>
+ *   </div>
+ */
+ .white {
+   color: var(--white);
+ }
+
+        
+
+
+/* White (slightly off).
+ * @example
+ *   <div class="bg-black pa-2">
+ *     <code class="white-ish">
+ *       .white-ish
+ *     </code>
+ *   </div>
+ */
+ .white-ish {
+   color: var(--white-ish);
+ }
+
+        
+
+/* Background colors.  For red, orange, yellow, green, blue, purple, and gray, there are 
+ * nine steps in the scale, from 100 being darkest to 900 being lightest.  Black and white have only
+ * two steps: pure black/white and slightly off black/white.  The colors and shades are shown in the table below.
+ *
+ * @category background-colors
+ * @see property-category:colors
+ */
+    
+
+
+/* Red shades.
+ *
+ * @scale background-red Red
+ * @see property-scale:red
+ */
+      
+
+
+/* Red at weight 100 (darkest).
+ * @example
+ *   <div class="bg-white pa-2">
+ *     <div class="white bg-red-100 pa-2">
+ *       <code class="">
+ *         .bg-red-100
+ *       </code>
+ *     </div>
+ *   </div>
+ */
+ .bg-red-100 {
+   background-color: var(--red-100);
+ }
+
+        
+
+
+/* Red at weight 200 (second darkest).
+ * @example
+ *   <div class="bg-white pa-2">
+ *     <div class="white bg-red-200 pa-2">
+ *       <code class="">
+ *         .bg-red-200
+ *       </code>
+ *     </div>
+ *   </div>
+ */
+ .bg-red-200 {
+   background-color: var(--red-200);
+ }
+
+        
+
+
+/* Red at weight 300.
+ * @example
+ *   <div class="bg-white pa-2">
+ *     <div class="white bg-red-300 pa-2">
+ *       <code class="">
+ *         .bg-red-300
+ *       </code>
+ *     </div>
+ *   </div>
+ */
+ .bg-red-300 {
+   background-color: var(--red-300);
+ }
+
+        
+
+
+/* Red at weight 400.
+ * @example
+ *   <div class="bg-white pa-2">
+ *     <div class="white bg-red-400 pa-2">
+ *       <code class="">
+ *         .bg-red-400
+ *       </code>
+ *     </div>
+ *   </div>
+ */
+ .bg-red-400 {
+   background-color: var(--red-400);
+ }
+
+        
+
+
+/* Red at weight 500.
+ * @example
+ *   <div class="bg-black pa-2">
+ *     <div class="black bg-red-500 pa-2">
+ *       <code class="">
+ *         .bg-red-500
+ *       </code>
+ *     </div>
+ *   </div>
+ */
+ .bg-red-500 {
+   background-color: var(--red-500);
+ }
+
+        
+
+
+/* Red at weight 600 ().
+ * @example
+ *   <div class="bg-black pa-2">
+ *     <div class="black bg-red-600 pa-2">
+ *       <code class="">
+ *         .bg-red-600
+ *       </code>
+ *     </div>
+ *   </div>
+ */
+ .bg-red-600 {
+   background-color: var(--red-600);
+ }
+
+        
+
+
+/* Red at weight 700 ().
+ * @example
+ *   <div class="bg-black pa-2">
+ *     <div class="black bg-red-700 pa-2">
+ *       <code class="">
+ *         .bg-red-700
+ *       </code>
+ *     </div>
+ *   </div>
+ */
+ .bg-red-700 {
+   background-color: var(--red-700);
+ }
+
+        
+
+
+/* Red at weight 800 (second lightest).
+ * @example
+ *   <div class="bg-black pa-2">
+ *     <div class="black bg-red-800 pa-2">
+ *       <code class="">
+ *         .bg-red-800
+ *       </code>
+ *     </div>
+ *   </div>
+ */
+ .bg-red-800 {
+   background-color: var(--red-800);
+ }
+
+        
+
+
+/* Red at weight 900 (lightest).
+ * @example
+ *   <div class="bg-black pa-2">
+ *     <div class="black bg-red-900 pa-2">
+ *       <code class="">
+ *         .bg-red-900
+ *       </code>
+ *     </div>
+ *   </div>
+ */
+ .bg-red-900 {
+   background-color: var(--red-900);
+ }
+
+        
+
+/* Orange shades.
+ *
+ * @scale background-orange Orange
+ * @see property-scale:orange
+ */
+      
+
+
+/* Orange at weight 100 (darkest).
+ * @example
+ *   <div class="bg-white pa-2">
+ *     <div class="white bg-orange-100 pa-2">
+ *       <code class="">
+ *         .bg-orange-100
+ *       </code>
+ *     </div>
+ *   </div>
+ */
+ .bg-orange-100 {
+   background-color: var(--orange-100);
+ }
+
+        
+
+
+/* Orange at weight 200 (second darkest).
+ * @example
+ *   <div class="bg-white pa-2">
+ *     <div class="white bg-orange-200 pa-2">
+ *       <code class="">
+ *         .bg-orange-200
+ *       </code>
+ *     </div>
+ *   </div>
+ */
+ .bg-orange-200 {
+   background-color: var(--orange-200);
+ }
+
+        
+
+
+/* Orange at weight 300.
+ * @example
+ *   <div class="bg-white pa-2">
+ *     <div class="white bg-orange-300 pa-2">
+ *       <code class="">
+ *         .bg-orange-300
+ *       </code>
+ *     </div>
+ *   </div>
+ */
+ .bg-orange-300 {
+   background-color: var(--orange-300);
+ }
+
+        
+
+
+/* Orange at weight 400.
+ * @example
+ *   <div class="bg-white pa-2">
+ *     <div class="white bg-orange-400 pa-2">
+ *       <code class="">
+ *         .bg-orange-400
+ *       </code>
+ *     </div>
+ *   </div>
+ */
+ .bg-orange-400 {
+   background-color: var(--orange-400);
+ }
+
+        
+
+
+/* Orange at weight 500.
+ * @example
+ *   <div class="bg-black pa-2">
+ *     <div class="black bg-orange-500 pa-2">
+ *       <code class="">
+ *         .bg-orange-500
+ *       </code>
+ *     </div>
+ *   </div>
+ */
+ .bg-orange-500 {
+   background-color: var(--orange-500);
+ }
+
+        
+
+
+/* Orange at weight 600 ().
+ * @example
+ *   <div class="bg-black pa-2">
+ *     <div class="black bg-orange-600 pa-2">
+ *       <code class="">
+ *         .bg-orange-600
+ *       </code>
+ *     </div>
+ *   </div>
+ */
+ .bg-orange-600 {
+   background-color: var(--orange-600);
+ }
+
+        
+
+
+/* Orange at weight 700 ().
+ * @example
+ *   <div class="bg-black pa-2">
+ *     <div class="black bg-orange-700 pa-2">
+ *       <code class="">
+ *         .bg-orange-700
+ *       </code>
+ *     </div>
+ *   </div>
+ */
+ .bg-orange-700 {
+   background-color: var(--orange-700);
+ }
+
+        
+
+
+/* Orange at weight 800 (second lightest).
+ * @example
+ *   <div class="bg-black pa-2">
+ *     <div class="black bg-orange-800 pa-2">
+ *       <code class="">
+ *         .bg-orange-800
+ *       </code>
+ *     </div>
+ *   </div>
+ */
+ .bg-orange-800 {
+   background-color: var(--orange-800);
+ }
+
+        
+
+
+/* Orange at weight 900 (lightest).
+ * @example
+ *   <div class="bg-black pa-2">
+ *     <div class="black bg-orange-900 pa-2">
+ *       <code class="">
+ *         .bg-orange-900
+ *       </code>
+ *     </div>
+ *   </div>
+ */
+ .bg-orange-900 {
+   background-color: var(--orange-900);
+ }
+
+        
+
+/* Yellow shades.
+ *
+ * @scale background-yellow Yellow
+ * @see property-scale:yellow
+ */
+      
+
+
+/* Yellow at weight 100 (darkest).
+ * @example
+ *   <div class="bg-white pa-2">
+ *     <div class="white bg-yellow-100 pa-2">
+ *       <code class="">
+ *         .bg-yellow-100
+ *       </code>
+ *     </div>
+ *   </div>
+ */
+ .bg-yellow-100 {
+   background-color: var(--yellow-100);
+ }
+
+        
+
+
+/* Yellow at weight 200 (second darkest).
+ * @example
+ *   <div class="bg-white pa-2">
+ *     <div class="white bg-yellow-200 pa-2">
+ *       <code class="">
+ *         .bg-yellow-200
+ *       </code>
+ *     </div>
+ *   </div>
+ */
+ .bg-yellow-200 {
+   background-color: var(--yellow-200);
+ }
+
+        
+
+
+/* Yellow at weight 300.
+ * @example
+ *   <div class="bg-white pa-2">
+ *     <div class="white bg-yellow-300 pa-2">
+ *       <code class="">
+ *         .bg-yellow-300
+ *       </code>
+ *     </div>
+ *   </div>
+ */
+ .bg-yellow-300 {
+   background-color: var(--yellow-300);
+ }
+
+        
+
+
+/* Yellow at weight 400.
+ * @example
+ *   <div class="bg-white pa-2">
+ *     <div class="white bg-yellow-400 pa-2">
+ *       <code class="">
+ *         .bg-yellow-400
+ *       </code>
+ *     </div>
+ *   </div>
+ */
+ .bg-yellow-400 {
+   background-color: var(--yellow-400);
+ }
+
+        
+
+
+/* Yellow at weight 500.
+ * @example
+ *   <div class="bg-black pa-2">
+ *     <div class="black bg-yellow-500 pa-2">
+ *       <code class="">
+ *         .bg-yellow-500
+ *       </code>
+ *     </div>
+ *   </div>
+ */
+ .bg-yellow-500 {
+   background-color: var(--yellow-500);
+ }
+
+        
+
+
+/* Yellow at weight 600 ().
+ * @example
+ *   <div class="bg-black pa-2">
+ *     <div class="black bg-yellow-600 pa-2">
+ *       <code class="">
+ *         .bg-yellow-600
+ *       </code>
+ *     </div>
+ *   </div>
+ */
+ .bg-yellow-600 {
+   background-color: var(--yellow-600);
+ }
+
+        
+
+
+/* Yellow at weight 700 ().
+ * @example
+ *   <div class="bg-black pa-2">
+ *     <div class="black bg-yellow-700 pa-2">
+ *       <code class="">
+ *         .bg-yellow-700
+ *       </code>
+ *     </div>
+ *   </div>
+ */
+ .bg-yellow-700 {
+   background-color: var(--yellow-700);
+ }
+
+        
+
+
+/* Yellow at weight 800 (second lightest).
+ * @example
+ *   <div class="bg-black pa-2">
+ *     <div class="black bg-yellow-800 pa-2">
+ *       <code class="">
+ *         .bg-yellow-800
+ *       </code>
+ *     </div>
+ *   </div>
+ */
+ .bg-yellow-800 {
+   background-color: var(--yellow-800);
+ }
+
+        
+
+
+/* Yellow at weight 900 (lightest).
+ * @example
+ *   <div class="bg-black pa-2">
+ *     <div class="black bg-yellow-900 pa-2">
+ *       <code class="">
+ *         .bg-yellow-900
+ *       </code>
+ *     </div>
+ *   </div>
+ */
+ .bg-yellow-900 {
+   background-color: var(--yellow-900);
+ }
+
+        
+
+/* Green shades.
+ *
+ * @scale background-green Green
+ * @see property-scale:green
+ */
+      
+
+
+/* Green at weight 100 (darkest).
+ * @example
+ *   <div class="bg-white pa-2">
+ *     <div class="white bg-green-100 pa-2">
+ *       <code class="">
+ *         .bg-green-100
+ *       </code>
+ *     </div>
+ *   </div>
+ */
+ .bg-green-100 {
+   background-color: var(--green-100);
+ }
+
+        
+
+
+/* Green at weight 200 (second darkest).
+ * @example
+ *   <div class="bg-white pa-2">
+ *     <div class="white bg-green-200 pa-2">
+ *       <code class="">
+ *         .bg-green-200
+ *       </code>
+ *     </div>
+ *   </div>
+ */
+ .bg-green-200 {
+   background-color: var(--green-200);
+ }
+
+        
+
+
+/* Green at weight 300.
+ * @example
+ *   <div class="bg-white pa-2">
+ *     <div class="white bg-green-300 pa-2">
+ *       <code class="">
+ *         .bg-green-300
+ *       </code>
+ *     </div>
+ *   </div>
+ */
+ .bg-green-300 {
+   background-color: var(--green-300);
+ }
+
+        
+
+
+/* Green at weight 400.
+ * @example
+ *   <div class="bg-white pa-2">
+ *     <div class="white bg-green-400 pa-2">
+ *       <code class="">
+ *         .bg-green-400
+ *       </code>
+ *     </div>
+ *   </div>
+ */
+ .bg-green-400 {
+   background-color: var(--green-400);
+ }
+
+        
+
+
+/* Green at weight 500.
+ * @example
+ *   <div class="bg-black pa-2">
+ *     <div class="black bg-green-500 pa-2">
+ *       <code class="">
+ *         .bg-green-500
+ *       </code>
+ *     </div>
+ *   </div>
+ */
+ .bg-green-500 {
+   background-color: var(--green-500);
+ }
+
+        
+
+
+/* Green at weight 600 ().
+ * @example
+ *   <div class="bg-black pa-2">
+ *     <div class="black bg-green-600 pa-2">
+ *       <code class="">
+ *         .bg-green-600
+ *       </code>
+ *     </div>
+ *   </div>
+ */
+ .bg-green-600 {
+   background-color: var(--green-600);
+ }
+
+        
+
+
+/* Green at weight 700 ().
+ * @example
+ *   <div class="bg-black pa-2">
+ *     <div class="black bg-green-700 pa-2">
+ *       <code class="">
+ *         .bg-green-700
+ *       </code>
+ *     </div>
+ *   </div>
+ */
+ .bg-green-700 {
+   background-color: var(--green-700);
+ }
+
+        
+
+
+/* Green at weight 800 (second lightest).
+ * @example
+ *   <div class="bg-black pa-2">
+ *     <div class="black bg-green-800 pa-2">
+ *       <code class="">
+ *         .bg-green-800
+ *       </code>
+ *     </div>
+ *   </div>
+ */
+ .bg-green-800 {
+   background-color: var(--green-800);
+ }
+
+        
+
+
+/* Green at weight 900 (lightest).
+ * @example
+ *   <div class="bg-black pa-2">
+ *     <div class="black bg-green-900 pa-2">
+ *       <code class="">
+ *         .bg-green-900
+ *       </code>
+ *     </div>
+ *   </div>
+ */
+ .bg-green-900 {
+   background-color: var(--green-900);
+ }
+
+        
+
+/* Blue shades.
+ *
+ * @scale background-blue Blue
+ * @see property-scale:blue
+ */
+      
+
+
+/* Blue at weight 100 (darkest).
+ * @example
+ *   <div class="bg-white pa-2">
+ *     <div class="white bg-blue-100 pa-2">
+ *       <code class="">
+ *         .bg-blue-100
+ *       </code>
+ *     </div>
+ *   </div>
+ */
+ .bg-blue-100 {
+   background-color: var(--blue-100);
+ }
+
+        
+
+
+/* Blue at weight 200 (second darkest).
+ * @example
+ *   <div class="bg-white pa-2">
+ *     <div class="white bg-blue-200 pa-2">
+ *       <code class="">
+ *         .bg-blue-200
+ *       </code>
+ *     </div>
+ *   </div>
+ */
+ .bg-blue-200 {
+   background-color: var(--blue-200);
+ }
+
+        
+
+
+/* Blue at weight 300.
+ * @example
+ *   <div class="bg-white pa-2">
+ *     <div class="white bg-blue-300 pa-2">
+ *       <code class="">
+ *         .bg-blue-300
+ *       </code>
+ *     </div>
+ *   </div>
+ */
+ .bg-blue-300 {
+   background-color: var(--blue-300);
+ }
+
+        
+
+
+/* Blue at weight 400.
+ * @example
+ *   <div class="bg-white pa-2">
+ *     <div class="white bg-blue-400 pa-2">
+ *       <code class="">
+ *         .bg-blue-400
+ *       </code>
+ *     </div>
+ *   </div>
+ */
+ .bg-blue-400 {
+   background-color: var(--blue-400);
+ }
+
+        
+
+
+/* Blue at weight 500.
+ * @example
+ *   <div class="bg-black pa-2">
+ *     <div class="black bg-blue-500 pa-2">
+ *       <code class="">
+ *         .bg-blue-500
+ *       </code>
+ *     </div>
+ *   </div>
+ */
+ .bg-blue-500 {
+   background-color: var(--blue-500);
+ }
+
+        
+
+
+/* Blue at weight 600 ().
+ * @example
+ *   <div class="bg-black pa-2">
+ *     <div class="black bg-blue-600 pa-2">
+ *       <code class="">
+ *         .bg-blue-600
+ *       </code>
+ *     </div>
+ *   </div>
+ */
+ .bg-blue-600 {
+   background-color: var(--blue-600);
+ }
+
+        
+
+
+/* Blue at weight 700 ().
+ * @example
+ *   <div class="bg-black pa-2">
+ *     <div class="black bg-blue-700 pa-2">
+ *       <code class="">
+ *         .bg-blue-700
+ *       </code>
+ *     </div>
+ *   </div>
+ */
+ .bg-blue-700 {
+   background-color: var(--blue-700);
+ }
+
+        
+
+
+/* Blue at weight 800 (second lightest).
+ * @example
+ *   <div class="bg-black pa-2">
+ *     <div class="black bg-blue-800 pa-2">
+ *       <code class="">
+ *         .bg-blue-800
+ *       </code>
+ *     </div>
+ *   </div>
+ */
+ .bg-blue-800 {
+   background-color: var(--blue-800);
+ }
+
+        
+
+
+/* Blue at weight 900 (lightest).
+ * @example
+ *   <div class="bg-black pa-2">
+ *     <div class="black bg-blue-900 pa-2">
+ *       <code class="">
+ *         .bg-blue-900
+ *       </code>
+ *     </div>
+ *   </div>
+ */
+ .bg-blue-900 {
+   background-color: var(--blue-900);
+ }
+
+        
+
+/* Purple shades.
+ *
+ * @scale background-purple Purple
+ * @see property-scale:purple
+ */
+      
+
+
+/* Purple at weight 100 (darkest).
+ * @example
+ *   <div class="bg-white pa-2">
+ *     <div class="white bg-purple-100 pa-2">
+ *       <code class="">
+ *         .bg-purple-100
+ *       </code>
+ *     </div>
+ *   </div>
+ */
+ .bg-purple-100 {
+   background-color: var(--purple-100);
+ }
+
+        
+
+
+/* Purple at weight 200 (second darkest).
+ * @example
+ *   <div class="bg-white pa-2">
+ *     <div class="white bg-purple-200 pa-2">
+ *       <code class="">
+ *         .bg-purple-200
+ *       </code>
+ *     </div>
+ *   </div>
+ */
+ .bg-purple-200 {
+   background-color: var(--purple-200);
+ }
+
+        
+
+
+/* Purple at weight 300.
+ * @example
+ *   <div class="bg-white pa-2">
+ *     <div class="white bg-purple-300 pa-2">
+ *       <code class="">
+ *         .bg-purple-300
+ *       </code>
+ *     </div>
+ *   </div>
+ */
+ .bg-purple-300 {
+   background-color: var(--purple-300);
+ }
+
+        
+
+
+/* Purple at weight 400.
+ * @example
+ *   <div class="bg-white pa-2">
+ *     <div class="white bg-purple-400 pa-2">
+ *       <code class="">
+ *         .bg-purple-400
+ *       </code>
+ *     </div>
+ *   </div>
+ */
+ .bg-purple-400 {
+   background-color: var(--purple-400);
+ }
+
+        
+
+
+/* Purple at weight 500.
+ * @example
+ *   <div class="bg-black pa-2">
+ *     <div class="black bg-purple-500 pa-2">
+ *       <code class="">
+ *         .bg-purple-500
+ *       </code>
+ *     </div>
+ *   </div>
+ */
+ .bg-purple-500 {
+   background-color: var(--purple-500);
+ }
+
+        
+
+
+/* Purple at weight 600 ().
+ * @example
+ *   <div class="bg-black pa-2">
+ *     <div class="black bg-purple-600 pa-2">
+ *       <code class="">
+ *         .bg-purple-600
+ *       </code>
+ *     </div>
+ *   </div>
+ */
+ .bg-purple-600 {
+   background-color: var(--purple-600);
+ }
+
+        
+
+
+/* Purple at weight 700 ().
+ * @example
+ *   <div class="bg-black pa-2">
+ *     <div class="black bg-purple-700 pa-2">
+ *       <code class="">
+ *         .bg-purple-700
+ *       </code>
+ *     </div>
+ *   </div>
+ */
+ .bg-purple-700 {
+   background-color: var(--purple-700);
+ }
+
+        
+
+
+/* Purple at weight 800 (second lightest).
+ * @example
+ *   <div class="bg-black pa-2">
+ *     <div class="black bg-purple-800 pa-2">
+ *       <code class="">
+ *         .bg-purple-800
+ *       </code>
+ *     </div>
+ *   </div>
+ */
+ .bg-purple-800 {
+   background-color: var(--purple-800);
+ }
+
+        
+
+
+/* Purple at weight 900 (lightest).
+ * @example
+ *   <div class="bg-black pa-2">
+ *     <div class="black bg-purple-900 pa-2">
+ *       <code class="">
+ *         .bg-purple-900
+ *       </code>
+ *     </div>
+ *   </div>
+ */
+ .bg-purple-900 {
+   background-color: var(--purple-900);
+ }
+
+        
+
+/* Gray shades.
+ *
+ * @scale background-gray Gray
+ * @see property-scale:gray
+ */
+      
+
+
+/* Gray at weight 100 (darkest).
+ * @example
+ *   <div class="bg-white pa-2">
+ *     <div class="white bg-gray-100 pa-2">
+ *       <code class="">
+ *         .bg-gray-100
+ *       </code>
+ *     </div>
+ *   </div>
+ */
+ .bg-gray-100 {
+   background-color: var(--gray-100);
+ }
+
+        
+
+
+/* Gray at weight 200 (second darkest).
+ * @example
+ *   <div class="bg-white pa-2">
+ *     <div class="white bg-gray-200 pa-2">
+ *       <code class="">
+ *         .bg-gray-200
+ *       </code>
+ *     </div>
+ *   </div>
+ */
+ .bg-gray-200 {
+   background-color: var(--gray-200);
+ }
+
+        
+
+
+/* Gray at weight 300.
+ * @example
+ *   <div class="bg-white pa-2">
+ *     <div class="white bg-gray-300 pa-2">
+ *       <code class="">
+ *         .bg-gray-300
+ *       </code>
+ *     </div>
+ *   </div>
+ */
+ .bg-gray-300 {
+   background-color: var(--gray-300);
+ }
+
+        
+
+
+/* Gray at weight 400.
+ * @example
+ *   <div class="bg-white pa-2">
+ *     <div class="white bg-gray-400 pa-2">
+ *       <code class="">
+ *         .bg-gray-400
+ *       </code>
+ *     </div>
+ *   </div>
+ */
+ .bg-gray-400 {
+   background-color: var(--gray-400);
+ }
+
+        
+
+
+/* Gray at weight 500.
+ * @example
+ *   <div class="bg-black pa-2">
+ *     <div class="black bg-gray-500 pa-2">
+ *       <code class="">
+ *         .bg-gray-500
+ *       </code>
+ *     </div>
+ *   </div>
+ */
+ .bg-gray-500 {
+   background-color: var(--gray-500);
+ }
+
+        
+
+
+/* Gray at weight 600 ().
+ * @example
+ *   <div class="bg-black pa-2">
+ *     <div class="black bg-gray-600 pa-2">
+ *       <code class="">
+ *         .bg-gray-600
+ *       </code>
+ *     </div>
+ *   </div>
+ */
+ .bg-gray-600 {
+   background-color: var(--gray-600);
+ }
+
+        
+
+
+/* Gray at weight 700 ().
+ * @example
+ *   <div class="bg-black pa-2">
+ *     <div class="black bg-gray-700 pa-2">
+ *       <code class="">
+ *         .bg-gray-700
+ *       </code>
+ *     </div>
+ *   </div>
+ */
+ .bg-gray-700 {
+   background-color: var(--gray-700);
+ }
+
+        
+
+
+/* Gray at weight 800 (second lightest).
+ * @example
+ *   <div class="bg-black pa-2">
+ *     <div class="black bg-gray-800 pa-2">
+ *       <code class="">
+ *         .bg-gray-800
+ *       </code>
+ *     </div>
+ *   </div>
+ */
+ .bg-gray-800 {
+   background-color: var(--gray-800);
+ }
+
+        
+
+
+/* Gray at weight 900 (lightest).
+ * @example
+ *   <div class="bg-black pa-2">
+ *     <div class="black bg-gray-900 pa-2">
+ *       <code class="">
+ *         .bg-gray-900
+ *       </code>
+ *     </div>
+ *   </div>
+ */
+ .bg-gray-900 {
+   background-color: var(--gray-900);
+ }
+
+        
+
+/* Blacks.
+ *
+ * @scale background-black Black
+ * @see property-scale:black
+ */
+      
+
+
+/* Black (pure).
+ * @example
+ *   <div class="bg-white pa-2">
+ *     <div class="white bg-black pa-2">
+ *       <code class="">
+ *         .bg-black
+ *       </code>
+ *     </div>
+ *   </div>
+ */
+ .bg-black {
+   background-color: var(--black);
+ }
+
+        
+
+
+/* Black (slightly off).
+ * @example
+ *   <div class="bg-white pa-2">
+ *     <div class="white bg-black-ish pa-2">
+ *       <code class="">
+ *         .bg-black-ish
+ *       </code>
+ *     </div>
+ *   </div>
+ */
+ .bg-black-ish {
+   background-color: var(--black-ish);
+ }
+
+        
+
+/* Whites.
+ *
+ * @scale background-white White
+ * @see property-scale:white
+ */
+      
+
+
+/* White (pure).
+ * @example
+ *   <div class="bg-black pa-2">
+ *     <div class="black bg-white pa-2">
+ *       <code class="">
+ *         .bg-white
+ *       </code>
+ *     </div>
+ *   </div>
+ */
+ .bg-white {
+   background-color: var(--white);
+ }
+
+        
+
+
+/* White (slightly off).
+ * @example
+ *   <div class="bg-black pa-2">
+ *     <div class="black bg-white-ish pa-2">
+ *       <code class="">
+ *         .bg-white-ish
+ *       </code>
+ *     </div>
+ *   </div>
+ */
+ .bg-white-ish {
+   background-color: var(--white-ish);
+ }
+
+        
+
+/* Border colors.  For red, orange, yellow, green, blue, purple, and gray, there are 
+ * nine steps in the scale, from 100 being darkest to 900 being lightest.  Black and white have only
+ * two steps: pure black/white and slightly off black/white.  The colors and shades are shown in the table below.
+ *
+ * @category border-colors
+ * @see property-category:colors
+ */
+    
+
+
+/* Red shades.
+ *
+ * @scale border-red Red
+ * @see property-scale:red
+ */
+      
+
+
+/* Red at weight 100 (darkest).
+ * @example
+ *   <div class="bg-white pa-2">
+ *     <div class="bc-red-100 bg-white ba bw-2 br-3 pa-2">
+ *       <code class=" red-100">
+ *         .bc-red-100
+ *       </code>
+ *     </div>
+ *   </div>
+ */
+ .bc-red-100 {
+   border-color: var(--red-100);
+ }
+
+        
+
+
+/* Red at weight 200 (second darkest).
+ * @example
+ *   <div class="bg-white pa-2">
+ *     <div class="bc-red-200 bg-white ba bw-2 br-3 pa-2">
+ *       <code class=" red-200">
+ *         .bc-red-200
+ *       </code>
+ *     </div>
+ *   </div>
+ */
+ .bc-red-200 {
+   border-color: var(--red-200);
+ }
+
+        
+
+
+/* Red at weight 300.
+ * @example
+ *   <div class="bg-white pa-2">
+ *     <div class="bc-red-300 bg-white ba bw-2 br-3 pa-2">
+ *       <code class=" red-300">
+ *         .bc-red-300
+ *       </code>
+ *     </div>
+ *   </div>
+ */
+ .bc-red-300 {
+   border-color: var(--red-300);
+ }
+
+        
+
+
+/* Red at weight 400.
+ * @example
+ *   <div class="bg-white pa-2">
+ *     <div class="bc-red-400 bg-white ba bw-2 br-3 pa-2">
+ *       <code class=" red-400">
+ *         .bc-red-400
+ *       </code>
+ *     </div>
+ *   </div>
+ */
+ .bc-red-400 {
+   border-color: var(--red-400);
+ }
+
+        
+
+
+/* Red at weight 500.
+ * @example
+ *   <div class="bg-black pa-2">
+ *     <div class="bc-red-500 bg-black ba bw-2 br-3 pa-2">
+ *       <code class=" red-500">
+ *         .bc-red-500
+ *       </code>
+ *     </div>
+ *   </div>
+ */
+ .bc-red-500 {
+   border-color: var(--red-500);
+ }
+
+        
+
+
+/* Red at weight 600 ().
+ * @example
+ *   <div class="bg-black pa-2">
+ *     <div class="bc-red-600 bg-black ba bw-2 br-3 pa-2">
+ *       <code class=" red-600">
+ *         .bc-red-600
+ *       </code>
+ *     </div>
+ *   </div>
+ */
+ .bc-red-600 {
+   border-color: var(--red-600);
+ }
+
+        
+
+
+/* Red at weight 700 ().
+ * @example
+ *   <div class="bg-black pa-2">
+ *     <div class="bc-red-700 bg-black ba bw-2 br-3 pa-2">
+ *       <code class=" red-700">
+ *         .bc-red-700
+ *       </code>
+ *     </div>
+ *   </div>
+ */
+ .bc-red-700 {
+   border-color: var(--red-700);
+ }
+
+        
+
+
+/* Red at weight 800 (second lightest).
+ * @example
+ *   <div class="bg-black pa-2">
+ *     <div class="bc-red-800 bg-black ba bw-2 br-3 pa-2">
+ *       <code class=" red-800">
+ *         .bc-red-800
+ *       </code>
+ *     </div>
+ *   </div>
+ */
+ .bc-red-800 {
+   border-color: var(--red-800);
+ }
+
+        
+
+
+/* Red at weight 900 (lightest).
+ * @example
+ *   <div class="bg-black pa-2">
+ *     <div class="bc-red-900 bg-black ba bw-2 br-3 pa-2">
+ *       <code class=" red-900">
+ *         .bc-red-900
+ *       </code>
+ *     </div>
+ *   </div>
+ */
+ .bc-red-900 {
+   border-color: var(--red-900);
+ }
+
+        
+
+/* Orange shades.
+ *
+ * @scale border-orange Orange
+ * @see property-scale:orange
+ */
+      
+
+
+/* Orange at weight 100 (darkest).
+ * @example
+ *   <div class="bg-white pa-2">
+ *     <div class="bc-orange-100 bg-white ba bw-2 br-3 pa-2">
+ *       <code class=" orange-100">
+ *         .bc-orange-100
+ *       </code>
+ *     </div>
+ *   </div>
+ */
+ .bc-orange-100 {
+   border-color: var(--orange-100);
+ }
+
+        
+
+
+/* Orange at weight 200 (second darkest).
+ * @example
+ *   <div class="bg-white pa-2">
+ *     <div class="bc-orange-200 bg-white ba bw-2 br-3 pa-2">
+ *       <code class=" orange-200">
+ *         .bc-orange-200
+ *       </code>
+ *     </div>
+ *   </div>
+ */
+ .bc-orange-200 {
+   border-color: var(--orange-200);
+ }
+
+        
+
+
+/* Orange at weight 300.
+ * @example
+ *   <div class="bg-white pa-2">
+ *     <div class="bc-orange-300 bg-white ba bw-2 br-3 pa-2">
+ *       <code class=" orange-300">
+ *         .bc-orange-300
+ *       </code>
+ *     </div>
+ *   </div>
+ */
+ .bc-orange-300 {
+   border-color: var(--orange-300);
+ }
+
+        
+
+
+/* Orange at weight 400.
+ * @example
+ *   <div class="bg-white pa-2">
+ *     <div class="bc-orange-400 bg-white ba bw-2 br-3 pa-2">
+ *       <code class=" orange-400">
+ *         .bc-orange-400
+ *       </code>
+ *     </div>
+ *   </div>
+ */
+ .bc-orange-400 {
+   border-color: var(--orange-400);
+ }
+
+        
+
+
+/* Orange at weight 500.
+ * @example
+ *   <div class="bg-black pa-2">
+ *     <div class="bc-orange-500 bg-black ba bw-2 br-3 pa-2">
+ *       <code class=" orange-500">
+ *         .bc-orange-500
+ *       </code>
+ *     </div>
+ *   </div>
+ */
+ .bc-orange-500 {
+   border-color: var(--orange-500);
+ }
+
+        
+
+
+/* Orange at weight 600 ().
+ * @example
+ *   <div class="bg-black pa-2">
+ *     <div class="bc-orange-600 bg-black ba bw-2 br-3 pa-2">
+ *       <code class=" orange-600">
+ *         .bc-orange-600
+ *       </code>
+ *     </div>
+ *   </div>
+ */
+ .bc-orange-600 {
+   border-color: var(--orange-600);
+ }
+
+        
+
+
+/* Orange at weight 700 ().
+ * @example
+ *   <div class="bg-black pa-2">
+ *     <div class="bc-orange-700 bg-black ba bw-2 br-3 pa-2">
+ *       <code class=" orange-700">
+ *         .bc-orange-700
+ *       </code>
+ *     </div>
+ *   </div>
+ */
+ .bc-orange-700 {
+   border-color: var(--orange-700);
+ }
+
+        
+
+
+/* Orange at weight 800 (second lightest).
+ * @example
+ *   <div class="bg-black pa-2">
+ *     <div class="bc-orange-800 bg-black ba bw-2 br-3 pa-2">
+ *       <code class=" orange-800">
+ *         .bc-orange-800
+ *       </code>
+ *     </div>
+ *   </div>
+ */
+ .bc-orange-800 {
+   border-color: var(--orange-800);
+ }
+
+        
+
+
+/* Orange at weight 900 (lightest).
+ * @example
+ *   <div class="bg-black pa-2">
+ *     <div class="bc-orange-900 bg-black ba bw-2 br-3 pa-2">
+ *       <code class=" orange-900">
+ *         .bc-orange-900
+ *       </code>
+ *     </div>
+ *   </div>
+ */
+ .bc-orange-900 {
+   border-color: var(--orange-900);
+ }
+
+        
+
+/* Yellow shades.
+ *
+ * @scale border-yellow Yellow
+ * @see property-scale:yellow
+ */
+      
+
+
+/* Yellow at weight 100 (darkest).
+ * @example
+ *   <div class="bg-white pa-2">
+ *     <div class="bc-yellow-100 bg-white ba bw-2 br-3 pa-2">
+ *       <code class=" yellow-100">
+ *         .bc-yellow-100
+ *       </code>
+ *     </div>
+ *   </div>
+ */
+ .bc-yellow-100 {
+   border-color: var(--yellow-100);
+ }
+
+        
+
+
+/* Yellow at weight 200 (second darkest).
+ * @example
+ *   <div class="bg-white pa-2">
+ *     <div class="bc-yellow-200 bg-white ba bw-2 br-3 pa-2">
+ *       <code class=" yellow-200">
+ *         .bc-yellow-200
+ *       </code>
+ *     </div>
+ *   </div>
+ */
+ .bc-yellow-200 {
+   border-color: var(--yellow-200);
+ }
+
+        
+
+
+/* Yellow at weight 300.
+ * @example
+ *   <div class="bg-white pa-2">
+ *     <div class="bc-yellow-300 bg-white ba bw-2 br-3 pa-2">
+ *       <code class=" yellow-300">
+ *         .bc-yellow-300
+ *       </code>
+ *     </div>
+ *   </div>
+ */
+ .bc-yellow-300 {
+   border-color: var(--yellow-300);
+ }
+
+        
+
+
+/* Yellow at weight 400.
+ * @example
+ *   <div class="bg-white pa-2">
+ *     <div class="bc-yellow-400 bg-white ba bw-2 br-3 pa-2">
+ *       <code class=" yellow-400">
+ *         .bc-yellow-400
+ *       </code>
+ *     </div>
+ *   </div>
+ */
+ .bc-yellow-400 {
+   border-color: var(--yellow-400);
+ }
+
+        
+
+
+/* Yellow at weight 500.
+ * @example
+ *   <div class="bg-black pa-2">
+ *     <div class="bc-yellow-500 bg-black ba bw-2 br-3 pa-2">
+ *       <code class=" yellow-500">
+ *         .bc-yellow-500
+ *       </code>
+ *     </div>
+ *   </div>
+ */
+ .bc-yellow-500 {
+   border-color: var(--yellow-500);
+ }
+
+        
+
+
+/* Yellow at weight 600 ().
+ * @example
+ *   <div class="bg-black pa-2">
+ *     <div class="bc-yellow-600 bg-black ba bw-2 br-3 pa-2">
+ *       <code class=" yellow-600">
+ *         .bc-yellow-600
+ *       </code>
+ *     </div>
+ *   </div>
+ */
+ .bc-yellow-600 {
+   border-color: var(--yellow-600);
+ }
+
+        
+
+
+/* Yellow at weight 700 ().
+ * @example
+ *   <div class="bg-black pa-2">
+ *     <div class="bc-yellow-700 bg-black ba bw-2 br-3 pa-2">
+ *       <code class=" yellow-700">
+ *         .bc-yellow-700
+ *       </code>
+ *     </div>
+ *   </div>
+ */
+ .bc-yellow-700 {
+   border-color: var(--yellow-700);
+ }
+
+        
+
+
+/* Yellow at weight 800 (second lightest).
+ * @example
+ *   <div class="bg-black pa-2">
+ *     <div class="bc-yellow-800 bg-black ba bw-2 br-3 pa-2">
+ *       <code class=" yellow-800">
+ *         .bc-yellow-800
+ *       </code>
+ *     </div>
+ *   </div>
+ */
+ .bc-yellow-800 {
+   border-color: var(--yellow-800);
+ }
+
+        
+
+
+/* Yellow at weight 900 (lightest).
+ * @example
+ *   <div class="bg-black pa-2">
+ *     <div class="bc-yellow-900 bg-black ba bw-2 br-3 pa-2">
+ *       <code class=" yellow-900">
+ *         .bc-yellow-900
+ *       </code>
+ *     </div>
+ *   </div>
+ */
+ .bc-yellow-900 {
+   border-color: var(--yellow-900);
+ }
+
+        
+
+/* Green shades.
+ *
+ * @scale border-green Green
+ * @see property-scale:green
+ */
+      
+
+
+/* Green at weight 100 (darkest).
+ * @example
+ *   <div class="bg-white pa-2">
+ *     <div class="bc-green-100 bg-white ba bw-2 br-3 pa-2">
+ *       <code class=" green-100">
+ *         .bc-green-100
+ *       </code>
+ *     </div>
+ *   </div>
+ */
+ .bc-green-100 {
+   border-color: var(--green-100);
+ }
+
+        
+
+
+/* Green at weight 200 (second darkest).
+ * @example
+ *   <div class="bg-white pa-2">
+ *     <div class="bc-green-200 bg-white ba bw-2 br-3 pa-2">
+ *       <code class=" green-200">
+ *         .bc-green-200
+ *       </code>
+ *     </div>
+ *   </div>
+ */
+ .bc-green-200 {
+   border-color: var(--green-200);
+ }
+
+        
+
+
+/* Green at weight 300.
+ * @example
+ *   <div class="bg-white pa-2">
+ *     <div class="bc-green-300 bg-white ba bw-2 br-3 pa-2">
+ *       <code class=" green-300">
+ *         .bc-green-300
+ *       </code>
+ *     </div>
+ *   </div>
+ */
+ .bc-green-300 {
+   border-color: var(--green-300);
+ }
+
+        
+
+
+/* Green at weight 400.
+ * @example
+ *   <div class="bg-white pa-2">
+ *     <div class="bc-green-400 bg-white ba bw-2 br-3 pa-2">
+ *       <code class=" green-400">
+ *         .bc-green-400
+ *       </code>
+ *     </div>
+ *   </div>
+ */
+ .bc-green-400 {
+   border-color: var(--green-400);
+ }
+
+        
+
+
+/* Green at weight 500.
+ * @example
+ *   <div class="bg-black pa-2">
+ *     <div class="bc-green-500 bg-black ba bw-2 br-3 pa-2">
+ *       <code class=" green-500">
+ *         .bc-green-500
+ *       </code>
+ *     </div>
+ *   </div>
+ */
+ .bc-green-500 {
+   border-color: var(--green-500);
+ }
+
+        
+
+
+/* Green at weight 600 ().
+ * @example
+ *   <div class="bg-black pa-2">
+ *     <div class="bc-green-600 bg-black ba bw-2 br-3 pa-2">
+ *       <code class=" green-600">
+ *         .bc-green-600
+ *       </code>
+ *     </div>
+ *   </div>
+ */
+ .bc-green-600 {
+   border-color: var(--green-600);
+ }
+
+        
+
+
+/* Green at weight 700 ().
+ * @example
+ *   <div class="bg-black pa-2">
+ *     <div class="bc-green-700 bg-black ba bw-2 br-3 pa-2">
+ *       <code class=" green-700">
+ *         .bc-green-700
+ *       </code>
+ *     </div>
+ *   </div>
+ */
+ .bc-green-700 {
+   border-color: var(--green-700);
+ }
+
+        
+
+
+/* Green at weight 800 (second lightest).
+ * @example
+ *   <div class="bg-black pa-2">
+ *     <div class="bc-green-800 bg-black ba bw-2 br-3 pa-2">
+ *       <code class=" green-800">
+ *         .bc-green-800
+ *       </code>
+ *     </div>
+ *   </div>
+ */
+ .bc-green-800 {
+   border-color: var(--green-800);
+ }
+
+        
+
+
+/* Green at weight 900 (lightest).
+ * @example
+ *   <div class="bg-black pa-2">
+ *     <div class="bc-green-900 bg-black ba bw-2 br-3 pa-2">
+ *       <code class=" green-900">
+ *         .bc-green-900
+ *       </code>
+ *     </div>
+ *   </div>
+ */
+ .bc-green-900 {
+   border-color: var(--green-900);
+ }
+
+        
+
+/* Blue shades.
+ *
+ * @scale border-blue Blue
+ * @see property-scale:blue
+ */
+      
+
+
+/* Blue at weight 100 (darkest).
+ * @example
+ *   <div class="bg-white pa-2">
+ *     <div class="bc-blue-100 bg-white ba bw-2 br-3 pa-2">
+ *       <code class=" blue-100">
+ *         .bc-blue-100
+ *       </code>
+ *     </div>
+ *   </div>
+ */
+ .bc-blue-100 {
+   border-color: var(--blue-100);
+ }
+
+        
+
+
+/* Blue at weight 200 (second darkest).
+ * @example
+ *   <div class="bg-white pa-2">
+ *     <div class="bc-blue-200 bg-white ba bw-2 br-3 pa-2">
+ *       <code class=" blue-200">
+ *         .bc-blue-200
+ *       </code>
+ *     </div>
+ *   </div>
+ */
+ .bc-blue-200 {
+   border-color: var(--blue-200);
+ }
+
+        
+
+
+/* Blue at weight 300.
+ * @example
+ *   <div class="bg-white pa-2">
+ *     <div class="bc-blue-300 bg-white ba bw-2 br-3 pa-2">
+ *       <code class=" blue-300">
+ *         .bc-blue-300
+ *       </code>
+ *     </div>
+ *   </div>
+ */
+ .bc-blue-300 {
+   border-color: var(--blue-300);
+ }
+
+        
+
+
+/* Blue at weight 400.
+ * @example
+ *   <div class="bg-white pa-2">
+ *     <div class="bc-blue-400 bg-white ba bw-2 br-3 pa-2">
+ *       <code class=" blue-400">
+ *         .bc-blue-400
+ *       </code>
+ *     </div>
+ *   </div>
+ */
+ .bc-blue-400 {
+   border-color: var(--blue-400);
+ }
+
+        
+
+
+/* Blue at weight 500.
+ * @example
+ *   <div class="bg-black pa-2">
+ *     <div class="bc-blue-500 bg-black ba bw-2 br-3 pa-2">
+ *       <code class=" blue-500">
+ *         .bc-blue-500
+ *       </code>
+ *     </div>
+ *   </div>
+ */
+ .bc-blue-500 {
+   border-color: var(--blue-500);
+ }
+
+        
+
+
+/* Blue at weight 600 ().
+ * @example
+ *   <div class="bg-black pa-2">
+ *     <div class="bc-blue-600 bg-black ba bw-2 br-3 pa-2">
+ *       <code class=" blue-600">
+ *         .bc-blue-600
+ *       </code>
+ *     </div>
+ *   </div>
+ */
+ .bc-blue-600 {
+   border-color: var(--blue-600);
+ }
+
+        
+
+
+/* Blue at weight 700 ().
+ * @example
+ *   <div class="bg-black pa-2">
+ *     <div class="bc-blue-700 bg-black ba bw-2 br-3 pa-2">
+ *       <code class=" blue-700">
+ *         .bc-blue-700
+ *       </code>
+ *     </div>
+ *   </div>
+ */
+ .bc-blue-700 {
+   border-color: var(--blue-700);
+ }
+
+        
+
+
+/* Blue at weight 800 (second lightest).
+ * @example
+ *   <div class="bg-black pa-2">
+ *     <div class="bc-blue-800 bg-black ba bw-2 br-3 pa-2">
+ *       <code class=" blue-800">
+ *         .bc-blue-800
+ *       </code>
+ *     </div>
+ *   </div>
+ */
+ .bc-blue-800 {
+   border-color: var(--blue-800);
+ }
+
+        
+
+
+/* Blue at weight 900 (lightest).
+ * @example
+ *   <div class="bg-black pa-2">
+ *     <div class="bc-blue-900 bg-black ba bw-2 br-3 pa-2">
+ *       <code class=" blue-900">
+ *         .bc-blue-900
+ *       </code>
+ *     </div>
+ *   </div>
+ */
+ .bc-blue-900 {
+   border-color: var(--blue-900);
+ }
+
+        
+
+/* Purple shades.
+ *
+ * @scale border-purple Purple
+ * @see property-scale:purple
+ */
+      
+
+
+/* Purple at weight 100 (darkest).
+ * @example
+ *   <div class="bg-white pa-2">
+ *     <div class="bc-purple-100 bg-white ba bw-2 br-3 pa-2">
+ *       <code class=" purple-100">
+ *         .bc-purple-100
+ *       </code>
+ *     </div>
+ *   </div>
+ */
+ .bc-purple-100 {
+   border-color: var(--purple-100);
+ }
+
+        
+
+
+/* Purple at weight 200 (second darkest).
+ * @example
+ *   <div class="bg-white pa-2">
+ *     <div class="bc-purple-200 bg-white ba bw-2 br-3 pa-2">
+ *       <code class=" purple-200">
+ *         .bc-purple-200
+ *       </code>
+ *     </div>
+ *   </div>
+ */
+ .bc-purple-200 {
+   border-color: var(--purple-200);
+ }
+
+        
+
+
+/* Purple at weight 300.
+ * @example
+ *   <div class="bg-white pa-2">
+ *     <div class="bc-purple-300 bg-white ba bw-2 br-3 pa-2">
+ *       <code class=" purple-300">
+ *         .bc-purple-300
+ *       </code>
+ *     </div>
+ *   </div>
+ */
+ .bc-purple-300 {
+   border-color: var(--purple-300);
+ }
+
+        
+
+
+/* Purple at weight 400.
+ * @example
+ *   <div class="bg-white pa-2">
+ *     <div class="bc-purple-400 bg-white ba bw-2 br-3 pa-2">
+ *       <code class=" purple-400">
+ *         .bc-purple-400
+ *       </code>
+ *     </div>
+ *   </div>
+ */
+ .bc-purple-400 {
+   border-color: var(--purple-400);
+ }
+
+        
+
+
+/* Purple at weight 500.
+ * @example
+ *   <div class="bg-black pa-2">
+ *     <div class="bc-purple-500 bg-black ba bw-2 br-3 pa-2">
+ *       <code class=" purple-500">
+ *         .bc-purple-500
+ *       </code>
+ *     </div>
+ *   </div>
+ */
+ .bc-purple-500 {
+   border-color: var(--purple-500);
+ }
+
+        
+
+
+/* Purple at weight 600 ().
+ * @example
+ *   <div class="bg-black pa-2">
+ *     <div class="bc-purple-600 bg-black ba bw-2 br-3 pa-2">
+ *       <code class=" purple-600">
+ *         .bc-purple-600
+ *       </code>
+ *     </div>
+ *   </div>
+ */
+ .bc-purple-600 {
+   border-color: var(--purple-600);
+ }
+
+        
+
+
+/* Purple at weight 700 ().
+ * @example
+ *   <div class="bg-black pa-2">
+ *     <div class="bc-purple-700 bg-black ba bw-2 br-3 pa-2">
+ *       <code class=" purple-700">
+ *         .bc-purple-700
+ *       </code>
+ *     </div>
+ *   </div>
+ */
+ .bc-purple-700 {
+   border-color: var(--purple-700);
+ }
+
+        
+
+
+/* Purple at weight 800 (second lightest).
+ * @example
+ *   <div class="bg-black pa-2">
+ *     <div class="bc-purple-800 bg-black ba bw-2 br-3 pa-2">
+ *       <code class=" purple-800">
+ *         .bc-purple-800
+ *       </code>
+ *     </div>
+ *   </div>
+ */
+ .bc-purple-800 {
+   border-color: var(--purple-800);
+ }
+
+        
+
+
+/* Purple at weight 900 (lightest).
+ * @example
+ *   <div class="bg-black pa-2">
+ *     <div class="bc-purple-900 bg-black ba bw-2 br-3 pa-2">
+ *       <code class=" purple-900">
+ *         .bc-purple-900
+ *       </code>
+ *     </div>
+ *   </div>
+ */
+ .bc-purple-900 {
+   border-color: var(--purple-900);
+ }
+
+        
+
+/* Gray shades.
+ *
+ * @scale border-gray Gray
+ * @see property-scale:gray
+ */
+      
+
+
+/* Gray at weight 100 (darkest).
+ * @example
+ *   <div class="bg-white pa-2">
+ *     <div class="bc-gray-100 bg-white ba bw-2 br-3 pa-2">
+ *       <code class=" gray-100">
+ *         .bc-gray-100
+ *       </code>
+ *     </div>
+ *   </div>
+ */
+ .bc-gray-100 {
+   border-color: var(--gray-100);
+ }
+
+        
+
+
+/* Gray at weight 200 (second darkest).
+ * @example
+ *   <div class="bg-white pa-2">
+ *     <div class="bc-gray-200 bg-white ba bw-2 br-3 pa-2">
+ *       <code class=" gray-200">
+ *         .bc-gray-200
+ *       </code>
+ *     </div>
+ *   </div>
+ */
+ .bc-gray-200 {
+   border-color: var(--gray-200);
+ }
+
+        
+
+
+/* Gray at weight 300.
+ * @example
+ *   <div class="bg-white pa-2">
+ *     <div class="bc-gray-300 bg-white ba bw-2 br-3 pa-2">
+ *       <code class=" gray-300">
+ *         .bc-gray-300
+ *       </code>
+ *     </div>
+ *   </div>
+ */
+ .bc-gray-300 {
+   border-color: var(--gray-300);
+ }
+
+        
+
+
+/* Gray at weight 400.
+ * @example
+ *   <div class="bg-white pa-2">
+ *     <div class="bc-gray-400 bg-white ba bw-2 br-3 pa-2">
+ *       <code class=" gray-400">
+ *         .bc-gray-400
+ *       </code>
+ *     </div>
+ *   </div>
+ */
+ .bc-gray-400 {
+   border-color: var(--gray-400);
+ }
+
+        
+
+
+/* Gray at weight 500.
+ * @example
+ *   <div class="bg-black pa-2">
+ *     <div class="bc-gray-500 bg-black ba bw-2 br-3 pa-2">
+ *       <code class=" gray-500">
+ *         .bc-gray-500
+ *       </code>
+ *     </div>
+ *   </div>
+ */
+ .bc-gray-500 {
+   border-color: var(--gray-500);
+ }
+
+        
+
+
+/* Gray at weight 600 ().
+ * @example
+ *   <div class="bg-black pa-2">
+ *     <div class="bc-gray-600 bg-black ba bw-2 br-3 pa-2">
+ *       <code class=" gray-600">
+ *         .bc-gray-600
+ *       </code>
+ *     </div>
+ *   </div>
+ */
+ .bc-gray-600 {
+   border-color: var(--gray-600);
+ }
+
+        
+
+
+/* Gray at weight 700 ().
+ * @example
+ *   <div class="bg-black pa-2">
+ *     <div class="bc-gray-700 bg-black ba bw-2 br-3 pa-2">
+ *       <code class=" gray-700">
+ *         .bc-gray-700
+ *       </code>
+ *     </div>
+ *   </div>
+ */
+ .bc-gray-700 {
+   border-color: var(--gray-700);
+ }
+
+        
+
+
+/* Gray at weight 800 (second lightest).
+ * @example
+ *   <div class="bg-black pa-2">
+ *     <div class="bc-gray-800 bg-black ba bw-2 br-3 pa-2">
+ *       <code class=" gray-800">
+ *         .bc-gray-800
+ *       </code>
+ *     </div>
+ *   </div>
+ */
+ .bc-gray-800 {
+   border-color: var(--gray-800);
+ }
+
+        
+
+
+/* Gray at weight 900 (lightest).
+ * @example
+ *   <div class="bg-black pa-2">
+ *     <div class="bc-gray-900 bg-black ba bw-2 br-3 pa-2">
+ *       <code class=" gray-900">
+ *         .bc-gray-900
+ *       </code>
+ *     </div>
+ *   </div>
+ */
+ .bc-gray-900 {
+   border-color: var(--gray-900);
+ }
+
+        
+
+/* Blacks.
+ *
+ * @scale border-black Black
+ * @see property-scale:black
+ */
+      
+
+
+/* Black (pure).
+ * @example
+ *   <div class="bg-white pa-2">
+ *     <div class="bc-black bg-white ba bw-2 br-3 pa-2">
+ *       <code class="white">
+ *         .bc-black
+ *       </code>
+ *     </div>
+ *   </div>
+ */
+ .bc-black {
+   border-color: var(--black);
+ }
+
+        
+
+
+/* Black (slightly off).
+ * @example
+ *   <div class="bg-white pa-2">
+ *     <div class="bc-black-ish bg-white ba bw-2 br-3 pa-2">
+ *       <code class="white">
+ *         .bc-black-ish
+ *       </code>
+ *     </div>
+ *   </div>
+ */
+ .bc-black-ish {
+   border-color: var(--black-ish);
+ }
+
+        
+
+/* Whites.
+ *
+ * @scale border-white White
+ * @see property-scale:white
+ */
+      
+
+
+/* White (pure).
+ * @example
+ *   <div class="bg-black pa-2">
+ *     <div class="bc-white bg-black ba bw-2 br-3 pa-2">
+ *       <code class="black">
+ *         .bc-white
+ *       </code>
+ *     </div>
+ *   </div>
+ */
+ .bc-white {
+   border-color: var(--white);
+ }
+
+        
+
+
+/* White (slightly off).
+ * @example
+ *   <div class="bg-black pa-2">
+ *     <div class="bc-white-ish bg-black ba bw-2 br-3 pa-2">
+ *       <code class="black">
+ *         .bc-white-ish
+ *       </code>
+ *     </div>
+ *   </div>
+ */
+ .bc-white-ish {
+   border-color: var(--white-ish);
+ }
+
+        
