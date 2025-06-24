@@ -2,6 +2,8 @@
  * this contains the modular scale of font sizes, but also contains many other text rendering options.
  *
  * @category typography
+ * @see "Web Fonts" https://developer.mozilla.org/en-US/docs/Learn_web_development/Core/Text_styling/Web_fonts
+ * @see property-category:typography
  */
 
 /* Font families for sans, serif, monospace, cursive, and fantasy.  The idea is that your design would not have more than one
@@ -9,9 +11,11 @@
  * Sans Serif and `ff-serif` anywhere you wanted yourt Serif font.
  *
  * @group font-family
+ * @see property-group:font-family
  */
 
 /** Set the contents in the chosen sans-serif font 
+ * @see --ff-sans
  * @example Typical
  *    <p class="ff-sans">Things should be what they are</p>
  */

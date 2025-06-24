@@ -6,7 +6,7 @@
  *
  * Spacings are based on rems, so that they are consistent across the entire document.
  *
- * @category spacing
+ * @category spacings
  */
 
 /*
@@ -104,7 +104,7 @@
 /*
  * Border widths.  This is a five-step scale, with 1 being the smallest and 5 being the largest.  
  * These should provide adequate options for borders.  These don't use the
- * {group:spacing} scales mostly for aesthetic reasons.
+ * {property-scale:spacing} scales mostly for aesthetic reasons.
  *
  * @scale border-widths
  */

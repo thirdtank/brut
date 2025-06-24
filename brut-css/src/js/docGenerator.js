@@ -3,7 +3,11 @@ import fs from "node:fs"
 import path from "node:path"
 import markdownit from "markdown-it"
 
+/** A title has a string usable as a human-readable title, plus a sort key used
+ * to sort pages by their title
+ */
 class Title {
+  /** Create a title based on a directory name that may have a prefix used for sorring */
   static fromDirName(dirName) {
     const nameWithoutPrefix = dirName.replace(/^\d+_/, '').replace(/\..*$/,'')
     const title = nameWithoutPrefix.
@@ -17,40 +21,66 @@ class Title {
     this.sortKey = sortKey
   }
   toString() { return this.title }
+  static compare(a,b) {
+    if (!a.title) { throw `${a.constructor.name} has no title` }
+    if (!b.title) { throw `${b.constructor.name} has no title` }
+    if (!a.title.sortKey) { throw `${a.constructor.name} has a title, but it's not a Title` }
+    if (!b.title.sortKey) { throw `${b.constructor.name} has a title, but it's not a Title` }
+    return a.title.sortKey.localeCompare(b.title.sortKey)
+  }
 }
 
 class Page {
-  constructor(pathToPageTemplate, pathToPageContent, pathToPageOutput) {
+  constructor(pathToPageTemplate, pathToPageOutput) {
     this.pathToPageTemplate = pathToPageTemplate
-    this.pathToPageContent = pathToPageContent
     this.uri = pathToPageOutput
+  }
+
+  static compare(a,b) {
+    Title.compare(a.page, b.page)
+  }
+}
+
+class StaticFile extends Page {
+  get title() {
+    return Title.fromDirName(path.basename(this.pathToPageTemplate))
+  }
+  generate(outputDirName) {
+    console.log("Copying %s from %s", this.uri, this.pathToPageTemplate)
+    fs.copyFileSync(this.pathToPageTemplate, path.join(outputDirName, this.uri))
+  }
+}
+class TemplatePage extends Page {
+  constructor(pathToPageTemplate, pathToPageOutput, pathToPageContent) {
+    super(pathToPageTemplate, pathToPageOutput)
+    this.pathToPageContent = pathToPageContent
   }
   get title() {
     return Title.fromDirName(path.basename(this.pathToPageContent))
   }
-  static compare(a,b) { return a.title.sortKey.localeCompare(b.title.sortKey) }
-
   generate(outputDirName, nav) {
-    console.log("Generating %s from %s using %s", this.uri, this.pathToPageTemplate, this.pathToPageContent)
-    const contents = fs.readFileSync(this.pathToPageContent, "utf8")
+    console.log("Generating %s from %s using %s", this.uri, this.pathToPageTemplate, this.pathToPageContent || "no additional content")
     let htmlContent = null
-    if (path.extname(this.pathToPageContent) === ".md") {
-      const markdown = new markdownit({
-        html: true,
-        linkify: true,
-        typographer: true,
-      })
-      htmlContent = markdown.render(contents)
-    }
-    else if (path.extname(this.pathToPageContent) === ".html") {
-      htmlContent = contents
-    }
-    else {
-      throw `Unsupported file type for ${this.pathToPageContent}. Only .md and .html are supported.`
+    if (this.pathToPageContent) {
+      const contents = fs.readFileSync(this.pathToPageContent, "utf8")
+      if (path.extname(this.pathToPageContent) === ".md") {
+        const markdown = new markdownit({
+          html: true,
+          linkify: true,
+          typographer: true,
+        })
+        htmlContent = markdown.render(contents)
+      }
+      else if (path.extname(this.pathToPageContent) === ".html") {
+        htmlContent = contents
+      }
+      else {
+        throw `Unsupported file type for ${this.pathToPageContent}. Only .md and .html are supported.`
+      }
     }
     const html = ejs.render(fs.readFileSync(this.pathToPageTemplate, "utf8"), {
       nav:nav,
-      content: htmlContent
+      content: htmlContent || ""
     }, {
       filename: this.pathToPageTemplate
     })
@@ -61,11 +91,13 @@ class Page {
   }
 }
 
-class PropertiesPage extends Page {
+class PropertiesPage extends TemplatePage {
   constructor(pathToPageContent, pathToPageOutput, category) {
-    super(pathToPageContent, null, pathToPageOutput)
+    super(pathToPageContent, pathToPageOutput)
+    console.log("Creating PropertiesPage %s for %s", pathToPageContent, category.name)
     this.category = category
   }
+  get documentationRef() { return this.category.ref }
   get title() { return Title.fromDirName(this.category.name) }
   generate(outputDirName, nav) {
     const html = ejs.render(fs.readFileSync(this.pathToPageTemplate, "utf8"), {
@@ -105,22 +137,26 @@ class PropertiesSection extends NavSection {
       throw `No category template found at ${this.categoryTemplate}`
     }
     this.parsedDocumentation = parsedDocumentation
-    this.uriBase = path.basename(sourcePath).replace(/^\d+_/,"")
+    const basename = path.basename(sourcePath)
+    this.uriBase = basename.replace(/^\d+_/,"")
+    this.title = Title.fromDirName(basename)
   }
-  get title() { return new Title("Properties",this.sortKey) }
   get items() {
     return this.parsedDocumentation.propertyCategories.map( (category) => {
-      return new PropertiesPage(this.categoryTemplate, path.join(this.uriBase, category.name) + ".html", category)
+      return {
+        page: new PropertiesPage(this.categoryTemplate, path.join(this.uriBase, category.name) + ".html", category)
+      }
     })
   }
 }
 
 class ClassesSection extends PropertiesSection {
 
-  get title() { return new Title("Classes",this.sortKey) }
   get items() {
     return this.parsedDocumentation.classCategories.map( (category) => {
-      return new ClassesPage(this.categoryTemplate, path.join(this.uriBase, category.name) + ".html", category)
+      return {
+        page: new ClassesPage(this.categoryTemplate, path.join(this.uriBase, category.name) + ".html", category)
+      }
     })
   }
 }
@@ -151,55 +187,207 @@ class StaticPagesSection extends NavSection {
             return part.replace(/^\d+_/,"").replace(/\..*$/,".html")
           })
         )
-        this.items.push(new Page(this.pageTemplate, fullPath, pathToPageOutput))
+        this.items.push({
+          page: new TemplatePage(this.pageTemplate, pathToPageOutput, fullPath)
+        })
       }
     })
     this.items.sort(Page.compare)
   }
+}
 
-  static compare(a,b) { return a.title.sortKey.localeCompare(b.title.sortKey) }
+/* Given the description parsed from the source, this expands it to HTML and also
+ * locates all cross-references.
+ */
+class ExpandedDescription {
+  constructor(documentedEntry, documentationRefs) {
+    const unexpandedDescription = documentedEntry.description || ""
+
+    this.doc = unexpandedDescription.replace(/\{([^}]+)\}/g, (_, key) => {
+      const reference = key.trim()
+      let referenced = documentationRefs.refs[reference]
+      if (!referenced) {
+        throw new Error(`Could not find reference to ${reference} in documentation`)
+      }
+      return `[${referenced.title}](/${referenced.uri})`
+    })
+  }
+  toHTML() {
+    const markdown = new markdownit({
+      html: true,
+      linkify: true,
+      typographer: true,
+    })
+    return markdown.render(this.doc)
+  }
+}
+class ExpandedSee {
+  constructor(see, documentationRefs) {
+    if (see.ref) {
+      let referenced = documentationRefs.refs[see.ref]
+      if (!referenced) {
+        const [part,rest] = see.ref.split(":",2)
+        const candidates = Object.keys(documentationRefs).filter( (key) => key.startsWith(part) )
+        throw new Error(`Could not find reference to ${see.ref} in documentation ${ candidates }`)
+      }
+      this.doc = `[${referenced.title}](/${referenced.uri})`
+    }
+    else {
+      this.doc = `[${see.linkText}](${see.url}) (external)`
+    }
+  }
+  toHTML() {
+    const markdown = new markdownit({
+      html: true,
+      linkify: true,
+      typographer: true,
+    })
+    return markdown.render(this.doc)
+  }
+}
+
+class Documentation {
+  constructor(templateRootDirName, parsedDocumentation) {
+    const nav = []
+    const pages = []
+    fs.readdirSync(templateRootDirName).forEach((file) => {
+      const fullPath = path.join(templateRootDirName, file)
+      const stat = fs.statSync(fullPath)
+      if (stat.isDirectory()) {
+        if (file != "includes") {
+          nav.push(NavSection.fromPath(fullPath, parsedDocumentation))
+        }
+      }
+      else {
+        if (this.#isEJS(file)) {
+          pages.push(new TemplatePage(
+            fullPath,
+            file.replace(/^\d+_/,"").replace(/\..*$/,".html")
+          ))
+        }
+        else {
+          pages.push(new StaticFile(
+            fullPath,
+            file
+          ))
+        }
+      }
+    })
+    nav.sort(Title.compare)
+    this.nav = nav
+    this.pages = pages
+    this.#decorate(parsedDocumentation)
+  }
+
+  #isEJS(file) {
+    return path.extname(file) === ".ejs"
+  }
+
+  #decorate(parsedDocumentation) {
+    parsedDocumentation.propertyCategories.forEach( (category) => {
+      category.title = category.name.split(/-/).map( (part) => {
+        return part.charAt(0).toUpperCase() + part.slice(1)
+      }).join(" ")
+      category.scales.forEach( (scale) => {
+        scale.title = scale.name.split(/-/).map( (part) => {
+          return part.charAt(0).toUpperCase() + part.slice(1)
+        }).join(" ")
+      })
+    })
+    parsedDocumentation.classCategories.forEach( (category) => {
+      category.title = category.name.split(/-/).map( (part) => {
+        return part.charAt(0).toUpperCase() + part.slice(1)
+      }).join(" ")
+      category.scales.forEach( (scale) => {
+        scale.title = scale.name.split(/-/).map( (part) => {
+          return part.charAt(0).toUpperCase() + part.slice(1)
+        }).join(" ")
+      })
+    })
+    const referencedDocumentation = new ReferencedDocumentation(this)
+    parsedDocumentation.propertyCategories.forEach( (category) => {
+      category.descriptionHTML = (new ExpandedDescription(category, referencedDocumentation)).toHTML()
+      category.seeLinks = category.sees.map( (see) => (new ExpandedSee(see, referencedDocumentation)).toHTML() )
+      category.scales.forEach( (scale) => {
+        scale.descriptionHTML = (new ExpandedDescription(scale, referencedDocumentation)).toHTML()
+        scale.seeLinks = scale.sees.map( (see) => (new ExpandedSee(see, referencedDocumentation)).toHTML() )
+        if (!scale.name) {
+          throw new Error(`Scale ${scale.ref}.${scale.constructor.name} has no name`)
+        }
+        scale.properties.forEach( (property) => {
+          property.descriptionHTML = (new ExpandedDescription(property, referencedDocumentation)).toHTML()
+          property.seeLinks = property.sees.map( (see) => (new ExpandedSee(see, referencedDocumentation)).toHTML() )
+        })
+      })
+    })
+    parsedDocumentation.classCategories.forEach( (category) => {
+      category.descriptionHTML = (new ExpandedDescription(category, referencedDocumentation)).toHTML()
+      category.seeLinks = category.sees.map( (see) => (new ExpandedSee(see, referencedDocumentation)).toHTML() )
+      category.scales.forEach( (scale) => {
+        scale.descriptionHTML = (new ExpandedDescription(scale, referencedDocumentation)).toHTML()
+        scale.seeLinks = scale.sees.map( (see) => (new ExpandedSee(see, referencedDocumentation)).toHTML() )
+        scale.rules.forEach( (rule) => {
+          rule.descriptionHTML = (new ExpandedDescription(rule, referencedDocumentation)).toHTML()
+          rule.seeLinks = rule.sees.map( (see) => (new ExpandedSee(see, referencedDocumentation)).toHTML() )
+        })
+      })
+    })
+  }
+}
+
+class ReferencedDocumentation {
+  constructor(documentation) {
+    this.refs = {}
+    documentation.nav.forEach( (navSection) => {
+      navSection.items.forEach( ({page}) => {
+        if (page.documentationRef) {
+          this.refs[page.documentationRef] = page
+          if (page.category) {
+            page.category.scales.forEach( (scale) => {
+              this.refs[scale.ref] = {
+                title: new Title(scale.title, scale.name),
+                uri: page.uri + `#${scale.ref}`
+              }
+              if (scale.properties) {
+                scale.properties.forEach( (property) => {
+                  this.refs[property.ref] = {
+                    title: new Title("`" + property.name + "`", property.name),
+                    uri: page.uri + `#${property.ref}`
+                  }
+                })
+              }
+              else if (scale.rules) {
+                scale.rules.forEach( (rule) => {
+                  this.refs[rule.ref] = {
+                    title: new Title("`" + rule.selector + "`", rule.selector),
+                    uri: page.uri + `#${rule.ref}`
+                  }
+                })
+              }
+            })
+          }
+          else {
+            throw `No category for ${page.documentationRef} / ${page.constructor.name}`
+          }
+        }
+        else {
+          console.log("Skipping %s because it has no documentation reference", page.uri)
+        }
+      })
+    })
+  }
 }
 
 const docGenerator = (outputDirName, templateDirName, parsedDocumentation) => {
-  const nav = []
-  const pages = []
-  fs.readdirSync(templateDirName).forEach((file) => {
-    const fullPath = path.join(templateDirName, file)
-    const stat = fs.statSync(fullPath)
-    if (stat.isDirectory()) {
-      if (file != "includes") {
-        nav.push(NavSection.fromPath(fullPath, parsedDocumentation))
-      }
-    }
-    else {
-      pages.push({ file: fullPath, basename: file })
-    }
-  })
-  nav.sort(NavSection.compare)
-  pages.forEach( ({file,basename}) => {
-    const ext = path.extname(basename)
-    if (ext == ".ejs") {
-      const destinationFile = path.join(outputDirName, basename.slice(0,-ext.length, file))
-      const html = ejs.render(fs.readFileSync(file, "utf8"), {
-        nav:nav,
-      }, {
-        filename: file
-      })
-      fs.writeFileSync(destinationFile, html, "utf8")
-      console.log("EJS'ed %s to %s", file, destinationFile)
-    }
-    else {
-      const destinationFile = path.join(outputDirName, basename)
-      fs.cpSync(file, destinationFile, { recursive: false })
-      console.log("Copied non-EJS file %s to %s", file, destinationFile)
-    }
-  })
-  nav.forEach( (navSection) => {
-    navSection.items.forEach( (page) => {
-      page.generate(outputDirName, nav)
+  const documentation = new Documentation(templateDirName, parsedDocumentation)
+
+  documentation.pages.forEach( page => page.generate(outputDirName, documentation.nav) )
+
+  documentation.nav.forEach( (navSection) => {
+    navSection.items.forEach( ({page}) => {
+      page.generate(outputDirName, documentation.nav)
     })
   })
-  return
 }
 
 export default docGenerator

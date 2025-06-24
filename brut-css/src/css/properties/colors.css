@@ -6,14 +6,15 @@
  * lightest.  As there are nine shades in each color's scale, that means the values are 100, 200, 300, 400, 500, 600,
  * 700, 800, 900.
  *
- * For black and white, there is `--black` or `--white` which is designed to be pure black or white, respectively, and then
- * `--black-ish` and `--white-ish`, which are designed to be a touch lighter or darker, respectively.
+ * For black and white, there is {--black} or {--white} which is designed to be pure black or white, respectively, and then
+ * {--black-ish} and {--white-ish}, which are designed to be a touch lighter or darker, respectively.
  *
  * To use your own colors, the simplest thing to do is override these variables.  This works well if you are satisfied with
  * six total colors plus gray and nine shades of each. If not, you will need to define new variables and then declare
- * the requisite classes.  See {styles:colors} for an example.
+ * the requisite classes.
  *
  * @category colors
+ * @see class-category:colors
  */
 
 /* Blues

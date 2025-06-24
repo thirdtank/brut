@@ -1,9 +1,9 @@
 <% nav.forEach( (navSection) => { %>
   <h3><%= navSection.title.toString() %></h3>
   <ul class="pl-3">
-  <% navSection.items.forEach( (item) => { %>
+  <% navSection.items.forEach( ({page}) => { %>
       <li>
-        <a class="black-ish tdu tdn-ns hover-tdu-ns" href="/<%= item.uri %>"><%= item.title.toString() %></a>
+        <a class="black-ish tdu tdn-ns hover-tdu-ns" href="/<%= page.uri %>"><%= page.title.toString() %></a>
       </li>
   <% }) %>
   </ul>

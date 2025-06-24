@@ -2,7 +2,7 @@
  * In theory something with `shadow-1` will look higher than something with `shadow-none`, but lower than something with
  * `shadow-3`.
  * @scale box-shadow
- * @see {scale:inset-shadow}
+ * @see class-scale:inset-shadow
  */
 .shadow-1 {
   box-shadow: rgb(135, 135, 135) 1px 1px 4px 0px;
@@ -28,7 +28,7 @@
 /* Inset shadows.  This is a six-step scale with 1 being the "shallowest" shadow and 6 being very deep and scattered.
  * In theory something with `inset-shadow-1` will look deeper than something with `inset-shadow-none`, but more shallow than something with `inset-shadow-3`.
  * @scale inset-shadow
- * @see {scale:box-shadow}
+ * @see class-scale:box-shadow
  */
 .inset-shadow-1 {
   box-shadow: rgb(106, 106, 106) 1px 1px 4px -1px inset;

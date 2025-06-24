@@ -78,12 +78,12 @@
   initial-value: 6rem;
 }
 
-/* Font faces.  You will likely want to customize these. If you are using non-system fonts, you'll need
+/* Font families.  You will likely want to customize these. If you are using non-system fonts, you'll need
  * to make sure to set up `@font-face` rules in your CSS.  If you need to use different fonts
  * at different weights, you should be able to achievec this with multiple `@font-face` rules that use
  * the same `font-family`, but different `font-weight` values.
  *
- * @group font-faces
+ * @group font-family
  */
 
 /* Sans-serif font stack, based on "Geometric Humanist" from [Modern Font Stacks](https://modernfontstacks.com/) */

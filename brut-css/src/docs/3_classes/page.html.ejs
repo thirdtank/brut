@@ -3,21 +3,45 @@
   <%- include("../includes/head.html.ejs") %>
   <%- include("../includes/body-and-header.html.ejs", { nav: nav }) %>
   <article>
-    <h2 class="f-5"><%= category.title %> Custom Properties</h2>
+    <h2 class="f-5"><%= category.title %> Classes</h2>
     <p class="p">
       <%- category.descriptionHTML %>
     </p>
+    <% if (category.seeLinks.length > 0) { %>
+      <h3 class="f-2 b">See Also</h3>
+      <ul>
+        <% category.seeLinks.forEach( (link) => { %>
+          <li><%- link %></li>
+        <% }) %>
+      </ul>
+    <% } %>
     <% category.scales.forEach( (scale) => { %>
-      <h3 class="f-4 mt-4" id="scale-<%= scale.name %>"><%= scale.title %></h3>
+      <h3 class="f-4 mt-4" id="<%= scale.ref %>"><%= scale.title %></h3>
       <p class="p">
         <%- scale.descriptionHTML %>
       </p>
+      <% if (scale.seeLinks.length > 0) { %>
+        <h4 class="f-2 b">See Also</h3>
+        <ul>
+          <% scale.seeLinks.forEach( (link) => { %>
+            <li><%- link %></li>
+          <% }) %>
+        </ul>
+      <% } %>
       <% scale.rules.forEach( (rule) => { %>
-        <h4 class="f-3 fw-3 mt-4" id="rule-<%= rule.selector %>"><code><%= rule.selector %></code></h4>
+        <h4 class="f-3 fw-3 mt-4" id="<%= rule.ref %>"><code><%= rule.selector %></code></h4>
         <div class="ml-3">
         <p class="p">
           <%- rule.descriptionHTML %>
         </p>
+        <% if (rule.seeLinks.length > 0) { %>
+          <h5 class="f-1 b">See Also</h3>
+          <ul>
+            <% rule.seeLinks.forEach( (link) => { %>
+              <li><%- link %></li>
+            <% }) %>
+          </ul>
+        <% } %>
         <% if (rule.examples.length > 0) { %>
           <h5 class="f-2 ttu">
             <% if (rule.examples.length > 1) { %>
@@ -47,7 +71,7 @@
       <h3>On this Page</h3>
       <ul class="lst-none ma-0 pa-0">
       <% category.scales.forEach( (scale) => { %>
-        <li><a href="#scale-<%= scale.name %>"><%= scale.title %></a></li>
+        <li><a href="#<%= scale.ref %>"><%= scale.title %></a></li>
       <% }) %>
       </ul>
     </div>
