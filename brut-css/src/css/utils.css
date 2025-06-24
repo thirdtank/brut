@@ -1,11 +1,17 @@
-.p {
-  max-width: var(--tw);
-  line-height: var(--lh-copy);
-}
-.collapse {
-  border-collapse: collapse;
-  border-spacing: 0;
-}
+/* Junk drawer of useful classes that don't fit anywhere else.
+ *
+ * @category junk-drawer
+ */
+
+/* Screen-reader help.
+ *
+ * @group screen-reader
+ */
+
+/* Indicate something is for screen-readers only. This is different from markup that is hidden or for decoration. This is
+ * markup that is needed for screen-reader-based visitors to understand something on the page, but that visitors
+ * using a more conventional browser don't need to see or can figure out from visual context.
+ */
 .sr-only {
   position: absolute;
   left: -10000px;
@@ -14,6 +20,8 @@
   height: 1px;
   overflow: hidden;
 }
+
+/* Undo something that may have been removed by {sr-only}. */
 .undo-sr-only {
   position: static;
   padding: 0;
@@ -24,6 +32,11 @@
   height: auto;
   overflow: visible;
 }
+
+/* Debug utilities
+ *
+ * @group debug
+ */
 .debug * {
   outline: 1px solid gold;
 }

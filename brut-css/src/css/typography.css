@@ -154,13 +154,6 @@
   font-weight: bold;
 }
 
-/* Shorthand for a bold font.
- * @example
- *     <p class="b">Things should be what they are</p>
- */
-.b {
-  font-weight: bold;
-}
 /* Lightest font weight.
  * @example
  *     <p class="fw-1">Things should be what they are</p>
@@ -246,13 +239,6 @@
   font-style: italic;
 }
 
-/* Shorthand for italic
- * @example
- *     <p class="i">Things should be what they are</p>
- */
-.i {
-  font-style: italic;
-}
 
 /* Small caps variant
  * @example
@@ -262,13 +248,6 @@
   font-variant: small-caps;
 }
 
-/* Shorthand for small-caps
- * @example
- *     <p class="sc">Things should be what they are</p>
- */
-.sc {
-  font-variant: small-caps;
-}
 /* Normal variant
  * @example
  *     <p class="fv-normal">Things should be what they are</p>
@@ -501,4 +480,46 @@
  */
 .measure-narrow {
   max-width: var(--tw-narrow);
+}
+
+/* Aliases to save precious keystrokes.
+ *
+ * @group typography-aliases
+ */
+
+/* Set reasonable  typography for some text, namely, setting {measure} and {lh-copy} at the same time.
+ *
+ * @example
+ *     <p class="measure-narrow">
+ *       A core tenet of design is that same should be same, while different be then different.
+ *       Meaning: if two elements are intended to be the same sort of thing, or reference the same
+ *       sort of information, they should have clear consonance and harmony.  Conversely, if
+ *       two elements are unrelated, they should be quite clearly different.
+ *     </p>
+ */
+.p {
+  max-width: var(--tw);
+  line-height: var(--lh-copy);
+}
+
+/* Shorthand for a bold font.
+ * @example
+ *     <p class="b">Things should be what they are</p>
+ */
+.b {
+  font-weight: bold;
+}
+/* Shorthand for small-caps
+ * @example
+ *     <p class="sc">Things should be what they are</p>
+ */
+.sc {
+  font-variant: small-caps;
+}
+/* Shorthand for italic
+ * @example
+ *     <p class="i">Things should be what they are</p>
+ */
+.i {
+  font-style: italic;
 }

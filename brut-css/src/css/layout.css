@@ -1,0 +1,120 @@
+/* Classes that control the display and layout of elements.
+ *
+ * @category layout
+ */
+
+/* Various `display` values.
+ *
+ * @group display
+ * @see class-category:flex
+ */
+.db {
+  display: block;
+}
+.di {
+  display: inline;
+}
+.dib {
+  display: inline-block;
+}
+.dn {
+  display: none;
+}
+.dfr {
+  display: flow-root;
+}
+.dt {
+  display: table;
+}
+.dtc {
+  display: table-cell;
+}
+.dtrow {
+  display: table-row;
+}
+.dtrow-group {
+  display: table-row-group;
+}
+.dtcolumn {
+  display: table-column;
+}
+.dtcolumn-group {
+  display: table-column-group;
+}
+
+/* Box-sizing classes.
+ *
+ * @group box-sizing
+ */
+.content-box {
+  box-sizing: content-box;
+}
+.border-box {
+  box-sizing: border-box;
+}
+
+
+/* General overflow classes.
+ *
+ * @group overflow
+ * @see class-group:overflow-x
+ * @see class-group:overflow-y
+ */
+.overflow-visible {
+  overflow: visible;
+}
+.overflow-scroll {
+  overflow: scroll;
+}
+.overflow-hidden {
+  overflow: hidden;
+}
+.overflow-clip {
+  overflow: clip;
+}
+.overflow-auto {
+  overflow: auto;
+}
+
+/* General horizontal/x-axis overflow classes.
+ *
+ * @group overflow-x Horizontal Overflow
+ * @see class-group:overflow
+ * @see class-group:overflow-y
+ */
+.overflow-x-visible {
+  overflow-x: visible;
+}
+.overflow-x-scroll {
+  overflow-x: scroll;
+}
+.overflow-x-hidden {
+  overflow-x: hidden;
+}
+.overflow-x-clip {
+  overflow-x: clip;
+}
+.overflow-x-auto {
+  overflow-x: auto;
+}
+/* General vertical/y-axis overflow classes.
+ *
+ * @group overflow-y Vertical Overflow
+ * @see class-group:overflow
+ * @see class-group:overflow-x
+ */
+.overflow-y-visible {
+  overflow-y: visible;
+}
+.overflow-y-scroll {
+  overflow-y: scroll;
+}
+.overflow-y-hidden {
+  overflow-y: hidden;
+}
+.overflow-y-clip {
+  overflow-y: clip;
+}
+.overflow-y-auto {
+  overflow-y: auto;
+}

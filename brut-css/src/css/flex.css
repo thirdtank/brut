@@ -1,3 +1,13 @@
+/* Flexbox utilities.  These should allow most Flex layouts without having to write CSS.
+ *
+ * @category flex
+ * @see class-group:display
+ */
+
+/* General flex-establishing classes.
+ *
+ * @group flex-general
+ */
 .flex {
   display: flex;
 }
@@ -19,6 +29,11 @@
 .flex-nowrap {
   flex-wrap: nowrap;
 }
+
+/* Item alignment, most useful with flexbox
+ *
+ * @group item-alignment
+ */
 .items-start {
   align-items: flex-start;
 }
@@ -34,6 +49,11 @@
 .items-stretch {
   align-items: stretch;
 }
+
+/* Self alignment, most useful with flexbox
+ *
+ * @group self-aligment
+ */
 .self-start {
   align-self: flex-start;
 }
@@ -49,6 +69,11 @@
 .self-stretch {
   align-self: stretch;
 }
+
+/* Justify content, most useful with flexbox
+ *
+ * @group justify-content
+ */
 .justify-start {
   justify-content: start;
 }
@@ -67,6 +92,10 @@
 .justify-stretch {
   justify-content: stretch;
 }
+/* Align content, most useful with flexbox
+ *
+ * @group align-content
+ */
 .content-start {
   align-content: start;
 }
@@ -85,6 +114,10 @@
 .content-stretch {
   align-content: stretch;
 }
+/* Flex grow, using a six-step scale.
+ *
+ * @scale flex-grow
+ */
 .flex-grow-0 {
   flex-grow: 0;
 }
@@ -103,6 +136,10 @@
 .flex-grow-5 {
   flex-grow: 5;
 }
+/* Flex shrink, using a six-step scale.
+ *
+ * @scale flex-grow
+ */
 .flex-shrink-0 {
   flex-shrink: 0;
 }
@@ -121,6 +158,10 @@
 .flex-shrink-5 {
   flex-shrink: 5;
 }
+/* Flex basis.
+ *
+ * @group flex-basis
+ */
 .flex-basis-0 {
   flex-basis: 0;
 }

@@ -1,3 +1,13 @@
+/* Borders.
+ *
+ * @category borders
+ */
+
+/* Styles to add borders in various locations.  By default, these will add borders that are 1px in width, but you can use the
+ * {class-scale:border-widths} styles to adjust.
+ *
+ * @group borders
+ */
 .ba {
   border-style: solid;
   border-width: 1px;
@@ -22,6 +32,22 @@
   border-style: none;
   border-width: 0;
 }
+
+/* Collapse borders and remove spacing. This is most useful on `<table>` tags to take back a bit
+ * of control on how everything renders.
+ */
+.collapse {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+
+/* Border radius.  These are based on {property-scale:border-widths} and provide a six-step scale, along with a 100% class
+ * and a "pill" class to create a lozenge-type border.
+ *
+ * @scale border-radius
+ * @see property-scale:border-widths
+ */
 .br-0 {
   border-radius: 0;
 }
@@ -46,6 +72,12 @@
 .br-pill {
   border-radius: 999px;
 }
+
+/* Border bottom radius.
+ *
+ * @scale border-bottom-radius
+ * @see class-scale:border-radius
+ */
 .br-bottom-0 {
   border-bottom-left-radius: 0;
   border-bottom-right-radius: 0;
@@ -78,6 +110,11 @@
   border-bottom-left-radius: 999px;
   border-bottom-right-radius: 999px;
 }
+/* Border top radius.
+ *
+ * @scale border-top-radius
+ * @see class-scale:border-radius
+ */
 .br-top-0 {
   border-top-left-radius: 0;
   border-top-right-radius: 0;
@@ -110,6 +147,11 @@
   border-top-left-radius: 999px;
   border-top-right-radius: 999px;
 }
+/* Border left radius.
+ *
+ * @scale border-left-radius
+ * @see class-scale:border-radius
+ */
 .br-left-0 {
   border-bottom-left-radius: 0;
   border-top-left-radius: 0;
@@ -142,6 +184,11 @@
   border-bottom-left-radius: 999px;
   border-top-left-radius: 999px;
 }
+/* Border right radius.
+ *
+ * @scale border-right-radius
+ * @see class-scale:border-radius
+ */
 .br-right-0 {
   border-bottom-right-radius: 0;
   border-top-right-radius: 0;
@@ -174,6 +221,11 @@
   border-bottom-right-radius: 999px;
   border-top-right-radius: 999px;
 }
+/* Border top-right radius.
+ *
+ * @scale border-top-right-radius
+ * @see class-scale:border-radius
+ */
 .br-tr-0 {
   border-top-right-radius: 0;
 }
@@ -198,6 +250,12 @@
 .br-tr-pill {
   border-top-right-radius: 999px;
 }
+
+/* Border bottom-right radius.
+ *
+ * @scale border-bottom-right-radius
+ * @see class-scale:border-radius
+ */
 .br-br-0 {
   border-bottom-right-radius: 0;
 }
@@ -222,6 +280,12 @@
 .br-br-pill {
   border-bottom-right-radius: 999px;
 }
+
+/* Border top-left radius.
+ *
+ * @scale border-top-left-radius
+ * @see class-scale:border-radius
+ */
 .br-tl-0 {
   border-top-left-radius: 0;
 }
@@ -246,6 +310,12 @@
 .br-tl-pill {
   border-top-left-radius: 999px;
 }
+
+/* Border bottom-left radius.
+ *
+ * @scale border-bottom-left-radius
+ * @see class-scale:border-radius
+ */
 .br-bl-0 {
   border-bottom-left-radius: 0;
 }
@@ -330,6 +400,12 @@
 .bbs-none {
   border-bottom-style: none;
 }
+
+/* Border widths. This provides a six-step scale.
+ *
+ * @scale border-widths
+ * @see property-scale:border-widths
+ */
 .bw-0 {
   border-width: 0;
 }
@@ -348,6 +424,12 @@
 .bw-5 {
   border-width: var(--bw-5);
 }
+
+/* Border left width.
+ *
+ * @scale border-left-width
+ * @see class-scale:border-widths
+ */
 .blw-0 {
   border-left-width: 0;
 }
@@ -366,6 +448,12 @@
 .blw-5 {
   border-left-width: var(--bw-5);
 }
+
+/* Border right width.
+ *
+ * @scale border-right-width
+ * @see class-scale:border-widths
+ */
 .brw-0 {
   border-right-width: 0;
 }
@@ -384,6 +472,12 @@
 .brw-5 {
   border-right-width: var(--bw-5);
 }
+
+/* Border top width.
+ *
+ * @scale border-top-width
+ * @see class-scale:border-widths
+ */
 .btw-0 {
   border-top-width: 0;
 }
@@ -402,6 +496,12 @@
 .btw-5 {
   border-top-width: var(--bw-5);
 }
+
+/* Border bottom width.
+ *
+ * @scale border-bottom-width
+ * @see class-scale:border-widths
+ */
 .bbw-0 {
   border-bottom-width: 0;
 }

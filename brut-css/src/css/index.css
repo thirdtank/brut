@@ -1,19 +1,13 @@
 @import "properties/index.css";
 @import "reset.css";
-@import "typography.css";
-@import "colors.css";
-@import "positioning.css";
-@import "spacing.css";
-@import "dimensions.css";
-
 @import "appearance.css";
 @import "border.css";
-@import "box-shadow.css";
-@import "box-sizing.css";
-@import "cursor.css";
-@import "display.css";
+@import "colors.css";
+@import "dimensions.css";
 @import "flex.css";
+@import "layout.css";
 @import "list.css";
-@import "opacity.css";
-@import "overflow.css";
+@import "positioning.css";
+@import "spacing.css";
+@import "typography.css";
 @import "utils.css";

@@ -1,3 +1,12 @@
+/* List styles
+ *
+ * @category lists
+ */
+
+/* List style types 
+ *
+ * @group list-style-type
+ */
 .lst-none {
   list-style-type: none;
 }
@@ -19,6 +28,11 @@
 .lst-upper-roman {
   list-style-type: upper-roman;
 }
+
+/* List style position
+ *
+ * @group list-style-position
+ */
 .lsp-inside {
   list-style-position: inside;
 }

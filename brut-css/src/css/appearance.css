@@ -1,5 +1,13 @@
-/* Everything else
- * @group jun
+/* Appearannce and decoration-type classes beyond what you'd have in typography, colors, or borders. 
+ *
+ * @category appearances Appearance and Decoration
+ * @see class-category:borders
+ * @see class-category:foreground-colors
+ * @see class-category:typography
+ */
+
+/* The `apperance` property.
+ * @group appearance
  */
 .appearance-none {
   appearance: none;
@@ -7,3 +15,131 @@
 .appearance-auto {
   appearance: auto;
 }
+
+
+/* Box shadows.  This is a six-step scale with 1 being the "lowest" shadow and 6 being very high and very scattered.
+ * In theory something with `shadow-1` will look higher than something with `shadow-none`, but lower than something with
+ * `shadow-3`.
+ * @scale box-shadow
+ * @see class-scale:inset-shadow
+ */
+.shadow-1 {
+  box-shadow: rgb(135, 135, 135) 1px 1px 4px 0px;
+}
+.shadow-2 {
+  box-shadow: rgb(135, 135, 135) 1px 1px 10.64px 0px;
+}
+.shadow-3 {
+  box-shadow: rgb(135, 135, 135) 1px 1px 15.022px 0px;
+}
+.shadow-4 {
+  box-shadow: rgb(135, 135, 135) 1px 1px 22.297px 0px;
+}
+.shadow-5 {
+  box-shadow: rgb(135, 135, 135) 1px 1px 34.373px 0px;
+}
+.shadow-6 {
+  box-shadow: rgb(135, 135, 135) 1px 1px 54.419px 0px;
+}
+.shadow-none {
+  box-shadow: none;
+}
+/* Inset shadows.  This is a six-step scale with 1 being the "shallowest" shadow and 6 being very deep and scattered.
+ * In theory something with `inset-shadow-1` will look deeper than something with `inset-shadow-none`, but more shallow than something with `inset-shadow-3`.
+ * @scale inset-shadow
+ * @see class-scale:box-shadow
+ */
+.inset-shadow-1 {
+  box-shadow: rgb(106, 106, 106) 1px 1px 4px -1px inset;
+}
+.inset-shadow-2 {
+  box-shadow: rgb(106, 106, 106) 1px 1px 5.52px -1.043px inset;
+}
+.inset-shadow-3 {
+  box-shadow: rgb(106, 106, 106) 1px 1px 8.195px -1.193px inset;
+}
+.inset-shadow-4 {
+  box-shadow: rgb(106, 106, 106) 1px 1px 12.903px -1.485px inset;
+}
+.inset-shadow-5 {
+  box-shadow: rgb(106, 106, 106) 1px 1px 21.190px -1.986px inset;
+}
+.inset-shadow-6 {
+  box-shadow: rgb(106, 106, 106) 1px 1px 35.774px -2.802px inset;
+}
+.inset-shadow-none {
+  box-shadow: none;
+}
+
+/* Cursors.
+ * @group cursors
+ */
+.cursor-default {
+  cursor: default;
+}
+.pointer {
+  cursor: pointer;
+}
+.cursor-pointer {
+  cursor: pointer;
+}
+.cursor-progress {
+  cursor: progress;
+}
+.cursor-move {
+  cursor: move;
+}
+.cursor-grab {
+  cursor: grab;
+}
+.cursor-not-allowed {
+  cursor: not-allowed;
+}
+
+/** Opacity percentage-based scale, including `third` and `two-thirds`.
+ *
+ * @scale opacity-percent
+ */
+.o-10 {
+  opacity: 10%;
+}
+.o-20 {
+  opacity: 20%;
+}
+.o-25 {
+  opacity: 25%;
+}
+.o-30 {
+  opacity: 30%;
+}
+.o-40 {
+  opacity: 40%;
+}
+.o-50 {
+  opacity: 50%;
+}
+.o-60 {
+  opacity: 60%;
+}
+.o-70 {
+  opacity: 70%;
+}
+.o-75 {
+  opacity: 75%;
+}
+.o-80 {
+  opacity: 80%;
+}
+.o-90 {
+  opacity: 90%;
+}
+.o-100 {
+  opacity: 100%;
+}
+.o-third {
+  opacity: calc(100% / 3);
+}
+.o-two-thirds {
+  opacity: calc(100% / 1.5);
+}
+
