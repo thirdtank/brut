@@ -32,7 +32,10 @@
         </ul>
       <% } %>
       <% scale.rules.forEach( (rule) => { %>
-        <h4 class="f-3 fw-3 mt-4" id="<%= rule.ref %>"><code><%= rule.selector %></code></h4>
+        <div class="mt-4 flex gap-3 items-center" id="<%= rule.ref %>">
+          <h4 class="f-3 fw-3"><code><%= rule.selector %></code></h4>
+          <pre class="highlighted-code"><%- rule.highlightedCode %></pre>
+        </div>
         <div class="ml-3">
         <p class="p">
           <%- rule.descriptionHTML %>
@@ -57,9 +60,9 @@
             <% if (example.name) { %>
               <h6 class="f-1 fw-bold mt-2"><%= example.name %></h6>
             <% } %>
-            <div class="mv-3">
-              <pre class="pa-2 bg-black green-600 br-3"><%= example.code.join("\n") %></pre>
-              <div class="pa-2 br-3 ba bc-black bg-gray-800">
+            <div class="mv-3 example">
+              <pre class="highlighted-code"><%- example.highlightedCode %></pre>
+              <div class="example-demonstration">
               <%- example.code.join("\n") %>
               </div>
             </div>

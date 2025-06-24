@@ -12,12 +12,16 @@ class Selectors {
 
     selectorParser(selectorsAST => {
       selectorsAST.each(selector => {
-        this.selectors.push(selector.toString().trim());
+        let trimmedSelector = selector.toString().trim()
+        if (trimmedSelector.endsWith(" *")) {
+          trimmedSelector = trimmedSelector.slice(0, -2).trim()
+        }
+        this.selectors.push(trimmedSelector)
       });
-    }).processSync(selectorString);
+    }).processSync(selectorString)
   }
   forEach(callback) {
-    this.selectors.forEach(callback);
+    this.selectors.forEach(callback)
   }
 }
 
@@ -165,6 +169,7 @@ class DocState {
         description: this.comment ? this.comment.description : null,
         examples: this.comment ? this.comment.examples : [],
         sees: this.comment ? this.comment.sees : null,
+        code: node.toString(),
       })
       this.currentScale.rules.push(rule)
       this.refs[rule.ref] = rule

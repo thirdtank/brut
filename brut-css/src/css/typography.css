@@ -446,10 +446,7 @@
  *
  * @example
  *     <p class="measure">
- *       A core tenet of design is that same should be same, while different be then different.
- *       Meaning: if two elements are intended to be the same sort of thing, or reference the same
- *       sort of information, they should have clear consonance and harmony.  Conversely, if
- *       two elements are unrelated, they should be quite clearly different.
+ *       A core tenet of design is that same should be same, while different be then different. Meaning: if two elements are intended to be the same sort of thing, or reference the same sort of information, they should have clear consonance and harmony.  Conversely, if two elements are unrelated, they should be quite clearly different.
  *     </p>
  */
 .measure {
@@ -459,10 +456,7 @@
 /* A slighter wider, but still readable width.
  * @example
  *     <p class="measure-wide">
- *       A core tenet of design is that same should be same, while different be then different.
- *       Meaning: if two elements are intended to be the same sort of thing, or reference the same
- *       sort of information, they should have clear consonance and harmony.  Conversely, if
- *       two elements are unrelated, they should be quite clearly different.
+ *       A core tenet of design is that same should be same, while different be then different. Meaning: if two elements are intended to be the same sort of thing, or reference the same sort of information, they should have clear consonance and harmony.  Conversely, if two elements are unrelated, they should be quite clearly different.
  *     </p>
  */
 .measure-wide {
@@ -472,10 +466,7 @@
 /* A slighter narrower, but still readable width.
  * @example
  *     <p class="measure-narrow">
- *       A core tenet of design is that same should be same, while different be then different.
- *       Meaning: if two elements are intended to be the same sort of thing, or reference the same
- *       sort of information, they should have clear consonance and harmony.  Conversely, if
- *       two elements are unrelated, they should be quite clearly different.
+ *       A core tenet of design is that same should be same, while different be then different. Meaning: if two elements are intended to be the same sort of thing, or reference the same sort of information, they should have clear consonance and harmony.  Conversely, if two elements are unrelated, they should be quite clearly different.
  *     </p>
  */
 .measure-narrow {
@@ -490,12 +481,9 @@
 /* Set reasonable  typography for some text, namely, setting {measure} and {lh-copy} at the same time.
  *
  * @example
- *     <p class="measure-narrow">
- *       A core tenet of design is that same should be same, while different be then different.
- *       Meaning: if two elements are intended to be the same sort of thing, or reference the same
- *       sort of information, they should have clear consonance and harmony.  Conversely, if
- *       two elements are unrelated, they should be quite clearly different.
- *     </p>
+ *     <div class="p">
+ *       A core tenet of design is that same should be same, while different be then different. Meaning: if two elements are intended to be the same sort of thing, or reference the same sort of information, they should have clear consonance and harmony.  Conversely, if two elements are unrelated, they should be quite clearly different.
+ *     </div>
  */
 .p {
   max-width: var(--tw);

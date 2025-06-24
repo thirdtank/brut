@@ -33,19 +33,72 @@
   overflow: visible;
 }
 
-/* Debug utilities
+/* Debug utilities.  These can be useful to show outlines of various elements without having to navigate the browser's
+ * devtools.  You can combine {debug-red}, {debug-green}, and {debug-blue} to create outlines at different levels.
  *
  * @group debug
+ */
+
+/* Draw outlines around everything inside.
+ *
+ * @example
+ *     <div class="debug">
+ *       <p>
+ *       ere is the wrong way to do a big huge drop cap.
+ *       <span class="f-l f-4">H</span>
+ *       And some good-ole <span  class="h-5">inline bugs</span>, to boot!
+ *       </p>
+ *     </div>
+ *
  */
 .debug * {
   outline: 1px solid gold;
 }
+
+/* Draw outlines in red around everything inside.
+ *
+ * @example
+ *     <div class="debug-red">
+ *       <p>
+ *       ere is the wrong way to do a big huge drop cap.
+ *       <span class="f-l f-4">H</span>
+ *       And some good-ole <span  class="h-5">inline bugs</span>, to boot!
+ *       </p>
+ *     </div>
+ *
+ */
 .debug-red * {
   outline: 1px solid red;
 }
+
+/* Draw outlines in green around everything inside.
+ *
+ * @example
+ *     <div class="debug-green">
+ *       <p>
+ *       ere is the wrong way to do a big huge drop cap.
+ *       <span class="f-l f-4">H</span>
+ *       And some good-ole <span  class="h-5">inline bugs</span>, to boot!
+ *       </p>
+ *     </div>
+ *
+ */
 .debug-green * {
   outline: 1px solid green;
 }
+
+/* Draw outlines in blue around everything inside.
+ *
+ * @example
+ *     <div class="debug-blue">
+ *       <p>
+ *       ere is the wrong way to do a big huge drop cap.
+ *       <span class="f-l f-4">H</span>
+ *       And some good-ole <span  class="h-5">inline bugs</span>, to boot!
+ *       </p>
+ *     </div>
+ *
+ */
 .debug-blue * {
   outline: 1px solid blue;
 }

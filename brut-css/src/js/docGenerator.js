@@ -2,6 +2,11 @@ import ejs from "ejs"
 import fs from "node:fs"
 import path from "node:path"
 import markdownit from "markdown-it"
+import Prism from "prismjs"
+import beautify from "js-beautify"
+
+import loadLanguages from "prismjs/components/index.js"
+loadLanguages(["html"])
 
 /** A title has a string usable as a human-readable title, plus a sort key used
  * to sort pages by their title
@@ -30,6 +35,7 @@ class Title {
   }
 }
 
+/* A page to generate based on a template */
 class Page {
   constructor(pathToPageTemplate, pathToPageOutput) {
     this.pathToPageTemplate = pathToPageTemplate
@@ -41,6 +47,7 @@ class Page {
   }
 }
 
+/* A static file that isn't being run through EJS */
 class StaticFile extends Page {
   get title() {
     return Title.fromDirName(path.basename(this.pathToPageTemplate))
@@ -50,6 +57,8 @@ class StaticFile extends Page {
     fs.copyFileSync(this.pathToPageTemplate, path.join(outputDirName, this.uri))
   }
 }
+
+/* A templated page that will be run through EJS */
 class TemplatePage extends Page {
   constructor(pathToPageTemplate, pathToPageOutput, pathToPageContent) {
     super(pathToPageTemplate, pathToPageOutput)
@@ -91,6 +100,7 @@ class TemplatePage extends Page {
   }
 }
 
+/* The page used for a category of custom properties */
 class PropertiesPage extends TemplatePage {
   constructor(pathToPageContent, pathToPageOutput, category, parsedDocumentation) {
     super(pathToPageContent, pathToPageOutput)
@@ -123,9 +133,11 @@ class PropertiesPage extends TemplatePage {
   }
 }
 
+/* The page used for a category of CSS classe */
 class ClassesPage extends PropertiesPage {
 }
 
+/* A section of the nav, which is a title and a bunch of pages it links to */
 class NavSection {
   static fromPath(sourcePath, parsedDocumentation) {
     const basename = path.basename(sourcePath)
@@ -139,6 +151,7 @@ class NavSection {
   }
 }
 
+/* The section of the nav for custom properties */
 class PropertiesSection extends NavSection {
   constructor(sourcePath, parsedDocumentation) {
     super()
@@ -165,6 +178,7 @@ class PropertiesSection extends NavSection {
   }
 }
 
+/* The section of the nav for CSS classes */
 class ClassesSection extends PropertiesSection {
 
   get items() {
@@ -180,6 +194,7 @@ class ClassesSection extends PropertiesSection {
   }
 }
 
+/* A section of static pages not based on API docs, but that will be run through EJS */
 class StaticPagesSection extends NavSection {
   constructor(sourcePath) {
     super()
@@ -303,29 +318,38 @@ class Documentation {
   }
 
   #decorate(parsedDocumentation) {
-    parsedDocumentation.propertyCategories.forEach( (category) => {
-      category.title = category.explicitTitle || category.name.split(/-/).map( (part) => {
-        return part.charAt(0).toUpperCase() + part.slice(1)
-      }).join(" ")
-      category.scales.forEach( (scale) => {
-        if (!scale.name) {
-          throw `Scale ${scale.ref}.${JSON.stringify(scale)} has no name`
-        }
-        scale.title = scale.explicitTitle || scale.name.split(/-/).map( (part) => {
-          return part.charAt(0).toUpperCase() + part.slice(1)
-        }).join(" ")
-      })
-    })
+    this.#addTitles(parsedDocumentation)
+    this.#expandReferences(parsedDocumentation)
+    this.#highlightCode(parsedDocumentation)
+  }
+
+  #highlightCode(parsedDocumentation) {
     parsedDocumentation.classCategories.forEach( (category) => {
-      category.title = category.explicitTitle || category.name.split(/-/).map( (part) => {
-        return part.charAt(0).toUpperCase() + part.slice(1)
-      }).join(" ")
       category.scales.forEach( (scale) => {
-        scale.title = scale.explicitTitle || scale.name.split(/-/).map( (part) => {
-          return part.charAt(0).toUpperCase() + part.slice(1)
-        }).join(" ")
+        scale.rules.forEach( (rule) => {
+          rule.highlightedCode = Prism.highlight(
+            rule.code,
+            Prism.languages.css,
+            "css"
+          )
+          rule.examples.forEach( (example) => {
+            const prettyHTML = beautify.html(example.code.join("\n"), {
+              wrap_line_length: 60,
+              indent_size: 2,
+            })
+            console.log(prettyHTML)
+            example.highlightedCode = Prism.highlight(
+              prettyHTML,
+              Prism.languages.html,
+              "html"
+            )
+          })
+        })
       })
     })
+  }
+
+  #expandReferences(parsedDocumentation) {
     const referencedDocumentation = new ReferencedDocumentation(this)
     parsedDocumentation.propertyCategories.forEach( (category) => {
       category.descriptionHTML = (new ExpandedDescription(category, referencedDocumentation)).toHTML()
@@ -352,6 +376,32 @@ class Documentation {
           rule.descriptionHTML = (new ExpandedDescription(rule, referencedDocumentation)).toHTML()
           rule.seeLinks = rule.sees.map( (see) => (new ExpandedSee(see, referencedDocumentation)).toHTML() )
         })
+      })
+    })
+  }
+
+  #addTitles(parsedDocumentation) {
+    parsedDocumentation.propertyCategories.forEach( (category) => {
+      category.title = category.explicitTitle || category.name.split(/-/).map( (part) => {
+        return part.charAt(0).toUpperCase() + part.slice(1)
+      }).join(" ")
+      category.scales.forEach( (scale) => {
+        if (!scale.name) {
+          throw `Scale ${scale.ref}.${JSON.stringify(scale)} has no name`
+        }
+        scale.title = scale.explicitTitle || scale.name.split(/-/).map( (part) => {
+          return part.charAt(0).toUpperCase() + part.slice(1)
+        }).join(" ")
+      })
+    })
+    parsedDocumentation.classCategories.forEach( (category) => {
+      category.title = category.explicitTitle || category.name.split(/-/).map( (part) => {
+        return part.charAt(0).toUpperCase() + part.slice(1)
+      }).join(" ")
+      category.scales.forEach( (scale) => {
+        scale.title = scale.explicitTitle || scale.name.split(/-/).map( (part) => {
+          return part.charAt(0).toUpperCase() + part.slice(1)
+        }).join(" ")
       })
     })
   }
