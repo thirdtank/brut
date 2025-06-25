@@ -6,7 +6,7 @@ node src/js/build.js \
   --pseudo-class-config      config/pseudo-classes-all.css \
   --input                    src/css/index.css \
   --output                   src/docs/brut.max.css \
-  --docs-dir                 ../brutrb.com/public/brut-css \
+  --docs-dir                 ../docs/public/brut-css \
   --path-to-brut-css-root    /brut-css \
   --docs-template-source-dir src/docs
 

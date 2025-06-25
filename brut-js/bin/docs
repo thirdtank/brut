@@ -6,5 +6,5 @@ ROOT_DIR=$(realpath "$SCRIPT_DIR/..")
 cd ${ROOT_DIR}/docs
 npx jsdoc --configure   ${ROOT_DIR}/docs/jsdoc.config.json \
           --readme      ${ROOT_DIR}/README.md \
-          --destination ${ROOT_DIR}/../brutrb.com/public/brut-js/api \
+          --destination ${ROOT_DIR}/../docs/public/brut-js/api \
           --recurse     ${ROOT_DIR}/src/
