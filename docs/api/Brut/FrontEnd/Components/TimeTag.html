@@ -1,0 +1,655 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>
+  Class: Brut::FrontEnd::Components::TimeTag
+  
+    &mdash; Documentation by YARD 0.9.37
+  
+</title>
+
+  <link rel="stylesheet" href="../../../css/style.css" type="text/css" />
+
+  <link rel="stylesheet" href="../../../css/common.css" type="text/css" />
+
+<script type="text/javascript">
+  pathId = "Brut::FrontEnd::Components::TimeTag";
+  relpath = '../../../';
+</script>
+
+
+  <script type="text/javascript" charset="utf-8" src="../../../js/jquery.js"></script>
+
+  <script type="text/javascript" charset="utf-8" src="../../../js/app.js"></script>
+
+
+  </head>
+  <body>
+    <div class="nav_wrap">
+      <iframe id="nav" src="../../../class_list.html?1"></iframe>
+      <div id="resizer"></div>
+    </div>
+
+    <div id="main" tabindex="-1">
+      <div id="header">
+        <div id="menu">
+  
+    <a href="../../../_index.html">Index (T)</a> &raquo;
+    <span class='title'><span class='object_link'><a href="../../../Brut.html" title="Brut (module)">Brut</a></span></span> &raquo; <span class='title'><span class='object_link'><a href="../../FrontEnd.html" title="Brut::FrontEnd (module)">FrontEnd</a></span></span> &raquo; <span class='title'><span class='object_link'><a href="../Components.html" title="Brut::FrontEnd::Components (module)">Components</a></span></span>
+     &raquo; 
+    <span class="title">TimeTag</span>
+  
+</div>
+
+        <div id="search">
+  
+    <a class="full_list_link" id="class_list_link"
+        href="../../../class_list.html">
+
+        <svg width="24" height="24">
+          <rect x="0" y="4" width="24" height="4" rx="1" ry="1"></rect>
+          <rect x="0" y="12" width="24" height="4" rx="1" ry="1"></rect>
+          <rect x="0" y="20" width="24" height="4" rx="1" ry="1"></rect>
+        </svg>
+    </a>
+  
+</div>
+        <div class="clear"></div>
+      </div>
+
+      <div id="content"><h1>Class: Brut::FrontEnd::Components::TimeTag
+  
+  
+  
+</h1>
+<div class="box_info">
+  
+  <dl>
+    <dt>Inherits:</dt>
+    <dd>
+      <span class="inheritName"><span class='object_link'><a href="../Component.html" title="Brut::FrontEnd::Component (class)">Brut::FrontEnd::Component</a></span></span>
+      
+        <ul class="fullTree">
+          <li>Object</li>
+          
+            <li class="next">Phlex::HTML</li>
+          
+            <li class="next"><span class='object_link'><a href="../Component.html" title="Brut::FrontEnd::Component (class)">Brut::FrontEnd::Component</a></span></li>
+          
+            <li class="next">Brut::FrontEnd::Components::TimeTag</li>
+          
+        </ul>
+        <a href="#" class="inheritanceTree">show all</a>
+      
+    </dd>
+  </dl>
+  
+
+  
+  
+  
+  
+  <dl>
+      <dt>Includes:</dt>
+      <dd><span class='object_link'><a href="../../I18n/ForHTML.html" title="Brut::I18n::ForHTML (module)">I18n::ForHTML</a></span></dd>
+  </dl>
+  
+  
+
+  
+
+  
+  <dl>
+    <dt>Defined in:</dt>
+    <dd>lib/brut/front_end/components/time_tag.rb</dd>
+  </dl>
+  
+</div>
+
+<h2>Overview</h2><div class="docstring">
+  <div class="discussion">
+    <p>Renders a date or timestamp accessibly, using the <code>&lt;time&gt;</code> element.
+This will account for the current request's time zone. See <span class='object_link'><a href="../../../Clock.html" title="Clock (class)">Clock</a></span>.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div>
+
+
+
+
+
+
+  
+    <h2>
+      Instance Method Summary
+      <small><a href="#" class="summary_toggle">collapse</a></small>
+    </h2>
+
+    <ul class="summary">
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#initialize-instance_method" title="#initialize (instance method)">#<strong>initialize</strong>(timestamp: nil, date: nil, format: :full, skip_year_if_same: true, skip_dow_if_not_this_week: true, attribute_format: :iso_8601, clock: :from_request_context, **only_contains_class) { ... } &#x21d2; TimeTag </a>
+    
+
+    
+  </span>
+  
+  
+    <span class="note title constructor">constructor</span>
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>Creates the component will still render the <code>datetime</code> attribute, but not the inside.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#view_template-instance_method" title="#view_template (instance method)">#<strong>view_template</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+</div></span>
+  
+</li>
+
+      
+    </ul>
+  
+
+
+  
+  
+  
+  
+  
+  
+  
+  
+  <h3 class="inherited">Methods included from <span class='object_link'><a href="../../I18n/ForHTML.html" title="Brut::I18n::ForHTML (module)">I18n::ForHTML</a></span></h3>
+  <p class="inherited"><span class='object_link'><a href="../../I18n/ForHTML.html#html_escape-instance_method" title="Brut::I18n::ForHTML#html_escape (method)">#html_escape</a></span>, <span class='object_link'><a href="../../I18n/ForHTML.html#t-instance_method" title="Brut::I18n::ForHTML#t (method)">#t</a></span></p>
+
+  
+  
+  
+  
+  
+  
+  
+  
+  <h3 class="inherited">Methods included from <span class='object_link'><a href="../../I18n/BaseMethods.html" title="Brut::I18n::BaseMethods (module)">I18n::BaseMethods</a></span></h3>
+  <p class="inherited"><span class='object_link'><a href="../../I18n/BaseMethods.html#l-instance_method" title="Brut::I18n::BaseMethods#l (method)">#l</a></span>, <span class='object_link'><a href="../../I18n/BaseMethods.html#t-instance_method" title="Brut::I18n::BaseMethods#t (method)">#t</a></span>, <span class='object_link'><a href="../../I18n/BaseMethods.html#t_direct-instance_method" title="Brut::I18n::BaseMethods#t_direct (method)">#t_direct</a></span>, <span class='object_link'><a href="../../I18n/BaseMethods.html#this_field_value-instance_method" title="Brut::I18n::BaseMethods#this_field_value (method)">#this_field_value</a></span></p>
+
+  
+  
+  
+  
+  
+  
+  
+  
+  <h3 class="inherited">Methods inherited from <span class='object_link'><a href="../Component.html" title="Brut::FrontEnd::Component (class)">Brut::FrontEnd::Component</a></span></h3>
+  <p class="inherited"><span class='object_link'><a href="../Component.html#component_name-class_method" title="Brut::FrontEnd::Component.component_name (method)">component_name</a></span>, <span class='object_link'><a href="../Component.html#component_name-instance_method" title="Brut::FrontEnd::Component#component_name (method)">#component_name</a></span></p>
+
+  
+  
+  
+  
+  
+  
+  
+  
+  <h3 class="inherited">Methods included from <span class='object_link'><a href="../Component/Helpers.html" title="Brut::FrontEnd::Component::Helpers (module)">Brut::FrontEnd::Component::Helpers</a></span></h3>
+  <p class="inherited"><span class='object_link'><a href="../Component/Helpers.html#global_component-instance_method" title="Brut::FrontEnd::Component::Helpers#global_component (method)">#global_component</a></span>, <span class='object_link'><a href="../Component/Helpers.html#inline_svg-instance_method" title="Brut::FrontEnd::Component::Helpers#inline_svg (method)">#inline_svg</a></span></p>
+
+  
+  
+  
+  
+  
+  
+  
+  
+  <h3 class="inherited">Methods included from <span class='object_link'><a href="../../Framework/Errors.html" title="Brut::Framework::Errors (module)">Brut::Framework::Errors</a></span></h3>
+  <p class="inherited"><span class='object_link'><a href="../../Framework/Errors.html#abstract_method!-instance_method" title="Brut::Framework::Errors#abstract_method! (method)">#abstract_method!</a></span>, <span class='object_link'><a href="../../Framework/Errors.html#bug!-instance_method" title="Brut::Framework::Errors#bug! (method)">#bug!</a></span></p>
+
+  <div id="constructor_details" class="method_details_list">
+  <h2>Constructor Details</h2>
+  
+    <div class="method_details first">
+  <h3 class="signature first" id="initialize-instance_method">
+  
+    #<strong>initialize</strong>(timestamp: nil, date: nil, format: :full, skip_year_if_same: true, skip_dow_if_not_this_week: true, attribute_format: :iso_8601, clock: :from_request_context, **only_contains_class) { ... } &#x21d2; <tt><span class='object_link'><a href="" title="Brut::FrontEnd::Components::TimeTag (class)">TimeTag</a></span></tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>Creates the component
+will still render the <code>datetime</code> attribute, but not the inside.  This is useful if you have a customized date or time display that
+you would like to be accessible.  If omitted, the tag's contents will be the formated date or timestamp.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>timestamp</span>
+      
+      
+        <span class='type'>(<tt>Time</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>nil</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'><p>the timestamp you wish to render. Mutually exclusive with <code>date</code>.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>date</span>
+      
+      
+        <span class='type'>(<tt>Date</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>nil</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'><p>the date you wish to render. Mutually exclusive with <code>timestamp</code>.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>format</span>
+      
+      
+        <span class='type'>(<tt>Symbol</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>:full</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'><p>the I18n format key fragment to use to locate the strftime format for formatting the timestamp.  This is appended to <code>"time.formats."</code> to form the full string. If <code>skip_year_if_same</code> is true <em>and</em> the year of this timestamp is this year, <code>"_no_year"</code> is further appended.  For example, if this value is <code>:full</code> and <code>skip_year_if_same</code> is false, the I18n key used will be <code>"time.formats.full"</code>.  If <code>skip_year_if_same</code> is true, the key would be <code>"time.formats.full_no_year"</code> only if this year is the year of the timestamp. Otherwise <code>"time.formats.full"</code> would be used.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>skip_year_if_same</span>
+      
+      
+        <span class='type'>(<tt>true|false</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>true</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'><p>if true, and this year is the same year as the timestamp, <code>"_no_year"</code> is appened to the value of <code>format</code> to form the I18n key to use.  This is applied before <code>skip_dow_if_not_this_week</code>'s suffix is.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>skip_dow_if_not_this_week</span>
+      
+      
+        <span class='type'>(<tt>true|false</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>true</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'><p>if true, and the date/timestamp is within 7 days of now, appends <code>"no_dow"</code> to the format string. If this matches a configured format, it's assumed that would be just like <code>format</code> but without the day of the week.  This is applied after <code>skip_year_if_same</code>'s suffix is.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>attribute_format</span>
+      
+      
+        <span class='type'>(<tt>Symbol</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>:iso_8601</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'><p>the I18n format key fragment to use to locate the strftime format for formatting <em>the <code>datetime</code> attribute</em> of the HTML element that this component renders. Generally, you want to leave this as the default of <code>:iso_8601</code>, however if you need to change it, you can.  This value is appeneded to <code>"time.formats."</code> to form the complete key. <code>skip_year_if_same</code> is not used for this value.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>only_contains_class</span>
+      
+      
+        <span class='type'>(<tt>Hash</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>exists because <code>class</code> is a reserved word</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+  
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <p class="tag_title">Options Hash (<tt>**only_contains_class</tt>):</p>
+    <ul class="option">
+      
+        <li>
+          <span class="name">:class</span>
+          <span class="type">(<tt>String</tt>)</span>
+          <span class="default">
+            
+          </span>
+          
+            &mdash; <div class='inline'><p>the value to use for the <code>class</code> attribute.</p>
+</div>
+          
+        </li>
+      
+    </ul>
+  
+
+<p class="tag_title">Yields:</p>
+<ul class="yield">
+  
+    <li>
+      
+      
+        <span class='type'></span>
+      
+      
+      
+        
+        <div class='inline'><p>No parameters given. This is expected to return markup to appear inside the <code>&lt;form&gt;</code> element. If provided, this component</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/brut/front_end/components/time_tag.rb', line 17</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_initialize'>initialize</span><span class='lparen'>(</span>
+  <span class='label'>timestamp:</span> <span class='kw'>nil</span><span class='comma'>,</span>
+  <span class='label'>date:</span> <span class='kw'>nil</span><span class='comma'>,</span>
+  <span class='label'>format:</span> <span class='symbol'>:full</span><span class='comma'>,</span>
+  <span class='label'>skip_year_if_same:</span> <span class='kw'>true</span><span class='comma'>,</span>
+  <span class='label'>skip_dow_if_not_this_week:</span> <span class='kw'>true</span><span class='comma'>,</span>
+  <span class='label'>attribute_format:</span> <span class='symbol'>:iso_8601</span><span class='comma'>,</span>
+  <span class='label'>clock:</span> <span class='symbol'>:from_request_context</span><span class='comma'>,</span>
+  <span class='op'>**</span><span class='id identifier rubyid_only_contains_class'>only_contains_class</span>
+<span class='rparen'>)</span>
+  <span class='id identifier rubyid_require_exactly_one!'>require_exactly_one!</span><span class='lparen'>(</span><span class='label'>timestamp:</span><span class='comma'>,</span><span class='label'>date:</span><span class='rparen'>)</span>
+
+  <span class='ivar'>@date_only</span> <span class='op'>=</span> <span class='id identifier rubyid_timestamp'>timestamp</span><span class='period'>.</span><span class='id identifier rubyid_nil?'>nil?</span>
+  <span class='ivar'>@timestamp</span> <span class='op'>=</span> <span class='id identifier rubyid_timestamp'>timestamp</span> <span class='op'>||</span> <span class='id identifier rubyid_date'>date</span>
+  <span class='ivar'>@clock</span>     <span class='op'>=</span> <span class='kw'>if</span> <span class='id identifier rubyid_clock'>clock</span> <span class='op'>==</span> <span class='symbol'>:from_request_context</span>
+                 <span class='const'><span class='object_link'><a href="../../../Brut.html" title="Brut (module)">Brut</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../../FrontEnd.html" title="Brut::FrontEnd (module)">FrontEnd</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../RequestContext.html" title="Brut::FrontEnd::RequestContext (class)">RequestContext</a></span></span><span class='period'>.</span><span class='id identifier rubyid_current'><span class='object_link'><a href="../RequestContext.html#current-class_method" title="Brut::FrontEnd::RequestContext.current (method)">current</a></span></span><span class='lbracket'>[</span><span class='symbol'>:clock</span><span class='rbracket'>]</span>
+               <span class='kw'>else</span>
+                 <span class='id identifier rubyid_clock'>clock</span>
+               <span class='kw'>end</span>
+
+  <span class='id identifier rubyid_formats'>formats</span> <span class='op'>=</span> <span class='lbracket'>[</span> <span class='id identifier rubyid_format'>format</span> <span class='rbracket'>]</span>
+  <span class='id identifier rubyid_use_no_year'>use_no_year</span> <span class='op'>=</span> <span class='id identifier rubyid_skip_year_if_same'>skip_year_if_same</span> <span class='op'>&amp;&amp;</span> <span class='ivar'>@timestamp</span><span class='period'>.</span><span class='id identifier rubyid_year'>year</span> <span class='op'>==</span> <span class='const'>Time</span><span class='period'>.</span><span class='id identifier rubyid_now'>now</span><span class='period'>.</span><span class='id identifier rubyid_year'>year</span>
+  <span class='id identifier rubyid_use_no_dow'>use_no_dow</span>  <span class='op'>=</span> <span class='kw'>if</span> <span class='id identifier rubyid_skip_dow_if_not_this_week'>skip_dow_if_not_this_week</span>
+                  <span class='gvar'>$seven_days_ago</span> <span class='op'>=</span> <span class='lparen'>(</span><span class='const'>Date</span><span class='period'>.</span><span class='id identifier rubyid_today'>today</span> <span class='op'>-</span> <span class='int'>7</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_to_time'>to_time</span>
+                  <span class='gvar'>$timestamp</span>      <span class='op'>=</span> <span class='ivar'>@timestamp</span><span class='period'>.</span><span class='id identifier rubyid_to_time'>to_time</span>
+                  <span class='gvar'>$timestamp</span> <span class='op'>&lt;</span> <span class='gvar'>$seven_days_ago</span>
+                <span class='kw'>else</span>
+                  <span class='kw'>false</span>
+                <span class='kw'>end</span>
+  <span class='kw'>if</span> <span class='id identifier rubyid_use_no_year'>use_no_year</span>
+    <span class='id identifier rubyid_formats'>formats</span><span class='period'>.</span><span class='id identifier rubyid_unshift'>unshift</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_format'>format</span><span class='embexpr_end'>}</span><span class='tstring_content'>_no_year</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+  <span class='kw'>end</span>
+
+  <span class='kw'>if</span> <span class='id identifier rubyid_use_no_dow'>use_no_dow</span>
+    <span class='kw'>if</span> <span class='id identifier rubyid_use_no_year'>use_no_year</span>
+      <span class='id identifier rubyid_formats'>formats</span><span class='period'>.</span><span class='id identifier rubyid_unshift'>unshift</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_format'>format</span><span class='embexpr_end'>}</span><span class='tstring_content'>_no_year_no_dow</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+    <span class='kw'>else</span>
+      <span class='id identifier rubyid_formats'>formats</span><span class='period'>.</span><span class='id identifier rubyid_unshift'>unshift</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_format'>format</span><span class='embexpr_end'>}</span><span class='tstring_content'>_no_dow</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+    <span class='kw'>end</span>
+  <span class='kw'>end</span>
+
+  <span class='id identifier rubyid_assumed_key_base'>assumed_key_base</span> <span class='op'>=</span> <span class='kw'>if</span> <span class='ivar'>@date_only</span>
+                       <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>date.formats</span><span class='tstring_end'>&quot;</span></span>
+                     <span class='kw'>else</span>
+                       <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>time.formats</span><span class='tstring_end'>&quot;</span></span>
+                     <span class='kw'>end</span>
+
+  <span class='id identifier rubyid_format_keys'>format_keys</span> <span class='op'>=</span> <span class='id identifier rubyid_formats'>formats</span><span class='period'>.</span><span class='id identifier rubyid_map'>map</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_f'>f</span><span class='op'>|</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_assumed_key_base'>assumed_key_base</span><span class='embexpr_end'>}</span><span class='tstring_content'>.</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_f'>f</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span> <span class='rbrace'>}</span>
+
+  <span class='id identifier rubyid_found_format'>found_format</span><span class='comma'>,</span><span class='id identifier rubyid__value'>_value</span> <span class='op'>=</span> <span class='id identifier rubyid_formats'>formats</span><span class='period'>.</span><span class='id identifier rubyid_zip'>zip</span><span class='lparen'>(</span> <span class='op'>::</span><span class='const'>I18n</span><span class='period'>.</span><span class='id identifier rubyid_t'>t</span><span class='lparen'>(</span><span class='id identifier rubyid_format_keys'>format_keys</span><span class='rparen'>)</span> <span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_detect'>detect</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='lparen'>(</span><span class='id identifier rubyid__key'>_key</span><span class='comma'>,</span><span class='id identifier rubyid_value'>value</span><span class='rparen'>)</span><span class='op'>|</span>
+    <span class='id identifier rubyid_value'>value</span> <span class='op'>!~</span> <span class='tstring'><span class='regexp_beg'>/</span><span class='tstring_content'>^Translation missing</span><span class='regexp_end'>/</span></span>
+  <span class='rbrace'>}</span>
+
+  <span class='kw'>if</span> <span class='id identifier rubyid_found_format'>found_format</span><span class='period'>.</span><span class='id identifier rubyid_nil?'>nil?</span>
+    <span class='id identifier rubyid_raise'>raise</span> <span class='const'>ArgumentError</span><span class='comma'>,</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>format </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_format'>format</span><span class='embexpr_end'>}</span><span class='tstring_content'> is not a known time format (checked </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_format_keys'>format_keys</span><span class='embexpr_end'>}</span><span class='tstring_content'>)</span><span class='tstring_end'>&quot;</span></span>
+  <span class='kw'>end</span>
+
+  <span class='ivar'>@format</span>           <span class='op'>=</span> <span class='id identifier rubyid_found_format'>found_format</span><span class='period'>.</span><span class='id identifier rubyid_to_sym'>to_sym</span>
+  <span class='ivar'>@attribute_format</span> <span class='op'>=</span> <span class='id identifier rubyid_attribute_format'>attribute_format</span><span class='period'>.</span><span class='id identifier rubyid_to_sym'>to_sym</span>
+  <span class='ivar'>@class_attribute</span>  <span class='op'>=</span> <span class='id identifier rubyid_only_contains_class'>only_contains_class</span><span class='lbracket'>[</span><span class='symbol'>:class</span><span class='rbracket'>]</span> <span class='op'>||</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_end'>&quot;</span></span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+  
+</div>
+
+
+  <div id="instance_method_details" class="method_details_list">
+    <h2>Instance Method Details</h2>
+
+    
+      <div class="method_details first">
+  <h3 class="signature first" id="view_template-instance_method">
+  
+    #<strong>view_template</strong>  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/brut/front_end/components/time_tag.rb', line 79</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_view_template'>view_template</span>
+  <span class='id identifier rubyid_adjusted_value'>adjusted_value</span> <span class='op'>=</span> <span class='kw'>if</span> <span class='ivar'>@date_only</span>
+                     <span class='ivar'>@timestamp</span>
+                   <span class='kw'>else</span>
+                     <span class='ivar'>@clock</span><span class='period'>.</span><span class='id identifier rubyid_in_time_zone'>in_time_zone</span><span class='lparen'>(</span><span class='ivar'>@timestamp</span><span class='rparen'>)</span>
+                   <span class='kw'>end</span>
+
+  <span class='id identifier rubyid_datetime_attribute'>datetime_attribute</span> <span class='op'>=</span> <span class='op'>::</span><span class='const'>I18n</span><span class='period'>.</span><span class='id identifier rubyid_l'>l</span><span class='lparen'>(</span><span class='id identifier rubyid_adjusted_value'>adjusted_value</span><span class='comma'>,</span><span class='label'>format:</span> <span class='ivar'>@attribute_format</span><span class='rparen'>)</span>
+
+  <span class='id identifier rubyid_time'>time</span><span class='lparen'>(</span><span class='label'>class:</span> <span class='ivar'>@class_attribute</span><span class='comma'>,</span> <span class='label'>datetime:</span> <span class='id identifier rubyid_datetime_attribute'>datetime_attribute</span><span class='rparen'>)</span> <span class='kw'>do</span>
+    <span class='kw'>if</span> <span class='id identifier rubyid_block_given?'>block_given?</span>
+      <span class='kw'>yield</span>
+    <span class='kw'>else</span>
+      <span class='op'>::</span><span class='const'>I18n</span><span class='period'>.</span><span class='id identifier rubyid_l'>l</span><span class='lparen'>(</span><span class='id identifier rubyid_adjusted_value'>adjusted_value</span><span class='comma'>,</span><span class='label'>format:</span> <span class='ivar'>@format</span><span class='rparen'>)</span>
+    <span class='kw'>end</span>
+  <span class='kw'>end</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+  </div>
+
+</div>
+
+      <div id="footer">
+  Generated on Wed Jun 25 22:57:21 2025 by
+  <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
+  0.9.37 (ruby-3.4.4).
+</div>
+
+    </div>
+  </body>
+</html>

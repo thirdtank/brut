@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>
+  Class: Brut::CLI::AppRunner
+  
+    &mdash; Documentation by YARD 0.9.37
+  
+</title>
+
+  <link rel="stylesheet" href="../../css/style.css" type="text/css" />
+
+  <link rel="stylesheet" href="../../css/common.css" type="text/css" />
+
+<script type="text/javascript">
+  pathId = "Brut::CLI::AppRunner";
+  relpath = '../../';
+</script>
+
+
+  <script type="text/javascript" charset="utf-8" src="../../js/jquery.js"></script>
+
+  <script type="text/javascript" charset="utf-8" src="../../js/app.js"></script>
+
+
+  </head>
+  <body>
+    <div class="nav_wrap">
+      <iframe id="nav" src="../../class_list.html?1"></iframe>
+      <div id="resizer"></div>
+    </div>
+
+    <div id="main" tabindex="-1">
+      <div id="header">
+        <div id="menu">
+  
+    <a href="../../_index.html">Index (A)</a> &raquo;
+    <span class='title'><span class='object_link'><a href="../../Brut.html" title="Brut (module)">Brut</a></span></span> &raquo; <span class='title'><span class='object_link'><a href="../CLI.html" title="Brut::CLI (module)">CLI</a></span></span>
+     &raquo; 
+    <span class="title">AppRunner</span>
+  
+</div>
+
+        <div id="search">
+  
+    <a class="full_list_link" id="class_list_link"
+        href="../../class_list.html">
+
+        <svg width="24" height="24">
+          <rect x="0" y="4" width="24" height="4" rx="1" ry="1"></rect>
+          <rect x="0" y="12" width="24" height="4" rx="1" ry="1"></rect>
+          <rect x="0" y="20" width="24" height="4" rx="1" ry="1"></rect>
+        </svg>
+    </a>
+  
+</div>
+        <div class="clear"></div>
+      </div>
+
+      <div id="content"><h1>Class: Brut::CLI::AppRunner
+  
+  
+  
+</h1>
+<div class="box_info">
+  
+  <dl>
+    <dt>Inherits:</dt>
+    <dd>
+      <span class="inheritName">Object</span>
+      
+        <ul class="fullTree">
+          <li>Object</li>
+          
+            <li class="next">Brut::CLI::AppRunner</li>
+          
+        </ul>
+        <a href="#" class="inheritanceTree">show all</a>
+      
+    </dd>
+  </dl>
+  
+
+  
+  
+  
+  
+  <dl>
+      <dt>Includes:</dt>
+      <dd><span class='object_link'><a href="ExecutionResults.html" title="Brut::CLI::ExecutionResults (module)">ExecutionResults</a></span></dd>
+  </dl>
+  
+  
+
+  
+
+  
+  <dl>
+    <dt>Defined in:</dt>
+    <dd>lib/brut/cli/app_runner.rb</dd>
+  </dl>
+  
+</div>
+
+<h2>Overview</h2><div class="docstring">
+  <div class="discussion">
+    <p>Manages the execution of a CLI app that extends <span class='object_link'><a href="App.html" title="Brut::CLI::App (class)">App</a></span>. Generally you won't use this class directly, but will call
+<span class='object_link'><a href="../CLI.html#app-class_method" title="Brut::CLI.app (method)">app</a></span>.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div>
+
+
+
+
+
+
+  
+    <h2>
+      Instance Method Summary
+      <small><a href="#" class="summary_toggle">collapse</a></small>
+    </h2>
+
+    <ul class="summary">
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#initialize-instance_method" title="#initialize (instance method)">#<strong>initialize</strong>(app_klass:, project_root:)  &#x21d2; AppRunner </a>
+    
+
+    
+  </span>
+  
+  
+    <span class="note title constructor">constructor</span>
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>Create the app runner with a class and project root.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#run!-instance_method" title="#run! (instance method)">#<strong>run!</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>Runs the app, based on the CLI arguments and UNIX environment provided at the time of execution.</p>
+</div></span>
+  
+</li>
+
+      
+    </ul>
+  
+
+
+  
+  
+  
+  
+  
+  
+  
+  
+  <h3 class="inherited">Methods included from <span class='object_link'><a href="ExecutionResults.html" title="Brut::CLI::ExecutionResults (module)">ExecutionResults</a></span></h3>
+  <p class="inherited"><span class='object_link'><a href="ExecutionResults.html#abort_execution-instance_method" title="Brut::CLI::ExecutionResults#abort_execution (method)">#abort_execution</a></span>, <span class='object_link'><a href="ExecutionResults.html#as_execution_result-instance_method" title="Brut::CLI::ExecutionResults#as_execution_result (method)">#as_execution_result</a></span>, <span class='object_link'><a href="ExecutionResults.html#cli_usage_error-instance_method" title="Brut::CLI::ExecutionResults#cli_usage_error (method)">#cli_usage_error</a></span>, <span class='object_link'><a href="ExecutionResults.html#continue_execution-instance_method" title="Brut::CLI::ExecutionResults#continue_execution (method)">#continue_execution</a></span>, <span class='object_link'><a href="ExecutionResults.html#show_cli_usage-instance_method" title="Brut::CLI::ExecutionResults#show_cli_usage (method)">#show_cli_usage</a></span>, <span class='object_link'><a href="ExecutionResults.html#stop_execution-instance_method" title="Brut::CLI::ExecutionResults#stop_execution (method)">#stop_execution</a></span></p>
+<div id="constructor_details" class="method_details_list">
+  <h2>Constructor Details</h2>
+  
+    <div class="method_details first">
+  <h3 class="signature first" id="initialize-instance_method">
+  
+    #<strong>initialize</strong>(app_klass:, project_root:)  &#x21d2; <tt><span class='object_link'><a href="" title="Brut::CLI::AppRunner (class)">AppRunner</a></span></tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>Create the app runner with a class and project root</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>app_klass</span>
+      
+      
+        <span class='type'>(<tt>Class</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>The class of your app that extends <span class='object_link'><a href="App.html" title="Brut::CLI::App (class)">Brut::CLI::App</a></span></p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>project_root</span>
+      
+      
+        <span class='type'>(<tt>Pathname</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>path to the root of the project</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+12
+13
+14
+15</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/brut/cli/app_runner.rb', line 12</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_initialize'>initialize</span><span class='lparen'>(</span><span class='label'>app_klass:</span><span class='comma'>,</span><span class='label'>project_root:</span><span class='rparen'>)</span>
+  <span class='ivar'>@app_klass</span>    <span class='op'>=</span> <span class='id identifier rubyid_app_klass'>app_klass</span>
+  <span class='ivar'>@project_root</span> <span class='op'>=</span> <span class='id identifier rubyid_project_root'>project_root</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+  
+</div>
+
+
+  <div id="instance_method_details" class="method_details_list">
+    <h2>Instance Method Details</h2>
+
+    
+      <div class="method_details first">
+  <h3 class="signature first" id="run!-instance_method">
+  
+    #<strong>run!</strong>  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>Runs the app, based on the CLI arguments and UNIX environment provided at the time of execution.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/brut/cli/app_runner.rb', line 18</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_run!'>run!</span>
+  <span class='id identifier rubyid_app_klass'>app_klass</span> <span class='op'>=</span> <span class='ivar'>@app_klass</span>
+  <span class='id identifier rubyid_out'>out</span>       <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../../Brut.html" title="Brut (module)">Brut</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../CLI.html" title="Brut::CLI (module)">CLI</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Output.html" title="Brut::CLI::Output (class)">Output</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="Output.html#initialize-instance_method" title="Brut::CLI::Output#initialize (method)">new</a></span></span><span class='lparen'>(</span><span class='label'>io:</span> <span class='gvar'>$stdout</span><span class='comma'>,</span><span class='label'>prefix:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>[ </span><span class='embexpr_beg'>#{</span><span class='gvar'>$0</span><span class='embexpr_end'>}</span><span class='tstring_content'> ] </span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_err'>err</span>       <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../../Brut.html" title="Brut (module)">Brut</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../CLI.html" title="Brut::CLI (module)">CLI</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Output.html" title="Brut::CLI::Output (class)">Output</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="Output.html#initialize-instance_method" title="Brut::CLI::Output#initialize (method)">new</a></span></span><span class='lparen'>(</span><span class='label'>io:</span> <span class='gvar'>$stderr</span><span class='comma'>,</span><span class='label'>prefix:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>[ </span><span class='embexpr_beg'>#{</span><span class='gvar'>$0</span><span class='embexpr_end'>}</span><span class='tstring_content'> ] </span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_executor'>executor</span>  <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../../Brut.html" title="Brut (module)">Brut</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../CLI.html" title="Brut::CLI (module)">CLI</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Executor.html" title="Brut::CLI::Executor (class)">Executor</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="Executor.html#initialize-instance_method" title="Brut::CLI::Executor#initialize (method)">new</a></span></span><span class='lparen'>(</span><span class='label'>out:</span><span class='comma'>,</span><span class='label'>err:</span><span class='rparen'>)</span>
+
+  <span class='id identifier rubyid_result'>result</span><span class='comma'>,</span><span class='id identifier rubyid_remaining_argv'>remaining_argv</span><span class='comma'>,</span><span class='id identifier rubyid_global_options'>global_options</span><span class='comma'>,</span><span class='id identifier rubyid_global_option_parser'>global_option_parser</span> <span class='op'>=</span> <span class='id identifier rubyid_parse_global'>parse_global</span><span class='lparen'>(</span><span class='label'>app_klass:</span><span class='comma'>,</span><span class='label'>out:</span><span class='rparen'>)</span>
+
+  <span class='kw'>if</span> <span class='id identifier rubyid_result'>result</span><span class='period'>.</span><span class='id identifier rubyid_stop?'>stop?</span>
+    <span class='kw'>return</span> <span class='id identifier rubyid_result'>result</span><span class='period'>.</span><span class='id identifier rubyid_to_i'>to_i</span>
+  <span class='kw'>end</span>
+
+  <span class='id identifier rubyid_result'>result</span><span class='comma'>,</span><span class='id identifier rubyid_command_klass'>command_klass</span> <span class='op'>=</span> <span class='id identifier rubyid_locate_command'>locate_command</span><span class='lparen'>(</span><span class='label'>remaining_argv:</span><span class='comma'>,</span><span class='label'>app_klass:</span><span class='comma'>,</span><span class='label'>err:</span><span class='comma'>,</span><span class='label'>out:</span><span class='rparen'>)</span>
+
+  <span class='kw'>if</span> <span class='id identifier rubyid_result'>result</span><span class='period'>.</span><span class='id identifier rubyid_stop?'>stop?</span>
+    <span class='kw'>if</span> <span class='op'>!</span><span class='id identifier rubyid_result'>result</span><span class='period'>.</span><span class='id identifier rubyid_ok?'>ok?</span>
+      <span class='id identifier rubyid_err'>err</span><span class='period'>.</span><span class='id identifier rubyid_puts_no_prefix'>puts_no_prefix</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>error: </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_result'>result</span><span class='period'>.</span><span class='id identifier rubyid_message'>message</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span>
+      <span class='id identifier rubyid_err'>err</span><span class='period'>.</span><span class='id identifier rubyid_puts_no_prefix'>puts_no_prefix</span>
+      <span class='kw'>if</span> <span class='id identifier rubyid_result'>result</span><span class='period'>.</span><span class='id identifier rubyid_show_usage?'>show_usage?</span>
+        <span class='id identifier rubyid_show_global_help'>show_global_help</span><span class='lparen'>(</span><span class='label'>app_klass:</span><span class='comma'>,</span><span class='label'>out:</span><span class='rparen'>)</span>
+        <span class='id identifier rubyid_err'>err</span><span class='period'>.</span><span class='id identifier rubyid_puts_no_prefix'>puts_no_prefix</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>error: </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_result'>result</span><span class='period'>.</span><span class='id identifier rubyid_message'>message</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span>
+      <span class='kw'>end</span>
+    <span class='kw'>elsif</span> <span class='id identifier rubyid_result'>result</span><span class='period'>.</span><span class='id identifier rubyid_show_usage?'>show_usage?</span>
+      <span class='id identifier rubyid_command_klass'>command_klass</span> <span class='op'>=</span> <span class='id identifier rubyid_result'>result</span><span class='period'>.</span><span class='id identifier rubyid_command_klass'>command_klass</span>
+      <span class='kw'>if</span> <span class='id identifier rubyid_command_klass'>command_klass</span><span class='period'>.</span><span class='id identifier rubyid_nil?'>nil?</span>
+        <span class='id identifier rubyid_show_global_help'>show_global_help</span><span class='lparen'>(</span><span class='label'>app_klass:</span><span class='comma'>,</span><span class='label'>out:</span><span class='rparen'>)</span>
+      <span class='kw'>else</span>
+        <span class='id identifier rubyid_command_option_parser'>command_option_parser</span> <span class='op'>=</span> <span class='id identifier rubyid_command_klass'>command_klass</span><span class='period'>.</span><span class='id identifier rubyid_option_parser'>option_parser</span>
+        <span class='id identifier rubyid_show_command_help'>show_command_help</span><span class='lparen'>(</span><span class='label'>global_option_parser:</span><span class='comma'>,</span><span class='label'>command_option_parser:</span><span class='comma'>,</span><span class='label'>command_klass:</span><span class='comma'>,</span><span class='label'>out:</span><span class='comma'>,</span><span class='label'>app_klass:</span><span class='rparen'>)</span>
+      <span class='kw'>end</span>
+    <span class='kw'>end</span>
+    <span class='kw'>return</span> <span class='id identifier rubyid_result'>result</span><span class='period'>.</span><span class='id identifier rubyid_to_i'>to_i</span>
+  <span class='kw'>end</span>
+
+  <span class='id identifier rubyid_command_options'>command_options</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span>
+
+  <span class='id identifier rubyid_command_option_parser'>command_option_parser</span> <span class='op'>=</span> <span class='id identifier rubyid_command_klass'>command_klass</span><span class='period'>.</span><span class='id identifier rubyid_option_parser'>option_parser</span>
+
+  <span class='id identifier rubyid_command_option_parser'>command_option_parser</span><span class='period'>.</span><span class='id identifier rubyid_on'>on</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>-h</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>--help</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Get help on this command</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span> <span class='kw'>do</span>
+    <span class='id identifier rubyid_show_command_help'>show_command_help</span><span class='lparen'>(</span><span class='label'>global_option_parser:</span><span class='comma'>,</span><span class='label'>command_option_parser:</span><span class='comma'>,</span><span class='label'>command_klass:</span><span class='comma'>,</span><span class='label'>out:</span><span class='comma'>,</span><span class='label'>app_klass:</span><span class='rparen'>)</span>
+    <span class='kw'>return</span> <span class='int'>0</span>
+  <span class='kw'>end</span>
+
+  <span class='id identifier rubyid_command_argv'>command_argv</span> <span class='op'>=</span> <span class='id identifier rubyid_remaining_argv'>remaining_argv</span><span class='lbracket'>[</span><span class='int'>1</span><span class='op'>..</span><span class='op'>-</span><span class='int'>1</span><span class='rbracket'>]</span> <span class='op'>||</span> <span class='lbracket'>[</span><span class='rbracket'>]</span>
+  <span class='kw'>begin</span>
+    <span class='id identifier rubyid_args'>args</span> <span class='op'>=</span> <span class='id identifier rubyid_command_option_parser'>command_option_parser</span><span class='period'>.</span><span class='id identifier rubyid_parse!'>parse!</span><span class='lparen'>(</span><span class='id identifier rubyid_command_argv'>command_argv</span><span class='comma'>,</span><span class='label'>into:</span><span class='id identifier rubyid_command_options'>command_options</span><span class='rparen'>)</span>
+  <span class='kw'>rescue</span> <span class='const'>OptionParser</span><span class='op'>::</span><span class='const'>ParseError</span> <span class='op'>=&gt;</span> <span class='id identifier rubyid_ex'>ex</span>
+    <span class='id identifier rubyid_raise'>raise</span> <span class='const'><span class='object_link'><a href="../../Brut.html" title="Brut (module)">Brut</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../CLI.html" title="Brut::CLI (module)">CLI</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="InvalidOption.html" title="Brut::CLI::InvalidOption (class)">InvalidOption</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="InvalidOption.html#initialize-instance_method" title="Brut::CLI::InvalidOption#initialize (method)">new</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_ex'>ex</span><span class='comma'>,</span> <span class='label'>context:</span> <span class='id identifier rubyid_command_klass'>command_klass</span><span class='rparen'>)</span>
+  <span class='kw'>end</span>
+
+  <span class='id identifier rubyid_cli_app'>cli_app</span> <span class='op'>=</span> <span class='id identifier rubyid_app_klass'>app_klass</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='label'>global_options:</span><span class='comma'>,</span> <span class='label'>out:</span><span class='comma'>,</span> <span class='label'>err:</span><span class='comma'>,</span> <span class='label'>executor:</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_cmd'>cmd</span> <span class='op'>=</span> <span class='id identifier rubyid_command_klass'>command_klass</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='label'>command_options:</span><span class='const'><span class='object_link'><a href="../../Brut.html" title="Brut (module)">Brut</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../CLI.html" title="Brut::CLI (module)">CLI</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Options.html" title="Brut::CLI::Options (class)">Options</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="Options.html#initialize-instance_method" title="Brut::CLI::Options#initialize (method)">new</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_command_options'>command_options</span><span class='rparen'>)</span><span class='comma'>,</span><span class='label'>global_options:</span><span class='comma'>,</span> <span class='label'>args:</span><span class='comma'>,</span> <span class='label'>out:</span><span class='comma'>,</span> <span class='label'>err:</span><span class='comma'>,</span> <span class='label'>executor:</span><span class='rparen'>)</span>
+
+  <span class='id identifier rubyid_result'>result</span> <span class='op'>=</span> <span class='id identifier rubyid_cli_app'>cli_app</span><span class='period'>.</span><span class='id identifier rubyid_execute!'>execute!</span><span class='lparen'>(</span><span class='id identifier rubyid_cmd'>cmd</span><span class='comma'>,</span> <span class='label'>project_root:</span><span class='ivar'>@project_root</span><span class='rparen'>)</span>
+
+  <span class='kw'>if</span> <span class='id identifier rubyid_result'>result</span><span class='period'>.</span><span class='id identifier rubyid_message'>message</span>
+    <span class='kw'>if</span> <span class='op'>!</span><span class='id identifier rubyid_result'>result</span><span class='period'>.</span><span class='id identifier rubyid_ok?'>ok?</span>
+      <span class='id identifier rubyid_err'>err</span><span class='period'>.</span><span class='id identifier rubyid_puts'>puts</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>error: </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_result'>result</span><span class='period'>.</span><span class='id identifier rubyid_message'>message</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span>
+      <span class='kw'>if</span> <span class='id identifier rubyid_result'>result</span><span class='period'>.</span><span class='id identifier rubyid_show_usage?'>show_usage?</span>
+        <span class='id identifier rubyid_err'>err</span><span class='period'>.</span><span class='id identifier rubyid_puts'>puts</span>
+        <span class='id identifier rubyid_show_command_help'>show_command_help</span><span class='lparen'>(</span><span class='label'>global_option_parser:</span><span class='comma'>,</span><span class='label'>command_option_parser:</span><span class='comma'>,</span><span class='label'>command_klass:</span><span class='comma'>,</span><span class='label'>out:</span><span class='rparen'>)</span>
+      <span class='kw'>end</span>
+    <span class='kw'>else</span>
+      <span class='id identifier rubyid_out'>out</span><span class='period'>.</span><span class='id identifier rubyid_puts'>puts</span> <span class='id identifier rubyid_result'>result</span><span class='period'>.</span><span class='id identifier rubyid_message'>message</span>
+    <span class='kw'>end</span>
+  <span class='kw'>end</span>
+  <span class='id identifier rubyid_result'>result</span><span class='period'>.</span><span class='id identifier rubyid_to_i'>to_i</span>
+<span class='kw'>rescue</span> <span class='const'>OptionParser</span><span class='op'>::</span><span class='const'>InvalidArgument</span> <span class='op'>=&gt;</span> <span class='id identifier rubyid_ex'>ex</span>
+  <span class='id identifier rubyid_flag'>flag</span> <span class='op'>=</span> <span class='id identifier rubyid_ex'>ex</span><span class='period'>.</span><span class='id identifier rubyid_args'>args</span><span class='period'>.</span><span class='id identifier rubyid_map'>map</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid__'>_</span><span class='op'>|</span> <span class='id identifier rubyid__'>_</span><span class='period'>.</span><span class='id identifier rubyid_gsub'>gsub</span><span class='lparen'>(</span><span class='tstring'><span class='regexp_beg'>/</span><span class='tstring_content'>=.*$</span><span class='regexp_end'>/</span></span><span class='comma'>,</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span> <span class='rbrace'>}</span><span class='period'>.</span><span class='id identifier rubyid_join'>join</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>, </span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_err'>err</span><span class='period'>.</span><span class='id identifier rubyid_puts'>puts</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>error: </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_ex'>ex</span><span class='period'>.</span><span class='id identifier rubyid_reason'>reason</span><span class='embexpr_end'>}</span><span class='tstring_content'> from </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_flag'>flag</span><span class='embexpr_end'>}</span><span class='tstring_content'>: value given is not one of the allowed values</span><span class='tstring_end'>&quot;</span></span>
+  <span class='int'>65</span>
+<span class='kw'>rescue</span> <span class='const'>OptionParser</span><span class='op'>::</span><span class='const'>ParseError</span> <span class='op'>=&gt;</span> <span class='id identifier rubyid_ex'>ex</span>
+  <span class='id identifier rubyid_err'>err</span><span class='period'>.</span><span class='id identifier rubyid_puts'>puts</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>error: </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_ex'>ex</span><span class='period'>.</span><span class='id identifier rubyid_message'>message</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span>
+  <span class='int'>65</span>
+<span class='kw'>rescue</span> <span class='op'>=&gt;</span> <span class='id identifier rubyid_ex'>ex</span>
+  <span class='kw'>if</span> <span class='const'>ENV</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>BRUT_CLI_RAISE_ON_ERROR</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span> <span class='op'>==</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>true</span><span class='tstring_end'>&quot;</span></span>
+    <span class='id identifier rubyid_raise'>raise</span>
+  <span class='kw'>else</span>
+    <span class='id identifier rubyid_err'>err</span><span class='period'>.</span><span class='id identifier rubyid_puts'>puts</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>error: </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_ex'>ex</span><span class='period'>.</span><span class='id identifier rubyid_message'>message</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span>
+    <span class='int'>70</span>
+  <span class='kw'>end</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+  </div>
+
+</div>
+
+      <div id="footer">
+  Generated on Wed Jun 25 22:57:20 2025 by
+  <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
+  0.9.37 (ruby-3.4.4).
+</div>
+
+    </div>
+  </body>
+</html>

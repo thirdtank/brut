@@ -1,0 +1,1045 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>
+  Class: Brut::Framework::Config
+  
+    &mdash; Documentation by YARD 0.9.37
+  
+</title>
+
+  <link rel="stylesheet" href="../../css/style.css" type="text/css" />
+
+  <link rel="stylesheet" href="../../css/common.css" type="text/css" />
+
+<script type="text/javascript">
+  pathId = "Brut::Framework::Config";
+  relpath = '../../';
+</script>
+
+
+  <script type="text/javascript" charset="utf-8" src="../../js/jquery.js"></script>
+
+  <script type="text/javascript" charset="utf-8" src="../../js/app.js"></script>
+
+
+  </head>
+  <body>
+    <div class="nav_wrap">
+      <iframe id="nav" src="../../class_list.html?1"></iframe>
+      <div id="resizer"></div>
+    </div>
+
+    <div id="main" tabindex="-1">
+      <div id="header">
+        <div id="menu">
+  
+    <a href="../../_index.html">Index (C)</a> &raquo;
+    <span class='title'><span class='object_link'><a href="../../Brut.html" title="Brut (module)">Brut</a></span></span> &raquo; <span class='title'><span class='object_link'><a href="../Framework.html" title="Brut::Framework (module)">Framework</a></span></span>
+     &raquo; 
+    <span class="title">Config</span>
+  
+</div>
+
+        <div id="search">
+  
+    <a class="full_list_link" id="class_list_link"
+        href="../../class_list.html">
+
+        <svg width="24" height="24">
+          <rect x="0" y="4" width="24" height="4" rx="1" ry="1"></rect>
+          <rect x="0" y="12" width="24" height="4" rx="1" ry="1"></rect>
+          <rect x="0" y="20" width="24" height="4" rx="1" ry="1"></rect>
+        </svg>
+    </a>
+  
+</div>
+        <div class="clear"></div>
+      </div>
+
+      <div id="content"><h1>Class: Brut::Framework::Config
+  
+  
+  
+</h1>
+<div class="box_info">
+  
+  <dl>
+    <dt>Inherits:</dt>
+    <dd>
+      <span class="inheritName">Object</span>
+      
+        <ul class="fullTree">
+          <li>Object</li>
+          
+            <li class="next">Brut::Framework::Config</li>
+          
+        </ul>
+        <a href="#" class="inheritanceTree">show all</a>
+      
+    </dd>
+  </dl>
+  
+
+  
+  
+  
+  
+  
+
+  
+
+  
+  <dl>
+    <dt>Defined in:</dt>
+    <dd>lib/brut/framework/config.rb</dd>
+  </dl>
+  
+</div>
+
+<h2>Overview</h2><div class="docstring">
+  <div class="discussion">
+    <p>Holds configuration for the framework and your app.  In general, you
+should not interact with this class, however it's source code is a good
+reference for what is configured by default by Brut.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div>
+
+
+
+
+
+
+  
+    <h2>
+      Instance Method Summary
+      <small><a href="#" class="summary_toggle">collapse</a></small>
+    </h2>
+
+    <ul class="summary">
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#configure!-instance_method" title="#configure! (instance method)">#<strong>configure!</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>Configures all defaults.</p>
+</div></span>
+  
+</li>
+
+      
+    </ul>
+  
+
+
+
+  <div id="instance_method_details" class="method_details_list">
+    <h2>Instance Method Details</h2>
+
+    
+      <div class="method_details first">
+  <h3 class="signature first" id="configure!-instance_method">
+  
+    #<strong>configure!</strong>  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>Configures all defaults.  In general, this attempts to be lazy in
+setting things up, so calling this should not attempt to make a
+connection to your database.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152
+153
+154
+155
+156
+157
+158
+159
+160
+161
+162
+163
+164
+165
+166
+167
+168
+169
+170
+171
+172
+173
+174
+175
+176
+177
+178
+179
+180
+181
+182
+183
+184
+185
+186
+187
+188
+189
+190
+191
+192
+193
+194
+195
+196
+197
+198
+199
+200
+201
+202
+203
+204
+205
+206
+207
+208
+209
+210
+211
+212
+213
+214
+215
+216
+217
+218
+219
+220
+221
+222
+223
+224
+225
+226
+227
+228
+229
+230
+231
+232
+233
+234
+235
+236
+237
+238
+239
+240
+241
+242
+243
+244
+245
+246
+247
+248
+249
+250
+251
+252
+253
+254
+255
+256
+257
+258
+259
+260
+261
+262
+263
+264
+265
+266
+267
+268
+269
+270
+271
+272
+273
+274
+275
+276
+277
+278
+279
+280
+281
+282
+283
+284
+285
+286
+287
+288
+289
+290
+291
+292
+293
+294
+295
+296
+297
+298
+299
+300
+301
+302
+303
+304
+305
+306
+307
+308
+309
+310
+311
+312
+313
+314
+315
+316
+317
+318
+319
+320
+321
+322
+323
+324
+325
+326
+327
+328
+329
+330
+331
+332
+333
+334
+335
+336
+337
+338
+339
+340
+341
+342
+343
+344
+345
+346
+347
+348
+349
+350
+351
+352
+353
+354
+355
+356
+357
+358
+359
+360
+361
+362
+363
+364
+365
+366
+367
+368
+369
+370
+371
+372
+373
+374
+375
+376
+377
+378
+379
+380
+381
+382
+383
+384
+385
+386
+387
+388
+389
+390
+391
+392
+393
+394
+395
+396
+397
+398
+399
+400
+401
+402
+403
+404
+405
+406
+407
+408
+409
+410
+411
+412
+413
+414
+415
+416
+417
+418
+419
+420
+421
+422
+423
+424
+425
+426
+427
+428
+429</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/brut/framework/config.rb', line 12</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_configure!'>configure!</span>
+  <span class='const'><span class='object_link'><a href="../../Brut.html" title="Brut (module)">Brut</a></span></span><span class='period'>.</span><span class='id identifier rubyid_container'><span class='object_link'><a href="../../Brut.html#container-class_method" title="Brut.container (method)">container</a></span></span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_c'>c</span><span class='op'>|</span>
+    <span class='comment'># Brut Stuff that should not be changed
+</span>
+    <span class='id identifier rubyid_c'>c</span><span class='period'>.</span><span class='id identifier rubyid_store_ensured_path'>store_ensured_path</span><span class='lparen'>(</span>
+      <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>tmp_dir</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+      <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Temporary directory where ephemeral files can do</span><span class='tstring_end'>&quot;</span></span>
+    <span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_project_root'>project_root</span><span class='op'>|</span>
+      <span class='id identifier rubyid_project_root'>project_root</span> <span class='op'>/</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>tmp</span><span class='tstring_end'>&quot;</span></span>
+    <span class='kw'>end</span>
+
+    <span class='id identifier rubyid_c'>c</span><span class='period'>.</span><span class='id identifier rubyid_store'>store</span><span class='lparen'>(</span>
+      <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>project_env</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+      <span class='const'><span class='object_link'><a href="../../Brut.html" title="Brut (module)">Brut</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../Framework.html" title="Brut::Framework (module)">Framework</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="ProjectEnvironment.html" title="Brut::Framework::ProjectEnvironment (class)">ProjectEnvironment</a></span></span><span class='comma'>,</span>
+      <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>The environment of the running app, e.g. dev/test/prod</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+      <span class='const'><span class='object_link'><a href="../../Brut.html" title="Brut (module)">Brut</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../Framework.html" title="Brut::Framework (module)">Framework</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="ProjectEnvironment.html" title="Brut::Framework::ProjectEnvironment (class)">ProjectEnvironment</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="ProjectEnvironment.html#initialize-instance_method" title="Brut::Framework::ProjectEnvironment#initialize (method)">new</a></span></span><span class='lparen'>(</span><span class='const'>ENV</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>RACK_ENV</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span><span class='rparen'>)</span>
+    <span class='rparen'>)</span>
+
+    <span class='id identifier rubyid_c'>c</span><span class='period'>.</span><span class='id identifier rubyid_store_ensured_path'>store_ensured_path</span><span class='lparen'>(</span>
+      <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>log_dir</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+      <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Path where log files may be written</span><span class='tstring_end'>&quot;</span></span>
+    <span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_project_root'>project_root</span><span class='op'>|</span>
+      <span class='id identifier rubyid_project_root'>project_root</span> <span class='op'>/</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>logs</span><span class='tstring_end'>&quot;</span></span>
+    <span class='kw'>end</span>
+
+    <span class='id identifier rubyid_c'>c</span><span class='period'>.</span><span class='id identifier rubyid_store_ensured_path'>store_ensured_path</span><span class='lparen'>(</span>
+      <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>public_root_dir</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+      <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Path to the root of all public files</span><span class='tstring_end'>&quot;</span></span>
+    <span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_project_root'>project_root</span><span class='op'>|</span>
+      <span class='id identifier rubyid_project_root'>project_root</span> <span class='op'>/</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>app</span><span class='tstring_end'>&quot;</span></span> <span class='op'>/</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>public</span><span class='tstring_end'>&quot;</span></span>
+    <span class='kw'>end</span>
+
+    <span class='id identifier rubyid_c'>c</span><span class='period'>.</span><span class='id identifier rubyid_store_ensured_path'>store_ensured_path</span><span class='lparen'>(</span>
+      <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>images_root_dir</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+      <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Path to the root of all images</span><span class='tstring_end'>&quot;</span></span>
+    <span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_public_root_dir'>public_root_dir</span><span class='op'>|</span>
+      <span class='id identifier rubyid_public_root_dir'>public_root_dir</span> <span class='op'>/</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>static</span><span class='tstring_end'>&quot;</span></span> <span class='op'>/</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>images</span><span class='tstring_end'>&quot;</span></span>
+    <span class='kw'>end</span>
+
+    <span class='id identifier rubyid_c'>c</span><span class='period'>.</span><span class='id identifier rubyid_store_ensured_path'>store_ensured_path</span><span class='lparen'>(</span>
+      <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>css_bundle_output_dir</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+      <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Path where bundled CSS is written for use in web pages</span><span class='tstring_end'>&quot;</span></span>
+    <span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_public_root_dir'>public_root_dir</span><span class='op'>|</span>
+      <span class='id identifier rubyid_public_root_dir'>public_root_dir</span> <span class='op'>/</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>css</span><span class='tstring_end'>&quot;</span></span>
+    <span class='kw'>end</span>
+
+    <span class='id identifier rubyid_c'>c</span><span class='period'>.</span><span class='id identifier rubyid_store_ensured_path'>store_ensured_path</span><span class='lparen'>(</span>
+      <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>js_bundle_output_dir</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+      <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Path where bundled JS is written for use in web pages</span><span class='tstring_end'>&quot;</span></span>
+    <span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_public_root_dir'>public_root_dir</span><span class='op'>|</span>
+      <span class='id identifier rubyid_public_root_dir'>public_root_dir</span> <span class='op'>/</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>js</span><span class='tstring_end'>&quot;</span></span>
+    <span class='kw'>end</span>
+
+    <span class='id identifier rubyid_c'>c</span><span class='period'>.</span><span class='id identifier rubyid_store'>store</span><span class='lparen'>(</span>
+      <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>database_url</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+      <span class='const'>String</span><span class='comma'>,</span>
+      <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>URL to the primary database - generally avoid this and use sequel_db_handle</span><span class='tstring_end'>&quot;</span></span>
+    <span class='rparen'>)</span> <span class='kw'>do</span>
+      <span class='const'>ENV</span><span class='period'>.</span><span class='id identifier rubyid_fetch'>fetch</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>DATABASE_URL</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+    <span class='kw'>end</span>
+
+    <span class='id identifier rubyid_c'>c</span><span class='period'>.</span><span class='id identifier rubyid_store'>store</span><span class='lparen'>(</span>
+      <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>sequel_db_handle</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+      <span class='const'>Object</span><span class='comma'>,</span>
+      <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Handle to the database</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+    <span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_database_url'>database_url</span><span class='op'>|</span>
+      <span class='const'><span class='object_link'><a href="../../Sequel.html" title="Sequel (module)">Sequel</a></span></span><span class='period'>.</span><span class='id identifier rubyid_connect'>connect</span><span class='lparen'>(</span><span class='id identifier rubyid_database_url'>database_url</span><span class='rparen'>)</span>
+    <span class='kw'>end</span>
+
+    <span class='id identifier rubyid_c'>c</span><span class='period'>.</span><span class='id identifier rubyid_store_ensured_path'>store_ensured_path</span><span class='lparen'>(</span>
+      <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>app_src_dir</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+      <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Path to root of where all the app&#39;s source files are</span><span class='tstring_end'>&quot;</span></span>
+    <span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_project_root'>project_root</span><span class='op'>|</span>
+      <span class='id identifier rubyid_project_root'>project_root</span> <span class='op'>/</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>app</span><span class='tstring_end'>&quot;</span></span> <span class='op'>/</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>src</span><span class='tstring_end'>&quot;</span></span>
+    <span class='kw'>end</span>
+
+    <span class='id identifier rubyid_c'>c</span><span class='period'>.</span><span class='id identifier rubyid_store_ensured_path'>store_ensured_path</span><span class='lparen'>(</span>
+      <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>app_specs_dir</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+      <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Path to root of where all the app&#39;s specs/tests are</span><span class='tstring_end'>&quot;</span></span>
+    <span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_project_root'>project_root</span><span class='op'>|</span>
+      <span class='id identifier rubyid_project_root'>project_root</span> <span class='op'>/</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>specs</span><span class='tstring_end'>&quot;</span></span>
+    <span class='kw'>end</span>
+
+    <span class='id identifier rubyid_c'>c</span><span class='period'>.</span><span class='id identifier rubyid_store_ensured_path'>store_ensured_path</span><span class='lparen'>(</span>
+      <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>e2e_specs_dir</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+      <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Path to the root of all end-to-end tests</span><span class='tstring_end'>&quot;</span></span>
+    <span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_app_specs_dir'>app_specs_dir</span><span class='op'>|</span>
+      <span class='id identifier rubyid_app_specs_dir'>app_specs_dir</span> <span class='op'>/</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>e2e</span><span class='tstring_end'>&quot;</span></span>
+    <span class='kw'>end</span>
+
+    <span class='id identifier rubyid_c'>c</span><span class='period'>.</span><span class='id identifier rubyid_store_ensured_path'>store_ensured_path</span><span class='lparen'>(</span>
+      <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>js_specs_dir</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+      <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Path to root of where all JS-based specs/tests are</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+    <span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_app_specs_dir'>app_specs_dir</span><span class='op'>|</span>
+      <span class='id identifier rubyid_app_specs_dir'>app_specs_dir</span> <span class='op'>/</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>front_end</span><span class='tstring_end'>&quot;</span></span> <span class='op'>/</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>js</span><span class='tstring_end'>&quot;</span></span>
+    <span class='kw'>end</span>
+
+    <span class='id identifier rubyid_c'>c</span><span class='period'>.</span><span class='id identifier rubyid_store_ensured_path'>store_ensured_path</span><span class='lparen'>(</span>
+      <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>front_end_src_dir</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+      <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Path to the root of the front end layer for the app</span><span class='tstring_end'>&quot;</span></span>
+    <span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_app_src_dir'>app_src_dir</span><span class='op'>|</span>
+      <span class='id identifier rubyid_app_src_dir'>app_src_dir</span> <span class='op'>/</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>front_end</span><span class='tstring_end'>&quot;</span></span>
+    <span class='kw'>end</span>
+
+    <span class='id identifier rubyid_c'>c</span><span class='period'>.</span><span class='id identifier rubyid_store_ensured_path'>store_ensured_path</span><span class='lparen'>(</span>
+      <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>components_src_dir</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+      <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Path to where components classes and templates are stored</span><span class='tstring_end'>&quot;</span></span>
+    <span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_front_end_src_dir'>front_end_src_dir</span><span class='op'>|</span>
+      <span class='id identifier rubyid_front_end_src_dir'>front_end_src_dir</span> <span class='op'>/</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>components</span><span class='tstring_end'>&quot;</span></span>
+    <span class='kw'>end</span>
+
+    <span class='id identifier rubyid_c'>c</span><span class='period'>.</span><span class='id identifier rubyid_store_ensured_path'>store_ensured_path</span><span class='lparen'>(</span>
+      <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>components_specs_dir</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+      <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Path to where tests of components classes are stored</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+    <span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_app_specs_dir'>app_specs_dir</span><span class='op'>|</span>
+      <span class='id identifier rubyid_app_specs_dir'>app_specs_dir</span> <span class='op'>/</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>front_end</span><span class='tstring_end'>&quot;</span></span> <span class='op'>/</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>components</span><span class='tstring_end'>&quot;</span></span>
+    <span class='kw'>end</span>
+
+    <span class='id identifier rubyid_c'>c</span><span class='period'>.</span><span class='id identifier rubyid_store_ensured_path'>store_ensured_path</span><span class='lparen'>(</span>
+      <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>forms_src_dir</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+      <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Path to where form classes are stored</span><span class='tstring_end'>&quot;</span></span>
+    <span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_front_end_src_dir'>front_end_src_dir</span><span class='op'>|</span>
+      <span class='id identifier rubyid_front_end_src_dir'>front_end_src_dir</span> <span class='op'>/</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>forms</span><span class='tstring_end'>&quot;</span></span>
+    <span class='kw'>end</span>
+
+    <span class='id identifier rubyid_c'>c</span><span class='period'>.</span><span class='id identifier rubyid_store_ensured_path'>store_ensured_path</span><span class='lparen'>(</span>
+      <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>handlers_src_dir</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+      <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Path to where handlers are stored</span><span class='tstring_end'>&quot;</span></span>
+    <span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_front_end_src_dir'>front_end_src_dir</span><span class='op'>|</span>
+      <span class='id identifier rubyid_front_end_src_dir'>front_end_src_dir</span> <span class='op'>/</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>handlers</span><span class='tstring_end'>&quot;</span></span>
+    <span class='kw'>end</span>
+
+    <span class='id identifier rubyid_c'>c</span><span class='period'>.</span><span class='id identifier rubyid_store_ensured_path'>store_ensured_path</span><span class='lparen'>(</span>
+      <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>handlers_specs_dir</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+      <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Path to where tests of handler classes are stored</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+    <span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_app_specs_dir'>app_specs_dir</span><span class='op'>|</span>
+      <span class='id identifier rubyid_app_specs_dir'>app_specs_dir</span> <span class='op'>/</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>front_end</span><span class='tstring_end'>&quot;</span></span> <span class='op'>/</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>handlers</span><span class='tstring_end'>&quot;</span></span>
+    <span class='kw'>end</span>
+
+    <span class='id identifier rubyid_c'>c</span><span class='period'>.</span><span class='id identifier rubyid_store_ensured_path'>store_ensured_path</span><span class='lparen'>(</span>
+      <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>svgs_src_dir</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+      <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Path to where svgs are stored</span><span class='tstring_end'>&quot;</span></span>
+    <span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_front_end_src_dir'>front_end_src_dir</span><span class='op'>|</span>
+      <span class='id identifier rubyid_front_end_src_dir'>front_end_src_dir</span> <span class='op'>/</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>svgs</span><span class='tstring_end'>&quot;</span></span>
+    <span class='kw'>end</span>
+
+    <span class='id identifier rubyid_c'>c</span><span class='period'>.</span><span class='id identifier rubyid_store_ensured_path'>store_ensured_path</span><span class='lparen'>(</span>
+      <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>images_src_dir</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+      <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Path to where images are stored</span><span class='tstring_end'>&quot;</span></span>
+    <span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_front_end_src_dir'>front_end_src_dir</span><span class='op'>|</span>
+      <span class='id identifier rubyid_front_end_src_dir'>front_end_src_dir</span> <span class='op'>/</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>images</span><span class='tstring_end'>&quot;</span></span>
+    <span class='kw'>end</span>
+
+    <span class='id identifier rubyid_c'>c</span><span class='period'>.</span><span class='id identifier rubyid_store_required_path'>store_required_path</span><span class='lparen'>(</span>
+      <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>pages_src_dir</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+      <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Path to where page classes and templates are stored</span><span class='tstring_end'>&quot;</span></span>
+    <span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_front_end_src_dir'>front_end_src_dir</span><span class='op'>|</span>
+      <span class='id identifier rubyid_front_end_src_dir'>front_end_src_dir</span> <span class='op'>/</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>pages</span><span class='tstring_end'>&quot;</span></span>
+    <span class='kw'>end</span>
+
+    <span class='id identifier rubyid_c'>c</span><span class='period'>.</span><span class='id identifier rubyid_store_required_path'>store_required_path</span><span class='lparen'>(</span>
+      <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>pages_specs_dir</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+      <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Path to where tests of page classes are stored</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+    <span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_app_specs_dir'>app_specs_dir</span><span class='op'>|</span>
+      <span class='id identifier rubyid_app_specs_dir'>app_specs_dir</span> <span class='op'>/</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>front_end</span><span class='tstring_end'>&quot;</span></span> <span class='op'>/</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>pages</span><span class='tstring_end'>&quot;</span></span>
+    <span class='kw'>end</span>
+
+    <span class='id identifier rubyid_c'>c</span><span class='period'>.</span><span class='id identifier rubyid_store_required_path'>store_required_path</span><span class='lparen'>(</span>
+      <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>layouts_src_dir</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+      <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Path to where layout classes and templates are stored</span><span class='tstring_end'>&quot;</span></span>
+    <span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_front_end_src_dir'>front_end_src_dir</span><span class='op'>|</span>
+      <span class='id identifier rubyid_front_end_src_dir'>front_end_src_dir</span> <span class='op'>/</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>layouts</span><span class='tstring_end'>&quot;</span></span>
+    <span class='kw'>end</span>
+
+    <span class='id identifier rubyid_c'>c</span><span class='period'>.</span><span class='id identifier rubyid_store_required_path'>store_required_path</span><span class='lparen'>(</span>
+      <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>js_src_dir</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+      <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Path to where JS files are</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+    <span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_front_end_src_dir'>front_end_src_dir</span><span class='op'>|</span>
+      <span class='id identifier rubyid_front_end_src_dir'>front_end_src_dir</span> <span class='op'>/</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>js</span><span class='tstring_end'>&quot;</span></span>
+    <span class='kw'>end</span>
+
+    <span class='id identifier rubyid_c'>c</span><span class='period'>.</span><span class='id identifier rubyid_store_ensured_path'>store_ensured_path</span><span class='lparen'>(</span>
+      <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>back_end_src_dir</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+      <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Path to the root of the back end layer for the app</span><span class='tstring_end'>&quot;</span></span>
+    <span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_app_src_dir'>app_src_dir</span><span class='op'>|</span>
+      <span class='id identifier rubyid_app_src_dir'>app_src_dir</span> <span class='op'>/</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>back_end</span><span class='tstring_end'>&quot;</span></span>
+    <span class='kw'>end</span>
+
+    <span class='id identifier rubyid_c'>c</span><span class='period'>.</span><span class='id identifier rubyid_store_ensured_path'>store_ensured_path</span><span class='lparen'>(</span>
+      <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>data_models_src_dir</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+      <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Path to the root of all data modeling</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+    <span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_back_end_src_dir'>back_end_src_dir</span><span class='op'>|</span>
+      <span class='id identifier rubyid_back_end_src_dir'>back_end_src_dir</span> <span class='op'>/</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>data_models</span><span class='tstring_end'>&quot;</span></span>
+    <span class='kw'>end</span>
+
+    <span class='id identifier rubyid_c'>c</span><span class='period'>.</span><span class='id identifier rubyid_store_ensured_path'>store_ensured_path</span><span class='lparen'>(</span>
+      <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>migrations_dir</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+      <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Path to the DB migrations</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+    <span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_data_models_src_dir'>data_models_src_dir</span><span class='op'>|</span>
+      <span class='id identifier rubyid_data_models_src_dir'>data_models_src_dir</span> <span class='op'>/</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>migrations</span><span class='tstring_end'>&quot;</span></span>
+    <span class='kw'>end</span>
+
+    <span class='id identifier rubyid_c'>c</span><span class='period'>.</span><span class='id identifier rubyid_store_ensured_path'>store_ensured_path</span><span class='lparen'>(</span>
+      <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>db_seeds_dir</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+      <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Path to the seed data for the DB</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+    <span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_data_models_src_dir'>data_models_src_dir</span><span class='op'>|</span>
+      <span class='id identifier rubyid_data_models_src_dir'>data_models_src_dir</span> <span class='op'>/</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>seed</span><span class='tstring_end'>&quot;</span></span>
+    <span class='kw'>end</span>
+
+    <span class='id identifier rubyid_c'>c</span><span class='period'>.</span><span class='id identifier rubyid_store_ensured_path'>store_ensured_path</span><span class='lparen'>(</span>
+      <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>config_dir</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+      <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Path to where configuration files are stores</span><span class='tstring_end'>&quot;</span></span>
+    <span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_project_root'>project_root</span><span class='op'>|</span>
+      <span class='id identifier rubyid_project_root'>project_root</span> <span class='op'>/</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>app</span><span class='tstring_end'>&quot;</span></span> <span class='op'>/</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>config</span><span class='tstring_end'>&quot;</span></span>
+    <span class='kw'>end</span>
+
+    <span class='id identifier rubyid_c'>c</span><span class='period'>.</span><span class='id identifier rubyid_store_ensured_path'>store_ensured_path</span><span class='lparen'>(</span>
+      <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>i18n_locales_dir</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+      <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Path to where I18N locale files are stored</span><span class='tstring_end'>&quot;</span></span>
+    <span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_config_dir'>config_dir</span><span class='op'>|</span>
+      <span class='id identifier rubyid_config_dir'>config_dir</span> <span class='op'>/</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>i18n</span><span class='tstring_end'>&quot;</span></span>
+    <span class='kw'>end</span>
+
+    <span class='id identifier rubyid_c'>c</span><span class='period'>.</span><span class='id identifier rubyid_store'>store</span><span class='lparen'>(</span>
+      <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>asset_metadata_file</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+      <span class='const'>Pathname</span><span class='comma'>,</span>
+      <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Path to the asset metadata file, used to manage hashed asset names</span><span class='tstring_end'>&quot;</span></span>
+    <span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_config_dir'>config_dir</span><span class='op'>|</span>
+      <span class='id identifier rubyid_config_dir'>config_dir</span> <span class='op'>/</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>asset_metadata.json</span><span class='tstring_end'>&quot;</span></span>
+    <span class='kw'>end</span>
+
+    <span class='id identifier rubyid_c'>c</span><span class='period'>.</span><span class='id identifier rubyid_store_required_path'>store_required_path</span><span class='lparen'>(</span>
+      <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>brut_internal_dir</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+      <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Location to where the Brut gem is installed.</span><span class='tstring_end'>&quot;</span></span>
+    <span class='rparen'>)</span> <span class='kw'>do</span>
+      <span class='lparen'>(</span><span class='const'>Pathname</span><span class='lparen'>(</span><span class='kw'>__FILE__</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_dirname'>dirname</span> <span class='op'>/</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>..</span><span class='tstring_end'>&quot;</span></span> <span class='op'>/</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>..</span><span class='tstring_end'>&quot;</span></span> <span class='op'>/</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>..</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_expand_path'>expand_path</span>
+    <span class='kw'>end</span>
+
+    <span class='id identifier rubyid_c'>c</span><span class='period'>.</span><span class='id identifier rubyid_store'>store</span><span class='lparen'>(</span>
+      <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>svg_locator</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+      <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Brut::FrontEnd::InlineSvgLocator</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+      <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Object to use to locate SVGs</span><span class='tstring_end'>&quot;</span></span>
+    <span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_svgs_src_dir'>svgs_src_dir</span><span class='op'>|</span>
+      <span class='const'><span class='object_link'><a href="../../Brut.html" title="Brut (module)">Brut</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../FrontEnd.html" title="Brut::FrontEnd (module)">FrontEnd</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../FrontEnd/InlineSvgLocator.html" title="Brut::FrontEnd::InlineSvgLocator (class)">InlineSvgLocator</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="../FrontEnd/InlineSvgLocator.html#initialize-instance_method" title="Brut::FrontEnd::InlineSvgLocator#initialize (method)">new</a></span></span><span class='lparen'>(</span><span class='label'>paths:</span> <span class='id identifier rubyid_svgs_src_dir'>svgs_src_dir</span><span class='rparen'>)</span>
+    <span class='kw'>end</span>
+
+    <span class='id identifier rubyid_c'>c</span><span class='period'>.</span><span class='id identifier rubyid_store'>store</span><span class='lparen'>(</span>
+      <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>asset_path_resolver</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+      <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Brut::FrontEnd::AssetPathResolver</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+      <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Object to use to resolve logical asset paths to actual asset paths</span><span class='tstring_end'>&quot;</span></span>
+    <span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_asset_metadata_file'>asset_metadata_file</span><span class='op'>|</span>
+      <span class='const'><span class='object_link'><a href="../../Brut.html" title="Brut (module)">Brut</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../FrontEnd.html" title="Brut::FrontEnd (module)">FrontEnd</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../FrontEnd/AssetPathResolver.html" title="Brut::FrontEnd::AssetPathResolver (class)">AssetPathResolver</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="../FrontEnd/AssetPathResolver.html#initialize-instance_method" title="Brut::FrontEnd::AssetPathResolver#initialize (method)">new</a></span></span><span class='lparen'>(</span><span class='label'>metadata_file:</span> <span class='id identifier rubyid_asset_metadata_file'>asset_metadata_file</span><span class='rparen'>)</span>
+    <span class='kw'>end</span>
+
+    <span class='id identifier rubyid_c'>c</span><span class='period'>.</span><span class='id identifier rubyid_store'>store</span><span class='lparen'>(</span>
+      <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>routing</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+      <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Brut::FrontEnd::Routing</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+      <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Routing for all registered routes of this app</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+      <span class='const'><span class='object_link'><a href="../../Brut.html" title="Brut (module)">Brut</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../FrontEnd.html" title="Brut::FrontEnd (module)">FrontEnd</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../FrontEnd/Routing.html" title="Brut::FrontEnd::Routing (class)">Routing</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="../FrontEnd/Routing.html#initialize-instance_method" title="Brut::FrontEnd::Routing#initialize (method)">new</a></span></span>
+    <span class='rparen'>)</span>
+
+    <span class='id identifier rubyid_c'>c</span><span class='period'>.</span><span class='id identifier rubyid_store'>store</span><span class='lparen'>(</span>
+      <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>instrumentation</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+      <span class='const'><span class='object_link'><a href="../../Brut.html" title="Brut (module)">Brut</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../Instrumentation.html" title="Brut::Instrumentation (module)">Instrumentation</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../Instrumentation/OpenTelemetry.html" title="Brut::Instrumentation::OpenTelemetry (class)">OpenTelemetry</a></span></span><span class='comma'>,</span>
+      <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Interface for recording instrumentable events and subscribing to them</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+      <span class='const'><span class='object_link'><a href="../../Brut.html" title="Brut (module)">Brut</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../Instrumentation.html" title="Brut::Instrumentation (module)">Instrumentation</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../Instrumentation/OpenTelemetry.html" title="Brut::Instrumentation::OpenTelemetry (class)">OpenTelemetry</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span>
+    <span class='rparen'>)</span>
+
+    <span class='comment'># App can override
+</span>
+    <span class='id identifier rubyid_c'>c</span><span class='period'>.</span><span class='id identifier rubyid_store'>store</span><span class='lparen'>(</span>
+      <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>external_id_prefix</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+      <span class='const'>String</span><span class='comma'>,</span>
+      <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>String to use as a prefix for external ids in tables using the external_id feature. Nil means the feature is disabled</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+      <span class='kw'>nil</span><span class='comma'>,</span>
+      <span class='label'>allow_app_override:</span> <span class='kw'>true</span><span class='comma'>,</span>
+      <span class='label'>allow_nil:</span> <span class='kw'>true</span><span class='comma'>,</span>
+    <span class='rparen'>)</span>
+
+    <span class='id identifier rubyid_c'>c</span><span class='period'>.</span><span class='id identifier rubyid_store'>store</span><span class='lparen'>(</span>
+      <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>debug_zeitwerk?</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+      <span class='symbol'>:boolean</span><span class='comma'>,</span>
+      <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>If true, Zeitwerk&#39;s loading will be logged for debugging purposes. Do not enable this in production</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+      <span class='kw'>false</span><span class='comma'>,</span>
+      <span class='label'>allow_app_override:</span> <span class='kw'>true</span><span class='comma'>,</span>
+    <span class='rparen'>)</span>
+
+    <span class='id identifier rubyid_c'>c</span><span class='period'>.</span><span class='id identifier rubyid_store'>store</span><span class='lparen'>(</span>
+      <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>session_class</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+      <span class='const'>Class</span><span class='comma'>,</span>
+      <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Class to use when wrapping the Rack session</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+      <span class='const'><span class='object_link'><a href="../../Brut.html" title="Brut (module)">Brut</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../FrontEnd.html" title="Brut::FrontEnd (module)">FrontEnd</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../FrontEnd/Session.html" title="Brut::FrontEnd::Session (class)">Session</a></span></span><span class='comma'>,</span>
+      <span class='label'>allow_app_override:</span> <span class='kw'>true</span><span class='comma'>,</span>
+    <span class='rparen'>)</span>
+
+    <span class='id identifier rubyid_c'>c</span><span class='period'>.</span><span class='id identifier rubyid_store'>store</span><span class='lparen'>(</span>
+      <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>flash_class</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+      <span class='const'>Class</span><span class='comma'>,</span>
+      <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Class to use to represent the Flash</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+      <span class='const'><span class='object_link'><a href="../../Brut.html" title="Brut (module)">Brut</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../FrontEnd.html" title="Brut::FrontEnd (module)">FrontEnd</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../FrontEnd/Flash.html" title="Brut::FrontEnd::Flash (class)">Flash</a></span></span><span class='comma'>,</span>
+      <span class='label'>allow_app_override:</span> <span class='kw'>true</span><span class='comma'>,</span>
+    <span class='rparen'>)</span>
+
+    <span class='id identifier rubyid_c'>c</span><span class='period'>.</span><span class='id identifier rubyid_store'>store</span><span class='lparen'>(</span>
+      <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>semantic_logger_appenders</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+      <span class='lbrace'>{</span> <span class='const'>Hash</span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>if only one appender is needed</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='const'>Array</span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>to configure multiple appenders</span><span class='tstring_end'>&quot;</span></span> <span class='rbrace'>}</span><span class='comma'>,</span>
+      <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>List of appenders to be configured for SemanticLogger</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+      <span class='label'>allow_app_override:</span> <span class='kw'>true</span>
+    <span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_project_env'>project_env</span><span class='comma'>,</span><span class='id identifier rubyid_log_dir'>log_dir</span><span class='op'>|</span>
+      <span class='id identifier rubyid_appenders'>appenders</span> <span class='op'>=</span> <span class='kw'>if</span> <span class='id identifier rubyid_project_env'>project_env</span><span class='period'>.</span><span class='id identifier rubyid_development?'>development?</span>
+                    <span class='lbracket'>[</span>
+                      <span class='lbrace'>{</span> <span class='label'>formatter:</span> <span class='symbol'>:color</span><span class='comma'>,</span> <span class='label'>io:</span> <span class='gvar'>$stdout</span> <span class='rbrace'>}</span><span class='comma'>,</span>
+                      <span class='lbrace'>{</span> <span class='label'>file_name:</span> <span class='lparen'>(</span><span class='id identifier rubyid_log_dir'>log_dir</span> <span class='op'>/</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>development.log</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span> <span class='rbrace'>}</span><span class='comma'>,</span>
+                    <span class='rbracket'>]</span>
+                  <span class='kw'>end</span>
+      <span class='kw'>if</span> <span class='id identifier rubyid_appenders'>appenders</span><span class='period'>.</span><span class='id identifier rubyid_nil?'>nil?</span>
+        <span class='id identifier rubyid_appenders'>appenders</span> <span class='op'>=</span> <span class='lbrace'>{</span> <span class='label'>file_name:</span> <span class='lparen'>(</span><span class='id identifier rubyid_log_dir'>log_dir</span> <span class='op'>/</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_project_env'>project_env</span><span class='embexpr_end'>}</span><span class='tstring_content'>.log</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span> <span class='rbrace'>}</span>
+      <span class='kw'>end</span>
+      <span class='kw'>if</span> <span class='id identifier rubyid_appenders'>appenders</span><span class='period'>.</span><span class='id identifier rubyid_nil?'>nil?</span>
+        <span class='id identifier rubyid_appenders'>appenders</span> <span class='op'>=</span> <span class='lbrace'>{</span> <span class='label'>io:</span> <span class='gvar'>$stdout</span> <span class='rbrace'>}</span>
+      <span class='kw'>end</span>
+      <span class='id identifier rubyid_appenders'>appenders</span>
+    <span class='kw'>end</span>
+
+    <span class='id identifier rubyid_c'>c</span><span class='period'>.</span><span class='id identifier rubyid_store'>store</span><span class='lparen'>(</span>
+      <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>eager_load_classes?</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+      <span class='symbol'>:boolean</span><span class='comma'>,</span>
+      <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>If true, classes are eagerly loaded upon startup</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+      <span class='kw'>true</span><span class='comma'>,</span>
+      <span class='label'>allow_app_override:</span> <span class='kw'>true</span>
+    <span class='rparen'>)</span>
+
+    <span class='id identifier rubyid_c'>c</span><span class='period'>.</span><span class='id identifier rubyid_store'>store</span><span class='lparen'>(</span>
+      <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>auto_reload_classes?</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+      <span class='symbol'>:boolean</span><span class='comma'>,</span>
+      <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>If true, classes are reloaded with each request. Useful only really for development</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+      <span class='label'>allow_app_override:</span> <span class='kw'>true</span>
+    <span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_project_env'>project_env</span><span class='op'>|</span>
+      <span class='id identifier rubyid_no_reload_in_dev'>no_reload_in_dev</span> <span class='op'>=</span> <span class='const'>ENV</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>BRUT_NO_RELOAD_IN_DEV</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span> <span class='op'>==</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>true</span><span class='tstring_end'>&quot;</span></span>
+      <span class='kw'>if</span> <span class='id identifier rubyid_project_env'>project_env</span><span class='period'>.</span><span class='id identifier rubyid_development?'>development?</span>
+        <span class='op'>!</span><span class='id identifier rubyid_no_reload_in_dev'>no_reload_in_dev</span>
+      <span class='kw'>else</span>
+        <span class='kw'>false</span>
+      <span class='kw'>end</span>
+    <span class='kw'>end</span>
+
+    <span class='id identifier rubyid_c'>c</span><span class='period'>.</span><span class='id identifier rubyid_store'>store</span><span class='lparen'>(</span>
+      <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>log_level</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+      <span class='const'>String</span><span class='comma'>,</span>
+      <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Log level to control how much logging is happening</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+      <span class='label'>allow_app_override:</span> <span class='kw'>true</span><span class='comma'>,</span>
+    <span class='rparen'>)</span> <span class='kw'>do</span>
+      <span class='const'>ENV</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>LOG_LEVEL</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span> <span class='op'>||</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>debug</span><span class='tstring_end'>&quot;</span></span>
+    <span class='kw'>end</span>
+
+    <span class='id identifier rubyid_c'>c</span><span class='period'>.</span><span class='id identifier rubyid_store'>store</span><span class='lparen'>(</span>
+      <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>csp_class</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+      <span class='const'>Class</span><span class='comma'>,</span>
+      <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Route Hook to use for setting the Content-Security-Policy header</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+      <span class='label'>allow_app_override:</span> <span class='kw'>true</span><span class='comma'>,</span>
+      <span class='label'>allow_nil:</span> <span class='kw'>true</span><span class='comma'>,</span>
+    <span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_project_env'>project_env</span><span class='op'>|</span>
+      <span class='kw'>if</span> <span class='id identifier rubyid_project_env'>project_env</span><span class='period'>.</span><span class='id identifier rubyid_development?'>development?</span>
+        <span class='const'><span class='object_link'><a href="../../Brut.html" title="Brut (module)">Brut</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../FrontEnd.html" title="Brut::FrontEnd (module)">FrontEnd</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../FrontEnd/RouteHooks.html" title="Brut::FrontEnd::RouteHooks (module)">RouteHooks</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../FrontEnd/RouteHooks/CSPNoInlineScripts.html" title="Brut::FrontEnd::RouteHooks::CSPNoInlineScripts (class)">CSPNoInlineScripts</a></span></span>
+      <span class='kw'>else</span>
+        <span class='const'><span class='object_link'><a href="../../Brut.html" title="Brut (module)">Brut</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../FrontEnd.html" title="Brut::FrontEnd (module)">FrontEnd</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../FrontEnd/RouteHooks.html" title="Brut::FrontEnd::RouteHooks (module)">RouteHooks</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../FrontEnd/RouteHooks/CSPNoInlineStylesOrScripts.html" title="Brut::FrontEnd::RouteHooks::CSPNoInlineStylesOrScripts (class)">CSPNoInlineStylesOrScripts</a></span></span>
+      <span class='kw'>end</span>
+    <span class='kw'>end</span>
+
+    <span class='id identifier rubyid_c'>c</span><span class='period'>.</span><span class='id identifier rubyid_store'>store</span><span class='lparen'>(</span>
+      <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>csp_reporting_class</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+      <span class='const'>Class</span><span class='comma'>,</span>
+      <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Route Hook to use for setting the Content-Security-Policy-Report-Only header</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+      <span class='const'><span class='object_link'><a href="../../Brut.html" title="Brut (module)">Brut</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../FrontEnd.html" title="Brut::FrontEnd (module)">FrontEnd</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../FrontEnd/RouteHooks.html" title="Brut::FrontEnd::RouteHooks (module)">RouteHooks</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../FrontEnd/RouteHooks/CSPNoInlineStylesOrScripts.html" title="Brut::FrontEnd::RouteHooks::CSPNoInlineStylesOrScripts (class)">CSPNoInlineStylesOrScripts</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../FrontEnd/RouteHooks/CSPNoInlineStylesOrScripts/ReportOnly.html" title="Brut::FrontEnd::RouteHooks::CSPNoInlineStylesOrScripts::ReportOnly (class)">ReportOnly</a></span></span><span class='comma'>,</span>
+      <span class='label'>allow_app_override:</span> <span class='kw'>true</span><span class='comma'>,</span>
+      <span class='label'>allow_nil:</span> <span class='kw'>true</span><span class='comma'>,</span>
+    <span class='rparen'>)</span>
+
+    <span class='const'><span class='object_link'><a href="../../Brut.html" title="Brut (module)">Brut</a></span></span><span class='period'>.</span><span class='id identifier rubyid_container'><span class='object_link'><a href="../../Brut.html#container-class_method" title="Brut.container (method)">container</a></span></span><span class='period'>.</span><span class='id identifier rubyid_store'>store</span><span class='lparen'>(</span>
+      <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>fallback_host</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+      <span class='const'>URI</span><span class='comma'>,</span>
+      <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Hostname to use in situations where the request is not available</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+      <span class='kw'>nil</span><span class='comma'>,</span>
+      <span class='label'>allow_app_override:</span> <span class='kw'>true</span><span class='comma'>,</span>
+      <span class='label'>allow_nil:</span> <span class='kw'>true</span>
+    <span class='rparen'>)</span>
+
+    <span class='id identifier rubyid_c'>c</span><span class='period'>.</span><span class='id identifier rubyid_store'>store</span><span class='lparen'>(</span>
+      <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>local_hostname</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+      <span class='const'>String</span><span class='comma'>,</span>
+      <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>If present, this is an additional host on which your app responds locally. Useful if you have local domain names set up for dev</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+      <span class='kw'>nil</span><span class='comma'>,</span>
+      <span class='label'>allow_app_override:</span> <span class='kw'>true</span><span class='comma'>,</span>
+      <span class='label'>allow_nil:</span> <span class='kw'>true</span>
+    <span class='rparen'>)</span>
+
+
+    <span class='id identifier rubyid_c'>c</span><span class='period'>.</span><span class='id identifier rubyid_store'>store</span><span class='lparen'>(</span>
+      <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>permitted_hosts</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+      <span class='const'>Array</span><span class='comma'>,</span>
+      <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>An array of hostnames or IPAddr objects representing which hosts this app will respond to</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+    <span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_local_hostname'>local_hostname</span><span class='comma'>,</span><span class='id identifier rubyid_project_env'>project_env</span><span class='op'>|</span>
+      <span class='kw'>if</span> <span class='id identifier rubyid_project_env'>project_env</span><span class='period'>.</span><span class='id identifier rubyid_production?'>production?</span>
+        <span class='lbracket'>[</span><span class='rbracket'>]</span>
+      <span class='kw'>else</span>
+        <span class='lbracket'>[</span>
+          <span class='id identifier rubyid_local_hostname'>local_hostname</span><span class='comma'>,</span>
+          <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>localhost</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+          <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>.localhost</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+          <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>.test</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+          <span class='const'>IPAddr</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>0.0.0.0/0</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span><span class='comma'>,</span>
+          <span class='const'>IPAddr</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>::/0</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span><span class='comma'>,</span>
+        <span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_compact'>compact</span>
+      <span class='kw'>end</span>
+    <span class='kw'>end</span>
+
+  <span class='kw'>end</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+  </div>
+
+</div>
+
+      <div id="footer">
+  Generated on Wed Jun 25 22:57:20 2025 by
+  <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
+  0.9.37 (ruby-3.4.4).
+</div>
+
+    </div>
+  </body>
+</html>

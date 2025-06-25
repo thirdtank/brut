@@ -1,0 +1,1576 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>
+  Class: Brut::CLI::App
+  
+    &mdash; Documentation by YARD 0.9.37
+  
+</title>
+
+  <link rel="stylesheet" href="../../css/style.css" type="text/css" />
+
+  <link rel="stylesheet" href="../../css/common.css" type="text/css" />
+
+<script type="text/javascript">
+  pathId = "Brut::CLI::App";
+  relpath = '../../';
+</script>
+
+
+  <script type="text/javascript" charset="utf-8" src="../../js/jquery.js"></script>
+
+  <script type="text/javascript" charset="utf-8" src="../../js/app.js"></script>
+
+
+  </head>
+  <body>
+    <div class="nav_wrap">
+      <iframe id="nav" src="../../class_list.html?1"></iframe>
+      <div id="resizer"></div>
+    </div>
+
+    <div id="main" tabindex="-1">
+      <div id="header">
+        <div id="menu">
+  
+    <a href="../../_index.html">Index (A)</a> &raquo;
+    <span class='title'><span class='object_link'><a href="../../Brut.html" title="Brut (module)">Brut</a></span></span> &raquo; <span class='title'><span class='object_link'><a href="../CLI.html" title="Brut::CLI (module)">CLI</a></span></span>
+     &raquo; 
+    <span class="title">App</span>
+  
+</div>
+
+        <div id="search">
+  
+    <a class="full_list_link" id="class_list_link"
+        href="../../class_list.html">
+
+        <svg width="24" height="24">
+          <rect x="0" y="4" width="24" height="4" rx="1" ry="1"></rect>
+          <rect x="0" y="12" width="24" height="4" rx="1" ry="1"></rect>
+          <rect x="0" y="20" width="24" height="4" rx="1" ry="1"></rect>
+        </svg>
+    </a>
+  
+</div>
+        <div class="clear"></div>
+      </div>
+
+      <div id="content"><h1>Class: Brut::CLI::App
+  
+  
+  
+</h1>
+<div class="box_info">
+  
+  <dl>
+    <dt>Inherits:</dt>
+    <dd>
+      <span class="inheritName">Object</span>
+      
+        <ul class="fullTree">
+          <li>Object</li>
+          
+            <li class="next">Brut::CLI::App</li>
+          
+        </ul>
+        <a href="#" class="inheritanceTree">show all</a>
+      
+    </dd>
+  </dl>
+  
+
+  
+  
+  
+  
+  <dl>
+      <dt>Includes:</dt>
+      <dd><span class='object_link'><a href="ExecutionResults.html" title="Brut::CLI::ExecutionResults (module)">ExecutionResults</a></span>, <span class='object_link'><a href="../I18n/ForCLI.html" title="Brut::I18n::ForCLI (module)">I18n::ForCLI</a></span></dd>
+  </dl>
+  
+  
+
+  
+
+  
+  <dl>
+    <dt>Defined in:</dt>
+    <dd>lib/brut/cli/app.rb</dd>
+  </dl>
+  
+</div>
+
+<h2>Overview</h2><div class="docstring">
+  <div class="discussion">
+    <p>Base class for all Brut-powered CLI Apps.  Your subclass will call or override methods to declare the UI of your CLI app, including
+the commands it provides and options it recognizes.  These mostly help to provide command-line documentation for your app, but also
+provide basic help with accessing the command line arguments and options.  Internally, this uses Ruby's <code>OptionParser</code>.</p>
+
+<p>The types of CLIs this framework supports are <em>command suites</em> where a single CLI app has several subcommands, similar to <code>git</code>.  As
+such, the CLI has several parts that you can configure:</p>
+
+<pre class="code ruby"><code class="ruby">cli_app [global options] «subcommand» [command options] [arguments]
+</code></pre>
+
+<ul>
+<li>Global options appear between the CLI app's executable and the name of the subcommand. These affect any command. A common example is <code>--log-level</code>.  These are configured with on or <span class='object_link'><a href="#option_parser-class_method" title="Brut::CLI::App.option_parser (method)">App.option_parser</a></span>.</li>
+<li>Subcommand is a single string representing the command to execute.  The available commands are returned by <span class='object_link'><a href="#commands-class_method" title="Brut::CLI::App.commands (method)">App.commands</a></span> although it's more conventional to declare inner classes of your app that extend <span class='object_link'><a href="Command.html" title="Brut::CLI::Command (class)">Command</a></span>.</li>
+<li>Command options appear after the subcommand and apply only to that sub command.  They are declared with Command.on or <span class='object_link'><a href="Command.html#opts-class_method" title="Brut::CLI::Command.opts (method)">Command.opts</a></span>.</li>
+<li>Arguments are any additional values present on the command line.  They are defined per-command and can be documented via <span class='object_link'><a href="Command.html#args-class_method" title="Brut::CLI::Command.args (method)">Command.args</a></span>.</li>
+</ul>
+
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><div id="subclasses">
+  <h2>Direct Known Subclasses</h2>
+  <p class="children"><span class='object_link'><a href="Apps/BuildAssets.html" title="Brut::CLI::Apps::BuildAssets (class)">Brut::CLI::Apps::BuildAssets</a></span>, <span class='object_link'><a href="Apps/DB.html" title="Brut::CLI::Apps::DB (class)">Brut::CLI::Apps::DB</a></span>, <span class='object_link'><a href="Apps/Scaffold.html" title="Brut::CLI::Apps::Scaffold (class)">Brut::CLI::Apps::Scaffold</a></span>, <span class='object_link'><a href="Apps/Test.html" title="Brut::CLI::Apps::Test (class)">Brut::CLI::Apps::Test</a></span></p>
+</div>
+
+
+
+
+
+
+
+  
+    <h2>
+      Class Method Summary
+      <small><a href="#" class="summary_toggle">collapse</a></small>
+    </h2>
+
+    <ul class="summary">
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#commands-class_method" title="commands (class method)">.<strong>commands</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>Returns a list of <span class='object_link'><a href="Command.html" title="Brut::CLI::Command (class)">Command</a></span> classes that each represent the subcommands your CLI app accepts.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#configure_only!-class_method" title="configure_only! (class method)">.<strong>configure_only!</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>Call this if your app must operate before the Brut framework starts up.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#configure_only%3F-class_method" title="configure_only? (class method)">.<strong>configure_only?</strong>  &#x21d2; Boolean </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#default_command-class_method" title="default_command (class method)">.<strong>default_command</strong>(new_command_name = nil)  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>Specify the default command to use when no subcommand is given.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#default_env-class_method" title="default_env (class method)">.<strong>default_env</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>Returns the default project env, based on the logic described in <span class='object_link'><a href="#requires_project_env-class_method" title="Brut::CLI::App.requires_project_env (method)">App.requires_project_env</a></span>.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#description-class_method" title="description (class method)">.<strong>description</strong>(new_description = nil)  &#x21d2; String </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>Call this to set the one-line description of your command line app.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#env_var-class_method" title="env_var (class method)">.<strong>env_var</strong>(var_name, purpose:)  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>Call this for each environment variable your <em>app</em> responds to.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#option_parser-class_method" title="option_parser (class method)">.<strong>option_parser</strong>  &#x21d2; OptionParser </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>Returns the configured <code>OptionParser</code> used to parse global portion of the command line.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#opts-class_method" title="opts (class method)">.<strong>opts</strong>  &#x21d2; OptionParser </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>Provides access to an <code>OptionParser</code> you can use to declare flags and switches that should be accepted globally.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#requires_project_env-class_method" title="requires_project_env (class method)">.<strong>requires_project_env</strong>(default: &quot;development&quot;)  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>Call this if your CLI requires a project environment as context for what it does.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#requires_project_env%3F-class_method" title="requires_project_env? (class method)">.<strong>requires_project_env?</strong>  &#x21d2; Boolean </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>Returns true if this app requires a project env.</p>
+</div></span>
+  
+</li>
+
+      
+    </ul>
+  
+    <h2>
+      Instance Method Summary
+      <small><a href="#" class="summary_toggle">collapse</a></small>
+    </h2>
+
+    <ul class="summary">
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#after_bootstrap-instance_method" title="#after_bootstrap (instance method)">#<strong>after_bootstrap</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>Called after all setup has been executed.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#before_execute-instance_method" title="#before_execute (instance method)">#<strong>before_execute</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>Called before anything else happens.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#execute!-instance_method" title="#execute! (instance method)">#<strong>execute!</strong>(command, project_root:)  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>Executes the command.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#initialize-instance_method" title="#initialize (instance method)">#<strong>initialize</strong>(global_options:, out:, err:, executor:)  &#x21d2; App </a>
+    
+
+    
+  </span>
+  
+  
+    <span class="note title constructor">constructor</span>
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>Create the App.</p>
+</div></span>
+  
+</li>
+
+      
+    </ul>
+  
+
+
+  
+  
+  
+  
+  
+  
+  
+  
+  <h3 class="inherited">Methods included from <span class='object_link'><a href="../I18n/ForCLI.html" title="Brut::I18n::ForCLI (module)">I18n::ForCLI</a></span></h3>
+  <p class="inherited"><span class='object_link'><a href="../I18n/ForCLI.html#capture-instance_method" title="Brut::I18n::ForCLI#capture (method)">#capture</a></span>, <span class='object_link'><a href="../I18n/ForCLI.html#html_escape-instance_method" title="Brut::I18n::ForCLI#html_escape (method)">#html_escape</a></span>, <span class='object_link'><a href="../I18n/ForCLI.html#safe-instance_method" title="Brut::I18n::ForCLI#safe (method)">#safe</a></span></p>
+
+  
+  
+  
+  
+  
+  
+  
+  
+  <h3 class="inherited">Methods included from <span class='object_link'><a href="../I18n/BaseMethods.html" title="Brut::I18n::BaseMethods (module)">I18n::BaseMethods</a></span></h3>
+  <p class="inherited"><span class='object_link'><a href="../I18n/BaseMethods.html#l-instance_method" title="Brut::I18n::BaseMethods#l (method)">#l</a></span>, <span class='object_link'><a href="../I18n/BaseMethods.html#t-instance_method" title="Brut::I18n::BaseMethods#t (method)">#t</a></span>, <span class='object_link'><a href="../I18n/BaseMethods.html#t_direct-instance_method" title="Brut::I18n::BaseMethods#t_direct (method)">#t_direct</a></span>, <span class='object_link'><a href="../I18n/BaseMethods.html#this_field_value-instance_method" title="Brut::I18n::BaseMethods#this_field_value (method)">#this_field_value</a></span></p>
+
+  
+  
+  
+  
+  
+  
+  
+  
+  <h3 class="inherited">Methods included from <span class='object_link'><a href="ExecutionResults.html" title="Brut::CLI::ExecutionResults (module)">ExecutionResults</a></span></h3>
+  <p class="inherited"><span class='object_link'><a href="ExecutionResults.html#abort_execution-instance_method" title="Brut::CLI::ExecutionResults#abort_execution (method)">#abort_execution</a></span>, <span class='object_link'><a href="ExecutionResults.html#as_execution_result-instance_method" title="Brut::CLI::ExecutionResults#as_execution_result (method)">#as_execution_result</a></span>, <span class='object_link'><a href="ExecutionResults.html#cli_usage_error-instance_method" title="Brut::CLI::ExecutionResults#cli_usage_error (method)">#cli_usage_error</a></span>, <span class='object_link'><a href="ExecutionResults.html#continue_execution-instance_method" title="Brut::CLI::ExecutionResults#continue_execution (method)">#continue_execution</a></span>, <span class='object_link'><a href="ExecutionResults.html#show_cli_usage-instance_method" title="Brut::CLI::ExecutionResults#show_cli_usage (method)">#show_cli_usage</a></span>, <span class='object_link'><a href="ExecutionResults.html#stop_execution-instance_method" title="Brut::CLI::ExecutionResults#stop_execution (method)">#stop_execution</a></span></p>
+<div id="constructor_details" class="method_details_list">
+  <h2>Constructor Details</h2>
+  
+    <div class="method_details first">
+  <h3 class="signature first" id="initialize-instance_method">
+  
+    #<strong>initialize</strong>(global_options:, out:, err:, executor:)  &#x21d2; <tt><span class='object_link'><a href="" title="Brut::CLI::App (class)">App</a></span></tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>Create the App. This is called by <span class='object_link'><a href="AppRunner.html" title="Brut::CLI::AppRunner (class)">Brut::CLI::AppRunner</a></span>.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>global_options</span>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="Options.html" title="Brut::CLI::Options (class)">Brut::CLI::Options</a></span></tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>global options specified on the command line</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>out</span>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="Output.html" title="Brut::CLI::Output (class)">Brut::CLI::Output</a></span></tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>IO to use to send output to the standard output</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>err</span>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="Output.html" title="Brut::CLI::Output (class)">Brut::CLI::Output</a></span></tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>IO to use to send output to the standard error</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>executor</span>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="Executor.html" title="Brut::CLI::Executor (class)">Brut::CLI::Executor</a></span></tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>Class to use to execute child processes instead of e.g. <code>system</code>.</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+145
+146
+147
+148
+149
+150
+151
+152
+153</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/brut/cli/app.rb', line 145</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_initialize'>initialize</span><span class='lparen'>(</span><span class='label'>global_options:</span><span class='comma'>,</span><span class='label'>out:</span><span class='comma'>,</span><span class='label'>err:</span><span class='comma'>,</span><span class='label'>executor:</span><span class='rparen'>)</span>
+  <span class='ivar'>@global_options</span> <span class='op'>=</span> <span class='id identifier rubyid_global_options'>global_options</span>
+  <span class='ivar'>@out</span>            <span class='op'>=</span> <span class='id identifier rubyid_out'>out</span>
+  <span class='ivar'>@err</span>            <span class='op'>=</span> <span class='id identifier rubyid_err'>err</span>
+  <span class='ivar'>@executor</span>       <span class='op'>=</span> <span class='id identifier rubyid_executor'>executor</span>
+  <span class='kw'>if</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_class'>class</span><span class='period'>.</span><span class='id identifier rubyid_default_env'>default_env</span>
+    <span class='ivar'>@global_options</span><span class='period'>.</span><span class='id identifier rubyid_set_default'>set_default</span><span class='lparen'>(</span><span class='symbol'>:env</span><span class='comma'>,</span><span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_class'>class</span><span class='period'>.</span><span class='id identifier rubyid_default_env'>default_env</span><span class='rparen'>)</span>
+  <span class='kw'>end</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+  
+</div>
+
+
+  <div id="class_method_details" class="method_details_list">
+    <h2>Class Method Details</h2>
+
+    
+      <div class="method_details first">
+  <h3 class="signature first" id="commands-class_method">
+  
+    .<strong>commands</strong>  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>Returns a list of <span class='object_link'><a href="Command.html" title="Brut::CLI::Command (class)">Command</a></span> classes that each represent the subcommands your CLI app accepts.
+By default, this will look for all internal classes that extend <span class='object_link'><a href="Command.html" title="Brut::CLI::Command (class)">Command</a></span> and use them as your subcommands.
+This means that you don't need to override this method and can instead define classes inside your app subclass.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+26
+27
+28
+29
+30
+31
+32</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/brut/cli/app.rb', line 26</span>
+
+<span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_commands'>commands</span>
+  <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_constants'>constants</span><span class='period'>.</span><span class='id identifier rubyid_map'>map</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_name'>name</span><span class='op'>|</span>
+    <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_const_get'>const_get</span><span class='lparen'>(</span><span class='id identifier rubyid_name'>name</span><span class='rparen'>)</span>
+  <span class='rbrace'>}</span><span class='period'>.</span><span class='id identifier rubyid_select'>select</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_constant'>constant</span><span class='op'>|</span>
+    <span class='id identifier rubyid_constant'>constant</span><span class='period'>.</span><span class='id identifier rubyid_kind_of?'>kind_of?</span><span class='lparen'>(</span><span class='const'>Class</span><span class='rparen'>)</span> <span class='op'>&amp;&amp;</span> <span class='id identifier rubyid_constant'>constant</span><span class='period'>.</span><span class='id identifier rubyid_ancestors'>ancestors</span><span class='period'>.</span><span class='id identifier rubyid_include?'>include?</span><span class='lparen'>(</span><span class='const'><span class='object_link'><a href="../../Brut.html" title="Brut (module)">Brut</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../CLI.html" title="Brut::CLI (module)">CLI</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Command.html" title="Brut::CLI::Command (class)">Command</a></span></span><span class='rparen'>)</span> <span class='op'>&amp;&amp;</span> <span class='id identifier rubyid_constant'>constant</span><span class='period'>.</span><span class='id identifier rubyid_instance_methods'>instance_methods</span><span class='period'>.</span><span class='id identifier rubyid_include?'>include?</span><span class='lparen'>(</span><span class='symbol'>:execute</span><span class='rparen'>)</span>
+  <span class='rbrace'>}</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="configure_only!-class_method">
+  
+    .<strong>configure_only!</strong>  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>Call this if your app must operate before the Brut framework starts up.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+134
+135
+136</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/brut/cli/app.rb', line 134</span>
+
+<span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_configure_only!'>configure_only!</span>
+  <span class='ivar'>@configure_only</span> <span class='op'>=</span> <span class='kw'>true</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="configure_only?-class_method">
+  
+    .<strong>configure_only?</strong>  &#x21d2; <tt>Boolean</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Boolean</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+137</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/brut/cli/app.rb', line 137</span>
+
+<span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_configure_only?'>configure_only?</span> <span class='op'>=</span> <span class='op'>!</span><span class='op'>!</span><span class='ivar'>@configure_only</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="default_command-class_method">
+  
+    .<strong>default_command</strong>(new_command_name = nil)  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>Specify the default command to use when no subcommand is given.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>new_command_name</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>nil</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'><p>if present, sets the name of the command to run when none is given on the command line. When omitted, returns the currently configured name.  The default is <code>help</code>.</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+66
+67
+68
+69
+70
+71
+72</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/brut/cli/app.rb', line 66</span>
+
+<span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_default_command'>default_command</span><span class='lparen'>(</span><span class='id identifier rubyid_new_command_name'>new_command_name</span><span class='op'>=</span><span class='kw'>nil</span><span class='rparen'>)</span>
+  <span class='kw'>if</span> <span class='id identifier rubyid_new_command_name'>new_command_name</span><span class='period'>.</span><span class='id identifier rubyid_nil?'>nil?</span>
+    <span class='kw'>return</span> <span class='ivar'>@default_command</span> <span class='op'>||</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>help</span><span class='tstring_end'>&quot;</span></span>
+  <span class='kw'>else</span>
+    <span class='ivar'>@default_command</span> <span class='op'>=</span> <span class='id identifier rubyid_new_command_name'>new_command_name</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span>
+  <span class='kw'>end</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="default_env-class_method">
+  
+    .<strong>default_env</strong>  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>Returns the default project env, based on the logic described in <span class='object_link'><a href="#requires_project_env-class_method" title="Brut::CLI::App.requires_project_env (method)">requires_project_env</a></span></p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+129
+130</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/brut/cli/app.rb', line 129</span>
+
+<span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_default_env'>default_env</span>           <span class='op'>=</span> <span class='ivar'>@default_env</span>
+<span class='comment'># Returns true if this app requires a project env</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="description-class_method">
+  
+    .<strong>description</strong>(new_description = nil)  &#x21d2; <tt>String</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>Call this to set the one-line description of your command line app.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>new_description</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>nil</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'><p>When present, sets the description of this app. When omitted, returns the current description.</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>the current description (if called with no parameters)</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+38
+39
+40
+41
+42
+43
+44</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/brut/cli/app.rb', line 38</span>
+
+<span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_description'>description</span><span class='lparen'>(</span><span class='id identifier rubyid_new_description'>new_description</span><span class='op'>=</span><span class='kw'>nil</span><span class='rparen'>)</span>
+  <span class='kw'>if</span> <span class='id identifier rubyid_new_description'>new_description</span><span class='period'>.</span><span class='id identifier rubyid_nil?'>nil?</span>
+    <span class='kw'>return</span> <span class='ivar'>@description</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span>
+  <span class='kw'>else</span>
+    <span class='ivar'>@description</span> <span class='op'>=</span> <span class='id identifier rubyid_new_description'>new_description</span>
+  <span class='kw'>end</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="env_var-class_method">
+  
+    .<strong>env_var</strong>(var_name, purpose:)  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>Call this for each environment variable your <em>app</em> responds to.  These would be variables that affect any of the subcommands. For
+command-specific environment variables, see <span class='object_link'><a href="Command.html#env_var-class_method" title="Brut::CLI::Command.env_var (method)">Command.env_var</a></span>.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>var_name</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>Declares that this app recognizes this environment variable.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>purpose</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>An explanation for how this environment variable affects the app. Used in documentation.</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+51
+52
+53</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/brut/cli/app.rb', line 51</span>
+
+<span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_env_var'>env_var</span><span class='lparen'>(</span><span class='id identifier rubyid_var_name'>var_name</span><span class='comma'>,</span><span class='label'>purpose:</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_env_vars'>env_vars</span><span class='lbracket'>[</span><span class='id identifier rubyid_var_name'>var_name</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='id identifier rubyid_purpose'>purpose</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="option_parser-class_method">
+  
+    .<strong>option_parser</strong>  &#x21d2; <tt>OptionParser</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>Returns the configured <code>OptionParser</code> used to parse global portion of the command line.
+If you don't want to call <span class='object_link'><a href="#opts-class_method" title="Brut::CLI::App.opts (method)">opts</a></span>, you can create and return
+a fully-formed <code>OptionParser</code> by overriding this method.  By default, it will create one with a conventional banner.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>OptionParser</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+97
+98
+99
+100
+101</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/brut/cli/app.rb', line 97</span>
+
+<span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_option_parser'>option_parser</span>
+  <span class='ivar'>@option_parser</span> <span class='op'>||=</span> <span class='const'>OptionParser</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_opts'>opts</span><span class='op'>|</span>
+    <span class='id identifier rubyid_opts'>opts</span><span class='period'>.</span><span class='id identifier rubyid_banner'>banner</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>%{app} %{global_options} commands [command options] [args]</span><span class='tstring_end'>&quot;</span></span>
+  <span class='kw'>end</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="opts-class_method">
+  
+    .<strong>opts</strong>  &#x21d2; <tt>OptionParser</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>Provides access to an <code>OptionParser</code> you can use to declare flags and switches that should be accepted globally. The way to use
+this is to call <code>.on</code> and provide a description for an option as you would to <code>OptionParser</code>. The only difference is that you
+should not pass a block to this.  When the command line is parsed, the results will be placed into a <span class='object_link'><a href="Options.html" title="Brut::CLI::Options (class)">Options</a></span>
+instance made available to your command.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+  <div class="examples">
+    <h4 class="tag_title">Examples:</h4>
+    
+      
+      <pre class="example code"><code>
+<span class='kw'>class</span> <span class='const'>MyApp</span> <span class='op'>&lt;</span> <span class='const'><span class='object_link'><a href="../../Brut.html" title="Brut (module)">Brut</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../CLI.html" title="Brut::CLI (module)">CLI</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="" title="Brut::CLI::App (class)">App</a></span></span>
+
+  <span class='id identifier rubyid_opts'>opts</span><span class='period'>.</span><span class='id identifier rubyid_on'>on</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>--dry-run</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Don&#39;t change anything, just pretend</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+
+<span class='kw'>end</span></code></pre>
+    
+  </div>
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>OptionParser</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+88
+89
+90</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/brut/cli/app.rb', line 88</span>
+
+<span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_opts'>opts</span>
+  <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_option_parser'>option_parser</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="requires_project_env-class_method">
+  
+    .<strong>requires_project_env</strong>(default: &quot;development&quot;)  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>Call this if your CLI requires a project environment as context for what it does. For example, a command to analyze the database
+needs to know if it should operate on development, test, or production.  When called, this will do a few things:</p>
+
+<ul>
+<li>Your app will recognize <code>--env=ENVIRONMENT</code> as a global option</li>
+<li>Your app will recognize the <code>RACK_ENV</code> environment variable.</li>
+</ul>
+
+
+<p>When your app executes, the project environment will be determined as follows:</p>
+
+<ol>
+<li>If <code>--env</code> was on the command line, that is the environment used</li>
+<li>If <code>RACK_ENV</code> is set in the environment, that is used</li>
+<li>Otherwise the value given to the <code>default:</code> parameter of this method is used.</li>
+</ol>
+
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>default</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>&quot;development&quot;</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'><p>name of the environment to use if none was specified. <code>nil</code> should be used to require the environment to be specified explicitly.</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/brut/cli/app.rb', line 116</span>
+
+<span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_requires_project_env'>requires_project_env</span><span class='lparen'>(</span><span class='label'>default:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>development</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_default_message'>default_message</span> <span class='op'>=</span> <span class='kw'>if</span> <span class='id identifier rubyid_default'>default</span><span class='period'>.</span><span class='id identifier rubyid_nil?'>nil?</span>
+                      <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_end'>&quot;</span></span>
+                    <span class='kw'>else</span>
+                      <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'> (default &#39;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_default'>default</span><span class='embexpr_end'>}</span><span class='tstring_content'>&#39;)</span><span class='tstring_end'>&quot;</span></span>
+                    <span class='kw'>end</span>
+  <span class='id identifier rubyid_opts'>opts</span><span class='period'>.</span><span class='id identifier rubyid_on'>on</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>--env=ENVIRONMENT</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Project environment</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_default_message'>default_message</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+  <span class='ivar'>@default_env</span> <span class='op'>=</span> <span class='const'>ENV</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>RACK_ENV</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span> <span class='op'>||</span> <span class='id identifier rubyid_default'>default</span>
+  <span class='ivar'>@requires_project_env</span> <span class='op'>=</span> <span class='kw'>true</span>
+  <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_env_var'>env_var</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>RACK_ENV</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span><span class='label'>purpose:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>default project environment when --env is omitted</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="requires_project_env?-class_method">
+  
+    .<strong>requires_project_env?</strong>  &#x21d2; <tt>Boolean</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>Returns true if this app requires a project env</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Boolean</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+131</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/brut/cli/app.rb', line 131</span>
+
+<span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_requires_project_env?'>requires_project_env?</span> <span class='op'>=</span> <span class='ivar'>@requires_project_env</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+  </div>
+
+  <div id="instance_method_details" class="method_details_list">
+    <h2>Instance Method Details</h2>
+
+    
+      <div class="method_details first">
+  <h3 class="signature first" id="after_bootstrap-instance_method">
+  
+    #<strong>after_bootstrap</strong>  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>Called after all setup has been executed. Brut will have been started/loaded.  This will <em>not</em> be called if anything
+caused execution to be aborted.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+182
+183</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/brut/cli/app.rb', line 182</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_after_bootstrap'>after_bootstrap</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="before_execute-instance_method">
+  
+    #<strong>before_execute</strong>  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>Called before anything else happens. You can override this to perform any setup or other checking before Brut is started up.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+177
+178</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/brut/cli/app.rb', line 177</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_before_execute'>before_execute</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="execute!-instance_method">
+  
+    #<strong>execute!</strong>(command, project_root:)  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>Executes the command.  Called by <span class='object_link'><a href="AppRunner.html" title="Brut::CLI::AppRunner (class)">Brut::CLI::AppRunner</a></span>.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>command</span>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="Command.html" title="Brut::CLI::Command (class)">Brut::CLI::Command</a></span></tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>the command to run, based on what was on the command line</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>project_root</span>
+      
+      
+        <span class='type'>(<tt>Pathname</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>root of the Brut app's project files.</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+189
+190
+191
+192
+193
+194
+195
+196
+197
+198
+199
+200
+201
+202
+203
+204
+205
+206
+207
+208
+209
+210
+211
+212
+213
+214
+215
+216
+217
+218
+219
+220
+221</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/brut/cli/app.rb', line 189</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_execute!'>execute!</span><span class='lparen'>(</span><span class='id identifier rubyid_command'>command</span><span class='comma'>,</span><span class='label'>project_root:</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_before_execute'>before_execute</span>
+  <span class='id identifier rubyid_set_env_if_needed'>set_env_if_needed</span>
+  <span class='id identifier rubyid_command'>command</span><span class='period'>.</span><span class='id identifier rubyid_set_env_if_needed'>set_env_if_needed</span>
+  <span class='id identifier rubyid_load_env'>load_env</span><span class='lparen'>(</span><span class='label'>project_root:</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_command'>command</span><span class='period'>.</span><span class='id identifier rubyid_before_execute'>before_execute</span>
+  <span class='id identifier rubyid_bootstrap_result'>bootstrap_result</span> <span class='op'>=</span> <span class='kw'>begin</span>
+                       <span class='id identifier rubyid_require'>require</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_project_root'>project_root</span><span class='embexpr_end'>}</span><span class='tstring_content'>/app/bootstrap</span><span class='tstring_end'>&quot;</span></span>
+                       <span class='id identifier rubyid_bootstrap'>bootstrap</span> <span class='op'>=</span> <span class='const'>Bootstrap</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span>
+                       <span class='kw'>if</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_class'>class</span><span class='period'>.</span><span class='id identifier rubyid_configure_only?'>configure_only?</span>
+                         <span class='id identifier rubyid_bootstrap'>bootstrap</span><span class='period'>.</span><span class='id identifier rubyid_configure_only!'>configure_only!</span>
+                       <span class='kw'>else</span>
+                         <span class='id identifier rubyid_bootstrap'>bootstrap</span><span class='period'>.</span><span class='id identifier rubyid_bootstrap!'>bootstrap!</span>
+                       <span class='kw'>end</span>
+                       <span class='id identifier rubyid_continue_execution'>continue_execution</span>
+                     <span class='kw'>rescue</span> <span class='op'>=&gt;</span> <span class='id identifier rubyid_ex'>ex</span>
+                       <span class='id identifier rubyid_as_execution_result'>as_execution_result</span><span class='lparen'>(</span><span class='id identifier rubyid_command'>command</span><span class='period'>.</span><span class='id identifier rubyid_handle_bootstrap_exception'>handle_bootstrap_exception</span><span class='lparen'>(</span><span class='id identifier rubyid_ex'>ex</span><span class='rparen'>)</span><span class='rparen'>)</span>
+                     <span class='kw'>end</span>
+  <span class='kw'>if</span> <span class='id identifier rubyid_bootstrap_result'>bootstrap_result</span><span class='period'>.</span><span class='id identifier rubyid_stop?'>stop?</span>
+    <span class='kw'>return</span> <span class='id identifier rubyid_bootstrap_result'>bootstrap_result</span>
+  <span class='kw'>end</span>
+  <span class='id identifier rubyid_after_bootstrap'>after_bootstrap</span>
+  <span class='kw'>if</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_class'>class</span><span class='period'>.</span><span class='id identifier rubyid_configure_only?'>configure_only?</span>
+    <span class='id identifier rubyid_as_execution_result'>as_execution_result</span><span class='lparen'>(</span><span class='id identifier rubyid_command'>command</span><span class='period'>.</span><span class='id identifier rubyid_execute'>execute</span><span class='rparen'>)</span>
+  <span class='kw'>else</span>
+    <span class='id identifier rubyid_result'>result</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../../Brut.html" title="Brut (module)">Brut</a></span></span><span class='period'>.</span><span class='id identifier rubyid_container'><span class='object_link'><a href="../../Brut.html#container-class_method" title="Brut.container (method)">container</a></span></span><span class='period'>.</span><span class='id identifier rubyid_instrumentation'>instrumentation</span><span class='period'>.</span><span class='id identifier rubyid_span'>span</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>CLI </span><span class='embexpr_beg'>#{</span><span class='gvar'>$0</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>prefix:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>brut.cli</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>class:</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_class'>class</span><span class='period'>.</span><span class='id identifier rubyid_name'>name</span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_span'>span</span><span class='op'>|</span>
+      <span class='id identifier rubyid_as_execution_result'>as_execution_result</span><span class='lparen'>(</span><span class='id identifier rubyid_command'>command</span><span class='period'>.</span><span class='id identifier rubyid_execute'>execute</span><span class='rparen'>)</span>
+    <span class='kw'>end</span>
+    <span class='id identifier rubyid_result'>result</span>
+  <span class='kw'>end</span>
+<span class='kw'>rescue</span> <span class='const'><span class='object_link'><a href="../../Brut.html" title="Brut (module)">Brut</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../CLI.html" title="Brut::CLI (module)">CLI</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Error.html" title="Brut::CLI::Error (class)">Error</a></span></span> <span class='op'>=&gt;</span> <span class='id identifier rubyid_ex'>ex</span>
+  <span class='id identifier rubyid_abort_execution'>abort_execution</span><span class='lparen'>(</span><span class='id identifier rubyid_ex'>ex</span><span class='period'>.</span><span class='id identifier rubyid_message'>message</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+  </div>
+
+</div>
+
+      <div id="footer">
+  Generated on Wed Jun 25 22:57:20 2025 by
+  <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
+  0.9.37 (ruby-3.4.4).
+</div>
+
+    </div>
+  </body>
+</html>

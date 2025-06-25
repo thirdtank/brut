@@ -1,0 +1,861 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>
+  Class: Brut::Framework::MCP
+  
+    &mdash; Documentation by YARD 0.9.37
+  
+</title>
+
+  <link rel="stylesheet" href="../../css/style.css" type="text/css" />
+
+  <link rel="stylesheet" href="../../css/common.css" type="text/css" />
+
+<script type="text/javascript">
+  pathId = "Brut::Framework::MCP";
+  relpath = '../../';
+</script>
+
+
+  <script type="text/javascript" charset="utf-8" src="../../js/jquery.js"></script>
+
+  <script type="text/javascript" charset="utf-8" src="../../js/app.js"></script>
+
+
+  </head>
+  <body>
+    <div class="nav_wrap">
+      <iframe id="nav" src="../../class_list.html?1"></iframe>
+      <div id="resizer"></div>
+    </div>
+
+    <div id="main" tabindex="-1">
+      <div id="header">
+        <div id="menu">
+  
+    <a href="../../_index.html">Index (M)</a> &raquo;
+    <span class='title'><span class='object_link'><a href="../../Brut.html" title="Brut (module)">Brut</a></span></span> &raquo; <span class='title'><span class='object_link'><a href="../Framework.html" title="Brut::Framework (module)">Framework</a></span></span>
+     &raquo; 
+    <span class="title">MCP</span>
+  
+</div>
+
+        <div id="search">
+  
+    <a class="full_list_link" id="class_list_link"
+        href="../../class_list.html">
+
+        <svg width="24" height="24">
+          <rect x="0" y="4" width="24" height="4" rx="1" ry="1"></rect>
+          <rect x="0" y="12" width="24" height="4" rx="1" ry="1"></rect>
+          <rect x="0" y="20" width="24" height="4" rx="1" ry="1"></rect>
+        </svg>
+    </a>
+  
+</div>
+        <div class="clear"></div>
+      </div>
+
+      <div id="content"><h1>Class: Brut::Framework::MCP
+  
+  
+  
+</h1>
+<div class="box_info">
+  
+  <dl>
+    <dt>Inherits:</dt>
+    <dd>
+      <span class="inheritName">Object</span>
+      
+        <ul class="fullTree">
+          <li>Object</li>
+          
+            <li class="next">Brut::Framework::MCP</li>
+          
+        </ul>
+        <a href="#" class="inheritanceTree">show all</a>
+      
+    </dd>
+  </dl>
+  
+
+  
+  
+  
+  
+  
+
+  
+
+  
+  <dl>
+    <dt>Defined in:</dt>
+    <dd>lib/brut/framework/mcp.rb</dd>
+  </dl>
+  
+</div>
+
+<h2>Overview</h2><div class="docstring">
+  <div class="discussion">
+    <p>The Master Control Program of Brut.  This handles all the bootstrapping and setup of your app. You are not
+intended to use or interact with this class at all. End of line.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div>
+
+
+
+
+
+
+  
+    <h2>
+      Class Method Summary
+      <small><a href="#" class="summary_toggle">collapse</a></small>
+    </h2>
+
+    <ul class="summary">
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#otel_shutdown-class_method" title="otel_shutdown (class method)">.<strong>otel_shutdown</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+</div></span>
+  
+</li>
+
+      
+    </ul>
+  
+    <h2>
+      Instance Method Summary
+      <small><a href="#" class="summary_toggle">collapse</a></small>
+    </h2>
+
+    <ul class="summary">
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#boot!-instance_method" title="#boot! (instance method)">#<strong>boot!</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>Starts up the internals of Brut and that app so that it can receive requests from the web server.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#initialize-instance_method" title="#initialize (instance method)">#<strong>initialize</strong>(app_klass:)  &#x21d2; MCP </a>
+    
+
+    
+  </span>
+  
+  
+    <span class="note title constructor">constructor</span>
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>Create and configure the MCP.</p>
+</div></span>
+  
+</li>
+
+      
+    </ul>
+  
+
+<div id="constructor_details" class="method_details_list">
+  <h2>Constructor Details</h2>
+  
+    <div class="method_details first">
+  <h3 class="signature first" id="initialize-instance_method">
+  
+    #<strong>initialize</strong>(app_klass:)  &#x21d2; <tt><span class='object_link'><a href="" title="Brut::Framework::MCP (class)">MCP</a></span></tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>Create and configure the MCP.  The app will not work until <span class='object_link'><a href="#boot!-instance_method" title="Brut::Framework::MCP#boot! (method)">#boot!</a></span> has been called, however most of the core configuration
+will be available via <code>Brut.container</code>.</p>
+
+<p>In particular, when this initializer is done, the following will be set up:</p>
+
+<ul>
+<li>Logging</li>
+<li>I18n</li>
+<li>Zeitwerk</li>
+<li>Initial values and configuration from <span class='object_link'><a href="Config.html#configure!-instance_method" title="Brut::Framework::Config#configure! (method)">Config#configure!</a></span>.  Note that some values in there are static and some
+are lazily-evaluated, i.e. their values will only be calculated when fetched.</li>
+</ul>
+
+
+<p>In general, you shouldn't have to interact with this class directly, however for posterity, there are basically two ways in which
+to do so:</p>
+
+<ul>
+<li>Create the instance and <em>do not</em> call <code>boot!</code>.  This is what you'd do if you can't or don't want to connect to external services
+like the database.  For example, when Brut builds assets, it does not call <code>boot!</code>.</li>
+<li>Create the instance and immediately call <code>boot!</code>.  This is what happens most of the time, in particular when the app is started
+up by Puma to start serving requests.</li>
+</ul>
+
+
+<p>What you should avoid doing is creating an instance of this class and performing logic before later calling <code>boot!</code>.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>app_klass</span>
+      
+      
+        <span class='type'>(<tt>Class</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>subclass of <span class='object_link'><a href="App.html" title="Brut::Framework::App (class)">App</a></span> representing the Brut app being started up and managed.</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/brut/framework/mcp.rb', line 45</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_initialize'>initialize</span><span class='lparen'>(</span><span class='label'>app_klass:</span><span class='rparen'>)</span>
+  <span class='ivar'>@config</span>    <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../../Brut.html" title="Brut (module)">Brut</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../Framework.html" title="Brut::Framework (module)">Framework</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Config.html" title="Brut::Framework::Config (class)">Config</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span>
+  <span class='ivar'>@booted</span>    <span class='op'>=</span> <span class='kw'>false</span>
+  <span class='ivar'>@loader</span>    <span class='op'>=</span> <span class='const'>Zeitwerk</span><span class='op'>::</span><span class='const'>Loader</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span>
+  <span class='ivar'>@config</span><span class='period'>.</span><span class='id identifier rubyid_configure!'>configure!</span>
+
+  <span class='id identifier rubyid_setup_logging'>setup_logging</span>
+  <span class='id identifier rubyid_setup_i18n'>setup_i18n</span>
+  <span class='id identifier rubyid_setup_zeitwerk'>setup_zeitwerk</span>
+
+  <span class='ivar'>@app</span> <span class='op'>=</span> <span class='id identifier rubyid_app_klass'>app_klass</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span>
+  <span class='id identifier rubyid_otel_prefix'>otel_prefix</span> <span class='op'>=</span> <span class='kw'>if</span> <span class='ivar'>@app</span><span class='period'>.</span><span class='id identifier rubyid_id'>id</span> <span class='op'>==</span> <span class='ivar'>@app</span><span class='period'>.</span><span class='id identifier rubyid_organization'>organization</span>
+                  <span class='ivar'>@app</span><span class='period'>.</span><span class='id identifier rubyid_id'>id</span>
+                <span class='kw'>else</span>
+                  <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='ivar'>@app</span><span class='period'>.</span><span class='id identifier rubyid_organization'>organization</span><span class='embexpr_end'>}</span><span class='tstring_content'>.</span><span class='embexpr_beg'>#{</span><span class='ivar'>@app</span><span class='period'>.</span><span class='id identifier rubyid_id'>id</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span>
+                <span class='kw'>end</span>
+  <span class='const'><span class='object_link'><a href="../../Brut.html" title="Brut (module)">Brut</a></span></span><span class='period'>.</span><span class='id identifier rubyid_container'><span class='object_link'><a href="../../Brut.html#container-class_method" title="Brut.container (method)">container</a></span></span><span class='period'>.</span><span class='id identifier rubyid_store'>store</span><span class='lparen'>(</span>
+    <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>otel_attribute_prefix</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+    <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>String</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+    <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Prefix for all OTel attributes set by the app</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+    <span class='id identifier rubyid_otel_prefix'>otel_prefix</span>
+  <span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+  
+</div>
+
+
+  <div id="class_method_details" class="method_details_list">
+    <h2>Class Method Details</h2>
+
+    
+      <div class="method_details first">
+  <h3 class="signature first" id="otel_shutdown-class_method">
+  
+    .<strong>otel_shutdown</strong>  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+21</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/brut/framework/mcp.rb', line 21</span>
+
+<span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_otel_shutdown'>otel_shutdown</span> <span class='op'>=</span> <span class='ivar'>@otel_shutdown</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+  </div>
+
+  <div id="instance_method_details" class="method_details_list">
+    <h2>Instance Method Details</h2>
+
+    
+      <div class="method_details first">
+  <h3 class="signature first" id="boot!-instance_method">
+  
+    #<strong>boot!</strong>  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>Starts up the internals of Brut and that app so that it can receive requests from
+the web server.  This <em>can</em> make network connections to establish connectivity
+to external resources.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152
+153
+154
+155
+156
+157
+158
+159
+160
+161
+162
+163
+164
+165
+166
+167
+168
+169
+170
+171
+172
+173
+174
+175
+176
+177
+178
+179
+180
+181
+182
+183
+184
+185
+186
+187
+188
+189
+190
+191
+192
+193
+194
+195
+196
+197
+198
+199
+200
+201
+202
+203
+204
+205
+206
+207
+208
+209
+210
+211
+212
+213
+214
+215
+216
+217
+218
+219
+220
+221
+222
+223
+224
+225
+226
+227
+228
+229
+230
+231
+232
+233
+234
+235
+236
+237
+238
+239
+240
+241
+242
+243
+244
+245
+246
+247
+248
+249
+250
+251
+252
+253
+254
+255
+256
+257
+258
+259
+260
+261
+262
+263
+264
+265
+266
+267
+268
+269
+270
+271
+272
+273
+274
+275
+276
+277
+278
+279
+280
+281
+282
+283
+284
+285
+286
+287
+288
+289</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/brut/framework/mcp.rb', line 72</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_boot!'>boot!</span>
+  <span class='kw'>if</span> <span class='ivar'>@booted</span>
+    <span class='id identifier rubyid_raise'>raise</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>already booted!</span><span class='tstring_end'>&quot;</span></span>
+  <span class='kw'>end</span>
+  <span class='kw'>if</span> <span class='const'><span class='object_link'><a href="../../Brut.html" title="Brut (module)">Brut</a></span></span><span class='period'>.</span><span class='id identifier rubyid_container'><span class='object_link'><a href="../../Brut.html#container-class_method" title="Brut.container (method)">container</a></span></span><span class='period'>.</span><span class='id identifier rubyid_debug_zeitwerk?'>debug_zeitwerk?</span>
+    <span class='ivar'>@loader</span><span class='period'>.</span><span class='id identifier rubyid_log!'>log!</span>
+  <span class='kw'>end</span>
+  <span class='const'>Kernel</span><span class='period'>.</span><span class='id identifier rubyid_at_exit'>at_exit</span> <span class='kw'>do</span>
+    <span class='kw'>begin</span>
+      <span class='const'><span class='object_link'><a href="../../Brut.html" title="Brut (module)">Brut</a></span></span><span class='period'>.</span><span class='id identifier rubyid_container'><span class='object_link'><a href="../../Brut.html#container-class_method" title="Brut.container (method)">container</a></span></span><span class='period'>.</span><span class='id identifier rubyid_sequel_db_handle'>sequel_db_handle</span><span class='period'>.</span><span class='id identifier rubyid_disconnect'>disconnect</span>
+    <span class='kw'>rescue</span> <span class='const'><span class='object_link'><a href="../../Sequel.html" title="Sequel (module)">Sequel</a></span></span><span class='op'>::</span><span class='const'>DatabaseConnectionError</span>
+      <span class='const'>SemanticLogger</span><span class='lbracket'>[</span><span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_class'>class</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_info'>info</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Not connected to database, so not disconnecting</span><span class='tstring_end'>&quot;</span></span>
+    <span class='kw'>end</span>
+    <span class='id identifier rubyid_otel_configured'>otel_configured</span> <span class='op'>=</span> <span class='const'>OpenTelemetry</span><span class='period'>.</span><span class='id identifier rubyid_tracer_provider'>tracer_provider</span><span class='period'>.</span><span class='id identifier rubyid_is_a?'>is_a?</span><span class='lparen'>(</span><span class='const'>OpenTelemetry</span><span class='op'>::</span><span class='const'>SDK</span><span class='op'>::</span><span class='const'>Trace</span><span class='op'>::</span><span class='const'>TracerProvider</span><span class='rparen'>)</span>
+    <span class='kw'>if</span> <span class='id identifier rubyid_otel_configured'>otel_configured</span>
+      <span class='kw'>if</span> <span class='gvar'>$PROGRAM_NAME</span> <span class='op'>=~</span> <span class='tstring'><span class='regexp_beg'>/</span><span class='tstring_content'>^sidekiq</span><span class='regexp_end'>/</span></span>
+        <span class='const'>SemanticLogger</span><span class='lbracket'>[</span><span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_class'>class</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_info'>info</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Assuming we are sidekiq, which will shutdown OpenTelemetry, so doing nothing</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>program:</span> <span class='gvar'>$PROGRAM_NAME</span>
+      <span class='kw'>else</span>
+        <span class='kw'>if</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_class'>class</span><span class='period'>.</span><span class='id identifier rubyid_otel_shutdown'>otel_shutdown</span><span class='period'>.</span><span class='id identifier rubyid_make_true'>make_true</span>
+          <span class='const'>SemanticLogger</span><span class='lbracket'>[</span><span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_class'>class</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_info'>info</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Shutting down OpenTelemetry</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>program:</span> <span class='gvar'>$PROGRAM_NAME</span>
+          <span class='const'>OpenTelemetry</span><span class='period'>.</span><span class='id identifier rubyid_tracer_provider'>tracer_provider</span><span class='period'>.</span><span class='id identifier rubyid_shutdown'>shutdown</span>
+        <span class='kw'>else</span>
+          <span class='const'>SemanticLogger</span><span class='lbracket'>[</span><span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_class'>class</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_info'>info</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>OpenTelemetry already shutdown</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>program:</span> <span class='gvar'>$PROGRAM_NAME</span>
+        <span class='kw'>end</span>
+      <span class='kw'>end</span>
+    <span class='kw'>else</span>
+      <span class='const'>SemanticLogger</span><span class='lbracket'>[</span><span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_class'>class</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_info'>info</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>OpenTelemetry was not configured, so no shutdown needed</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>program:</span> <span class='gvar'>$PROGRAM_NAME</span>
+    <span class='kw'>end</span>
+  <span class='kw'>end</span>
+
+  <span class='id identifier rubyid_boot_otel!'>boot_otel!</span>
+  <span class='id identifier rubyid_boot_postgres!'>boot_postgres!</span>
+
+  <span class='kw'>if</span> <span class='const'><span class='object_link'><a href="../../Brut.html" title="Brut (module)">Brut</a></span></span><span class='period'>.</span><span class='id identifier rubyid_container'><span class='object_link'><a href="../../Brut.html#container-class_method" title="Brut.container (method)">container</a></span></span><span class='period'>.</span><span class='id identifier rubyid_eager_load_classes?'>eager_load_classes?</span>
+    <span class='const'>SemanticLogger</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Brut</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_info'>info</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Eagerly loading app&#39;s classes</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+    <span class='ivar'>@loader</span><span class='period'>.</span><span class='id identifier rubyid_eager_load'>eager_load</span>
+  <span class='kw'>else</span>
+    <span class='const'>SemanticLogger</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Brut</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_info'>info</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Lazily loading app&#39;s classes</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+  <span class='kw'>end</span>
+
+  <span class='ivar'>@app</span><span class='period'>.</span><span class='id identifier rubyid_boot!'>boot!</span>
+
+  <span class='id identifier rubyid_require'>require</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>sinatra/base</span><span class='tstring_end'>&quot;</span></span>
+
+  <span class='ivar'>@sinatra_app</span> <span class='op'>=</span> <span class='const'>Class</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='const'>Sinatra</span><span class='op'>::</span><span class='const'>Base</span><span class='rparen'>)</span>
+  <span class='ivar'>@sinatra_app</span><span class='period'>.</span><span class='id identifier rubyid_include'>include</span><span class='lparen'>(</span><span class='const'><span class='object_link'><a href="../../Brut.html" title="Brut (module)">Brut</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../SinatraHelpers.html" title="Brut::SinatraHelpers (module)">SinatraHelpers</a></span></span><span class='rparen'>)</span>
+
+  <span class='id identifier rubyid_safely_record_exception'>safely_record_exception</span> <span class='op'>=</span> <span class='tlambda'>-&gt;</span><span class='lparen'>(</span><span class='id identifier rubyid_exception'>exception</span><span class='comma'>,</span><span class='id identifier rubyid_http_status_code'>http_status_code</span><span class='rparen'>)</span> <span class='tlambeg'>{</span>
+    <span class='kw'>begin</span>
+    <span class='kw'>if</span> <span class='id identifier rubyid_exception'>exception</span><span class='period'>.</span><span class='id identifier rubyid_nil?'>nil?</span>
+      <span class='const'><span class='object_link'><a href="../../Brut.html" title="Brut (module)">Brut</a></span></span><span class='period'>.</span><span class='id identifier rubyid_container'><span class='object_link'><a href="../../Brut.html#container-class_method" title="Brut.container (method)">container</a></span></span><span class='period'>.</span><span class='id identifier rubyid_instrumentation'>instrumentation</span><span class='period'>.</span><span class='id identifier rubyid_add_event'>add_event</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>error triggered without exception</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>http_status_code:</span><span class='rparen'>)</span>
+    <span class='kw'>else</span>
+      <span class='const'><span class='object_link'><a href="../../Brut.html" title="Brut (module)">Brut</a></span></span><span class='period'>.</span><span class='id identifier rubyid_container'><span class='object_link'><a href="../../Brut.html#container-class_method" title="Brut.container (method)">container</a></span></span><span class='period'>.</span><span class='id identifier rubyid_instrumentation'>instrumentation</span><span class='period'>.</span><span class='id identifier rubyid_record_exception'>record_exception</span><span class='lparen'>(</span><span class='id identifier rubyid_exception'>exception</span><span class='comma'>,</span> <span class='label'>http_status_code:</span><span class='rparen'>)</span>
+    <span class='kw'>end</span>
+    <span class='kw'>rescue</span> <span class='op'>=&gt;</span> <span class='id identifier rubyid_ex'>ex</span>
+      <span class='kw'>begin</span>
+        <span class='const'>SemanticLogger</span><span class='lbracket'>[</span><span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_class'>class</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_error'>error</span><span class='lparen'>(</span>
+          <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Error recording exception</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+          <span class='label'>original_excerption:</span> <span class='id identifier rubyid_exception'>exception</span><span class='comma'>,</span> 
+          <span class='label'>exception:</span> <span class='id identifier rubyid_ex'>ex</span><span class='rparen'>)</span>
+      <span class='kw'>rescue</span> <span class='op'>=&gt;</span> <span class='id identifier rubyid_ex2'>ex2</span>
+        <span class='gvar'>$stderr</span><span class='period'>.</span><span class='id identifier rubyid_puts'>puts</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>While handling an error recording an exception, we get another error from SemanticLogger.</span><span class='tstring_end'>&quot;</span></span> <span class='op'>+</span> <span class='lbracket'>[</span>
+          <span class='lbracket'>[</span> <span class='symbol'>:original_exception</span><span class='comma'>,</span>  <span class='id identifier rubyid_exception'>exception</span><span class='comma'>,</span>  <span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_join'>join</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>: </span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span><span class='comma'>,</span>
+          <span class='lbracket'>[</span> <span class='symbol'>:exception_from_recording_exception</span><span class='comma'>,</span>  <span class='id identifier rubyid_ex'>ex</span><span class='comma'>,</span> <span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_join'>join</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>: </span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span><span class='comma'>,</span>
+          <span class='lbracket'>[</span> <span class='symbol'>:exception_from_semantic_logger</span><span class='comma'>,</span>  <span class='id identifier rubyid_ex2'>ex2</span> <span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_join'>join</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>: </span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span><span class='comma'>,</span>
+
+        <span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_join'>join</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>, </span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+      <span class='kw'>end</span>
+    <span class='kw'>end</span>
+  <span class='rbrace'>}</span>
+
+  <span class='ivar'>@app</span><span class='period'>.</span><span class='id identifier rubyid_class'>class</span><span class='period'>.</span><span class='id identifier rubyid_error_blocks'>error_blocks</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_condition'>condition</span><span class='comma'>,</span><span class='id identifier rubyid_block'>block</span><span class='op'>|</span>
+    <span class='kw'>if</span> <span class='id identifier rubyid_condition'>condition</span> <span class='op'>!=</span> <span class='symbol'>:catch_all</span>
+      <span class='ivar'>@sinatra_app</span><span class='period'>.</span><span class='id identifier rubyid_error'>error</span><span class='lparen'>(</span><span class='id identifier rubyid_condition'>condition</span><span class='rparen'>)</span> <span class='kw'>do</span>
+        <span class='id identifier rubyid_exception'>exception</span> <span class='op'>=</span> <span class='id identifier rubyid_request'>request</span><span class='period'>.</span><span class='id identifier rubyid_env'>env</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>sinatra.error</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span>
+        <span class='id identifier rubyid_safely_record_exception'>safely_record_exception</span><span class='period'>.</span><span class='lparen'>(</span><span class='id identifier rubyid_exception'>exception</span><span class='comma'>,</span> <span class='id identifier rubyid_response'>response</span><span class='period'>.</span><span class='id identifier rubyid_status'>status</span><span class='rparen'>)</span>
+        <span class='id identifier rubyid_block_args'>block_args</span> <span class='op'>=</span> <span class='kw'>if</span> <span class='id identifier rubyid_exception'>exception</span>
+                       <span class='lbrace'>{</span> <span class='label'>exception:</span> <span class='rbrace'>}</span>
+                     <span class='kw'>else</span>
+                       <span class='lbrace'>{</span> <span class='label'>http_status_code:</span> <span class='id identifier rubyid_response'>response</span><span class='period'>.</span><span class='id identifier rubyid_status'>status</span> <span class='rbrace'>}</span>
+                     <span class='kw'>end</span>
+        <span class='id identifier rubyid_block'>block</span><span class='period'>.</span><span class='lparen'>(</span><span class='op'>**</span><span class='id identifier rubyid_block_args'>block_args</span><span class='rparen'>)</span>
+      <span class='kw'>end</span>
+    <span class='kw'>end</span>
+  <span class='kw'>end</span>
+  <span class='kw'>if</span> <span class='ivar'>@app</span><span class='period'>.</span><span class='id identifier rubyid_class'>class</span><span class='period'>.</span><span class='id identifier rubyid_error_blocks'>error_blocks</span><span class='lbracket'>[</span><span class='symbol'>:catch_all</span><span class='rbracket'>]</span>
+    <span class='id identifier rubyid_block'>block</span> <span class='op'>=</span> <span class='ivar'>@app</span><span class='period'>.</span><span class='id identifier rubyid_class'>class</span><span class='period'>.</span><span class='id identifier rubyid_error_blocks'>error_blocks</span><span class='lbracket'>[</span><span class='symbol'>:catch_all</span><span class='rbracket'>]</span>
+    <span class='id identifier rubyid_block_args'>block_args</span> <span class='op'>=</span> <span class='id identifier rubyid_block'>block</span><span class='period'>.</span><span class='id identifier rubyid_parameters'>parameters</span><span class='period'>.</span><span class='id identifier rubyid_map'>map</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='lparen'>(</span><span class='id identifier rubyid_type'>type</span><span class='comma'>,</span><span class='id identifier rubyid_name'>name</span><span class='rparen'>)</span><span class='op'>|</span>
+      <span class='lbracket'>[</span> <span class='id identifier rubyid_name'>name</span><span class='comma'>,</span> <span class='kw'>nil</span> <span class='rbracket'>]</span>
+    <span class='rbrace'>}</span><span class='period'>.</span><span class='id identifier rubyid_to_h'>to_h</span>
+    <span class='ivar'>@sinatra_app</span><span class='period'>.</span><span class='id identifier rubyid_error'>error</span><span class='lparen'>(</span><span class='int'>400</span><span class='op'>..</span><span class='int'>999</span><span class='rparen'>)</span> <span class='kw'>do</span>
+      <span class='id identifier rubyid_exception'>exception</span> <span class='op'>=</span> <span class='id identifier rubyid_request'>request</span><span class='period'>.</span><span class='id identifier rubyid_env'>env</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>sinatra.error</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span>
+      <span class='id identifier rubyid_safely_record_exception'>safely_record_exception</span><span class='period'>.</span><span class='lparen'>(</span><span class='id identifier rubyid_exception'>exception</span><span class='comma'>,</span> <span class='id identifier rubyid_response'>response</span><span class='period'>.</span><span class='id identifier rubyid_status'>status</span><span class='rparen'>)</span>
+      <span class='kw'>if</span> <span class='id identifier rubyid_block_args'>block_args</span><span class='period'>.</span><span class='id identifier rubyid_key?'>key?</span><span class='lparen'>(</span><span class='symbol'>:exception</span><span class='rparen'>)</span>
+        <span class='id identifier rubyid_block_args'>block_args</span><span class='lbracket'>[</span><span class='symbol'>:exception</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='id identifier rubyid_exception'>exception</span>
+      <span class='kw'>end</span>
+      <span class='kw'>if</span> <span class='id identifier rubyid_block_args'>block_args</span><span class='period'>.</span><span class='id identifier rubyid_key?'>key?</span><span class='lparen'>(</span><span class='symbol'>:http_status_code</span><span class='rparen'>)</span>
+        <span class='id identifier rubyid_block_args'>block_args</span><span class='lbracket'>[</span><span class='symbol'>:http_status_code</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='id identifier rubyid_response'>response</span><span class='period'>.</span><span class='id identifier rubyid_status'>status</span>
+      <span class='kw'>end</span>
+      <span class='id identifier rubyid_block'>block</span><span class='period'>.</span><span class='lparen'>(</span><span class='op'>**</span><span class='id identifier rubyid_block_args'>block_args</span><span class='rparen'>)</span>
+    <span class='kw'>end</span>
+  <span class='kw'>else</span>
+  <span class='kw'>end</span>
+
+  <span class='id identifier rubyid_message'>message</span> <span class='op'>=</span> <span class='kw'>if</span> <span class='const'><span class='object_link'><a href="../../Brut.html" title="Brut (module)">Brut</a></span></span><span class='period'>.</span><span class='id identifier rubyid_container'><span class='object_link'><a href="../../Brut.html#container-class_method" title="Brut.container (method)">container</a></span></span><span class='period'>.</span><span class='id identifier rubyid_project_env'>project_env</span><span class='period'>.</span><span class='id identifier rubyid_development?'>development?</span>
+              <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Form submission did not include an authenticity token. All forms must include one. To add one, use the `form_tag` helper, or include Brut::FrontEnd::Components::Inputs::CsrfToken somewhere inside your &lt;form&gt; tag</span><span class='tstring_end'>&quot;</span></span>
+            <span class='kw'>else</span>
+              <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Forbidden</span><span class='tstring_end'>&quot;</span></span>
+            <span class='kw'>end</span>
+  <span class='id identifier rubyid_default_middlewares'>default_middlewares</span> <span class='op'>=</span> <span class='lbracket'>[</span>
+    <span class='lbracket'>[</span> <span class='const'><span class='object_link'><a href="../../Brut.html" title="Brut (module)">Brut</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../FrontEnd.html" title="Brut::FrontEnd (module)">FrontEnd</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../FrontEnd/Middlewares.html" title="Brut::FrontEnd::Middlewares (module)">Middlewares</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../FrontEnd/Middlewares/OpenTelemetrySpan.html" title="Brut::FrontEnd::Middlewares::OpenTelemetrySpan (class)">OpenTelemetrySpan</a></span></span> <span class='rbracket'>]</span><span class='comma'>,</span>
+    <span class='lbracket'>[</span> <span class='const'><span class='object_link'><a href="../../Brut.html" title="Brut (module)">Brut</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../FrontEnd.html" title="Brut::FrontEnd (module)">FrontEnd</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../FrontEnd/Middlewares.html" title="Brut::FrontEnd::Middlewares (module)">Middlewares</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../FrontEnd/Middlewares/AnnotateBrutOwnedPaths.html" title="Brut::FrontEnd::Middlewares::AnnotateBrutOwnedPaths (class)">AnnotateBrutOwnedPaths</a></span></span> <span class='rbracket'>]</span><span class='comma'>,</span>
+    <span class='lbracket'>[</span> <span class='const'><span class='object_link'><a href="../../Brut.html" title="Brut (module)">Brut</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../FrontEnd.html" title="Brut::FrontEnd (module)">FrontEnd</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../FrontEnd/Middlewares.html" title="Brut::FrontEnd::Middlewares (module)">Middlewares</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../FrontEnd/Middlewares/Favicon.html" title="Brut::FrontEnd::Middlewares::Favicon (class)">Favicon</a></span></span> <span class='rbracket'>]</span><span class='comma'>,</span>
+    <span class='lbracket'>[</span>
+      <span class='const'>Rack</span><span class='op'>::</span><span class='const'>Protection</span><span class='op'>::</span><span class='const'>AuthenticityToken</span><span class='comma'>,</span>
+      <span class='lbracket'>[</span>
+        <span class='lbrace'>{</span>
+          <span class='label'>allow_if:</span> <span class='tlambda'>-&gt;</span><span class='lparen'>(</span><span class='id identifier rubyid_env'>env</span><span class='rparen'>)</span> <span class='tlambeg'>{</span> <span class='id identifier rubyid_env'>env</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>brut.owned_path</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span> <span class='rbrace'>}</span><span class='comma'>,</span>
+          <span class='label'>message:</span> <span class='id identifier rubyid_message'>message</span><span class='comma'>,</span>
+        <span class='rbrace'>}</span>
+      <span class='rbracket'>]</span>
+    <span class='rbracket'>]</span><span class='comma'>,</span>
+  <span class='rbracket'>]</span>
+  <span class='kw'>if</span> <span class='const'><span class='object_link'><a href="../../Brut.html" title="Brut (module)">Brut</a></span></span><span class='period'>.</span><span class='id identifier rubyid_container'><span class='object_link'><a href="../../Brut.html#container-class_method" title="Brut.container (method)">container</a></span></span><span class='period'>.</span><span class='id identifier rubyid_auto_reload_classes?'>auto_reload_classes?</span>
+    <span class='id identifier rubyid_default_middlewares'>default_middlewares</span> <span class='op'>&lt;&lt;</span> <span class='const'><span class='object_link'><a href="../../Brut.html" title="Brut (module)">Brut</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../FrontEnd.html" title="Brut::FrontEnd (module)">FrontEnd</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../FrontEnd/Middlewares.html" title="Brut::FrontEnd::Middlewares (module)">Middlewares</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../FrontEnd/Middlewares/ReloadApp.html" title="Brut::FrontEnd::Middlewares::ReloadApp (class)">ReloadApp</a></span></span>
+  <span class='kw'>end</span>
+
+  <span class='id identifier rubyid_middlewares'>middlewares</span> <span class='op'>=</span> <span class='id identifier rubyid_default_middlewares'>default_middlewares</span> <span class='op'>+</span> <span class='ivar'>@app</span><span class='period'>.</span><span class='id identifier rubyid_class'>class</span><span class='period'>.</span><span class='id identifier rubyid_middleware'>middleware</span><span class='period'>.</span><span class='id identifier rubyid_map'>map</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='lparen'>(</span><span class='id identifier rubyid_middleware'>middleware</span><span class='comma'>,</span><span class='id identifier rubyid_args'>args</span><span class='comma'>,</span><span class='id identifier rubyid_block'>block</span><span class='rparen'>)</span><span class='op'>|</span>
+    <span class='kw'>if</span> <span class='op'>!</span><span class='id identifier rubyid_middleware'>middleware</span><span class='period'>.</span><span class='id identifier rubyid_kind_of?'>kind_of?</span><span class='lparen'>(</span><span class='const'>Class</span><span class='rparen'>)</span>
+      <span class='id identifier rubyid_klass'>klass</span> <span class='op'>=</span> <span class='id identifier rubyid_middleware'>middleware</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span><span class='period'>.</span><span class='id identifier rubyid_split'>split</span><span class='lparen'>(</span><span class='tstring'><span class='regexp_beg'>/</span><span class='tstring_content'>::</span><span class='regexp_end'>/</span></span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_reduce'>reduce</span><span class='lparen'>(</span><span class='const'>Module</span><span class='rparen'>)</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_mod'>mod</span><span class='comma'>,</span><span class='id identifier rubyid_part'>part</span><span class='op'>|</span>
+        <span class='id identifier rubyid_mod'>mod</span><span class='period'>.</span><span class='id identifier rubyid_const_get'>const_get</span><span class='lparen'>(</span><span class='id identifier rubyid_part'>part</span><span class='rparen'>)</span>
+      <span class='rbrace'>}</span>
+      <span class='lbracket'>[</span> <span class='id identifier rubyid_klass'>klass</span><span class='comma'>,</span> <span class='id identifier rubyid_args'>args</span><span class='comma'>,</span> <span class='id identifier rubyid_block'>block</span> <span class='rbracket'>]</span>
+    <span class='kw'>else</span>
+      <span class='lbracket'>[</span> <span class='id identifier rubyid_middleware'>middleware</span><span class='comma'>,</span> <span class='id identifier rubyid_args'>args</span><span class='comma'>,</span> <span class='id identifier rubyid_block'>block</span> <span class='rbracket'>]</span>
+    <span class='kw'>end</span>
+  <span class='rbrace'>}</span>
+
+  <span class='id identifier rubyid_middlewares'>middlewares</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='lparen'>(</span><span class='id identifier rubyid_middleware'>middleware</span><span class='comma'>,</span><span class='id identifier rubyid_args'>args</span><span class='comma'>,</span><span class='id identifier rubyid_block'>block</span><span class='rparen'>)</span><span class='op'>|</span>
+    <span class='ivar'>@sinatra_app</span><span class='period'>.</span><span class='id identifier rubyid_use'>use</span><span class='lparen'>(</span><span class='id identifier rubyid_middleware'>middleware</span><span class='comma'>,</span><span class='op'>*</span><span class='id identifier rubyid_args'>args</span><span class='comma'>,</span><span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span><span class='rparen'>)</span>
+  <span class='kw'>end</span>
+  <span class='id identifier rubyid_befores'>befores</span> <span class='op'>=</span> <span class='lbracket'>[</span>
+    <span class='const'><span class='object_link'><a href="../../Brut.html" title="Brut (module)">Brut</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../FrontEnd.html" title="Brut::FrontEnd (module)">FrontEnd</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../FrontEnd/RouteHooks.html" title="Brut::FrontEnd::RouteHooks (module)">RouteHooks</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../FrontEnd/RouteHooks/SetupRequestContext.html" title="Brut::FrontEnd::RouteHooks::SetupRequestContext (class)">SetupRequestContext</a></span></span><span class='comma'>,</span>
+    <span class='const'><span class='object_link'><a href="../../Brut.html" title="Brut (module)">Brut</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../FrontEnd.html" title="Brut::FrontEnd (module)">FrontEnd</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../FrontEnd/RouteHooks.html" title="Brut::FrontEnd::RouteHooks (module)">RouteHooks</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../FrontEnd/RouteHooks/LocaleDetection.html" title="Brut::FrontEnd::RouteHooks::LocaleDetection (class)">LocaleDetection</a></span></span><span class='comma'>,</span>
+  <span class='rbracket'>]</span> <span class='op'>+</span> <span class='ivar'>@app</span><span class='period'>.</span><span class='id identifier rubyid_class'>class</span><span class='period'>.</span><span class='id identifier rubyid_before'>before</span>
+
+  <span class='id identifier rubyid_afters'>afters</span> <span class='op'>=</span> <span class='lbracket'>[</span>
+    <span class='const'><span class='object_link'><a href="../../Brut.html" title="Brut (module)">Brut</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../FrontEnd.html" title="Brut::FrontEnd (module)">FrontEnd</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../FrontEnd/RouteHooks.html" title="Brut::FrontEnd::RouteHooks (module)">RouteHooks</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../FrontEnd/RouteHooks/AgeFlash.html" title="Brut::FrontEnd::RouteHooks::AgeFlash (class)">AgeFlash</a></span></span><span class='comma'>,</span>
+    <span class='const'><span class='object_link'><a href="../../Brut.html" title="Brut (module)">Brut</a></span></span><span class='period'>.</span><span class='id identifier rubyid_container'><span class='object_link'><a href="../../Brut.html#container-class_method" title="Brut.container (method)">container</a></span></span><span class='period'>.</span><span class='id identifier rubyid_csp_class'>csp_class</span><span class='comma'>,</span>
+    <span class='const'><span class='object_link'><a href="../../Brut.html" title="Brut (module)">Brut</a></span></span><span class='period'>.</span><span class='id identifier rubyid_container'><span class='object_link'><a href="../../Brut.html#container-class_method" title="Brut.container (method)">container</a></span></span><span class='period'>.</span><span class='id identifier rubyid_csp_reporting_class'>csp_reporting_class</span><span class='comma'>,</span>
+  <span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_compact'>compact</span> <span class='op'>+</span> <span class='ivar'>@app</span><span class='period'>.</span><span class='id identifier rubyid_class'>class</span><span class='period'>.</span><span class='id identifier rubyid_after'>after</span>
+
+  <span class='lbracket'>[</span>
+    <span class='lbracket'>[</span> <span class='id identifier rubyid_befores'>befores</span><span class='comma'>,</span> <span class='symbol'>:before</span> <span class='rbracket'>]</span><span class='comma'>,</span>
+    <span class='lbracket'>[</span> <span class='id identifier rubyid_afters'>afters</span><span class='comma'>,</span>  <span class='symbol'>:after</span>  <span class='rbracket'>]</span><span class='comma'>,</span>
+  <span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_hooks'>hooks</span><span class='comma'>,</span><span class='id identifier rubyid_method'>method</span><span class='op'>|</span>
+    <span class='id identifier rubyid_hooks'>hooks</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_klass_name'>klass_name</span><span class='op'>|</span>
+      <span class='id identifier rubyid_klass'>klass</span> <span class='op'>=</span> <span class='id identifier rubyid_klass_name'>klass_name</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span><span class='period'>.</span><span class='id identifier rubyid_split'>split</span><span class='lparen'>(</span><span class='tstring'><span class='regexp_beg'>/</span><span class='tstring_content'>::</span><span class='regexp_end'>/</span></span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_reduce'>reduce</span><span class='lparen'>(</span><span class='const'>Module</span><span class='rparen'>)</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_mod'>mod</span><span class='comma'>,</span><span class='id identifier rubyid_part'>part</span><span class='op'>|</span>
+        <span class='id identifier rubyid_mod'>mod</span><span class='period'>.</span><span class='id identifier rubyid_const_get'>const_get</span><span class='lparen'>(</span><span class='id identifier rubyid_part'>part</span><span class='rparen'>)</span>
+      <span class='rbrace'>}</span>
+      <span class='id identifier rubyid_hook_method'>hook_method</span> <span class='op'>=</span> <span class='id identifier rubyid_klass'>klass</span><span class='period'>.</span><span class='id identifier rubyid_instance_method'>instance_method</span><span class='lparen'>(</span><span class='id identifier rubyid_method'>method</span><span class='rparen'>)</span>
+      <span class='ivar'>@sinatra_app</span><span class='period'>.</span><span class='id identifier rubyid_send'>send</span><span class='lparen'>(</span><span class='id identifier rubyid_method'>method</span><span class='rparen'>)</span> <span class='kw'>do</span>
+        <span class='id identifier rubyid_args'>args</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span>
+
+        <span class='const'><span class='object_link'><a href="../../Brut.html" title="Brut (module)">Brut</a></span></span><span class='period'>.</span><span class='id identifier rubyid_container'><span class='object_link'><a href="../../Brut.html#container-class_method" title="Brut.container (method)">container</a></span></span><span class='period'>.</span><span class='id identifier rubyid_instrumentation'>instrumentation</span><span class='period'>.</span><span class='id identifier rubyid_span'>span</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_klass_name'>klass_name</span><span class='embexpr_end'>}</span><span class='tstring_content'>.</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_method'>method</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_span'>span</span><span class='op'>|</span>
+          <span class='id identifier rubyid_hook_method'>hook_method</span><span class='period'>.</span><span class='id identifier rubyid_parameters'>parameters</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='lparen'>(</span><span class='id identifier rubyid_type'>type</span><span class='comma'>,</span><span class='id identifier rubyid_name'>name</span><span class='rparen'>)</span><span class='op'>|</span>
+            <span class='kw'>if</span> <span class='id identifier rubyid_name'>name</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span> <span class='op'>==</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>**</span><span class='tstring_end'>&quot;</span></span> <span class='op'>||</span> <span class='id identifier rubyid_name'>name</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span> <span class='op'>==</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>*</span><span class='tstring_end'>&quot;</span></span>
+              <span class='id identifier rubyid_raise'>raise</span> <span class='const'>ArgumentError</span><span class='comma'>,</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_method'>method</span><span class='period'>.</span><span class='id identifier rubyid_class'>class</span><span class='embexpr_end'>}</span><span class='tstring_content'>#</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_method'>method</span><span class='period'>.</span><span class='id identifier rubyid_name'>name</span><span class='embexpr_end'>}</span><span class='tstring_content'> accepts &#39;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_name'>name</span><span class='embexpr_end'>}</span><span class='tstring_content'>&#39; and not keyword args. Define it in your class to accept the keyword arguments your method needs</span><span class='tstring_end'>&quot;</span></span>
+            <span class='kw'>end</span>
+            <span class='kw'>if</span> <span class='op'>!</span><span class='lbracket'>[</span> <span class='symbol'>:key</span><span class='comma'>,</span><span class='symbol'>:keyreq</span> <span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_include?'>include?</span><span class='lparen'>(</span><span class='id identifier rubyid_type'>type</span><span class='rparen'>)</span>
+              <span class='id identifier rubyid_raise'>raise</span> <span class='const'>ArgumentError</span><span class='comma'>,</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_name'>name</span><span class='embexpr_end'>}</span><span class='tstring_content'> is not a keyword arg, but is a </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_type'>type</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span>
+            <span class='kw'>end</span>
+
+            <span class='kw'>if</span> <span class='id identifier rubyid_name'>name</span> <span class='op'>==</span> <span class='symbol'>:request_context</span>
+              <span class='id identifier rubyid_args'>args</span><span class='lbracket'>[</span><span class='id identifier rubyid_name'>name</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../../Brut.html" title="Brut (module)">Brut</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../FrontEnd.html" title="Brut::FrontEnd (module)">FrontEnd</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../FrontEnd/RequestContext.html" title="Brut::FrontEnd::RequestContext (class)">RequestContext</a></span></span><span class='period'>.</span><span class='id identifier rubyid_current'><span class='object_link'><a href="../FrontEnd/RequestContext.html#current-class_method" title="Brut::FrontEnd::RequestContext.current (method)">current</a></span></span>
+            <span class='kw'>elsif</span> <span class='id identifier rubyid_name'>name</span> <span class='op'>==</span> <span class='symbol'>:session</span>
+              <span class='id identifier rubyid_args'>args</span><span class='lbracket'>[</span><span class='id identifier rubyid_name'>name</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../../Brut.html" title="Brut (module)">Brut</a></span></span><span class='period'>.</span><span class='id identifier rubyid_container'><span class='object_link'><a href="../../Brut.html#container-class_method" title="Brut.container (method)">container</a></span></span><span class='period'>.</span><span class='id identifier rubyid_session_class'>session_class</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='label'>rack_session:</span> <span class='id identifier rubyid_session'>session</span><span class='rparen'>)</span>
+            <span class='kw'>elsif</span> <span class='id identifier rubyid_name'>name</span> <span class='op'>==</span> <span class='symbol'>:request</span>
+              <span class='id identifier rubyid_args'>args</span><span class='lbracket'>[</span><span class='id identifier rubyid_name'>name</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='id identifier rubyid_request'>request</span>
+            <span class='kw'>elsif</span> <span class='id identifier rubyid_name'>name</span> <span class='op'>==</span> <span class='symbol'>:response</span>
+              <span class='id identifier rubyid_args'>args</span><span class='lbracket'>[</span><span class='id identifier rubyid_name'>name</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='id identifier rubyid_response'>response</span>
+            <span class='kw'>elsif</span> <span class='id identifier rubyid_name'>name</span> <span class='op'>==</span> <span class='symbol'>:env</span>
+              <span class='id identifier rubyid_args'>args</span><span class='lbracket'>[</span><span class='id identifier rubyid_name'>name</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='id identifier rubyid_env'>env</span>
+            <span class='kw'>elsif</span> <span class='id identifier rubyid_type'>type</span> <span class='op'>==</span> <span class='symbol'>:keyreq</span>
+              <span class='id identifier rubyid_raise'>raise</span> <span class='const'>ArgumentError</span><span class='comma'>,</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_method'>method</span><span class='embexpr_end'>}</span><span class='tstring_content'> argument &#39;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_name'>name</span><span class='embexpr_end'>}</span><span class='tstring_content'>&#39; is required, but it&#39;s not available in a </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_method'>method</span><span class='embexpr_end'>}</span><span class='tstring_content'> hook</span><span class='tstring_end'>&quot;</span></span>
+            <span class='kw'>else</span>
+              <span class='comment'># this keyword arg has a default value which will be used
+</span>            <span class='kw'>end</span>
+          <span class='kw'>end</span>
+
+          <span class='id identifier rubyid_hook'>hook</span> <span class='op'>=</span> <span class='id identifier rubyid_klass'>klass</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span>
+          <span class='id identifier rubyid_span'>span</span><span class='period'>.</span><span class='id identifier rubyid_add_prefixed_attributes'>add_prefixed_attributes</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_method'>method</span><span class='embexpr_end'>}</span><span class='tstring_content'>.args</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span><span class='id identifier rubyid_args'>args</span><span class='period'>.</span><span class='id identifier rubyid_map'>map</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_k'>k</span><span class='comma'>,</span><span class='id identifier rubyid_v'>v</span><span class='op'>|</span> <span class='lbracket'>[</span> <span class='id identifier rubyid_k'>k</span><span class='comma'>,</span><span class='id identifier rubyid_v'>v</span><span class='period'>.</span><span class='id identifier rubyid_class'>class</span><span class='rbracket'>]</span> <span class='rbrace'>}</span><span class='period'>.</span><span class='id identifier rubyid_to_h'>to_h</span> <span class='rparen'>)</span>
+          <span class='id identifier rubyid_result'>result</span> <span class='op'>=</span> <span class='id identifier rubyid_hook'>hook</span><span class='period'>.</span><span class='id identifier rubyid_send'>send</span><span class='lparen'>(</span><span class='id identifier rubyid_method'>method</span><span class='comma'>,</span><span class='op'>**</span><span class='id identifier rubyid_args'>args</span><span class='rparen'>)</span>
+          <span class='id identifier rubyid_span'>span</span><span class='period'>.</span><span class='id identifier rubyid_add_prefixed_attributes'>add_prefixed_attributes</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>brut</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>result_class:</span> <span class='id identifier rubyid_result'>result</span><span class='period'>.</span><span class='id identifier rubyid_class'>class</span><span class='rparen'>)</span>
+          <span class='kw'>case</span> <span class='id identifier rubyid_result'>result</span>
+          <span class='kw'>in</span> <span class='const'>URI</span> <span class='op'>=&gt;</span> <span class='id identifier rubyid_uri'>uri</span>
+            <span class='id identifier rubyid_redirect'>redirect</span> <span class='id identifier rubyid_to'>to</span><span class='lparen'>(</span><span class='id identifier rubyid_uri'>uri</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span><span class='rparen'>)</span>
+          <span class='kw'>in</span> <span class='const'><span class='object_link'><a href="../../Brut.html" title="Brut (module)">Brut</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../FrontEnd.html" title="Brut::FrontEnd (module)">FrontEnd</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../FrontEnd/HttpStatus.html" title="Brut::FrontEnd::HttpStatus (class)">HttpStatus</a></span></span> <span class='op'>=&gt;</span> <span class='id identifier rubyid_http_status'>http_status</span>
+            <span class='id identifier rubyid_halt'>halt</span> <span class='id identifier rubyid_http_status'>http_status</span><span class='period'>.</span><span class='id identifier rubyid_to_i'>to_i</span>
+          <span class='kw'>in</span> <span class='const'>FalseClass</span>
+            <span class='id identifier rubyid_halt'>halt</span> <span class='int'>500</span>
+          <span class='kw'>in</span> <span class='const'>NilClass</span>
+            <span class='kw'>nil</span>
+          <span class='kw'>in</span> <span class='const'>TrueClass</span>
+            <span class='kw'>nil</span>
+          <span class='kw'>else</span>
+            <span class='id identifier rubyid_raise'>raise</span> <span class='const'>NoMatchingPatternError</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Result from </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_method'>method</span><span class='embexpr_end'>}</span><span class='tstring_content'> hook </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_klass'>klass</span><span class='embexpr_end'>}</span><span class='tstring_content'>&#39;s </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_method'>method</span><span class='embexpr_end'>}</span><span class='tstring_content'> method was a </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_result'>result</span><span class='period'>.</span><span class='id identifier rubyid_class'>class</span><span class='embexpr_end'>}</span><span class='tstring_content'> (</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_result'>result</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span><span class='embexpr_end'>}</span><span class='tstring_content'> as a string), which cannot be used to understand the response to generate. Return nil or true if processing should proceed</span><span class='tstring_end'>&quot;</span></span>
+          <span class='kw'>end</span>
+        <span class='kw'>end</span>
+      <span class='kw'>end</span>
+    <span class='kw'>end</span>
+  <span class='kw'>end</span>
+  <span class='ivar'>@app</span><span class='period'>.</span><span class='id identifier rubyid_class'>class</span><span class='period'>.</span><span class='id identifier rubyid_routes'>routes</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_route_block'>route_block</span><span class='op'>|</span>
+    <span class='ivar'>@sinatra_app</span><span class='period'>.</span><span class='id identifier rubyid_instance_eval'>instance_eval</span><span class='lparen'>(</span><span class='op'>&amp;</span><span class='id identifier rubyid_route_block'>route_block</span><span class='rparen'>)</span>
+  <span class='kw'>end</span>
+
+  <span class='ivar'>@booted</span> <span class='op'>=</span> <span class='kw'>true</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+  </div>
+
+</div>
+
+      <div id="footer">
+  Generated on Wed Jun 25 22:57:20 2025 by
+  <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
+  0.9.37 (ruby-3.4.4).
+</div>
+
+    </div>
+  </body>
+</html>

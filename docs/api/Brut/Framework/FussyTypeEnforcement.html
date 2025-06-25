@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>
+  Module: Brut::Framework::FussyTypeEnforcement
+  
+    &mdash; Documentation by YARD 0.9.37
+  
+</title>
+
+  <link rel="stylesheet" href="../../css/style.css" type="text/css" />
+
+  <link rel="stylesheet" href="../../css/common.css" type="text/css" />
+
+<script type="text/javascript">
+  pathId = "Brut::Framework::FussyTypeEnforcement";
+  relpath = '../../';
+</script>
+
+
+  <script type="text/javascript" charset="utf-8" src="../../js/jquery.js"></script>
+
+  <script type="text/javascript" charset="utf-8" src="../../js/app.js"></script>
+
+
+  </head>
+  <body>
+    <div class="nav_wrap">
+      <iframe id="nav" src="../../class_list.html?1"></iframe>
+      <div id="resizer"></div>
+    </div>
+
+    <div id="main" tabindex="-1">
+      <div id="header">
+        <div id="menu">
+  
+    <a href="../../_index.html">Index (F)</a> &raquo;
+    <span class='title'><span class='object_link'><a href="../../Brut.html" title="Brut (module)">Brut</a></span></span> &raquo; <span class='title'><span class='object_link'><a href="../Framework.html" title="Brut::Framework (module)">Framework</a></span></span>
+     &raquo; 
+    <span class="title">FussyTypeEnforcement</span>
+  
+</div>
+
+        <div id="search">
+  
+    <a class="full_list_link" id="class_list_link"
+        href="../../class_list.html">
+
+        <svg width="24" height="24">
+          <rect x="0" y="4" width="24" height="4" rx="1" ry="1"></rect>
+          <rect x="0" y="12" width="24" height="4" rx="1" ry="1"></rect>
+          <rect x="0" y="20" width="24" height="4" rx="1" ry="1"></rect>
+        </svg>
+    </a>
+  
+</div>
+        <div class="clear"></div>
+      </div>
+
+      <div id="content"><h1>Module: Brut::Framework::FussyTypeEnforcement
+  
+  
+  
+</h1>
+<div class="box_info">
+  
+
+  
+  
+  
+  
+  
+
+  
+  <dl>
+    <dt>Included in:</dt>
+    <dd><span class='object_link'><a href="../FrontEnd/Forms/InputDefinition.html" title="Brut::FrontEnd::Forms::InputDefinition (class)">Brut::FrontEnd::Forms::InputDefinition</a></span>, <span class='object_link'><a href="../FrontEnd/Forms/RadioButtonGroupInputDefinition.html" title="Brut::FrontEnd::Forms::RadioButtonGroupInputDefinition (class)">Brut::FrontEnd::Forms::RadioButtonGroupInputDefinition</a></span>, <span class='object_link'><a href="../FrontEnd/Forms/SelectInputDefinition.html" title="Brut::FrontEnd::Forms::SelectInputDefinition (class)">Brut::FrontEnd::Forms::SelectInputDefinition</a></span></dd>
+  </dl>
+  
+
+  
+  <dl>
+    <dt>Defined in:</dt>
+    <dd>lib/brut/framework/fussy_type_enforcement.rb</dd>
+  </dl>
+  
+</div>
+
+<h2>Overview</h2><div class="docstring">
+  <div class="discussion">
+    <p>Include this to enable methods to help with type checking.  Generally, you should not use this.
+You should only really use this if all of the following are true:</p>
+
+<ul>
+<li>Passing in the wrong type Would Be Bad.</li>
+<li>The developer passing it in would not easily be able to figure out what went wrong.</li>
+</ul>
+
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div>
+
+
+
+
+
+
+  
+    <h2>
+      Instance Method Summary
+      <small><a href="#" class="summary_toggle">collapse</a></small>
+    </h2>
+
+    <ul class="summary">
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#type!-instance_method" title="#type! (instance method)">#<strong>type!</strong>(value, type_descriptor, variable_name_for_error_message, required: false, coerce: false)  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>Perform basic type checking, ideally inside a constructor when assigning ivars.</p>
+</div></span>
+  
+</li>
+
+      
+    </ul>
+  
+
+
+
+  <div id="instance_method_details" class="method_details_list">
+    <h2>Instance Method Details</h2>
+
+    
+      <div class="method_details first">
+  <h3 class="signature first" id="type!-instance_method">
+  
+    #<strong>type!</strong>(value, type_descriptor, variable_name_for_error_message, required: false, coerce: false)  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>Perform basic type checking, ideally inside a constructor when assigning ivars.  This is really intended for internal
+classes that will not be exposed to user input, but rather to catch programmer bugs and programmer mis-use.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>value</span>
+      
+      
+        <span class='type'>(<tt>Object</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>the value that is to be type-checked</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>type_descriptor</span>
+      
+      
+        <span class='type'>(<tt>Class|Array&lt;Object&gt;</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>a class or an array of allowed values. If a class, <code>value</code> must be <code>kind_of?</code>
+that class. If an array, <code>value</code> must be one of the values in the array.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>variable_name_for_error_message</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>the name of the variable begin type-checked so that error messages make sense</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>required</span>
+      
+      
+        <span class='type'>(<tt>true|false</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>false</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'><p>if true, the value may not be nil. If false, nil values are allowed. Note that in this context
+a blank string counts as <code>nil</code>, so required strings may not be blank.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>coerce</span>
+      
+      
+        <span class='type'>(<tt>Symbol|false</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>false</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'><p>if set, this is the symbol that will be used to coerce the value before type checking.
+For example, if you accept a string but know it should be a number, pass in <code>:to_i</code>.</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Object</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>the value, if it matches the expectations of its type</p>
+</div>
+      
+    </li>
+  
+</ul>
+<p class="tag_title">Raises:</p>
+<ul class="raise">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>ArgumentError</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>if the value doesn't confirm to the described type</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/brut/framework/fussy_type_enforcement.rb', line 20</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_type!'>type!</span><span class='lparen'>(</span><span class='id identifier rubyid_value'>value</span><span class='comma'>,</span><span class='id identifier rubyid_type_descriptor'>type_descriptor</span><span class='comma'>,</span><span class='id identifier rubyid_variable_name_for_error_message'>variable_name_for_error_message</span><span class='comma'>,</span> <span class='label'>required:</span> <span class='kw'>false</span><span class='comma'>,</span> <span class='label'>coerce:</span> <span class='kw'>false</span><span class='rparen'>)</span>
+
+  <span class='id identifier rubyid_value_blank'>value_blank</span> <span class='op'>=</span> <span class='id identifier rubyid_value'>value</span><span class='period'>.</span><span class='id identifier rubyid_nil?'>nil?</span> <span class='op'>||</span> <span class='lparen'>(</span> <span class='id identifier rubyid_value'>value</span><span class='period'>.</span><span class='id identifier rubyid_kind_of?'>kind_of?</span><span class='lparen'>(</span><span class='const'>String</span><span class='rparen'>)</span> <span class='op'>&amp;&amp;</span> <span class='id identifier rubyid_value'>value</span><span class='period'>.</span><span class='id identifier rubyid_strip'>strip</span> <span class='op'>==</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_end'>&quot;</span></span> <span class='rparen'>)</span>
+
+  <span class='kw'>if</span> <span class='op'>!</span><span class='id identifier rubyid_required'>required</span> <span class='op'>&amp;&amp;</span> <span class='id identifier rubyid_value_blank'>value_blank</span>
+    <span class='kw'>return</span> <span class='id identifier rubyid_value'>value</span>
+  <span class='kw'>end</span>
+
+  <span class='kw'>if</span> <span class='id identifier rubyid_required'>required</span> <span class='op'>&amp;&amp;</span> <span class='id identifier rubyid_value_blank'>value_blank</span>
+    <span class='id identifier rubyid_raise'>raise</span> <span class='const'>ArgumentError</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>&#39;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_variable_name_for_error_message'>variable_name_for_error_message</span><span class='embexpr_end'>}</span><span class='tstring_content'>&#39; must have a value</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+  <span class='kw'>end</span>
+
+  <span class='kw'>if</span> <span class='id identifier rubyid_type_descriptor'>type_descriptor</span><span class='period'>.</span><span class='id identifier rubyid_kind_of?'>kind_of?</span><span class='lparen'>(</span><span class='const'>Class</span><span class='rparen'>)</span>
+    <span class='id identifier rubyid_coerced_value'>coerced_value</span> <span class='op'>=</span> <span class='id identifier rubyid_coerce'>coerce</span> <span class='op'>?</span> <span class='id identifier rubyid_value'>value</span><span class='period'>.</span><span class='id identifier rubyid_send'>send</span><span class='lparen'>(</span><span class='id identifier rubyid_coerce'>coerce</span><span class='rparen'>)</span> <span class='op'>:</span> <span class='id identifier rubyid_value'>value</span>
+    <span class='kw'>if</span> <span class='op'>!</span><span class='id identifier rubyid_coerced_value'>coerced_value</span><span class='period'>.</span><span class='id identifier rubyid_kind_of?'>kind_of?</span><span class='lparen'>(</span><span class='id identifier rubyid_type_descriptor'>type_descriptor</span><span class='rparen'>)</span>
+      <span class='id identifier rubyid_class_description'>class_description</span> <span class='op'>=</span> <span class='kw'>if</span> <span class='id identifier rubyid_coerce'>coerce</span>
+                            <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>but was a </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_value'>value</span><span class='period'>.</span><span class='id identifier rubyid_class'>class</span><span class='embexpr_end'>}</span><span class='tstring_content'>, coerced to a </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_coerced_value'>coerced_value</span><span class='period'>.</span><span class='id identifier rubyid_class'>class</span><span class='embexpr_end'>}</span><span class='tstring_content'> via </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_coerce'>coerce</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span>
+                          <span class='kw'>else</span>
+                            <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>but was a </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_value'>value</span><span class='period'>.</span><span class='id identifier rubyid_class'>class</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span>
+                          <span class='kw'>end</span>
+      <span class='id identifier rubyid_raise'>raise</span> <span class='const'>ArgumentError</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>&#39;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_variable_name_for_error_message'>variable_name_for_error_message</span><span class='embexpr_end'>}</span><span class='tstring_content'>&#39; must be a </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_type_descriptor'>type_descriptor</span><span class='embexpr_end'>}</span><span class='tstring_content'>, </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_class_description'>class_description</span><span class='embexpr_end'>}</span><span class='tstring_content'> (value as a string is </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_value'>value</span><span class='embexpr_end'>}</span><span class='tstring_content'>)</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+    <span class='kw'>end</span>
+    <span class='id identifier rubyid_value'>value</span> <span class='op'>=</span> <span class='id identifier rubyid_coerced_value'>coerced_value</span>
+  <span class='kw'>elsif</span> <span class='id identifier rubyid_type_descriptor'>type_descriptor</span><span class='period'>.</span><span class='id identifier rubyid_kind_of?'>kind_of?</span><span class='lparen'>(</span><span class='const'>Array</span><span class='rparen'>)</span>
+    <span class='kw'>if</span> <span class='op'>!</span><span class='id identifier rubyid_type_descriptor'>type_descriptor</span><span class='period'>.</span><span class='id identifier rubyid_include?'>include?</span><span class='lparen'>(</span><span class='id identifier rubyid_value'>value</span><span class='rparen'>)</span>
+      <span class='id identifier rubyid_description_of_values'>description_of_values</span> <span class='op'>=</span> <span class='id identifier rubyid_type_descriptor'>type_descriptor</span><span class='period'>.</span><span class='id identifier rubyid_map'>map</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_value'>value</span><span class='op'>|</span>
+        <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_value'>value</span><span class='embexpr_end'>}</span><span class='tstring_content'> (a </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_value'>value</span><span class='period'>.</span><span class='id identifier rubyid_class'>class</span><span class='embexpr_end'>}</span><span class='tstring_content'>)</span><span class='tstring_end'>&quot;</span></span>
+      <span class='rbrace'>}</span><span class='period'>.</span><span class='id identifier rubyid_join'>join</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>, </span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+      <span class='id identifier rubyid_raise'>raise</span> <span class='const'>ArgumentError</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>&#39;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_variable_name_for_error_message'>variable_name_for_error_message</span><span class='embexpr_end'>}</span><span class='tstring_content'>&#39; must be one of </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_description_of_values'>description_of_values</span><span class='embexpr_end'>}</span><span class='tstring_content'>, but was a </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_value'>value</span><span class='period'>.</span><span class='id identifier rubyid_class'>class</span><span class='embexpr_end'>}</span><span class='tstring_content'> (value as a string is </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_value'>value</span><span class='embexpr_end'>}</span><span class='tstring_content'>)</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+    <span class='kw'>end</span>
+  <span class='kw'>else</span>
+    <span class='id identifier rubyid_raise'>raise</span> <span class='const'>ArgumentError</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Use of type! with a </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_type_descriptor'>type_descriptor</span><span class='period'>.</span><span class='id identifier rubyid_class'>class</span><span class='embexpr_end'>}</span><span class='tstring_content'> (</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_type_descriptor'>type_descriptor</span><span class='embexpr_end'>}</span><span class='tstring_content'>) is not supported</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+  <span class='kw'>end</span>
+  <span class='id identifier rubyid_value'>value</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+  </div>
+
+</div>
+
+      <div id="footer">
+  Generated on Wed Jun 25 22:57:19 2025 by
+  <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
+  0.9.37 (ruby-3.4.4).
+</div>
+
+    </div>
+  </body>
+</html>

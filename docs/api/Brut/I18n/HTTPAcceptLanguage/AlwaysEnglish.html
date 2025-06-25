@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>
+  Class: Brut::I18n::HTTPAcceptLanguage::AlwaysEnglish
+  
+    &mdash; Documentation by YARD 0.9.37
+  
+</title>
+
+  <link rel="stylesheet" href="../../../css/style.css" type="text/css" />
+
+  <link rel="stylesheet" href="../../../css/common.css" type="text/css" />
+
+<script type="text/javascript">
+  pathId = "Brut::I18n::HTTPAcceptLanguage::AlwaysEnglish";
+  relpath = '../../../';
+</script>
+
+
+  <script type="text/javascript" charset="utf-8" src="../../../js/jquery.js"></script>
+
+  <script type="text/javascript" charset="utf-8" src="../../../js/app.js"></script>
+
+
+  </head>
+  <body>
+    <div class="nav_wrap">
+      <iframe id="nav" src="../../../class_list.html?1"></iframe>
+      <div id="resizer"></div>
+    </div>
+
+    <div id="main" tabindex="-1">
+      <div id="header">
+        <div id="menu">
+  
+    <a href="../../../_index.html">Index (A)</a> &raquo;
+    <span class='title'><span class='object_link'><a href="../../../Brut.html" title="Brut (module)">Brut</a></span></span> &raquo; <span class='title'><span class='object_link'><a href="../../I18n.html" title="Brut::I18n (module)">I18n</a></span></span> &raquo; <span class='title'><span class='object_link'><a href="../HTTPAcceptLanguage.html" title="Brut::I18n::HTTPAcceptLanguage (class)">HTTPAcceptLanguage</a></span></span>
+     &raquo; 
+    <span class="title">AlwaysEnglish</span>
+  
+</div>
+
+        <div id="search">
+  
+    <a class="full_list_link" id="class_list_link"
+        href="../../../class_list.html">
+
+        <svg width="24" height="24">
+          <rect x="0" y="4" width="24" height="4" rx="1" ry="1"></rect>
+          <rect x="0" y="12" width="24" height="4" rx="1" ry="1"></rect>
+          <rect x="0" y="20" width="24" height="4" rx="1" ry="1"></rect>
+        </svg>
+    </a>
+  
+</div>
+        <div class="clear"></div>
+      </div>
+
+      <div id="content"><h1>Class: Brut::I18n::HTTPAcceptLanguage::AlwaysEnglish
+  
+  
+  
+</h1>
+<div class="box_info">
+  
+  <dl>
+    <dt>Inherits:</dt>
+    <dd>
+      <span class="inheritName"><span class='object_link'><a href="../HTTPAcceptLanguage.html" title="Brut::I18n::HTTPAcceptLanguage (class)">Brut::I18n::HTTPAcceptLanguage</a></span></span>
+      
+        <ul class="fullTree">
+          <li>Object</li>
+          
+            <li class="next"><span class='object_link'><a href="../HTTPAcceptLanguage.html" title="Brut::I18n::HTTPAcceptLanguage (class)">Brut::I18n::HTTPAcceptLanguage</a></span></li>
+          
+            <li class="next">Brut::I18n::HTTPAcceptLanguage::AlwaysEnglish</li>
+          
+        </ul>
+        <a href="#" class="inheritanceTree">show all</a>
+      
+    </dd>
+  </dl>
+  
+
+  
+  
+  
+  
+  
+
+  
+
+  
+  <dl>
+    <dt>Defined in:</dt>
+    <dd>lib/brut/i18n/http_accept_language.rb</dd>
+  </dl>
+  
+</div>
+
+<h2>Overview</h2><div class="docstring">
+  <div class="discussion">
+    <p>A subclass that represents the use of English and only English.  This is
+used when attempts to determine the locale fail.  Instances of this class
+are considered "unknown" (<span class='object_link'><a href="#known%3F-instance_method" title="Brut::I18n::HTTPAcceptLanguage::AlwaysEnglish#known? (method)">#known?</a></span> returns false), which allows Brut
+to replace this with a known value later on.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div>
+
+
+  <h2>Constant Summary</h2>
+  
+  <h3 class="inherited">Constants inherited
+     from <span class='object_link'><a href="../HTTPAcceptLanguage.html" title="Brut::I18n::HTTPAcceptLanguage (class)">Brut::I18n::HTTPAcceptLanguage</a></span></h3>
+  <p class="inherited"><span class='object_link'><a href="../HTTPAcceptLanguage.html#WeightedLocale-constant" title="Brut::I18n::HTTPAcceptLanguage::WeightedLocale (constant)">WeightedLocale</a></span></p>
+
+
+
+
+  <h2>Instance Attribute Summary</h2>
+  
+  <h3 class="inherited">Attributes inherited from <span class='object_link'><a href="../HTTPAcceptLanguage.html" title="Brut::I18n::HTTPAcceptLanguage (class)">Brut::I18n::HTTPAcceptLanguage</a></span></h3>
+  <p class="inherited"><span class='object_link'><a href="../HTTPAcceptLanguage.html#weighted_locales-instance_method" title="Brut::I18n::HTTPAcceptLanguage#weighted_locales (method)">#weighted_locales</a></span></p>
+
+
+  
+    <h2>
+      Instance Method Summary
+      <small><a href="#" class="summary_toggle">collapse</a></small>
+    </h2>
+
+    <ul class="summary">
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#initialize-instance_method" title="#initialize (instance method)">#<strong>initialize</strong>  &#x21d2; AlwaysEnglish </a>
+    
+
+    
+  </span>
+  
+  
+    <span class="note title constructor">constructor</span>
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>A new instance of AlwaysEnglish.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#known%3F-instance_method" title="#known? (instance method)">#<strong>known?</strong>  &#x21d2; Boolean </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+</div></span>
+  
+</li>
+
+      
+    </ul>
+  
+
+
+  
+  
+  
+  
+  
+  
+  
+  
+  <h3 class="inherited">Methods inherited from <span class='object_link'><a href="../HTTPAcceptLanguage.html" title="Brut::I18n::HTTPAcceptLanguage (class)">Brut::I18n::HTTPAcceptLanguage</a></span></h3>
+  <p class="inherited"><span class='object_link'><a href="../HTTPAcceptLanguage.html#for_session-instance_method" title="Brut::I18n::HTTPAcceptLanguage#for_session (method)">#for_session</a></span>, <span class='object_link'><a href="../HTTPAcceptLanguage.html#from_browser-class_method" title="Brut::I18n::HTTPAcceptLanguage.from_browser (method)">from_browser</a></span>, <span class='object_link'><a href="../HTTPAcceptLanguage.html#from_header-class_method" title="Brut::I18n::HTTPAcceptLanguage.from_header (method)">from_header</a></span>, <span class='object_link'><a href="../HTTPAcceptLanguage.html#from_session-class_method" title="Brut::I18n::HTTPAcceptLanguage.from_session (method)">from_session</a></span>, <span class='object_link'><a href="../HTTPAcceptLanguage.html#to_s-instance_method" title="Brut::I18n::HTTPAcceptLanguage#to_s (method)">#to_s</a></span></p>
+<div id="constructor_details" class="method_details_list">
+  <h2>Constructor Details</h2>
+  
+    <div class="method_details first">
+  <h3 class="signature first" id="initialize-instance_method">
+  
+    #<strong>initialize</strong>  &#x21d2; <tt><span class='object_link'><a href="" title="Brut::I18n::HTTPAcceptLanguage::AlwaysEnglish (class)">AlwaysEnglish</a></span></tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>Returns a new instance of AlwaysEnglish.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+109
+110
+111</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/brut/i18n/http_accept_language.rb', line 109</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_initialize'>initialize</span>
+  <span class='kw'>super</span><span class='lparen'>(</span><span class='lbracket'>[</span> <span class='const'><span class='object_link'><a href="../HTTPAcceptLanguage.html#WeightedLocale-constant" title="Brut::I18n::HTTPAcceptLanguage::WeightedLocale (constant)">WeightedLocale</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="../HTTPAcceptLanguage.html#initialize-instance_method" title="Brut::I18n::HTTPAcceptLanguage#initialize (method)">new</a></span></span><span class='lparen'>(</span><span class='label'>locale:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>en</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>q:</span> <span class='int'>1</span><span class='rparen'>)</span> <span class='rbracket'>]</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+  
+</div>
+
+
+  <div id="instance_method_details" class="method_details_list">
+    <h2>Instance Method Details</h2>
+
+    
+      <div class="method_details first">
+  <h3 class="signature first" id="known?-instance_method">
+  
+    #<strong>known?</strong>  &#x21d2; <tt>Boolean</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Boolean</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+112</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/brut/i18n/http_accept_language.rb', line 112</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_known?'>known?</span> <span class='op'>=</span> <span class='kw'>false</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+  </div>
+
+</div>
+
+      <div id="footer">
+  Generated on Wed Jun 25 22:57:20 2025 by
+  <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
+  0.9.37 (ruby-3.4.4).
+</div>
+
+    </div>
+  </body>
+</html>

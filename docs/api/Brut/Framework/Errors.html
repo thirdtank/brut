@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>
+  Module: Brut::Framework::Errors
+  
+    &mdash; Documentation by YARD 0.9.37
+  
+</title>
+
+  <link rel="stylesheet" href="../../css/style.css" type="text/css" />
+
+  <link rel="stylesheet" href="../../css/common.css" type="text/css" />
+
+<script type="text/javascript">
+  pathId = "Brut::Framework::Errors";
+  relpath = '../../';
+</script>
+
+
+  <script type="text/javascript" charset="utf-8" src="../../js/jquery.js"></script>
+
+  <script type="text/javascript" charset="utf-8" src="../../js/app.js"></script>
+
+
+  </head>
+  <body>
+    <div class="nav_wrap">
+      <iframe id="nav" src="../../class_list.html?1"></iframe>
+      <div id="resizer"></div>
+    </div>
+
+    <div id="main" tabindex="-1">
+      <div id="header">
+        <div id="menu">
+  
+    <a href="../../_index.html">Index (E)</a> &raquo;
+    <span class='title'><span class='object_link'><a href="../../Brut.html" title="Brut (module)">Brut</a></span></span> &raquo; <span class='title'><span class='object_link'><a href="../Framework.html" title="Brut::Framework (module)">Framework</a></span></span>
+     &raquo; 
+    <span class="title">Errors</span>
+  
+</div>
+
+        <div id="search">
+  
+    <a class="full_list_link" id="class_list_link"
+        href="../../class_list.html">
+
+        <svg width="24" height="24">
+          <rect x="0" y="4" width="24" height="4" rx="1" ry="1"></rect>
+          <rect x="0" y="12" width="24" height="4" rx="1" ry="1"></rect>
+          <rect x="0" y="20" width="24" height="4" rx="1" ry="1"></rect>
+        </svg>
+    </a>
+  
+</div>
+        <div class="clear"></div>
+      </div>
+
+      <div id="content"><h1>Module: Brut::Framework::Errors
+  
+  
+  
+</h1>
+<div class="box_info">
+  
+
+  
+  
+  
+  
+  
+
+  
+  <dl>
+    <dt>Included in:</dt>
+    <dd><span class='object_link'><a href="../CLI/Command.html" title="Brut::CLI::Command (class)">CLI::Command</a></span>, <span class='object_link'><a href="App.html" title="Brut::Framework::App (class)">App</a></span>, <span class='object_link'><a href="../FrontEnd/Component.html" title="Brut::FrontEnd::Component (class)">Brut::FrontEnd::Component</a></span>, <span class='object_link'><a href="../FrontEnd/Handler.html" title="Brut::FrontEnd::Handler (class)">Brut::FrontEnd::Handler</a></span>, <span class='object_link'><a href="../FrontEnd/RouteHook.html" title="Brut::FrontEnd::RouteHook (class)">Brut::FrontEnd::RouteHook</a></span></dd>
+  </dl>
+  
+
+  
+  <dl>
+    <dt>Defined in:</dt>
+    <dd>lib/brut/framework/errors.rb</dd>
+  </dl>
+  
+</div>
+
+<h2>Overview</h2><div class="docstring">
+  <div class="discussion">
+    <p>Namespace for Brut-specific error classes, and a holder of several error-related convienience
+methods.  Include this module to gain access to those methods.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><h2>Defined Under Namespace</h2>
+<p class="children">
+  
+    
+  
+    
+      <strong class="classes">Classes:</strong> <span class='object_link'><a href="Errors/AbstractMethod.html" title="Brut::Framework::Errors::AbstractMethod (class)">AbstractMethod</a></span>, <span class='object_link'><a href="Errors/Bug.html" title="Brut::Framework::Errors::Bug (class)">Bug</a></span>, <span class='object_link'><a href="Errors/MissingConfiguration.html" title="Brut::Framework::Errors::MissingConfiguration (class)">MissingConfiguration</a></span>, <span class='object_link'><a href="Errors/MissingParameter.html" title="Brut::Framework::Errors::MissingParameter (class)">MissingParameter</a></span>, <span class='object_link'><a href="Errors/NoClassForPath.html" title="Brut::Framework::Errors::NoClassForPath (class)">NoClassForPath</a></span>, <span class='object_link'><a href="Errors/NotFound.html" title="Brut::Framework::Errors::NotFound (class)">NotFound</a></span>, <span class='object_link'><a href="Errors/NotImplemented.html" title="Brut::Framework::Errors::NotImplemented (class)">NotImplemented</a></span>
+    
+  
+</p>
+
+
+
+
+
+
+
+  
+    <h2>
+      Instance Method Summary
+      <small><a href="#" class="summary_toggle">collapse</a></small>
+    </h2>
+
+    <ul class="summary">
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#abstract_method!-instance_method" title="#abstract_method! (instance method)">#<strong>abstract_method!</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>Raises <span class='object_link'><a href="Errors/AbstractMethod.html" title="Brut::Framework::Errors::AbstractMethod (class)">AbstractMethod</a></span>, which is useful if you need to document a method that a subclass must implement, but for which there is no useful default implementation.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#bug!-instance_method" title="#bug! (instance method)">#<strong>bug!</strong>(message = nil)  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>Raises <span class='object_link'><a href="Errors/Bug.html" title="Brut::Framework::Errors::Bug (class)">Bug</a></span>, used to indicate a codepath is a bug.</p>
+</div></span>
+  
+</li>
+
+      
+    </ul>
+  
+
+
+
+  <div id="instance_method_details" class="method_details_list">
+    <h2>Instance Method Details</h2>
+
+    
+      <div class="method_details first">
+  <h3 class="signature first" id="abstract_method!-instance_method">
+  
+    #<strong>abstract_method!</strong>  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>Raises <span class='object_link'><a href="Errors/AbstractMethod.html" title="Brut::Framework::Errors::AbstractMethod (class)">AbstractMethod</a></span>, which is useful if you need to document
+a method that a subclass must implement, but for which there is no useful default
+implementation.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Raises:</p>
+<ul class="raise">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="Errors/AbstractMethod.html" title="Brut::Framework::Errors::AbstractMethod (class)">Brut::Framework::Errors::AbstractMethod</a></span></tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+31
+32
+33</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/brut/framework/errors.rb', line 31</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_abstract_method!'>abstract_method!</span>
+  <span class='id identifier rubyid_raise'>raise</span> <span class='const'><span class='object_link'><a href="../../Brut.html" title="Brut (module)">Brut</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../Framework.html" title="Brut::Framework (module)">Framework</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="" title="Brut::Framework::Errors (module)">Errors</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Errors/AbstractMethod.html" title="Brut::Framework::Errors::AbstractMethod (class)">AbstractMethod</a></span></span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="bug!-instance_method">
+  
+    #<strong>bug!</strong>(message = nil)  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>Raises <span class='object_link'><a href="Errors/Bug.html" title="Brut::Framework::Errors::Bug (class)">Bug</a></span>, used to indicate a codepath is a bug.  "But, why write a
+bug in the first place?" you may be asking.  Sometimes, a code path exists, but external factors
+mean that it should never be executed.  Or, sometimes an API can be mis-used, but the current
+state of the system is such that it would never be misused.</p>
+
+<p>This method allows you to indicate such situations and provide a meaningful explanation.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>message</span>
+      
+      
+        <span class='type'></span>
+      
+      
+        <em class="default">(defaults to: <tt>nil</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'><p>Message to include in the error</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+<p class="tag_title">Raises:</p>
+<ul class="raise">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="Errors/Bug.html" title="Brut::Framework::Errors::Bug (class)">Brut::Framework::Errors::Bug</a></span></tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+22
+23
+24</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/brut/framework/errors.rb', line 22</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_bug!'>bug!</span><span class='lparen'>(</span><span class='id identifier rubyid_message'>message</span><span class='op'>=</span><span class='kw'>nil</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_raise'>raise</span> <span class='const'><span class='object_link'><a href="../../Brut.html" title="Brut (module)">Brut</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../Framework.html" title="Brut::Framework (module)">Framework</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="" title="Brut::Framework::Errors (module)">Errors</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Errors/Bug.html" title="Brut::Framework::Errors::Bug (class)">Bug</a></span></span><span class='comma'>,</span><span class='id identifier rubyid_message'>message</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+  </div>
+
+</div>
+
+      <div id="footer">
+  Generated on Wed Jun 25 22:57:19 2025 by
+  <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
+  0.9.37 (ruby-3.4.4).
+</div>
+
+    </div>
+  </body>
+</html>

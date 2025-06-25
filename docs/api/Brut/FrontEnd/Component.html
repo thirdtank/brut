@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>
+  Class: Brut::FrontEnd::Component
+  
+    &mdash; Documentation by YARD 0.9.37
+  
+</title>
+
+  <link rel="stylesheet" href="../../css/style.css" type="text/css" />
+
+  <link rel="stylesheet" href="../../css/common.css" type="text/css" />
+
+<script type="text/javascript">
+  pathId = "Brut::FrontEnd::Component";
+  relpath = '../../';
+</script>
+
+
+  <script type="text/javascript" charset="utf-8" src="../../js/jquery.js"></script>
+
+  <script type="text/javascript" charset="utf-8" src="../../js/app.js"></script>
+
+
+  </head>
+  <body>
+    <div class="nav_wrap">
+      <iframe id="nav" src="../../class_list.html?1"></iframe>
+      <div id="resizer"></div>
+    </div>
+
+    <div id="main" tabindex="-1">
+      <div id="header">
+        <div id="menu">
+  
+    <a href="../../_index.html">Index (C)</a> &raquo;
+    <span class='title'><span class='object_link'><a href="../../Brut.html" title="Brut (module)">Brut</a></span></span> &raquo; <span class='title'><span class='object_link'><a href="../FrontEnd.html" title="Brut::FrontEnd (module)">FrontEnd</a></span></span>
+     &raquo; 
+    <span class="title">Component</span>
+  
+</div>
+
+        <div id="search">
+  
+    <a class="full_list_link" id="class_list_link"
+        href="../../class_list.html">
+
+        <svg width="24" height="24">
+          <rect x="0" y="4" width="24" height="4" rx="1" ry="1"></rect>
+          <rect x="0" y="12" width="24" height="4" rx="1" ry="1"></rect>
+          <rect x="0" y="20" width="24" height="4" rx="1" ry="1"></rect>
+        </svg>
+    </a>
+  
+</div>
+        <div class="clear"></div>
+      </div>
+
+      <div id="content"><h1>Class: Brut::FrontEnd::Component
+  
+  
+  
+</h1>
+<div class="box_info">
+  
+  <dl>
+    <dt>Inherits:</dt>
+    <dd>
+      <span class="inheritName">Phlex::HTML</span>
+      
+        <ul class="fullTree">
+          <li>Object</li>
+          
+            <li class="next">Phlex::HTML</li>
+          
+            <li class="next">Brut::FrontEnd::Component</li>
+          
+        </ul>
+        <a href="#" class="inheritanceTree">show all</a>
+      
+    </dd>
+  </dl>
+  
+
+  
+  
+  
+  
+  <dl>
+      <dt>Includes:</dt>
+      <dd><span class='object_link'><a href="../Framework/Errors.html" title="Brut::Framework::Errors (module)">Brut::Framework::Errors</a></span>, <span class='object_link'><a href="Component/Helpers.html" title="Brut::FrontEnd::Component::Helpers (module)">Helpers</a></span>, <span class='object_link'><a href="../I18n/ForHTML.html" title="Brut::I18n::ForHTML (module)">I18n::ForHTML</a></span></dd>
+  </dl>
+  
+  
+
+  
+
+  
+  <dl>
+    <dt>Defined in:</dt>
+    <dd>lib/brut/front_end/component.rb</dd>
+  </dl>
+  
+</div>
+
+<h2>Overview</h2><div class="docstring">
+  <div class="discussion">
+    <p>A Component is the top level class for managing the rendering of
+content.  It is a Phlex component with additional features.
+Components are the primary mechanism for managing view complexity and managing
+markup re-use in Brut.</p>
+
+<p>To create a component, subclass this class (or, more likely, your app's <code>AppComponent</code>) and
+provide an initializer that accepts keyword arguments.  The names of these arguments will be used to locate the
+values that Brut will pass in when creating your component object.</p>
+
+<p>Consult Brut's documentation on keyword injection to know what values you may use and how values are located.</p>
+
+<p>Becuase this is a Phlex component, you must implement <code>view_template</code> and make calls to Phlex's API to create
+the markup for your component.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><div id="subclasses">
+  <h2>Direct Known Subclasses</h2>
+  <p class="children"><span class='object_link'><a href="Components/ConstraintViolations.html" title="Brut::FrontEnd::Components::ConstraintViolations (class)">Brut::FrontEnd::Components::ConstraintViolations</a></span>, <span class='object_link'><a href="Components/FormTag.html" title="Brut::FrontEnd::Components::FormTag (class)">Brut::FrontEnd::Components::FormTag</a></span>, <span class='object_link'><a href="Components/I18nTranslations.html" title="Brut::FrontEnd::Components::I18nTranslations (class)">Brut::FrontEnd::Components::I18nTranslations</a></span>, <span class='object_link'><a href="Components/Input.html" title="Brut::FrontEnd::Components::Input (class)">Brut::FrontEnd::Components::Input</a></span>, <span class='object_link'><a href="Components/LocaleDetection.html" title="Brut::FrontEnd::Components::LocaleDetection (class)">Brut::FrontEnd::Components::LocaleDetection</a></span>, <span class='object_link'><a href="Components/PageIdentifier.html" title="Brut::FrontEnd::Components::PageIdentifier (class)">Brut::FrontEnd::Components::PageIdentifier</a></span>, <span class='object_link'><a href="Components/TimeTag.html" title="Brut::FrontEnd::Components::TimeTag (class)">Brut::FrontEnd::Components::TimeTag</a></span>, <span class='object_link'><a href="Components/Traceparent.html" title="Brut::FrontEnd::Components::Traceparent (class)">Brut::FrontEnd::Components::Traceparent</a></span>, <span class='object_link'><a href="Layout.html" title="Brut::FrontEnd::Layout (class)">Layout</a></span>, <span class='object_link'><a href="Page.html" title="Brut::FrontEnd::Page (class)">Page</a></span></p>
+</div>
+<h2>Defined Under Namespace</h2>
+<p class="children">
+  
+    
+      <strong class="modules">Modules:</strong> <span class='object_link'><a href="Component/Helpers.html" title="Brut::FrontEnd::Component::Helpers (module)">Helpers</a></span>
+    
+  
+    
+  
+</p>
+
+
+
+
+
+
+
+  
+    <h2>
+      Class Method Summary
+      <small><a href="#" class="summary_toggle">collapse</a></small>
+    </h2>
+
+    <ul class="summary">
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#component_name-class_method" title="component_name (class method)">.<strong>component_name</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>The name of this component, used for debugging and other purposes.</p>
+</div></span>
+  
+</li>
+
+      
+    </ul>
+  
+    <h2>
+      Instance Method Summary
+      <small><a href="#" class="summary_toggle">collapse</a></small>
+    </h2>
+
+    <ul class="summary">
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#component_name-instance_method" title="#component_name (instance method)">#<strong>component_name</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>Convenience method to get the component name.</p>
+</div></span>
+  
+</li>
+
+      
+    </ul>
+  
+
+
+  
+  
+  
+  
+  
+  
+  
+  
+  <h3 class="inherited">Methods included from <span class='object_link'><a href="Component/Helpers.html" title="Brut::FrontEnd::Component::Helpers (module)">Helpers</a></span></h3>
+  <p class="inherited"><span class='object_link'><a href="Component/Helpers.html#global_component-instance_method" title="Brut::FrontEnd::Component::Helpers#global_component (method)">#global_component</a></span>, <span class='object_link'><a href="Component/Helpers.html#inline_svg-instance_method" title="Brut::FrontEnd::Component::Helpers#inline_svg (method)">#inline_svg</a></span></p>
+
+  
+  
+  
+  
+  
+  
+  
+  
+  <h3 class="inherited">Methods included from <span class='object_link'><a href="../I18n/ForHTML.html" title="Brut::I18n::ForHTML (module)">I18n::ForHTML</a></span></h3>
+  <p class="inherited"><span class='object_link'><a href="../I18n/ForHTML.html#html_escape-instance_method" title="Brut::I18n::ForHTML#html_escape (method)">#html_escape</a></span>, <span class='object_link'><a href="../I18n/ForHTML.html#t-instance_method" title="Brut::I18n::ForHTML#t (method)">#t</a></span></p>
+
+  
+  
+  
+  
+  
+  
+  
+  
+  <h3 class="inherited">Methods included from <span class='object_link'><a href="../I18n/BaseMethods.html" title="Brut::I18n::BaseMethods (module)">I18n::BaseMethods</a></span></h3>
+  <p class="inherited"><span class='object_link'><a href="../I18n/BaseMethods.html#l-instance_method" title="Brut::I18n::BaseMethods#l (method)">#l</a></span>, <span class='object_link'><a href="../I18n/BaseMethods.html#t-instance_method" title="Brut::I18n::BaseMethods#t (method)">#t</a></span>, <span class='object_link'><a href="../I18n/BaseMethods.html#t_direct-instance_method" title="Brut::I18n::BaseMethods#t_direct (method)">#t_direct</a></span>, <span class='object_link'><a href="../I18n/BaseMethods.html#this_field_value-instance_method" title="Brut::I18n::BaseMethods#this_field_value (method)">#this_field_value</a></span></p>
+
+  
+  
+  
+  
+  
+  
+  
+  
+  <h3 class="inherited">Methods included from <span class='object_link'><a href="../Framework/Errors.html" title="Brut::Framework::Errors (module)">Brut::Framework::Errors</a></span></h3>
+  <p class="inherited"><span class='object_link'><a href="../Framework/Errors.html#abstract_method!-instance_method" title="Brut::Framework::Errors#abstract_method! (method)">#abstract_method!</a></span>, <span class='object_link'><a href="../Framework/Errors.html#bug!-instance_method" title="Brut::Framework::Errors#bug! (method)">#bug!</a></span></p>
+
+  
+
+  <div id="class_method_details" class="method_details_list">
+    <h2>Class Method Details</h2>
+
+    
+      <div class="method_details first">
+  <h3 class="signature first" id="component_name-class_method">
+  
+    .<strong>component_name</strong>  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>The name of this component, used for debugging and other purposes. Do not
+override this.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+91
+92
+93</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/brut/front_end/component.rb', line 91</span>
+
+<span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_component_name'>component_name</span> <span class='op'>=</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_name'>name</span>
+<span class='comment'># Convenience method to get the component name. This just calls the class
+</span><span class='comment'># method {.component_name}.</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+  </div>
+
+  <div id="instance_method_details" class="method_details_list">
+    <h2>Instance Method Details</h2>
+
+    
+      <div class="method_details first">
+  <h3 class="signature first" id="component_name-instance_method">
+  
+    #<strong>component_name</strong>  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>Convenience method to get the component name. This just calls the class
+method <span class='object_link'><a href="#component_name-class_method" title="Brut::FrontEnd::Component.component_name (method)">component_name</a></span>.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+94</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/brut/front_end/component.rb', line 94</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_component_name'>component_name</span> <span class='op'>=</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_class'>class</span><span class='period'>.</span><span class='id identifier rubyid_component_name'>component_name</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+  </div>
+
+</div>
+
+      <div id="footer">
+  Generated on Wed Jun 25 22:57:20 2025 by
+  <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
+  0.9.37 (ruby-3.4.4).
+</div>
+
+    </div>
+  </body>
+</html>
