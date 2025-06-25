@@ -12,29 +12,29 @@
     <% } %>
     <% if (category.seeLinks.length > 0) { %>
       <h3 class="f-2 b">See Also</h3>
-      <ul>
+      <ul class="see-also">
         <% category.seeLinks.forEach( (link) => { %>
           <li><%- link %></li>
         <% }) %>
       </ul>
     <% } %>
     <% category.scales.forEach( (scale) => { %>
-      <h3 class="f-4 mt-4" id="<%= scale.ref %>"><%= scale.title %></h3>
+      <h3 class="f-5 mt-4" id="<%= scale.ref %>"><%= scale.title %></h3>
       <p class="p">
         <%- scale.descriptionHTML %>
       </p>
       <% if (scale.seeLinks.length > 0) { %>
         <h4 class="f-2 b">See Also</h3>
-        <ul>
+        <ul class="see-also">
           <% scale.seeLinks.forEach( (link) => { %>
             <li><%- link %></li>
           <% }) %>
         </ul>
       <% } %>
       <% scale.rules.forEach( (rule) => { %>
-        <div class="mt-4 flex gap-3 items-center" id="<%= rule.ref %>">
-          <h4 class="f-3 fw-3"><code><%= rule.selector %></code></h4>
-          <pre class="highlighted-code"><%- rule.highlightedCode %></pre>
+        <div class="mt-4 flex gap-3 items-center justify-between" id="<%= rule.ref %>">
+          <h4 class="f-4 fw-3 ws-nowrap"><code><%= rule.selector %></code></h4>
+          <pre class="f-3 highlighted-code"><%- rule.highlightedCode %></pre>
         </div>
         <div class="ml-3">
         <p class="p">
@@ -42,7 +42,7 @@
         </p>
         <% if (rule.seeLinks.length > 0) { %>
           <h5 class="f-1 b">See Also</h3>
-          <ul>
+          <ul class="see-also">
             <% rule.seeLinks.forEach( (link) => { %>
               <li><%- link %></li>
             <% }) %>
@@ -72,12 +72,12 @@
       <% }) %>
     <% }) %>
   </article>
-  <div class="ma-0 overflow-y-auto pa-2 w-20 h-100 pos-absolute top-0 right-2">
-    <div class="pa-3 ba bc-gray-700 bg-gray-900 br-3 inset-shadow-1">
+  <div class="z-5 ma-0 overflow-y-auto pa-2 w-20 h-100 pos-absolute top-0 right-2">
+    <div class="pa-3 ba bc-gray-700 bg-gray-900 br-3 shadow-1 ridiculous-liquid-glass-is-all-the-rage">
       <h3>On this Page</h3>
       <ul class="lst-none ma-0 pa-0">
       <% category.scales.forEach( (scale) => { %>
-        <li><a href="#<%= scale.ref %>"><%= scale.title %></a></li>
+        <li class="lh-copy"><a href="#<%= scale.ref %>"><%= scale.title %></a></li>
       <% }) %>
       </ul>
     </div>

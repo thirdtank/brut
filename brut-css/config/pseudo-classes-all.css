@@ -1,4 +1,4 @@
-@brut-pseudo(hover hover) {
+@brut-pseudo(hover hover true) {
   @brut-classes-with-prefix(bg-);
   @brut-class(tdu);
   @brut-colors;

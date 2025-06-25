@@ -1,7 +1,8 @@
 h1, h2, h3, h4, h5, h6 {
   margin: 0;
 }
-p:not([class]) {
+p:not([class]),
+li:not([class]) {
   max-width: var(--tw);
   color: var(--gray-400);
 }
@@ -66,6 +67,7 @@ pre.highlighted-code {
   pre.highlighted-code {
     border-bottom-left-radius: 0;
     border-bottom-right-radius: 0;
+    background-color: var(--green-200);
   }
   .example-demonstration {
     padding: var(--sp-2);
@@ -73,8 +75,20 @@ pre.highlighted-code {
     border-bottom-right-radius: var(--bw-3);
     border: solid thin var(--black);
     background-color: var(--gray-800);
-
+    .class-being-demonstrated {
+      color: var(--white);
+      font-weight: 600;
+    }
   }
 }
 
+.see-also p {
+  margin: 0;
+  line-height: var(--lh-copy);
+}
 
+
+.ridiculous-liquid-glass-is-all-the-rage {
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(3px);
+}
