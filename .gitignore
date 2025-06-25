@@ -6,7 +6,7 @@
 # should never be checked in
 /dx/credentials
 
-# Holds metadat during YARD builds. Don't need this checked in
+# Holds metadata during YARD builds. Don't need this checked in
 /.yardoc
 # Location of YARD templates, this is temporary
 /.yard
@@ -17,10 +17,19 @@
 # This is where generated API docs go
 /brutrb.com/public/api
 /brutrb.com/public/brut-js/api
+/brutrb.com/public/brut-css
+# This is a cache which is not to be checked in
 /brutrb.com/.vitepress/cache
+
+# lots of node_modules to avoid
 /brutrb.com/node_modules
 /brut-js/node_modules
 /brut-js/docs/node_modules
-/brut-js/specs/public/js
 /brut-css/node_modules
-/brut-css/generated-docs
+
+# This is where the bundle is built during testing for BuildJS
+/brut-js/specs/public/js
+# This is a staging area for the distributions of the .css files
+/brut-css/dist
+# This is where the CSS lives temporarily while docs are being built
+/brut-css/src/docs/brut.css

@@ -1,4 +1,5 @@
 import postcss from "postcss"
+import Logger  from "../Logger.js"
 
 const generateRootCustomPropertiesPlugin = () => {
   return {
@@ -23,7 +24,7 @@ const generateRootCustomPropertiesPlugin = () => {
           rootVars.push(decl)
         }
         else {
-          console.warn(`No initial-value found for @property ${name}`)
+          Logger.warn(`No initial-value found for @property ${name}`)
         }
 
       })

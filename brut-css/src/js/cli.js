@@ -5,6 +5,8 @@ import PseudoClassConfigFile from "./cli/PseudoClassConfigFile.js"
 import OutputFile            from "./cli/OutputFile.js"
 import DocsDir               from "./cli/DocsDir.js"
 import DocsTemplateSourceDir from "./cli/DocsTemplateSourceDir.js"
+import PathToBrutCSSRoot     from "./cli/PathToBrutCSSRoot.js"
+import Debug                 from "./cli/Debug.js"
 
 const cliArgs = [
   InputFile,
@@ -13,6 +15,8 @@ const cliArgs = [
   OutputFile,
   DocsDir,
   DocsTemplateSourceDir,
+  PathToBrutCSSRoot,
+  Debug,
 ]
 
 const parseArgsOptions = Object.fromEntries(cliArgs.map( (argClass) => argClass.toParseArgsOption() ))

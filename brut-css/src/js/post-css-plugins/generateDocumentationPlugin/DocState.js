@@ -57,7 +57,6 @@ class DocState {
 
   set insideRules(value) {
     if (value && this.insideProperties) {
-      console.log("inside rules now")
       this.insideProperties = false
     }
     this.insideRulesSection = value
@@ -95,7 +94,6 @@ class DocState {
   newScale(parsedComment) {
     if (this.insideProperties || this.insideRules) {
       if (!this.currentCategory) {
-        console.log(parsedComment)
         throw this.root.error(`Something is wrong - no current category: ${parsedComment}`)
       }
       const groupAttributes = {

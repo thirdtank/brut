@@ -3,7 +3,7 @@
   <ul class="pl-3">
   <% navSection.items.forEach( ({page}) => { %>
       <li>
-        <a class="black-ish tdu tdn-ns hover-tdu-ns" href="/<%= page.uri %>"><%= page.title.toString() %></a>
+        <a class="black-ish tdu tdn-ns hover-tdu-ns" href="<%= pathToBrutCSSRoot %>/<%= page.uri %>"><%= page.title.toString() %></a>
       </li>
   <% }) %>
   </ul>

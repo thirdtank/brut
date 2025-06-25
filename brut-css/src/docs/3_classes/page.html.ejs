@@ -1,12 +1,12 @@
 <!doctype html>
 <html class="ma-0 pa-0 h-100" lang="en">
   <%- include("../includes/head.html.ejs") %>
-  <%- include("../includes/body-and-header.html.ejs", { nav: nav }) %>
+  <%- include("../includes/body-and-header.html.ejs") %>
   <article>
     <h2 class="}-5"><%= category.title %> Classes</h2>
     <% if ( typeof(colorsCategory) != "undefined" ) { %>
       <%- category.descriptionHTML %>
-      <%- include("color-demo.html.ejs", { colorsCategory: colorsCategory }) %>
+      <%- include("color-demo.html.ejs") %>
     <% } else { %>
       <%- category.descriptionHTML %>
     <% } %>

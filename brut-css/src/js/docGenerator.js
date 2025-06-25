@@ -1,9 +1,10 @@
-import ejs from "ejs"
-import fs from "node:fs"
-import path from "node:path"
+import ejs        from "ejs"
+import fs         from "node:fs"
+import path       from "node:path"
 import markdownit from "markdown-it"
-import Prism from "prismjs"
-import beautify from "js-beautify"
+import Prism      from "prismjs"
+import beautify   from "js-beautify"
+import Logger     from "./Logger.js"
 
 import loadLanguages from "prismjs/components/index.js"
 loadLanguages(["html"])
@@ -53,7 +54,7 @@ class StaticFile extends Page {
     return Title.fromDirName(path.basename(this.pathToPageTemplate))
   }
   generate(outputDirName) {
-    console.log("Copying %s from %s", this.uri, this.pathToPageTemplate)
+    Logger.info("Copying %s from %s", this.uri, this.pathToPageTemplate)
     fs.copyFileSync(this.pathToPageTemplate, path.join(outputDirName, this.uri))
   }
 }
@@ -67,8 +68,8 @@ class TemplatePage extends Page {
   get title() {
     return Title.fromDirName(path.basename(this.pathToPageContent))
   }
-  generate(outputDirName, nav) {
-    console.log("Generating %s from %s using %s", this.uri, this.pathToPageTemplate, this.pathToPageContent || "no additional content")
+  generate(outputDirName, pathToBrutCSSRoot, nav) {
+    Logger.info("Generating %s from %s using %s", this.uri, this.pathToPageTemplate, this.pathToPageContent || "no additional content")
     let htmlContent = null
     if (this.pathToPageContent) {
       const contents = fs.readFileSync(this.pathToPageContent, "utf8")
@@ -89,6 +90,7 @@ class TemplatePage extends Page {
     }
     const html = ejs.render(fs.readFileSync(this.pathToPageTemplate, "utf8"), {
       nav:nav,
+      pathToBrutCSSRoot: pathToBrutCSSRoot,
       content: htmlContent || ""
     }, {
       filename: this.pathToPageTemplate
@@ -96,7 +98,7 @@ class TemplatePage extends Page {
     const destinationFile = path.join(outputDirName, this.uri)
     fs.mkdirSync(path.dirname(destinationFile), { recursive: true })
     fs.writeFileSync(destinationFile, html, "utf8")
-    console.log("Wrote %s", destinationFile)
+    Logger.info("Wrote %s", destinationFile)
   }
 }
 
@@ -104,15 +106,16 @@ class TemplatePage extends Page {
 class PropertiesPage extends TemplatePage {
   constructor(pathToPageContent, pathToPageOutput, category, parsedDocumentation) {
     super(pathToPageContent, pathToPageOutput)
-    console.log("Creating PropertiesPage %s for %s", pathToPageContent, category.name)
+    Logger.debug("Creating PropertiesPage %s for %s", pathToPageContent, category.name)
     this.category = category
     this.colorsCategory  = parsedDocumentation.classCategories.find( (category) => category.ref == "class-category:foreground-colors" )
   }
   get documentationRef() { return this.category.ref }
   get title() { return Title.fromDirName(this.category.name) }
-  generate(outputDirName, nav) {
+  generate(outputDirName, pathToBrutCSSRoot, nav) {
     const locals = {
       nav:nav,
+      pathToBrutCSSRoot: pathToBrutCSSRoot,
       category: this.category,
     }
     if ( (this.category.ref == "class-category:foreground-colors") ||
@@ -129,7 +132,7 @@ class PropertiesPage extends TemplatePage {
     const destinationFile = path.join(outputDirName, this.uri)
     fs.mkdirSync(path.dirname(destinationFile), { recursive: true })
     fs.writeFileSync(destinationFile, html, "utf8")
-    console.log("Wrote %s", destinationFile)
+    Logger.debug("Wrote %s", destinationFile)
   }
 }
 
@@ -234,7 +237,7 @@ class StaticPagesSection extends NavSection {
  * locates all cross-references.
  */
 class ExpandedDescription {
-  constructor(documentedEntry, documentationRefs) {
+  constructor(documentedEntry, documentationRefs, pathToBrutCSSRoot) {
     const unexpandedDescription = documentedEntry.description || ""
 
     this.doc = unexpandedDescription.replace(/\{([^}]+)\}/g, (_, key) => {
@@ -243,7 +246,7 @@ class ExpandedDescription {
       if (!referenced) {
         throw new Error(`Could not find reference to ${reference} in documentation`)
       }
-      return `[${referenced.title}](/${referenced.uri})`
+      return `[${referenced.title}](${pathToBrutCSSRoot}/${referenced.uri})`
     })
   }
   toHTML() {
@@ -256,7 +259,7 @@ class ExpandedDescription {
   }
 }
 class ExpandedSee {
-  constructor(see, documentationRefs) {
+  constructor(see, documentationRefs, pathToBrutCSSRoot) {
     if (see.ref) {
       let referenced = documentationRefs.refs[see.ref]
       if (!referenced) {
@@ -264,7 +267,7 @@ class ExpandedSee {
         const candidates = Object.keys(documentationRefs).filter( (key) => key.startsWith(part) )
         throw new Error(`Could not find reference to ${see.ref} in documentation ${ candidates }`)
       }
-      this.doc = `[${referenced.title}](/${referenced.uri})`
+      this.doc = `[${referenced.title}](${pathToBrutCSSRoot}/${referenced.uri})`
     }
     else {
       this.doc = `[${see.linkText}](${see.url}) (external)`
@@ -281,7 +284,7 @@ class ExpandedSee {
 }
 
 class Documentation {
-  constructor(templateRootDirName, parsedDocumentation) {
+  constructor(templateRootDirName, parsedDocumentation, pathToBrutCSSRoot) {
     const nav = []
     const pages = []
     fs.readdirSync(templateRootDirName).forEach((file) => {
@@ -310,16 +313,16 @@ class Documentation {
     nav.sort(Title.compare)
     this.nav = nav
     this.pages = pages
-    this.#decorate(parsedDocumentation)
+    this.#decorate(parsedDocumentation, pathToBrutCSSRoot)
   }
 
   #isEJS(file) {
     return path.extname(file) === ".ejs"
   }
 
-  #decorate(parsedDocumentation) {
+  #decorate(parsedDocumentation, pathToBrutCSSRoot) {
     this.#addTitles(parsedDocumentation)
-    this.#expandReferences(parsedDocumentation)
+    this.#expandReferences(parsedDocumentation, pathToBrutCSSRoot)
     this.#highlightCode(parsedDocumentation)
   }
 
@@ -337,7 +340,6 @@ class Documentation {
               wrap_line_length: 60,
               indent_size: 2,
             })
-            console.log(prettyHTML)
             example.highlightedCode = Prism.highlight(
               prettyHTML,
               Prism.languages.html,
@@ -349,32 +351,32 @@ class Documentation {
     })
   }
 
-  #expandReferences(parsedDocumentation) {
+  #expandReferences(parsedDocumentation, pathToBrutCSSRoot) {
     const referencedDocumentation = new ReferencedDocumentation(this)
     parsedDocumentation.propertyCategories.forEach( (category) => {
-      category.descriptionHTML = (new ExpandedDescription(category, referencedDocumentation)).toHTML()
-      category.seeLinks = category.sees.map( (see) => (new ExpandedSee(see, referencedDocumentation)).toHTML() )
+      category.descriptionHTML = (new ExpandedDescription(category, referencedDocumentation, pathToBrutCSSRoot)).toHTML()
+      category.seeLinks = category.sees.map( (see) => (new ExpandedSee(see, referencedDocumentation, pathToBrutCSSRoot)).toHTML() )
       category.scales.forEach( (scale) => {
-        scale.descriptionHTML = (new ExpandedDescription(scale, referencedDocumentation)).toHTML()
-        scale.seeLinks = scale.sees.map( (see) => (new ExpandedSee(see, referencedDocumentation)).toHTML() )
+        scale.descriptionHTML = (new ExpandedDescription(scale, referencedDocumentation, pathToBrutCSSRoot)).toHTML()
+        scale.seeLinks = scale.sees.map( (see) => (new ExpandedSee(see, referencedDocumentation, pathToBrutCSSRoot)).toHTML() )
         if (!scale.name) {
           throw new Error(`Scale ${scale.ref}.${scale.constructor.name} has no name`)
         }
         scale.properties.forEach( (property) => {
-          property.descriptionHTML = (new ExpandedDescription(property, referencedDocumentation)).toHTML()
-          property.seeLinks = property.sees.map( (see) => (new ExpandedSee(see, referencedDocumentation)).toHTML() )
+          property.descriptionHTML = (new ExpandedDescription(property, referencedDocumentation, pathToBrutCSSRoot)).toHTML()
+          property.seeLinks = property.sees.map( (see) => (new ExpandedSee(see, referencedDocumentation, pathToBrutCSSRoot)).toHTML() )
         })
       })
     })
     parsedDocumentation.classCategories.forEach( (category) => {
-      category.descriptionHTML = (new ExpandedDescription(category, referencedDocumentation)).toHTML()
-      category.seeLinks = category.sees.map( (see) => (new ExpandedSee(see, referencedDocumentation)).toHTML() )
+      category.descriptionHTML = (new ExpandedDescription(category, referencedDocumentation, pathToBrutCSSRoot)).toHTML()
+      category.seeLinks = category.sees.map( (see) => (new ExpandedSee(see, referencedDocumentation, pathToBrutCSSRoot)).toHTML() )
       category.scales.forEach( (scale) => {
-        scale.descriptionHTML = (new ExpandedDescription(scale, referencedDocumentation)).toHTML()
-        scale.seeLinks = scale.sees.map( (see) => (new ExpandedSee(see, referencedDocumentation)).toHTML() )
+        scale.descriptionHTML = (new ExpandedDescription(scale, referencedDocumentation, pathToBrutCSSRoot)).toHTML()
+        scale.seeLinks = scale.sees.map( (see) => (new ExpandedSee(see, referencedDocumentation, pathToBrutCSSRoot)).toHTML() )
         scale.rules.forEach( (rule) => {
-          rule.descriptionHTML = (new ExpandedDescription(rule, referencedDocumentation)).toHTML()
-          rule.seeLinks = rule.sees.map( (see) => (new ExpandedSee(see, referencedDocumentation)).toHTML() )
+          rule.descriptionHTML = (new ExpandedDescription(rule, referencedDocumentation, pathToBrutCSSRoot)).toHTML()
+          rule.seeLinks = rule.sees.map( (see) => (new ExpandedSee(see, referencedDocumentation, pathToBrutCSSRoot)).toHTML() )
         })
       })
     })
@@ -443,21 +445,21 @@ class ReferencedDocumentation {
           }
         }
         else {
-          console.log("Skipping %s because it has no documentation reference", page.uri)
+          Logger.info("Skipping %s because it has no documentation reference", page.uri)
         }
       })
     })
   }
 }
 
-const docGenerator = (outputDirName, templateDirName, parsedDocumentation) => {
-  const documentation = new Documentation(templateDirName, parsedDocumentation)
+const docGenerator = (outputDirName, templateDirName, parsedDocumentation, pathToBrutCSSRoot) => {
+  const documentation = new Documentation(templateDirName, parsedDocumentation, pathToBrutCSSRoot)
 
-  documentation.pages.forEach( page => page.generate(outputDirName, documentation.nav) )
+  documentation.pages.forEach( page => page.generate(outputDirName, pathToBrutCSSRoot, documentation.nav) )
 
   documentation.nav.forEach( (navSection) => {
     navSection.items.forEach( ({page}) => {
-      page.generate(outputDirName, documentation.nav)
+      page.generate(outputDirName, pathToBrutCSSRoot, documentation.nav)
     })
   })
 }

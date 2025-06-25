@@ -1,0 +1,31 @@
+set -e
+
+echo "[ bin/docs ] Building brut.css"
+node src/js/build.js \
+  -m config/media-queries-all.css \
+  -p config/pseudo-classes-all.css \
+  -i src/css/index.css \
+  -o dist/brut.max.css \
+
+echo "[ bin/docs ] Removing comments and minifying brut.css"
+npx postcss --config config dist/brut.max.css -o dist/brut.css
+rm dist/brut.max.css
+
+echo "[ bin/docs ] Building brut-ns-only.css"
+node src/js/build.js \
+  -m config/media-queries-minimal.css \
+  -p config/pseudo-classes-all.css \
+  -i src/css/index.css \
+  -o dist/brut-ns-only.max.css
+echo "[ bin/docs ] Removing comments and minifying brut-ns-only.css"
+npx postcss --config config dist/brut-ns-only.max.css -o dist/brut-ns-only.css
+rm dist/brut-ns-only.max.css
+
+echo "[ bin/docs ] Building brut-thin.css"
+node src/js/build.js \
+  -p config/pseudo-classes-all.css \
+  -i src/css/index.css \
+  -o dist/brut-thin.max.css
+echo "[ bin/docs ] Removing comments and minifying brut-thin.css"
+npx postcss --config config dist/brut-thin.max.css -o dist/brut-thin.css
+rm dist/brut-thin.max.css

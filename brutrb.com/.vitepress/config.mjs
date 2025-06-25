@@ -16,7 +16,8 @@ export default defineConfig({
       { text: 'Getting Started', link: '/getting-started' },
       { text: 'Overview', link: '/overview' },
       { text: 'Brut API', link: '/api/index.html', target: "_self" },
-      { text: 'BrutJS API', link: '/brut-js/api/index.html', target: "_self" },
+      { text: 'BrutJS', link: '/brut-js/api/index.html', target: "_self" },
+      { text: 'BrutCSS', link: '/brut-css/index.html', target: "_self" },
     ],
     outline: [ 2, 3] ,
     sidebar: [

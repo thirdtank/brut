@@ -1,8 +1,15 @@
 set -e
+
+echo "[ bin/docs ] Building brut.css and docs"
 node src/js/build.js \
-  -m config/media-queries-all.css \
-  -p config/pseudo-classes-all.css \
-  -i src/css/index.css \
-  -o src/docs/brut.css \
-  -d generated-docs \
-  -t src/docs
+  --media-query-config       config/media-queries-all.css \
+  --pseudo-class-config      config/pseudo-classes-all.css \
+  --input                    src/css/index.css \
+  --output                   src/docs/brut.max.css \
+  --docs-dir                 ../brutrb.com/public/brut-css \
+  --path-to-brut-css-root    /brut-css \
+  --docs-template-source-dir src/docs
+
+npx postcss --config config src/docs/brut.max.css -o src/docs/brut.css
+rm src/docs/brut.max.css
+

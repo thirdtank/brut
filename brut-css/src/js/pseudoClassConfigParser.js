@@ -1,5 +1,6 @@
 import fs        from "node:fs"
 import postcss   from "postcss"
+import Logger    from "./Logger.js"
 
 class PseudoClass {
   constructor(pseudoClass, prefix, extra, classRules) {
@@ -127,7 +128,7 @@ const pseudoClassConfigParser = (pseudoClassConfigFile) => {
           classRules.push(new ColorsClassRule())
         }
         else {
-          console.warn(":@brut-pseudo contains an unknown at-rule", innerRule.name, "ignoring it")
+          Logger.warn(":@brut-pseudo contains an unknown at-rule", innerRule.name, "ignoring it")
         }
       })
       if (classRules.length == 0) {
