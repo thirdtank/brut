@@ -174,8 +174,8 @@ def setup(update_gems:,setup_credentials:)
       system! "bin/setup"
     end
 
-    log "Setting up docs (brutrb.com)"
-    FileUtils.chdir project_root / "docs" do
+    log "Setting up brutrb.com"
+    FileUtils.chdir project_root / "brutrb.com" do
       system! "bin/setup"
     end
   else

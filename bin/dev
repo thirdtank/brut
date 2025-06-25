@@ -14,7 +14,7 @@ OptionParser.new do |opts|
   end
 end.parse!
 
-dot_com_dir = (Pathname(__FILE__).dirname / ".." / "docs" ).expand_path.to_s
+dot_com_dir = (Pathname(__FILE__).dirname / ".." / "brutrb.com" ).expand_path.to_s
 FileUtils.chdir dot_com_dir do
   system "bin/dev"
 end

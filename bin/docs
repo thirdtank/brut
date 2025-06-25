@@ -14,7 +14,7 @@ OptionParser.new do |opts|
   end
 end.parse!
 
-public_dir = (Pathname(__FILE__).dirname / ".." / "docs" / "public" ).expand_path.to_s
+public_dir = (Pathname(__FILE__).dirname / ".." / "brutrb.com" / "public" ).expand_path.to_s
 docs_dir   =  public_dir + "/api"
 brutjs_dir = (Pathname(__FILE__).dirname / ".." / "brut-js" ).expand_path.to_s
 

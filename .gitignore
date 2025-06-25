@@ -15,14 +15,14 @@
 /docs
 
 # This is where generated API docs go
-/docs/public/api
-/docs/public/brut-js/api
-/docs/public/brut-css
+/brutrb.com/public/api
+/brutrb.com/public/brut-js/api
+/brutrb.com/public/brut-css
 # This is a cache which is not to be checked in
-/docs/.vitepress/cache
+/brutrb.com/.vitepress/cache
 
 # lots of node_modules to avoid
-/docs/node_modules
+/brutrb.com/node_modules
 /brut-js/node_modules
 /brut-js/docs/node_modules
 /brut-css/node_modules
