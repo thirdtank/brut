@@ -302,7 +302,9 @@
  */
 /* No line height, for creating solid blocks of text.
  * @example
- *     <p class="lh-solid">Things should be what they are</p>
+ *     <p class="lh-solid measure">
+ *       A core tenet of design is that same should be same, while different be then different. Meaning: if two elements are intended to be the same sort of thing, or reference the same sort of information, they should have clear consonance and harmony.  Conversely, if two elements are unrelated, they should be quite clearly different.
+ *     </p>
  */
 .lh-solid {
   line-height: var(--lh-solid);
@@ -310,7 +312,9 @@
 
 /* Leading appropriate for titles, which can be somewhat tighter than normal text.
  * @example
- *     <p class="lh-title">Things should be what they are</p>
+ *     <p class="lh-title measure">
+ *       A core tenet of design is that same should be same, while different be then different. Meaning: if two elements are intended to be the same sort of thing, or reference the same sort of information, they should have clear consonance and harmony.  Conversely, if two elements are unrelated, they should be quite clearly different.
+ *     </p>
  */
 .lh-title {
   line-height: var(--lh-title);
@@ -318,7 +322,9 @@
 
 /* Leading appropriate for copy or other longform text.
  * @example
- *     <p class="lh-copy">Things should be what they are</p>
+ *     <p class="lh-copy measure">
+ *       A core tenet of design is that same should be same, while different be then different. Meaning: if two elements are intended to be the same sort of thing, or reference the same sort of information, they should have clear consonance and harmony.  Conversely, if two elements are unrelated, they should be quite clearly different.
+ *     </p>
  * @see p
  */
 .lh-copy {
