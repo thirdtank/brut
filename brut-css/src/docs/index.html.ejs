@@ -4,6 +4,28 @@
   <%- include("includes/body-and-header.html.ejs", { nav: nav }) %>
   <article>
     <h2>A Utility-Based CSS Framework For Getting Started</h2>
+    <div role="status" class="mt-4 pa-3 br-3 ba measure bc-red-400 bg-red-800 red-400 f3 fw-6 flex items-center gap-3">
+      <span role="none" class="f-4 f-l">⚠️</span>
+      <div>
+      <p class="red-400 p ma-0">
+      This documentation is in somewhat rough shape.  What information is here <strong>is</strong>
+      accurate, however it is not as complete or elucidating as it could be.
+      </p>
+      <p class="red-400 p ma-0 mt-2">
+        The <code>.css</code>, however, is much more stable and should be considered as a release candidate, unlikely
+        to be given breaking changes in the near future.
+      </p>
+      </div>
+    </div>
+    <p>
+      BrutCSS lets you get started quickly designing in the browser.  It does this with classes whose names are based on the CSS attributes and values they will apply.  You can quickly learn BrutCSS to start designing in minutes.
+    </p>
+    <p>
+      BrutCSS does <strong>not</strong> replace the use of CSS.  BrutCSS has no build step, no derived classes, and does not attempt to provide a class for every CSS attribute/value combination.
+    </p>
+    <p>
+      BrutCSS knows you know CSS, knows you know your web framework, and wants you to use it.
+    </p>
   </article>
   <%- include("includes/footer-and-rest.html.ejs") %>
 </html>
