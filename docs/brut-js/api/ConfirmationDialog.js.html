@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: ConfirmationDialog.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: ConfirmationDialog.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import BaseCustomElement from "./BaseCustomElement"
+import RichString from "./RichString"
+
+/**
+ * Enhances a `DIALOG` element to allow it to be used for confirmation. Mostly useful
+ * with {@link Confirm}.
+ *
+ * This element must:
+ *
+ * * Wrap a `&lt;DIALOG>` element
+ * * Contain an `&lt;H1>` where the message will go
+ * * Have a `&lt;BUTTON>` with value `ok` that will be considered the confirmation button.
+ * * Have a `&lt;BUTTON>` with value `cancel` that will be considered the denial button.
+ *
+ * Omitting these will cause this element to not work properly. Set `show-warnings` to see
+ * warnings on this.
+ *
+ * @property {string} message - the message to use to ask for confirmation
+ * @property {string} confirm-label - the label to use for the "OK" or "Confirm" button
+ *
+ * @example &lt;caption>Minimal Example&lt;/caption>
+ * &lt;brut-confirmation-dialog message="This cannot be undone" confirm-label="DOIT">
+ *   &lt;dialog>
+ *     &lt;h1>&lt;/h1>
+ *     &lt;button value="ok">&lt;/button>
+ *     &lt;button value="cancel">Nevermind&lt;/button>
+ *   &lt;/dialog>
+ * &lt;/brut-confirmation-dialog>
+ *
+ * @customElement brut-confirmation-dialog
+ */
+class ConfirmationDialog extends BaseCustomElement {
+  static tagName = "brut-confirmation-dialog"
+  static observedAttributes = [
+    "message",
+    "confirm-label",
+    "show-warnings"
+  ]
+
+  #onClose = () => {}
+  #message = new RichString("")
+  #confirmLabel = new RichString("OK")
+
+  constructor() {
+    super()
+    this.okListener = (event) => {
+      this.#closeDialog()
+      this.#onClose(true)
+    }
+    this.cancelListener = (event) => {
+      this.#closeDialog()
+      this.#onClose(false)
+    }
+  }
+
+  messageChangedCallback({newValue}) {
+    this.#message = RichString.fromString(newValue)
+  }
+
+  confirmLabelChangedCallback({newValue}) {
+    this.#confirmLabel = RichString.fromString(newValue)
+  }
+
+  /**
+   * Call this to show the dialog.  When the dialog is closed, `onClose` is called with the result.
+   *
+   * @param {function} onClose - a function called with either `true` or `false`, if the dialog was confirmed or 
+   * denied, respectively.
+   *
+   * @example
+   * dialog.showModal( (confirmed) => {
+   *   if (confirmed) {
+   *     form.submit()
+   *   }
+   *   else {
+   *     // do nothing
+   *   }
+   * })
+   */
+  showModal(onClose) {
+    const dialog = this.#dialog
+    if (dialog) {
+      this.#onClose = onClose || (() => {})
+      dialog.showModal()
+    }
+    else {
+      this.logger.warn("No &lt;dialog> found to show")
+    }
+  }
+
+  get #dialog() {
+    return this.querySelector("dialog")
+  }
+
+  #closeDialog() {
+    const dialog = this.#dialog
+    if (dialog) {
+      dialog.close()
+    }
+  }
+
+  update() {
+    const dialog = this.#dialog
+    if (!dialog) {
+      this.logger.warn("Could not find a &lt;dialog> - this custom element won't do anything")
+      return
+    }
+    this.#setMessage(dialog)
+    this.#setupButtons()
+  }
+
+  #setMessage(dialog) {
+    const h1 = dialog.querySelector("h1")
+    if (h1) {
+      if (this.#message.isBlank()) {
+        h1.textContent = null
+      }
+      else {
+        h1.textContent = this.#message.toString()
+      }
+    }
+    else {
+      this.logger.warn("Dialog had no &lt;h1>, so nowhere to put the message")
+    }
+  }
+
+  #setupButtons() {
+    const okButton     = this.querySelector("button[value='ok']")
+    const cancelButton = this.querySelector("button[value='cancel']")
+
+    if (!okButton || !cancelButton) {
+      if (!okButton)     { this.logger.warn("no &lt;button value='ok'> which is required for this dialog to work") }
+      if (!cancelButton) { this.logger.warn("no &lt;button value='cancel'> which is required for this dialog to work") }
+      return
+    }
+
+    okButton.textContent = this.#confirmLabel
+
+    okButton.addEventListener("click"     , this.okListener)
+    cancelButton.addEventListener("click" , this.cancelListener)
+  }
+}
+export default ConfirmationDialog
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-testing.html">testing</a></li></ul><h3>Externals</h3><ul><li><a href="external-CustomElementRegistry.html">CustomElementRegistry</a></li><li><a href="external-Performance.html">Performance</a></li><li><a href="external-Promise.html">Promise</a></li><li><a href="external-ValidityState.html">ValidityState</a></li><li><a href="external-Window.html">Window</a></li><li><a href="external-fetch.html">fetch</a></li></ul><h3>Classes</h3><ul><li><a href="AjaxSubmit.html">AjaxSubmit</a></li><li><a href="Autosubmit.html">Autosubmit</a></li><li><a href="BaseCustomElement.html">BaseCustomElement</a></li><li><a href="BrutCustomElements.html">BrutCustomElements</a></li><li><a href="BufferedLogger.html">BufferedLogger</a></li><li><a href="ConfirmSubmit.html">ConfirmSubmit</a></li><li><a href="ConfirmationDialog.html">ConfirmationDialog</a></li><li><a href="ConstraintViolationMessage.html">ConstraintViolationMessage</a></li><li><a href="ConstraintViolationMessages.html">ConstraintViolationMessages</a></li><li><a href="CopyToClipboard.html">CopyToClipboard</a></li><li><a href="Form.html">Form</a></li><li><a href="I18nTranslation.html">I18nTranslation</a></li><li><a href="LocaleDetection.html">LocaleDetection</a></li><li><a href="Logger.html">Logger</a></li><li><a href="Message.html">Message</a></li><li><a href="PrefixedLogger.html">PrefixedLogger</a></li><li><a href="RichString.html">RichString</a></li><li><a href="Tabs.html">Tabs</a></li><li><a href="Tracing.html">Tracing</a></li><li><a href="testing.AssetMetadata.html">AssetMetadata</a></li><li><a href="testing.AssetMetadataLoader.html">AssetMetadataLoader</a></li><li><a href="testing.CustomElementTest.html">CustomElementTest</a></li><li><a href="testing.DOMCreator.html">DOMCreator</a></li></ul><h3><a href="global.html">Global</a></h3>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.4</a> on Wed Jun 25 2025 22:30:10 GMT+0000 (Coordinated Universal Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

@@ -1,0 +1,679 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Class: CustomElementTest</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Class: CustomElementTest</h1>
+
+    
+
+
+
+
+<section>
+
+<header>
+    
+        <h2><span class="attribs"><span class="type-signature"></span></span>CustomElementTest<span class="signature">()</span><span class="type-signature"></span></h2>
+          
+        
+            <div class="class-description"><p>The class that implements a test case.  Typically, an instance of this is created for you and you call <code>test</code> on that to write your
+test case.</p></div>
+        
+    
+</header>
+
+<article>
+    <div class="container-overview">
+    
+        
+
+    
+    <h2>Constructor</h2>
+    
+
+    
+    <h4 class="name" id="CustomElementTest"><span class="type-signature"></span>new CustomElementTest<span class="signature">()</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="testing_CustomElementTest.js.html">testing/CustomElementTest.js</a>, <a href="testing_CustomElementTest.js.html#line8">line 8</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+        <h3 class="subsection-title">Methods</h3>
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="andQueryString"><span class="type-signature"></span>andQueryString<span class="signature">()</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    <p>Configure a query string to be present when the custom elements are defined and connected.</p>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="testing_CustomElementTest.js.html">testing/CustomElementTest.js</a>, <a href="testing_CustomElementTest.js.html#line19">line 19</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="onFetch"><span class="type-signature"></span>onFetch<span class="signature">(url, behavior)</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    <p>Configure behavior when #{link external:fetch} is called, since it's not implemented by JSDom or NodeJS.</p>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>url</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>the URL that is expected. This should be a relative URL, as that is all that is currently supported. This
+URL must match exactly to a <code>fetch</code> call.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>behavior</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>an object describing what you want to happen when <code>url</code> is fetched.  This currently supports only a
+few rudimentary behaviors:</p>
+<ul>
+<li><code>{then: { ok: { text: &quot;some text&quot; } } }</code> - This will return an &quot;ok&quot; response whose body is the given text, available only as
+text.</li>
+<li><code>{then: { status: XXX, text: &quot;some text&quot; }}</code> - This will return the given http status, with <code>ok</code> as true if it's 2xx or 3xx. If <code>text</code> is given, that will be available as text only.</li>
+</ul></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="testing_CustomElementTest.js.html">testing/CustomElementTest.js</a>, <a href="testing_CustomElementTest.js.html#line35">line 35</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="test"><span class="type-signature"></span>test<span class="signature">(description, testCode)</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    <p>Declare a test to run with the previously-defined HTML, query string, and fetch behavior.</p>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>description</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>a description of the test.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>testCode</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="global.html#testCodeCallback">testCodeCallback</a></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>a function containing the code for your test.</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="testing_CustomElementTest.js.html">testing/CustomElementTest.js</a>, <a href="testing_CustomElementTest.js.html#line64">line 64</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="xtest"><span class="type-signature"></span>xtest<span class="signature">()</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    <p>Comment out a test without using code comments</p>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="testing_CustomElementTest.js.html">testing/CustomElementTest.js</a>, <a href="testing_CustomElementTest.js.html#line54">line 54</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+    
+
+    
+
+    
+</article>
+
+</section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-testing.html">testing</a></li></ul><h3>Externals</h3><ul><li><a href="external-CustomElementRegistry.html">CustomElementRegistry</a></li><li><a href="external-Performance.html">Performance</a></li><li><a href="external-Promise.html">Promise</a></li><li><a href="external-ValidityState.html">ValidityState</a></li><li><a href="external-Window.html">Window</a></li><li><a href="external-fetch.html">fetch</a></li></ul><h3>Classes</h3><ul><li><a href="AjaxSubmit.html">AjaxSubmit</a></li><li><a href="Autosubmit.html">Autosubmit</a></li><li><a href="BaseCustomElement.html">BaseCustomElement</a></li><li><a href="BrutCustomElements.html">BrutCustomElements</a></li><li><a href="BufferedLogger.html">BufferedLogger</a></li><li><a href="ConfirmSubmit.html">ConfirmSubmit</a></li><li><a href="ConfirmationDialog.html">ConfirmationDialog</a></li><li><a href="ConstraintViolationMessage.html">ConstraintViolationMessage</a></li><li><a href="ConstraintViolationMessages.html">ConstraintViolationMessages</a></li><li><a href="CopyToClipboard.html">CopyToClipboard</a></li><li><a href="Form.html">Form</a></li><li><a href="I18nTranslation.html">I18nTranslation</a></li><li><a href="LocaleDetection.html">LocaleDetection</a></li><li><a href="Logger.html">Logger</a></li><li><a href="Message.html">Message</a></li><li><a href="PrefixedLogger.html">PrefixedLogger</a></li><li><a href="RichString.html">RichString</a></li><li><a href="Tabs.html">Tabs</a></li><li><a href="Tracing.html">Tracing</a></li><li><a href="testing.AssetMetadata.html">AssetMetadata</a></li><li><a href="testing.AssetMetadataLoader.html">AssetMetadataLoader</a></li><li><a href="testing.CustomElementTest.html">CustomElementTest</a></li><li><a href="testing.DOMCreator.html">DOMCreator</a></li></ul><h3><a href="global.html">Global</a></h3>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.4</a> on Wed Jun 25 2025 22:30:10 GMT+0000 (Coordinated Universal Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

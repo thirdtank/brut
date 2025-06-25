@@ -1,0 +1,2206 @@
+<!doctype html>
+<html class="ma-0 pa-0 h-100" lang="en">
+  <head>
+  <link rel="stylesheet" href="/brut-css/brut.css">
+  <link rel="stylesheet" href="/brut-css/docs.css">
+  <link rel="stylesheet" href="/brut-css/prism-twilight.min.css">
+</head>
+
+    <body class="flex flex-column ff-sans ma-0 pa-0 h-100">
+    <header class="pos-sticky top-0 bg-gray-700 pa-3 z-5 shadow-2">
+      <div class="flex gap-3 justify-between items-center">
+        <h1><a href="/brut-css" class="black tdn">BrutCSS Reference Documentation</a></h1>
+        <ul class="lst-none pl-0 flex gap-2 justify-end items-center">
+          <form class="flex items-center gap-1 mr-3">
+            <label>
+            <input type="search" placeholder="e.g. padding-left" class="pa-2 br-2 ba bc-gray-600 bg-white-ish gray-200">
+            <span class="sr-only">Search term</span>
+            </label>
+            <button class="ph-3 pv-2 bg-white gray-100 ba bc-gray-500 br-3 hover-bg-gray-800 pointer flex items-center justify-between">
+              <span class="mr-2">Search</span>
+              <kbd>&#8984;</kbd>
+              <kbd>/</kbd>
+            </button>
+          </form>
+          <li><a href="/" class="red-200 tdn hover-tdu">BrutRB</a></li>
+          <span aria-hidden="true">&middot;</span>
+          <li><a href="/brut-js" class="gray-200 tdn hover-tdu">BrutJS</a></li>
+          <span aria-hidden="true">&middot;</span>
+          <li><a href="https://github.com/thirdtank/brut/tree/main/brut-css" class="gray-200 tdn hover-tdu">Code</a></li>
+        </ul>
+      </div>
+    </header>
+    <main class="flex overflow-hidden flex-grow-1 flex-shrink-1 flex-basis-0 pos-relative">
+      <nav class="overflow-y-auto ph-3 pb-2 pt-4 w-20 bg-gray-800 gray-200 h-100">
+        
+  <h3>Getting Started</h3>
+  <ul class="pl-3">
+  
+      <li>
+        <a class="black-ish tdu tdn-ns hover-tdu-ns" href="/brut-css/getting-started/overview.html">Overview</a>
+      </li>
+  
+      <li>
+        <a class="black-ish tdu tdn-ns hover-tdu-ns" href="/brut-css/getting-started/installation.html">Installation</a>
+      </li>
+  
+      <li>
+        <a class="black-ish tdu tdn-ns hover-tdu-ns" href="/brut-css/getting-started/core-concepts.html">Core Concepts</a>
+      </li>
+  
+      <li>
+        <a class="black-ish tdu tdn-ns hover-tdu-ns" href="/brut-css/getting-started/simple-example.html">Simple Example</a>
+      </li>
+  
+  </ul>
+
+  <h3>Properties</h3>
+  <ul class="pl-3">
+  
+      <li>
+        <a class="black-ish tdu tdn-ns hover-tdu-ns" href="/brut-css/properties/colors.html">Colors</a>
+      </li>
+  
+      <li>
+        <a class="black-ish tdu tdn-ns hover-tdu-ns" href="/brut-css/properties/spacings.html">Spacings</a>
+      </li>
+  
+      <li>
+        <a class="black-ish tdu tdn-ns hover-tdu-ns" href="/brut-css/properties/typography.html">Typography</a>
+      </li>
+  
+  </ul>
+
+  <h3>Classes</h3>
+  <ul class="pl-3">
+  
+      <li>
+        <a class="black-ish tdu tdn-ns hover-tdu-ns" href="/brut-css/classes/appearances.html">Appearances</a>
+      </li>
+  
+      <li>
+        <a class="black-ish tdu tdn-ns hover-tdu-ns" href="/brut-css/classes/borders.html">Borders</a>
+      </li>
+  
+      <li>
+        <a class="black-ish tdu tdn-ns hover-tdu-ns" href="/brut-css/classes/foreground-colors.html">Foreground Colors</a>
+      </li>
+  
+      <li>
+        <a class="black-ish tdu tdn-ns hover-tdu-ns" href="/brut-css/classes/background-colors.html">Background Colors</a>
+      </li>
+  
+      <li>
+        <a class="black-ish tdu tdn-ns hover-tdu-ns" href="/brut-css/classes/border-colors.html">Border Colors</a>
+      </li>
+  
+      <li>
+        <a class="black-ish tdu tdn-ns hover-tdu-ns" href="/brut-css/classes/dimensions.html">Dimensions</a>
+      </li>
+  
+      <li>
+        <a class="black-ish tdu tdn-ns hover-tdu-ns" href="/brut-css/classes/flex.html">Flex</a>
+      </li>
+  
+      <li>
+        <a class="black-ish tdu tdn-ns hover-tdu-ns" href="/brut-css/classes/layout.html">Layout</a>
+      </li>
+  
+      <li>
+        <a class="black-ish tdu tdn-ns hover-tdu-ns" href="/brut-css/classes/lists.html">Lists</a>
+      </li>
+  
+      <li>
+        <a class="black-ish tdu tdn-ns hover-tdu-ns" href="/brut-css/classes/positioning.html">Positioning</a>
+      </li>
+  
+      <li>
+        <a class="black-ish tdu tdn-ns hover-tdu-ns" href="/brut-css/classes/spacings.html">Spacings</a>
+      </li>
+  
+      <li>
+        <a class="black-ish tdu tdn-ns hover-tdu-ns" href="/brut-css/classes/typography.html">Typography</a>
+      </li>
+  
+      <li>
+        <a class="black-ish tdu tdn-ns hover-tdu-ns" href="/brut-css/classes/junk-drawer.html">Junk Drawer</a>
+      </li>
+  
+  </ul>
+
+  <h3>Customization</h3>
+  <ul class="pl-3">
+  
+      <li>
+        <a class="black-ish tdu tdn-ns hover-tdu-ns" href="/brut-css/customization/design-system.html">Design System</a>
+      </li>
+  
+      <li>
+        <a class="black-ish tdu tdn-ns hover-tdu-ns" href="/brut-css/customization/breakpoints.html">Breakpoints</a>
+      </li>
+  
+      <li>
+        <a class="black-ish tdu tdn-ns hover-tdu-ns" href="/brut-css/customization/pseudo-classes.html">Pseudo Classes</a>
+      </li>
+  
+      <li>
+        <a class="black-ish tdu tdn-ns hover-tdu-ns" href="/brut-css/customization/advanced-configuration.html">Advanced Configuration</a>
+      </li>
+  
+  </ul>
+
+
+      </nav>
+      <section class="overflow-y-auto pt-4 h-100 flex-grow-1 flex-shrink-1 flex-basis-0 flex flex-column">
+        <div class="ph-3 pv-2 flex items-start gap-2 justify-between">
+
+  <article>
+    <h2 class="}-5">Typography Classes</h2>
+    
+      <p>Typography classes.  These allow you to control how text is displayed and rendered.  In particular, this contains the modular scale of font sizes, but also contains many other text rendering options.</p>
+
+    
+    
+      <h3 class="f-2 b">See Also</h3>
+      <ul class="see-also">
+        
+          <li><p><a href="https://developer.mozilla.org/en-US/docs/Learn_web_development/Core/Text_styling/Web_fonts">Web Fonts</a> (external)</p>
+</li>
+        
+          <li><p><a href="/brut-css/properties/typography.html">Typography</a></p>
+</li>
+        
+      </ul>
+    
+    
+      <h3 class="f-5 mt-4" id="class-group:font-family">Font Family</h3>
+      <p class="p">
+        <p>Font families for sans, serif, monospace, cursive, and fantasy.  The idea is that your design would not have more than one font of each type, so you’d set  custom properties with the fonts you like, then use e.g. <code>.ff-sans</code> anywhere you wanted Sans Serif and <code>ff-serif</code> anywhere you wanted yourt Serif font.</p>
+
+      </p>
+      
+        <h4 class="f-2 b">See Also</h3>
+        <ul class="see-also">
+          
+            <li><p><a href="/brut-css/properties/typography.html#property-group:font-family">Font Family</a></p>
+</li>
+          
+        </ul>
+      
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="ff-sans">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.ff-sans</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.ff-sans</span> <span class="token punctuation">{</span>
+  <span class="token property">font-family</span><span class="token punctuation">:</span> <span class="token function">var</span><span class="token punctuation">(</span>--ff-sans<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          <p>Set the contents in the chosen sans-serif font</p>
+
+        </p>
+        
+          <h5 class="f-1 b">See Also</h3>
+          <ul class="see-also">
+            
+              <li><p><a href="/brut-css/properties/typography.html#--ff-sans"><code>--ff-sans</code></a></p>
+</li>
+            
+          </ul>
+        
+        
+          <h5 class="f-2 ttu">
+            
+              Example
+            
+          </h5>
+          
+            
+              <h6 class="f-1 fw-bold mt-2">Typical</h6>
+            
+            <div class="mv-3 example">
+              <pre class="highlighted-code"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>p</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>ff-sans<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>Things should be what they are<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>p</span><span class="token punctuation">></span></span></pre>
+              <div class="example-demonstration">
+              
+<p class="ff-sans">Things should be what they are</p>
+
+              </div>
+            </div>
+          
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="ff-serif">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.ff-serif</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.ff-serif</span> <span class="token punctuation">{</span>
+  <span class="token property">font-family</span><span class="token punctuation">:</span> <span class="token function">var</span><span class="token punctuation">(</span>--ff-serif<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          <p>Set the contents in the chosen sans-serif font</p>
+
+        </p>
+        
+        
+          <h5 class="f-2 ttu">
+            
+              Example
+            
+          </h5>
+          
+            
+            <div class="mv-3 example">
+              <pre class="highlighted-code"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>p</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>ff-serif<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>Things should be what they are<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>p</span><span class="token punctuation">></span></span></pre>
+              <div class="example-demonstration">
+              
+<p class="ff-serif">Things should be what they are</p>
+
+              </div>
+            </div>
+          
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="ff-mono">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.ff-mono</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.ff-mono</span> <span class="token punctuation">{</span>
+  <span class="token property">font-family</span><span class="token punctuation">:</span> <span class="token function">var</span><span class="token punctuation">(</span>--ff-mono<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          <p>Set the contents in the chosen monospace font</p>
+
+        </p>
+        
+        
+          <h5 class="f-2 ttu">
+            
+              Example
+            
+          </h5>
+          
+            
+            <div class="mv-3 example">
+              <pre class="highlighted-code"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>p</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>ff-mono<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>Things should be what they are<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>p</span><span class="token punctuation">></span></span></pre>
+              <div class="example-demonstration">
+              
+<p class="ff-mono">Things should be what they are</p>
+
+              </div>
+            </div>
+          
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="ff-cursive">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.ff-cursive</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.ff-cursive</span> <span class="token punctuation">{</span>
+  <span class="token property">font-family</span><span class="token punctuation">:</span> <span class="token function">var</span><span class="token punctuation">(</span>--ff-cursive<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          <p>Set the contents in the chosen cursive/handwriting font</p>
+
+        </p>
+        
+        
+          <h5 class="f-2 ttu">
+            
+              Example
+            
+          </h5>
+          
+            
+            <div class="mv-3 example">
+              <pre class="highlighted-code"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>p</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>ff-cursive<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>Things should be what they are<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>p</span><span class="token punctuation">></span></span></pre>
+              <div class="example-demonstration">
+              
+<p class="ff-cursive">Things should be what they are</p>
+
+              </div>
+            </div>
+          
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="ff-fantasy">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.ff-fantasy</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.ff-fantasy</span> <span class="token punctuation">{</span>
+  <span class="token property">font-family</span><span class="token punctuation">:</span> <span class="token function">var</span><span class="token punctuation">(</span>--ff-fantasy<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          <p>Set the contents in the chosen fantasy font</p>
+
+        </p>
+        
+        
+          <h5 class="f-2 ttu">
+            
+              Example
+            
+          </h5>
+          
+            
+            <div class="mv-3 example">
+              <pre class="highlighted-code"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>p</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>ff-fantasy<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>Things should be what they are<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>p</span><span class="token punctuation">></span></span></pre>
+              <div class="example-demonstration">
+              
+<p class="ff-fantasy">Things should be what they are</p>
+
+              </div>
+            </div>
+          
+        
+        </div>
+      
+    
+      <h3 class="f-5 mt-4" id="class-scale:font-size">Font Size</h3>
+      <p class="p">
+        <p>The modular scale of font sizes.  This provides 10 total steps, which should give you enough font sizes for any needed. 0 is the smallest and 9 is the largest.</p>
+
+      </p>
+      
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="f-0">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.f-0</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.f-0</span> <span class="token punctuation">{</span>
+  <span class="token property">font-size</span><span class="token punctuation">:</span> <span class="token function">var</span><span class="token punctuation">(</span>--fs-0<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          <p>The smallest font. Note that this is likely very small and not legible in all situations. It’s here in case you really need something quite tiny, but try to use <a href="/brut-css/classes/typography.html#f-1"><code>.f-1</code></a> if you can.</p>
+
+        </p>
+        
+        
+          <h5 class="f-2 ttu">
+            
+              Example
+            
+          </h5>
+          
+            
+            <div class="mv-3 example">
+              <pre class="highlighted-code"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>p</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>f-0<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>Things should be what they are<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>p</span><span class="token punctuation">></span></span></pre>
+              <div class="example-demonstration">
+              
+<p class="f-0">Things should be what they are</p>
+
+              </div>
+            </div>
+          
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="f-1">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.f-1</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.f-1</span> <span class="token punctuation">{</span>
+  <span class="token property">font-size</span><span class="token punctuation">:</span> <span class="token function">var</span><span class="token punctuation">(</span>--fs-1<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          <p>The second smallest font, which you should use general when you need something smaller than the body font.</p>
+
+        </p>
+        
+        
+          <h5 class="f-2 ttu">
+            
+              Example
+            
+          </h5>
+          
+            
+            <div class="mv-3 example">
+              <pre class="highlighted-code"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>p</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>f-1<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>Things should be what they are<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>p</span><span class="token punctuation">></span></span></pre>
+              <div class="example-demonstration">
+              
+<p class="f-1">Things should be what they are</p>
+
+              </div>
+            </div>
+          
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="f-2">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.f-2</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.f-2</span> <span class="token punctuation">{</span>
+  <span class="token property">font-size</span><span class="token punctuation">:</span> <span class="token function">var</span><span class="token punctuation">(</span>--fs-2<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          <p>The body font size, appropriate for all general text.  By default, this should be <code>1rem</code>, which will match the user agent’s configured font size</p>
+
+        </p>
+        
+        
+          <h5 class="f-2 ttu">
+            
+              Example
+            
+          </h5>
+          
+            
+            <div class="mv-3 example">
+              <pre class="highlighted-code"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>p</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>f-2<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>Things should be what they are<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>p</span><span class="token punctuation">></span></span></pre>
+              <div class="example-demonstration">
+              
+<p class="f-2">Things should be what they are</p>
+
+              </div>
+            </div>
+          
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="f-3">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.f-3</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.f-3</span> <span class="token punctuation">{</span>
+  <span class="token property">font-size</span><span class="token punctuation">:</span> <span class="token function">var</span><span class="token punctuation">(</span>--fs-3<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          <p>Third step of the scale, one steps larger than the body font.</p>
+
+        </p>
+        
+        
+          <h5 class="f-2 ttu">
+            
+              Example
+            
+          </h5>
+          
+            
+            <div class="mv-3 example">
+              <pre class="highlighted-code"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>p</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>f-3<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>Things should be what they are<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>p</span><span class="token punctuation">></span></span></pre>
+              <div class="example-demonstration">
+              
+<p class="f-3">Things should be what they are</p>
+
+              </div>
+            </div>
+          
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="f-4">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.f-4</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.f-4</span> <span class="token punctuation">{</span>
+  <span class="token property">font-size</span><span class="token punctuation">:</span> <span class="token function">var</span><span class="token punctuation">(</span>--fs-4<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          <p>Fourth step of the scale, two steps larger than the body font.</p>
+
+        </p>
+        
+        
+          <h5 class="f-2 ttu">
+            
+              Example
+            
+          </h5>
+          
+            
+            <div class="mv-3 example">
+              <pre class="highlighted-code"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>p</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>f-4<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>Things should be what they are<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>p</span><span class="token punctuation">></span></span></pre>
+              <div class="example-demonstration">
+              
+<p class="f-4">Things should be what they are</p>
+
+              </div>
+            </div>
+          
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="f-5">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.f-5</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.f-5</span> <span class="token punctuation">{</span>
+  <span class="token property">font-size</span><span class="token punctuation">:</span> <span class="token function">var</span><span class="token punctuation">(</span>--fs-5<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          <p>Fifth step of the scale, three steps larger than the body font.</p>
+
+        </p>
+        
+        
+          <h5 class="f-2 ttu">
+            
+              Example
+            
+          </h5>
+          
+            
+            <div class="mv-3 example">
+              <pre class="highlighted-code"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>p</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>f-5<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>Things should be what they are<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>p</span><span class="token punctuation">></span></span></pre>
+              <div class="example-demonstration">
+              
+<p class="f-5">Things should be what they are</p>
+
+              </div>
+            </div>
+          
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="f-6">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.f-6</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.f-6</span> <span class="token punctuation">{</span>
+  <span class="token property">font-size</span><span class="token punctuation">:</span> <span class="token function">var</span><span class="token punctuation">(</span>--fs-6<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          <p>Sixth step of the scale, four steps larger than the body font.</p>
+
+        </p>
+        
+        
+          <h5 class="f-2 ttu">
+            
+              Example
+            
+          </h5>
+          
+            
+            <div class="mv-3 example">
+              <pre class="highlighted-code"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>p</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>f-6<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>Things should be what they are<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>p</span><span class="token punctuation">></span></span></pre>
+              <div class="example-demonstration">
+              
+<p class="f-6">Things should be what they are</p>
+
+              </div>
+            </div>
+          
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="f-7">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.f-7</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.f-7</span> <span class="token punctuation">{</span>
+  <span class="token property">font-size</span><span class="token punctuation">:</span> <span class="token function">var</span><span class="token punctuation">(</span>--fs-7<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          <p>Seventh step of the scale, five steps larger than the body font.</p>
+
+        </p>
+        
+        
+          <h5 class="f-2 ttu">
+            
+              Example
+            
+          </h5>
+          
+            
+            <div class="mv-3 example">
+              <pre class="highlighted-code"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>p</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>f-7<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>Things should be what they are<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>p</span><span class="token punctuation">></span></span></pre>
+              <div class="example-demonstration">
+              
+<p class="f-7">Things should be what they are</p>
+
+              </div>
+            </div>
+          
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="f-8">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.f-8</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.f-8</span> <span class="token punctuation">{</span>
+  <span class="token property">font-size</span><span class="token punctuation">:</span> <span class="token function">var</span><span class="token punctuation">(</span>--fs-8<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          <p>Eighth step of the scale, six steps larger than the body font.</p>
+
+        </p>
+        
+        
+          <h5 class="f-2 ttu">
+            
+              Example
+            
+          </h5>
+          
+            
+            <div class="mv-3 example">
+              <pre class="highlighted-code"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>p</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>f-8<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>Things should be what they are<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>p</span><span class="token punctuation">></span></span></pre>
+              <div class="example-demonstration">
+              
+<p class="f-8">Things should be what they are</p>
+
+              </div>
+            </div>
+          
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="f-9">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.f-9</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.f-9</span> <span class="token punctuation">{</span>
+  <span class="token property">font-size</span><span class="token punctuation">:</span> <span class="token function">var</span><span class="token punctuation">(</span>--fs-9<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          <p>Largest size font</p>
+
+        </p>
+        
+        
+          <h5 class="f-2 ttu">
+            
+              Example
+            
+          </h5>
+          
+            
+            <div class="mv-3 example">
+              <pre class="highlighted-code"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>p</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>f-9<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>Things should be what they are<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>p</span><span class="token punctuation">></span></span></pre>
+              <div class="example-demonstration">
+              
+<p class="f-9">Things should be what they are</p>
+
+              </div>
+            </div>
+          
+        
+        </div>
+      
+    
+      <h3 class="f-5 mt-4" id="class-scale:font-weights">Font Weights</h3>
+      <p class="p">
+        <p>Font Weights.  These go from 1 to 9, representing 100’s, along with a normal class to undo any font weight. Note that, depending on your font, not every weight will look distinct.</p>
+
+      </p>
+      
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="fw-normal">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.fw-normal</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.fw-normal</span> <span class="token punctuation">{</span>
+  <span class="token property">font-weight</span><span class="token punctuation">:</span> normal<span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          <p>Normal font weight.</p>
+
+        </p>
+        
+        
+          <h5 class="f-2 ttu">
+            
+              Example
+            
+          </h5>
+          
+            
+            <div class="mv-3 example">
+              <pre class="highlighted-code"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>p</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>fw-normal<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>Things should be what they are<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>p</span><span class="token punctuation">></span></span></pre>
+              <div class="example-demonstration">
+              
+<p class="fw-normal">Things should be what they are</p>
+
+              </div>
+            </div>
+          
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="fw-bold">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.fw-bold</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.fw-bold</span> <span class="token punctuation">{</span>
+  <span class="token property">font-weight</span><span class="token punctuation">:</span> bold<span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          <p>Bold font weight.</p>
+
+        </p>
+        
+        
+          <h5 class="f-2 ttu">
+            
+              Example
+            
+          </h5>
+          
+            
+            <div class="mv-3 example">
+              <pre class="highlighted-code"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>p</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>fw-bold<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>Things should be what they are<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>p</span><span class="token punctuation">></span></span></pre>
+              <div class="example-demonstration">
+              
+<p class="fw-bold">Things should be what they are</p>
+
+              </div>
+            </div>
+          
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="fw-1">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.fw-1</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.fw-1</span> <span class="token punctuation">{</span>
+  <span class="token property">font-weight</span><span class="token punctuation">:</span> 100<span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          <p>Lightest font weight.</p>
+
+        </p>
+        
+        
+          <h5 class="f-2 ttu">
+            
+              Example
+            
+          </h5>
+          
+            
+            <div class="mv-3 example">
+              <pre class="highlighted-code"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>p</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>fw-1<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>Things should be what they are<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>p</span><span class="token punctuation">></span></span></pre>
+              <div class="example-demonstration">
+              
+<p class="fw-1">Things should be what they are</p>
+
+              </div>
+            </div>
+          
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="fw-2">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.fw-2</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.fw-2</span> <span class="token punctuation">{</span>
+  <span class="token property">font-weight</span><span class="token punctuation">:</span> 200<span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+          <h5 class="f-2 ttu">
+            
+              Example
+            
+          </h5>
+          
+            
+            <div class="mv-3 example">
+              <pre class="highlighted-code"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>p</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>fw-2<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>Things should be what they are<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>p</span><span class="token punctuation">></span></span></pre>
+              <div class="example-demonstration">
+              
+<p class="fw-2">Things should be what they are</p>
+
+              </div>
+            </div>
+          
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="fw-3">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.fw-3</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.fw-3</span> <span class="token punctuation">{</span>
+  <span class="token property">font-weight</span><span class="token punctuation">:</span> 300<span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+          <h5 class="f-2 ttu">
+            
+              Example
+            
+          </h5>
+          
+            
+            <div class="mv-3 example">
+              <pre class="highlighted-code"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>p</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>fw-3<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>Things should be what they are<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>p</span><span class="token punctuation">></span></span></pre>
+              <div class="example-demonstration">
+              
+<p class="fw-3">Things should be what they are</p>
+
+              </div>
+            </div>
+          
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="fw-4">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.fw-4</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.fw-4</span> <span class="token punctuation">{</span>
+  <span class="token property">font-weight</span><span class="token punctuation">:</span> 400<span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+          <h5 class="f-2 ttu">
+            
+              Example
+            
+          </h5>
+          
+            
+            <div class="mv-3 example">
+              <pre class="highlighted-code"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>p</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>fw-4<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>Things should be what they are<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>p</span><span class="token punctuation">></span></span></pre>
+              <div class="example-demonstration">
+              
+<p class="fw-4">Things should be what they are</p>
+
+              </div>
+            </div>
+          
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="fw-5">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.fw-5</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.fw-5</span> <span class="token punctuation">{</span>
+  <span class="token property">font-weight</span><span class="token punctuation">:</span> 500<span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+          <h5 class="f-2 ttu">
+            
+              Example
+            
+          </h5>
+          
+            
+            <div class="mv-3 example">
+              <pre class="highlighted-code"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>p</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>fw-5<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>Things should be what they are<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>p</span><span class="token punctuation">></span></span></pre>
+              <div class="example-demonstration">
+              
+<p class="fw-5">Things should be what they are</p>
+
+              </div>
+            </div>
+          
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="fw-6">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.fw-6</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.fw-6</span> <span class="token punctuation">{</span>
+  <span class="token property">font-weight</span><span class="token punctuation">:</span> 600<span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+          <h5 class="f-2 ttu">
+            
+              Example
+            
+          </h5>
+          
+            
+            <div class="mv-3 example">
+              <pre class="highlighted-code"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>p</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>fw-6<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>Things should be what they are<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>p</span><span class="token punctuation">></span></span></pre>
+              <div class="example-demonstration">
+              
+<p class="fw-6">Things should be what they are</p>
+
+              </div>
+            </div>
+          
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="fw-7">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.fw-7</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.fw-7</span> <span class="token punctuation">{</span>
+  <span class="token property">font-weight</span><span class="token punctuation">:</span> 700<span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+          <h5 class="f-2 ttu">
+            
+              Example
+            
+          </h5>
+          
+            
+            <div class="mv-3 example">
+              <pre class="highlighted-code"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>p</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>fw-7<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>Things should be what they are<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>p</span><span class="token punctuation">></span></span></pre>
+              <div class="example-demonstration">
+              
+<p class="fw-7">Things should be what they are</p>
+
+              </div>
+            </div>
+          
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="fw-8">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.fw-8</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.fw-8</span> <span class="token punctuation">{</span>
+  <span class="token property">font-weight</span><span class="token punctuation">:</span> 800<span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+          <h5 class="f-2 ttu">
+            
+              Example
+            
+          </h5>
+          
+            
+            <div class="mv-3 example">
+              <pre class="highlighted-code"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>p</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>fw-8<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>Things should be what they are<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>p</span><span class="token punctuation">></span></span></pre>
+              <div class="example-demonstration">
+              
+<p class="fw-8">Things should be what they are</p>
+
+              </div>
+            </div>
+          
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="fw-9">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.fw-9</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.fw-9</span> <span class="token punctuation">{</span>
+  <span class="token property">font-weight</span><span class="token punctuation">:</span> 900<span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          <p>Heaviest font weight.</p>
+
+        </p>
+        
+        
+          <h5 class="f-2 ttu">
+            
+              Example
+            
+          </h5>
+          
+            
+            <div class="mv-3 example">
+              <pre class="highlighted-code"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>p</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>fw-9<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>Things should be what they are<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>p</span><span class="token punctuation">></span></span></pre>
+              <div class="example-demonstration">
+              
+<p class="fw-9">Things should be what they are</p>
+
+              </div>
+            </div>
+          
+        
+        </div>
+      
+    
+      <h3 class="f-5 mt-4" id="class-group:styles-variants">Styles Variants</h3>
+      <p class="p">
+        <p>Font styles and variants.</p>
+
+      </p>
+      
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="fs-normal">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.fs-normal</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.fs-normal</span> <span class="token punctuation">{</span>
+  <span class="token property">font-style</span><span class="token punctuation">:</span> normal<span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          <p>Normal styling, typically roman.</p>
+
+        </p>
+        
+        
+          <h5 class="f-2 ttu">
+            
+              Example
+            
+          </h5>
+          
+            
+            <div class="mv-3 example">
+              <pre class="highlighted-code"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>p</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>fs-normal<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>Things should be what they are<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>p</span><span class="token punctuation">></span></span></pre>
+              <div class="example-demonstration">
+              
+<p class="fs-normal">Things should be what they are</p>
+
+              </div>
+            </div>
+          
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="fs-italic">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.fs-italic</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.fs-italic</span> <span class="token punctuation">{</span>
+  <span class="token property">font-style</span><span class="token punctuation">:</span> italic<span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          <p>Italic or slanted styling, depend on the font.</p>
+
+        </p>
+        
+        
+          <h5 class="f-2 ttu">
+            
+              Example
+            
+          </h5>
+          
+            
+            <div class="mv-3 example">
+              <pre class="highlighted-code"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>p</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>fs-italic<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>Things should be what they are<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>p</span><span class="token punctuation">></span></span></pre>
+              <div class="example-demonstration">
+              
+<p class="fs-italic">Things should be what they are</p>
+
+              </div>
+            </div>
+          
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="fv-sc">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.fv-sc</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.fv-sc</span> <span class="token punctuation">{</span>
+  <span class="token property">font-variant</span><span class="token punctuation">:</span> small-caps<span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          <p>Small caps variant</p>
+
+        </p>
+        
+        
+          <h5 class="f-2 ttu">
+            
+              Example
+            
+          </h5>
+          
+            
+            <div class="mv-3 example">
+              <pre class="highlighted-code"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>p</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>fv-sc<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>Things should be what they are<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>p</span><span class="token punctuation">></span></span></pre>
+              <div class="example-demonstration">
+              
+<p class="fv-sc">Things should be what they are</p>
+
+              </div>
+            </div>
+          
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="fv-normal">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.fv-normal</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.fv-normal</span> <span class="token punctuation">{</span>
+  <span class="token property">font-variant</span><span class="token punctuation">:</span> normal<span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          <p>Normal variant</p>
+
+        </p>
+        
+        
+          <h5 class="f-2 ttu">
+            
+              Example
+            
+          </h5>
+          
+            
+            <div class="mv-3 example">
+              <pre class="highlighted-code"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>p</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>fv-normal<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>Things should be what they are<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>p</span><span class="token punctuation">></span></span></pre>
+              <div class="example-demonstration">
+              
+<p class="fv-normal">Things should be what they are</p>
+
+              </div>
+            </div>
+          
+        
+        </div>
+      
+    
+      <h3 class="f-5 mt-4" id="class-group:tracking">Tracking</h3>
+      <p class="p">
+        <p>Letterspacing/tracking.  This scale is semantic, since you likely don’t need that many values to achnieve whatever design you are looking for.</p>
+
+      </p>
+      
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="tracked">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.tracked</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.tracked</span> <span class="token punctuation">{</span>
+  <span class="token property">letter-spacing</span><span class="token punctuation">:</span> <span class="token function">var</span><span class="token punctuation">(</span>--ls-tracked<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          <p>Slightly increased spacing, useful for cleaning up all-caps titles.</p>
+
+        </p>
+        
+        
+          <h5 class="f-2 ttu">
+            
+              Example
+            
+          </h5>
+          
+            
+            <div class="mv-3 example">
+              <pre class="highlighted-code"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>p</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>tracked<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>Things should be what they are<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>p</span><span class="token punctuation">></span></span></pre>
+              <div class="example-demonstration">
+              
+<p class="tracked">Things should be what they are</p>
+
+              </div>
+            </div>
+          
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="tracked-tight">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.tracked-tight</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.tracked-tight</span> <span class="token punctuation">{</span>
+  <span class="token property">letter-spacing</span><span class="token punctuation">:</span> <span class="token function">var</span><span class="token punctuation">(</span>--ls-tight<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          <p>Tight spacing.</p>
+
+        </p>
+        
+        
+          <h5 class="f-2 ttu">
+            
+              Example
+            
+          </h5>
+          
+            
+            <div class="mv-3 example">
+              <pre class="highlighted-code"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>p</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>tracked-tight<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>Things should be what they are<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>p</span><span class="token punctuation">></span></span></pre>
+              <div class="example-demonstration">
+              
+<p class="tracked-tight">Things should be what they are</p>
+
+              </div>
+            </div>
+          
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="tracked-mega">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.tracked-mega</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.tracked-mega</span> <span class="token punctuation">{</span>
+  <span class="token property">letter-spacing</span><span class="token punctuation">:</span> <span class="token function">var</span><span class="token punctuation">(</span>--ls-mega<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          <p>Significantly increased spacing, useful for special effects.</p>
+
+        </p>
+        
+        
+          <h5 class="f-2 ttu">
+            
+              Example
+            
+          </h5>
+          
+            
+            <div class="mv-3 example">
+              <pre class="highlighted-code"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>p</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>tracked-mega<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>Things should be what they are<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>p</span><span class="token punctuation">></span></span></pre>
+              <div class="example-demonstration">
+              
+<p class="tracked-mega">Things should be what they are</p>
+
+              </div>
+            </div>
+          
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="tracked-none">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.tracked-none</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.tracked-none</span> <span class="token punctuation">{</span>
+  <span class="token property">letter-spacing</span><span class="token punctuation">:</span> <span class="token function">var</span><span class="token punctuation">(</span>--ls-none<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          <p>Normal letter spacing.</p>
+
+        </p>
+        
+        
+          <h5 class="f-2 ttu">
+            
+              Example
+            
+          </h5>
+          
+            
+            <div class="mv-3 example">
+              <pre class="highlighted-code"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>p</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>tracked-none<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>Things should be what they are<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>p</span><span class="token punctuation">></span></span></pre>
+              <div class="example-demonstration">
+              
+<p class="tracked-none">Things should be what they are</p>
+
+              </div>
+            </div>
+          
+        
+        </div>
+      
+    
+      <h3 class="f-5 mt-4" id="class-group:leading">Leading/Line Height</h3>
+      <p class="p">
+        <p>Line heights/leading.  This is a semantic scale providing three useful values.</p>
+
+      </p>
+      
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="lh-solid">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.lh-solid</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.lh-solid</span> <span class="token punctuation">{</span>
+  <span class="token property">line-height</span><span class="token punctuation">:</span> <span class="token function">var</span><span class="token punctuation">(</span>--lh-solid<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          <p>No line height, for creating solid blocks of text.</p>
+
+        </p>
+        
+        
+          <h5 class="f-2 ttu">
+            
+              Example
+            
+          </h5>
+          
+            
+            <div class="mv-3 example">
+              <pre class="highlighted-code"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>p</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>lh-solid measure<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+  A core tenet of design is that same should be same, while
+  different be then different. Meaning: if two elements are
+  intended to be the same sort of thing, or reference the
+  same sort of information, they should have clear
+  consonance and harmony. Conversely, if two elements are
+  unrelated, they should be quite clearly different.
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>p</span><span class="token punctuation">></span></span></pre>
+              <div class="example-demonstration">
+              
+<p class="lh-solid measure">
+A core tenet of design is that same should be same, while different be then different. Meaning: if two elements are intended to be the same sort of thing, or reference the same sort of information, they should have clear consonance and harmony.  Conversely, if two elements are unrelated, they should be quite clearly different.
+</p>
+
+              </div>
+            </div>
+          
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="lh-title">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.lh-title</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.lh-title</span> <span class="token punctuation">{</span>
+  <span class="token property">line-height</span><span class="token punctuation">:</span> <span class="token function">var</span><span class="token punctuation">(</span>--lh-title<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          <p>Leading appropriate for titles, which can be somewhat tighter than normal text.</p>
+
+        </p>
+        
+        
+          <h5 class="f-2 ttu">
+            
+              Example
+            
+          </h5>
+          
+            
+            <div class="mv-3 example">
+              <pre class="highlighted-code"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>p</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>lh-title measure<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+  A core tenet of design is that same should be same, while
+  different be then different. Meaning: if two elements are
+  intended to be the same sort of thing, or reference the
+  same sort of information, they should have clear
+  consonance and harmony. Conversely, if two elements are
+  unrelated, they should be quite clearly different.
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>p</span><span class="token punctuation">></span></span></pre>
+              <div class="example-demonstration">
+              
+<p class="lh-title measure">
+A core tenet of design is that same should be same, while different be then different. Meaning: if two elements are intended to be the same sort of thing, or reference the same sort of information, they should have clear consonance and harmony.  Conversely, if two elements are unrelated, they should be quite clearly different.
+</p>
+
+              </div>
+            </div>
+          
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="lh-copy">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.lh-copy</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.lh-copy</span> <span class="token punctuation">{</span>
+  <span class="token property">line-height</span><span class="token punctuation">:</span> <span class="token function">var</span><span class="token punctuation">(</span>--lh-copy<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          <p>Leading appropriate for copy or other longform text.</p>
+
+        </p>
+        
+          <h5 class="f-1 b">See Also</h3>
+          <ul class="see-also">
+            
+              <li><p><a href="/brut-css/classes/typography.html#p"><code>.p</code></a></p>
+</li>
+            
+          </ul>
+        
+        
+          <h5 class="f-2 ttu">
+            
+              Example
+            
+          </h5>
+          
+            
+            <div class="mv-3 example">
+              <pre class="highlighted-code"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>p</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>lh-copy measure<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+  A core tenet of design is that same should be same, while
+  different be then different. Meaning: if two elements are
+  intended to be the same sort of thing, or reference the
+  same sort of information, they should have clear
+  consonance and harmony. Conversely, if two elements are
+  unrelated, they should be quite clearly different.
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>p</span><span class="token punctuation">></span></span></pre>
+              <div class="example-demonstration">
+              
+<p class="lh-copy measure">
+A core tenet of design is that same should be same, while different be then different. Meaning: if two elements are intended to be the same sort of thing, or reference the same sort of information, they should have clear consonance and harmony.  Conversely, if two elements are unrelated, they should be quite clearly different.
+</p>
+              </div>
+            </div>
+          
+        
+        </div>
+      
+    
+      <h3 class="f-5 mt-4" id="class-group:text-align">Text Align</h3>
+      <p class="p">
+        <p>Text alignment.</p>
+
+      </p>
+      
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="tr">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.tr</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.tr</span> <span class="token punctuation">{</span>
+  <span class="token property">text-align</span><span class="token punctuation">:</span> right<span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          <p>Right alignment</p>
+
+        </p>
+        
+        
+          <h5 class="f-2 ttu">
+            
+              Example
+            
+          </h5>
+          
+            
+            <div class="mv-3 example">
+              <pre class="highlighted-code"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>p</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>w-100 tr<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>Things should be what they are<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>p</span><span class="token punctuation">></span></span></pre>
+              <div class="example-demonstration">
+              
+<p class="w-100 tr">Things should be what they are</p>
+
+              </div>
+            </div>
+          
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="tc">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.tc</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.tc</span> <span class="token punctuation">{</span>
+  <span class="token property">text-align</span><span class="token punctuation">:</span> center<span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          <p>Center-aligned text.</p>
+
+        </p>
+        
+        
+          <h5 class="f-2 ttu">
+            
+              Example
+            
+          </h5>
+          
+            
+            <div class="mv-3 example">
+              <pre class="highlighted-code"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>p</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>w-100 tc<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>Things should be what they are<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>p</span><span class="token punctuation">></span></span></pre>
+              <div class="example-demonstration">
+              
+<p class="w-100 tc">Things should be what they are</p>
+
+              </div>
+            </div>
+          
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="tl">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.tl</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.tl</span> <span class="token punctuation">{</span>
+  <span class="token property">text-align</span><span class="token punctuation">:</span> left<span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          <p>Left-aligned text.</p>
+
+        </p>
+        
+        
+          <h5 class="f-2 ttu">
+            
+              Example
+            
+          </h5>
+          
+            
+            <div class="mv-3 example">
+              <pre class="highlighted-code"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>p</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>w-100 tl<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>Things should be what they are<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>p</span><span class="token punctuation">></span></span></pre>
+              <div class="example-demonstration">
+              
+<p class="w-100 tl">Things should be what they are</p>
+
+              </div>
+            </div>
+          
+        
+        </div>
+      
+    
+      <h3 class="f-5 mt-4" id="class-group:text-transform">Text Transform</h3>
+      <p class="p">
+        <p>Text transformations.</p>
+
+      </p>
+      
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="ttn">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.ttn</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.ttn</span> <span class="token punctuation">{</span>
+  <span class="token property">text-transform</span><span class="token punctuation">:</span> none<span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="ttu">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.ttu</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.ttu</span> <span class="token punctuation">{</span>
+  <span class="token property">text-transform</span><span class="token punctuation">:</span> uppercase<span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="ttl">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.ttl</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.ttl</span> <span class="token punctuation">{</span>
+  <span class="token property">text-transform</span><span class="token punctuation">:</span> lowercase<span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="ttc">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.ttc</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.ttc</span> <span class="token punctuation">{</span>
+  <span class="token property">text-transform</span><span class="token punctuation">:</span> capitalize<span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="tdn">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.tdn</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.tdn</span> <span class="token punctuation">{</span>
+  <span class="token property">text-decoration</span><span class="token punctuation">:</span> none<span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="tdu">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.tdu</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.tdu</span> <span class="token punctuation">{</span>
+  <span class="token property">text-decoration</span><span class="token punctuation">:</span> underline<span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="u">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.u</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.u</span> <span class="token punctuation">{</span>
+  <span class="token property">text-decoration</span><span class="token punctuation">:</span> underline<span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="tds">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.tds</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.tds</span> <span class="token punctuation">{</span>
+  <span class="token property">text-decoration</span><span class="token punctuation">:</span> line-through<span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="tdo">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.tdo</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.tdo</span> <span class="token punctuation">{</span>
+  <span class="token property">text-decoration</span><span class="token punctuation">:</span> overline<span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+    
+      <h3 class="f-5 mt-4" id="class-scale:indent">Indent</h3>
+      <p class="p">
+        <p>Text indents. This is a seven-step scale with -3 to positive 3.</p>
+
+      </p>
+      
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="indent--3">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.indent--3</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.indent--3</span> <span class="token punctuation">{</span>
+  <span class="token property">text-indent</span><span class="token punctuation">:</span> <span class="token function">calc</span><span class="token punctuation">(</span> -1 * <span class="token function">var</span><span class="token punctuation">(</span>--indent-3<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="indent--2">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.indent--2</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.indent--2</span> <span class="token punctuation">{</span>
+  <span class="token property">text-indent</span><span class="token punctuation">:</span> <span class="token function">calc</span><span class="token punctuation">(</span> -1 * <span class="token function">var</span><span class="token punctuation">(</span>--indent-2<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="indent--1">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.indent--1</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.indent--1</span> <span class="token punctuation">{</span>
+  <span class="token property">text-indent</span><span class="token punctuation">:</span> <span class="token function">calc</span><span class="token punctuation">(</span> -1 * <span class="token function">var</span><span class="token punctuation">(</span>--indent-1<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="indent-0">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.indent-0</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.indent-0</span> <span class="token punctuation">{</span>
+  <span class="token property">text-indent</span><span class="token punctuation">:</span> 0<span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="indent-1">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.indent-1</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.indent-1</span> <span class="token punctuation">{</span>
+  <span class="token property">text-indent</span><span class="token punctuation">:</span> <span class="token function">var</span><span class="token punctuation">(</span>--indent-1<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="indent-2">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.indent-2</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.indent-2</span> <span class="token punctuation">{</span>
+  <span class="token property">text-indent</span><span class="token punctuation">:</span> <span class="token function">var</span><span class="token punctuation">(</span>--indent-2<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="indent-3">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.indent-3</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.indent-3</span> <span class="token punctuation">{</span>
+  <span class="token property">text-indent</span><span class="token punctuation">:</span> <span class="token function">var</span><span class="token punctuation">(</span>--indent-3<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+    
+      <h3 class="f-5 mt-4" id="class-group:text-overflow">Text Overflow</h3>
+      <p class="p">
+        <p>Text overflow</p>
+
+      </p>
+      
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="truncate">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.truncate</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.truncate</span> <span class="token punctuation">{</span>
+  <span class="token property">text-overflow</span><span class="token punctuation">:</span> ellipsis<span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="clip">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.clip</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.clip</span> <span class="token punctuation">{</span>
+  <span class="token property">text-overflow</span><span class="token punctuation">:</span> clip<span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+    
+      <h3 class="f-5 mt-4" id="class-group:whitespace">Whitespace</h3>
+      <p class="p">
+        <p>Whitespace</p>
+
+      </p>
+      
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="ws-normal">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.ws-normal</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.ws-normal</span> <span class="token punctuation">{</span>
+  <span class="token property">white-space</span><span class="token punctuation">:</span> normal<span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="ws-nowrap">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.ws-nowrap</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.ws-nowrap</span> <span class="token punctuation">{</span>
+  <span class="token property">white-space</span><span class="token punctuation">:</span> nowrap<span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="ws-pre">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.ws-pre</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.ws-pre</span> <span class="token punctuation">{</span>
+  <span class="token property">white-space</span><span class="token punctuation">:</span> pre<span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+    
+      <h3 class="f-5 mt-4" id="class-group:measure">Measure/Text Width</h3>
+      <p class="p">
+        <p>Maximum widths useful for text blocks.</p>
+
+      </p>
+      
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="measure">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.measure</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.measure</span> <span class="token punctuation">{</span>
+  <span class="token property">max-width</span><span class="token punctuation">:</span> <span class="token function">var</span><span class="token punctuation">(</span>--tw<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          <p>A standard text width useful for any occassion. This should provide a comfortable reading experience for any font and size.</p>
+
+        </p>
+        
+        
+          <h5 class="f-2 ttu">
+            
+              Example
+            
+          </h5>
+          
+            
+            <div class="mv-3 example">
+              <pre class="highlighted-code"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>p</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>measure<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+  A core tenet of design is that same should be same, while
+  different be then different. Meaning: if two elements are
+  intended to be the same sort of thing, or reference the
+  same sort of information, they should have clear
+  consonance and harmony. Conversely, if two elements are
+  unrelated, they should be quite clearly different.
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>p</span><span class="token punctuation">></span></span></pre>
+              <div class="example-demonstration">
+              
+<p class="measure">
+A core tenet of design is that same should be same, while different be then different. Meaning: if two elements are intended to be the same sort of thing, or reference the same sort of information, they should have clear consonance and harmony.  Conversely, if two elements are unrelated, they should be quite clearly different.
+</p>
+
+              </div>
+            </div>
+          
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="measure-wide">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.measure-wide</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.measure-wide</span> <span class="token punctuation">{</span>
+  <span class="token property">max-width</span><span class="token punctuation">:</span> <span class="token function">var</span><span class="token punctuation">(</span>--tw-wide<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          <p>A slighter wider, but still readable width.</p>
+
+        </p>
+        
+        
+          <h5 class="f-2 ttu">
+            
+              Example
+            
+          </h5>
+          
+            
+            <div class="mv-3 example">
+              <pre class="highlighted-code"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>p</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>measure-wide<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+  A core tenet of design is that same should be same, while
+  different be then different. Meaning: if two elements are
+  intended to be the same sort of thing, or reference the
+  same sort of information, they should have clear
+  consonance and harmony. Conversely, if two elements are
+  unrelated, they should be quite clearly different.
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>p</span><span class="token punctuation">></span></span></pre>
+              <div class="example-demonstration">
+              
+<p class="measure-wide">
+A core tenet of design is that same should be same, while different be then different. Meaning: if two elements are intended to be the same sort of thing, or reference the same sort of information, they should have clear consonance and harmony.  Conversely, if two elements are unrelated, they should be quite clearly different.
+</p>
+
+              </div>
+            </div>
+          
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="measure-narrow">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.measure-narrow</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.measure-narrow</span> <span class="token punctuation">{</span>
+  <span class="token property">max-width</span><span class="token punctuation">:</span> <span class="token function">var</span><span class="token punctuation">(</span>--tw-narrow<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          <p>A slighter narrower, but still readable width.</p>
+
+        </p>
+        
+        
+          <h5 class="f-2 ttu">
+            
+              Example
+            
+          </h5>
+          
+            
+            <div class="mv-3 example">
+              <pre class="highlighted-code"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>p</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>measure-narrow<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+  A core tenet of design is that same should be same, while
+  different be then different. Meaning: if two elements are
+  intended to be the same sort of thing, or reference the
+  same sort of information, they should have clear
+  consonance and harmony. Conversely, if two elements are
+  unrelated, they should be quite clearly different.
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>p</span><span class="token punctuation">></span></span></pre>
+              <div class="example-demonstration">
+              
+<p class="measure-narrow">
+A core tenet of design is that same should be same, while different be then different. Meaning: if two elements are intended to be the same sort of thing, or reference the same sort of information, they should have clear consonance and harmony.  Conversely, if two elements are unrelated, they should be quite clearly different.
+</p>
+
+              </div>
+            </div>
+          
+        
+        </div>
+      
+    
+      <h3 class="f-5 mt-4" id="class-group:typography-aliases">Typography Aliases</h3>
+      <p class="p">
+        <p>Aliases to save precious keystrokes.</p>
+
+      </p>
+      
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="p">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.p</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.p</span> <span class="token punctuation">{</span>
+  <span class="token property">max-width</span><span class="token punctuation">:</span> <span class="token function">var</span><span class="token punctuation">(</span>--tw<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token property">line-height</span><span class="token punctuation">:</span> <span class="token function">var</span><span class="token punctuation">(</span>--lh-copy<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          <p>Set reasonable  typography for some text, namely, setting <a href="/brut-css/classes/typography.html#measure"><code>.measure</code></a> and <a href="/brut-css/classes/typography.html#lh-copy"><code>.lh-copy</code></a> at the same time.</p>
+
+        </p>
+        
+        
+          <h5 class="f-2 ttu">
+            
+              Example
+            
+          </h5>
+          
+            
+            <div class="mv-3 example">
+              <pre class="highlighted-code"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>p<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+  A core tenet of design is that same should be same, while
+  different be then different. Meaning: if two elements are
+  intended to be the same sort of thing, or reference the
+  same sort of information, they should have clear
+  consonance and harmony. Conversely, if two elements are
+  unrelated, they should be quite clearly different.
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span></pre>
+              <div class="example-demonstration">
+              
+<div class="p">
+A core tenet of design is that same should be same, while different be then different. Meaning: if two elements are intended to be the same sort of thing, or reference the same sort of information, they should have clear consonance and harmony.  Conversely, if two elements are unrelated, they should be quite clearly different.
+</div>
+
+              </div>
+            </div>
+          
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="b">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.b</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.b</span> <span class="token punctuation">{</span>
+  <span class="token property">font-weight</span><span class="token punctuation">:</span> bold<span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          <p>Shorthand for a bold font.</p>
+
+        </p>
+        
+        
+          <h5 class="f-2 ttu">
+            
+              Example
+            
+          </h5>
+          
+            
+            <div class="mv-3 example">
+              <pre class="highlighted-code"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>p</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>b<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>Things should be what they are<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>p</span><span class="token punctuation">></span></span></pre>
+              <div class="example-demonstration">
+              
+<p class="b">Things should be what they are</p>
+
+              </div>
+            </div>
+          
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="sc">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.sc</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.sc</span> <span class="token punctuation">{</span>
+  <span class="token property">font-variant</span><span class="token punctuation">:</span> small-caps<span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          <p>Shorthand for small-caps</p>
+
+        </p>
+        
+        
+          <h5 class="f-2 ttu">
+            
+              Example
+            
+          </h5>
+          
+            
+            <div class="mv-3 example">
+              <pre class="highlighted-code"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>p</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>sc<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>Things should be what they are<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>p</span><span class="token punctuation">></span></span></pre>
+              <div class="example-demonstration">
+              
+<p class="sc">Things should be what they are</p>
+
+              </div>
+            </div>
+          
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="i">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.i</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.i</span> <span class="token punctuation">{</span>
+  <span class="token property">font-style</span><span class="token punctuation">:</span> italic<span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          <p>Shorthand for italic</p>
+
+        </p>
+        
+        
+          <h5 class="f-2 ttu">
+            
+              Example
+            
+          </h5>
+          
+            
+            <div class="mv-3 example">
+              <pre class="highlighted-code"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>p</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>i<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>Things should be what they are<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>p</span><span class="token punctuation">></span></span></pre>
+              <div class="example-demonstration">
+              
+<p class="i">Things should be what they are</p>
+
+              </div>
+            </div>
+          
+        
+        </div>
+      
+    
+  </article>
+  <div class="z-5 ma-0 overflow-y-auto pa-2 w-20 h-100 pos-absolute top-0 right-2">
+    <div class="pa-3 ba bc-gray-700 bg-gray-900 br-3 shadow-1 ridiculous-liquid-glass-is-all-the-rage">
+      <h3>On this Page</h3>
+      <ul class="lst-none ma-0 pa-0">
+      
+        <li class="lh-copy"><a href="#class-group:font-family">Font Family</a></li>
+      
+        <li class="lh-copy"><a href="#class-scale:font-size">Font Size</a></li>
+      
+        <li class="lh-copy"><a href="#class-scale:font-weights">Font Weights</a></li>
+      
+        <li class="lh-copy"><a href="#class-group:styles-variants">Styles Variants</a></li>
+      
+        <li class="lh-copy"><a href="#class-group:tracking">Tracking</a></li>
+      
+        <li class="lh-copy"><a href="#class-group:leading">Leading/Line Height</a></li>
+      
+        <li class="lh-copy"><a href="#class-group:text-align">Text Align</a></li>
+      
+        <li class="lh-copy"><a href="#class-group:text-transform">Text Transform</a></li>
+      
+        <li class="lh-copy"><a href="#class-scale:indent">Indent</a></li>
+      
+        <li class="lh-copy"><a href="#class-group:text-overflow">Text Overflow</a></li>
+      
+        <li class="lh-copy"><a href="#class-group:whitespace">Whitespace</a></li>
+      
+        <li class="lh-copy"><a href="#class-group:measure">Measure/Text Width</a></li>
+      
+        <li class="lh-copy"><a href="#class-group:typography-aliases">Typography Aliases</a></li>
+      
+      </ul>
+    </div>
+  </div>
+        </div>
+      <footer class="bg-black white mt-auto">
+        <p class="tc">
+          Copyright &copy; 2025 David Bryant Copeland.
+        </p>
+      </footer>
+    </section>
+  </main>
+</body>
+
+</html>
+

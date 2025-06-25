@@ -1,0 +1,1091 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Class: BaseCustomElement</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Class: BaseCustomElement</h1>
+
+    
+
+
+
+
+<section>
+
+<header>
+    
+        <h2><span class="attribs"><span class="type-signature"></span></span>BaseCustomElement<span class="signature">()</span><span class="type-signature"></span></h2>
+          
+        
+            <div class="class-description"><p>Base class for Custom Elements that provides a few quality-of-life enhancements.</p>
+<p>Custom elements that use this base class instead of <code>HTMLElement</code> get the following features:</p>
+<ul>
+<li><code>connectedCallback</code> and <code>attributeChangedCallback</code> call into a central <code>update</code> method where the
+class can centralilize its logic</li>
+<li>Instead of implementing <code>attributeChangedCallback</code> and checking the name, per-attribute
+callbacks can be implemented that are called when an observed attribute is changed.  See <code>attributeChangedCallback</code>.</li>
+<li>Support for defining the element by declaring a tag name</li>
+<li>Opt-in debugging support to allow verbose logging of mistaken use of the element that can be turned
+off for production use.</li>
+</ul>
+<p>How to use this class:</p>
+<ol>
+<li>Your custom element should extend this class via <code>extends BaseCustomElement</code></li>
+<li>Create a static property called <code>tagName</code> that will be your element's tag name. Remember that all tag names must have a dash in them.</li>
+<li>Create a static property called <code>observedAttributes</code> that is an array of attribute names your element supports. This is part of the HTML spec and not specific to this base class.</li>
+<li>If you include the attribute <code>show-warnings</code> in your list of <code>observedAttributes</code>, you will have enhanced debugging abilities.</li>
+<li>For each attribute <em>other</em> than <code>show-warnings</code>, implement a callback to receive notifications on the attribute's changes. See <code>attributeChangedCallback</code> for more info.</li>
+<li>Implement <code>update</code> to execute whatever logic the component needs.  <code>update</code> will be called multiple times and thus should be relatively idempotent.  Specifically, it will be called after any attribute has changed, and it will be called as part of the standard <code>connectedCallback</code>.</li>
+<li>To use your component, call the static <code>define</code> method.</li>
+</ol>
+<p>Debugging</p>
+<p>Custom Elements have to work under a variety of degenerate cirucmstances.  Further, if you are building
+elements that wrap and enhance conventional elements, it can be easy to make a mistake, for example intending
+to wrap a <code>FORM</code>, but wrapping only an <code>INPUT</code>.</p>
+<p>To help debug these situations, you are encouraged to use <code>this.logger.warn(...)</code> to emit warnings when
+potentially incorrect use of your component is detected.  By default, these warnings will not be shown. This
+provides your users with a drama-free console.  During development, however, you can add the <code>show-warnings</code>
+attribute to your element.  If that is set, warnings <em>are</em> shown in the console.</p>
+<p><code>show-warnings</code> can be given a value, in which case that value if used to prefix all warnings the element emits.
+This can be useful to know which use of an element is causing problems.  If you don't give any value
+to <code>show-warnings</code>, the element's <code>id</code> will be used as the prefix.  If the element has no <code>id</code>, you will
+still see warnings, but without a prefix. This could make it hard to know where the warnings are coming from.</p></div>
+        
+    
+</header>
+
+<article>
+    <div class="container-overview">
+    
+        
+
+    
+    <h2>Constructor</h2>
+    
+
+    
+    <h4 class="name" id="BaseCustomElement"><span class="type-signature"></span>new BaseCustomElement<span class="signature">()</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="BaseCustomElement.js.html">BaseCustomElement.js</a>, <a href="BaseCustomElement.js.html#line93">line 93</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>// Replaces all span elements inside the component with
+// an upper-cased value of the attribute 'some-attribute'
+class MyComponent extends BaseCustomElement {
+  static tagName = "my-component"
+  static observedAttributes = [
+    "show-warnings",
+    "some-attribute",
+  ]
+
+  someAttributeChangedCallback({newValue}) {
+    this.someAttribute = newValue ? newValue.toUpperCase() : null
+  }
+
+  update() {
+    const spans = this.querySelectorAll("span")
+    if (spans.length == 0) {
+      this.logger.warn("Did not find any &lt;span> elements - element won't do anything")
+    }
+    spans.forEach( (element) => {
+      element.textContent = this.someAttribute
+    })
+  }
+}
+docment.addEventListener("DOMContentLoaded", () => {
+  MyComponent.define()
+})
+
+// Then, in your HTML
+&lt;my-component some-attribute="hello there">
+  &lt;span>&lt;/span>
+  &lt;div>&lt;/div>
+  &lt;span>&lt;/span>
+&lt;/my-component>
+
+// The browser will effectively produce this HTML:
+&lt;my-component some-attribute="hello there">
+  &lt;span>HELLO THERE&lt;/span>
+  &lt;div>&lt;/div>
+  &lt;span>HELLO THERE&lt;/span>
+&lt;/my-component>
+
+// If JavaScript (or browser dev tools) changed some-attribute
+// to be "goodbye then", the markup will change to look like so:
+&lt;my-component some-attribute="goodby then">
+  &lt;span>GOODBYE THEN&lt;/span>
+  &lt;div>&lt;/div>
+  &lt;span>GOODBYE THEN&lt;/span>
+&lt;/my-component></code></pre>
+
+
+
+    
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+        <h3 class="subsection-title">Members</h3>
+
+        
+            
+<h4 class="name" id="connectedCallbackCalled"><span class="type-signature"></span>connectedCallbackCalled<span class="type-signature"></span></h4>
+
+
+
+
+<div class="description">
+    <p>Returns true if this element is connected and the connected callback has been called.
+This is different from <code>Node#isConnected</code>, which can return true before <code>connectedCallback</code> is called.</p>
+</div>
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="BaseCustomElement.js.html">BaseCustomElement.js</a>, <a href="BaseCustomElement.js.html#line238">line 238</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+        
+            
+<h4 class="name" id="logger"><span class="type-signature"></span>logger<span class="type-signature"></span></h4>
+
+
+
+
+<div class="description">
+    <p>A <a href="Logger.html"><code>Logger</code></a> you can use to write warning messages.  By default, these
+messages are not shown in the console. If you put <code>show-warnings</code> as an attribute on your
+element, warnings sent to this logger <em>are</em> shown.</p>
+</div>
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="BaseCustomElement.js.html">BaseCustomElement.js</a>, <a href="BaseCustomElement.js.html#line99">line 99</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+        
+    
+
+    
+        <h3 class="subsection-title">Methods</h3>
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="attributeChangedCallback"><span class="type-signature"></span>attributeChangedCallback<span class="signature">()</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    <p>Overrides the standard callback to allow subclasses to have a slightly easier API when responding
+to attribute changes. You can override this to use the custom element callback directly. Note that if
+you do, <code>show-warnings</code> will not have any affect and you probably don't need to bother using
+this class as your base class.</p>
+<p>This method will locate a per-attribute method and call that.
+Attribute names are assumed to be in kebab-case and are translated to camelCase to create a method name.
+That method is <code>«attributeInCamelCase»ChangedCallback</code>, so if your attribute is <code>hex-code</code>,
+a method named <code>hexCodeChangedCallback</code> in invoked.  If no such method is defined, a
+warning is logged in the console, regardless of the <code>show-warnings</code> attribute.</p>
+<p>The method is invoked with <code>{oldValue,newValue,newValueAsBoolean}</code> - i.e. an object and not positional parameters. This
+means your implementation can omit any parameters it doesn't care about. <code>newValueAsBoolean</code> is not part of
+the custom element spec, but is provided as an unambiguous way to know if a boolean attribute was set or not. This is
+because if the value is set, it is likely to be the empty string, which is considered false by JavaScript. Cool.</p>
+<p>The return value of the method is ignored.</p>
+<p>After your method is called, if there is a method named <code>update</code>, it is called with no arguments.</p>
+<p>What this allows you to do is separate how you manage your element's attributes from how your logic
+is managed. For complex elements that take a lot of attributes, this can simplify your element's code without straying too far from the spec.</p>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="BaseCustomElement.js.html">BaseCustomElement.js</a>, <a href="BaseCustomElement.js.html#line186">line 186</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+    <dt class="tag-see">See:</dt>
+    <dd class="tag-see">
+        <ul>
+            <li><a href="https://developer.mozilla.org/en-US/docs/Web/API/Web_components/Using_custom_elements">https://developer.mozilla.org/en-US/docs/Web/API/Web_components/Using_custom_elements</a></li>
+        </ul>
+    </dd>
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>// If your element accepts the attribute `warning-message` that will be trimmed of whitespace
+// then placed into all `H1` tags inside the element, you can manage that like so:
+class MyElement extends BaseCustomElement {
+  static tagName = "my-element"
+  static observedAttributes = [
+    "warning-message",
+  ]
+
+  // called by attributeChangedCallback when warning-message's value changes
+  warningMessageChangedCallback({newValue}) {
+    this.warningMessage = (newValue || "").trim()
+  }
+
+  // called after attributeChangedCallback calls warningMessageChangedCallback
+  update() {
+    this.querySelectorAll("h1").forEach( (e) => e.textContent = this.warningMessage )
+  }
+}</code></pre>
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="connectedCallback"><span class="type-signature"></span>connectedCallback<span class="signature">()</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    <p>Overrides the custom element callback to set internal flags allowing you to know if your
+element has been connected. <code>update</code> is still called for elements that have not yet connected, however
+in practice your element will be connected before any codepath that calls <code>update</code> is called.</p>
+<p>To add logic when your element is connected, override <code>onConnected</code></p>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="BaseCustomElement.js.html">BaseCustomElement.js</a>, <a href="BaseCustomElement.js.html#line224">line 224</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+    <dt class="tag-see">See:</dt>
+    <dd class="tag-see">
+        <ul>
+            <li><a href="https://developer.mozilla.org/en-US/docs/Web/API/Web_components/Using_custom_elements">https://developer.mozilla.org/en-US/docs/Web/API/Web_components/Using_custom_elements</a></li>
+        
+            <li><a href="BaseCustomElement.html#connectedCallbackCalled">BaseCustomElement#connectedCallbackCalled</a></li>
+        </ul>
+    </dd>
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="disconnectedCallback"><span class="type-signature"></span>disconnectedCallback<span class="signature">()</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    <p>Overrides the custom element callback to set internal flags allowing you to know if your
+element has been disconnected. When an element is disconnected, <code>update</code> is not called.</p>
+<p>If you want to add your own logic during disconnection, override <code>onDisconnected</code>.</p>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="BaseCustomElement.js.html">BaseCustomElement.js</a>, <a href="BaseCustomElement.js.html#line205">line 205</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+    <dt class="tag-see">See:</dt>
+    <dd class="tag-see">
+        <ul>
+            <li><a href="https://developer.mozilla.org/en-US/docs/Web/API/Web_components/Using_custom_elements">https://developer.mozilla.org/en-US/docs/Web/API/Web_components/Using_custom_elements</a></li>
+        </ul>
+    </dd>
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="onConnected"><span class="type-signature"></span>onConnected<span class="signature">()</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    <p>Override this to add logic when <code>connectedCallback</code> is called by the browser. This will
+not be called if you overrode <code>connectedCallback</code></p>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="BaseCustomElement.js.html">BaseCustomElement.js</a>, <a href="BaseCustomElement.js.html#line233">line 233</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="onDisconnected"><span class="type-signature"></span>onDisconnected<span class="signature">()</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    <p>Override this to add logic when <code>disconnectedCallback</code> is called by the browser.  This will
+not be called if you overrode <code>disconnectedCallback</code>.</p>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="BaseCustomElement.js.html">BaseCustomElement.js</a>, <a href="BaseCustomElement.js.html#line213">line 213</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="update"><span class="type-signature"></span>update<span class="signature">()</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    <p>Override this to perform whatever logic your element must perform.
+Because changes to your element's attributes can happen at any time and in any order,
+you will want to consolidate all logic into one method—this one. You will also
+want to make sure that this method is idempotent and fault-tolerant. It will be called multiple times.</p>
+<p>It is called by <a href="BaseCustomElement.html#attributeChangedCallback"><code>attributeChangedCallback</code></a> and <a href="BaseCustomElement.html#connectedCallback"><code>connectedCallback</code></a>, however
+it will <em>not</em> be called after the elment has been disconnected.</p>
+<p>That means that any event listeners, rendering, content manipulation, or other behavior should happen hear
+and it <em>must</em> be idempotent.  In particular, any event listeners you attach must be done with care. Using
+anonymous functions could result in duplicate listeners.</p>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="BaseCustomElement.js.html">BaseCustomElement.js</a>, <a href="BaseCustomElement.js.html#line252">line 252</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id=".define"><span class="type-signature">(static) </span>define<span class="signature">()</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    <p>You must call this to define the custom element.  This is bascially
+a wrapper around <code>customElements.define</code>. It is recommended that you call
+this inside a <code>DOMContentLoaded</code> event, or after the page's HTML has been processed.</p>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="BaseCustomElement.js.html">BaseCustomElement.js</a>, <a href="BaseCustomElement.js.html#line115">line 115</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+    <dt class="tag-see">See:</dt>
+    <dd class="tag-see">
+        <ul>
+            <li><a href="external-CustomElementRegistry.html">external:CustomElementRegistry</a></li>
+        </ul>
+    </dd>
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+    
+
+    
+
+    
+</article>
+
+</section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-testing.html">testing</a></li></ul><h3>Externals</h3><ul><li><a href="external-CustomElementRegistry.html">CustomElementRegistry</a></li><li><a href="external-Performance.html">Performance</a></li><li><a href="external-Promise.html">Promise</a></li><li><a href="external-ValidityState.html">ValidityState</a></li><li><a href="external-Window.html">Window</a></li><li><a href="external-fetch.html">fetch</a></li></ul><h3>Classes</h3><ul><li><a href="AjaxSubmit.html">AjaxSubmit</a></li><li><a href="Autosubmit.html">Autosubmit</a></li><li><a href="BaseCustomElement.html">BaseCustomElement</a></li><li><a href="BrutCustomElements.html">BrutCustomElements</a></li><li><a href="BufferedLogger.html">BufferedLogger</a></li><li><a href="ConfirmSubmit.html">ConfirmSubmit</a></li><li><a href="ConfirmationDialog.html">ConfirmationDialog</a></li><li><a href="ConstraintViolationMessage.html">ConstraintViolationMessage</a></li><li><a href="ConstraintViolationMessages.html">ConstraintViolationMessages</a></li><li><a href="CopyToClipboard.html">CopyToClipboard</a></li><li><a href="Form.html">Form</a></li><li><a href="I18nTranslation.html">I18nTranslation</a></li><li><a href="LocaleDetection.html">LocaleDetection</a></li><li><a href="Logger.html">Logger</a></li><li><a href="Message.html">Message</a></li><li><a href="PrefixedLogger.html">PrefixedLogger</a></li><li><a href="RichString.html">RichString</a></li><li><a href="Tabs.html">Tabs</a></li><li><a href="Tracing.html">Tracing</a></li><li><a href="testing.AssetMetadata.html">AssetMetadata</a></li><li><a href="testing.AssetMetadataLoader.html">AssetMetadataLoader</a></li><li><a href="testing.CustomElementTest.html">CustomElementTest</a></li><li><a href="testing.DOMCreator.html">DOMCreator</a></li></ul><h3><a href="global.html">Global</a></h3>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.4</a> on Wed Jun 25 2025 22:30:10 GMT+0000 (Coordinated Universal Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

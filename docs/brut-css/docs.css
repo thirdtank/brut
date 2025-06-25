@@ -1,0 +1,98 @@
+:root {
+  --ff-sans: "Helvetica Neue", Helvetica, sans-serif;
+}
+h1, h2, h3, h4, h5, h6 {
+  margin: 0;
+}
+p:not([class]),
+li:not([class]) {
+  max-width: var(--tw);
+  line-height: 1.75;
+  color: var(--gray-400);
+}
+a:not([class]),
+a:not([class]):visited {
+  color: var(--blue-300);
+}
+h1 {
+  font-size: var(--fs-6);
+  color: var(--gray-200);
+}
+h2 {
+  font-size: var(--fs-5);
+  color: var(--gray-200);
+}
+h3 {
+  font-size: var(--fs-3);
+  color: var(--gray-200);
+}
+nav h3 {
+  text-transform: uppercase;
+  font-weight: 300;
+  color: var(--gray-400);
+  letter-spacing: var(--ls);
+}
+nav ul {
+  list-style-type: none;
+  margin-top: var(--sp-2);
+  margin-bottom: var(--sp-2);
+  margin-right: 0;
+  margin-left: 0;
+  padding-bottom: var(--sp-2);
+  li {
+    line-height: var(--lh-copy);
+    margin-top: var(--sp-1);
+    margin-bottom: var(--sp-1);
+  }
+}
+
+dl.property-grid {
+  display: grid;
+  grid-template-columns: max-content 1fr;
+  gap: var(--sp-2);
+  margin: 0;
+  dt {
+    font-weight: 600;
+  }
+  dd {
+    margin: 0;
+  }
+}
+
+pre.highlighted-code {
+  margin: 0;
+  padding: var(--sp-2);
+  background-color: var(--black);
+  color: var(--white);
+  border-radius: var(--bw-3);
+}
+
+.example {
+  pre.highlighted-code {
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+    background-color: var(--green-200);
+  }
+  .example-demonstration {
+    padding: var(--sp-2);
+    border-bottom-left-radius: var(--bw-3);
+    border-bottom-right-radius: var(--bw-3);
+    border: solid thin var(--black);
+    background-color: var(--gray-800);
+    .class-being-demonstrated {
+      color: var(--white);
+      font-weight: 600;
+    }
+  }
+}
+
+.see-also p {
+  margin: 0;
+  line-height: var(--lh-copy);
+}
+
+
+.ridiculous-liquid-glass-is-all-the-rage {
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(3px);
+}

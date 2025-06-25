@@ -1,0 +1,3261 @@
+<!doctype html>
+<html class="ma-0 pa-0 h-100" lang="en">
+  <head>
+  <link rel="stylesheet" href="/brut-css/brut.css">
+  <link rel="stylesheet" href="/brut-css/docs.css">
+  <link rel="stylesheet" href="/brut-css/prism-twilight.min.css">
+</head>
+
+    <body class="flex flex-column ff-sans ma-0 pa-0 h-100">
+    <header class="pos-sticky top-0 bg-gray-700 pa-3 z-5 shadow-2">
+      <div class="flex gap-3 justify-between items-center">
+        <h1><a href="/brut-css" class="black tdn">BrutCSS Reference Documentation</a></h1>
+        <ul class="lst-none pl-0 flex gap-2 justify-end items-center">
+          <form class="flex items-center gap-1 mr-3">
+            <label>
+            <input type="search" placeholder="e.g. padding-left" class="pa-2 br-2 ba bc-gray-600 bg-white-ish gray-200">
+            <span class="sr-only">Search term</span>
+            </label>
+            <button class="ph-3 pv-2 bg-white gray-100 ba bc-gray-500 br-3 hover-bg-gray-800 pointer flex items-center justify-between">
+              <span class="mr-2">Search</span>
+              <kbd>&#8984;</kbd>
+              <kbd>/</kbd>
+            </button>
+          </form>
+          <li><a href="/" class="red-200 tdn hover-tdu">BrutRB</a></li>
+          <span aria-hidden="true">&middot;</span>
+          <li><a href="/brut-js" class="gray-200 tdn hover-tdu">BrutJS</a></li>
+          <span aria-hidden="true">&middot;</span>
+          <li><a href="https://github.com/thirdtank/brut/tree/main/brut-css" class="gray-200 tdn hover-tdu">Code</a></li>
+        </ul>
+      </div>
+    </header>
+    <main class="flex overflow-hidden flex-grow-1 flex-shrink-1 flex-basis-0 pos-relative">
+      <nav class="overflow-y-auto ph-3 pb-2 pt-4 w-20 bg-gray-800 gray-200 h-100">
+        
+  <h3>Getting Started</h3>
+  <ul class="pl-3">
+  
+      <li>
+        <a class="black-ish tdu tdn-ns hover-tdu-ns" href="/brut-css/getting-started/overview.html">Overview</a>
+      </li>
+  
+      <li>
+        <a class="black-ish tdu tdn-ns hover-tdu-ns" href="/brut-css/getting-started/installation.html">Installation</a>
+      </li>
+  
+      <li>
+        <a class="black-ish tdu tdn-ns hover-tdu-ns" href="/brut-css/getting-started/core-concepts.html">Core Concepts</a>
+      </li>
+  
+      <li>
+        <a class="black-ish tdu tdn-ns hover-tdu-ns" href="/brut-css/getting-started/simple-example.html">Simple Example</a>
+      </li>
+  
+  </ul>
+
+  <h3>Properties</h3>
+  <ul class="pl-3">
+  
+      <li>
+        <a class="black-ish tdu tdn-ns hover-tdu-ns" href="/brut-css/properties/colors.html">Colors</a>
+      </li>
+  
+      <li>
+        <a class="black-ish tdu tdn-ns hover-tdu-ns" href="/brut-css/properties/spacings.html">Spacings</a>
+      </li>
+  
+      <li>
+        <a class="black-ish tdu tdn-ns hover-tdu-ns" href="/brut-css/properties/typography.html">Typography</a>
+      </li>
+  
+  </ul>
+
+  <h3>Classes</h3>
+  <ul class="pl-3">
+  
+      <li>
+        <a class="black-ish tdu tdn-ns hover-tdu-ns" href="/brut-css/classes/appearances.html">Appearances</a>
+      </li>
+  
+      <li>
+        <a class="black-ish tdu tdn-ns hover-tdu-ns" href="/brut-css/classes/borders.html">Borders</a>
+      </li>
+  
+      <li>
+        <a class="black-ish tdu tdn-ns hover-tdu-ns" href="/brut-css/classes/foreground-colors.html">Foreground Colors</a>
+      </li>
+  
+      <li>
+        <a class="black-ish tdu tdn-ns hover-tdu-ns" href="/brut-css/classes/background-colors.html">Background Colors</a>
+      </li>
+  
+      <li>
+        <a class="black-ish tdu tdn-ns hover-tdu-ns" href="/brut-css/classes/border-colors.html">Border Colors</a>
+      </li>
+  
+      <li>
+        <a class="black-ish tdu tdn-ns hover-tdu-ns" href="/brut-css/classes/dimensions.html">Dimensions</a>
+      </li>
+  
+      <li>
+        <a class="black-ish tdu tdn-ns hover-tdu-ns" href="/brut-css/classes/flex.html">Flex</a>
+      </li>
+  
+      <li>
+        <a class="black-ish tdu tdn-ns hover-tdu-ns" href="/brut-css/classes/layout.html">Layout</a>
+      </li>
+  
+      <li>
+        <a class="black-ish tdu tdn-ns hover-tdu-ns" href="/brut-css/classes/lists.html">Lists</a>
+      </li>
+  
+      <li>
+        <a class="black-ish tdu tdn-ns hover-tdu-ns" href="/brut-css/classes/positioning.html">Positioning</a>
+      </li>
+  
+      <li>
+        <a class="black-ish tdu tdn-ns hover-tdu-ns" href="/brut-css/classes/spacings.html">Spacings</a>
+      </li>
+  
+      <li>
+        <a class="black-ish tdu tdn-ns hover-tdu-ns" href="/brut-css/classes/typography.html">Typography</a>
+      </li>
+  
+      <li>
+        <a class="black-ish tdu tdn-ns hover-tdu-ns" href="/brut-css/classes/junk-drawer.html">Junk Drawer</a>
+      </li>
+  
+  </ul>
+
+  <h3>Customization</h3>
+  <ul class="pl-3">
+  
+      <li>
+        <a class="black-ish tdu tdn-ns hover-tdu-ns" href="/brut-css/customization/design-system.html">Design System</a>
+      </li>
+  
+      <li>
+        <a class="black-ish tdu tdn-ns hover-tdu-ns" href="/brut-css/customization/breakpoints.html">Breakpoints</a>
+      </li>
+  
+      <li>
+        <a class="black-ish tdu tdn-ns hover-tdu-ns" href="/brut-css/customization/pseudo-classes.html">Pseudo Classes</a>
+      </li>
+  
+      <li>
+        <a class="black-ish tdu tdn-ns hover-tdu-ns" href="/brut-css/customization/advanced-configuration.html">Advanced Configuration</a>
+      </li>
+  
+  </ul>
+
+
+      </nav>
+      <section class="overflow-y-auto pt-4 h-100 flex-grow-1 flex-shrink-1 flex-basis-0 flex flex-column">
+        <div class="ph-3 pv-2 flex items-start gap-2 justify-between">
+
+  <article>
+    <h2 class="}-5">Foreground Colors Classes</h2>
+    
+      <p>Foreground colors.  For red, orange, yellow, green, blue, purple, and gray, there are nine steps in the scale, from 100 being darkest to 900 being lightest.  Black and white have only two steps: pure black/white and slightly off black/white.  The colors and shades are shown in the table below.</p>
+
+      <div class="pa-3 inset-shadow-1 br-3 mb-3">
+<table class="collapse">
+  <thead>
+    <tr>
+      <th role="none"></th>
+      
+        <th class="pa-2 tc ff-mono">100</th>
+      
+        <th class="pa-2 tc ff-mono">200</th>
+      
+        <th class="pa-2 tc ff-mono">300</th>
+      
+        <th class="pa-2 tc ff-mono">400</th>
+      
+        <th class="pa-2 tc ff-mono">500</th>
+      
+        <th class="pa-2 tc ff-mono">600</th>
+      
+        <th class="pa-2 tc ff-mono">700</th>
+      
+        <th class="pa-2 tc ff-mono">800</th>
+      
+        <th class="pa-2 tc ff-mono">900</th>
+      
+    </tr>
+  </thead>
+
+    
+  <tr>
+    <th class="pa-2 tr ff-mono">Red</th>
+    
+    <td class="pa-2"><div class="br-3 w-4 h-3  bg-red-100">&nbsp;</div></td>
+    
+    <td class="pa-2"><div class="br-3 w-4 h-3  bg-red-200">&nbsp;</div></td>
+    
+    <td class="pa-2"><div class="br-3 w-4 h-3  bg-red-300">&nbsp;</div></td>
+    
+    <td class="pa-2"><div class="br-3 w-4 h-3  bg-red-400">&nbsp;</div></td>
+    
+    <td class="pa-2"><div class="br-3 w-4 h-3  bg-red-500">&nbsp;</div></td>
+    
+    <td class="pa-2"><div class="br-3 w-4 h-3  bg-red-600">&nbsp;</div></td>
+    
+    <td class="pa-2"><div class="br-3 w-4 h-3  bg-red-700">&nbsp;</div></td>
+    
+    <td class="pa-2"><div class="br-3 w-4 h-3 ba bc-gray-700 bg-red-800">&nbsp;</div></td>
+    
+    <td class="pa-2"><div class="br-3 w-4 h-3 ba bc-gray-700 bg-red-900">&nbsp;</div></td>
+    
+  </tr>
+
+    
+  <tr>
+    <th class="pa-2 tr ff-mono">Orange</th>
+    
+    <td class="pa-2"><div class="br-3 w-4 h-3  bg-orange-100">&nbsp;</div></td>
+    
+    <td class="pa-2"><div class="br-3 w-4 h-3  bg-orange-200">&nbsp;</div></td>
+    
+    <td class="pa-2"><div class="br-3 w-4 h-3  bg-orange-300">&nbsp;</div></td>
+    
+    <td class="pa-2"><div class="br-3 w-4 h-3  bg-orange-400">&nbsp;</div></td>
+    
+    <td class="pa-2"><div class="br-3 w-4 h-3  bg-orange-500">&nbsp;</div></td>
+    
+    <td class="pa-2"><div class="br-3 w-4 h-3  bg-orange-600">&nbsp;</div></td>
+    
+    <td class="pa-2"><div class="br-3 w-4 h-3  bg-orange-700">&nbsp;</div></td>
+    
+    <td class="pa-2"><div class="br-3 w-4 h-3 ba bc-gray-700 bg-orange-800">&nbsp;</div></td>
+    
+    <td class="pa-2"><div class="br-3 w-4 h-3 ba bc-gray-700 bg-orange-900">&nbsp;</div></td>
+    
+  </tr>
+
+    
+  <tr>
+    <th class="pa-2 tr ff-mono">Yellow</th>
+    
+    <td class="pa-2"><div class="br-3 w-4 h-3  bg-yellow-100">&nbsp;</div></td>
+    
+    <td class="pa-2"><div class="br-3 w-4 h-3  bg-yellow-200">&nbsp;</div></td>
+    
+    <td class="pa-2"><div class="br-3 w-4 h-3  bg-yellow-300">&nbsp;</div></td>
+    
+    <td class="pa-2"><div class="br-3 w-4 h-3  bg-yellow-400">&nbsp;</div></td>
+    
+    <td class="pa-2"><div class="br-3 w-4 h-3  bg-yellow-500">&nbsp;</div></td>
+    
+    <td class="pa-2"><div class="br-3 w-4 h-3  bg-yellow-600">&nbsp;</div></td>
+    
+    <td class="pa-2"><div class="br-3 w-4 h-3  bg-yellow-700">&nbsp;</div></td>
+    
+    <td class="pa-2"><div class="br-3 w-4 h-3 ba bc-gray-700 bg-yellow-800">&nbsp;</div></td>
+    
+    <td class="pa-2"><div class="br-3 w-4 h-3 ba bc-gray-700 bg-yellow-900">&nbsp;</div></td>
+    
+  </tr>
+
+    
+  <tr>
+    <th class="pa-2 tr ff-mono">Green</th>
+    
+    <td class="pa-2"><div class="br-3 w-4 h-3  bg-green-100">&nbsp;</div></td>
+    
+    <td class="pa-2"><div class="br-3 w-4 h-3  bg-green-200">&nbsp;</div></td>
+    
+    <td class="pa-2"><div class="br-3 w-4 h-3  bg-green-300">&nbsp;</div></td>
+    
+    <td class="pa-2"><div class="br-3 w-4 h-3  bg-green-400">&nbsp;</div></td>
+    
+    <td class="pa-2"><div class="br-3 w-4 h-3  bg-green-500">&nbsp;</div></td>
+    
+    <td class="pa-2"><div class="br-3 w-4 h-3  bg-green-600">&nbsp;</div></td>
+    
+    <td class="pa-2"><div class="br-3 w-4 h-3  bg-green-700">&nbsp;</div></td>
+    
+    <td class="pa-2"><div class="br-3 w-4 h-3 ba bc-gray-700 bg-green-800">&nbsp;</div></td>
+    
+    <td class="pa-2"><div class="br-3 w-4 h-3 ba bc-gray-700 bg-green-900">&nbsp;</div></td>
+    
+  </tr>
+
+    
+  <tr>
+    <th class="pa-2 tr ff-mono">Blue</th>
+    
+    <td class="pa-2"><div class="br-3 w-4 h-3  bg-blue-100">&nbsp;</div></td>
+    
+    <td class="pa-2"><div class="br-3 w-4 h-3  bg-blue-200">&nbsp;</div></td>
+    
+    <td class="pa-2"><div class="br-3 w-4 h-3  bg-blue-300">&nbsp;</div></td>
+    
+    <td class="pa-2"><div class="br-3 w-4 h-3  bg-blue-400">&nbsp;</div></td>
+    
+    <td class="pa-2"><div class="br-3 w-4 h-3  bg-blue-500">&nbsp;</div></td>
+    
+    <td class="pa-2"><div class="br-3 w-4 h-3  bg-blue-600">&nbsp;</div></td>
+    
+    <td class="pa-2"><div class="br-3 w-4 h-3  bg-blue-700">&nbsp;</div></td>
+    
+    <td class="pa-2"><div class="br-3 w-4 h-3 ba bc-gray-700 bg-blue-800">&nbsp;</div></td>
+    
+    <td class="pa-2"><div class="br-3 w-4 h-3 ba bc-gray-700 bg-blue-900">&nbsp;</div></td>
+    
+  </tr>
+
+    
+  <tr>
+    <th class="pa-2 tr ff-mono">Purple</th>
+    
+    <td class="pa-2"><div class="br-3 w-4 h-3  bg-purple-100">&nbsp;</div></td>
+    
+    <td class="pa-2"><div class="br-3 w-4 h-3  bg-purple-200">&nbsp;</div></td>
+    
+    <td class="pa-2"><div class="br-3 w-4 h-3  bg-purple-300">&nbsp;</div></td>
+    
+    <td class="pa-2"><div class="br-3 w-4 h-3  bg-purple-400">&nbsp;</div></td>
+    
+    <td class="pa-2"><div class="br-3 w-4 h-3  bg-purple-500">&nbsp;</div></td>
+    
+    <td class="pa-2"><div class="br-3 w-4 h-3  bg-purple-600">&nbsp;</div></td>
+    
+    <td class="pa-2"><div class="br-3 w-4 h-3  bg-purple-700">&nbsp;</div></td>
+    
+    <td class="pa-2"><div class="br-3 w-4 h-3 ba bc-gray-700 bg-purple-800">&nbsp;</div></td>
+    
+    <td class="pa-2"><div class="br-3 w-4 h-3 ba bc-gray-700 bg-purple-900">&nbsp;</div></td>
+    
+  </tr>
+
+    
+  <tr>
+    <th class="pa-2 tr ff-mono">Gray</th>
+    
+    <td class="pa-2"><div class="br-3 w-4 h-3  bg-gray-100">&nbsp;</div></td>
+    
+    <td class="pa-2"><div class="br-3 w-4 h-3  bg-gray-200">&nbsp;</div></td>
+    
+    <td class="pa-2"><div class="br-3 w-4 h-3  bg-gray-300">&nbsp;</div></td>
+    
+    <td class="pa-2"><div class="br-3 w-4 h-3  bg-gray-400">&nbsp;</div></td>
+    
+    <td class="pa-2"><div class="br-3 w-4 h-3  bg-gray-500">&nbsp;</div></td>
+    
+    <td class="pa-2"><div class="br-3 w-4 h-3  bg-gray-600">&nbsp;</div></td>
+    
+    <td class="pa-2"><div class="br-3 w-4 h-3  bg-gray-700">&nbsp;</div></td>
+    
+    <td class="pa-2"><div class="br-3 w-4 h-3 ba bc-gray-700 bg-gray-800">&nbsp;</div></td>
+    
+    <td class="pa-2"><div class="br-3 w-4 h-3 ba bc-gray-700 bg-gray-900">&nbsp;</div></td>
+    
+  </tr>
+
+    
+    <thead>
+      <tr>
+        <th role="none"></th>
+        <th class="pa-2 tc"><em class="fw-normal">pure</em></th>
+        <th class="pa-2 tc ff-mono">-ish</th>
+      </tr>
+    </thead>
+    
+  <tr>
+    <th class="pa-2 tr ff-mono">Black</th>
+    
+    <td class="pa-2"><div class="br-3 w-4 h-3  bg-black">&nbsp;</div></td>
+    
+    <td class="pa-2"><div class="br-3 w-4 h-3  bg-black-ish">&nbsp;</div></td>
+    
+  </tr>
+
+    
+  <tr>
+    <th class="pa-2 tr ff-mono">White</th>
+    
+    <td class="pa-2"><div class="br-3 w-4 h-3 ba bc-gray-700 bg-white">&nbsp;</div></td>
+    
+    <td class="pa-2"><div class="br-3 w-4 h-3 ba bc-gray-700 bg-white-ish">&nbsp;</div></td>
+    
+  </tr>
+
+</table>
+</div>
+
+    
+    
+      <h3 class="f-2 b">See Also</h3>
+      <ul class="see-also">
+        
+          <li><p><a href="/brut-css/properties/colors.html">Colors</a></p>
+</li>
+        
+      </ul>
+    
+    
+      <h3 class="f-5 mt-4" id="class-scale:foreground-red">Red</h3>
+      <p class="p">
+        <p>Red shades.</p>
+
+      </p>
+      
+        <h4 class="f-2 b">See Also</h3>
+        <ul class="see-also">
+          
+            <li><p><a href="/brut-css/properties/colors.html#property-scale:red">Red</a></p>
+</li>
+          
+        </ul>
+      
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="red-100">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.red-100</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.red-100</span> <span class="token punctuation">{</span>
+   <span class="token property">color</span><span class="token punctuation">:</span> <span class="token function">var</span><span class="token punctuation">(</span>--red-100<span class="token punctuation">)</span><span class="token punctuation">;</span>
+ <span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          <p>Red at weight 100 (darkest).</p>
+
+        </p>
+        
+        
+          <h5 class="f-2 ttu">
+            
+              Example
+            
+          </h5>
+          
+            
+            <div class="mv-3 example">
+              <pre class="highlighted-code"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>bg-white pa-2<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>code</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>red-100<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+    .red-100
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>code</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span></pre>
+              <div class="example-demonstration">
+              
+<div class="bg-white pa-2">
+<code class="red-100">
+.red-100
+</code>
+</div>
+
+              </div>
+            </div>
+          
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="red-200">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.red-200</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.red-200</span> <span class="token punctuation">{</span>
+   <span class="token property">color</span><span class="token punctuation">:</span> <span class="token function">var</span><span class="token punctuation">(</span>--red-200<span class="token punctuation">)</span><span class="token punctuation">;</span>
+ <span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          <p>Red at weight 200 (second darkest).</p>
+
+        </p>
+        
+        
+          <h5 class="f-2 ttu">
+            
+              Example
+            
+          </h5>
+          
+            
+            <div class="mv-3 example">
+              <pre class="highlighted-code"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>bg-white pa-2<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>code</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>red-200<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+    .red-200
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>code</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span></pre>
+              <div class="example-demonstration">
+              
+<div class="bg-white pa-2">
+<code class="red-200">
+.red-200
+</code>
+</div>
+
+              </div>
+            </div>
+          
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="red-300">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.red-300</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.red-300</span> <span class="token punctuation">{</span>
+   <span class="token property">color</span><span class="token punctuation">:</span> <span class="token function">var</span><span class="token punctuation">(</span>--red-300<span class="token punctuation">)</span><span class="token punctuation">;</span>
+ <span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          <p>Red at weight 300.</p>
+
+        </p>
+        
+        
+          <h5 class="f-2 ttu">
+            
+              Example
+            
+          </h5>
+          
+            
+            <div class="mv-3 example">
+              <pre class="highlighted-code"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>bg-white pa-2<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>code</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>red-300<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+    .red-300
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>code</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span></pre>
+              <div class="example-demonstration">
+              
+<div class="bg-white pa-2">
+<code class="red-300">
+.red-300
+</code>
+</div>
+
+              </div>
+            </div>
+          
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="red-400">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.red-400</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.red-400</span> <span class="token punctuation">{</span>
+   <span class="token property">color</span><span class="token punctuation">:</span> <span class="token function">var</span><span class="token punctuation">(</span>--red-400<span class="token punctuation">)</span><span class="token punctuation">;</span>
+ <span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          <p>Red at weight 400.</p>
+
+        </p>
+        
+        
+          <h5 class="f-2 ttu">
+            
+              Example
+            
+          </h5>
+          
+            
+            <div class="mv-3 example">
+              <pre class="highlighted-code"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>bg-white pa-2<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>code</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>red-400<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+    .red-400
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>code</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span></pre>
+              <div class="example-demonstration">
+              
+<div class="bg-white pa-2">
+<code class="red-400">
+.red-400
+</code>
+</div>
+
+              </div>
+            </div>
+          
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="red-500">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.red-500</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.red-500</span> <span class="token punctuation">{</span>
+   <span class="token property">color</span><span class="token punctuation">:</span> <span class="token function">var</span><span class="token punctuation">(</span>--red-500<span class="token punctuation">)</span><span class="token punctuation">;</span>
+ <span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          <p>Red at weight 500.</p>
+
+        </p>
+        
+        
+          <h5 class="f-2 ttu">
+            
+              Example
+            
+          </h5>
+          
+            
+            <div class="mv-3 example">
+              <pre class="highlighted-code"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>bg-black pa-2<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>code</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>red-500<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+    .red-500
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>code</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span></pre>
+              <div class="example-demonstration">
+              
+<div class="bg-black pa-2">
+<code class="red-500">
+.red-500
+</code>
+</div>
+
+              </div>
+            </div>
+          
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="red-600">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.red-600</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.red-600</span> <span class="token punctuation">{</span>
+   <span class="token property">color</span><span class="token punctuation">:</span> <span class="token function">var</span><span class="token punctuation">(</span>--red-600<span class="token punctuation">)</span><span class="token punctuation">;</span>
+ <span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          <p>Red at weight 600 ().</p>
+
+        </p>
+        
+        
+          <h5 class="f-2 ttu">
+            
+              Example
+            
+          </h5>
+          
+            
+            <div class="mv-3 example">
+              <pre class="highlighted-code"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>bg-black pa-2<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>code</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>red-600<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+    .red-600
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>code</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span></pre>
+              <div class="example-demonstration">
+              
+<div class="bg-black pa-2">
+<code class="red-600">
+.red-600
+</code>
+</div>
+
+              </div>
+            </div>
+          
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="red-700">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.red-700</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.red-700</span> <span class="token punctuation">{</span>
+   <span class="token property">color</span><span class="token punctuation">:</span> <span class="token function">var</span><span class="token punctuation">(</span>--red-700<span class="token punctuation">)</span><span class="token punctuation">;</span>
+ <span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          <p>Red at weight 700 ().</p>
+
+        </p>
+        
+        
+          <h5 class="f-2 ttu">
+            
+              Example
+            
+          </h5>
+          
+            
+            <div class="mv-3 example">
+              <pre class="highlighted-code"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>bg-black pa-2<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>code</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>red-700<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+    .red-700
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>code</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span></pre>
+              <div class="example-demonstration">
+              
+<div class="bg-black pa-2">
+<code class="red-700">
+.red-700
+</code>
+</div>
+
+              </div>
+            </div>
+          
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="red-800">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.red-800</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.red-800</span> <span class="token punctuation">{</span>
+   <span class="token property">color</span><span class="token punctuation">:</span> <span class="token function">var</span><span class="token punctuation">(</span>--red-800<span class="token punctuation">)</span><span class="token punctuation">;</span>
+ <span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          <p>Red at weight 800 (second lightest).</p>
+
+        </p>
+        
+        
+          <h5 class="f-2 ttu">
+            
+              Example
+            
+          </h5>
+          
+            
+            <div class="mv-3 example">
+              <pre class="highlighted-code"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>bg-black pa-2<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>code</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>red-800<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+    .red-800
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>code</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span></pre>
+              <div class="example-demonstration">
+              
+<div class="bg-black pa-2">
+<code class="red-800">
+.red-800
+</code>
+</div>
+
+              </div>
+            </div>
+          
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="red-900">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.red-900</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.red-900</span> <span class="token punctuation">{</span>
+   <span class="token property">color</span><span class="token punctuation">:</span> <span class="token function">var</span><span class="token punctuation">(</span>--red-900<span class="token punctuation">)</span><span class="token punctuation">;</span>
+ <span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          <p>Red at weight 900 (lightest).</p>
+
+        </p>
+        
+        
+          <h5 class="f-2 ttu">
+            
+              Example
+            
+          </h5>
+          
+            
+            <div class="mv-3 example">
+              <pre class="highlighted-code"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>bg-black pa-2<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>code</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>red-900<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+    .red-900
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>code</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span></pre>
+              <div class="example-demonstration">
+              
+<div class="bg-black pa-2">
+<code class="red-900">
+.red-900
+</code>
+</div>
+
+              </div>
+            </div>
+          
+        
+        </div>
+      
+    
+      <h3 class="f-5 mt-4" id="class-scale:foreground-orange">Orange</h3>
+      <p class="p">
+        <p>Orange shades.</p>
+
+      </p>
+      
+        <h4 class="f-2 b">See Also</h3>
+        <ul class="see-also">
+          
+            <li><p><a href="/brut-css/properties/colors.html#property-scale:orange">Orange</a></p>
+</li>
+          
+        </ul>
+      
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="orange-100">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.orange-100</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.orange-100</span> <span class="token punctuation">{</span>
+   <span class="token property">color</span><span class="token punctuation">:</span> <span class="token function">var</span><span class="token punctuation">(</span>--orange-100<span class="token punctuation">)</span><span class="token punctuation">;</span>
+ <span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          <p>Orange at weight 100 (darkest).</p>
+
+        </p>
+        
+        
+          <h5 class="f-2 ttu">
+            
+              Example
+            
+          </h5>
+          
+            
+            <div class="mv-3 example">
+              <pre class="highlighted-code"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>bg-white pa-2<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>code</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>orange-100<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+    .orange-100
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>code</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span></pre>
+              <div class="example-demonstration">
+              
+<div class="bg-white pa-2">
+<code class="orange-100">
+.orange-100
+</code>
+</div>
+
+              </div>
+            </div>
+          
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="orange-200">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.orange-200</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.orange-200</span> <span class="token punctuation">{</span>
+   <span class="token property">color</span><span class="token punctuation">:</span> <span class="token function">var</span><span class="token punctuation">(</span>--orange-200<span class="token punctuation">)</span><span class="token punctuation">;</span>
+ <span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          <p>Orange at weight 200 (second darkest).</p>
+
+        </p>
+        
+        
+          <h5 class="f-2 ttu">
+            
+              Example
+            
+          </h5>
+          
+            
+            <div class="mv-3 example">
+              <pre class="highlighted-code"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>bg-white pa-2<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>code</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>orange-200<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+    .orange-200
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>code</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span></pre>
+              <div class="example-demonstration">
+              
+<div class="bg-white pa-2">
+<code class="orange-200">
+.orange-200
+</code>
+</div>
+
+              </div>
+            </div>
+          
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="orange-300">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.orange-300</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.orange-300</span> <span class="token punctuation">{</span>
+   <span class="token property">color</span><span class="token punctuation">:</span> <span class="token function">var</span><span class="token punctuation">(</span>--orange-300<span class="token punctuation">)</span><span class="token punctuation">;</span>
+ <span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          <p>Orange at weight 300.</p>
+
+        </p>
+        
+        
+          <h5 class="f-2 ttu">
+            
+              Example
+            
+          </h5>
+          
+            
+            <div class="mv-3 example">
+              <pre class="highlighted-code"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>bg-white pa-2<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>code</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>orange-300<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+    .orange-300
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>code</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span></pre>
+              <div class="example-demonstration">
+              
+<div class="bg-white pa-2">
+<code class="orange-300">
+.orange-300
+</code>
+</div>
+
+              </div>
+            </div>
+          
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="orange-400">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.orange-400</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.orange-400</span> <span class="token punctuation">{</span>
+   <span class="token property">color</span><span class="token punctuation">:</span> <span class="token function">var</span><span class="token punctuation">(</span>--orange-400<span class="token punctuation">)</span><span class="token punctuation">;</span>
+ <span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          <p>Orange at weight 400.</p>
+
+        </p>
+        
+        
+          <h5 class="f-2 ttu">
+            
+              Example
+            
+          </h5>
+          
+            
+            <div class="mv-3 example">
+              <pre class="highlighted-code"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>bg-white pa-2<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>code</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>orange-400<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+    .orange-400
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>code</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span></pre>
+              <div class="example-demonstration">
+              
+<div class="bg-white pa-2">
+<code class="orange-400">
+.orange-400
+</code>
+</div>
+
+              </div>
+            </div>
+          
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="orange-500">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.orange-500</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.orange-500</span> <span class="token punctuation">{</span>
+   <span class="token property">color</span><span class="token punctuation">:</span> <span class="token function">var</span><span class="token punctuation">(</span>--orange-500<span class="token punctuation">)</span><span class="token punctuation">;</span>
+ <span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          <p>Orange at weight 500.</p>
+
+        </p>
+        
+        
+          <h5 class="f-2 ttu">
+            
+              Example
+            
+          </h5>
+          
+            
+            <div class="mv-3 example">
+              <pre class="highlighted-code"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>bg-black pa-2<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>code</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>orange-500<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+    .orange-500
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>code</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span></pre>
+              <div class="example-demonstration">
+              
+<div class="bg-black pa-2">
+<code class="orange-500">
+.orange-500
+</code>
+</div>
+
+              </div>
+            </div>
+          
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="orange-600">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.orange-600</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.orange-600</span> <span class="token punctuation">{</span>
+   <span class="token property">color</span><span class="token punctuation">:</span> <span class="token function">var</span><span class="token punctuation">(</span>--orange-600<span class="token punctuation">)</span><span class="token punctuation">;</span>
+ <span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          <p>Orange at weight 600 ().</p>
+
+        </p>
+        
+        
+          <h5 class="f-2 ttu">
+            
+              Example
+            
+          </h5>
+          
+            
+            <div class="mv-3 example">
+              <pre class="highlighted-code"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>bg-black pa-2<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>code</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>orange-600<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+    .orange-600
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>code</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span></pre>
+              <div class="example-demonstration">
+              
+<div class="bg-black pa-2">
+<code class="orange-600">
+.orange-600
+</code>
+</div>
+
+              </div>
+            </div>
+          
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="orange-700">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.orange-700</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.orange-700</span> <span class="token punctuation">{</span>
+   <span class="token property">color</span><span class="token punctuation">:</span> <span class="token function">var</span><span class="token punctuation">(</span>--orange-700<span class="token punctuation">)</span><span class="token punctuation">;</span>
+ <span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          <p>Orange at weight 700 ().</p>
+
+        </p>
+        
+        
+          <h5 class="f-2 ttu">
+            
+              Example
+            
+          </h5>
+          
+            
+            <div class="mv-3 example">
+              <pre class="highlighted-code"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>bg-black pa-2<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>code</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>orange-700<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+    .orange-700
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>code</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span></pre>
+              <div class="example-demonstration">
+              
+<div class="bg-black pa-2">
+<code class="orange-700">
+.orange-700
+</code>
+</div>
+
+              </div>
+            </div>
+          
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="orange-800">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.orange-800</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.orange-800</span> <span class="token punctuation">{</span>
+   <span class="token property">color</span><span class="token punctuation">:</span> <span class="token function">var</span><span class="token punctuation">(</span>--orange-800<span class="token punctuation">)</span><span class="token punctuation">;</span>
+ <span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          <p>Orange at weight 800 (second lightest).</p>
+
+        </p>
+        
+        
+          <h5 class="f-2 ttu">
+            
+              Example
+            
+          </h5>
+          
+            
+            <div class="mv-3 example">
+              <pre class="highlighted-code"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>bg-black pa-2<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>code</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>orange-800<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+    .orange-800
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>code</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span></pre>
+              <div class="example-demonstration">
+              
+<div class="bg-black pa-2">
+<code class="orange-800">
+.orange-800
+</code>
+</div>
+
+              </div>
+            </div>
+          
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="orange-900">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.orange-900</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.orange-900</span> <span class="token punctuation">{</span>
+   <span class="token property">color</span><span class="token punctuation">:</span> <span class="token function">var</span><span class="token punctuation">(</span>--orange-900<span class="token punctuation">)</span><span class="token punctuation">;</span>
+ <span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          <p>Orange at weight 900 (lightest).</p>
+
+        </p>
+        
+        
+          <h5 class="f-2 ttu">
+            
+              Example
+            
+          </h5>
+          
+            
+            <div class="mv-3 example">
+              <pre class="highlighted-code"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>bg-black pa-2<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>code</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>orange-900<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+    .orange-900
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>code</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span></pre>
+              <div class="example-demonstration">
+              
+<div class="bg-black pa-2">
+<code class="orange-900">
+.orange-900
+</code>
+</div>
+
+              </div>
+            </div>
+          
+        
+        </div>
+      
+    
+      <h3 class="f-5 mt-4" id="class-scale:foreground-yellow">Yellow</h3>
+      <p class="p">
+        <p>Yellow shades.</p>
+
+      </p>
+      
+        <h4 class="f-2 b">See Also</h3>
+        <ul class="see-also">
+          
+            <li><p><a href="/brut-css/properties/colors.html#property-scale:yellow">Yellow</a></p>
+</li>
+          
+        </ul>
+      
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="yellow-100">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.yellow-100</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.yellow-100</span> <span class="token punctuation">{</span>
+   <span class="token property">color</span><span class="token punctuation">:</span> <span class="token function">var</span><span class="token punctuation">(</span>--yellow-100<span class="token punctuation">)</span><span class="token punctuation">;</span>
+ <span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          <p>Yellow at weight 100 (darkest).</p>
+
+        </p>
+        
+        
+          <h5 class="f-2 ttu">
+            
+              Example
+            
+          </h5>
+          
+            
+            <div class="mv-3 example">
+              <pre class="highlighted-code"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>bg-white pa-2<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>code</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>yellow-100<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+    .yellow-100
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>code</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span></pre>
+              <div class="example-demonstration">
+              
+<div class="bg-white pa-2">
+<code class="yellow-100">
+.yellow-100
+</code>
+</div>
+
+              </div>
+            </div>
+          
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="yellow-200">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.yellow-200</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.yellow-200</span> <span class="token punctuation">{</span>
+   <span class="token property">color</span><span class="token punctuation">:</span> <span class="token function">var</span><span class="token punctuation">(</span>--yellow-200<span class="token punctuation">)</span><span class="token punctuation">;</span>
+ <span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          <p>Yellow at weight 200 (second darkest).</p>
+
+        </p>
+        
+        
+          <h5 class="f-2 ttu">
+            
+              Example
+            
+          </h5>
+          
+            
+            <div class="mv-3 example">
+              <pre class="highlighted-code"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>bg-white pa-2<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>code</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>yellow-200<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+    .yellow-200
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>code</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span></pre>
+              <div class="example-demonstration">
+              
+<div class="bg-white pa-2">
+<code class="yellow-200">
+.yellow-200
+</code>
+</div>
+
+              </div>
+            </div>
+          
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="yellow-300">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.yellow-300</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.yellow-300</span> <span class="token punctuation">{</span>
+   <span class="token property">color</span><span class="token punctuation">:</span> <span class="token function">var</span><span class="token punctuation">(</span>--yellow-300<span class="token punctuation">)</span><span class="token punctuation">;</span>
+ <span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          <p>Yellow at weight 300.</p>
+
+        </p>
+        
+        
+          <h5 class="f-2 ttu">
+            
+              Example
+            
+          </h5>
+          
+            
+            <div class="mv-3 example">
+              <pre class="highlighted-code"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>bg-white pa-2<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>code</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>yellow-300<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+    .yellow-300
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>code</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span></pre>
+              <div class="example-demonstration">
+              
+<div class="bg-white pa-2">
+<code class="yellow-300">
+.yellow-300
+</code>
+</div>
+
+              </div>
+            </div>
+          
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="yellow-400">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.yellow-400</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.yellow-400</span> <span class="token punctuation">{</span>
+   <span class="token property">color</span><span class="token punctuation">:</span> <span class="token function">var</span><span class="token punctuation">(</span>--yellow-400<span class="token punctuation">)</span><span class="token punctuation">;</span>
+ <span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          <p>Yellow at weight 400.</p>
+
+        </p>
+        
+        
+          <h5 class="f-2 ttu">
+            
+              Example
+            
+          </h5>
+          
+            
+            <div class="mv-3 example">
+              <pre class="highlighted-code"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>bg-white pa-2<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>code</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>yellow-400<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+    .yellow-400
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>code</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span></pre>
+              <div class="example-demonstration">
+              
+<div class="bg-white pa-2">
+<code class="yellow-400">
+.yellow-400
+</code>
+</div>
+
+              </div>
+            </div>
+          
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="yellow-500">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.yellow-500</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.yellow-500</span> <span class="token punctuation">{</span>
+   <span class="token property">color</span><span class="token punctuation">:</span> <span class="token function">var</span><span class="token punctuation">(</span>--yellow-500<span class="token punctuation">)</span><span class="token punctuation">;</span>
+ <span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          <p>Yellow at weight 500.</p>
+
+        </p>
+        
+        
+          <h5 class="f-2 ttu">
+            
+              Example
+            
+          </h5>
+          
+            
+            <div class="mv-3 example">
+              <pre class="highlighted-code"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>bg-black pa-2<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>code</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>yellow-500<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+    .yellow-500
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>code</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span></pre>
+              <div class="example-demonstration">
+              
+<div class="bg-black pa-2">
+<code class="yellow-500">
+.yellow-500
+</code>
+</div>
+
+              </div>
+            </div>
+          
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="yellow-600">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.yellow-600</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.yellow-600</span> <span class="token punctuation">{</span>
+   <span class="token property">color</span><span class="token punctuation">:</span> <span class="token function">var</span><span class="token punctuation">(</span>--yellow-600<span class="token punctuation">)</span><span class="token punctuation">;</span>
+ <span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          <p>Yellow at weight 600 ().</p>
+
+        </p>
+        
+        
+          <h5 class="f-2 ttu">
+            
+              Example
+            
+          </h5>
+          
+            
+            <div class="mv-3 example">
+              <pre class="highlighted-code"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>bg-black pa-2<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>code</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>yellow-600<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+    .yellow-600
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>code</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span></pre>
+              <div class="example-demonstration">
+              
+<div class="bg-black pa-2">
+<code class="yellow-600">
+.yellow-600
+</code>
+</div>
+
+              </div>
+            </div>
+          
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="yellow-700">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.yellow-700</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.yellow-700</span> <span class="token punctuation">{</span>
+   <span class="token property">color</span><span class="token punctuation">:</span> <span class="token function">var</span><span class="token punctuation">(</span>--yellow-700<span class="token punctuation">)</span><span class="token punctuation">;</span>
+ <span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          <p>Yellow at weight 700 ().</p>
+
+        </p>
+        
+        
+          <h5 class="f-2 ttu">
+            
+              Example
+            
+          </h5>
+          
+            
+            <div class="mv-3 example">
+              <pre class="highlighted-code"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>bg-black pa-2<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>code</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>yellow-700<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+    .yellow-700
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>code</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span></pre>
+              <div class="example-demonstration">
+              
+<div class="bg-black pa-2">
+<code class="yellow-700">
+.yellow-700
+</code>
+</div>
+
+              </div>
+            </div>
+          
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="yellow-800">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.yellow-800</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.yellow-800</span> <span class="token punctuation">{</span>
+   <span class="token property">color</span><span class="token punctuation">:</span> <span class="token function">var</span><span class="token punctuation">(</span>--yellow-800<span class="token punctuation">)</span><span class="token punctuation">;</span>
+ <span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          <p>Yellow at weight 800 (second lightest).</p>
+
+        </p>
+        
+        
+          <h5 class="f-2 ttu">
+            
+              Example
+            
+          </h5>
+          
+            
+            <div class="mv-3 example">
+              <pre class="highlighted-code"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>bg-black pa-2<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>code</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>yellow-800<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+    .yellow-800
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>code</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span></pre>
+              <div class="example-demonstration">
+              
+<div class="bg-black pa-2">
+<code class="yellow-800">
+.yellow-800
+</code>
+</div>
+
+              </div>
+            </div>
+          
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="yellow-900">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.yellow-900</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.yellow-900</span> <span class="token punctuation">{</span>
+   <span class="token property">color</span><span class="token punctuation">:</span> <span class="token function">var</span><span class="token punctuation">(</span>--yellow-900<span class="token punctuation">)</span><span class="token punctuation">;</span>
+ <span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          <p>Yellow at weight 900 (lightest).</p>
+
+        </p>
+        
+        
+          <h5 class="f-2 ttu">
+            
+              Example
+            
+          </h5>
+          
+            
+            <div class="mv-3 example">
+              <pre class="highlighted-code"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>bg-black pa-2<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>code</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>yellow-900<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+    .yellow-900
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>code</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span></pre>
+              <div class="example-demonstration">
+              
+<div class="bg-black pa-2">
+<code class="yellow-900">
+.yellow-900
+</code>
+</div>
+
+              </div>
+            </div>
+          
+        
+        </div>
+      
+    
+      <h3 class="f-5 mt-4" id="class-scale:foreground-green">Green</h3>
+      <p class="p">
+        <p>Green shades.</p>
+
+      </p>
+      
+        <h4 class="f-2 b">See Also</h3>
+        <ul class="see-also">
+          
+            <li><p><a href="/brut-css/properties/colors.html#property-scale:green">Green</a></p>
+</li>
+          
+        </ul>
+      
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="green-100">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.green-100</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.green-100</span> <span class="token punctuation">{</span>
+   <span class="token property">color</span><span class="token punctuation">:</span> <span class="token function">var</span><span class="token punctuation">(</span>--green-100<span class="token punctuation">)</span><span class="token punctuation">;</span>
+ <span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          <p>Green at weight 100 (darkest).</p>
+
+        </p>
+        
+        
+          <h5 class="f-2 ttu">
+            
+              Example
+            
+          </h5>
+          
+            
+            <div class="mv-3 example">
+              <pre class="highlighted-code"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>bg-white pa-2<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>code</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>green-100<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+    .green-100
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>code</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span></pre>
+              <div class="example-demonstration">
+              
+<div class="bg-white pa-2">
+<code class="green-100">
+.green-100
+</code>
+</div>
+
+              </div>
+            </div>
+          
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="green-200">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.green-200</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.green-200</span> <span class="token punctuation">{</span>
+   <span class="token property">color</span><span class="token punctuation">:</span> <span class="token function">var</span><span class="token punctuation">(</span>--green-200<span class="token punctuation">)</span><span class="token punctuation">;</span>
+ <span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          <p>Green at weight 200 (second darkest).</p>
+
+        </p>
+        
+        
+          <h5 class="f-2 ttu">
+            
+              Example
+            
+          </h5>
+          
+            
+            <div class="mv-3 example">
+              <pre class="highlighted-code"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>bg-white pa-2<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>code</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>green-200<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+    .green-200
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>code</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span></pre>
+              <div class="example-demonstration">
+              
+<div class="bg-white pa-2">
+<code class="green-200">
+.green-200
+</code>
+</div>
+
+              </div>
+            </div>
+          
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="green-300">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.green-300</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.green-300</span> <span class="token punctuation">{</span>
+   <span class="token property">color</span><span class="token punctuation">:</span> <span class="token function">var</span><span class="token punctuation">(</span>--green-300<span class="token punctuation">)</span><span class="token punctuation">;</span>
+ <span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          <p>Green at weight 300.</p>
+
+        </p>
+        
+        
+          <h5 class="f-2 ttu">
+            
+              Example
+            
+          </h5>
+          
+            
+            <div class="mv-3 example">
+              <pre class="highlighted-code"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>bg-white pa-2<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>code</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>green-300<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+    .green-300
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>code</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span></pre>
+              <div class="example-demonstration">
+              
+<div class="bg-white pa-2">
+<code class="green-300">
+.green-300
+</code>
+</div>
+
+              </div>
+            </div>
+          
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="green-400">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.green-400</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.green-400</span> <span class="token punctuation">{</span>
+   <span class="token property">color</span><span class="token punctuation">:</span> <span class="token function">var</span><span class="token punctuation">(</span>--green-400<span class="token punctuation">)</span><span class="token punctuation">;</span>
+ <span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          <p>Green at weight 400.</p>
+
+        </p>
+        
+        
+          <h5 class="f-2 ttu">
+            
+              Example
+            
+          </h5>
+          
+            
+            <div class="mv-3 example">
+              <pre class="highlighted-code"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>bg-white pa-2<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>code</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>green-400<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+    .green-400
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>code</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span></pre>
+              <div class="example-demonstration">
+              
+<div class="bg-white pa-2">
+<code class="green-400">
+.green-400
+</code>
+</div>
+
+              </div>
+            </div>
+          
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="green-500">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.green-500</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.green-500</span> <span class="token punctuation">{</span>
+   <span class="token property">color</span><span class="token punctuation">:</span> <span class="token function">var</span><span class="token punctuation">(</span>--green-500<span class="token punctuation">)</span><span class="token punctuation">;</span>
+ <span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          <p>Green at weight 500.</p>
+
+        </p>
+        
+        
+          <h5 class="f-2 ttu">
+            
+              Example
+            
+          </h5>
+          
+            
+            <div class="mv-3 example">
+              <pre class="highlighted-code"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>bg-black pa-2<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>code</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>green-500<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+    .green-500
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>code</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span></pre>
+              <div class="example-demonstration">
+              
+<div class="bg-black pa-2">
+<code class="green-500">
+.green-500
+</code>
+</div>
+
+              </div>
+            </div>
+          
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="green-600">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.green-600</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.green-600</span> <span class="token punctuation">{</span>
+   <span class="token property">color</span><span class="token punctuation">:</span> <span class="token function">var</span><span class="token punctuation">(</span>--green-600<span class="token punctuation">)</span><span class="token punctuation">;</span>
+ <span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          <p>Green at weight 600 ().</p>
+
+        </p>
+        
+        
+          <h5 class="f-2 ttu">
+            
+              Example
+            
+          </h5>
+          
+            
+            <div class="mv-3 example">
+              <pre class="highlighted-code"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>bg-black pa-2<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>code</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>green-600<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+    .green-600
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>code</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span></pre>
+              <div class="example-demonstration">
+              
+<div class="bg-black pa-2">
+<code class="green-600">
+.green-600
+</code>
+</div>
+
+              </div>
+            </div>
+          
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="green-700">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.green-700</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.green-700</span> <span class="token punctuation">{</span>
+   <span class="token property">color</span><span class="token punctuation">:</span> <span class="token function">var</span><span class="token punctuation">(</span>--green-700<span class="token punctuation">)</span><span class="token punctuation">;</span>
+ <span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          <p>Green at weight 700 ().</p>
+
+        </p>
+        
+        
+          <h5 class="f-2 ttu">
+            
+              Example
+            
+          </h5>
+          
+            
+            <div class="mv-3 example">
+              <pre class="highlighted-code"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>bg-black pa-2<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>code</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>green-700<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+    .green-700
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>code</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span></pre>
+              <div class="example-demonstration">
+              
+<div class="bg-black pa-2">
+<code class="green-700">
+.green-700
+</code>
+</div>
+
+              </div>
+            </div>
+          
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="green-800">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.green-800</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.green-800</span> <span class="token punctuation">{</span>
+   <span class="token property">color</span><span class="token punctuation">:</span> <span class="token function">var</span><span class="token punctuation">(</span>--green-800<span class="token punctuation">)</span><span class="token punctuation">;</span>
+ <span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          <p>Green at weight 800 (second lightest).</p>
+
+        </p>
+        
+        
+          <h5 class="f-2 ttu">
+            
+              Example
+            
+          </h5>
+          
+            
+            <div class="mv-3 example">
+              <pre class="highlighted-code"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>bg-black pa-2<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>code</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>green-800<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+    .green-800
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>code</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span></pre>
+              <div class="example-demonstration">
+              
+<div class="bg-black pa-2">
+<code class="green-800">
+.green-800
+</code>
+</div>
+
+              </div>
+            </div>
+          
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="green-900">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.green-900</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.green-900</span> <span class="token punctuation">{</span>
+   <span class="token property">color</span><span class="token punctuation">:</span> <span class="token function">var</span><span class="token punctuation">(</span>--green-900<span class="token punctuation">)</span><span class="token punctuation">;</span>
+ <span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          <p>Green at weight 900 (lightest).</p>
+
+        </p>
+        
+        
+          <h5 class="f-2 ttu">
+            
+              Example
+            
+          </h5>
+          
+            
+            <div class="mv-3 example">
+              <pre class="highlighted-code"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>bg-black pa-2<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>code</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>green-900<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+    .green-900
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>code</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span></pre>
+              <div class="example-demonstration">
+              
+<div class="bg-black pa-2">
+<code class="green-900">
+.green-900
+</code>
+</div>
+
+              </div>
+            </div>
+          
+        
+        </div>
+      
+    
+      <h3 class="f-5 mt-4" id="class-scale:foreground-blue">Blue</h3>
+      <p class="p">
+        <p>Blue shades.</p>
+
+      </p>
+      
+        <h4 class="f-2 b">See Also</h3>
+        <ul class="see-also">
+          
+            <li><p><a href="/brut-css/properties/colors.html#property-scale:blue">Blue</a></p>
+</li>
+          
+        </ul>
+      
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="blue-100">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.blue-100</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.blue-100</span> <span class="token punctuation">{</span>
+   <span class="token property">color</span><span class="token punctuation">:</span> <span class="token function">var</span><span class="token punctuation">(</span>--blue-100<span class="token punctuation">)</span><span class="token punctuation">;</span>
+ <span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          <p>Blue at weight 100 (darkest).</p>
+
+        </p>
+        
+        
+          <h5 class="f-2 ttu">
+            
+              Example
+            
+          </h5>
+          
+            
+            <div class="mv-3 example">
+              <pre class="highlighted-code"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>bg-white pa-2<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>code</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>blue-100<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+    .blue-100
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>code</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span></pre>
+              <div class="example-demonstration">
+              
+<div class="bg-white pa-2">
+<code class="blue-100">
+.blue-100
+</code>
+</div>
+
+              </div>
+            </div>
+          
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="blue-200">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.blue-200</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.blue-200</span> <span class="token punctuation">{</span>
+   <span class="token property">color</span><span class="token punctuation">:</span> <span class="token function">var</span><span class="token punctuation">(</span>--blue-200<span class="token punctuation">)</span><span class="token punctuation">;</span>
+ <span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          <p>Blue at weight 200 (second darkest).</p>
+
+        </p>
+        
+        
+          <h5 class="f-2 ttu">
+            
+              Example
+            
+          </h5>
+          
+            
+            <div class="mv-3 example">
+              <pre class="highlighted-code"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>bg-white pa-2<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>code</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>blue-200<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+    .blue-200
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>code</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span></pre>
+              <div class="example-demonstration">
+              
+<div class="bg-white pa-2">
+<code class="blue-200">
+.blue-200
+</code>
+</div>
+
+              </div>
+            </div>
+          
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="blue-300">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.blue-300</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.blue-300</span> <span class="token punctuation">{</span>
+   <span class="token property">color</span><span class="token punctuation">:</span> <span class="token function">var</span><span class="token punctuation">(</span>--blue-300<span class="token punctuation">)</span><span class="token punctuation">;</span>
+ <span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          <p>Blue at weight 300.</p>
+
+        </p>
+        
+        
+          <h5 class="f-2 ttu">
+            
+              Example
+            
+          </h5>
+          
+            
+            <div class="mv-3 example">
+              <pre class="highlighted-code"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>bg-white pa-2<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>code</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>blue-300<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+    .blue-300
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>code</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span></pre>
+              <div class="example-demonstration">
+              
+<div class="bg-white pa-2">
+<code class="blue-300">
+.blue-300
+</code>
+</div>
+
+              </div>
+            </div>
+          
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="blue-400">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.blue-400</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.blue-400</span> <span class="token punctuation">{</span>
+   <span class="token property">color</span><span class="token punctuation">:</span> <span class="token function">var</span><span class="token punctuation">(</span>--blue-400<span class="token punctuation">)</span><span class="token punctuation">;</span>
+ <span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          <p>Blue at weight 400.</p>
+
+        </p>
+        
+        
+          <h5 class="f-2 ttu">
+            
+              Example
+            
+          </h5>
+          
+            
+            <div class="mv-3 example">
+              <pre class="highlighted-code"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>bg-white pa-2<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>code</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>blue-400<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+    .blue-400
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>code</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span></pre>
+              <div class="example-demonstration">
+              
+<div class="bg-white pa-2">
+<code class="blue-400">
+.blue-400
+</code>
+</div>
+
+              </div>
+            </div>
+          
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="blue-500">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.blue-500</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.blue-500</span> <span class="token punctuation">{</span>
+   <span class="token property">color</span><span class="token punctuation">:</span> <span class="token function">var</span><span class="token punctuation">(</span>--blue-500<span class="token punctuation">)</span><span class="token punctuation">;</span>
+ <span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          <p>Blue at weight 500.</p>
+
+        </p>
+        
+        
+          <h5 class="f-2 ttu">
+            
+              Example
+            
+          </h5>
+          
+            
+            <div class="mv-3 example">
+              <pre class="highlighted-code"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>bg-black pa-2<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>code</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>blue-500<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+    .blue-500
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>code</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span></pre>
+              <div class="example-demonstration">
+              
+<div class="bg-black pa-2">
+<code class="blue-500">
+.blue-500
+</code>
+</div>
+
+              </div>
+            </div>
+          
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="blue-600">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.blue-600</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.blue-600</span> <span class="token punctuation">{</span>
+   <span class="token property">color</span><span class="token punctuation">:</span> <span class="token function">var</span><span class="token punctuation">(</span>--blue-600<span class="token punctuation">)</span><span class="token punctuation">;</span>
+ <span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          <p>Blue at weight 600 ().</p>
+
+        </p>
+        
+        
+          <h5 class="f-2 ttu">
+            
+              Example
+            
+          </h5>
+          
+            
+            <div class="mv-3 example">
+              <pre class="highlighted-code"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>bg-black pa-2<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>code</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>blue-600<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+    .blue-600
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>code</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span></pre>
+              <div class="example-demonstration">
+              
+<div class="bg-black pa-2">
+<code class="blue-600">
+.blue-600
+</code>
+</div>
+
+              </div>
+            </div>
+          
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="blue-700">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.blue-700</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.blue-700</span> <span class="token punctuation">{</span>
+   <span class="token property">color</span><span class="token punctuation">:</span> <span class="token function">var</span><span class="token punctuation">(</span>--blue-700<span class="token punctuation">)</span><span class="token punctuation">;</span>
+ <span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          <p>Blue at weight 700 ().</p>
+
+        </p>
+        
+        
+          <h5 class="f-2 ttu">
+            
+              Example
+            
+          </h5>
+          
+            
+            <div class="mv-3 example">
+              <pre class="highlighted-code"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>bg-black pa-2<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>code</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>blue-700<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+    .blue-700
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>code</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span></pre>
+              <div class="example-demonstration">
+              
+<div class="bg-black pa-2">
+<code class="blue-700">
+.blue-700
+</code>
+</div>
+
+              </div>
+            </div>
+          
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="blue-800">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.blue-800</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.blue-800</span> <span class="token punctuation">{</span>
+   <span class="token property">color</span><span class="token punctuation">:</span> <span class="token function">var</span><span class="token punctuation">(</span>--blue-800<span class="token punctuation">)</span><span class="token punctuation">;</span>
+ <span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          <p>Blue at weight 800 (second lightest).</p>
+
+        </p>
+        
+        
+          <h5 class="f-2 ttu">
+            
+              Example
+            
+          </h5>
+          
+            
+            <div class="mv-3 example">
+              <pre class="highlighted-code"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>bg-black pa-2<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>code</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>blue-800<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+    .blue-800
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>code</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span></pre>
+              <div class="example-demonstration">
+              
+<div class="bg-black pa-2">
+<code class="blue-800">
+.blue-800
+</code>
+</div>
+
+              </div>
+            </div>
+          
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="blue-900">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.blue-900</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.blue-900</span> <span class="token punctuation">{</span>
+   <span class="token property">color</span><span class="token punctuation">:</span> <span class="token function">var</span><span class="token punctuation">(</span>--blue-900<span class="token punctuation">)</span><span class="token punctuation">;</span>
+ <span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          <p>Blue at weight 900 (lightest).</p>
+
+        </p>
+        
+        
+          <h5 class="f-2 ttu">
+            
+              Example
+            
+          </h5>
+          
+            
+            <div class="mv-3 example">
+              <pre class="highlighted-code"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>bg-black pa-2<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>code</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>blue-900<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+    .blue-900
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>code</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span></pre>
+              <div class="example-demonstration">
+              
+<div class="bg-black pa-2">
+<code class="blue-900">
+.blue-900
+</code>
+</div>
+
+              </div>
+            </div>
+          
+        
+        </div>
+      
+    
+      <h3 class="f-5 mt-4" id="class-scale:foreground-purple">Purple</h3>
+      <p class="p">
+        <p>Purple shades.</p>
+
+      </p>
+      
+        <h4 class="f-2 b">See Also</h3>
+        <ul class="see-also">
+          
+            <li><p><a href="/brut-css/properties/colors.html#property-scale:purple">Purple</a></p>
+</li>
+          
+        </ul>
+      
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="purple-100">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.purple-100</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.purple-100</span> <span class="token punctuation">{</span>
+   <span class="token property">color</span><span class="token punctuation">:</span> <span class="token function">var</span><span class="token punctuation">(</span>--purple-100<span class="token punctuation">)</span><span class="token punctuation">;</span>
+ <span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          <p>Purple at weight 100 (darkest).</p>
+
+        </p>
+        
+        
+          <h5 class="f-2 ttu">
+            
+              Example
+            
+          </h5>
+          
+            
+            <div class="mv-3 example">
+              <pre class="highlighted-code"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>bg-white pa-2<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>code</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>purple-100<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+    .purple-100
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>code</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span></pre>
+              <div class="example-demonstration">
+              
+<div class="bg-white pa-2">
+<code class="purple-100">
+.purple-100
+</code>
+</div>
+
+              </div>
+            </div>
+          
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="purple-200">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.purple-200</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.purple-200</span> <span class="token punctuation">{</span>
+   <span class="token property">color</span><span class="token punctuation">:</span> <span class="token function">var</span><span class="token punctuation">(</span>--purple-200<span class="token punctuation">)</span><span class="token punctuation">;</span>
+ <span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          <p>Purple at weight 200 (second darkest).</p>
+
+        </p>
+        
+        
+          <h5 class="f-2 ttu">
+            
+              Example
+            
+          </h5>
+          
+            
+            <div class="mv-3 example">
+              <pre class="highlighted-code"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>bg-white pa-2<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>code</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>purple-200<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+    .purple-200
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>code</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span></pre>
+              <div class="example-demonstration">
+              
+<div class="bg-white pa-2">
+<code class="purple-200">
+.purple-200
+</code>
+</div>
+
+              </div>
+            </div>
+          
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="purple-300">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.purple-300</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.purple-300</span> <span class="token punctuation">{</span>
+   <span class="token property">color</span><span class="token punctuation">:</span> <span class="token function">var</span><span class="token punctuation">(</span>--purple-300<span class="token punctuation">)</span><span class="token punctuation">;</span>
+ <span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          <p>Purple at weight 300.</p>
+
+        </p>
+        
+        
+          <h5 class="f-2 ttu">
+            
+              Example
+            
+          </h5>
+          
+            
+            <div class="mv-3 example">
+              <pre class="highlighted-code"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>bg-white pa-2<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>code</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>purple-300<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+    .purple-300
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>code</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span></pre>
+              <div class="example-demonstration">
+              
+<div class="bg-white pa-2">
+<code class="purple-300">
+.purple-300
+</code>
+</div>
+
+              </div>
+            </div>
+          
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="purple-400">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.purple-400</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.purple-400</span> <span class="token punctuation">{</span>
+   <span class="token property">color</span><span class="token punctuation">:</span> <span class="token function">var</span><span class="token punctuation">(</span>--purple-400<span class="token punctuation">)</span><span class="token punctuation">;</span>
+ <span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          <p>Purple at weight 400.</p>
+
+        </p>
+        
+        
+          <h5 class="f-2 ttu">
+            
+              Example
+            
+          </h5>
+          
+            
+            <div class="mv-3 example">
+              <pre class="highlighted-code"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>bg-white pa-2<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>code</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>purple-400<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+    .purple-400
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>code</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span></pre>
+              <div class="example-demonstration">
+              
+<div class="bg-white pa-2">
+<code class="purple-400">
+.purple-400
+</code>
+</div>
+
+              </div>
+            </div>
+          
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="purple-500">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.purple-500</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.purple-500</span> <span class="token punctuation">{</span>
+   <span class="token property">color</span><span class="token punctuation">:</span> <span class="token function">var</span><span class="token punctuation">(</span>--purple-500<span class="token punctuation">)</span><span class="token punctuation">;</span>
+ <span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          <p>Purple at weight 500.</p>
+
+        </p>
+        
+        
+          <h5 class="f-2 ttu">
+            
+              Example
+            
+          </h5>
+          
+            
+            <div class="mv-3 example">
+              <pre class="highlighted-code"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>bg-black pa-2<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>code</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>purple-500<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+    .purple-500
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>code</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span></pre>
+              <div class="example-demonstration">
+              
+<div class="bg-black pa-2">
+<code class="purple-500">
+.purple-500
+</code>
+</div>
+
+              </div>
+            </div>
+          
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="purple-600">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.purple-600</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.purple-600</span> <span class="token punctuation">{</span>
+   <span class="token property">color</span><span class="token punctuation">:</span> <span class="token function">var</span><span class="token punctuation">(</span>--purple-600<span class="token punctuation">)</span><span class="token punctuation">;</span>
+ <span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          <p>Purple at weight 600 ().</p>
+
+        </p>
+        
+        
+          <h5 class="f-2 ttu">
+            
+              Example
+            
+          </h5>
+          
+            
+            <div class="mv-3 example">
+              <pre class="highlighted-code"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>bg-black pa-2<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>code</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>purple-600<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+    .purple-600
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>code</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span></pre>
+              <div class="example-demonstration">
+              
+<div class="bg-black pa-2">
+<code class="purple-600">
+.purple-600
+</code>
+</div>
+
+              </div>
+            </div>
+          
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="purple-700">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.purple-700</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.purple-700</span> <span class="token punctuation">{</span>
+   <span class="token property">color</span><span class="token punctuation">:</span> <span class="token function">var</span><span class="token punctuation">(</span>--purple-700<span class="token punctuation">)</span><span class="token punctuation">;</span>
+ <span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          <p>Purple at weight 700 ().</p>
+
+        </p>
+        
+        
+          <h5 class="f-2 ttu">
+            
+              Example
+            
+          </h5>
+          
+            
+            <div class="mv-3 example">
+              <pre class="highlighted-code"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>bg-black pa-2<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>code</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>purple-700<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+    .purple-700
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>code</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span></pre>
+              <div class="example-demonstration">
+              
+<div class="bg-black pa-2">
+<code class="purple-700">
+.purple-700
+</code>
+</div>
+
+              </div>
+            </div>
+          
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="purple-800">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.purple-800</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.purple-800</span> <span class="token punctuation">{</span>
+   <span class="token property">color</span><span class="token punctuation">:</span> <span class="token function">var</span><span class="token punctuation">(</span>--purple-800<span class="token punctuation">)</span><span class="token punctuation">;</span>
+ <span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          <p>Purple at weight 800 (second lightest).</p>
+
+        </p>
+        
+        
+          <h5 class="f-2 ttu">
+            
+              Example
+            
+          </h5>
+          
+            
+            <div class="mv-3 example">
+              <pre class="highlighted-code"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>bg-black pa-2<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>code</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>purple-800<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+    .purple-800
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>code</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span></pre>
+              <div class="example-demonstration">
+              
+<div class="bg-black pa-2">
+<code class="purple-800">
+.purple-800
+</code>
+</div>
+
+              </div>
+            </div>
+          
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="purple-900">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.purple-900</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.purple-900</span> <span class="token punctuation">{</span>
+   <span class="token property">color</span><span class="token punctuation">:</span> <span class="token function">var</span><span class="token punctuation">(</span>--purple-900<span class="token punctuation">)</span><span class="token punctuation">;</span>
+ <span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          <p>Purple at weight 900 (lightest).</p>
+
+        </p>
+        
+        
+          <h5 class="f-2 ttu">
+            
+              Example
+            
+          </h5>
+          
+            
+            <div class="mv-3 example">
+              <pre class="highlighted-code"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>bg-black pa-2<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>code</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>purple-900<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+    .purple-900
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>code</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span></pre>
+              <div class="example-demonstration">
+              
+<div class="bg-black pa-2">
+<code class="purple-900">
+.purple-900
+</code>
+</div>
+
+              </div>
+            </div>
+          
+        
+        </div>
+      
+    
+      <h3 class="f-5 mt-4" id="class-scale:foreground-gray">Gray</h3>
+      <p class="p">
+        <p>Gray shades.</p>
+
+      </p>
+      
+        <h4 class="f-2 b">See Also</h3>
+        <ul class="see-also">
+          
+            <li><p><a href="/brut-css/properties/colors.html#property-scale:gray">Gray</a></p>
+</li>
+          
+        </ul>
+      
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="gray-100">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.gray-100</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.gray-100</span> <span class="token punctuation">{</span>
+   <span class="token property">color</span><span class="token punctuation">:</span> <span class="token function">var</span><span class="token punctuation">(</span>--gray-100<span class="token punctuation">)</span><span class="token punctuation">;</span>
+ <span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          <p>Gray at weight 100 (darkest).</p>
+
+        </p>
+        
+        
+          <h5 class="f-2 ttu">
+            
+              Example
+            
+          </h5>
+          
+            
+            <div class="mv-3 example">
+              <pre class="highlighted-code"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>bg-white pa-2<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>code</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>gray-100<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+    .gray-100
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>code</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span></pre>
+              <div class="example-demonstration">
+              
+<div class="bg-white pa-2">
+<code class="gray-100">
+.gray-100
+</code>
+</div>
+
+              </div>
+            </div>
+          
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="gray-200">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.gray-200</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.gray-200</span> <span class="token punctuation">{</span>
+   <span class="token property">color</span><span class="token punctuation">:</span> <span class="token function">var</span><span class="token punctuation">(</span>--gray-200<span class="token punctuation">)</span><span class="token punctuation">;</span>
+ <span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          <p>Gray at weight 200 (second darkest).</p>
+
+        </p>
+        
+        
+          <h5 class="f-2 ttu">
+            
+              Example
+            
+          </h5>
+          
+            
+            <div class="mv-3 example">
+              <pre class="highlighted-code"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>bg-white pa-2<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>code</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>gray-200<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+    .gray-200
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>code</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span></pre>
+              <div class="example-demonstration">
+              
+<div class="bg-white pa-2">
+<code class="gray-200">
+.gray-200
+</code>
+</div>
+
+              </div>
+            </div>
+          
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="gray-300">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.gray-300</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.gray-300</span> <span class="token punctuation">{</span>
+   <span class="token property">color</span><span class="token punctuation">:</span> <span class="token function">var</span><span class="token punctuation">(</span>--gray-300<span class="token punctuation">)</span><span class="token punctuation">;</span>
+ <span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          <p>Gray at weight 300.</p>
+
+        </p>
+        
+        
+          <h5 class="f-2 ttu">
+            
+              Example
+            
+          </h5>
+          
+            
+            <div class="mv-3 example">
+              <pre class="highlighted-code"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>bg-white pa-2<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>code</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>gray-300<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+    .gray-300
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>code</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span></pre>
+              <div class="example-demonstration">
+              
+<div class="bg-white pa-2">
+<code class="gray-300">
+.gray-300
+</code>
+</div>
+
+              </div>
+            </div>
+          
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="gray-400">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.gray-400</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.gray-400</span> <span class="token punctuation">{</span>
+   <span class="token property">color</span><span class="token punctuation">:</span> <span class="token function">var</span><span class="token punctuation">(</span>--gray-400<span class="token punctuation">)</span><span class="token punctuation">;</span>
+ <span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          <p>Gray at weight 400.</p>
+
+        </p>
+        
+        
+          <h5 class="f-2 ttu">
+            
+              Example
+            
+          </h5>
+          
+            
+            <div class="mv-3 example">
+              <pre class="highlighted-code"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>bg-white pa-2<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>code</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>gray-400<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+    .gray-400
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>code</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span></pre>
+              <div class="example-demonstration">
+              
+<div class="bg-white pa-2">
+<code class="gray-400">
+.gray-400
+</code>
+</div>
+
+              </div>
+            </div>
+          
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="gray-500">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.gray-500</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.gray-500</span> <span class="token punctuation">{</span>
+   <span class="token property">color</span><span class="token punctuation">:</span> <span class="token function">var</span><span class="token punctuation">(</span>--gray-500<span class="token punctuation">)</span><span class="token punctuation">;</span>
+ <span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          <p>Gray at weight 500.</p>
+
+        </p>
+        
+        
+          <h5 class="f-2 ttu">
+            
+              Example
+            
+          </h5>
+          
+            
+            <div class="mv-3 example">
+              <pre class="highlighted-code"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>bg-black pa-2<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>code</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>gray-500<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+    .gray-500
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>code</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span></pre>
+              <div class="example-demonstration">
+              
+<div class="bg-black pa-2">
+<code class="gray-500">
+.gray-500
+</code>
+</div>
+
+              </div>
+            </div>
+          
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="gray-600">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.gray-600</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.gray-600</span> <span class="token punctuation">{</span>
+   <span class="token property">color</span><span class="token punctuation">:</span> <span class="token function">var</span><span class="token punctuation">(</span>--gray-600<span class="token punctuation">)</span><span class="token punctuation">;</span>
+ <span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          <p>Gray at weight 600 ().</p>
+
+        </p>
+        
+        
+          <h5 class="f-2 ttu">
+            
+              Example
+            
+          </h5>
+          
+            
+            <div class="mv-3 example">
+              <pre class="highlighted-code"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>bg-black pa-2<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>code</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>gray-600<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+    .gray-600
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>code</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span></pre>
+              <div class="example-demonstration">
+              
+<div class="bg-black pa-2">
+<code class="gray-600">
+.gray-600
+</code>
+</div>
+
+              </div>
+            </div>
+          
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="gray-700">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.gray-700</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.gray-700</span> <span class="token punctuation">{</span>
+   <span class="token property">color</span><span class="token punctuation">:</span> <span class="token function">var</span><span class="token punctuation">(</span>--gray-700<span class="token punctuation">)</span><span class="token punctuation">;</span>
+ <span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          <p>Gray at weight 700 ().</p>
+
+        </p>
+        
+        
+          <h5 class="f-2 ttu">
+            
+              Example
+            
+          </h5>
+          
+            
+            <div class="mv-3 example">
+              <pre class="highlighted-code"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>bg-black pa-2<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>code</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>gray-700<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+    .gray-700
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>code</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span></pre>
+              <div class="example-demonstration">
+              
+<div class="bg-black pa-2">
+<code class="gray-700">
+.gray-700
+</code>
+</div>
+
+              </div>
+            </div>
+          
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="gray-800">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.gray-800</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.gray-800</span> <span class="token punctuation">{</span>
+   <span class="token property">color</span><span class="token punctuation">:</span> <span class="token function">var</span><span class="token punctuation">(</span>--gray-800<span class="token punctuation">)</span><span class="token punctuation">;</span>
+ <span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          <p>Gray at weight 800 (second lightest).</p>
+
+        </p>
+        
+        
+          <h5 class="f-2 ttu">
+            
+              Example
+            
+          </h5>
+          
+            
+            <div class="mv-3 example">
+              <pre class="highlighted-code"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>bg-black pa-2<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>code</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>gray-800<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+    .gray-800
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>code</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span></pre>
+              <div class="example-demonstration">
+              
+<div class="bg-black pa-2">
+<code class="gray-800">
+.gray-800
+</code>
+</div>
+
+              </div>
+            </div>
+          
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="gray-900">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.gray-900</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.gray-900</span> <span class="token punctuation">{</span>
+   <span class="token property">color</span><span class="token punctuation">:</span> <span class="token function">var</span><span class="token punctuation">(</span>--gray-900<span class="token punctuation">)</span><span class="token punctuation">;</span>
+ <span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          <p>Gray at weight 900 (lightest).</p>
+
+        </p>
+        
+        
+          <h5 class="f-2 ttu">
+            
+              Example
+            
+          </h5>
+          
+            
+            <div class="mv-3 example">
+              <pre class="highlighted-code"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>bg-black pa-2<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>code</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>gray-900<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+    .gray-900
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>code</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span></pre>
+              <div class="example-demonstration">
+              
+<div class="bg-black pa-2">
+<code class="gray-900">
+.gray-900
+</code>
+</div>
+
+              </div>
+            </div>
+          
+        
+        </div>
+      
+    
+      <h3 class="f-5 mt-4" id="class-scale:foreground-black">Black</h3>
+      <p class="p">
+        <p>Blacks.</p>
+
+      </p>
+      
+        <h4 class="f-2 b">See Also</h3>
+        <ul class="see-also">
+          
+            <li><p><a href="/brut-css/properties/colors.html#property-scale:black">Black</a></p>
+</li>
+          
+        </ul>
+      
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="black">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.black</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.black</span> <span class="token punctuation">{</span>
+   <span class="token property">color</span><span class="token punctuation">:</span> <span class="token function">var</span><span class="token punctuation">(</span>--black<span class="token punctuation">)</span><span class="token punctuation">;</span>
+ <span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          <p>Black (pure).</p>
+
+        </p>
+        
+        
+          <h5 class="f-2 ttu">
+            
+              Example
+            
+          </h5>
+          
+            
+            <div class="mv-3 example">
+              <pre class="highlighted-code"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>bg-white pa-2<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>code</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>black<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+    .black
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>code</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span></pre>
+              <div class="example-demonstration">
+              
+<div class="bg-white pa-2">
+<code class="black">
+.black
+</code>
+</div>
+
+              </div>
+            </div>
+          
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="black-ish">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.black-ish</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.black-ish</span> <span class="token punctuation">{</span>
+   <span class="token property">color</span><span class="token punctuation">:</span> <span class="token function">var</span><span class="token punctuation">(</span>--black-ish<span class="token punctuation">)</span><span class="token punctuation">;</span>
+ <span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          <p>Black (slightly off).</p>
+
+        </p>
+        
+        
+          <h5 class="f-2 ttu">
+            
+              Example
+            
+          </h5>
+          
+            
+            <div class="mv-3 example">
+              <pre class="highlighted-code"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>bg-white pa-2<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>code</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>black-ish<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+    .black-ish
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>code</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span></pre>
+              <div class="example-demonstration">
+              
+<div class="bg-white pa-2">
+<code class="black-ish">
+.black-ish
+</code>
+</div>
+
+              </div>
+            </div>
+          
+        
+        </div>
+      
+    
+      <h3 class="f-5 mt-4" id="class-scale:foreground-white">White</h3>
+      <p class="p">
+        <p>Whites.</p>
+
+      </p>
+      
+        <h4 class="f-2 b">See Also</h3>
+        <ul class="see-also">
+          
+            <li><p><a href="/brut-css/properties/colors.html#property-scale:white">White</a></p>
+</li>
+          
+        </ul>
+      
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="white">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.white</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.white</span> <span class="token punctuation">{</span>
+   <span class="token property">color</span><span class="token punctuation">:</span> <span class="token function">var</span><span class="token punctuation">(</span>--white<span class="token punctuation">)</span><span class="token punctuation">;</span>
+ <span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          <p>White (pure).</p>
+
+        </p>
+        
+        
+          <h5 class="f-2 ttu">
+            
+              Example
+            
+          </h5>
+          
+            
+            <div class="mv-3 example">
+              <pre class="highlighted-code"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>bg-black pa-2<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>code</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>white<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+    .white
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>code</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span></pre>
+              <div class="example-demonstration">
+              
+<div class="bg-black pa-2">
+<code class="white">
+.white
+</code>
+</div>
+
+              </div>
+            </div>
+          
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="white-ish">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.white-ish</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.white-ish</span> <span class="token punctuation">{</span>
+   <span class="token property">color</span><span class="token punctuation">:</span> <span class="token function">var</span><span class="token punctuation">(</span>--white-ish<span class="token punctuation">)</span><span class="token punctuation">;</span>
+ <span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          <p>White (slightly off).</p>
+
+        </p>
+        
+        
+          <h5 class="f-2 ttu">
+            
+              Example
+            
+          </h5>
+          
+            
+            <div class="mv-3 example">
+              <pre class="highlighted-code"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>bg-black pa-2<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>code</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>white-ish<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+    .white-ish
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>code</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span></pre>
+              <div class="example-demonstration">
+              
+<div class="bg-black pa-2">
+<code class="white-ish">
+.white-ish
+</code>
+</div>
+
+              </div>
+            </div>
+          
+        
+        </div>
+      
+    
+  </article>
+  <div class="z-5 ma-0 overflow-y-auto pa-2 w-20 h-100 pos-absolute top-0 right-2">
+    <div class="pa-3 ba bc-gray-700 bg-gray-900 br-3 shadow-1 ridiculous-liquid-glass-is-all-the-rage">
+      <h3>On this Page</h3>
+      <ul class="lst-none ma-0 pa-0">
+      
+        <li class="lh-copy"><a href="#class-scale:foreground-red">Red</a></li>
+      
+        <li class="lh-copy"><a href="#class-scale:foreground-orange">Orange</a></li>
+      
+        <li class="lh-copy"><a href="#class-scale:foreground-yellow">Yellow</a></li>
+      
+        <li class="lh-copy"><a href="#class-scale:foreground-green">Green</a></li>
+      
+        <li class="lh-copy"><a href="#class-scale:foreground-blue">Blue</a></li>
+      
+        <li class="lh-copy"><a href="#class-scale:foreground-purple">Purple</a></li>
+      
+        <li class="lh-copy"><a href="#class-scale:foreground-gray">Gray</a></li>
+      
+        <li class="lh-copy"><a href="#class-scale:foreground-black">Black</a></li>
+      
+        <li class="lh-copy"><a href="#class-scale:foreground-white">White</a></li>
+      
+      </ul>
+    </div>
+  </div>
+        </div>
+      <footer class="bg-black white mt-auto">
+        <p class="tc">
+          Copyright &copy; 2025 David Bryant Copeland.
+        </p>
+      </footer>
+    </section>
+  </main>
+</body>
+
+</html>
+

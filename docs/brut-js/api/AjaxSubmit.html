@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Class: AjaxSubmit</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Class: AjaxSubmit</h1>
+
+    
+
+
+
+
+<section>
+
+<header>
+    
+        <h2><span class="attribs"><span class="type-signature"></span></span>AjaxSubmit<span class="signature">()</span><span class="type-signature"></span></h2>
+          
+    <h3><code>&lt;brut-ajax-submit&gt;</code></h3>
+  
+        
+            <div class="class-description"><p>Wraps a <code>&lt;BUTTON&gt;</code> assumed to be inside a form to indicate that, when clicked, it should submit
+the form it's a part of via AJAX. It accounts for network failures and timeouts.</p>
+<p>The general flow is as follows:</p>
+<ol>
+<li>When the button is clicked, the form's validity is checked. If it's not valid, nothing happens.</li>
+<li>If the form is valid, this element will be given the <code>requesting</code> attribute.</li>
+<li>The request will be initiated, set to abort after <code>request-timeout</code> ms (see below).</li>
+<li>If the request returns OK:
+<ul>
+<li><code>requesting</code> will be removed and <code>submitted</code> will be added.</li>
+<li><code>submitted</code> will be removed after <code>submitted-lifetime</code> ms.</li>
+</ul>
+</li>
+<li>If the request returned a 422, error messages are parsed. See below.</li>
+<li>If the request returns not OK and not 422:
+<ul>
+<li>if it has been <code>request-timeout</code> ms or more since the button was first clicked, the operation is aborted (see below).</li>
+<li>if it has been less than <code>request-timeout</code> ms and the HTTP status code was 5xx, the operation is retried.</li>
+<li>otherwise, the operation is aborted.</li>
+</ul>
+</li>
+<li>If fetch throws an error, the operation is aborted.</li>
+</ol>
+<p>Aborting the operation will submit the form in the normal way, allowing the browser to deal with whatever the issue is. You can set
+<code>log-request-errors</code> to introspect this process.</p>
+<p>For a 422 response, this element assumes the response is <code>text/html</code> and contains one or more <code>&lt;brut-cv&gt;</code>
+elements.  These elements will be inserted into the proper <code>&lt;brut-cv-messages&gt;</code> element, as follows:</p>
+<ol>
+<li>The <code>input-name</code> is examined.</li>
+<li>A <code>&lt;brut-cv-messages input-name=&quot;«input-name»&quot;&gt;</code> is located</li>
+<li>The containing form is located</li>
+<li>The input element(s) are located inside that form, based on <code>input-name</code>.</li>
+<li>The <code>&lt;brut-cv-messages&gt;</code> are cleared of any element with attribute <code>server-side</code></li>
+<li>The messages from the server are inserted, with the attribute <code>server-side</code> added if it's not there.</li>
+<li>The input is set as having a custom validity</li>
+<li>validity is reported</li>
+<li>The first input located is scrolled into view</li>
+<li>If the input is modified after this all happens, custom validity is cleared</li>
+</ol></div>
+        
+    
+</header>
+
+<article>
+    <div class="container-overview">
+    
+        
+
+    
+    <h2>Constructor</h2>
+    
+
+    
+    <h4 class="name" id="AjaxSubmit"><span class="type-signature"></span>new AjaxSubmit<span class="signature">()</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <h5 class="subsection-title">Properties:</h5>
+
+    
+
+<table class="props">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>request-timeout</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>number of ms that the entire operation is expected to complete within. Default is 5000</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>submitted-lifetime</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>number of ms that &quot;submitted&quot; should remain on the element after the form has completed. Default is 2000</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>requesting</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">boolean</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>boolean attribute that indicates the request has been made, but not yet returned. Don't set this yourself outside of development. It will be set and removed by this element.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>submitted</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">boolean</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>boolean attribute that indicates the form has been successfully submitted. Don't set this yourselr outside of develoment. It will be set and removed by this element.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>log-request-errors</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">boolean</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>if set, logging related to request error handling will appear in the console. It will also
+cause any form submission to be delayed by 2s to allow you to read the console.</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="AjaxSubmit.js.html">AjaxSubmit.js</a>, <a href="AjaxSubmit.js.html#line61">line 61</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+<h5>Fires:</h5>
+<ul>
+    <li>brut:submitok Fired when the AJAX request initated by this returns OK and all processing has completed</li>
+
+    <li>brut:submitinvalid Fired when the AJAX request initated by this returns a 422 and all logic around managing the reponse has completed</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>&lt;form action="/widgets" method="post">
+  &lt;input type=text name=name>
+
+  &lt;brut-ajax-submit>
+    &lt;button>Save&lt;/button>
+   &lt;/brut-ajax-submit>
+&lt;/form></code></pre>
+
+
+
+    
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</article>
+
+</section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-testing.html">testing</a></li></ul><h3>Externals</h3><ul><li><a href="external-CustomElementRegistry.html">CustomElementRegistry</a></li><li><a href="external-Performance.html">Performance</a></li><li><a href="external-Promise.html">Promise</a></li><li><a href="external-ValidityState.html">ValidityState</a></li><li><a href="external-Window.html">Window</a></li><li><a href="external-fetch.html">fetch</a></li></ul><h3>Classes</h3><ul><li><a href="AjaxSubmit.html">AjaxSubmit</a></li><li><a href="Autosubmit.html">Autosubmit</a></li><li><a href="BaseCustomElement.html">BaseCustomElement</a></li><li><a href="BrutCustomElements.html">BrutCustomElements</a></li><li><a href="BufferedLogger.html">BufferedLogger</a></li><li><a href="ConfirmSubmit.html">ConfirmSubmit</a></li><li><a href="ConfirmationDialog.html">ConfirmationDialog</a></li><li><a href="ConstraintViolationMessage.html">ConstraintViolationMessage</a></li><li><a href="ConstraintViolationMessages.html">ConstraintViolationMessages</a></li><li><a href="CopyToClipboard.html">CopyToClipboard</a></li><li><a href="Form.html">Form</a></li><li><a href="I18nTranslation.html">I18nTranslation</a></li><li><a href="LocaleDetection.html">LocaleDetection</a></li><li><a href="Logger.html">Logger</a></li><li><a href="Message.html">Message</a></li><li><a href="PrefixedLogger.html">PrefixedLogger</a></li><li><a href="RichString.html">RichString</a></li><li><a href="Tabs.html">Tabs</a></li><li><a href="Tracing.html">Tracing</a></li><li><a href="testing.AssetMetadata.html">AssetMetadata</a></li><li><a href="testing.AssetMetadataLoader.html">AssetMetadataLoader</a></li><li><a href="testing.CustomElementTest.html">CustomElementTest</a></li><li><a href="testing.DOMCreator.html">DOMCreator</a></li></ul><h3><a href="global.html">Global</a></h3>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.4</a> on Wed Jun 25 2025 22:30:10 GMT+0000 (Coordinated Universal Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

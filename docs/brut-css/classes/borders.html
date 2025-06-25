@@ -1,0 +1,2293 @@
+<!doctype html>
+<html class="ma-0 pa-0 h-100" lang="en">
+  <head>
+  <link rel="stylesheet" href="/brut-css/brut.css">
+  <link rel="stylesheet" href="/brut-css/docs.css">
+  <link rel="stylesheet" href="/brut-css/prism-twilight.min.css">
+</head>
+
+    <body class="flex flex-column ff-sans ma-0 pa-0 h-100">
+    <header class="pos-sticky top-0 bg-gray-700 pa-3 z-5 shadow-2">
+      <div class="flex gap-3 justify-between items-center">
+        <h1><a href="/brut-css" class="black tdn">BrutCSS Reference Documentation</a></h1>
+        <ul class="lst-none pl-0 flex gap-2 justify-end items-center">
+          <form class="flex items-center gap-1 mr-3">
+            <label>
+            <input type="search" placeholder="e.g. padding-left" class="pa-2 br-2 ba bc-gray-600 bg-white-ish gray-200">
+            <span class="sr-only">Search term</span>
+            </label>
+            <button class="ph-3 pv-2 bg-white gray-100 ba bc-gray-500 br-3 hover-bg-gray-800 pointer flex items-center justify-between">
+              <span class="mr-2">Search</span>
+              <kbd>&#8984;</kbd>
+              <kbd>/</kbd>
+            </button>
+          </form>
+          <li><a href="/" class="red-200 tdn hover-tdu">BrutRB</a></li>
+          <span aria-hidden="true">&middot;</span>
+          <li><a href="/brut-js" class="gray-200 tdn hover-tdu">BrutJS</a></li>
+          <span aria-hidden="true">&middot;</span>
+          <li><a href="https://github.com/thirdtank/brut/tree/main/brut-css" class="gray-200 tdn hover-tdu">Code</a></li>
+        </ul>
+      </div>
+    </header>
+    <main class="flex overflow-hidden flex-grow-1 flex-shrink-1 flex-basis-0 pos-relative">
+      <nav class="overflow-y-auto ph-3 pb-2 pt-4 w-20 bg-gray-800 gray-200 h-100">
+        
+  <h3>Getting Started</h3>
+  <ul class="pl-3">
+  
+      <li>
+        <a class="black-ish tdu tdn-ns hover-tdu-ns" href="/brut-css/getting-started/overview.html">Overview</a>
+      </li>
+  
+      <li>
+        <a class="black-ish tdu tdn-ns hover-tdu-ns" href="/brut-css/getting-started/installation.html">Installation</a>
+      </li>
+  
+      <li>
+        <a class="black-ish tdu tdn-ns hover-tdu-ns" href="/brut-css/getting-started/core-concepts.html">Core Concepts</a>
+      </li>
+  
+      <li>
+        <a class="black-ish tdu tdn-ns hover-tdu-ns" href="/brut-css/getting-started/simple-example.html">Simple Example</a>
+      </li>
+  
+  </ul>
+
+  <h3>Properties</h3>
+  <ul class="pl-3">
+  
+      <li>
+        <a class="black-ish tdu tdn-ns hover-tdu-ns" href="/brut-css/properties/colors.html">Colors</a>
+      </li>
+  
+      <li>
+        <a class="black-ish tdu tdn-ns hover-tdu-ns" href="/brut-css/properties/spacings.html">Spacings</a>
+      </li>
+  
+      <li>
+        <a class="black-ish tdu tdn-ns hover-tdu-ns" href="/brut-css/properties/typography.html">Typography</a>
+      </li>
+  
+  </ul>
+
+  <h3>Classes</h3>
+  <ul class="pl-3">
+  
+      <li>
+        <a class="black-ish tdu tdn-ns hover-tdu-ns" href="/brut-css/classes/appearances.html">Appearances</a>
+      </li>
+  
+      <li>
+        <a class="black-ish tdu tdn-ns hover-tdu-ns" href="/brut-css/classes/borders.html">Borders</a>
+      </li>
+  
+      <li>
+        <a class="black-ish tdu tdn-ns hover-tdu-ns" href="/brut-css/classes/foreground-colors.html">Foreground Colors</a>
+      </li>
+  
+      <li>
+        <a class="black-ish tdu tdn-ns hover-tdu-ns" href="/brut-css/classes/background-colors.html">Background Colors</a>
+      </li>
+  
+      <li>
+        <a class="black-ish tdu tdn-ns hover-tdu-ns" href="/brut-css/classes/border-colors.html">Border Colors</a>
+      </li>
+  
+      <li>
+        <a class="black-ish tdu tdn-ns hover-tdu-ns" href="/brut-css/classes/dimensions.html">Dimensions</a>
+      </li>
+  
+      <li>
+        <a class="black-ish tdu tdn-ns hover-tdu-ns" href="/brut-css/classes/flex.html">Flex</a>
+      </li>
+  
+      <li>
+        <a class="black-ish tdu tdn-ns hover-tdu-ns" href="/brut-css/classes/layout.html">Layout</a>
+      </li>
+  
+      <li>
+        <a class="black-ish tdu tdn-ns hover-tdu-ns" href="/brut-css/classes/lists.html">Lists</a>
+      </li>
+  
+      <li>
+        <a class="black-ish tdu tdn-ns hover-tdu-ns" href="/brut-css/classes/positioning.html">Positioning</a>
+      </li>
+  
+      <li>
+        <a class="black-ish tdu tdn-ns hover-tdu-ns" href="/brut-css/classes/spacings.html">Spacings</a>
+      </li>
+  
+      <li>
+        <a class="black-ish tdu tdn-ns hover-tdu-ns" href="/brut-css/classes/typography.html">Typography</a>
+      </li>
+  
+      <li>
+        <a class="black-ish tdu tdn-ns hover-tdu-ns" href="/brut-css/classes/junk-drawer.html">Junk Drawer</a>
+      </li>
+  
+  </ul>
+
+  <h3>Customization</h3>
+  <ul class="pl-3">
+  
+      <li>
+        <a class="black-ish tdu tdn-ns hover-tdu-ns" href="/brut-css/customization/design-system.html">Design System</a>
+      </li>
+  
+      <li>
+        <a class="black-ish tdu tdn-ns hover-tdu-ns" href="/brut-css/customization/breakpoints.html">Breakpoints</a>
+      </li>
+  
+      <li>
+        <a class="black-ish tdu tdn-ns hover-tdu-ns" href="/brut-css/customization/pseudo-classes.html">Pseudo Classes</a>
+      </li>
+  
+      <li>
+        <a class="black-ish tdu tdn-ns hover-tdu-ns" href="/brut-css/customization/advanced-configuration.html">Advanced Configuration</a>
+      </li>
+  
+  </ul>
+
+
+      </nav>
+      <section class="overflow-y-auto pt-4 h-100 flex-grow-1 flex-shrink-1 flex-basis-0 flex flex-column">
+        <div class="ph-3 pv-2 flex items-start gap-2 justify-between">
+
+  <article>
+    <h2 class="}-5">Borders Classes</h2>
+    
+      <p>Borders.</p>
+
+    
+    
+    
+      <h3 class="f-5 mt-4" id="class-group:borders">Borders</h3>
+      <p class="p">
+        <p>Styles to add borders in various locations.  By default, these will add borders that are 1px in width, but you can use the <a href="/brut-css/classes/borders.html#class-scale:border-widths">Border Widths</a> styles to adjust.</p>
+
+      </p>
+      
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="ba">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.ba</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.ba</span> <span class="token punctuation">{</span>
+  <span class="token property">border-style</span><span class="token punctuation">:</span> solid<span class="token punctuation">;</span>
+  <span class="token property">border-width</span><span class="token punctuation">:</span> 1px<span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="bl">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.bl</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.bl</span> <span class="token punctuation">{</span>
+  <span class="token property">border-left-style</span><span class="token punctuation">:</span> solid<span class="token punctuation">;</span>
+  <span class="token property">border-left-width</span><span class="token punctuation">:</span> 1px<span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="br">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.br</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.br</span> <span class="token punctuation">{</span>
+  <span class="token property">border-right-style</span><span class="token punctuation">:</span> solid<span class="token punctuation">;</span>
+  <span class="token property">border-right-width</span><span class="token punctuation">:</span> 1px<span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="bt">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.bt</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.bt</span> <span class="token punctuation">{</span>
+  <span class="token property">border-top-style</span><span class="token punctuation">:</span> solid<span class="token punctuation">;</span>
+  <span class="token property">border-top-width</span><span class="token punctuation">:</span> 1px<span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="bb">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.bb</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.bb</span> <span class="token punctuation">{</span>
+  <span class="token property">border-bottom-style</span><span class="token punctuation">:</span> solid<span class="token punctuation">;</span>
+  <span class="token property">border-bottom-width</span><span class="token punctuation">:</span> 1px<span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="bn">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.bn</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.bn</span> <span class="token punctuation">{</span>
+  <span class="token property">border-style</span><span class="token punctuation">:</span> none<span class="token punctuation">;</span>
+  <span class="token property">border-width</span><span class="token punctuation">:</span> 0<span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="collapse">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.collapse</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.collapse</span> <span class="token punctuation">{</span>
+  <span class="token property">border-collapse</span><span class="token punctuation">:</span> collapse<span class="token punctuation">;</span>
+  <span class="token property">border-spacing</span><span class="token punctuation">:</span> 0<span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          <p>Collapse borders and remove spacing. This is most useful on <code>&lt;table&gt;</code> tags to take back a bit of control on how everything renders.</p>
+
+        </p>
+        
+        
+        </div>
+      
+    
+      <h3 class="f-5 mt-4" id="class-scale:border-radius">Border Radius</h3>
+      <p class="p">
+        <p>Border radius.  These are based on <a href="/brut-css/properties/spacings.html#property-scale:border-widths">Border Widths</a> and provide a six-step scale, along with a 100% class and a “pill” class to create a lozenge-type border.</p>
+
+      </p>
+      
+        <h4 class="f-2 b">See Also</h3>
+        <ul class="see-also">
+          
+            <li><p><a href="/brut-css/properties/spacings.html#property-scale:border-widths">Border Widths</a></p>
+</li>
+          
+        </ul>
+      
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="br-0">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.br-0</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.br-0</span> <span class="token punctuation">{</span>
+  <span class="token property">border-radius</span><span class="token punctuation">:</span> 0<span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="br-1">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.br-1</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.br-1</span> <span class="token punctuation">{</span>
+  <span class="token property">border-radius</span><span class="token punctuation">:</span> <span class="token function">var</span><span class="token punctuation">(</span>--bw-1<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="br-2">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.br-2</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.br-2</span> <span class="token punctuation">{</span>
+  <span class="token property">border-radius</span><span class="token punctuation">:</span> <span class="token function">var</span><span class="token punctuation">(</span>--bw-2<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="br-3">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.br-3</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.br-3</span> <span class="token punctuation">{</span>
+  <span class="token property">border-radius</span><span class="token punctuation">:</span> <span class="token function">var</span><span class="token punctuation">(</span>--bw-3<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="br-4">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.br-4</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.br-4</span> <span class="token punctuation">{</span>
+  <span class="token property">border-radius</span><span class="token punctuation">:</span> <span class="token function">var</span><span class="token punctuation">(</span>--bw-4<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="br-5">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.br-5</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.br-5</span> <span class="token punctuation">{</span>
+  <span class="token property">border-radius</span><span class="token punctuation">:</span> <span class="token function">var</span><span class="token punctuation">(</span>--bw-5<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="br-100">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.br-100</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.br-100</span> <span class="token punctuation">{</span>
+  <span class="token property">border-radius</span><span class="token punctuation">:</span> 100%<span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="br-pill">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.br-pill</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.br-pill</span> <span class="token punctuation">{</span>
+  <span class="token property">border-radius</span><span class="token punctuation">:</span> 999px<span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+    
+      <h3 class="f-5 mt-4" id="class-scale:border-bottom-radius">Border Bottom Radius</h3>
+      <p class="p">
+        <p>Border bottom radius.</p>
+
+      </p>
+      
+        <h4 class="f-2 b">See Also</h3>
+        <ul class="see-also">
+          
+            <li><p><a href="/brut-css/classes/borders.html#class-scale:border-radius">Border Radius</a></p>
+</li>
+          
+        </ul>
+      
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="br-bottom-0">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.br-bottom-0</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.br-bottom-0</span> <span class="token punctuation">{</span>
+  <span class="token property">border-bottom-left-radius</span><span class="token punctuation">:</span> 0<span class="token punctuation">;</span>
+  <span class="token property">border-bottom-right-radius</span><span class="token punctuation">:</span> 0<span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="br-bottom-1">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.br-bottom-1</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.br-bottom-1</span> <span class="token punctuation">{</span>
+  <span class="token property">border-bottom-left-radius</span><span class="token punctuation">:</span> <span class="token function">var</span><span class="token punctuation">(</span>--bw-1<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token property">border-bottom-right-radius</span><span class="token punctuation">:</span> <span class="token function">var</span><span class="token punctuation">(</span>--bw-1<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="br-bottom-2">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.br-bottom-2</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.br-bottom-2</span> <span class="token punctuation">{</span>
+  <span class="token property">border-bottom-left-radius</span><span class="token punctuation">:</span> <span class="token function">var</span><span class="token punctuation">(</span>--bw-2<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token property">border-bottom-right-radius</span><span class="token punctuation">:</span> <span class="token function">var</span><span class="token punctuation">(</span>--bw-2<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="br-bottom-3">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.br-bottom-3</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.br-bottom-3</span> <span class="token punctuation">{</span>
+  <span class="token property">border-bottom-left-radius</span><span class="token punctuation">:</span> <span class="token function">var</span><span class="token punctuation">(</span>--bw-3<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token property">border-bottom-right-radius</span><span class="token punctuation">:</span> <span class="token function">var</span><span class="token punctuation">(</span>--bw-3<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="br-bottom-4">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.br-bottom-4</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.br-bottom-4</span> <span class="token punctuation">{</span>
+  <span class="token property">border-bottom-left-radius</span><span class="token punctuation">:</span> <span class="token function">var</span><span class="token punctuation">(</span>--bw-4<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token property">border-bottom-right-radius</span><span class="token punctuation">:</span> <span class="token function">var</span><span class="token punctuation">(</span>--bw-4<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="br-bottom-5">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.br-bottom-5</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.br-bottom-5</span> <span class="token punctuation">{</span>
+  <span class="token property">border-bottom-left-radius</span><span class="token punctuation">:</span> <span class="token function">var</span><span class="token punctuation">(</span>--bw-5<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token property">border-bottom-right-radius</span><span class="token punctuation">:</span> <span class="token function">var</span><span class="token punctuation">(</span>--bw-5<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="br-bottom-100">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.br-bottom-100</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.br-bottom-100</span> <span class="token punctuation">{</span>
+  <span class="token property">border-bottom-left-radius</span><span class="token punctuation">:</span> 100%<span class="token punctuation">;</span>
+  <span class="token property">border-bottom-right-radius</span><span class="token punctuation">:</span> 100%<span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="br-bottom-pill">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.br-bottom-pill</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.br-bottom-pill</span> <span class="token punctuation">{</span>
+  <span class="token property">border-bottom-left-radius</span><span class="token punctuation">:</span> 999px<span class="token punctuation">;</span>
+  <span class="token property">border-bottom-right-radius</span><span class="token punctuation">:</span> 999px<span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+    
+      <h3 class="f-5 mt-4" id="class-scale:border-top-radius">Border Top Radius</h3>
+      <p class="p">
+        <p>Border top radius.</p>
+
+      </p>
+      
+        <h4 class="f-2 b">See Also</h3>
+        <ul class="see-also">
+          
+            <li><p><a href="/brut-css/classes/borders.html#class-scale:border-radius">Border Radius</a></p>
+</li>
+          
+        </ul>
+      
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="br-top-0">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.br-top-0</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.br-top-0</span> <span class="token punctuation">{</span>
+  <span class="token property">border-top-left-radius</span><span class="token punctuation">:</span> 0<span class="token punctuation">;</span>
+  <span class="token property">border-top-right-radius</span><span class="token punctuation">:</span> 0<span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="br-top-1">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.br-top-1</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.br-top-1</span> <span class="token punctuation">{</span>
+  <span class="token property">border-top-left-radius</span><span class="token punctuation">:</span> <span class="token function">var</span><span class="token punctuation">(</span>--bw-1<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token property">border-top-right-radius</span><span class="token punctuation">:</span> <span class="token function">var</span><span class="token punctuation">(</span>--bw-1<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="br-top-2">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.br-top-2</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.br-top-2</span> <span class="token punctuation">{</span>
+  <span class="token property">border-top-left-radius</span><span class="token punctuation">:</span> <span class="token function">var</span><span class="token punctuation">(</span>--bw-2<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token property">border-top-right-radius</span><span class="token punctuation">:</span> <span class="token function">var</span><span class="token punctuation">(</span>--bw-2<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="br-top-3">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.br-top-3</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.br-top-3</span> <span class="token punctuation">{</span>
+  <span class="token property">border-top-left-radius</span><span class="token punctuation">:</span> <span class="token function">var</span><span class="token punctuation">(</span>--bw-3<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token property">border-top-right-radius</span><span class="token punctuation">:</span> <span class="token function">var</span><span class="token punctuation">(</span>--bw-3<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="br-top-4">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.br-top-4</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.br-top-4</span> <span class="token punctuation">{</span>
+  <span class="token property">border-top-left-radius</span><span class="token punctuation">:</span> <span class="token function">var</span><span class="token punctuation">(</span>--bw-4<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token property">border-top-right-radius</span><span class="token punctuation">:</span> <span class="token function">var</span><span class="token punctuation">(</span>--bw-4<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="br-top-5">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.br-top-5</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.br-top-5</span> <span class="token punctuation">{</span>
+  <span class="token property">border-top-left-radius</span><span class="token punctuation">:</span> <span class="token function">var</span><span class="token punctuation">(</span>--bw-5<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token property">border-top-right-radius</span><span class="token punctuation">:</span> <span class="token function">var</span><span class="token punctuation">(</span>--bw-5<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="br-top-100">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.br-top-100</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.br-top-100</span> <span class="token punctuation">{</span>
+  <span class="token property">border-top-left-radius</span><span class="token punctuation">:</span> 100%<span class="token punctuation">;</span>
+  <span class="token property">border-top-right-radius</span><span class="token punctuation">:</span> 100%<span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="br-top-pill">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.br-top-pill</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.br-top-pill</span> <span class="token punctuation">{</span>
+  <span class="token property">border-top-left-radius</span><span class="token punctuation">:</span> 999px<span class="token punctuation">;</span>
+  <span class="token property">border-top-right-radius</span><span class="token punctuation">:</span> 999px<span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+    
+      <h3 class="f-5 mt-4" id="class-scale:border-left-radius">Border Left Radius</h3>
+      <p class="p">
+        <p>Border left radius.</p>
+
+      </p>
+      
+        <h4 class="f-2 b">See Also</h3>
+        <ul class="see-also">
+          
+            <li><p><a href="/brut-css/classes/borders.html#class-scale:border-radius">Border Radius</a></p>
+</li>
+          
+        </ul>
+      
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="br-left-0">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.br-left-0</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.br-left-0</span> <span class="token punctuation">{</span>
+  <span class="token property">border-bottom-left-radius</span><span class="token punctuation">:</span> 0<span class="token punctuation">;</span>
+  <span class="token property">border-top-left-radius</span><span class="token punctuation">:</span> 0<span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="br-left-1">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.br-left-1</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.br-left-1</span> <span class="token punctuation">{</span>
+  <span class="token property">border-bottom-left-radius</span><span class="token punctuation">:</span> <span class="token function">var</span><span class="token punctuation">(</span>--bw-1<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token property">border-top-left-radius</span><span class="token punctuation">:</span> <span class="token function">var</span><span class="token punctuation">(</span>--bw-1<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="br-left-2">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.br-left-2</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.br-left-2</span> <span class="token punctuation">{</span>
+  <span class="token property">border-bottom-left-radius</span><span class="token punctuation">:</span> <span class="token function">var</span><span class="token punctuation">(</span>--bw-2<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token property">border-top-left-radius</span><span class="token punctuation">:</span> <span class="token function">var</span><span class="token punctuation">(</span>--bw-2<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="br-left-3">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.br-left-3</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.br-left-3</span> <span class="token punctuation">{</span>
+  <span class="token property">border-bottom-left-radius</span><span class="token punctuation">:</span> <span class="token function">var</span><span class="token punctuation">(</span>--bw-3<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token property">border-top-left-radius</span><span class="token punctuation">:</span> <span class="token function">var</span><span class="token punctuation">(</span>--bw-3<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="br-left-4">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.br-left-4</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.br-left-4</span> <span class="token punctuation">{</span>
+  <span class="token property">border-bottom-left-radius</span><span class="token punctuation">:</span> <span class="token function">var</span><span class="token punctuation">(</span>--bw-4<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token property">border-top-left-radius</span><span class="token punctuation">:</span> <span class="token function">var</span><span class="token punctuation">(</span>--bw-4<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="br-left-5">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.br-left-5</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.br-left-5</span> <span class="token punctuation">{</span>
+  <span class="token property">border-bottom-left-radius</span><span class="token punctuation">:</span> <span class="token function">var</span><span class="token punctuation">(</span>--bw-5<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token property">border-top-left-radius</span><span class="token punctuation">:</span> <span class="token function">var</span><span class="token punctuation">(</span>--bw-5<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="br-left-100">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.br-left-100</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.br-left-100</span> <span class="token punctuation">{</span>
+  <span class="token property">border-bottom-left-radius</span><span class="token punctuation">:</span> 100%<span class="token punctuation">;</span>
+  <span class="token property">border-top-left-radius</span><span class="token punctuation">:</span> 100%<span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="br-left-pill">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.br-left-pill</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.br-left-pill</span> <span class="token punctuation">{</span>
+  <span class="token property">border-bottom-left-radius</span><span class="token punctuation">:</span> 999px<span class="token punctuation">;</span>
+  <span class="token property">border-top-left-radius</span><span class="token punctuation">:</span> 999px<span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+    
+      <h3 class="f-5 mt-4" id="class-scale:border-right-radius">Border Right Radius</h3>
+      <p class="p">
+        <p>Border right radius.</p>
+
+      </p>
+      
+        <h4 class="f-2 b">See Also</h3>
+        <ul class="see-also">
+          
+            <li><p><a href="/brut-css/classes/borders.html#class-scale:border-radius">Border Radius</a></p>
+</li>
+          
+        </ul>
+      
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="br-right-0">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.br-right-0</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.br-right-0</span> <span class="token punctuation">{</span>
+  <span class="token property">border-bottom-right-radius</span><span class="token punctuation">:</span> 0<span class="token punctuation">;</span>
+  <span class="token property">border-top-right-radius</span><span class="token punctuation">:</span> 0<span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="br-right-1">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.br-right-1</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.br-right-1</span> <span class="token punctuation">{</span>
+  <span class="token property">border-bottom-right-radius</span><span class="token punctuation">:</span> <span class="token function">var</span><span class="token punctuation">(</span>--bw-1<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token property">border-top-right-radius</span><span class="token punctuation">:</span> <span class="token function">var</span><span class="token punctuation">(</span>--bw-1<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="br-right-2">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.br-right-2</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.br-right-2</span> <span class="token punctuation">{</span>
+  <span class="token property">border-bottom-right-radius</span><span class="token punctuation">:</span> <span class="token function">var</span><span class="token punctuation">(</span>--bw-2<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token property">border-top-right-radius</span><span class="token punctuation">:</span> <span class="token function">var</span><span class="token punctuation">(</span>--bw-2<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="br-right-3">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.br-right-3</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.br-right-3</span> <span class="token punctuation">{</span>
+  <span class="token property">border-bottom-right-radius</span><span class="token punctuation">:</span> <span class="token function">var</span><span class="token punctuation">(</span>--bw-3<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token property">border-top-right-radius</span><span class="token punctuation">:</span> <span class="token function">var</span><span class="token punctuation">(</span>--bw-3<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="br-right-4">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.br-right-4</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.br-right-4</span> <span class="token punctuation">{</span>
+  <span class="token property">border-bottom-right-radius</span><span class="token punctuation">:</span> <span class="token function">var</span><span class="token punctuation">(</span>--bw-4<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token property">border-top-right-radius</span><span class="token punctuation">:</span> <span class="token function">var</span><span class="token punctuation">(</span>--bw-4<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="br-right-5">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.br-right-5</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.br-right-5</span> <span class="token punctuation">{</span>
+  <span class="token property">border-bottom-right-radius</span><span class="token punctuation">:</span> <span class="token function">var</span><span class="token punctuation">(</span>--bw-5<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token property">border-top-right-radius</span><span class="token punctuation">:</span> <span class="token function">var</span><span class="token punctuation">(</span>--bw-5<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="br-right-100">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.br-right-100</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.br-right-100</span> <span class="token punctuation">{</span>
+  <span class="token property">border-bottom-right-radius</span><span class="token punctuation">:</span> 100%<span class="token punctuation">;</span>
+  <span class="token property">border-top-right-radius</span><span class="token punctuation">:</span> 100%<span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="br-right-pill">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.br-right-pill</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.br-right-pill</span> <span class="token punctuation">{</span>
+  <span class="token property">border-bottom-right-radius</span><span class="token punctuation">:</span> 999px<span class="token punctuation">;</span>
+  <span class="token property">border-top-right-radius</span><span class="token punctuation">:</span> 999px<span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+    
+      <h3 class="f-5 mt-4" id="class-scale:border-top-right-radius">Border Top Right Radius</h3>
+      <p class="p">
+        <p>Border top-right radius.</p>
+
+      </p>
+      
+        <h4 class="f-2 b">See Also</h3>
+        <ul class="see-also">
+          
+            <li><p><a href="/brut-css/classes/borders.html#class-scale:border-radius">Border Radius</a></p>
+</li>
+          
+        </ul>
+      
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="br-tr-0">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.br-tr-0</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.br-tr-0</span> <span class="token punctuation">{</span>
+  <span class="token property">border-top-right-radius</span><span class="token punctuation">:</span> 0<span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="br-tr-1">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.br-tr-1</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.br-tr-1</span> <span class="token punctuation">{</span>
+  <span class="token property">border-top-right-radius</span><span class="token punctuation">:</span> <span class="token function">var</span><span class="token punctuation">(</span>--bw-1<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="br-tr-2">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.br-tr-2</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.br-tr-2</span> <span class="token punctuation">{</span>
+  <span class="token property">border-top-right-radius</span><span class="token punctuation">:</span> <span class="token function">var</span><span class="token punctuation">(</span>--bw-2<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="br-tr-3">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.br-tr-3</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.br-tr-3</span> <span class="token punctuation">{</span>
+  <span class="token property">border-top-right-radius</span><span class="token punctuation">:</span> <span class="token function">var</span><span class="token punctuation">(</span>--bw-3<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="br-tr-4">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.br-tr-4</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.br-tr-4</span> <span class="token punctuation">{</span>
+  <span class="token property">border-top-right-radius</span><span class="token punctuation">:</span> <span class="token function">var</span><span class="token punctuation">(</span>--bw-4<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="br-tr-5">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.br-tr-5</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.br-tr-5</span> <span class="token punctuation">{</span>
+  <span class="token property">border-top-right-radius</span><span class="token punctuation">:</span> <span class="token function">var</span><span class="token punctuation">(</span>--bw-5<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="br-tr-100">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.br-tr-100</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.br-tr-100</span> <span class="token punctuation">{</span>
+  <span class="token property">border-top-right-radius</span><span class="token punctuation">:</span> 100%<span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="br-tr-pill">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.br-tr-pill</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.br-tr-pill</span> <span class="token punctuation">{</span>
+  <span class="token property">border-top-right-radius</span><span class="token punctuation">:</span> 999px<span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+    
+      <h3 class="f-5 mt-4" id="class-scale:border-bottom-right-radius">Border Bottom Right Radius</h3>
+      <p class="p">
+        <p>Border bottom-right radius.</p>
+
+      </p>
+      
+        <h4 class="f-2 b">See Also</h3>
+        <ul class="see-also">
+          
+            <li><p><a href="/brut-css/classes/borders.html#class-scale:border-radius">Border Radius</a></p>
+</li>
+          
+        </ul>
+      
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="br-br-0">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.br-br-0</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.br-br-0</span> <span class="token punctuation">{</span>
+  <span class="token property">border-bottom-right-radius</span><span class="token punctuation">:</span> 0<span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="br-br-1">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.br-br-1</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.br-br-1</span> <span class="token punctuation">{</span>
+  <span class="token property">border-bottom-right-radius</span><span class="token punctuation">:</span> <span class="token function">var</span><span class="token punctuation">(</span>--bw-1<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="br-br-2">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.br-br-2</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.br-br-2</span> <span class="token punctuation">{</span>
+  <span class="token property">border-bottom-right-radius</span><span class="token punctuation">:</span> <span class="token function">var</span><span class="token punctuation">(</span>--bw-2<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="br-br-3">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.br-br-3</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.br-br-3</span> <span class="token punctuation">{</span>
+  <span class="token property">border-bottom-right-radius</span><span class="token punctuation">:</span> <span class="token function">var</span><span class="token punctuation">(</span>--bw-3<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="br-br-4">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.br-br-4</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.br-br-4</span> <span class="token punctuation">{</span>
+  <span class="token property">border-bottom-right-radius</span><span class="token punctuation">:</span> <span class="token function">var</span><span class="token punctuation">(</span>--bw-4<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="br-br-5">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.br-br-5</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.br-br-5</span> <span class="token punctuation">{</span>
+  <span class="token property">border-bottom-right-radius</span><span class="token punctuation">:</span> <span class="token function">var</span><span class="token punctuation">(</span>--bw-5<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="br-br-100">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.br-br-100</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.br-br-100</span> <span class="token punctuation">{</span>
+  <span class="token property">border-bottom-right-radius</span><span class="token punctuation">:</span> 100%<span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="br-br-pill">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.br-br-pill</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.br-br-pill</span> <span class="token punctuation">{</span>
+  <span class="token property">border-bottom-right-radius</span><span class="token punctuation">:</span> 999px<span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+    
+      <h3 class="f-5 mt-4" id="class-scale:border-top-left-radius">Border Top Left Radius</h3>
+      <p class="p">
+        <p>Border top-left radius.</p>
+
+      </p>
+      
+        <h4 class="f-2 b">See Also</h3>
+        <ul class="see-also">
+          
+            <li><p><a href="/brut-css/classes/borders.html#class-scale:border-radius">Border Radius</a></p>
+</li>
+          
+        </ul>
+      
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="br-tl-0">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.br-tl-0</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.br-tl-0</span> <span class="token punctuation">{</span>
+  <span class="token property">border-top-left-radius</span><span class="token punctuation">:</span> 0<span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="br-tl-1">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.br-tl-1</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.br-tl-1</span> <span class="token punctuation">{</span>
+  <span class="token property">border-top-left-radius</span><span class="token punctuation">:</span> <span class="token function">var</span><span class="token punctuation">(</span>--bw-1<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="br-tl-2">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.br-tl-2</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.br-tl-2</span> <span class="token punctuation">{</span>
+  <span class="token property">border-top-left-radius</span><span class="token punctuation">:</span> <span class="token function">var</span><span class="token punctuation">(</span>--bw-2<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="br-tl-3">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.br-tl-3</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.br-tl-3</span> <span class="token punctuation">{</span>
+  <span class="token property">border-top-left-radius</span><span class="token punctuation">:</span> <span class="token function">var</span><span class="token punctuation">(</span>--bw-3<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="br-tl-4">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.br-tl-4</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.br-tl-4</span> <span class="token punctuation">{</span>
+  <span class="token property">border-top-left-radius</span><span class="token punctuation">:</span> <span class="token function">var</span><span class="token punctuation">(</span>--bw-4<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="br-tl-5">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.br-tl-5</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.br-tl-5</span> <span class="token punctuation">{</span>
+  <span class="token property">border-top-left-radius</span><span class="token punctuation">:</span> <span class="token function">var</span><span class="token punctuation">(</span>--bw-5<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="br-tl-100">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.br-tl-100</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.br-tl-100</span> <span class="token punctuation">{</span>
+  <span class="token property">border-top-left-radius</span><span class="token punctuation">:</span> 100%<span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="br-tl-pill">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.br-tl-pill</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.br-tl-pill</span> <span class="token punctuation">{</span>
+  <span class="token property">border-top-left-radius</span><span class="token punctuation">:</span> 999px<span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+    
+      <h3 class="f-5 mt-4" id="class-scale:border-bottom-left-radius">Border Bottom Left Radius</h3>
+      <p class="p">
+        <p>Border bottom-left radius.</p>
+
+      </p>
+      
+        <h4 class="f-2 b">See Also</h3>
+        <ul class="see-also">
+          
+            <li><p><a href="/brut-css/classes/borders.html#class-scale:border-radius">Border Radius</a></p>
+</li>
+          
+        </ul>
+      
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="br-bl-0">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.br-bl-0</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.br-bl-0</span> <span class="token punctuation">{</span>
+  <span class="token property">border-bottom-left-radius</span><span class="token punctuation">:</span> 0<span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="br-bl-1">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.br-bl-1</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.br-bl-1</span> <span class="token punctuation">{</span>
+  <span class="token property">border-bottom-left-radius</span><span class="token punctuation">:</span> <span class="token function">var</span><span class="token punctuation">(</span>--bw-1<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="br-bl-2">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.br-bl-2</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.br-bl-2</span> <span class="token punctuation">{</span>
+  <span class="token property">border-bottom-left-radius</span><span class="token punctuation">:</span> <span class="token function">var</span><span class="token punctuation">(</span>--bw-2<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="br-bl-3">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.br-bl-3</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.br-bl-3</span> <span class="token punctuation">{</span>
+  <span class="token property">border-bottom-left-radius</span><span class="token punctuation">:</span> <span class="token function">var</span><span class="token punctuation">(</span>--bw-3<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="br-bl-4">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.br-bl-4</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.br-bl-4</span> <span class="token punctuation">{</span>
+  <span class="token property">border-bottom-left-radius</span><span class="token punctuation">:</span> <span class="token function">var</span><span class="token punctuation">(</span>--bw-4<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="br-bl-5">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.br-bl-5</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.br-bl-5</span> <span class="token punctuation">{</span>
+  <span class="token property">border-bottom-left-radius</span><span class="token punctuation">:</span> <span class="token function">var</span><span class="token punctuation">(</span>--bw-5<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="br-bl-100">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.br-bl-100</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.br-bl-100</span> <span class="token punctuation">{</span>
+  <span class="token property">border-bottom-left-radius</span><span class="token punctuation">:</span> 100%<span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="br-bl-pill">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.br-bl-pill</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.br-bl-pill</span> <span class="token punctuation">{</span>
+  <span class="token property">border-bottom-left-radius</span><span class="token punctuation">:</span> 999px<span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="bs-dotted">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.bs-dotted</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.bs-dotted</span> <span class="token punctuation">{</span>
+  <span class="token property">border-style</span><span class="token punctuation">:</span> dotted<span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="bs-dashed">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.bs-dashed</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.bs-dashed</span> <span class="token punctuation">{</span>
+  <span class="token property">border-style</span><span class="token punctuation">:</span> dashed<span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="bs-solid">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.bs-solid</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.bs-solid</span> <span class="token punctuation">{</span>
+  <span class="token property">border-style</span><span class="token punctuation">:</span> solid<span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="bs-none">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.bs-none</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.bs-none</span> <span class="token punctuation">{</span>
+  <span class="token property">border-style</span><span class="token punctuation">:</span> none<span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="bls-dotted">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.bls-dotted</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.bls-dotted</span> <span class="token punctuation">{</span>
+  <span class="token property">border-left-style</span><span class="token punctuation">:</span> dotted<span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="bls-dashed">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.bls-dashed</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.bls-dashed</span> <span class="token punctuation">{</span>
+  <span class="token property">border-left-style</span><span class="token punctuation">:</span> dashed<span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="bls-solid">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.bls-solid</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.bls-solid</span> <span class="token punctuation">{</span>
+  <span class="token property">border-left-style</span><span class="token punctuation">:</span> solid<span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="bls-none">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.bls-none</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.bls-none</span> <span class="token punctuation">{</span>
+  <span class="token property">border-left-style</span><span class="token punctuation">:</span> none<span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="brs-dotted">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.brs-dotted</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.brs-dotted</span> <span class="token punctuation">{</span>
+  <span class="token property">border-right-style</span><span class="token punctuation">:</span> dotted<span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="brs-dashed">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.brs-dashed</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.brs-dashed</span> <span class="token punctuation">{</span>
+  <span class="token property">border-right-style</span><span class="token punctuation">:</span> dashed<span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="brs-solid">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.brs-solid</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.brs-solid</span> <span class="token punctuation">{</span>
+  <span class="token property">border-right-style</span><span class="token punctuation">:</span> solid<span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="brs-none">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.brs-none</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.brs-none</span> <span class="token punctuation">{</span>
+  <span class="token property">border-right-style</span><span class="token punctuation">:</span> none<span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="bts-dotted">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.bts-dotted</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.bts-dotted</span> <span class="token punctuation">{</span>
+  <span class="token property">border-top-style</span><span class="token punctuation">:</span> dotted<span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="bts-dashed">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.bts-dashed</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.bts-dashed</span> <span class="token punctuation">{</span>
+  <span class="token property">border-top-style</span><span class="token punctuation">:</span> dashed<span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="bts-solid">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.bts-solid</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.bts-solid</span> <span class="token punctuation">{</span>
+  <span class="token property">border-top-style</span><span class="token punctuation">:</span> solid<span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="bts-none">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.bts-none</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.bts-none</span> <span class="token punctuation">{</span>
+  <span class="token property">border-top-style</span><span class="token punctuation">:</span> none<span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="bbs-dotted">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.bbs-dotted</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.bbs-dotted</span> <span class="token punctuation">{</span>
+  <span class="token property">border-bottom-style</span><span class="token punctuation">:</span> dotted<span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="bbs-dashed">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.bbs-dashed</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.bbs-dashed</span> <span class="token punctuation">{</span>
+  <span class="token property">border-bottom-style</span><span class="token punctuation">:</span> dashed<span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="bbs-solid">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.bbs-solid</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.bbs-solid</span> <span class="token punctuation">{</span>
+  <span class="token property">border-bottom-style</span><span class="token punctuation">:</span> solid<span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="bbs-none">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.bbs-none</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.bbs-none</span> <span class="token punctuation">{</span>
+  <span class="token property">border-bottom-style</span><span class="token punctuation">:</span> none<span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+    
+      <h3 class="f-5 mt-4" id="class-scale:border-widths">Border Widths</h3>
+      <p class="p">
+        <p>Border widths. This provides a six-step scale.</p>
+
+      </p>
+      
+        <h4 class="f-2 b">See Also</h3>
+        <ul class="see-also">
+          
+            <li><p><a href="/brut-css/properties/spacings.html#property-scale:border-widths">Border Widths</a></p>
+</li>
+          
+        </ul>
+      
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="bw-0">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.bw-0</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.bw-0</span> <span class="token punctuation">{</span>
+  <span class="token property">border-width</span><span class="token punctuation">:</span> 0<span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="bw-1">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.bw-1</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.bw-1</span> <span class="token punctuation">{</span>
+  <span class="token property">border-width</span><span class="token punctuation">:</span> <span class="token function">var</span><span class="token punctuation">(</span>--bw-1<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="bw-2">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.bw-2</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.bw-2</span> <span class="token punctuation">{</span>
+  <span class="token property">border-width</span><span class="token punctuation">:</span> <span class="token function">var</span><span class="token punctuation">(</span>--bw-2<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="bw-3">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.bw-3</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.bw-3</span> <span class="token punctuation">{</span>
+  <span class="token property">border-width</span><span class="token punctuation">:</span> <span class="token function">var</span><span class="token punctuation">(</span>--bw-3<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="bw-4">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.bw-4</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.bw-4</span> <span class="token punctuation">{</span>
+  <span class="token property">border-width</span><span class="token punctuation">:</span> <span class="token function">var</span><span class="token punctuation">(</span>--bw-4<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="bw-5">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.bw-5</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.bw-5</span> <span class="token punctuation">{</span>
+  <span class="token property">border-width</span><span class="token punctuation">:</span> <span class="token function">var</span><span class="token punctuation">(</span>--bw-5<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+    
+      <h3 class="f-5 mt-4" id="class-scale:border-left-width">Border Left Width</h3>
+      <p class="p">
+        <p>Border left width.</p>
+
+      </p>
+      
+        <h4 class="f-2 b">See Also</h3>
+        <ul class="see-also">
+          
+            <li><p><a href="/brut-css/classes/borders.html#class-scale:border-widths">Border Widths</a></p>
+</li>
+          
+        </ul>
+      
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="blw-0">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.blw-0</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.blw-0</span> <span class="token punctuation">{</span>
+  <span class="token property">border-left-width</span><span class="token punctuation">:</span> 0<span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="blw-1">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.blw-1</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.blw-1</span> <span class="token punctuation">{</span>
+  <span class="token property">border-left-width</span><span class="token punctuation">:</span> <span class="token function">var</span><span class="token punctuation">(</span>--bw-1<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="blw-2">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.blw-2</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.blw-2</span> <span class="token punctuation">{</span>
+  <span class="token property">border-left-width</span><span class="token punctuation">:</span> <span class="token function">var</span><span class="token punctuation">(</span>--bw-2<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="blw-3">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.blw-3</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.blw-3</span> <span class="token punctuation">{</span>
+  <span class="token property">border-left-width</span><span class="token punctuation">:</span> <span class="token function">var</span><span class="token punctuation">(</span>--bw-3<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="blw-4">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.blw-4</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.blw-4</span> <span class="token punctuation">{</span>
+  <span class="token property">border-left-width</span><span class="token punctuation">:</span> <span class="token function">var</span><span class="token punctuation">(</span>--bw-4<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="blw-5">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.blw-5</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.blw-5</span> <span class="token punctuation">{</span>
+  <span class="token property">border-left-width</span><span class="token punctuation">:</span> <span class="token function">var</span><span class="token punctuation">(</span>--bw-5<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+    
+      <h3 class="f-5 mt-4" id="class-scale:border-right-width">Border Right Width</h3>
+      <p class="p">
+        <p>Border right width.</p>
+
+      </p>
+      
+        <h4 class="f-2 b">See Also</h3>
+        <ul class="see-also">
+          
+            <li><p><a href="/brut-css/classes/borders.html#class-scale:border-widths">Border Widths</a></p>
+</li>
+          
+        </ul>
+      
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="brw-0">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.brw-0</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.brw-0</span> <span class="token punctuation">{</span>
+  <span class="token property">border-right-width</span><span class="token punctuation">:</span> 0<span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="brw-1">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.brw-1</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.brw-1</span> <span class="token punctuation">{</span>
+  <span class="token property">border-right-width</span><span class="token punctuation">:</span> <span class="token function">var</span><span class="token punctuation">(</span>--bw-1<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="brw-2">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.brw-2</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.brw-2</span> <span class="token punctuation">{</span>
+  <span class="token property">border-right-width</span><span class="token punctuation">:</span> <span class="token function">var</span><span class="token punctuation">(</span>--bw-2<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="brw-3">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.brw-3</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.brw-3</span> <span class="token punctuation">{</span>
+  <span class="token property">border-right-width</span><span class="token punctuation">:</span> <span class="token function">var</span><span class="token punctuation">(</span>--bw-3<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="brw-4">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.brw-4</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.brw-4</span> <span class="token punctuation">{</span>
+  <span class="token property">border-right-width</span><span class="token punctuation">:</span> <span class="token function">var</span><span class="token punctuation">(</span>--bw-4<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="brw-5">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.brw-5</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.brw-5</span> <span class="token punctuation">{</span>
+  <span class="token property">border-right-width</span><span class="token punctuation">:</span> <span class="token function">var</span><span class="token punctuation">(</span>--bw-5<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+    
+      <h3 class="f-5 mt-4" id="class-scale:border-top-width">Border Top Width</h3>
+      <p class="p">
+        <p>Border top width.</p>
+
+      </p>
+      
+        <h4 class="f-2 b">See Also</h3>
+        <ul class="see-also">
+          
+            <li><p><a href="/brut-css/classes/borders.html#class-scale:border-widths">Border Widths</a></p>
+</li>
+          
+        </ul>
+      
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="btw-0">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.btw-0</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.btw-0</span> <span class="token punctuation">{</span>
+  <span class="token property">border-top-width</span><span class="token punctuation">:</span> 0<span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="btw-1">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.btw-1</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.btw-1</span> <span class="token punctuation">{</span>
+  <span class="token property">border-top-width</span><span class="token punctuation">:</span> <span class="token function">var</span><span class="token punctuation">(</span>--bw-1<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="btw-2">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.btw-2</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.btw-2</span> <span class="token punctuation">{</span>
+  <span class="token property">border-top-width</span><span class="token punctuation">:</span> <span class="token function">var</span><span class="token punctuation">(</span>--bw-2<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="btw-3">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.btw-3</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.btw-3</span> <span class="token punctuation">{</span>
+  <span class="token property">border-top-width</span><span class="token punctuation">:</span> <span class="token function">var</span><span class="token punctuation">(</span>--bw-3<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="btw-4">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.btw-4</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.btw-4</span> <span class="token punctuation">{</span>
+  <span class="token property">border-top-width</span><span class="token punctuation">:</span> <span class="token function">var</span><span class="token punctuation">(</span>--bw-4<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="btw-5">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.btw-5</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.btw-5</span> <span class="token punctuation">{</span>
+  <span class="token property">border-top-width</span><span class="token punctuation">:</span> <span class="token function">var</span><span class="token punctuation">(</span>--bw-5<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+    
+      <h3 class="f-5 mt-4" id="class-scale:border-bottom-width">Border Bottom Width</h3>
+      <p class="p">
+        <p>Border bottom width.</p>
+
+      </p>
+      
+        <h4 class="f-2 b">See Also</h3>
+        <ul class="see-also">
+          
+            <li><p><a href="/brut-css/classes/borders.html#class-scale:border-widths">Border Widths</a></p>
+</li>
+          
+        </ul>
+      
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="bbw-0">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.bbw-0</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.bbw-0</span> <span class="token punctuation">{</span>
+  <span class="token property">border-bottom-width</span><span class="token punctuation">:</span> 0<span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="bbw-1">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.bbw-1</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.bbw-1</span> <span class="token punctuation">{</span>
+  <span class="token property">border-bottom-width</span><span class="token punctuation">:</span> <span class="token function">var</span><span class="token punctuation">(</span>--bw-1<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="bbw-2">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.bbw-2</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.bbw-2</span> <span class="token punctuation">{</span>
+  <span class="token property">border-bottom-width</span><span class="token punctuation">:</span> <span class="token function">var</span><span class="token punctuation">(</span>--bw-2<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="bbw-3">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.bbw-3</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.bbw-3</span> <span class="token punctuation">{</span>
+  <span class="token property">border-bottom-width</span><span class="token punctuation">:</span> <span class="token function">var</span><span class="token punctuation">(</span>--bw-3<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="bbw-4">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.bbw-4</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.bbw-4</span> <span class="token punctuation">{</span>
+  <span class="token property">border-bottom-width</span><span class="token punctuation">:</span> <span class="token function">var</span><span class="token punctuation">(</span>--bw-4<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="bbw-5">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.bbw-5</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.bbw-5</span> <span class="token punctuation">{</span>
+  <span class="token property">border-bottom-width</span><span class="token punctuation">:</span> <span class="token function">var</span><span class="token punctuation">(</span>--bw-5<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+    
+  </article>
+  <div class="z-5 ma-0 overflow-y-auto pa-2 w-20 h-100 pos-absolute top-0 right-2">
+    <div class="pa-3 ba bc-gray-700 bg-gray-900 br-3 shadow-1 ridiculous-liquid-glass-is-all-the-rage">
+      <h3>On this Page</h3>
+      <ul class="lst-none ma-0 pa-0">
+      
+        <li class="lh-copy"><a href="#class-group:borders">Borders</a></li>
+      
+        <li class="lh-copy"><a href="#class-scale:border-radius">Border Radius</a></li>
+      
+        <li class="lh-copy"><a href="#class-scale:border-bottom-radius">Border Bottom Radius</a></li>
+      
+        <li class="lh-copy"><a href="#class-scale:border-top-radius">Border Top Radius</a></li>
+      
+        <li class="lh-copy"><a href="#class-scale:border-left-radius">Border Left Radius</a></li>
+      
+        <li class="lh-copy"><a href="#class-scale:border-right-radius">Border Right Radius</a></li>
+      
+        <li class="lh-copy"><a href="#class-scale:border-top-right-radius">Border Top Right Radius</a></li>
+      
+        <li class="lh-copy"><a href="#class-scale:border-bottom-right-radius">Border Bottom Right Radius</a></li>
+      
+        <li class="lh-copy"><a href="#class-scale:border-top-left-radius">Border Top Left Radius</a></li>
+      
+        <li class="lh-copy"><a href="#class-scale:border-bottom-left-radius">Border Bottom Left Radius</a></li>
+      
+        <li class="lh-copy"><a href="#class-scale:border-widths">Border Widths</a></li>
+      
+        <li class="lh-copy"><a href="#class-scale:border-left-width">Border Left Width</a></li>
+      
+        <li class="lh-copy"><a href="#class-scale:border-right-width">Border Right Width</a></li>
+      
+        <li class="lh-copy"><a href="#class-scale:border-top-width">Border Top Width</a></li>
+      
+        <li class="lh-copy"><a href="#class-scale:border-bottom-width">Border Bottom Width</a></li>
+      
+      </ul>
+    </div>
+  </div>
+        </div>
+      <footer class="bg-black white mt-auto">
+        <p class="tc">
+          Copyright &copy; 2025 David Bryant Copeland.
+        </p>
+      </footer>
+    </section>
+  </main>
+</body>
+
+</html>
+

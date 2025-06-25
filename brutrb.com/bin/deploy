@@ -1,0 +1,7 @@
+#!/bin/bash
+
+set -e
+
+bin/build
+rsync -av --delete .vitepress/dist/ ../docs/
+echo "brutrb.com" > ../docs/CNAME

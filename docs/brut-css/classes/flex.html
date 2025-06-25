@@ -1,0 +1,917 @@
+<!doctype html>
+<html class="ma-0 pa-0 h-100" lang="en">
+  <head>
+  <link rel="stylesheet" href="/brut-css/brut.css">
+  <link rel="stylesheet" href="/brut-css/docs.css">
+  <link rel="stylesheet" href="/brut-css/prism-twilight.min.css">
+</head>
+
+    <body class="flex flex-column ff-sans ma-0 pa-0 h-100">
+    <header class="pos-sticky top-0 bg-gray-700 pa-3 z-5 shadow-2">
+      <div class="flex gap-3 justify-between items-center">
+        <h1><a href="/brut-css" class="black tdn">BrutCSS Reference Documentation</a></h1>
+        <ul class="lst-none pl-0 flex gap-2 justify-end items-center">
+          <form class="flex items-center gap-1 mr-3">
+            <label>
+            <input type="search" placeholder="e.g. padding-left" class="pa-2 br-2 ba bc-gray-600 bg-white-ish gray-200">
+            <span class="sr-only">Search term</span>
+            </label>
+            <button class="ph-3 pv-2 bg-white gray-100 ba bc-gray-500 br-3 hover-bg-gray-800 pointer flex items-center justify-between">
+              <span class="mr-2">Search</span>
+              <kbd>&#8984;</kbd>
+              <kbd>/</kbd>
+            </button>
+          </form>
+          <li><a href="/" class="red-200 tdn hover-tdu">BrutRB</a></li>
+          <span aria-hidden="true">&middot;</span>
+          <li><a href="/brut-js" class="gray-200 tdn hover-tdu">BrutJS</a></li>
+          <span aria-hidden="true">&middot;</span>
+          <li><a href="https://github.com/thirdtank/brut/tree/main/brut-css" class="gray-200 tdn hover-tdu">Code</a></li>
+        </ul>
+      </div>
+    </header>
+    <main class="flex overflow-hidden flex-grow-1 flex-shrink-1 flex-basis-0 pos-relative">
+      <nav class="overflow-y-auto ph-3 pb-2 pt-4 w-20 bg-gray-800 gray-200 h-100">
+        
+  <h3>Getting Started</h3>
+  <ul class="pl-3">
+  
+      <li>
+        <a class="black-ish tdu tdn-ns hover-tdu-ns" href="/brut-css/getting-started/overview.html">Overview</a>
+      </li>
+  
+      <li>
+        <a class="black-ish tdu tdn-ns hover-tdu-ns" href="/brut-css/getting-started/installation.html">Installation</a>
+      </li>
+  
+      <li>
+        <a class="black-ish tdu tdn-ns hover-tdu-ns" href="/brut-css/getting-started/core-concepts.html">Core Concepts</a>
+      </li>
+  
+      <li>
+        <a class="black-ish tdu tdn-ns hover-tdu-ns" href="/brut-css/getting-started/simple-example.html">Simple Example</a>
+      </li>
+  
+  </ul>
+
+  <h3>Properties</h3>
+  <ul class="pl-3">
+  
+      <li>
+        <a class="black-ish tdu tdn-ns hover-tdu-ns" href="/brut-css/properties/colors.html">Colors</a>
+      </li>
+  
+      <li>
+        <a class="black-ish tdu tdn-ns hover-tdu-ns" href="/brut-css/properties/spacings.html">Spacings</a>
+      </li>
+  
+      <li>
+        <a class="black-ish tdu tdn-ns hover-tdu-ns" href="/brut-css/properties/typography.html">Typography</a>
+      </li>
+  
+  </ul>
+
+  <h3>Classes</h3>
+  <ul class="pl-3">
+  
+      <li>
+        <a class="black-ish tdu tdn-ns hover-tdu-ns" href="/brut-css/classes/appearances.html">Appearances</a>
+      </li>
+  
+      <li>
+        <a class="black-ish tdu tdn-ns hover-tdu-ns" href="/brut-css/classes/borders.html">Borders</a>
+      </li>
+  
+      <li>
+        <a class="black-ish tdu tdn-ns hover-tdu-ns" href="/brut-css/classes/foreground-colors.html">Foreground Colors</a>
+      </li>
+  
+      <li>
+        <a class="black-ish tdu tdn-ns hover-tdu-ns" href="/brut-css/classes/background-colors.html">Background Colors</a>
+      </li>
+  
+      <li>
+        <a class="black-ish tdu tdn-ns hover-tdu-ns" href="/brut-css/classes/border-colors.html">Border Colors</a>
+      </li>
+  
+      <li>
+        <a class="black-ish tdu tdn-ns hover-tdu-ns" href="/brut-css/classes/dimensions.html">Dimensions</a>
+      </li>
+  
+      <li>
+        <a class="black-ish tdu tdn-ns hover-tdu-ns" href="/brut-css/classes/flex.html">Flex</a>
+      </li>
+  
+      <li>
+        <a class="black-ish tdu tdn-ns hover-tdu-ns" href="/brut-css/classes/layout.html">Layout</a>
+      </li>
+  
+      <li>
+        <a class="black-ish tdu tdn-ns hover-tdu-ns" href="/brut-css/classes/lists.html">Lists</a>
+      </li>
+  
+      <li>
+        <a class="black-ish tdu tdn-ns hover-tdu-ns" href="/brut-css/classes/positioning.html">Positioning</a>
+      </li>
+  
+      <li>
+        <a class="black-ish tdu tdn-ns hover-tdu-ns" href="/brut-css/classes/spacings.html">Spacings</a>
+      </li>
+  
+      <li>
+        <a class="black-ish tdu tdn-ns hover-tdu-ns" href="/brut-css/classes/typography.html">Typography</a>
+      </li>
+  
+      <li>
+        <a class="black-ish tdu tdn-ns hover-tdu-ns" href="/brut-css/classes/junk-drawer.html">Junk Drawer</a>
+      </li>
+  
+  </ul>
+
+  <h3>Customization</h3>
+  <ul class="pl-3">
+  
+      <li>
+        <a class="black-ish tdu tdn-ns hover-tdu-ns" href="/brut-css/customization/design-system.html">Design System</a>
+      </li>
+  
+      <li>
+        <a class="black-ish tdu tdn-ns hover-tdu-ns" href="/brut-css/customization/breakpoints.html">Breakpoints</a>
+      </li>
+  
+      <li>
+        <a class="black-ish tdu tdn-ns hover-tdu-ns" href="/brut-css/customization/pseudo-classes.html">Pseudo Classes</a>
+      </li>
+  
+      <li>
+        <a class="black-ish tdu tdn-ns hover-tdu-ns" href="/brut-css/customization/advanced-configuration.html">Advanced Configuration</a>
+      </li>
+  
+  </ul>
+
+
+      </nav>
+      <section class="overflow-y-auto pt-4 h-100 flex-grow-1 flex-shrink-1 flex-basis-0 flex flex-column">
+        <div class="ph-3 pv-2 flex items-start gap-2 justify-between">
+
+  <article>
+    <h2 class="}-5">Flex Classes</h2>
+    
+      <p>Flexbox utilities.  These should allow most Flex layouts without having to write CSS.</p>
+
+    
+    
+      <h3 class="f-2 b">See Also</h3>
+      <ul class="see-also">
+        
+          <li><p><a href="/brut-css/classes/layout.html#class-group:display">Display</a></p>
+</li>
+        
+      </ul>
+    
+    
+      <h3 class="f-5 mt-4" id="class-group:flex-general">Flex General</h3>
+      <p class="p">
+        <p>General flex-establishing classes.</p>
+
+      </p>
+      
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="flex">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.flex</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.flex</span> <span class="token punctuation">{</span>
+  <span class="token property">display</span><span class="token punctuation">:</span> flex<span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="inline-flex">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.inline-flex</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.inline-flex</span> <span class="token punctuation">{</span>
+  <span class="token property">display</span><span class="token punctuation">:</span> inline-flex<span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="flex-none">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.flex-none</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.flex-none</span> <span class="token punctuation">{</span>
+  <span class="token property">flex</span><span class="token punctuation">:</span> none<span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="flex-column">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.flex-column</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.flex-column</span> <span class="token punctuation">{</span>
+  <span class="token property">flex-direction</span><span class="token punctuation">:</span> column<span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="flex-row">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.flex-row</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.flex-row</span> <span class="token punctuation">{</span>
+  <span class="token property">flex-direction</span><span class="token punctuation">:</span> row<span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="flex-wrap">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.flex-wrap</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.flex-wrap</span> <span class="token punctuation">{</span>
+  <span class="token property">flex-wrap</span><span class="token punctuation">:</span> wrap<span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="flex-nowrap">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.flex-nowrap</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.flex-nowrap</span> <span class="token punctuation">{</span>
+  <span class="token property">flex-wrap</span><span class="token punctuation">:</span> nowrap<span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+    
+      <h3 class="f-5 mt-4" id="class-group:item-alignment">Item Alignment</h3>
+      <p class="p">
+        <p>Item alignment, most useful with flexbox</p>
+
+      </p>
+      
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="items-start">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.items-start</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.items-start</span> <span class="token punctuation">{</span>
+  <span class="token property">align-items</span><span class="token punctuation">:</span> flex-start<span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="items-end">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.items-end</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.items-end</span> <span class="token punctuation">{</span>
+  <span class="token property">align-items</span><span class="token punctuation">:</span> flex-end<span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="items-center">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.items-center</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.items-center</span> <span class="token punctuation">{</span>
+  <span class="token property">align-items</span><span class="token punctuation">:</span> center<span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="items-baseline">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.items-baseline</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.items-baseline</span> <span class="token punctuation">{</span>
+  <span class="token property">align-items</span><span class="token punctuation">:</span> baseline<span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="items-stretch">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.items-stretch</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.items-stretch</span> <span class="token punctuation">{</span>
+  <span class="token property">align-items</span><span class="token punctuation">:</span> stretch<span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+    
+      <h3 class="f-5 mt-4" id="class-group:self-aligment">Self Aligment</h3>
+      <p class="p">
+        <p>Self alignment, most useful with flexbox</p>
+
+      </p>
+      
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="self-start">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.self-start</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.self-start</span> <span class="token punctuation">{</span>
+  <span class="token property">align-self</span><span class="token punctuation">:</span> flex-start<span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="self-end">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.self-end</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.self-end</span> <span class="token punctuation">{</span>
+  <span class="token property">align-self</span><span class="token punctuation">:</span> flex-end<span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="self-center">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.self-center</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.self-center</span> <span class="token punctuation">{</span>
+  <span class="token property">align-self</span><span class="token punctuation">:</span> center<span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="self-baseline">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.self-baseline</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.self-baseline</span> <span class="token punctuation">{</span>
+  <span class="token property">align-self</span><span class="token punctuation">:</span> baseline<span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="self-stretch">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.self-stretch</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.self-stretch</span> <span class="token punctuation">{</span>
+  <span class="token property">align-self</span><span class="token punctuation">:</span> stretch<span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+    
+      <h3 class="f-5 mt-4" id="class-group:justify-content">Justify Content</h3>
+      <p class="p">
+        <p>Justify content, most useful with flexbox</p>
+
+      </p>
+      
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="justify-start">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.justify-start</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.justify-start</span> <span class="token punctuation">{</span>
+  <span class="token property">justify-content</span><span class="token punctuation">:</span> start<span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="justify-end">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.justify-end</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.justify-end</span> <span class="token punctuation">{</span>
+  <span class="token property">justify-content</span><span class="token punctuation">:</span> end<span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="justify-center">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.justify-center</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.justify-center</span> <span class="token punctuation">{</span>
+  <span class="token property">justify-content</span><span class="token punctuation">:</span> center<span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="justify-between">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.justify-between</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.justify-between</span> <span class="token punctuation">{</span>
+  <span class="token property">justify-content</span><span class="token punctuation">:</span> space-between<span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="justify-around">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.justify-around</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.justify-around</span> <span class="token punctuation">{</span>
+  <span class="token property">justify-content</span><span class="token punctuation">:</span> space-around<span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="justify-stretch">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.justify-stretch</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.justify-stretch</span> <span class="token punctuation">{</span>
+  <span class="token property">justify-content</span><span class="token punctuation">:</span> stretch<span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+    
+      <h3 class="f-5 mt-4" id="class-group:align-content">Align Content</h3>
+      <p class="p">
+        <p>Align content, most useful with flexbox</p>
+
+      </p>
+      
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="content-start">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.content-start</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.content-start</span> <span class="token punctuation">{</span>
+  <span class="token property">align-content</span><span class="token punctuation">:</span> start<span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="content-end">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.content-end</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.content-end</span> <span class="token punctuation">{</span>
+  <span class="token property">align-content</span><span class="token punctuation">:</span> end<span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="content-center">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.content-center</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.content-center</span> <span class="token punctuation">{</span>
+  <span class="token property">align-content</span><span class="token punctuation">:</span> center<span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="content-between">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.content-between</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.content-between</span> <span class="token punctuation">{</span>
+  <span class="token property">align-content</span><span class="token punctuation">:</span> space-between<span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="content-around">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.content-around</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.content-around</span> <span class="token punctuation">{</span>
+  <span class="token property">align-content</span><span class="token punctuation">:</span> space-around<span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="content-stretch">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.content-stretch</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.content-stretch</span> <span class="token punctuation">{</span>
+  <span class="token property">align-content</span><span class="token punctuation">:</span> stretch<span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+    
+      <h3 class="f-5 mt-4" id="class-scale:flex-grow">Flex Grow</h3>
+      <p class="p">
+        <p>Flex grow, using a six-step scale.</p>
+
+      </p>
+      
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="flex-grow-0">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.flex-grow-0</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.flex-grow-0</span> <span class="token punctuation">{</span>
+  <span class="token property">flex-grow</span><span class="token punctuation">:</span> 0<span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="flex-grow-1">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.flex-grow-1</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.flex-grow-1</span> <span class="token punctuation">{</span>
+  <span class="token property">flex-grow</span><span class="token punctuation">:</span> 1<span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="flex-grow-2">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.flex-grow-2</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.flex-grow-2</span> <span class="token punctuation">{</span>
+  <span class="token property">flex-grow</span><span class="token punctuation">:</span> 2<span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="flex-grow-3">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.flex-grow-3</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.flex-grow-3</span> <span class="token punctuation">{</span>
+  <span class="token property">flex-grow</span><span class="token punctuation">:</span> 3<span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="flex-grow-4">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.flex-grow-4</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.flex-grow-4</span> <span class="token punctuation">{</span>
+  <span class="token property">flex-grow</span><span class="token punctuation">:</span> 4<span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="flex-grow-5">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.flex-grow-5</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.flex-grow-5</span> <span class="token punctuation">{</span>
+  <span class="token property">flex-grow</span><span class="token punctuation">:</span> 5<span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+    
+      <h3 class="f-5 mt-4" id="class-scale:flex-grow">Flex Grow</h3>
+      <p class="p">
+        <p>Flex shrink, using a six-step scale.</p>
+
+      </p>
+      
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="flex-shrink-0">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.flex-shrink-0</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.flex-shrink-0</span> <span class="token punctuation">{</span>
+  <span class="token property">flex-shrink</span><span class="token punctuation">:</span> 0<span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="flex-shrink-1">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.flex-shrink-1</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.flex-shrink-1</span> <span class="token punctuation">{</span>
+  <span class="token property">flex-shrink</span><span class="token punctuation">:</span> 1<span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="flex-shrink-2">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.flex-shrink-2</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.flex-shrink-2</span> <span class="token punctuation">{</span>
+  <span class="token property">flex-shrink</span><span class="token punctuation">:</span> 2<span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="flex-shrink-3">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.flex-shrink-3</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.flex-shrink-3</span> <span class="token punctuation">{</span>
+  <span class="token property">flex-shrink</span><span class="token punctuation">:</span> 3<span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="flex-shrink-4">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.flex-shrink-4</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.flex-shrink-4</span> <span class="token punctuation">{</span>
+  <span class="token property">flex-shrink</span><span class="token punctuation">:</span> 4<span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="flex-shrink-5">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.flex-shrink-5</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.flex-shrink-5</span> <span class="token punctuation">{</span>
+  <span class="token property">flex-shrink</span><span class="token punctuation">:</span> 5<span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+    
+      <h3 class="f-5 mt-4" id="class-group:flex-basis">Flex Basis</h3>
+      <p class="p">
+        <p>Flex basis.</p>
+
+      </p>
+      
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="flex-basis-0">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.flex-basis-0</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.flex-basis-0</span> <span class="token punctuation">{</span>
+  <span class="token property">flex-basis</span><span class="token punctuation">:</span> 0<span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="flex-basis-auto">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.flex-basis-auto</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.flex-basis-auto</span> <span class="token punctuation">{</span>
+  <span class="token property">flex-basis</span><span class="token punctuation">:</span> auto<span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="flex-basis-max">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.flex-basis-max</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.flex-basis-max</span> <span class="token punctuation">{</span>
+  <span class="token property">flex-basis</span><span class="token punctuation">:</span> max-content<span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="flex-basis-min">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.flex-basis-min</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.flex-basis-min</span> <span class="token punctuation">{</span>
+  <span class="token property">flex-basis</span><span class="token punctuation">:</span> min-content<span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="flex-basis-fit">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.flex-basis-fit</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.flex-basis-fit</span> <span class="token punctuation">{</span>
+  <span class="token property">flex-basis</span><span class="token punctuation">:</span> fit-content<span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+    
+  </article>
+  <div class="z-5 ma-0 overflow-y-auto pa-2 w-20 h-100 pos-absolute top-0 right-2">
+    <div class="pa-3 ba bc-gray-700 bg-gray-900 br-3 shadow-1 ridiculous-liquid-glass-is-all-the-rage">
+      <h3>On this Page</h3>
+      <ul class="lst-none ma-0 pa-0">
+      
+        <li class="lh-copy"><a href="#class-group:flex-general">Flex General</a></li>
+      
+        <li class="lh-copy"><a href="#class-group:item-alignment">Item Alignment</a></li>
+      
+        <li class="lh-copy"><a href="#class-group:self-aligment">Self Aligment</a></li>
+      
+        <li class="lh-copy"><a href="#class-group:justify-content">Justify Content</a></li>
+      
+        <li class="lh-copy"><a href="#class-group:align-content">Align Content</a></li>
+      
+        <li class="lh-copy"><a href="#class-scale:flex-grow">Flex Grow</a></li>
+      
+        <li class="lh-copy"><a href="#class-scale:flex-grow">Flex Grow</a></li>
+      
+        <li class="lh-copy"><a href="#class-group:flex-basis">Flex Basis</a></li>
+      
+      </ul>
+    </div>
+  </div>
+        </div>
+      <footer class="bg-black white mt-auto">
+        <p class="tc">
+          Copyright &copy; 2025 David Bryant Copeland.
+        </p>
+      </footer>
+    </section>
+  </main>
+</body>
+
+</html>
+

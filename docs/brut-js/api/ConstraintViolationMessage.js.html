@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: ConstraintViolationMessage.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: ConstraintViolationMessage.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import BaseCustomElement from "./BaseCustomElement"
+import RichString from "./RichString"
+import I18nTranslation from "./I18nTranslation"
+
+/** Like {@link Message} but specific to constraint violations of input fields.  This accepts the name
+ * of an input field via `input-name`, which can be used to locate the field's localized name.
+ *
+ * Here is how the field's name is determined:
+ *
+ * 1. It will look for a `&lt;brut-i18n-translation>` element with the `key` `cv.fe.fieldNames.«input-name»`.
+ * 2. If that's not found, it will attempt to use "this field" by locating a `&lt;brut-i18n-translation>` element with the `key`
+ *    `cv.this_field` (the underscore being what is used on Brut's server side).
+ * 3. If that is not found, it will use the literaly string "this field" and emit a console warning.
+ *
+ * @property {string} key - the i18n translation key to use.  It must map to the `key` of a `&lt;brut-i18n-translation>` on the page or
+ * the element will not render any text.
+ * @property {string} input-name - the name of the input, used to insert into the message, e.g. "Title is required".
+ * @property {boolean} server-side if true, this indicates the element contains constraint violation messages
+ *                                 from the server.  Currently doesn't affect this element's behavior, however
+ *                                 AjaxSubmit will use it to locate where it should insert server-side errors.
+ *
+ * @see I18nTranslation
+ * @see ConstraintViolationMessages
+ * @see Message
+ *
+ * @customElement brut-cv
+ */
+class ConstraintViolationMessage extends BaseCustomElement {
+  static tagName = "brut-cv"
+
+  static observedAttributes = [
+    "show-warnings",
+    "key",
+    "input-name",
+    "server-side",
+  ]
+
+  static createElement(document,attributes) {
+    const element = document.createElement(ConstraintViolationMessage.tagName)
+    element.setAttribute("key",this.i18nKey("fe", attributes.key))
+    element.setAttribute("input-name",attributes["input-name"])
+    if (Object.hasOwn(attributes,"show-warnings")) {
+      element.setAttribute("show-warnings",attributes["show-warnings"])
+    }
+    return element
+  }
+
+  static markServerSide(element) {
+    if (element.tagName.toLowerCase() == this.tagName) {
+      element.setAttribute("server-side", true)
+    }
+  }
+
+  static clientSideSelector() {
+    return `${this.tagName}:not([server-side])`
+  }
+
+  static serverSideSelector() {
+    return `${this.tagName}[server-side]`
+  }
+
+  /** Returns the I18N key used for front-end constraint violations. This is useful
+   * if you need to construct a key and want to follow Brut's conventions on how they
+   * are managed.
+   *
+   * @param {...String} keyPath - parts of the path of the key after the namespace that Brut manages.
+   */
+  static i18nKey(...keyPath) {
+    const path = [ "cv" ]
+    return path.concat(keyPath).join(".")
+  }
+
+  #key          = null
+  #inputNameKey = null
+  #thisFieldKey = this.#i18nKey("this_field")
+
+  keyChangedCallback({newValue}) {
+    this.#key = newValue
+  }
+
+  inputNameChangedCallback({newValue}) {
+    this.#inputNameKey = this.#i18nKey("fe", "fieldNames", newValue)
+  }
+
+  serverSideChangedCallback({newValueAsBoolean}) {
+    // attribute listed for documentation purposes only
+  }
+
+  update() {
+    if (!this.#key) {
+      this.logger.info("No key attribute, so can't do anything")
+      return
+    }
+
+    const selector = `${I18nTranslation.tagName}[key='${this.#key}']`
+    const translation = document.querySelector(selector)
+    if (!translation) {
+      this.logger.info("Could not find translation based on selector '%s'",selector)
+      return
+    }
+
+    const fieldNameSelector = `${I18nTranslation.tagName}[key='${this.#inputNameKey}']`
+    const thisFieldSelector = `${I18nTranslation.tagName}[key='${this.#thisFieldKey}']`
+
+    let fieldNameTranslation = document.querySelector(fieldNameSelector)
+    if (!fieldNameTranslation) {
+      this.logger.info("Could not find translation for input/field name based on selector '%s'. Will try 'this field' fallback",fieldNameSelector)
+      fieldNameTranslation = document.querySelector(thisFieldSelector)
+      if (!fieldNameTranslation) {
+        this.logger.info("Could not find translation for 'this field' fallback key, based on selector '%s'",thisFieldSelector)
+      }
+    }
+
+    const fieldName = fieldNameTranslation ? fieldNameTranslation.translation() : "this field"
+    this.textContent = RichString.fromString(translation.translation({ field: fieldName })).capitalize().toString()
+  }
+
+  /** Helper that calls the static version */
+  #i18nKey(...keyPath) {
+    return this.constructor.i18nKey(...keyPath)
+  }
+
+
+}
+export default ConstraintViolationMessage
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-testing.html">testing</a></li></ul><h3>Externals</h3><ul><li><a href="external-CustomElementRegistry.html">CustomElementRegistry</a></li><li><a href="external-Performance.html">Performance</a></li><li><a href="external-Promise.html">Promise</a></li><li><a href="external-ValidityState.html">ValidityState</a></li><li><a href="external-Window.html">Window</a></li><li><a href="external-fetch.html">fetch</a></li></ul><h3>Classes</h3><ul><li><a href="AjaxSubmit.html">AjaxSubmit</a></li><li><a href="Autosubmit.html">Autosubmit</a></li><li><a href="BaseCustomElement.html">BaseCustomElement</a></li><li><a href="BrutCustomElements.html">BrutCustomElements</a></li><li><a href="BufferedLogger.html">BufferedLogger</a></li><li><a href="ConfirmSubmit.html">ConfirmSubmit</a></li><li><a href="ConfirmationDialog.html">ConfirmationDialog</a></li><li><a href="ConstraintViolationMessage.html">ConstraintViolationMessage</a></li><li><a href="ConstraintViolationMessages.html">ConstraintViolationMessages</a></li><li><a href="CopyToClipboard.html">CopyToClipboard</a></li><li><a href="Form.html">Form</a></li><li><a href="I18nTranslation.html">I18nTranslation</a></li><li><a href="LocaleDetection.html">LocaleDetection</a></li><li><a href="Logger.html">Logger</a></li><li><a href="Message.html">Message</a></li><li><a href="PrefixedLogger.html">PrefixedLogger</a></li><li><a href="RichString.html">RichString</a></li><li><a href="Tabs.html">Tabs</a></li><li><a href="Tracing.html">Tracing</a></li><li><a href="testing.AssetMetadata.html">AssetMetadata</a></li><li><a href="testing.AssetMetadataLoader.html">AssetMetadataLoader</a></li><li><a href="testing.CustomElementTest.html">CustomElementTest</a></li><li><a href="testing.DOMCreator.html">DOMCreator</a></li></ul><h3><a href="global.html">Global</a></h3>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.4</a> on Wed Jun 25 2025 22:30:10 GMT+0000 (Coordinated Universal Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

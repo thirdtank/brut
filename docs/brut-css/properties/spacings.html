@@ -1,0 +1,614 @@
+<!doctype html>
+<html class="ma-0 pa-0 h-100" lang="en">
+  <head>
+  <link rel="stylesheet" href="/brut-css/brut.css">
+  <link rel="stylesheet" href="/brut-css/docs.css">
+  <link rel="stylesheet" href="/brut-css/prism-twilight.min.css">
+</head>
+
+    <body class="flex flex-column ff-sans ma-0 pa-0 h-100">
+    <header class="pos-sticky top-0 bg-gray-700 pa-3 z-5 shadow-2">
+      <div class="flex gap-3 justify-between items-center">
+        <h1><a href="/brut-css" class="black tdn">BrutCSS Reference Documentation</a></h1>
+        <ul class="lst-none pl-0 flex gap-2 justify-end items-center">
+          <form class="flex items-center gap-1 mr-3">
+            <label>
+            <input type="search" placeholder="e.g. padding-left" class="pa-2 br-2 ba bc-gray-600 bg-white-ish gray-200">
+            <span class="sr-only">Search term</span>
+            </label>
+            <button class="ph-3 pv-2 bg-white gray-100 ba bc-gray-500 br-3 hover-bg-gray-800 pointer flex items-center justify-between">
+              <span class="mr-2">Search</span>
+              <kbd>&#8984;</kbd>
+              <kbd>/</kbd>
+            </button>
+          </form>
+          <li><a href="/" class="red-200 tdn hover-tdu">BrutRB</a></li>
+          <span aria-hidden="true">&middot;</span>
+          <li><a href="/brut-js" class="gray-200 tdn hover-tdu">BrutJS</a></li>
+          <span aria-hidden="true">&middot;</span>
+          <li><a href="https://github.com/thirdtank/brut/tree/main/brut-css" class="gray-200 tdn hover-tdu">Code</a></li>
+        </ul>
+      </div>
+    </header>
+    <main class="flex overflow-hidden flex-grow-1 flex-shrink-1 flex-basis-0 pos-relative">
+      <nav class="overflow-y-auto ph-3 pb-2 pt-4 w-20 bg-gray-800 gray-200 h-100">
+        
+  <h3>Getting Started</h3>
+  <ul class="pl-3">
+  
+      <li>
+        <a class="black-ish tdu tdn-ns hover-tdu-ns" href="/brut-css/getting-started/overview.html">Overview</a>
+      </li>
+  
+      <li>
+        <a class="black-ish tdu tdn-ns hover-tdu-ns" href="/brut-css/getting-started/installation.html">Installation</a>
+      </li>
+  
+      <li>
+        <a class="black-ish tdu tdn-ns hover-tdu-ns" href="/brut-css/getting-started/core-concepts.html">Core Concepts</a>
+      </li>
+  
+      <li>
+        <a class="black-ish tdu tdn-ns hover-tdu-ns" href="/brut-css/getting-started/simple-example.html">Simple Example</a>
+      </li>
+  
+  </ul>
+
+  <h3>Properties</h3>
+  <ul class="pl-3">
+  
+      <li>
+        <a class="black-ish tdu tdn-ns hover-tdu-ns" href="/brut-css/properties/colors.html">Colors</a>
+      </li>
+  
+      <li>
+        <a class="black-ish tdu tdn-ns hover-tdu-ns" href="/brut-css/properties/spacings.html">Spacings</a>
+      </li>
+  
+      <li>
+        <a class="black-ish tdu tdn-ns hover-tdu-ns" href="/brut-css/properties/typography.html">Typography</a>
+      </li>
+  
+  </ul>
+
+  <h3>Classes</h3>
+  <ul class="pl-3">
+  
+      <li>
+        <a class="black-ish tdu tdn-ns hover-tdu-ns" href="/brut-css/classes/appearances.html">Appearances</a>
+      </li>
+  
+      <li>
+        <a class="black-ish tdu tdn-ns hover-tdu-ns" href="/brut-css/classes/borders.html">Borders</a>
+      </li>
+  
+      <li>
+        <a class="black-ish tdu tdn-ns hover-tdu-ns" href="/brut-css/classes/foreground-colors.html">Foreground Colors</a>
+      </li>
+  
+      <li>
+        <a class="black-ish tdu tdn-ns hover-tdu-ns" href="/brut-css/classes/background-colors.html">Background Colors</a>
+      </li>
+  
+      <li>
+        <a class="black-ish tdu tdn-ns hover-tdu-ns" href="/brut-css/classes/border-colors.html">Border Colors</a>
+      </li>
+  
+      <li>
+        <a class="black-ish tdu tdn-ns hover-tdu-ns" href="/brut-css/classes/dimensions.html">Dimensions</a>
+      </li>
+  
+      <li>
+        <a class="black-ish tdu tdn-ns hover-tdu-ns" href="/brut-css/classes/flex.html">Flex</a>
+      </li>
+  
+      <li>
+        <a class="black-ish tdu tdn-ns hover-tdu-ns" href="/brut-css/classes/layout.html">Layout</a>
+      </li>
+  
+      <li>
+        <a class="black-ish tdu tdn-ns hover-tdu-ns" href="/brut-css/classes/lists.html">Lists</a>
+      </li>
+  
+      <li>
+        <a class="black-ish tdu tdn-ns hover-tdu-ns" href="/brut-css/classes/positioning.html">Positioning</a>
+      </li>
+  
+      <li>
+        <a class="black-ish tdu tdn-ns hover-tdu-ns" href="/brut-css/classes/spacings.html">Spacings</a>
+      </li>
+  
+      <li>
+        <a class="black-ish tdu tdn-ns hover-tdu-ns" href="/brut-css/classes/typography.html">Typography</a>
+      </li>
+  
+      <li>
+        <a class="black-ish tdu tdn-ns hover-tdu-ns" href="/brut-css/classes/junk-drawer.html">Junk Drawer</a>
+      </li>
+  
+  </ul>
+
+  <h3>Customization</h3>
+  <ul class="pl-3">
+  
+      <li>
+        <a class="black-ish tdu tdn-ns hover-tdu-ns" href="/brut-css/customization/design-system.html">Design System</a>
+      </li>
+  
+      <li>
+        <a class="black-ish tdu tdn-ns hover-tdu-ns" href="/brut-css/customization/breakpoints.html">Breakpoints</a>
+      </li>
+  
+      <li>
+        <a class="black-ish tdu tdn-ns hover-tdu-ns" href="/brut-css/customization/pseudo-classes.html">Pseudo Classes</a>
+      </li>
+  
+      <li>
+        <a class="black-ish tdu tdn-ns hover-tdu-ns" href="/brut-css/customization/advanced-configuration.html">Advanced Configuration</a>
+      </li>
+  
+  </ul>
+
+
+      </nav>
+      <section class="overflow-y-auto pt-4 h-100 flex-grow-1 flex-shrink-1 flex-basis-0 flex flex-column">
+        <div class="ph-3 pv-2 flex items-start gap-2 justify-between">
+
+  <article>
+    <h2 class="f-5">Spacings Custom Properties</h2>
+    <p class="p">
+      <p>Spacing properties.  These are used as the basis of widths, heights, margins, paddings, etc. There are eight steps in the scale, 1 being the smallest, and 8 being the largest.  They should provide an adequate number of possible values for spacings such that you can quickly audit them to figure out what you need. Spacings are based on rems, so that they are consistent across the entire document.</p>
+
+    </p>
+    
+    
+      <h3 class="f-5 mt-4" id="property-scale:spacing">Spacing</h3>
+      <p class="p">
+        <p>Basic spaces used for margins and paddings.</p>
+
+      </p>
+      
+      
+        <h4 class="f-4 fw-3 mt-4" id="--sp-1"><code>--sp-1</code></h4>
+        <div class="ml-3">
+        <p class="p">
+          <p>Very slightly darker than pure white</p>
+
+        </p>
+        
+        <dl class="property-grid">
+          <dt>Type:</dt>
+          <dd>
+            <code>&#34;&lt;length&gt;&#34;</code>
+          </dd>
+          <dt>Value:</dt>
+          <dd>
+            <code>0.25rem</code>
+          </dd>
+        </dl>
+        </div>
+      
+        <h4 class="f-4 fw-3 mt-4" id="--sp-2"><code>--sp-2</code></h4>
+        <div class="ml-3">
+        <p class="p">
+          <p>Very slightly darker than pure white</p>
+
+        </p>
+        
+        <dl class="property-grid">
+          <dt>Type:</dt>
+          <dd>
+            <code>&#34;&lt;length&gt;&#34;</code>
+          </dd>
+          <dt>Value:</dt>
+          <dd>
+            <code>0.5rem</code>
+          </dd>
+        </dl>
+        </div>
+      
+        <h4 class="f-4 fw-3 mt-4" id="--sp-3"><code>--sp-3</code></h4>
+        <div class="ml-3">
+        <p class="p">
+          <p>Very slightly darker than pure white</p>
+
+        </p>
+        
+        <dl class="property-grid">
+          <dt>Type:</dt>
+          <dd>
+            <code>&#34;&lt;length&gt;&#34;</code>
+          </dd>
+          <dt>Value:</dt>
+          <dd>
+            <code>1rem</code>
+          </dd>
+        </dl>
+        </div>
+      
+        <h4 class="f-4 fw-3 mt-4" id="--sp-4"><code>--sp-4</code></h4>
+        <div class="ml-3">
+        <p class="p">
+          <p>Very slightly darker than pure white</p>
+
+        </p>
+        
+        <dl class="property-grid">
+          <dt>Type:</dt>
+          <dd>
+            <code>&#34;&lt;length&gt;&#34;</code>
+          </dd>
+          <dt>Value:</dt>
+          <dd>
+            <code>2rem</code>
+          </dd>
+        </dl>
+        </div>
+      
+        <h4 class="f-4 fw-3 mt-4" id="--sp-5"><code>--sp-5</code></h4>
+        <div class="ml-3">
+        <p class="p">
+          <p>Very slightly darker than pure white</p>
+
+        </p>
+        
+        <dl class="property-grid">
+          <dt>Type:</dt>
+          <dd>
+            <code>&#34;&lt;length&gt;&#34;</code>
+          </dd>
+          <dt>Value:</dt>
+          <dd>
+            <code>4rem</code>
+          </dd>
+        </dl>
+        </div>
+      
+        <h4 class="f-4 fw-3 mt-4" id="--sp-6"><code>--sp-6</code></h4>
+        <div class="ml-3">
+        <p class="p">
+          <p>Very slightly darker than pure white</p>
+
+        </p>
+        
+        <dl class="property-grid">
+          <dt>Type:</dt>
+          <dd>
+            <code>&#34;&lt;length&gt;&#34;</code>
+          </dd>
+          <dt>Value:</dt>
+          <dd>
+            <code>8rem</code>
+          </dd>
+        </dl>
+        </div>
+      
+        <h4 class="f-4 fw-3 mt-4" id="--sp-7"><code>--sp-7</code></h4>
+        <div class="ml-3">
+        <p class="p">
+          <p>Very slightly darker than pure white</p>
+
+        </p>
+        
+        <dl class="property-grid">
+          <dt>Type:</dt>
+          <dd>
+            <code>&#34;&lt;length&gt;&#34;</code>
+          </dd>
+          <dt>Value:</dt>
+          <dd>
+            <code>12rem</code>
+          </dd>
+        </dl>
+        </div>
+      
+        <h4 class="f-4 fw-3 mt-4" id="--sp-8"><code>--sp-8</code></h4>
+        <div class="ml-3">
+        <p class="p">
+          <p>Very slightly darker than pure white</p>
+
+        </p>
+        
+        <dl class="property-grid">
+          <dt>Type:</dt>
+          <dd>
+            <code>&#34;&lt;length&gt;&#34;</code>
+          </dd>
+          <dt>Value:</dt>
+          <dd>
+            <code>16rem</code>
+          </dd>
+        </dl>
+        </div>
+      
+    
+      <h3 class="f-5 mt-4" id="property-scale:widths-heights">Widths Heights</h3>
+      <p class="p">
+        <p>Spacing for widths and heights.  Generally, widths and heights need more pronounced options than margins and paddings.  Thus, the fourth step of the width scale is much larger than the fourth step of the spacing scale.  The values here are double their respective spacing values.</p>
+
+      </p>
+      
+      
+        <h4 class="f-4 fw-3 mt-4" id="--wh-1"><code>--wh-1</code></h4>
+        <div class="ml-3">
+        <p class="p">
+          <p>Very slightly darker than pure white</p>
+
+        </p>
+        
+        <dl class="property-grid">
+          <dt>Type:</dt>
+          <dd>
+            <code>&#34;&lt;length&gt;&#34;</code>
+          </dd>
+          <dt>Value:</dt>
+          <dd>
+            <code>0.5rem</code>
+          </dd>
+        </dl>
+        </div>
+      
+        <h4 class="f-4 fw-3 mt-4" id="--wh-2"><code>--wh-2</code></h4>
+        <div class="ml-3">
+        <p class="p">
+          <p>Very slightly darker than pure white</p>
+
+        </p>
+        
+        <dl class="property-grid">
+          <dt>Type:</dt>
+          <dd>
+            <code>&#34;&lt;length&gt;&#34;</code>
+          </dd>
+          <dt>Value:</dt>
+          <dd>
+            <code>1rem</code>
+          </dd>
+        </dl>
+        </div>
+      
+        <h4 class="f-4 fw-3 mt-4" id="--wh-3"><code>--wh-3</code></h4>
+        <div class="ml-3">
+        <p class="p">
+          <p>Very slightly darker than pure white</p>
+
+        </p>
+        
+        <dl class="property-grid">
+          <dt>Type:</dt>
+          <dd>
+            <code>&#34;&lt;length&gt;&#34;</code>
+          </dd>
+          <dt>Value:</dt>
+          <dd>
+            <code>2rem</code>
+          </dd>
+        </dl>
+        </div>
+      
+        <h4 class="f-4 fw-3 mt-4" id="--wh-4"><code>--wh-4</code></h4>
+        <div class="ml-3">
+        <p class="p">
+          <p>Very slightly darker than pure white</p>
+
+        </p>
+        
+        <dl class="property-grid">
+          <dt>Type:</dt>
+          <dd>
+            <code>&#34;&lt;length&gt;&#34;</code>
+          </dd>
+          <dt>Value:</dt>
+          <dd>
+            <code>4rem</code>
+          </dd>
+        </dl>
+        </div>
+      
+        <h4 class="f-4 fw-3 mt-4" id="--wh-5"><code>--wh-5</code></h4>
+        <div class="ml-3">
+        <p class="p">
+          <p>Very slightly darker than pure white</p>
+
+        </p>
+        
+        <dl class="property-grid">
+          <dt>Type:</dt>
+          <dd>
+            <code>&#34;&lt;length&gt;&#34;</code>
+          </dd>
+          <dt>Value:</dt>
+          <dd>
+            <code>8rem</code>
+          </dd>
+        </dl>
+        </div>
+      
+        <h4 class="f-4 fw-3 mt-4" id="--wh-6"><code>--wh-6</code></h4>
+        <div class="ml-3">
+        <p class="p">
+          <p>Very slightly darker than pure white</p>
+
+        </p>
+        
+        <dl class="property-grid">
+          <dt>Type:</dt>
+          <dd>
+            <code>&#34;&lt;length&gt;&#34;</code>
+          </dd>
+          <dt>Value:</dt>
+          <dd>
+            <code>16rem</code>
+          </dd>
+        </dl>
+        </div>
+      
+        <h4 class="f-4 fw-3 mt-4" id="--wh-7"><code>--wh-7</code></h4>
+        <div class="ml-3">
+        <p class="p">
+          <p>Very slightly darker than pure white</p>
+
+        </p>
+        
+        <dl class="property-grid">
+          <dt>Type:</dt>
+          <dd>
+            <code>&#34;&lt;length&gt;&#34;</code>
+          </dd>
+          <dt>Value:</dt>
+          <dd>
+            <code>24rem</code>
+          </dd>
+        </dl>
+        </div>
+      
+        <h4 class="f-4 fw-3 mt-4" id="--wh-8"><code>--wh-8</code></h4>
+        <div class="ml-3">
+        <p class="p">
+          <p>Very slightly darker than pure white</p>
+
+        </p>
+        
+        <dl class="property-grid">
+          <dt>Type:</dt>
+          <dd>
+            <code>&#34;&lt;length&gt;&#34;</code>
+          </dd>
+          <dt>Value:</dt>
+          <dd>
+            <code>32rem</code>
+          </dd>
+        </dl>
+        </div>
+      
+    
+      <h3 class="f-5 mt-4" id="property-scale:border-widths">Border Widths</h3>
+      <p class="p">
+        <p>Border widths.  This is a five-step scale, with 1 being the smallest and 5 being the largest. These should provide adequate options for borders.  These don’t use the <a href="/brut-css/properties/spacings.html#property-scale:spacing">Spacing</a> scales mostly for aesthetic reasons.</p>
+
+      </p>
+      
+      
+        <h4 class="f-4 fw-3 mt-4" id="--bw-1"><code>--bw-1</code></h4>
+        <div class="ml-3">
+        <p class="p">
+          <p>Smallest border width</p>
+
+        </p>
+        
+        <dl class="property-grid">
+          <dt>Type:</dt>
+          <dd>
+            <code>&#34;&lt;length&gt;&#34;</code>
+          </dd>
+          <dt>Value:</dt>
+          <dd>
+            <code>0.125rem</code>
+          </dd>
+        </dl>
+        </div>
+      
+        <h4 class="f-4 fw-3 mt-4" id="--bw-2"><code>--bw-2</code></h4>
+        <div class="ml-3">
+        <p class="p">
+          <p>Second smallest border width</p>
+
+        </p>
+        
+        <dl class="property-grid">
+          <dt>Type:</dt>
+          <dd>
+            <code>&#34;&lt;length&gt;&#34;</code>
+          </dd>
+          <dt>Value:</dt>
+          <dd>
+            <code>0.25rem</code>
+          </dd>
+        </dl>
+        </div>
+      
+        <h4 class="f-4 fw-3 mt-4" id="--bw-3"><code>--bw-3</code></h4>
+        <div class="ml-3">
+        <p class="p">
+          <p>Middle border width</p>
+
+        </p>
+        
+        <dl class="property-grid">
+          <dt>Type:</dt>
+          <dd>
+            <code>&#34;&lt;length&gt;&#34;</code>
+          </dd>
+          <dt>Value:</dt>
+          <dd>
+            <code>0.5rem</code>
+          </dd>
+        </dl>
+        </div>
+      
+        <h4 class="f-4 fw-3 mt-4" id="--bw-4"><code>--bw-4</code></h4>
+        <div class="ml-3">
+        <p class="p">
+          <p>Second largest border width</p>
+
+        </p>
+        
+        <dl class="property-grid">
+          <dt>Type:</dt>
+          <dd>
+            <code>&#34;&lt;length&gt;&#34;</code>
+          </dd>
+          <dt>Value:</dt>
+          <dd>
+            <code>1rem</code>
+          </dd>
+        </dl>
+        </div>
+      
+        <h4 class="f-4 fw-3 mt-4" id="--bw-5"><code>--bw-5</code></h4>
+        <div class="ml-3">
+        <p class="p">
+          <p>Largest border width</p>
+
+        </p>
+        
+        <dl class="property-grid">
+          <dt>Type:</dt>
+          <dd>
+            <code>&#34;&lt;length&gt;&#34;</code>
+          </dd>
+          <dt>Value:</dt>
+          <dd>
+            <code>2rem</code>
+          </dd>
+        </dl>
+        </div>
+      
+    
+  </article>
+  <div class="z-5 ma-0 overflow-y-auto pa-2 w-20 h-100 pos-absolute top-0 right-2">
+    <div class="pa-3 ba bc-gray-700 bg-gray-900 br-3 shadow-1 ridiculous-liquid-glass-is-all-the-rage">
+      <h3>On this Page</h3>
+      <ul class="lst-none ma-0 pa-0">
+      
+        <li class="lh-copy"><a href="#property-scale:spacing">Spacing</a></li>
+      
+        <li class="lh-copy"><a href="#property-scale:widths-heights">Widths Heights</a></li>
+      
+        <li class="lh-copy"><a href="#property-scale:border-widths">Border Widths</a></li>
+      
+      </ul>
+    </div>
+  </div>
+        </div>
+      <footer class="bg-black white mt-auto">
+        <p class="tc">
+          Copyright &copy; 2025 David Bryant Copeland.
+        </p>
+      </footer>
+    </section>
+  </main>
+</body>
+
+</html>
+

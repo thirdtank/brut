@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Home</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Home</h1>
+
+    
+
+
+
+    
+
+
+    <h3> </h3>
+
+
+
+
+
+
+
+
+
+
+    
+
+
+
+
+    <section>
+        <article><h1>brut-js</h1>
+<h2>Utility Custom Elements and JS for BrutRB</h2>
+<p>This provides utility custom elements for use in a BrutRB-powered app, as well as a rudimentary testing system for testing custom
+elements.</p>
+<h2>Install</h2>
+<pre class="prettyprint source"><code>npm install brut-js
+</code></pre>
+<p>If you want to write tests for custom elements, you must also install JSDOM and Mocha:</p>
+<pre class="prettyprint source"><code>npm install --save-dev jsdom mocha
+</code></pre>
+<h2>Using Custom Elements</h2>
+<p>The simplest way is to import them all and define them:</p>
+<pre class="prettyprint source"><code>import { BrutCustomElements } from &quot;brut-js&quot;
+document.addEventListener(&quot;DOMContentLoaded&quot;, () => {
+  BrutCustomElements.define()
+})
+</code></pre>
+<p>See the jsdocs for what elements are available.</p>
+<h2>Testing of Custom Elements</h2>
+<p>This library contains rudimentary support for testing custom elements using <a href="https://github.com/jsdom/jsdom">jsdom</a>. It attempts to
+use the elements as they would in a real browser, and your tests and assertions should interact with the elements using the DOM and
+not directly.</p>
+<p>A simple example is <a href="./specs/BrutAutosubmit.spec.js">the test for <code>BrutAutosubmit</code>/<code>&lt;brut-automsubmit&gt;</code></a>, which enables any form
+element to automatically submit the form it's a part of:</p>
+<pre class="prettyprint source lang-html"><code>&lt;form>
+  &lt;brut-autosubmit>
+    &lt;input type=&quot;text&quot;>
+  &lt;/brut-autosubmit>
+  &lt;button>Submit&lt;/button>
+&lt;/form>
+</code></pre>
+<p>When the <code>&lt;input&gt;</code> above dispatches a &quot;change&quot; event, the <code>&lt;form&gt;</code> is submitted.  You can see in the test file that each test locates
+the form and the input, dispatches an event from that input, then checks to see if the form was submitted, all using the browser's
+APIs.</p>
+<h3>Testing Your Custom Elements</h3>
+<ol>
+<li>
+<p>Set up Mocha</p>
+<pre class="prettyprint source"><code>npm install --save-dev mocha
+</code></pre>
+</li>
+<li>
+<p>Create a location for your tests:</p>
+<pre class="prettyprint source"><code>mkdir specs/js # can be anything
+</code></pre>
+</li>
+<li>
+<p>Create a tautoloigical test to ensure your setup is working:</p>
+<pre class="prettyprint source"><code>// specs/js/canary.spec.js
+import { withHTML } from &quot;../src/testing/index.js&quot;
+describe(&quot;&lt;my-custom-element>&quot;, () => {
+  withHTML(`
+    &lt;my-custom-element>OK&lt;/my-custom-element>
+  `).test(&quot;Tests work&quot;, ({document,assert}) => {
+     const element = document.querySelector(&quot;my-custom-element&quot;)
+     assert.equal(element.textContent,&quot;OK&quot;)
+  })
+})
+</code></pre>
+</li>
+<li>
+<p>Run mocha:</p>
+<pre class="prettyprint source"><code>npx mocha specs/js --extension spec.js --recursive
+</code></pre>
+</li>
+</ol>
+<h2>Development</h2>
+<ol>
+<li>
+<p>Install Docker</p>
+</li>
+<li>
+<p>Set up your dev environment:</p>
+<pre class="prettyprint source"><code>dx/build
+</code></pre>
+</li>
+<li>
+<p>Start the dev environment</p>
+<pre class="prettyprint source"><code>dx/start
+</code></pre>
+</li>
+<li>
+<p>In another terminal, set everything up</p>
+<pre class="prettyprint source"><code>dx/exec bin/setup
+</code></pre>
+</li>
+<li>
+<p>Run all tests</p>
+<pre class="prettyprint source"><code>dx/exec bin/ci
+</code></pre>
+</li>
+<li>
+<p>Run a single test</p>
+<pre class="prettyprint source"><code>dx/exec npm run bundle
+dx/exec npm run test:one specs/File.spec.js
+</code></pre>
+</li>
+</ol>
+<p>Remember to run <code>npm run bundle</code> any time you change files in <code>src</code>, as the tests bring in the code via a bundle produced by that
+task.</p></article>
+    </section>
+
+
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-testing.html">testing</a></li></ul><h3>Externals</h3><ul><li><a href="external-CustomElementRegistry.html">CustomElementRegistry</a></li><li><a href="external-Performance.html">Performance</a></li><li><a href="external-Promise.html">Promise</a></li><li><a href="external-ValidityState.html">ValidityState</a></li><li><a href="external-Window.html">Window</a></li><li><a href="external-fetch.html">fetch</a></li></ul><h3>Classes</h3><ul><li><a href="AjaxSubmit.html">AjaxSubmit</a></li><li><a href="Autosubmit.html">Autosubmit</a></li><li><a href="BaseCustomElement.html">BaseCustomElement</a></li><li><a href="BrutCustomElements.html">BrutCustomElements</a></li><li><a href="BufferedLogger.html">BufferedLogger</a></li><li><a href="ConfirmSubmit.html">ConfirmSubmit</a></li><li><a href="ConfirmationDialog.html">ConfirmationDialog</a></li><li><a href="ConstraintViolationMessage.html">ConstraintViolationMessage</a></li><li><a href="ConstraintViolationMessages.html">ConstraintViolationMessages</a></li><li><a href="CopyToClipboard.html">CopyToClipboard</a></li><li><a href="Form.html">Form</a></li><li><a href="I18nTranslation.html">I18nTranslation</a></li><li><a href="LocaleDetection.html">LocaleDetection</a></li><li><a href="Logger.html">Logger</a></li><li><a href="Message.html">Message</a></li><li><a href="PrefixedLogger.html">PrefixedLogger</a></li><li><a href="RichString.html">RichString</a></li><li><a href="Tabs.html">Tabs</a></li><li><a href="Tracing.html">Tracing</a></li><li><a href="testing.AssetMetadata.html">AssetMetadata</a></li><li><a href="testing.AssetMetadataLoader.html">AssetMetadataLoader</a></li><li><a href="testing.CustomElementTest.html">CustomElementTest</a></li><li><a href="testing.DOMCreator.html">DOMCreator</a></li></ul><h3><a href="global.html">Global</a></h3>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.4</a> on Wed Jun 25 2025 22:30:10 GMT+0000 (Coordinated Universal Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: Form.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: Form.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import BaseCustomElement from "./BaseCustomElement"
+import RichString from "./RichString"
+import AjaxSubmit from "./AjaxSubmit"
+import ConstraintViolationMessages from "./ConstraintViolationMessages"
+
+/** A web component that enhances a form it contains to make constraint validations
+ * easier to manage and control.
+ *
+ * This provides two main features:
+ *
+ * * While the `:user-invalid` selector allows you to target inputs that have been interacted
+ *   with (thus avoiding issues when using `:invalid`), this still creates the experience of a
+ *   user tabbing off of a control and getting an error message.  If, instead, you only
+ *   want to show these errors when a submit has been attempted, this element will
+ *   set `submitted-invalid` on itself when that happens, thus allowing you to target invalid
+ *   fields only after a submission attempt.
+ * * You may wish to control the messaging of client-side constraint violations
+ *   beyond what the browser gives you. Assuming your `INPUT` tags are inside a container
+ *   like `LABEL`, a `brut-cv` tag found in that container
+ *   (i.e. a sibling of your `INPUT`) will be modified to contain error messages specific
+ *   to the {@link external:ValidityState} of the control.
+ *
+ * @fires brut:invalid Fired when any element is found to be invalid
+ * @fires brut:valid Fired when no element is found to be invalid.  This should be reliable to know
+ * when constraint violations have cleared.
+ *
+ * @example &lt;caption>Basic Structure Required&lt;/caption>
+ * &lt;brut-form>
+ *   &lt;form ...>
+ *     &lt;label>
+ *       &lt;input type="text" required name="username">
+ *       &lt;brut-cv-messages>
+ *       &lt;/brut-cv-messages>
+ *     &lt;/label>
+ *     &lt;div> &lt;!-- container need not be a label -->
+ *       &lt;input type="text" required minlength="4" name="alias">
+ *       &lt;brut-cv-messages>
+ *       &lt;/brut-cv-messages>
+ *     &lt;/div>
+ *     &lt;button>Submit&lt;/button>
+ *   &lt;/form>
+ * &lt;/brut-form>
+ * &lt;!-- after a submit of this form, the HTML will effectively be as follows -->
+ * &lt;brut-form submitted-invalid>
+ *   &lt;form ...>
+ *     &lt;label>
+ *       &lt;input type="text" required name="username">
+ *       &lt;brut-cv-messages>
+ *         &lt;brut-cv>This field is required&lt;/brut-cv>
+ *       &lt;/brut-cv-messages>
+ *     &lt;/label>
+ *     &lt;div> &lt;!-- container need not be a label -->
+ *       &lt;input type="text" required minlength="4" name="alias">
+ *       &lt;brut-cv-messages>
+ *         &lt;brut-cv>This field is required&lt;/brut-cv>
+ *       &lt;/brut-cv-messages>
+ *     &lt;/div>
+ *     &lt;button>Submit&lt;/button>
+ *   &lt;/form>
+ * &lt;/brut-form>
+ *
+ * @property {boolean} submitted-invalid - set by this element when the form is submitted. Does not trigger any behavior and can be used in CSS.
+ * @see ConstraintViolationMessages
+ *
+ * @customElement brut-form
+ */
+class Form extends BaseCustomElement {
+  static tagName = "brut-form"
+  static observedAttributes = [
+    "submitted-invalid",
+    "show-warnings",
+  ]
+
+  #markFormSubmittedInvalid = (event) => {
+    this.setAttribute("submitted-invalid","")
+  }
+  #updateValidity = (event) => {
+    this.#updateErrorMessages(event)
+  }
+  #sendValid = () => {
+    this.dispatchEvent(new CustomEvent("brut:valid"))
+  }
+  #sendInvalid = () => {
+    this.dispatchEvent(new CustomEvent("brut:invalid"))
+  }
+
+  submittedInvalidChangedCallback() {}
+
+  update() {
+    const forms = this.querySelectorAll("form")
+    if (forms.length == 0) {
+      this.logger.warn("Didn't find any forms. Ignoring")
+      return
+    }
+    forms.forEach( (form) => {
+      Array.from(form.elements).forEach( (formElement) => {
+        formElement.addEventListener("invalid", this.#updateValidity)
+        formElement.addEventListener("invalid", this.#markFormSubmittedInvalid)
+        formElement.addEventListener("input", this.#updateValidity)
+      })
+      form.querySelectorAll(AjaxSubmit.tagName).forEach( (ajaxSubmits) => {
+        ajaxSubmits.addEventListener("brut:submitok", this.#sendValid)
+        ajaxSubmits.addEventListener("brut:submitinvalid", this.#sendInvalid)
+      })
+    })
+  }
+
+  #updateErrorMessages(event) {
+    const element = event.target
+    const selector = ConstraintViolationMessages.tagName
+    let errorLabels = element.parentNode.querySelectorAll(selector)
+    if (errorLabels.length == 0) {
+      if (element.name &amp;&amp; element.form) {
+        const moreGeneralSelector = `${ConstraintViolationMessages.tagName}[input-name='${element.name}']`
+        errorLabels = element.form.querySelectorAll(moreGeneralSelector)
+        if (errorLabels.length == 0) {
+          this.logger.warn(`Did not find any elements matching ${selector} or ${moreGeneralSelector}, so no error messages will be shown`)
+        }
+      }
+      else {
+        this.logger.warn("Did not find any elements matching %s and the form element has %s %s",
+          selector,
+          element.name ? "no name" : "a name, but",
+          element.form ? "no form" : "though has a form")
+      }
+    }
+    if (errorLabels.length == 0) {
+      return
+    }
+    let anyErrors = false
+    errorLabels.forEach( (errorLabel) => {
+      if (element.validity.valid) {
+        errorLabel.clearClientSideMessages()
+      }
+      else {
+        anyErrors = true
+        errorLabel.createMessages({
+          validityState: element.validity,
+          inputName: element.name
+        })
+      }
+    })
+    if (anyErrors) {
+      this.#sendInvalid()
+    }
+    else {
+      this.#sendValid()
+    }
+  }
+}
+export default Form
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-testing.html">testing</a></li></ul><h3>Externals</h3><ul><li><a href="external-CustomElementRegistry.html">CustomElementRegistry</a></li><li><a href="external-Performance.html">Performance</a></li><li><a href="external-Promise.html">Promise</a></li><li><a href="external-ValidityState.html">ValidityState</a></li><li><a href="external-Window.html">Window</a></li><li><a href="external-fetch.html">fetch</a></li></ul><h3>Classes</h3><ul><li><a href="AjaxSubmit.html">AjaxSubmit</a></li><li><a href="Autosubmit.html">Autosubmit</a></li><li><a href="BaseCustomElement.html">BaseCustomElement</a></li><li><a href="BrutCustomElements.html">BrutCustomElements</a></li><li><a href="BufferedLogger.html">BufferedLogger</a></li><li><a href="ConfirmSubmit.html">ConfirmSubmit</a></li><li><a href="ConfirmationDialog.html">ConfirmationDialog</a></li><li><a href="ConstraintViolationMessage.html">ConstraintViolationMessage</a></li><li><a href="ConstraintViolationMessages.html">ConstraintViolationMessages</a></li><li><a href="CopyToClipboard.html">CopyToClipboard</a></li><li><a href="Form.html">Form</a></li><li><a href="I18nTranslation.html">I18nTranslation</a></li><li><a href="LocaleDetection.html">LocaleDetection</a></li><li><a href="Logger.html">Logger</a></li><li><a href="Message.html">Message</a></li><li><a href="PrefixedLogger.html">PrefixedLogger</a></li><li><a href="RichString.html">RichString</a></li><li><a href="Tabs.html">Tabs</a></li><li><a href="Tracing.html">Tracing</a></li><li><a href="testing.AssetMetadata.html">AssetMetadata</a></li><li><a href="testing.AssetMetadataLoader.html">AssetMetadataLoader</a></li><li><a href="testing.CustomElementTest.html">CustomElementTest</a></li><li><a href="testing.DOMCreator.html">DOMCreator</a></li></ul><h3><a href="global.html">Global</a></h3>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.4</a> on Wed Jun 25 2025 22:30:10 GMT+0000 (Coordinated Universal Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

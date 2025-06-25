@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: Logger.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: Logger.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ * Abstract interface for logging information from a component.
+ * This is intended to allow prefixed messages to be optionally shown
+ * in the console to help debug.
+ *
+ * @see BufferedLogger
+ * @see PrefixedLogger
+ * @see BaseCustomElement#logger
+ */
+class Logger {
+  /** Create a logger for the given prefix.
+   *
+   * @param {string|false} stringOrFalse - if false,returns a {@link BufferedLogger}. Otherwise, returns a {@link PrefixedLogger} using the param's value as the prefix.
+   *
+   * @returns {Logger}
+   */
+  static forPrefix(stringOrFalse) {
+    if (!stringOrFalse) {
+      return new BufferedLogger()
+    }
+    else {
+      return new PrefixedLogger(stringOrFalse)
+    }
+  }
+
+  /** Subclasses must implement this.
+   *
+   * @param {string} level - 'info' or 'warn' to indicate the logging level
+   * @param {...*} args - args to pass directly to console.log
+   */
+  log() {
+    throw `Subclass must implement`
+  }
+
+  /** Log an informational bit of information */
+  info(...args) { this.log("info",...args) }
+  /** Log a warning */
+  warn(...args) { this.log("warn",...args) }
+}
+
+/** Logger that buffers, but does not print, its logged messages.
+ * The reason it buffers them is to allow custom elements to retroatively log
+ * information captured before warnings were turned on.
+ */
+class BufferedLogger extends Logger {
+  constructor() {
+    super()
+    this.messages = []
+  }
+  log(...args) {
+    this.messages.push(args)
+  }
+}
+
+/** Log information to the JavaScript console.
+*/
+class PrefixedLogger extends Logger {
+  /** Create a PrefixedLogger.
+   *
+   * @param {string|true} prefixOrTrue - if true, uses the prefix `"debug"`, otherwise uses the param as the prefix to all
+   * messages output.
+   */
+  constructor(prefixOrTrue) {
+    super()
+    this.prefix = prefixOrTrue === true ? "debug" : prefixOrTrue
+  }
+
+  /** Dumps hte contents of a {@link BufferedLogger} to this logger's output.
+   *
+   * @param {BufferedLogger} bufferedLogger - a logger with pent-up messages, waiting to be logged.
+   */
+  dump(bufferedLogger) {
+    if (bufferedLogger instanceof BufferedLogger) {
+      bufferedLogger.messages.forEach( (args) => {
+        this.log(...args)
+      })
+    }
+  }
+
+  log(level,...args) {
+    if (typeof(args[0]) === "string") {
+      const message = `[prefix:${this.prefix}]:${args[0]}`
+      console[level](message,...(args.slice(1)))
+    }
+    else {
+      console[level](this.prefix,...args)
+    }
+  }
+}
+export default Logger
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-testing.html">testing</a></li></ul><h3>Externals</h3><ul><li><a href="external-CustomElementRegistry.html">CustomElementRegistry</a></li><li><a href="external-Performance.html">Performance</a></li><li><a href="external-Promise.html">Promise</a></li><li><a href="external-ValidityState.html">ValidityState</a></li><li><a href="external-Window.html">Window</a></li><li><a href="external-fetch.html">fetch</a></li></ul><h3>Classes</h3><ul><li><a href="AjaxSubmit.html">AjaxSubmit</a></li><li><a href="Autosubmit.html">Autosubmit</a></li><li><a href="BaseCustomElement.html">BaseCustomElement</a></li><li><a href="BrutCustomElements.html">BrutCustomElements</a></li><li><a href="BufferedLogger.html">BufferedLogger</a></li><li><a href="ConfirmSubmit.html">ConfirmSubmit</a></li><li><a href="ConfirmationDialog.html">ConfirmationDialog</a></li><li><a href="ConstraintViolationMessage.html">ConstraintViolationMessage</a></li><li><a href="ConstraintViolationMessages.html">ConstraintViolationMessages</a></li><li><a href="CopyToClipboard.html">CopyToClipboard</a></li><li><a href="Form.html">Form</a></li><li><a href="I18nTranslation.html">I18nTranslation</a></li><li><a href="LocaleDetection.html">LocaleDetection</a></li><li><a href="Logger.html">Logger</a></li><li><a href="Message.html">Message</a></li><li><a href="PrefixedLogger.html">PrefixedLogger</a></li><li><a href="RichString.html">RichString</a></li><li><a href="Tabs.html">Tabs</a></li><li><a href="Tracing.html">Tracing</a></li><li><a href="testing.AssetMetadata.html">AssetMetadata</a></li><li><a href="testing.AssetMetadataLoader.html">AssetMetadataLoader</a></li><li><a href="testing.CustomElementTest.html">CustomElementTest</a></li><li><a href="testing.DOMCreator.html">DOMCreator</a></li></ul><h3><a href="global.html">Global</a></h3>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.4</a> on Wed Jun 25 2025 22:30:10 GMT+0000 (Coordinated Universal Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

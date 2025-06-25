@@ -1,0 +1,777 @@
+<!doctype html>
+<html class="ma-0 pa-0 h-100" lang="en">
+  <head>
+  <link rel="stylesheet" href="/brut-css/brut.css">
+  <link rel="stylesheet" href="/brut-css/docs.css">
+  <link rel="stylesheet" href="/brut-css/prism-twilight.min.css">
+</head>
+
+    <body class="flex flex-column ff-sans ma-0 pa-0 h-100">
+    <header class="pos-sticky top-0 bg-gray-700 pa-3 z-5 shadow-2">
+      <div class="flex gap-3 justify-between items-center">
+        <h1><a href="/brut-css" class="black tdn">BrutCSS Reference Documentation</a></h1>
+        <ul class="lst-none pl-0 flex gap-2 justify-end items-center">
+          <form class="flex items-center gap-1 mr-3">
+            <label>
+            <input type="search" placeholder="e.g. padding-left" class="pa-2 br-2 ba bc-gray-600 bg-white-ish gray-200">
+            <span class="sr-only">Search term</span>
+            </label>
+            <button class="ph-3 pv-2 bg-white gray-100 ba bc-gray-500 br-3 hover-bg-gray-800 pointer flex items-center justify-between">
+              <span class="mr-2">Search</span>
+              <kbd>&#8984;</kbd>
+              <kbd>/</kbd>
+            </button>
+          </form>
+          <li><a href="/" class="red-200 tdn hover-tdu">BrutRB</a></li>
+          <span aria-hidden="true">&middot;</span>
+          <li><a href="/brut-js" class="gray-200 tdn hover-tdu">BrutJS</a></li>
+          <span aria-hidden="true">&middot;</span>
+          <li><a href="https://github.com/thirdtank/brut/tree/main/brut-css" class="gray-200 tdn hover-tdu">Code</a></li>
+        </ul>
+      </div>
+    </header>
+    <main class="flex overflow-hidden flex-grow-1 flex-shrink-1 flex-basis-0 pos-relative">
+      <nav class="overflow-y-auto ph-3 pb-2 pt-4 w-20 bg-gray-800 gray-200 h-100">
+        
+  <h3>Getting Started</h3>
+  <ul class="pl-3">
+  
+      <li>
+        <a class="black-ish tdu tdn-ns hover-tdu-ns" href="/brut-css/getting-started/overview.html">Overview</a>
+      </li>
+  
+      <li>
+        <a class="black-ish tdu tdn-ns hover-tdu-ns" href="/brut-css/getting-started/installation.html">Installation</a>
+      </li>
+  
+      <li>
+        <a class="black-ish tdu tdn-ns hover-tdu-ns" href="/brut-css/getting-started/core-concepts.html">Core Concepts</a>
+      </li>
+  
+      <li>
+        <a class="black-ish tdu tdn-ns hover-tdu-ns" href="/brut-css/getting-started/simple-example.html">Simple Example</a>
+      </li>
+  
+  </ul>
+
+  <h3>Properties</h3>
+  <ul class="pl-3">
+  
+      <li>
+        <a class="black-ish tdu tdn-ns hover-tdu-ns" href="/brut-css/properties/colors.html">Colors</a>
+      </li>
+  
+      <li>
+        <a class="black-ish tdu tdn-ns hover-tdu-ns" href="/brut-css/properties/spacings.html">Spacings</a>
+      </li>
+  
+      <li>
+        <a class="black-ish tdu tdn-ns hover-tdu-ns" href="/brut-css/properties/typography.html">Typography</a>
+      </li>
+  
+  </ul>
+
+  <h3>Classes</h3>
+  <ul class="pl-3">
+  
+      <li>
+        <a class="black-ish tdu tdn-ns hover-tdu-ns" href="/brut-css/classes/appearances.html">Appearances</a>
+      </li>
+  
+      <li>
+        <a class="black-ish tdu tdn-ns hover-tdu-ns" href="/brut-css/classes/borders.html">Borders</a>
+      </li>
+  
+      <li>
+        <a class="black-ish tdu tdn-ns hover-tdu-ns" href="/brut-css/classes/foreground-colors.html">Foreground Colors</a>
+      </li>
+  
+      <li>
+        <a class="black-ish tdu tdn-ns hover-tdu-ns" href="/brut-css/classes/background-colors.html">Background Colors</a>
+      </li>
+  
+      <li>
+        <a class="black-ish tdu tdn-ns hover-tdu-ns" href="/brut-css/classes/border-colors.html">Border Colors</a>
+      </li>
+  
+      <li>
+        <a class="black-ish tdu tdn-ns hover-tdu-ns" href="/brut-css/classes/dimensions.html">Dimensions</a>
+      </li>
+  
+      <li>
+        <a class="black-ish tdu tdn-ns hover-tdu-ns" href="/brut-css/classes/flex.html">Flex</a>
+      </li>
+  
+      <li>
+        <a class="black-ish tdu tdn-ns hover-tdu-ns" href="/brut-css/classes/layout.html">Layout</a>
+      </li>
+  
+      <li>
+        <a class="black-ish tdu tdn-ns hover-tdu-ns" href="/brut-css/classes/lists.html">Lists</a>
+      </li>
+  
+      <li>
+        <a class="black-ish tdu tdn-ns hover-tdu-ns" href="/brut-css/classes/positioning.html">Positioning</a>
+      </li>
+  
+      <li>
+        <a class="black-ish tdu tdn-ns hover-tdu-ns" href="/brut-css/classes/spacings.html">Spacings</a>
+      </li>
+  
+      <li>
+        <a class="black-ish tdu tdn-ns hover-tdu-ns" href="/brut-css/classes/typography.html">Typography</a>
+      </li>
+  
+      <li>
+        <a class="black-ish tdu tdn-ns hover-tdu-ns" href="/brut-css/classes/junk-drawer.html">Junk Drawer</a>
+      </li>
+  
+  </ul>
+
+  <h3>Customization</h3>
+  <ul class="pl-3">
+  
+      <li>
+        <a class="black-ish tdu tdn-ns hover-tdu-ns" href="/brut-css/customization/design-system.html">Design System</a>
+      </li>
+  
+      <li>
+        <a class="black-ish tdu tdn-ns hover-tdu-ns" href="/brut-css/customization/breakpoints.html">Breakpoints</a>
+      </li>
+  
+      <li>
+        <a class="black-ish tdu tdn-ns hover-tdu-ns" href="/brut-css/customization/pseudo-classes.html">Pseudo Classes</a>
+      </li>
+  
+      <li>
+        <a class="black-ish tdu tdn-ns hover-tdu-ns" href="/brut-css/customization/advanced-configuration.html">Advanced Configuration</a>
+      </li>
+  
+  </ul>
+
+
+      </nav>
+      <section class="overflow-y-auto pt-4 h-100 flex-grow-1 flex-shrink-1 flex-basis-0 flex flex-column">
+        <div class="ph-3 pv-2 flex items-start gap-2 justify-between">
+
+  <article>
+    <h2 class="f-5">Typography Custom Properties</h2>
+    <p class="p">
+      <p>Typography.  These properties control fonts, font sizes, spacing, and other text-related values.</p>
+
+    </p>
+    
+    
+      <h3 class="f-5 mt-4" id="property-scale:font-size">Font Size</h3>
+      <p class="p">
+        <p>The modular scale of fonts.  This is a ten-step scale with 0 being the smallest font, 2 being the body font, and 9 being the largest.  These values should be enough for any text need.</p>
+
+      </p>
+      
+      
+        <h4 class="f-4 fw-3 mt-4" id="--fs-0"><code>--fs-0</code></h4>
+        <div class="ml-3">
+        <p class="p">
+          <p>The smallest size in the scale. This is intended for rare uses where you need text, but it’s readability is not paramount.</p>
+
+        </p>
+        
+        <dl class="property-grid">
+          <dt>Type:</dt>
+          <dd>
+            <code>&#34;&lt;length&gt;&#34;</code>
+          </dd>
+          <dt>Value:</dt>
+          <dd>
+            <code>0.675rem</code>
+          </dd>
+        </dl>
+        </div>
+      
+        <h4 class="f-4 fw-3 mt-4" id="--fs-1"><code>--fs-1</code></h4>
+        <div class="ml-3">
+        <p class="p">
+          <p>The second smallest size in the scale. This should be used frequently when smaller-than-body text is needed. This size should be readonable by most people on most screens, assuming proper contrast ratios</p>
+
+        </p>
+        
+        <dl class="property-grid">
+          <dt>Type:</dt>
+          <dd>
+            <code>&#34;&lt;length&gt;&#34;</code>
+          </dd>
+          <dt>Value:</dt>
+          <dd>
+            <code>0.875rem</code>
+          </dd>
+        </dl>
+        </div>
+      
+        <h4 class="f-4 fw-3 mt-4" id="--fs-2"><code>--fs-2</code></h4>
+        <div class="ml-3">
+        <p class="p">
+          <p>The standard body font size.  Any normal text should be set in this and it should always be <code>1rem</code> so that it matches the browsers font size.</p>
+
+        </p>
+        
+        <dl class="property-grid">
+          <dt>Type:</dt>
+          <dd>
+            <code>&#34;&lt;length&gt;&#34;</code>
+          </dd>
+          <dt>Value:</dt>
+          <dd>
+            <code>1rem</code>
+          </dd>
+        </dl>
+        </div>
+      
+        <h4 class="f-4 fw-3 mt-4" id="--fs-3"><code>--fs-3</code></h4>
+        <div class="ml-3">
+        <p class="p">
+          <p>The third step in the font size scale, slightly bigger than the body font.</p>
+
+        </p>
+        
+        <dl class="property-grid">
+          <dt>Type:</dt>
+          <dd>
+            <code>&#34;&lt;length&gt;&#34;</code>
+          </dd>
+          <dt>Value:</dt>
+          <dd>
+            <code>1.25rem</code>
+          </dd>
+        </dl>
+        </div>
+      
+        <h4 class="f-4 fw-3 mt-4" id="--fs-4"><code>--fs-4</code></h4>
+        <div class="ml-3">
+        <p class="p">
+          <p>The fourth step in the font size scale, two steps larger than the body font.</p>
+
+        </p>
+        
+        <dl class="property-grid">
+          <dt>Type:</dt>
+          <dd>
+            <code>&#34;&lt;length&gt;&#34;</code>
+          </dd>
+          <dt>Value:</dt>
+          <dd>
+            <code>1.5rem</code>
+          </dd>
+        </dl>
+        </div>
+      
+        <h4 class="f-4 fw-3 mt-4" id="--fs-5"><code>--fs-5</code></h4>
+        <div class="ml-3">
+        <p class="p">
+          <p>The fifth step in the font size scale, three steps larger than the body font.</p>
+
+        </p>
+        
+        <dl class="property-grid">
+          <dt>Type:</dt>
+          <dd>
+            <code>&#34;&lt;length&gt;&#34;</code>
+          </dd>
+          <dt>Value:</dt>
+          <dd>
+            <code>2.25rem</code>
+          </dd>
+        </dl>
+        </div>
+      
+        <h4 class="f-4 fw-3 mt-4" id="--fs-6"><code>--fs-6</code></h4>
+        <div class="ml-3">
+        <p class="p">
+          <p>The sixth step in the font size scale, four steps larger than the body font.</p>
+
+        </p>
+        
+        <dl class="property-grid">
+          <dt>Type:</dt>
+          <dd>
+            <code>&#34;&lt;length&gt;&#34;</code>
+          </dd>
+          <dt>Value:</dt>
+          <dd>
+            <code>3rem</code>
+          </dd>
+        </dl>
+        </div>
+      
+        <h4 class="f-4 fw-3 mt-4" id="--fs-7"><code>--fs-7</code></h4>
+        <div class="ml-3">
+        <p class="p">
+          <p>The seventh step in the font size scale, five steps larger than the body font.</p>
+
+        </p>
+        
+        <dl class="property-grid">
+          <dt>Type:</dt>
+          <dd>
+            <code>&#34;&lt;length&gt;&#34;</code>
+          </dd>
+          <dt>Value:</dt>
+          <dd>
+            <code>4.25rem</code>
+          </dd>
+        </dl>
+        </div>
+      
+        <h4 class="f-4 fw-3 mt-4" id="--fs-8"><code>--fs-8</code></h4>
+        <div class="ml-3">
+        <p class="p">
+          <p>The eighth step in the font size scale, six steps larger than the body font.</p>
+
+        </p>
+        
+        <dl class="property-grid">
+          <dt>Type:</dt>
+          <dd>
+            <code>&#34;&lt;length&gt;&#34;</code>
+          </dd>
+          <dt>Value:</dt>
+          <dd>
+            <code>5rem</code>
+          </dd>
+        </dl>
+        </div>
+      
+        <h4 class="f-4 fw-3 mt-4" id="--fs-9"><code>--fs-9</code></h4>
+        <div class="ml-3">
+        <p class="p">
+          <p>The largest font in the scale.</p>
+
+        </p>
+        
+        <dl class="property-grid">
+          <dt>Type:</dt>
+          <dd>
+            <code>&#34;&lt;length&gt;&#34;</code>
+          </dd>
+          <dt>Value:</dt>
+          <dd>
+            <code>6rem</code>
+          </dd>
+        </dl>
+        </div>
+      
+    
+      <h3 class="f-5 mt-4" id="property-group:font-family">Font Family</h3>
+      <p class="p">
+        <p>Font families.  You will likely want to customize these. If you are using non-system fonts, you’ll need to make sure to set up <code>@font-face</code> rules in your CSS.  If you need to use different fonts at different weights, you should be able to achievec this with multiple <code>@font-face</code> rules that use the same <code>font-family</code>, but different <code>font-weight</code> values.</p>
+
+      </p>
+      
+      
+        <h4 class="f-4 fw-3 mt-4" id="--ff-sans"><code>--ff-sans</code></h4>
+        <div class="ml-3">
+        <p class="p">
+          <p>Sans-serif font stack, based on “Geometric Humanist” from <a href="https://modernfontstacks.com/">Modern Font Stacks</a></p>
+
+        </p>
+        
+        <dl class="property-grid">
+          <dt>Type:</dt>
+          <dd>
+            <code>&#34;&lt;string&gt;#&#34;</code>
+          </dd>
+          <dt>Value:</dt>
+          <dd>
+            <code>Avenir, Montserrat, Corbel, &#39;URW Gothic&#39;, source-sans-pro, sans-serif</code>
+          </dd>
+        </dl>
+        </div>
+      
+        <h4 class="f-4 fw-3 mt-4" id="--ff-serif"><code>--ff-serif</code></h4>
+        <div class="ml-3">
+        <p class="p">
+          <p>Serif font stack, based on “Transitional” from <a href="https://modernfontstacks.com/">Modern Font Stacks</a></p>
+
+        </p>
+        
+        <dl class="property-grid">
+          <dt>Type:</dt>
+          <dd>
+            <code>&#34;&lt;string&gt;#&#34;</code>
+          </dd>
+          <dt>Value:</dt>
+          <dd>
+            <code>Charter, &#39;Bitstream Charter&#39;, &#39;Sitka Text&#39;, Cambria, serif</code>
+          </dd>
+        </dl>
+        </div>
+      
+        <h4 class="f-4 fw-3 mt-4" id="--ff-mono"><code>--ff-mono</code></h4>
+        <div class="ml-3">
+        <p class="p">
+          <p>Monospaced font stack, based on “Monospace Slab Serif” from <a href="https://modernfontstacks.com/">Modern Font Stacks</a></p>
+
+        </p>
+        
+        <dl class="property-grid">
+          <dt>Type:</dt>
+          <dd>
+            <code>&#34;&lt;string&gt;#&#34;</code>
+          </dd>
+          <dt>Value:</dt>
+          <dd>
+            <code>&#39;Nimbus Mono PS&#39;, &#39;Courier New&#39;, monospace</code>
+          </dd>
+        </dl>
+        </div>
+      
+        <h4 class="f-4 fw-3 mt-4" id="--ff-cursive"><code>--ff-cursive</code></h4>
+        <div class="ml-3">
+        <p class="p">
+          <p>Cursive font stack, based on “Handwritten” from <a href="https://modernfontstacks.com/">Modern Font Stacks</a></p>
+
+        </p>
+        
+        <dl class="property-grid">
+          <dt>Type:</dt>
+          <dd>
+            <code>&#34;&lt;string&gt;#&#34;</code>
+          </dd>
+          <dt>Value:</dt>
+          <dd>
+            <code>&#39;Segoe Print&#39;, &#39;Bradley Hand&#39;, Chilanka, TSCu_Comic, casual, cursive</code>
+          </dd>
+        </dl>
+        </div>
+      
+        <h4 class="f-4 fw-3 mt-4" id="--ff-fantasy"><code>--ff-fantasy</code></h4>
+        <div class="ml-3">
+        <p class="p">
+          <p>Fantasy font stack</p>
+
+        </p>
+        
+        <dl class="property-grid">
+          <dt>Type:</dt>
+          <dd>
+            <code>&#34;&lt;string&gt;#&#34;</code>
+          </dd>
+          <dt>Value:</dt>
+          <dd>
+            <code>&#39;Party Let&#39;, fantasy</code>
+          </dd>
+        </dl>
+        </div>
+      
+    
+      <h3 class="f-5 mt-4" id="property-scale:indent">Indent</h3>
+      <p class="p">
+        <p>Indents.  The are three indent levels, which should be sufficient for most needs. 1 is the least amount of indent and three is the most.</p>
+
+      </p>
+      
+      
+        <h4 class="f-4 fw-3 mt-4" id="--indent-1"><code>--indent-1</code></h4>
+        <div class="ml-3">
+        <p class="p">
+          <p>Smallest indent of the scale</p>
+
+        </p>
+        
+        <dl class="property-grid">
+          <dt>Type:</dt>
+          <dd>
+            <code>&#34;&lt;length&gt;&#34;</code>
+          </dd>
+          <dt>Value:</dt>
+          <dd>
+            <code>1em</code>
+          </dd>
+        </dl>
+        </div>
+      
+        <h4 class="f-4 fw-3 mt-4" id="--indent-2"><code>--indent-2</code></h4>
+        <div class="ml-3">
+        <p class="p">
+          <p>Middle indent of the scale</p>
+
+        </p>
+        
+        <dl class="property-grid">
+          <dt>Type:</dt>
+          <dd>
+            <code>&#34;&lt;length&gt;&#34;</code>
+          </dd>
+          <dt>Value:</dt>
+          <dd>
+            <code>1.5em</code>
+          </dd>
+        </dl>
+        </div>
+      
+        <h4 class="f-4 fw-3 mt-4" id="--indent-3"><code>--indent-3</code></h4>
+        <div class="ml-3">
+        <p class="p">
+          <p>Largest indent of the scale</p>
+
+        </p>
+        
+        <dl class="property-grid">
+          <dt>Type:</dt>
+          <dd>
+            <code>&#34;&lt;length&gt;&#34;</code>
+          </dd>
+          <dt>Value:</dt>
+          <dd>
+            <code>2em</code>
+          </dd>
+        </dl>
+        </div>
+      
+    
+      <h3 class="f-5 mt-4" id="property-scale:text-width">Text Width</h3>
+      <p class="p">
+        <p>Text width.  This is not a numeric scale, but rather a semantic one. There is a standard width for text, then a wider one and a narrow one. That will suffice for most needs.</p>
+
+      </p>
+      
+      
+        <h4 class="f-4 fw-3 mt-4" id="--tw"><code>--tw</code></h4>
+        <div class="ml-3">
+        <p class="p">
+          <p>A text width suitable for any copy that a person is going to read.</p>
+
+        </p>
+        
+        <dl class="property-grid">
+          <dt>Type:</dt>
+          <dd>
+            <code>&#34;&lt;length&gt;&#34;</code>
+          </dd>
+          <dt>Value:</dt>
+          <dd>
+            <code>60ch</code>
+          </dd>
+        </dl>
+        </div>
+      
+        <h4 class="f-4 fw-3 mt-4" id="--tw-wide"><code>--tw-wide</code></h4>
+        <div class="ml-3">
+        <p class="p">
+          <p>A text width that is still readable, but slightly wider.</p>
+
+        </p>
+        
+        <dl class="property-grid">
+          <dt>Type:</dt>
+          <dd>
+            <code>&#34;&lt;length&gt;&#34;</code>
+          </dd>
+          <dt>Value:</dt>
+          <dd>
+            <code>75ch</code>
+          </dd>
+        </dl>
+        </div>
+      
+        <h4 class="f-4 fw-3 mt-4" id="--tw-narrow"><code>--tw-narrow</code></h4>
+        <div class="ml-3">
+        <p class="p">
+          <p>A text width that is still readable, but slightly narrower.</p>
+
+        </p>
+        
+        <dl class="property-grid">
+          <dt>Type:</dt>
+          <dd>
+            <code>&#34;&lt;length&gt;&#34;</code>
+          </dd>
+          <dt>Value:</dt>
+          <dd>
+            <code>50ch</code>
+          </dd>
+        </dl>
+        </div>
+      
+    
+      <h3 class="f-5 mt-4" id="property-scale:letter-spacing">Letter Spacing</h3>
+      <p class="p">
+        <p>Letter spacing values.  These are not in a numeric scale, but rather a semantic one.  You likely don’t need a lot of possible values, so these four should be sufficient for most needs.</p>
+
+      </p>
+      
+      
+        <h4 class="f-4 fw-3 mt-4" id="--ls-tracked"><code>--ls-tracked</code></h4>
+        <div class="ml-3">
+        <p class="p">
+          <p>A slightly more spread out letter spacing, perhaps to make all-caps more readable.</p>
+
+        </p>
+        
+        <dl class="property-grid">
+          <dt>Type:</dt>
+          <dd>
+            <code>&#34;&lt;length&gt; | normal&#34;</code>
+          </dd>
+          <dt>Value:</dt>
+          <dd>
+            <code>0.1em</code>
+          </dd>
+        </dl>
+        </div>
+      
+        <h4 class="f-4 fw-3 mt-4" id="--ls-tight"><code>--ls-tight</code></h4>
+        <div class="ml-3">
+        <p class="p">
+          <p>A slightly tight letter spacing</p>
+
+        </p>
+        
+        <dl class="property-grid">
+          <dt>Type:</dt>
+          <dd>
+            <code>&#34;&lt;length&gt; | normal&#34;</code>
+          </dd>
+          <dt>Value:</dt>
+          <dd>
+            <code>-0.05em</code>
+          </dd>
+        </dl>
+        </div>
+      
+        <h4 class="f-4 fw-3 mt-4" id="--ls-mega"><code>--ls-mega</code></h4>
+        <div class="ml-3">
+        <p class="p">
+          <p>A pronounced wide letter spacing</p>
+
+        </p>
+        
+        <dl class="property-grid">
+          <dt>Type:</dt>
+          <dd>
+            <code>&#34;&lt;length&gt; | normal&#34;</code>
+          </dd>
+          <dt>Value:</dt>
+          <dd>
+            <code>0.25em</code>
+          </dd>
+        </dl>
+        </div>
+      
+        <h4 class="f-4 fw-3 mt-4" id="--ls-none"><code>--ls-none</code></h4>
+        <div class="ml-3">
+        <p class="p">
+          <p>Normal/default letter spacing.</p>
+
+        </p>
+        
+        <dl class="property-grid">
+          <dt>Type:</dt>
+          <dd>
+            <code>&#34;&lt;length&gt; | normal&#34;</code>
+          </dd>
+          <dt>Value:</dt>
+          <dd>
+            <code>normal</code>
+          </dd>
+        </dl>
+        </div>
+      
+    
+      <h3 class="f-5 mt-4" id="property-scale:line-height">Line Height</h3>
+      <p class="p">
+        <p>Line height/leading values.  These are not in a numeric scale, but rather a semantic one. There is a value for copy, one for titles, and one for solid text blocks.  These should suffice for most situations.</p>
+
+      </p>
+      
+      
+        <h4 class="f-4 fw-3 mt-4" id="--lh-solid"><code>--lh-solid</code></h4>
+        <div class="ml-3">
+        <p class="p">
+          <p>Line height used for solid/compact text</p>
+
+        </p>
+        
+        <dl class="property-grid">
+          <dt>Type:</dt>
+          <dd>
+            <code>&#34;&lt;length&gt;|&lt;number&gt;|&lt;percentage&gt;|normal&#34;</code>
+          </dd>
+          <dt>Value:</dt>
+          <dd>
+            <code>1</code>
+          </dd>
+        </dl>
+        </div>
+      
+        <h4 class="f-4 fw-3 mt-4" id="--lh-title"><code>--lh-title</code></h4>
+        <div class="ml-3">
+        <p class="p">
+          <p>Line height used for titles</p>
+
+        </p>
+        
+        <dl class="property-grid">
+          <dt>Type:</dt>
+          <dd>
+            <code>&#34;&lt;length&gt;|&lt;number&gt;|&lt;percentage&gt;|normal&#34;</code>
+          </dd>
+          <dt>Value:</dt>
+          <dd>
+            <code>1.25</code>
+          </dd>
+        </dl>
+        </div>
+      
+        <h4 class="f-4 fw-3 mt-4" id="--lh-copy"><code>--lh-copy</code></h4>
+        <div class="ml-3">
+        <p class="p">
+          <p>Line height used for copy</p>
+
+        </p>
+        
+        <dl class="property-grid">
+          <dt>Type:</dt>
+          <dd>
+            <code>&#34;&lt;length&gt;|&lt;number&gt;|&lt;percentage&gt;|normal&#34;</code>
+          </dd>
+          <dt>Value:</dt>
+          <dd>
+            <code>1.5</code>
+          </dd>
+        </dl>
+        </div>
+      
+    
+  </article>
+  <div class="z-5 ma-0 overflow-y-auto pa-2 w-20 h-100 pos-absolute top-0 right-2">
+    <div class="pa-3 ba bc-gray-700 bg-gray-900 br-3 shadow-1 ridiculous-liquid-glass-is-all-the-rage">
+      <h3>On this Page</h3>
+      <ul class="lst-none ma-0 pa-0">
+      
+        <li class="lh-copy"><a href="#property-scale:font-size">Font Size</a></li>
+      
+        <li class="lh-copy"><a href="#property-group:font-family">Font Family</a></li>
+      
+        <li class="lh-copy"><a href="#property-scale:indent">Indent</a></li>
+      
+        <li class="lh-copy"><a href="#property-scale:text-width">Text Width</a></li>
+      
+        <li class="lh-copy"><a href="#property-scale:letter-spacing">Letter Spacing</a></li>
+      
+        <li class="lh-copy"><a href="#property-scale:line-height">Line Height</a></li>
+      
+      </ul>
+    </div>
+  </div>
+        </div>
+      <footer class="bg-black white mt-auto">
+        <p class="tc">
+          Copyright &copy; 2025 David Bryant Copeland.
+        </p>
+      </footer>
+    </section>
+  </main>
+</body>
+
+</html>
+

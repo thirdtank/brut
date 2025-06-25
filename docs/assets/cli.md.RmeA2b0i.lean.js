@@ -1,0 +1,1 @@
+import{_ as a,c as i,o as n,ag as e}from"./chunks/framework.1L-BeKqY.js";const c=JSON.parse('{"title":"CLI and Tasks","description":"","frontmatter":{},"headers":[],"relativePath":"cli.md","filePath":"cli.md"}'),t={name:"cli.md"};function p(l,s,h,o,r,d){return n(),i("div",null,s[0]||(s[0]=[e("",53)]))}const u=a(t,[["render",p]]);export{c as __pageData,u as default};

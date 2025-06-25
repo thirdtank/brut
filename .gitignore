@@ -11,15 +11,14 @@
 # Location of YARD templates, this is temporary
 /.yard
 
-# Ignore the docs for now
-/docs
-
 # This is where generated API docs go
 /brutrb.com/public/api
 /brutrb.com/public/brut-js/api
 /brutrb.com/public/brut-css
 # This is a cache which is not to be checked in
 /brutrb.com/.vitepress/cache
+# Staging area for production deploy of the docs
+/brutrb.com/.vitepress/dist
 
 # lots of node_modules to avoid
 /brutrb.com/node_modules

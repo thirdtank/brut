@@ -1,0 +1,1548 @@
+<!doctype html>
+<html class="ma-0 pa-0 h-100" lang="en">
+  <head>
+  <link rel="stylesheet" href="/brut-css/brut.css">
+  <link rel="stylesheet" href="/brut-css/docs.css">
+  <link rel="stylesheet" href="/brut-css/prism-twilight.min.css">
+</head>
+
+    <body class="flex flex-column ff-sans ma-0 pa-0 h-100">
+    <header class="pos-sticky top-0 bg-gray-700 pa-3 z-5 shadow-2">
+      <div class="flex gap-3 justify-between items-center">
+        <h1><a href="/brut-css" class="black tdn">BrutCSS Reference Documentation</a></h1>
+        <ul class="lst-none pl-0 flex gap-2 justify-end items-center">
+          <form class="flex items-center gap-1 mr-3">
+            <label>
+            <input type="search" placeholder="e.g. padding-left" class="pa-2 br-2 ba bc-gray-600 bg-white-ish gray-200">
+            <span class="sr-only">Search term</span>
+            </label>
+            <button class="ph-3 pv-2 bg-white gray-100 ba bc-gray-500 br-3 hover-bg-gray-800 pointer flex items-center justify-between">
+              <span class="mr-2">Search</span>
+              <kbd>&#8984;</kbd>
+              <kbd>/</kbd>
+            </button>
+          </form>
+          <li><a href="/" class="red-200 tdn hover-tdu">BrutRB</a></li>
+          <span aria-hidden="true">&middot;</span>
+          <li><a href="/brut-js" class="gray-200 tdn hover-tdu">BrutJS</a></li>
+          <span aria-hidden="true">&middot;</span>
+          <li><a href="https://github.com/thirdtank/brut/tree/main/brut-css" class="gray-200 tdn hover-tdu">Code</a></li>
+        </ul>
+      </div>
+    </header>
+    <main class="flex overflow-hidden flex-grow-1 flex-shrink-1 flex-basis-0 pos-relative">
+      <nav class="overflow-y-auto ph-3 pb-2 pt-4 w-20 bg-gray-800 gray-200 h-100">
+        
+  <h3>Getting Started</h3>
+  <ul class="pl-3">
+  
+      <li>
+        <a class="black-ish tdu tdn-ns hover-tdu-ns" href="/brut-css/getting-started/overview.html">Overview</a>
+      </li>
+  
+      <li>
+        <a class="black-ish tdu tdn-ns hover-tdu-ns" href="/brut-css/getting-started/installation.html">Installation</a>
+      </li>
+  
+      <li>
+        <a class="black-ish tdu tdn-ns hover-tdu-ns" href="/brut-css/getting-started/core-concepts.html">Core Concepts</a>
+      </li>
+  
+      <li>
+        <a class="black-ish tdu tdn-ns hover-tdu-ns" href="/brut-css/getting-started/simple-example.html">Simple Example</a>
+      </li>
+  
+  </ul>
+
+  <h3>Properties</h3>
+  <ul class="pl-3">
+  
+      <li>
+        <a class="black-ish tdu tdn-ns hover-tdu-ns" href="/brut-css/properties/colors.html">Colors</a>
+      </li>
+  
+      <li>
+        <a class="black-ish tdu tdn-ns hover-tdu-ns" href="/brut-css/properties/spacings.html">Spacings</a>
+      </li>
+  
+      <li>
+        <a class="black-ish tdu tdn-ns hover-tdu-ns" href="/brut-css/properties/typography.html">Typography</a>
+      </li>
+  
+  </ul>
+
+  <h3>Classes</h3>
+  <ul class="pl-3">
+  
+      <li>
+        <a class="black-ish tdu tdn-ns hover-tdu-ns" href="/brut-css/classes/appearances.html">Appearances</a>
+      </li>
+  
+      <li>
+        <a class="black-ish tdu tdn-ns hover-tdu-ns" href="/brut-css/classes/borders.html">Borders</a>
+      </li>
+  
+      <li>
+        <a class="black-ish tdu tdn-ns hover-tdu-ns" href="/brut-css/classes/foreground-colors.html">Foreground Colors</a>
+      </li>
+  
+      <li>
+        <a class="black-ish tdu tdn-ns hover-tdu-ns" href="/brut-css/classes/background-colors.html">Background Colors</a>
+      </li>
+  
+      <li>
+        <a class="black-ish tdu tdn-ns hover-tdu-ns" href="/brut-css/classes/border-colors.html">Border Colors</a>
+      </li>
+  
+      <li>
+        <a class="black-ish tdu tdn-ns hover-tdu-ns" href="/brut-css/classes/dimensions.html">Dimensions</a>
+      </li>
+  
+      <li>
+        <a class="black-ish tdu tdn-ns hover-tdu-ns" href="/brut-css/classes/flex.html">Flex</a>
+      </li>
+  
+      <li>
+        <a class="black-ish tdu tdn-ns hover-tdu-ns" href="/brut-css/classes/layout.html">Layout</a>
+      </li>
+  
+      <li>
+        <a class="black-ish tdu tdn-ns hover-tdu-ns" href="/brut-css/classes/lists.html">Lists</a>
+      </li>
+  
+      <li>
+        <a class="black-ish tdu tdn-ns hover-tdu-ns" href="/brut-css/classes/positioning.html">Positioning</a>
+      </li>
+  
+      <li>
+        <a class="black-ish tdu tdn-ns hover-tdu-ns" href="/brut-css/classes/spacings.html">Spacings</a>
+      </li>
+  
+      <li>
+        <a class="black-ish tdu tdn-ns hover-tdu-ns" href="/brut-css/classes/typography.html">Typography</a>
+      </li>
+  
+      <li>
+        <a class="black-ish tdu tdn-ns hover-tdu-ns" href="/brut-css/classes/junk-drawer.html">Junk Drawer</a>
+      </li>
+  
+  </ul>
+
+  <h3>Customization</h3>
+  <ul class="pl-3">
+  
+      <li>
+        <a class="black-ish tdu tdn-ns hover-tdu-ns" href="/brut-css/customization/design-system.html">Design System</a>
+      </li>
+  
+      <li>
+        <a class="black-ish tdu tdn-ns hover-tdu-ns" href="/brut-css/customization/breakpoints.html">Breakpoints</a>
+      </li>
+  
+      <li>
+        <a class="black-ish tdu tdn-ns hover-tdu-ns" href="/brut-css/customization/pseudo-classes.html">Pseudo Classes</a>
+      </li>
+  
+      <li>
+        <a class="black-ish tdu tdn-ns hover-tdu-ns" href="/brut-css/customization/advanced-configuration.html">Advanced Configuration</a>
+      </li>
+  
+  </ul>
+
+
+      </nav>
+      <section class="overflow-y-auto pt-4 h-100 flex-grow-1 flex-shrink-1 flex-basis-0 flex flex-column">
+        <div class="ph-3 pv-2 flex items-start gap-2 justify-between">
+
+  <article>
+    <h2 class="f-5">Colors Custom Properties</h2>
+    <p class="p">
+      <p>Color palette.  Brut provides six colors plus gray at nine shades each.  There are also two shades each of black and white. Colors are available as <code>--color-XXX</code> where <code>XXX</code> is a value from darkest to 900, with 100 being the darkest and lightest being the lightest.  As there are nine shades in each color’s scale, that means the values are 100, 200, 300, 400, 500, 600, 700, 800, 900. For black and white, there is <a href="/brut-css/properties/colors.html#--black"><code>--black</code></a> or <a href="/brut-css/properties/colors.html#--white"><code>--white</code></a> which is designed to be pure black or white, respectively, and then <a href="/brut-css/properties/colors.html#--black-ish"><code>--black-ish</code></a> and <a href="/brut-css/properties/colors.html#--white-ish"><code>--white-ish</code></a>, which are designed to be a touch lighter or darker, respectively. To use your own colors, the simplest thing to do is override these variables.  This works well if you are satisfied with six total colors plus gray and nine shades of each. If not, you will need to define new variables and then declare the requisite classes.</p>
+
+    </p>
+    
+    
+      <h3 class="f-5 mt-4" id="property-scale:blue">Blue</h3>
+      <p class="p">
+        <p>Blues</p>
+
+      </p>
+      
+      
+        <h4 class="f-4 fw-3 mt-4" id="--blue-100"><code>--blue-100</code></h4>
+        <div class="ml-3">
+        <p class="p">
+          <p>The darkest shade of blue</p>
+
+        </p>
+        
+        <dl class="property-grid">
+          <dt>Type:</dt>
+          <dd>
+            <code>&#34;&lt;color&gt;&#34;</code>
+          </dd>
+          <dt>Value:</dt>
+          <dd>
+            <code>#000E1C</code>
+          </dd>
+        </dl>
+        </div>
+      
+        <h4 class="f-4 fw-3 mt-4" id="--blue-200"><code>--blue-200</code></h4>
+        <div class="ml-3">
+        <p class="p">
+          <p>The second darkest shade of blue</p>
+
+        </p>
+        
+        <dl class="property-grid">
+          <dt>Type:</dt>
+          <dd>
+            <code>&#34;&lt;color&gt;&#34;</code>
+          </dd>
+          <dt>Value:</dt>
+          <dd>
+            <code>#00172F</code>
+          </dd>
+        </dl>
+        </div>
+      
+        <h4 class="f-4 fw-3 mt-4" id="--blue-300"><code>--blue-300</code></h4>
+        <div class="ml-3">
+        <p class="p">
+          <p>The third darkest shade of blue</p>
+
+        </p>
+        
+        <dl class="property-grid">
+          <dt>Type:</dt>
+          <dd>
+            <code>&#34;&lt;color&gt;&#34;</code>
+          </dd>
+          <dt>Value:</dt>
+          <dd>
+            <code>#002E5E</code>
+          </dd>
+        </dl>
+        </div>
+      
+        <h4 class="f-4 fw-3 mt-4" id="--blue-400"><code>--blue-400</code></h4>
+        <div class="ml-3">
+        <p class="p">
+          <p>The shade just darker than middle of blue</p>
+
+        </p>
+        
+        <dl class="property-grid">
+          <dt>Type:</dt>
+          <dd>
+            <code>&#34;&lt;color&gt;&#34;</code>
+          </dd>
+          <dt>Value:</dt>
+          <dd>
+            <code>#004E9E</code>
+          </dd>
+        </dl>
+        </div>
+      
+        <h4 class="f-4 fw-3 mt-4" id="--blue-500"><code>--blue-500</code></h4>
+        <div class="ml-3">
+        <p class="p">
+          <p>The middle shade of blue</p>
+
+        </p>
+        
+        <dl class="property-grid">
+          <dt>Type:</dt>
+          <dd>
+            <code>&#34;&lt;color&gt;&#34;</code>
+          </dd>
+          <dt>Value:</dt>
+          <dd>
+            <code>#0069d5</code>
+          </dd>
+        </dl>
+        </div>
+      
+        <h4 class="f-4 fw-3 mt-4" id="--blue-600"><code>--blue-600</code></h4>
+        <div class="ml-3">
+        <p class="p">
+          <p>The shade just lighter than middle of blue</p>
+
+        </p>
+        
+        <dl class="property-grid">
+          <dt>Type:</dt>
+          <dd>
+            <code>&#34;&lt;color&gt;&#34;</code>
+          </dd>
+          <dt>Value:</dt>
+          <dd>
+            <code>#50A6FF</code>
+          </dd>
+        </dl>
+        </div>
+      
+        <h4 class="f-4 fw-3 mt-4" id="--blue-700"><code>--blue-700</code></h4>
+        <div class="ml-3">
+        <p class="p">
+          <p>The third lightest shade of blue</p>
+
+        </p>
+        
+        <dl class="property-grid">
+          <dt>Type:</dt>
+          <dd>
+            <code>&#34;&lt;color&gt;&#34;</code>
+          </dd>
+          <dt>Value:</dt>
+          <dd>
+            <code>#A9D3FF</code>
+          </dd>
+        </dl>
+        </div>
+      
+        <h4 class="f-4 fw-3 mt-4" id="--blue-800"><code>--blue-800</code></h4>
+        <div class="ml-3">
+        <p class="p">
+          <p>The second lightest shade of blue</p>
+
+        </p>
+        
+        <dl class="property-grid">
+          <dt>Type:</dt>
+          <dd>
+            <code>&#34;&lt;color&gt;&#34;</code>
+          </dd>
+          <dt>Value:</dt>
+          <dd>
+            <code>#E4F1FF</code>
+          </dd>
+        </dl>
+        </div>
+      
+        <h4 class="f-4 fw-3 mt-4" id="--blue-900"><code>--blue-900</code></h4>
+        <div class="ml-3">
+        <p class="p">
+          <p>The lightest shade of blue</p>
+
+        </p>
+        
+        <dl class="property-grid">
+          <dt>Type:</dt>
+          <dd>
+            <code>&#34;&lt;color&gt;&#34;</code>
+          </dd>
+          <dt>Value:</dt>
+          <dd>
+            <code>#F9FCFF</code>
+          </dd>
+        </dl>
+        </div>
+      
+    
+      <h3 class="f-5 mt-4" id="property-scale:gray">Gray</h3>
+      <p class="p">
+        <p>Grays</p>
+
+      </p>
+      
+      
+        <h4 class="f-4 fw-3 mt-4" id="--gray-100"><code>--gray-100</code></h4>
+        <div class="ml-3">
+        <p class="p">
+          <p>The darkest shade of gray</p>
+
+        </p>
+        
+        <dl class="property-grid">
+          <dt>Type:</dt>
+          <dd>
+            <code>&#34;&lt;color&gt;&#34;</code>
+          </dd>
+          <dt>Value:</dt>
+          <dd>
+            <code>#0F0F10</code>
+          </dd>
+        </dl>
+        </div>
+      
+        <h4 class="f-4 fw-3 mt-4" id="--gray-200"><code>--gray-200</code></h4>
+        <div class="ml-3">
+        <p class="p">
+          <p>The second darkest shade of gray</p>
+
+        </p>
+        
+        <dl class="property-grid">
+          <dt>Type:</dt>
+          <dd>
+            <code>&#34;&lt;color&gt;&#34;</code>
+          </dd>
+          <dt>Value:</dt>
+          <dd>
+            <code>#1A1A1B</code>
+          </dd>
+        </dl>
+        </div>
+      
+        <h4 class="f-4 fw-3 mt-4" id="--gray-300"><code>--gray-300</code></h4>
+        <div class="ml-3">
+        <p class="p">
+          <p>The third darkest shade of gray</p>
+
+        </p>
+        
+        <dl class="property-grid">
+          <dt>Type:</dt>
+          <dd>
+            <code>&#34;&lt;color&gt;&#34;</code>
+          </dd>
+          <dt>Value:</dt>
+          <dd>
+            <code>#333336</code>
+          </dd>
+        </dl>
+        </div>
+      
+        <h4 class="f-4 fw-3 mt-4" id="--gray-400"><code>--gray-400</code></h4>
+        <div class="ml-3">
+        <p class="p">
+          <p>The shade just darker than middle of gray</p>
+
+        </p>
+        
+        <dl class="property-grid">
+          <dt>Type:</dt>
+          <dd>
+            <code>&#34;&lt;color&gt;&#34;</code>
+          </dd>
+          <dt>Value:</dt>
+          <dd>
+            <code>#56565B</code>
+          </dd>
+        </dl>
+        </div>
+      
+        <h4 class="f-4 fw-3 mt-4" id="--gray-500"><code>--gray-500</code></h4>
+        <div class="ml-3">
+        <p class="p">
+          <p>The middle shade of gray</p>
+
+        </p>
+        
+        <dl class="property-grid">
+          <dt>Type:</dt>
+          <dd>
+            <code>&#34;&lt;color&gt;&#34;</code>
+          </dd>
+          <dt>Value:</dt>
+          <dd>
+            <code>#74747B</code>
+          </dd>
+        </dl>
+        </div>
+      
+        <h4 class="f-4 fw-3 mt-4" id="--gray-600"><code>--gray-600</code></h4>
+        <div class="ml-3">
+        <p class="p">
+          <p>The shade just lighter than middle of gray</p>
+
+        </p>
+        
+        <dl class="property-grid">
+          <dt>Type:</dt>
+          <dd>
+            <code>&#34;&lt;color&gt;&#34;</code>
+          </dd>
+          <dt>Value:</dt>
+          <dd>
+            <code>#ADADB1</code>
+          </dd>
+        </dl>
+        </div>
+      
+        <h4 class="f-4 fw-3 mt-4" id="--gray-700"><code>--gray-700</code></h4>
+        <div class="ml-3">
+        <p class="p">
+          <p>The third lightest shade of gray</p>
+
+        </p>
+        
+        <dl class="property-grid">
+          <dt>Type:</dt>
+          <dd>
+            <code>&#34;&lt;color&gt;&#34;</code>
+          </dd>
+          <dt>Value:</dt>
+          <dd>
+            <code>#D7D7D9</code>
+          </dd>
+        </dl>
+        </div>
+      
+        <h4 class="f-4 fw-3 mt-4" id="--gray-800"><code>--gray-800</code></h4>
+        <div class="ml-3">
+        <p class="p">
+          <p>The second lightest shade of gray</p>
+
+        </p>
+        
+        <dl class="property-grid">
+          <dt>Type:</dt>
+          <dd>
+            <code>&#34;&lt;color&gt;&#34;</code>
+          </dd>
+          <dt>Value:</dt>
+          <dd>
+            <code>#F2F2F3</code>
+          </dd>
+        </dl>
+        </div>
+      
+        <h4 class="f-4 fw-3 mt-4" id="--gray-900"><code>--gray-900</code></h4>
+        <div class="ml-3">
+        <p class="p">
+          <p>The lightest shade of gray</p>
+
+        </p>
+        
+        <dl class="property-grid">
+          <dt>Type:</dt>
+          <dd>
+            <code>&#34;&lt;color&gt;&#34;</code>
+          </dd>
+          <dt>Value:</dt>
+          <dd>
+            <code>#FCFCFC</code>
+          </dd>
+        </dl>
+        </div>
+      
+    
+      <h3 class="f-5 mt-4" id="property-scale:green">Green</h3>
+      <p class="p">
+        <p>Greens</p>
+
+      </p>
+      
+      
+        <h4 class="f-4 fw-3 mt-4" id="--green-100"><code>--green-100</code></h4>
+        <div class="ml-3">
+        <p class="p">
+          <p>The darkest shade of green</p>
+
+        </p>
+        
+        <dl class="property-grid">
+          <dt>Type:</dt>
+          <dd>
+            <code>&#34;&lt;color&gt;&#34;</code>
+          </dd>
+          <dt>Value:</dt>
+          <dd>
+            <code>#071B0E</code>
+          </dd>
+        </dl>
+        </div>
+      
+        <h4 class="f-4 fw-3 mt-4" id="--green-200"><code>--green-200</code></h4>
+        <div class="ml-3">
+        <p class="p">
+          <p>The second darkest shade of green</p>
+
+        </p>
+        
+        <dl class="property-grid">
+          <dt>Type:</dt>
+          <dd>
+            <code>&#34;&lt;color&gt;&#34;</code>
+          </dd>
+          <dt>Value:</dt>
+          <dd>
+            <code>#0C2D17</code>
+          </dd>
+        </dl>
+        </div>
+      
+        <h4 class="f-4 fw-3 mt-4" id="--green-300"><code>--green-300</code></h4>
+        <div class="ml-3">
+        <p class="p">
+          <p>The third darkest shade of green</p>
+
+        </p>
+        
+        <dl class="property-grid">
+          <dt>Type:</dt>
+          <dd>
+            <code>&#34;&lt;color&gt;&#34;</code>
+          </dd>
+          <dt>Value:</dt>
+          <dd>
+            <code>#175A2E</code>
+          </dd>
+        </dl>
+        </div>
+      
+        <h4 class="f-4 fw-3 mt-4" id="--green-400"><code>--green-400</code></h4>
+        <div class="ml-3">
+        <p class="p">
+          <p>The shade just darker than middle of green</p>
+
+        </p>
+        
+        <dl class="property-grid">
+          <dt>Type:</dt>
+          <dd>
+            <code>&#34;&lt;color&gt;&#34;</code>
+          </dd>
+          <dt>Value:</dt>
+          <dd>
+            <code>#27984D</code>
+          </dd>
+        </dl>
+        </div>
+      
+        <h4 class="f-4 fw-3 mt-4" id="--green-500"><code>--green-500</code></h4>
+        <div class="ml-3">
+        <p class="p">
+          <p>The middle shade of green</p>
+
+        </p>
+        
+        <dl class="property-grid">
+          <dt>Type:</dt>
+          <dd>
+            <code>&#34;&lt;color&gt;&#34;</code>
+          </dd>
+          <dt>Value:</dt>
+          <dd>
+            <code>#37CB69</code>
+          </dd>
+        </dl>
+        </div>
+      
+        <h4 class="f-4 fw-3 mt-4" id="--green-600"><code>--green-600</code></h4>
+        <div class="ml-3">
+        <p class="p">
+          <p>The shade just lighter than middle of green</p>
+
+        </p>
+        
+        <dl class="property-grid">
+          <dt>Type:</dt>
+          <dd>
+            <code>&#34;&lt;color&gt;&#34;</code>
+          </dd>
+          <dt>Value:</dt>
+          <dd>
+            <code>#89E0A6</code>
+          </dd>
+        </dl>
+        </div>
+      
+        <h4 class="f-4 fw-3 mt-4" id="--green-700"><code>--green-700</code></h4>
+        <div class="ml-3">
+        <p class="p">
+          <p>The third lightest shade of green</p>
+
+        </p>
+        
+        <dl class="property-grid">
+          <dt>Type:</dt>
+          <dd>
+            <code>&#34;&lt;color&gt;&#34;</code>
+          </dd>
+          <dt>Value:</dt>
+          <dd>
+            <code>#C5F0D4</code>
+          </dd>
+        </dl>
+        </div>
+      
+        <h4 class="f-4 fw-3 mt-4" id="--green-800"><code>--green-800</code></h4>
+        <div class="ml-3">
+        <p class="p">
+          <p>The second lightest shade of green</p>
+
+        </p>
+        
+        <dl class="property-grid">
+          <dt>Type:</dt>
+          <dd>
+            <code>&#34;&lt;color&gt;&#34;</code>
+          </dd>
+          <dt>Value:</dt>
+          <dd>
+            <code>#EDFAF2</code>
+          </dd>
+        </dl>
+        </div>
+      
+        <h4 class="f-4 fw-3 mt-4" id="--green-900"><code>--green-900</code></h4>
+        <div class="ml-3">
+        <p class="p">
+          <p>The lightest shade of green</p>
+
+        </p>
+        
+        <dl class="property-grid">
+          <dt>Type:</dt>
+          <dd>
+            <code>&#34;&lt;color&gt;&#34;</code>
+          </dd>
+          <dt>Value:</dt>
+          <dd>
+            <code>#FBFEFC</code>
+          </dd>
+        </dl>
+        </div>
+      
+    
+      <h3 class="f-5 mt-4" id="property-scale:orange">Orange</h3>
+      <p class="p">
+        <p>Oranges</p>
+
+      </p>
+      
+      
+        <h4 class="f-4 fw-3 mt-4" id="--orange-100"><code>--orange-100</code></h4>
+        <div class="ml-3">
+        <p class="p">
+          <p>The darkest shade of orange</p>
+
+        </p>
+        
+        <dl class="property-grid">
+          <dt>Type:</dt>
+          <dd>
+            <code>&#34;&lt;color&gt;&#34;</code>
+          </dd>
+          <dt>Value:</dt>
+          <dd>
+            <code>#1E0E00</code>
+          </dd>
+        </dl>
+        </div>
+      
+        <h4 class="f-4 fw-3 mt-4" id="--orange-200"><code>--orange-200</code></h4>
+        <div class="ml-3">
+        <p class="p">
+          <p>The second darkest shade of orange</p>
+
+        </p>
+        
+        <dl class="property-grid">
+          <dt>Type:</dt>
+          <dd>
+            <code>&#34;&lt;color&gt;&#34;</code>
+          </dd>
+          <dt>Value:</dt>
+          <dd>
+            <code>#331800</code>
+          </dd>
+        </dl>
+        </div>
+      
+        <h4 class="f-4 fw-3 mt-4" id="--orange-300"><code>--orange-300</code></h4>
+        <div class="ml-3">
+        <p class="p">
+          <p>The third darkest shade of orange</p>
+
+        </p>
+        
+        <dl class="property-grid">
+          <dt>Type:</dt>
+          <dd>
+            <code>&#34;&lt;color&gt;&#34;</code>
+          </dd>
+          <dt>Value:</dt>
+          <dd>
+            <code>#673000</code>
+          </dd>
+        </dl>
+        </div>
+      
+        <h4 class="f-4 fw-3 mt-4" id="--orange-400"><code>--orange-400</code></h4>
+        <div class="ml-3">
+        <p class="p">
+          <p>The shade just darker than middle of orange</p>
+
+        </p>
+        
+        <dl class="property-grid">
+          <dt>Type:</dt>
+          <dd>
+            <code>&#34;&lt;color&gt;&#34;</code>
+          </dd>
+          <dt>Value:</dt>
+          <dd>
+            <code>#AD5000</code>
+          </dd>
+        </dl>
+        </div>
+      
+        <h4 class="f-4 fw-3 mt-4" id="--orange-500"><code>--orange-500</code></h4>
+        <div class="ml-3">
+        <p class="p">
+          <p>The middle shade of orange</p>
+
+        </p>
+        
+        <dl class="property-grid">
+          <dt>Type:</dt>
+          <dd>
+            <code>&#34;&lt;color&gt;&#34;</code>
+          </dd>
+          <dt>Value:</dt>
+          <dd>
+            <code>#EA6C00</code>
+          </dd>
+        </dl>
+        </div>
+      
+        <h4 class="f-4 fw-3 mt-4" id="--orange-600"><code>--orange-600</code></h4>
+        <div class="ml-3">
+        <p class="p">
+          <p>The shade just lighter than middle of orange</p>
+
+        </p>
+        
+        <dl class="property-grid">
+          <dt>Type:</dt>
+          <dd>
+            <code>&#34;&lt;color&gt;&#34;</code>
+          </dd>
+          <dt>Value:</dt>
+          <dd>
+            <code>#FFA75C</code>
+          </dd>
+        </dl>
+        </div>
+      
+        <h4 class="f-4 fw-3 mt-4" id="--orange-700"><code>--orange-700</code></h4>
+        <div class="ml-3">
+        <p class="p">
+          <p>The third lightest shade of orange</p>
+
+        </p>
+        
+        <dl class="property-grid">
+          <dt>Type:</dt>
+          <dd>
+            <code>&#34;&lt;color&gt;&#34;</code>
+          </dd>
+          <dt>Value:</dt>
+          <dd>
+            <code>#FFD4AF</code>
+          </dd>
+        </dl>
+        </div>
+      
+        <h4 class="f-4 fw-3 mt-4" id="--orange-800"><code>--orange-800</code></h4>
+        <div class="ml-3">
+        <p class="p">
+          <p>The second lightest shade of orange</p>
+
+        </p>
+        
+        <dl class="property-grid">
+          <dt>Type:</dt>
+          <dd>
+            <code>&#34;&lt;color&gt;&#34;</code>
+          </dd>
+          <dt>Value:</dt>
+          <dd>
+            <code>#FFF2E6</code>
+          </dd>
+        </dl>
+        </div>
+      
+        <h4 class="f-4 fw-3 mt-4" id="--orange-900"><code>--orange-900</code></h4>
+        <div class="ml-3">
+        <p class="p">
+          <p>The lightest shade of orange</p>
+
+        </p>
+        
+        <dl class="property-grid">
+          <dt>Type:</dt>
+          <dd>
+            <code>&#34;&lt;color&gt;&#34;</code>
+          </dd>
+          <dt>Value:</dt>
+          <dd>
+            <code>#FFFCF9</code>
+          </dd>
+        </dl>
+        </div>
+      
+    
+      <h3 class="f-5 mt-4" id="property-scale:purple">Purple</h3>
+      <p class="p">
+        <p>Purples</p>
+
+      </p>
+      
+      
+        <h4 class="f-4 fw-3 mt-4" id="--purple-100"><code>--purple-100</code></h4>
+        <div class="ml-3">
+        <p class="p">
+          <p>The darkest shade of purple</p>
+
+        </p>
+        
+        <dl class="property-grid">
+          <dt>Type:</dt>
+          <dd>
+            <code>&#34;&lt;color&gt;&#34;</code>
+          </dd>
+          <dt>Value:</dt>
+          <dd>
+            <code>#0E071B</code>
+          </dd>
+        </dl>
+        </div>
+      
+        <h4 class="f-4 fw-3 mt-4" id="--purple-200"><code>--purple-200</code></h4>
+        <div class="ml-3">
+        <p class="p">
+          <p>The second darkest shade of purple</p>
+
+        </p>
+        
+        <dl class="property-grid">
+          <dt>Type:</dt>
+          <dd>
+            <code>&#34;&lt;color&gt;&#34;</code>
+          </dd>
+          <dt>Value:</dt>
+          <dd>
+            <code>#170C2D</code>
+          </dd>
+        </dl>
+        </div>
+      
+        <h4 class="f-4 fw-3 mt-4" id="--purple-300"><code>--purple-300</code></h4>
+        <div class="ml-3">
+        <p class="p">
+          <p>The third darkest shade of purple</p>
+
+        </p>
+        
+        <dl class="property-grid">
+          <dt>Type:</dt>
+          <dd>
+            <code>&#34;&lt;color&gt;&#34;</code>
+          </dd>
+          <dt>Value:</dt>
+          <dd>
+            <code>#2E175A</code>
+          </dd>
+        </dl>
+        </div>
+      
+        <h4 class="f-4 fw-3 mt-4" id="--purple-400"><code>--purple-400</code></h4>
+        <div class="ml-3">
+        <p class="p">
+          <p>The shade just darker than middle of purple</p>
+
+        </p>
+        
+        <dl class="property-grid">
+          <dt>Type:</dt>
+          <dd>
+            <code>&#34;&lt;color&gt;&#34;</code>
+          </dd>
+          <dt>Value:</dt>
+          <dd>
+            <code>#4D2798</code>
+          </dd>
+        </dl>
+        </div>
+      
+        <h4 class="f-4 fw-3 mt-4" id="--purple-500"><code>--purple-500</code></h4>
+        <div class="ml-3">
+        <p class="p">
+          <p>The middle shade of purple</p>
+
+        </p>
+        
+        <dl class="property-grid">
+          <dt>Type:</dt>
+          <dd>
+            <code>&#34;&lt;color&gt;&#34;</code>
+          </dd>
+          <dt>Value:</dt>
+          <dd>
+            <code>#6937cb</code>
+          </dd>
+        </dl>
+        </div>
+      
+        <h4 class="f-4 fw-3 mt-4" id="--purple-600"><code>--purple-600</code></h4>
+        <div class="ml-3">
+        <p class="p">
+          <p>The shade just lighter than middle of purple</p>
+
+        </p>
+        
+        <dl class="property-grid">
+          <dt>Type:</dt>
+          <dd>
+            <code>&#34;&lt;color&gt;&#34;</code>
+          </dd>
+          <dt>Value:</dt>
+          <dd>
+            <code>#A689E0</code>
+          </dd>
+        </dl>
+        </div>
+      
+        <h4 class="f-4 fw-3 mt-4" id="--purple-700"><code>--purple-700</code></h4>
+        <div class="ml-3">
+        <p class="p">
+          <p>The third lightest shade of purple</p>
+
+        </p>
+        
+        <dl class="property-grid">
+          <dt>Type:</dt>
+          <dd>
+            <code>&#34;&lt;color&gt;&#34;</code>
+          </dd>
+          <dt>Value:</dt>
+          <dd>
+            <code>#D4C5F0</code>
+          </dd>
+        </dl>
+        </div>
+      
+        <h4 class="f-4 fw-3 mt-4" id="--purple-800"><code>--purple-800</code></h4>
+        <div class="ml-3">
+        <p class="p">
+          <p>The second lightest shade of purple</p>
+
+        </p>
+        
+        <dl class="property-grid">
+          <dt>Type:</dt>
+          <dd>
+            <code>&#34;&lt;color&gt;&#34;</code>
+          </dd>
+          <dt>Value:</dt>
+          <dd>
+            <code>#F2EDFA</code>
+          </dd>
+        </dl>
+        </div>
+      
+        <h4 class="f-4 fw-3 mt-4" id="--purple-900"><code>--purple-900</code></h4>
+        <div class="ml-3">
+        <p class="p">
+          <p>The lightest shade of purple</p>
+
+        </p>
+        
+        <dl class="property-grid">
+          <dt>Type:</dt>
+          <dd>
+            <code>&#34;&lt;color&gt;&#34;</code>
+          </dd>
+          <dt>Value:</dt>
+          <dd>
+            <code>#FCFBFE</code>
+          </dd>
+        </dl>
+        </div>
+      
+    
+      <h3 class="f-5 mt-4" id="property-scale:red">Red</h3>
+      <p class="p">
+        <p>Reds</p>
+
+      </p>
+      
+      
+        <h4 class="f-4 fw-3 mt-4" id="--red-100"><code>--red-100</code></h4>
+        <div class="ml-3">
+        <p class="p">
+          <p>The darkest shade of red</p>
+
+        </p>
+        
+        <dl class="property-grid">
+          <dt>Type:</dt>
+          <dd>
+            <code>&#34;&lt;color&gt;&#34;</code>
+          </dd>
+          <dt>Value:</dt>
+          <dd>
+            <code>#1E0200</code>
+          </dd>
+        </dl>
+        </div>
+      
+        <h4 class="f-4 fw-3 mt-4" id="--red-200"><code>--red-200</code></h4>
+        <div class="ml-3">
+        <p class="p">
+          <p>The second darkest shade of red</p>
+
+        </p>
+        
+        <dl class="property-grid">
+          <dt>Type:</dt>
+          <dd>
+            <code>&#34;&lt;color&gt;&#34;</code>
+          </dd>
+          <dt>Value:</dt>
+          <dd>
+            <code>#320300</code>
+          </dd>
+        </dl>
+        </div>
+      
+        <h4 class="f-4 fw-3 mt-4" id="--red-300"><code>--red-300</code></h4>
+        <div class="ml-3">
+        <p class="p">
+          <p>The third darkest shade of red</p>
+
+        </p>
+        
+        <dl class="property-grid">
+          <dt>Type:</dt>
+          <dd>
+            <code>&#34;&lt;color&gt;&#34;</code>
+          </dd>
+          <dt>Value:</dt>
+          <dd>
+            <code>#640600</code>
+          </dd>
+        </dl>
+        </div>
+      
+        <h4 class="f-4 fw-3 mt-4" id="--red-400"><code>--red-400</code></h4>
+        <div class="ml-3">
+        <p class="p">
+          <p>The shade just darker than middle of red</p>
+
+        </p>
+        
+        <dl class="property-grid">
+          <dt>Type:</dt>
+          <dd>
+            <code>&#34;&lt;color&gt;&#34;</code>
+          </dd>
+          <dt>Value:</dt>
+          <dd>
+            <code>#A80A00</code>
+          </dd>
+        </dl>
+        </div>
+      
+        <h4 class="f-4 fw-3 mt-4" id="--red-500"><code>--red-500</code></h4>
+        <div class="ml-3">
+        <p class="p">
+          <p>The middle shade of red</p>
+
+        </p>
+        
+        <dl class="property-grid">
+          <dt>Type:</dt>
+          <dd>
+            <code>&#34;&lt;color&gt;&#34;</code>
+          </dd>
+          <dt>Value:</dt>
+          <dd>
+            <code>#E30D00</code>
+          </dd>
+        </dl>
+        </div>
+      
+        <h4 class="f-4 fw-3 mt-4" id="--red-600"><code>--red-600</code></h4>
+        <div class="ml-3">
+        <p class="p">
+          <p>The shade just lighter than middle of red</p>
+
+        </p>
+        
+        <dl class="property-grid">
+          <dt>Type:</dt>
+          <dd>
+            <code>&#34;&lt;color&gt;&#34;</code>
+          </dd>
+          <dt>Value:</dt>
+          <dd>
+            <code>#FF6258</code>
+          </dd>
+        </dl>
+        </div>
+      
+        <h4 class="f-4 fw-3 mt-4" id="--red-700"><code>--red-700</code></h4>
+        <div class="ml-3">
+        <p class="p">
+          <p>The third lightest shade of red</p>
+
+        </p>
+        
+        <dl class="property-grid">
+          <dt>Type:</dt>
+          <dd>
+            <code>&#34;&lt;color&gt;&#34;</code>
+          </dd>
+          <dt>Value:</dt>
+          <dd>
+            <code>#FFB2AD</code>
+          </dd>
+        </dl>
+        </div>
+      
+        <h4 class="f-4 fw-3 mt-4" id="--red-800"><code>--red-800</code></h4>
+        <div class="ml-3">
+        <p class="p">
+          <p>The second lightest shade of red</p>
+
+        </p>
+        
+        <dl class="property-grid">
+          <dt>Type:</dt>
+          <dd>
+            <code>&#34;&lt;color&gt;&#34;</code>
+          </dd>
+          <dt>Value:</dt>
+          <dd>
+            <code>#FFE7E6</code>
+          </dd>
+        </dl>
+        </div>
+      
+        <h4 class="f-4 fw-3 mt-4" id="--red-900"><code>--red-900</code></h4>
+        <div class="ml-3">
+        <p class="p">
+          <p>The lightest shade of red</p>
+
+        </p>
+        
+        <dl class="property-grid">
+          <dt>Type:</dt>
+          <dd>
+            <code>&#34;&lt;color&gt;&#34;</code>
+          </dd>
+          <dt>Value:</dt>
+          <dd>
+            <code>#FFFAF9</code>
+          </dd>
+        </dl>
+        </div>
+      
+    
+      <h3 class="f-5 mt-4" id="property-scale:yellow">Yellow</h3>
+      <p class="p">
+        <p>Yellows</p>
+
+      </p>
+      
+      
+        <h4 class="f-4 fw-3 mt-4" id="--yellow-100"><code>--yellow-100</code></h4>
+        <div class="ml-3">
+        <p class="p">
+          <p>The darkest shade of yellow</p>
+
+        </p>
+        
+        <dl class="property-grid">
+          <dt>Type:</dt>
+          <dd>
+            <code>&#34;&lt;color&gt;&#34;</code>
+          </dd>
+          <dt>Value:</dt>
+          <dd>
+            <code>#242402</code>
+          </dd>
+        </dl>
+        </div>
+      
+        <h4 class="f-4 fw-3 mt-4" id="--yellow-200"><code>--yellow-200</code></h4>
+        <div class="ml-3">
+        <p class="p">
+          <p>The second darkest shade of yellow</p>
+
+        </p>
+        
+        <dl class="property-grid">
+          <dt>Type:</dt>
+          <dd>
+            <code>&#34;&lt;color&gt;&#34;</code>
+          </dd>
+          <dt>Value:</dt>
+          <dd>
+            <code>#3D3D04</code>
+          </dd>
+        </dl>
+        </div>
+      
+        <h4 class="f-4 fw-3 mt-4" id="--yellow-300"><code>--yellow-300</code></h4>
+        <div class="ml-3">
+        <p class="p">
+          <p>The third darkest shade of yellow</p>
+
+        </p>
+        
+        <dl class="property-grid">
+          <dt>Type:</dt>
+          <dd>
+            <code>&#34;&lt;color&gt;&#34;</code>
+          </dd>
+          <dt>Value:</dt>
+          <dd>
+            <code>#797907</code>
+          </dd>
+        </dl>
+        </div>
+      
+        <h4 class="f-4 fw-3 mt-4" id="--yellow-400"><code>--yellow-400</code></h4>
+        <div class="ml-3">
+        <p class="p">
+          <p>The shade just darker than middle of yellow</p>
+
+        </p>
+        
+        <dl class="property-grid">
+          <dt>Type:</dt>
+          <dd>
+            <code>&#34;&lt;color&gt;&#34;</code>
+          </dd>
+          <dt>Value:</dt>
+          <dd>
+            <code>#CCCC0C</code>
+          </dd>
+        </dl>
+        </div>
+      
+        <h4 class="f-4 fw-3 mt-4" id="--yellow-500"><code>--yellow-500</code></h4>
+        <div class="ml-3">
+        <p class="p">
+          <p>The middle shade of yellow</p>
+
+        </p>
+        
+        <dl class="property-grid">
+          <dt>Type:</dt>
+          <dd>
+            <code>&#34;&lt;color&gt;&#34;</code>
+          </dd>
+          <dt>Value:</dt>
+          <dd>
+            <code>#F3F331</code>
+          </dd>
+        </dl>
+        </div>
+      
+        <h4 class="f-4 fw-3 mt-4" id="--yellow-600"><code>--yellow-600</code></h4>
+        <div class="ml-3">
+        <p class="p">
+          <p>The shade just lighter than middle of yellow</p>
+
+        </p>
+        
+        <dl class="property-grid">
+          <dt>Type:</dt>
+          <dd>
+            <code>&#34;&lt;color&gt;&#34;</code>
+          </dd>
+          <dt>Value:</dt>
+          <dd>
+            <code>#F8F885</code>
+          </dd>
+        </dl>
+        </div>
+      
+        <h4 class="f-4 fw-3 mt-4" id="--yellow-700"><code>--yellow-700</code></h4>
+        <div class="ml-3">
+        <p class="p">
+          <p>The third lightest shade of yellow</p>
+
+        </p>
+        
+        <dl class="property-grid">
+          <dt>Type:</dt>
+          <dd>
+            <code>&#34;&lt;color&gt;&#34;</code>
+          </dd>
+          <dt>Value:</dt>
+          <dd>
+            <code>#FCFCC3</code>
+          </dd>
+        </dl>
+        </div>
+      
+        <h4 class="f-4 fw-3 mt-4" id="--yellow-800"><code>--yellow-800</code></h4>
+        <div class="ml-3">
+        <p class="p">
+          <p>The second lightest shade of yellow</p>
+
+        </p>
+        
+        <dl class="property-grid">
+          <dt>Type:</dt>
+          <dd>
+            <code>&#34;&lt;color&gt;&#34;</code>
+          </dd>
+          <dt>Value:</dt>
+          <dd>
+            <code>#FEFEEC</code>
+          </dd>
+        </dl>
+        </div>
+      
+        <h4 class="f-4 fw-3 mt-4" id="--yellow-900"><code>--yellow-900</code></h4>
+        <div class="ml-3">
+        <p class="p">
+          <p>The lightest shade of yellow</p>
+
+        </p>
+        
+        <dl class="property-grid">
+          <dt>Type:</dt>
+          <dd>
+            <code>&#34;&lt;color&gt;&#34;</code>
+          </dd>
+          <dt>Value:</dt>
+          <dd>
+            <code>#FFFFFB</code>
+          </dd>
+        </dl>
+        </div>
+      
+    
+      <h3 class="f-5 mt-4" id="property-scale:black">Black</h3>
+      <p class="p">
+        <p>Blacks</p>
+
+      </p>
+      
+      
+        <h4 class="f-4 fw-3 mt-4" id="--black"><code>--black</code></h4>
+        <div class="ml-3">
+        <p class="p">
+          <p>Pure black</p>
+
+        </p>
+        
+        <dl class="property-grid">
+          <dt>Type:</dt>
+          <dd>
+            <code>&#34;&lt;color&gt;&#34;</code>
+          </dd>
+          <dt>Value:</dt>
+          <dd>
+            <code>#000000</code>
+          </dd>
+        </dl>
+        </div>
+      
+        <h4 class="f-4 fw-3 mt-4" id="--black-ish"><code>--black-ish</code></h4>
+        <div class="ml-3">
+        <p class="p">
+          <p>Very slightly lighter than pure black</p>
+
+        </p>
+        
+        <dl class="property-grid">
+          <dt>Type:</dt>
+          <dd>
+            <code>&#34;&lt;color&gt;&#34;</code>
+          </dd>
+          <dt>Value:</dt>
+          <dd>
+            <code>#131313</code>
+          </dd>
+        </dl>
+        </div>
+      
+    
+      <h3 class="f-5 mt-4" id="property-scale:white">White</h3>
+      <p class="p">
+        <p>Whites</p>
+
+      </p>
+      
+      
+        <h4 class="f-4 fw-3 mt-4" id="--white"><code>--white</code></h4>
+        <div class="ml-3">
+        <p class="p">
+          <p>Pure white.</p>
+
+        </p>
+        
+        <dl class="property-grid">
+          <dt>Type:</dt>
+          <dd>
+            <code>&#34;&lt;color&gt;&#34;</code>
+          </dd>
+          <dt>Value:</dt>
+          <dd>
+            <code>#FFFFFF</code>
+          </dd>
+        </dl>
+        </div>
+      
+        <h4 class="f-4 fw-3 mt-4" id="--white-ish"><code>--white-ish</code></h4>
+        <div class="ml-3">
+        <p class="p">
+          <p>Very slightly darker than pure white</p>
+
+        </p>
+        
+        <dl class="property-grid">
+          <dt>Type:</dt>
+          <dd>
+            <code>&#34;&lt;color&gt;&#34;</code>
+          </dd>
+          <dt>Value:</dt>
+          <dd>
+            <code>#FBFBFB</code>
+          </dd>
+        </dl>
+        </div>
+      
+    
+  </article>
+  <div class="z-5 ma-0 overflow-y-auto pa-2 w-20 h-100 pos-absolute top-0 right-2">
+    <div class="pa-3 ba bc-gray-700 bg-gray-900 br-3 shadow-1 ridiculous-liquid-glass-is-all-the-rage">
+      <h3>On this Page</h3>
+      <ul class="lst-none ma-0 pa-0">
+      
+        <li class="lh-copy"><a href="#property-scale:blue">Blue</a></li>
+      
+        <li class="lh-copy"><a href="#property-scale:gray">Gray</a></li>
+      
+        <li class="lh-copy"><a href="#property-scale:green">Green</a></li>
+      
+        <li class="lh-copy"><a href="#property-scale:orange">Orange</a></li>
+      
+        <li class="lh-copy"><a href="#property-scale:purple">Purple</a></li>
+      
+        <li class="lh-copy"><a href="#property-scale:red">Red</a></li>
+      
+        <li class="lh-copy"><a href="#property-scale:yellow">Yellow</a></li>
+      
+        <li class="lh-copy"><a href="#property-scale:black">Black</a></li>
+      
+        <li class="lh-copy"><a href="#property-scale:white">White</a></li>
+      
+      </ul>
+    </div>
+  </div>
+        </div>
+      <footer class="bg-black white mt-auto">
+        <p class="tc">
+          Copyright &copy; 2025 David Bryant Copeland.
+        </p>
+      </footer>
+    </section>
+  </main>
+</body>
+
+</html>
+

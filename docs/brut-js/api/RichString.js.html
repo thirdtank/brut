@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: RichString.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: RichString.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/** A wrapper around a string that provides useful utility functions
+ * not present in the standard library.
+ *
+ * @example
+ *
+ * const string = RichString.fromString(element.textContent)
+ * element.textContent = string.humanize().toString()
+ */
+class RichString {
+  /** Prefer this over the constructor, as this will
+   * wrap `possiblyDefinedStringOrRichString` only if necessary
+   * as well as handle `null`.
+   *
+   * @param {null|undefined|String|RichString} possiblyDefinedStringOrRichString - if `null`, `undefined`, or otherwise falsey, this method returns `null`. If a String, returns a new `RichString` wrapping it. If a `RichString`, returns the `RichString` unchanged.
+   */
+  static fromString(possiblyDefinedStringOrRichString) {
+    if (possiblyDefinedStringOrRichString instanceof RichString) {
+      return possiblyDefinedStringOrRichString
+    }
+    if (!possiblyDefinedStringOrRichString) {
+      return null
+    }
+    return new RichString(String(possiblyDefinedStringOrRichString))
+  }
+
+  /** Prefer `fromString` */
+  constructor(string) {
+    if (typeof string !== "string") {
+      throw `You may only construct a RichString with a String, not a ${typeof string}`
+    }
+    this.string = string
+  }
+
+  /** Returns a `RichString` with the string capitalized. */
+  capitalize() {
+    return new RichString(this.string.charAt(0).toUpperCase() + this.string.slice(1))
+  }
+
+  /** Returns a `RichString` with the string un-capitalized. */
+  decapitalize() {
+    return new RichString(this.string.charAt(0).toLowerCase() + this.string.slice(1))
+  }
+
+  /** Returns a `RichString` with the string converted from snake or kebab case into camel case. */
+  camelize() {
+    // Taken from camelize npm module
+    return RichString.fromString(this.string.replace(/[_.-](\w|$)/g, function (_, x) {
+      return x.toUpperCase()
+    }))
+  }
+
+  /** Returns a 'humanized' `RichString`, which is basically a de-camelized version with the first letter
+   * capitalized.
+   */
+  humanize() {
+    return this.decamlize({spacer: " "}).capitalize()
+  }
+
+  /** Returns a `RichString` with the string converted from camel case to snake or kebab case.
+    *
+    * @param {Object} parameters
+    * @param {string} parameters.spacer ["_"] - a string to use when joining words together.
+    *
+    */
+  decamlize({spacer="_"} = {}) {
+    // Taken from decamelize NPM module
+
+    // Checking the second character is done later on. Therefore process shorter strings here.
+    if (this.string.length &lt; 2) {
+      return new RichString(this.string.toLowerCase())
+    }
+
+    const replacement = `$1${spacer}$2`
+
+    // Split lowercase sequences followed by uppercase character.
+    // `dataForUSACounties` → `data_For_USACounties`
+    // `myURLstring → `my_URLstring`
+    const decamelized = this.string.replace(
+      /([\p{Lowercase_Letter}\d])(\p{Uppercase_Letter})/gu,
+      replacement,
+    )
+
+    // Split multiple uppercase characters followed by one or more lowercase characters.
+    // `my_URLstring` → `my_ur_lstring`
+    return new RichString(decamelized.
+      replace(
+        /(\p{Uppercase_Letter})(\p{Uppercase_Letter}\p{Lowercase_Letter}+)/gu,
+        replacement,
+      ).
+      toLowerCase()
+    )
+  }
+
+  /** Return the underlying String value */
+  toString() { return this.string }
+
+  /** Return the underlying String value or null if the string is blank */
+  toStringOrNull() {
+    if (this.isBlank()) {
+      return null
+    }
+    else {
+      return this.string
+    }
+  }
+
+  /* Returns true if this string has only whitespace in it */
+  isBlank() {
+    return this.string.trim() == ""
+  }
+
+}
+export default RichString
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-testing.html">testing</a></li></ul><h3>Externals</h3><ul><li><a href="external-CustomElementRegistry.html">CustomElementRegistry</a></li><li><a href="external-Performance.html">Performance</a></li><li><a href="external-Promise.html">Promise</a></li><li><a href="external-ValidityState.html">ValidityState</a></li><li><a href="external-Window.html">Window</a></li><li><a href="external-fetch.html">fetch</a></li></ul><h3>Classes</h3><ul><li><a href="AjaxSubmit.html">AjaxSubmit</a></li><li><a href="Autosubmit.html">Autosubmit</a></li><li><a href="BaseCustomElement.html">BaseCustomElement</a></li><li><a href="BrutCustomElements.html">BrutCustomElements</a></li><li><a href="BufferedLogger.html">BufferedLogger</a></li><li><a href="ConfirmSubmit.html">ConfirmSubmit</a></li><li><a href="ConfirmationDialog.html">ConfirmationDialog</a></li><li><a href="ConstraintViolationMessage.html">ConstraintViolationMessage</a></li><li><a href="ConstraintViolationMessages.html">ConstraintViolationMessages</a></li><li><a href="CopyToClipboard.html">CopyToClipboard</a></li><li><a href="Form.html">Form</a></li><li><a href="I18nTranslation.html">I18nTranslation</a></li><li><a href="LocaleDetection.html">LocaleDetection</a></li><li><a href="Logger.html">Logger</a></li><li><a href="Message.html">Message</a></li><li><a href="PrefixedLogger.html">PrefixedLogger</a></li><li><a href="RichString.html">RichString</a></li><li><a href="Tabs.html">Tabs</a></li><li><a href="Tracing.html">Tracing</a></li><li><a href="testing.AssetMetadata.html">AssetMetadata</a></li><li><a href="testing.AssetMetadataLoader.html">AssetMetadataLoader</a></li><li><a href="testing.CustomElementTest.html">CustomElementTest</a></li><li><a href="testing.DOMCreator.html">DOMCreator</a></li></ul><h3><a href="global.html">Global</a></h3>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.4</a> on Wed Jun 25 2025 22:30:10 GMT+0000 (Coordinated Universal Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

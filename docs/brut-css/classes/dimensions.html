@@ -1,0 +1,2581 @@
+<!doctype html>
+<html class="ma-0 pa-0 h-100" lang="en">
+  <head>
+  <link rel="stylesheet" href="/brut-css/brut.css">
+  <link rel="stylesheet" href="/brut-css/docs.css">
+  <link rel="stylesheet" href="/brut-css/prism-twilight.min.css">
+</head>
+
+    <body class="flex flex-column ff-sans ma-0 pa-0 h-100">
+    <header class="pos-sticky top-0 bg-gray-700 pa-3 z-5 shadow-2">
+      <div class="flex gap-3 justify-between items-center">
+        <h1><a href="/brut-css" class="black tdn">BrutCSS Reference Documentation</a></h1>
+        <ul class="lst-none pl-0 flex gap-2 justify-end items-center">
+          <form class="flex items-center gap-1 mr-3">
+            <label>
+            <input type="search" placeholder="e.g. padding-left" class="pa-2 br-2 ba bc-gray-600 bg-white-ish gray-200">
+            <span class="sr-only">Search term</span>
+            </label>
+            <button class="ph-3 pv-2 bg-white gray-100 ba bc-gray-500 br-3 hover-bg-gray-800 pointer flex items-center justify-between">
+              <span class="mr-2">Search</span>
+              <kbd>&#8984;</kbd>
+              <kbd>/</kbd>
+            </button>
+          </form>
+          <li><a href="/" class="red-200 tdn hover-tdu">BrutRB</a></li>
+          <span aria-hidden="true">&middot;</span>
+          <li><a href="/brut-js" class="gray-200 tdn hover-tdu">BrutJS</a></li>
+          <span aria-hidden="true">&middot;</span>
+          <li><a href="https://github.com/thirdtank/brut/tree/main/brut-css" class="gray-200 tdn hover-tdu">Code</a></li>
+        </ul>
+      </div>
+    </header>
+    <main class="flex overflow-hidden flex-grow-1 flex-shrink-1 flex-basis-0 pos-relative">
+      <nav class="overflow-y-auto ph-3 pb-2 pt-4 w-20 bg-gray-800 gray-200 h-100">
+        
+  <h3>Getting Started</h3>
+  <ul class="pl-3">
+  
+      <li>
+        <a class="black-ish tdu tdn-ns hover-tdu-ns" href="/brut-css/getting-started/overview.html">Overview</a>
+      </li>
+  
+      <li>
+        <a class="black-ish tdu tdn-ns hover-tdu-ns" href="/brut-css/getting-started/installation.html">Installation</a>
+      </li>
+  
+      <li>
+        <a class="black-ish tdu tdn-ns hover-tdu-ns" href="/brut-css/getting-started/core-concepts.html">Core Concepts</a>
+      </li>
+  
+      <li>
+        <a class="black-ish tdu tdn-ns hover-tdu-ns" href="/brut-css/getting-started/simple-example.html">Simple Example</a>
+      </li>
+  
+  </ul>
+
+  <h3>Properties</h3>
+  <ul class="pl-3">
+  
+      <li>
+        <a class="black-ish tdu tdn-ns hover-tdu-ns" href="/brut-css/properties/colors.html">Colors</a>
+      </li>
+  
+      <li>
+        <a class="black-ish tdu tdn-ns hover-tdu-ns" href="/brut-css/properties/spacings.html">Spacings</a>
+      </li>
+  
+      <li>
+        <a class="black-ish tdu tdn-ns hover-tdu-ns" href="/brut-css/properties/typography.html">Typography</a>
+      </li>
+  
+  </ul>
+
+  <h3>Classes</h3>
+  <ul class="pl-3">
+  
+      <li>
+        <a class="black-ish tdu tdn-ns hover-tdu-ns" href="/brut-css/classes/appearances.html">Appearances</a>
+      </li>
+  
+      <li>
+        <a class="black-ish tdu tdn-ns hover-tdu-ns" href="/brut-css/classes/borders.html">Borders</a>
+      </li>
+  
+      <li>
+        <a class="black-ish tdu tdn-ns hover-tdu-ns" href="/brut-css/classes/foreground-colors.html">Foreground Colors</a>
+      </li>
+  
+      <li>
+        <a class="black-ish tdu tdn-ns hover-tdu-ns" href="/brut-css/classes/background-colors.html">Background Colors</a>
+      </li>
+  
+      <li>
+        <a class="black-ish tdu tdn-ns hover-tdu-ns" href="/brut-css/classes/border-colors.html">Border Colors</a>
+      </li>
+  
+      <li>
+        <a class="black-ish tdu tdn-ns hover-tdu-ns" href="/brut-css/classes/dimensions.html">Dimensions</a>
+      </li>
+  
+      <li>
+        <a class="black-ish tdu tdn-ns hover-tdu-ns" href="/brut-css/classes/flex.html">Flex</a>
+      </li>
+  
+      <li>
+        <a class="black-ish tdu tdn-ns hover-tdu-ns" href="/brut-css/classes/layout.html">Layout</a>
+      </li>
+  
+      <li>
+        <a class="black-ish tdu tdn-ns hover-tdu-ns" href="/brut-css/classes/lists.html">Lists</a>
+      </li>
+  
+      <li>
+        <a class="black-ish tdu tdn-ns hover-tdu-ns" href="/brut-css/classes/positioning.html">Positioning</a>
+      </li>
+  
+      <li>
+        <a class="black-ish tdu tdn-ns hover-tdu-ns" href="/brut-css/classes/spacings.html">Spacings</a>
+      </li>
+  
+      <li>
+        <a class="black-ish tdu tdn-ns hover-tdu-ns" href="/brut-css/classes/typography.html">Typography</a>
+      </li>
+  
+      <li>
+        <a class="black-ish tdu tdn-ns hover-tdu-ns" href="/brut-css/classes/junk-drawer.html">Junk Drawer</a>
+      </li>
+  
+  </ul>
+
+  <h3>Customization</h3>
+  <ul class="pl-3">
+  
+      <li>
+        <a class="black-ish tdu tdn-ns hover-tdu-ns" href="/brut-css/customization/design-system.html">Design System</a>
+      </li>
+  
+      <li>
+        <a class="black-ish tdu tdn-ns hover-tdu-ns" href="/brut-css/customization/breakpoints.html">Breakpoints</a>
+      </li>
+  
+      <li>
+        <a class="black-ish tdu tdn-ns hover-tdu-ns" href="/brut-css/customization/pseudo-classes.html">Pseudo Classes</a>
+      </li>
+  
+      <li>
+        <a class="black-ish tdu tdn-ns hover-tdu-ns" href="/brut-css/customization/advanced-configuration.html">Advanced Configuration</a>
+      </li>
+  
+  </ul>
+
+
+      </nav>
+      <section class="overflow-y-auto pt-4 h-100 flex-grow-1 flex-shrink-1 flex-basis-0 flex flex-column">
+        <div class="ph-3 pv-2 flex items-start gap-2 justify-between">
+
+  <article>
+    <h2 class="}-5">Dimensions Classes</h2>
+    
+      <p>Dimensions, namely width and height. These are all using an 8-step scale with 1 being the smallest width and 8 the largest.  These scales use the <a href="/brut-css/properties/spacings.html#property-scale:widths-heights">Widths Heights</a> scale, which, by default, is double the respective value from <a href="/brut-css/properties/spacings.html#property-scale:spacing">Spacing</a>.  This should result in harmonious designs that align on a grid. There are also percentage-based scales where the value in the class is the percentage, with the addition of <code>third</code> and <code>two-thirds</code>.</p>
+
+    
+    
+    
+      <h3 class="f-5 mt-4" id="class-scale:widths">Widths</h3>
+      <p class="p">
+        <p>Numeric/fixed widths.</p>
+
+      </p>
+      
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="w-1">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.w-1</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.w-1</span> <span class="token punctuation">{</span>
+  <span class="token property">width</span><span class="token punctuation">:</span> <span class="token function">var</span><span class="token punctuation">(</span>--wh-1<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="w-2">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.w-2</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.w-2</span> <span class="token punctuation">{</span>
+  <span class="token property">width</span><span class="token punctuation">:</span> <span class="token function">var</span><span class="token punctuation">(</span>--wh-2<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="w-3">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.w-3</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.w-3</span> <span class="token punctuation">{</span>
+  <span class="token property">width</span><span class="token punctuation">:</span> <span class="token function">var</span><span class="token punctuation">(</span>--wh-3<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="w-4">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.w-4</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.w-4</span> <span class="token punctuation">{</span>
+  <span class="token property">width</span><span class="token punctuation">:</span> <span class="token function">var</span><span class="token punctuation">(</span>--wh-4<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="w-5">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.w-5</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.w-5</span> <span class="token punctuation">{</span>
+  <span class="token property">width</span><span class="token punctuation">:</span> <span class="token function">var</span><span class="token punctuation">(</span>--wh-5<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="w-6">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.w-6</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.w-6</span> <span class="token punctuation">{</span>
+  <span class="token property">width</span><span class="token punctuation">:</span> <span class="token function">var</span><span class="token punctuation">(</span>--wh-6<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="w-7">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.w-7</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.w-7</span> <span class="token punctuation">{</span>
+  <span class="token property">width</span><span class="token punctuation">:</span> <span class="token function">var</span><span class="token punctuation">(</span>--wh-7<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="w-8">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.w-8</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.w-8</span> <span class="token punctuation">{</span>
+  <span class="token property">width</span><span class="token punctuation">:</span> <span class="token function">var</span><span class="token punctuation">(</span>--wh-8<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+    
+      <h3 class="f-5 mt-4" id="class-scale:width-percent">Width Percent</h3>
+      <p class="p">
+        <p>Percentage widths.</p>
+
+      </p>
+      
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="w-10">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.w-10</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.w-10</span> <span class="token punctuation">{</span>
+  <span class="token property">width</span><span class="token punctuation">:</span> 10%<span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="w-20">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.w-20</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.w-20</span> <span class="token punctuation">{</span>
+  <span class="token property">width</span><span class="token punctuation">:</span> 20%<span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="w-25">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.w-25</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.w-25</span> <span class="token punctuation">{</span>
+  <span class="token property">width</span><span class="token punctuation">:</span> 25%<span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="w-30">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.w-30</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.w-30</span> <span class="token punctuation">{</span>
+  <span class="token property">width</span><span class="token punctuation">:</span> 30%<span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="w-40">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.w-40</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.w-40</span> <span class="token punctuation">{</span>
+  <span class="token property">width</span><span class="token punctuation">:</span> 40%<span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="w-50">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.w-50</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.w-50</span> <span class="token punctuation">{</span>
+  <span class="token property">width</span><span class="token punctuation">:</span> 50%<span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="w-60">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.w-60</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.w-60</span> <span class="token punctuation">{</span>
+  <span class="token property">width</span><span class="token punctuation">:</span> 60%<span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="w-70">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.w-70</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.w-70</span> <span class="token punctuation">{</span>
+  <span class="token property">width</span><span class="token punctuation">:</span> 70%<span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="w-75">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.w-75</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.w-75</span> <span class="token punctuation">{</span>
+  <span class="token property">width</span><span class="token punctuation">:</span> 75%<span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="w-80">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.w-80</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.w-80</span> <span class="token punctuation">{</span>
+  <span class="token property">width</span><span class="token punctuation">:</span> 80%<span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="w-90">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.w-90</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.w-90</span> <span class="token punctuation">{</span>
+  <span class="token property">width</span><span class="token punctuation">:</span> 90%<span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="w-100">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.w-100</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.w-100</span> <span class="token punctuation">{</span>
+  <span class="token property">width</span><span class="token punctuation">:</span> 100%<span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="w-third">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.w-third</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.w-third</span> <span class="token punctuation">{</span>
+  <span class="token property">width</span><span class="token punctuation">:</span> <span class="token function">calc</span><span class="token punctuation">(</span>100% / 3<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="w-two-thirds">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.w-two-thirds</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.w-two-thirds</span> <span class="token punctuation">{</span>
+  <span class="token property">width</span><span class="token punctuation">:</span> <span class="token function">calc</span><span class="token punctuation">(</span>100% / 1.5<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+    
+      <h3 class="f-5 mt-4" id="class-scale:width-view-width">Width View Width</h3>
+      <p class="p">
+        <p>View-width percentage widths</p>
+
+      </p>
+      
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="w-10vw">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.w-10vw</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.w-10vw</span> <span class="token punctuation">{</span>
+  <span class="token property">width</span><span class="token punctuation">:</span> 10vw<span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="w-20vw">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.w-20vw</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.w-20vw</span> <span class="token punctuation">{</span>
+  <span class="token property">width</span><span class="token punctuation">:</span> 20vw<span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="w-30vw">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.w-30vw</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.w-30vw</span> <span class="token punctuation">{</span>
+  <span class="token property">width</span><span class="token punctuation">:</span> 30vw<span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="w-40vw">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.w-40vw</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.w-40vw</span> <span class="token punctuation">{</span>
+  <span class="token property">width</span><span class="token punctuation">:</span> 40vw<span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="w-50vw">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.w-50vw</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.w-50vw</span> <span class="token punctuation">{</span>
+  <span class="token property">width</span><span class="token punctuation">:</span> 50vw<span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="w-60vw">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.w-60vw</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.w-60vw</span> <span class="token punctuation">{</span>
+  <span class="token property">width</span><span class="token punctuation">:</span> 60vw<span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="w-70vw">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.w-70vw</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.w-70vw</span> <span class="token punctuation">{</span>
+  <span class="token property">width</span><span class="token punctuation">:</span> 70vw<span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="w-80vw">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.w-80vw</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.w-80vw</span> <span class="token punctuation">{</span>
+  <span class="token property">width</span><span class="token punctuation">:</span> 80vw<span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="w-90vw">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.w-90vw</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.w-90vw</span> <span class="token punctuation">{</span>
+  <span class="token property">width</span><span class="token punctuation">:</span> 90vw<span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="w-100vw">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.w-100vw</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.w-100vw</span> <span class="token punctuation">{</span>
+  <span class="token property">width</span><span class="token punctuation">:</span> 100vw<span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="w-auto">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.w-auto</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.w-auto</span> <span class="token punctuation">{</span>
+  <span class="token property">width</span><span class="token punctuation">:</span> auto<span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="mw-1">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.mw-1</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.mw-1</span> <span class="token punctuation">{</span>
+  <span class="token property">max-width</span><span class="token punctuation">:</span> <span class="token function">var</span><span class="token punctuation">(</span>--wh-1<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          <p>Numeric/fixed maximum widths.</p>
+
+        </p>
+        
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="mw-2">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.mw-2</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.mw-2</span> <span class="token punctuation">{</span>
+  <span class="token property">max-width</span><span class="token punctuation">:</span> <span class="token function">var</span><span class="token punctuation">(</span>--wh-2<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="mw-3">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.mw-3</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.mw-3</span> <span class="token punctuation">{</span>
+  <span class="token property">max-width</span><span class="token punctuation">:</span> <span class="token function">var</span><span class="token punctuation">(</span>--wh-3<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="mw-4">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.mw-4</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.mw-4</span> <span class="token punctuation">{</span>
+  <span class="token property">max-width</span><span class="token punctuation">:</span> <span class="token function">var</span><span class="token punctuation">(</span>--wh-4<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="mw-5">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.mw-5</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.mw-5</span> <span class="token punctuation">{</span>
+  <span class="token property">max-width</span><span class="token punctuation">:</span> <span class="token function">var</span><span class="token punctuation">(</span>--wh-5<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="mw-6">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.mw-6</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.mw-6</span> <span class="token punctuation">{</span>
+  <span class="token property">max-width</span><span class="token punctuation">:</span> <span class="token function">var</span><span class="token punctuation">(</span>--wh-6<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="mw-7">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.mw-7</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.mw-7</span> <span class="token punctuation">{</span>
+  <span class="token property">max-width</span><span class="token punctuation">:</span> <span class="token function">var</span><span class="token punctuation">(</span>--wh-7<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="mw-8">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.mw-8</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.mw-8</span> <span class="token punctuation">{</span>
+  <span class="token property">max-width</span><span class="token punctuation">:</span> <span class="token function">var</span><span class="token punctuation">(</span>--wh-8<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="mw-10">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.mw-10</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.mw-10</span> <span class="token punctuation">{</span>
+  <span class="token property">max-width</span><span class="token punctuation">:</span> 10%<span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          <p>Percentage-based maximum widths.</p>
+
+        </p>
+        
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="mw-20">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.mw-20</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.mw-20</span> <span class="token punctuation">{</span>
+  <span class="token property">max-width</span><span class="token punctuation">:</span> 20%<span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="mw-25">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.mw-25</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.mw-25</span> <span class="token punctuation">{</span>
+  <span class="token property">max-width</span><span class="token punctuation">:</span> 25%<span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="mw-30">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.mw-30</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.mw-30</span> <span class="token punctuation">{</span>
+  <span class="token property">max-width</span><span class="token punctuation">:</span> 30%<span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="mw-40">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.mw-40</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.mw-40</span> <span class="token punctuation">{</span>
+  <span class="token property">max-width</span><span class="token punctuation">:</span> 40%<span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="mw-50">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.mw-50</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.mw-50</span> <span class="token punctuation">{</span>
+  <span class="token property">max-width</span><span class="token punctuation">:</span> 50%<span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="mw-60">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.mw-60</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.mw-60</span> <span class="token punctuation">{</span>
+  <span class="token property">max-width</span><span class="token punctuation">:</span> 60%<span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="mw-70">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.mw-70</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.mw-70</span> <span class="token punctuation">{</span>
+  <span class="token property">max-width</span><span class="token punctuation">:</span> 70%<span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="mw-75">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.mw-75</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.mw-75</span> <span class="token punctuation">{</span>
+  <span class="token property">max-width</span><span class="token punctuation">:</span> 75%<span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="mw-80">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.mw-80</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.mw-80</span> <span class="token punctuation">{</span>
+  <span class="token property">max-width</span><span class="token punctuation">:</span> 80%<span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="mw-90">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.mw-90</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.mw-90</span> <span class="token punctuation">{</span>
+  <span class="token property">max-width</span><span class="token punctuation">:</span> 90%<span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="mw-100">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.mw-100</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.mw-100</span> <span class="token punctuation">{</span>
+  <span class="token property">max-width</span><span class="token punctuation">:</span> 100%<span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="mw-third">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.mw-third</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.mw-third</span> <span class="token punctuation">{</span>
+  <span class="token property">max-width</span><span class="token punctuation">:</span> <span class="token function">calc</span><span class="token punctuation">(</span>100% / 3<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="mw-two-thirds">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.mw-two-thirds</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.mw-two-thirds</span> <span class="token punctuation">{</span>
+  <span class="token property">max-width</span><span class="token punctuation">:</span> <span class="token function">calc</span><span class="token punctuation">(</span>100% / 1.5<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+    
+      <h3 class="f-5 mt-4" id="class-scale:width-view-max-width">Width View Max Width</h3>
+      <p class="p">
+        <p>View-width percentage maximum widths</p>
+
+      </p>
+      
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="mw-10vw">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.mw-10vw</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.mw-10vw</span> <span class="token punctuation">{</span>
+  <span class="token property">max-width</span><span class="token punctuation">:</span> 10vw<span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="mw-20vw">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.mw-20vw</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.mw-20vw</span> <span class="token punctuation">{</span>
+  <span class="token property">max-width</span><span class="token punctuation">:</span> 20vw<span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="mw-30vw">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.mw-30vw</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.mw-30vw</span> <span class="token punctuation">{</span>
+  <span class="token property">max-width</span><span class="token punctuation">:</span> 30vw<span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="mw-40vw">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.mw-40vw</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.mw-40vw</span> <span class="token punctuation">{</span>
+  <span class="token property">max-width</span><span class="token punctuation">:</span> 40vw<span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="mw-50vw">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.mw-50vw</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.mw-50vw</span> <span class="token punctuation">{</span>
+  <span class="token property">max-width</span><span class="token punctuation">:</span> 50vw<span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="mw-60vw">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.mw-60vw</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.mw-60vw</span> <span class="token punctuation">{</span>
+  <span class="token property">max-width</span><span class="token punctuation">:</span> 60vw<span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="mw-70vw">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.mw-70vw</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.mw-70vw</span> <span class="token punctuation">{</span>
+  <span class="token property">max-width</span><span class="token punctuation">:</span> 70vw<span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="mw-80vw">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.mw-80vw</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.mw-80vw</span> <span class="token punctuation">{</span>
+  <span class="token property">max-width</span><span class="token punctuation">:</span> 80vw<span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="mw-90vw">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.mw-90vw</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.mw-90vw</span> <span class="token punctuation">{</span>
+  <span class="token property">max-width</span><span class="token punctuation">:</span> 90vw<span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="mw-100vw">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.mw-100vw</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.mw-100vw</span> <span class="token punctuation">{</span>
+  <span class="token property">max-width</span><span class="token punctuation">:</span> 100vw<span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+    
+      <h3 class="f-5 mt-4" id="class-scale:min-width">Min Width</h3>
+      <p class="p">
+        <p>Numeric/fixed minimum widths</p>
+
+      </p>
+      
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="minw-1">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.minw-1</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.minw-1</span> <span class="token punctuation">{</span>
+  <span class="token property">min-width</span><span class="token punctuation">:</span> <span class="token function">var</span><span class="token punctuation">(</span>--wh-1<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="minw-2">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.minw-2</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.minw-2</span> <span class="token punctuation">{</span>
+  <span class="token property">min-width</span><span class="token punctuation">:</span> <span class="token function">var</span><span class="token punctuation">(</span>--wh-2<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="minw-3">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.minw-3</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.minw-3</span> <span class="token punctuation">{</span>
+  <span class="token property">min-width</span><span class="token punctuation">:</span> <span class="token function">var</span><span class="token punctuation">(</span>--wh-3<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="minw-4">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.minw-4</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.minw-4</span> <span class="token punctuation">{</span>
+  <span class="token property">min-width</span><span class="token punctuation">:</span> <span class="token function">var</span><span class="token punctuation">(</span>--wh-4<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="minw-5">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.minw-5</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.minw-5</span> <span class="token punctuation">{</span>
+  <span class="token property">min-width</span><span class="token punctuation">:</span> <span class="token function">var</span><span class="token punctuation">(</span>--wh-5<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="minw-6">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.minw-6</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.minw-6</span> <span class="token punctuation">{</span>
+  <span class="token property">min-width</span><span class="token punctuation">:</span> <span class="token function">var</span><span class="token punctuation">(</span>--wh-6<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="minw-7">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.minw-7</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.minw-7</span> <span class="token punctuation">{</span>
+  <span class="token property">min-width</span><span class="token punctuation">:</span> <span class="token function">var</span><span class="token punctuation">(</span>--wh-7<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="minw-8">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.minw-8</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.minw-8</span> <span class="token punctuation">{</span>
+  <span class="token property">min-width</span><span class="token punctuation">:</span> <span class="token function">var</span><span class="token punctuation">(</span>--wh-8<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+    
+      <h3 class="f-5 mt-4" id="class-scale:min-width-percent">Min Width Percent</h3>
+      <p class="p">
+        <p>Percentage-based minimum widths</p>
+
+      </p>
+      
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="minw-10">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.minw-10</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.minw-10</span> <span class="token punctuation">{</span>
+  <span class="token property">min-width</span><span class="token punctuation">:</span> 10%<span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="minw-20">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.minw-20</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.minw-20</span> <span class="token punctuation">{</span>
+  <span class="token property">min-width</span><span class="token punctuation">:</span> 20%<span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="minw-25">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.minw-25</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.minw-25</span> <span class="token punctuation">{</span>
+  <span class="token property">min-width</span><span class="token punctuation">:</span> 25%<span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="minw-30">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.minw-30</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.minw-30</span> <span class="token punctuation">{</span>
+  <span class="token property">min-width</span><span class="token punctuation">:</span> 30%<span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="minw-40">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.minw-40</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.minw-40</span> <span class="token punctuation">{</span>
+  <span class="token property">min-width</span><span class="token punctuation">:</span> 40%<span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="minw-50">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.minw-50</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.minw-50</span> <span class="token punctuation">{</span>
+  <span class="token property">min-width</span><span class="token punctuation">:</span> 50%<span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="minw-60">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.minw-60</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.minw-60</span> <span class="token punctuation">{</span>
+  <span class="token property">min-width</span><span class="token punctuation">:</span> 60%<span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="minw-70">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.minw-70</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.minw-70</span> <span class="token punctuation">{</span>
+  <span class="token property">min-width</span><span class="token punctuation">:</span> 70%<span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="minw-75">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.minw-75</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.minw-75</span> <span class="token punctuation">{</span>
+  <span class="token property">min-width</span><span class="token punctuation">:</span> 75%<span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="minw-80">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.minw-80</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.minw-80</span> <span class="token punctuation">{</span>
+  <span class="token property">min-width</span><span class="token punctuation">:</span> 80%<span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="minw-90">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.minw-90</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.minw-90</span> <span class="token punctuation">{</span>
+  <span class="token property">min-width</span><span class="token punctuation">:</span> 90%<span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="minw-100">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.minw-100</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.minw-100</span> <span class="token punctuation">{</span>
+  <span class="token property">min-width</span><span class="token punctuation">:</span> 100%<span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="minw-third">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.minw-third</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.minw-third</span> <span class="token punctuation">{</span>
+  <span class="token property">min-width</span><span class="token punctuation">:</span> <span class="token function">calc</span><span class="token punctuation">(</span>100% / 3<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="minw-two-thirds">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.minw-two-thirds</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.minw-two-thirds</span> <span class="token punctuation">{</span>
+  <span class="token property">min-width</span><span class="token punctuation">:</span> <span class="token function">calc</span><span class="token punctuation">(</span>100% / 1.5<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+    
+      <h3 class="f-5 mt-4" id="class-scale:min-width-view-width">Min Width View Width</h3>
+      <p class="p">
+        <p>View-width-based minimum widths</p>
+
+      </p>
+      
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="minw-10vw">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.minw-10vw</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.minw-10vw</span> <span class="token punctuation">{</span>
+  <span class="token property">min-width</span><span class="token punctuation">:</span> 10vw<span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="minw-20vw">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.minw-20vw</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.minw-20vw</span> <span class="token punctuation">{</span>
+  <span class="token property">min-width</span><span class="token punctuation">:</span> 20vw<span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="minw-30vw">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.minw-30vw</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.minw-30vw</span> <span class="token punctuation">{</span>
+  <span class="token property">min-width</span><span class="token punctuation">:</span> 30vw<span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="minw-40vw">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.minw-40vw</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.minw-40vw</span> <span class="token punctuation">{</span>
+  <span class="token property">min-width</span><span class="token punctuation">:</span> 40vw<span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="minw-50vw">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.minw-50vw</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.minw-50vw</span> <span class="token punctuation">{</span>
+  <span class="token property">min-width</span><span class="token punctuation">:</span> 50vw<span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="minw-60vw">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.minw-60vw</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.minw-60vw</span> <span class="token punctuation">{</span>
+  <span class="token property">min-width</span><span class="token punctuation">:</span> 60vw<span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="minw-70vw">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.minw-70vw</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.minw-70vw</span> <span class="token punctuation">{</span>
+  <span class="token property">min-width</span><span class="token punctuation">:</span> 70vw<span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="minw-80vw">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.minw-80vw</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.minw-80vw</span> <span class="token punctuation">{</span>
+  <span class="token property">min-width</span><span class="token punctuation">:</span> 80vw<span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="minw-90vw">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.minw-90vw</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.minw-90vw</span> <span class="token punctuation">{</span>
+  <span class="token property">min-width</span><span class="token punctuation">:</span> 90vw<span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="minw-100vw">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.minw-100vw</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.minw-100vw</span> <span class="token punctuation">{</span>
+  <span class="token property">min-width</span><span class="token punctuation">:</span> 100vw<span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="minw-auto">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.minw-auto</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.minw-auto</span> <span class="token punctuation">{</span>
+  <span class="token property">min-width</span><span class="token punctuation">:</span> auto<span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+    
+      <h3 class="f-5 mt-4" id="class-scale:heights">Heights</h3>
+      <p class="p">
+        <p>Numeric/fixed heights.</p>
+
+      </p>
+      
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="h-1">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.h-1</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.h-1</span> <span class="token punctuation">{</span>
+  <span class="token property">height</span><span class="token punctuation">:</span> <span class="token function">var</span><span class="token punctuation">(</span>--wh-1<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="h-2">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.h-2</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.h-2</span> <span class="token punctuation">{</span>
+  <span class="token property">height</span><span class="token punctuation">:</span> <span class="token function">var</span><span class="token punctuation">(</span>--wh-2<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="h-3">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.h-3</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.h-3</span> <span class="token punctuation">{</span>
+  <span class="token property">height</span><span class="token punctuation">:</span> <span class="token function">var</span><span class="token punctuation">(</span>--wh-3<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="h-4">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.h-4</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.h-4</span> <span class="token punctuation">{</span>
+  <span class="token property">height</span><span class="token punctuation">:</span> <span class="token function">var</span><span class="token punctuation">(</span>--wh-4<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="h-5">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.h-5</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.h-5</span> <span class="token punctuation">{</span>
+  <span class="token property">height</span><span class="token punctuation">:</span> <span class="token function">var</span><span class="token punctuation">(</span>--wh-5<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="h-6">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.h-6</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.h-6</span> <span class="token punctuation">{</span>
+  <span class="token property">height</span><span class="token punctuation">:</span> <span class="token function">var</span><span class="token punctuation">(</span>--wh-6<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="h-7">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.h-7</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.h-7</span> <span class="token punctuation">{</span>
+  <span class="token property">height</span><span class="token punctuation">:</span> <span class="token function">var</span><span class="token punctuation">(</span>--wh-7<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="h-8">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.h-8</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.h-8</span> <span class="token punctuation">{</span>
+  <span class="token property">height</span><span class="token punctuation">:</span> <span class="token function">var</span><span class="token punctuation">(</span>--wh-8<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+    
+      <h3 class="f-5 mt-4" id="class-scale:height-percent">Height Percent</h3>
+      <p class="p">
+        <p>Percentage heights.</p>
+
+      </p>
+      
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="h-10">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.h-10</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.h-10</span> <span class="token punctuation">{</span>
+  <span class="token property">height</span><span class="token punctuation">:</span> 10%<span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="h-20">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.h-20</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.h-20</span> <span class="token punctuation">{</span>
+  <span class="token property">height</span><span class="token punctuation">:</span> 20%<span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="h-25">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.h-25</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.h-25</span> <span class="token punctuation">{</span>
+  <span class="token property">height</span><span class="token punctuation">:</span> 25%<span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="h-30">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.h-30</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.h-30</span> <span class="token punctuation">{</span>
+  <span class="token property">height</span><span class="token punctuation">:</span> 30%<span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="h-40">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.h-40</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.h-40</span> <span class="token punctuation">{</span>
+  <span class="token property">height</span><span class="token punctuation">:</span> 40%<span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="h-50">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.h-50</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.h-50</span> <span class="token punctuation">{</span>
+  <span class="token property">height</span><span class="token punctuation">:</span> 50%<span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="h-60">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.h-60</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.h-60</span> <span class="token punctuation">{</span>
+  <span class="token property">height</span><span class="token punctuation">:</span> 60%<span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="h-70">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.h-70</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.h-70</span> <span class="token punctuation">{</span>
+  <span class="token property">height</span><span class="token punctuation">:</span> 70%<span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="h-75">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.h-75</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.h-75</span> <span class="token punctuation">{</span>
+  <span class="token property">height</span><span class="token punctuation">:</span> 75%<span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="h-80">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.h-80</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.h-80</span> <span class="token punctuation">{</span>
+  <span class="token property">height</span><span class="token punctuation">:</span> 80%<span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="h-90">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.h-90</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.h-90</span> <span class="token punctuation">{</span>
+  <span class="token property">height</span><span class="token punctuation">:</span> 90%<span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="h-100">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.h-100</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.h-100</span> <span class="token punctuation">{</span>
+  <span class="token property">height</span><span class="token punctuation">:</span> 100%<span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="h-third">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.h-third</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.h-third</span> <span class="token punctuation">{</span>
+  <span class="token property">height</span><span class="token punctuation">:</span> <span class="token function">calc</span><span class="token punctuation">(</span>100% / 3<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="h-two-thirds">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.h-two-thirds</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.h-two-thirds</span> <span class="token punctuation">{</span>
+  <span class="token property">height</span><span class="token punctuation">:</span> <span class="token function">calc</span><span class="token punctuation">(</span>100% / 1.5<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+    
+      <h3 class="f-5 mt-4" id="class-scale:height-view-height">Height View Height</h3>
+      <p class="p">
+        <p>View-height percentage heights</p>
+
+      </p>
+      
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="h-10vh">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.h-10vh</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.h-10vh</span> <span class="token punctuation">{</span>
+  <span class="token property">height</span><span class="token punctuation">:</span> 10vh<span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="h-20vh">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.h-20vh</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.h-20vh</span> <span class="token punctuation">{</span>
+  <span class="token property">height</span><span class="token punctuation">:</span> 20vh<span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="h-30vh">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.h-30vh</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.h-30vh</span> <span class="token punctuation">{</span>
+  <span class="token property">height</span><span class="token punctuation">:</span> 30vh<span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="h-40vh">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.h-40vh</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.h-40vh</span> <span class="token punctuation">{</span>
+  <span class="token property">height</span><span class="token punctuation">:</span> 40vh<span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="h-50vh">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.h-50vh</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.h-50vh</span> <span class="token punctuation">{</span>
+  <span class="token property">height</span><span class="token punctuation">:</span> 50vh<span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="h-60vh">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.h-60vh</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.h-60vh</span> <span class="token punctuation">{</span>
+  <span class="token property">height</span><span class="token punctuation">:</span> 60vh<span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="h-70vh">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.h-70vh</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.h-70vh</span> <span class="token punctuation">{</span>
+  <span class="token property">height</span><span class="token punctuation">:</span> 70vh<span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="h-80vh">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.h-80vh</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.h-80vh</span> <span class="token punctuation">{</span>
+  <span class="token property">height</span><span class="token punctuation">:</span> 80vh<span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="h-90vh">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.h-90vh</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.h-90vh</span> <span class="token punctuation">{</span>
+  <span class="token property">height</span><span class="token punctuation">:</span> 90vh<span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="h-100vh">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.h-100vh</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.h-100vh</span> <span class="token punctuation">{</span>
+  <span class="token property">height</span><span class="token punctuation">:</span> 100vh<span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="h-auto">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.h-auto</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.h-auto</span> <span class="token punctuation">{</span>
+  <span class="token property">height</span><span class="token punctuation">:</span> auto<span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="max-height-1">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.max-height-1</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.max-height-1</span> <span class="token punctuation">{</span>
+  <span class="token property">max-height</span><span class="token punctuation">:</span> <span class="token function">var</span><span class="token punctuation">(</span>--wh-1<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          <p>Numeric/fixed maximum heights.</p>
+
+        </p>
+        
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="max-height-2">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.max-height-2</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.max-height-2</span> <span class="token punctuation">{</span>
+  <span class="token property">max-height</span><span class="token punctuation">:</span> <span class="token function">var</span><span class="token punctuation">(</span>--wh-2<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="max-height-3">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.max-height-3</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.max-height-3</span> <span class="token punctuation">{</span>
+  <span class="token property">max-height</span><span class="token punctuation">:</span> <span class="token function">var</span><span class="token punctuation">(</span>--wh-3<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="max-height-4">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.max-height-4</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.max-height-4</span> <span class="token punctuation">{</span>
+  <span class="token property">max-height</span><span class="token punctuation">:</span> <span class="token function">var</span><span class="token punctuation">(</span>--wh-4<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="max-height-5">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.max-height-5</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.max-height-5</span> <span class="token punctuation">{</span>
+  <span class="token property">max-height</span><span class="token punctuation">:</span> <span class="token function">var</span><span class="token punctuation">(</span>--wh-5<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="max-height-6">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.max-height-6</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.max-height-6</span> <span class="token punctuation">{</span>
+  <span class="token property">max-height</span><span class="token punctuation">:</span> <span class="token function">var</span><span class="token punctuation">(</span>--wh-6<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="max-height-7">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.max-height-7</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.max-height-7</span> <span class="token punctuation">{</span>
+  <span class="token property">max-height</span><span class="token punctuation">:</span> <span class="token function">var</span><span class="token punctuation">(</span>--wh-7<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="max-height-8">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.max-height-8</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.max-height-8</span> <span class="token punctuation">{</span>
+  <span class="token property">max-height</span><span class="token punctuation">:</span> <span class="token function">var</span><span class="token punctuation">(</span>--wh-8<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="max-height-10">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.max-height-10</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.max-height-10</span> <span class="token punctuation">{</span>
+  <span class="token property">max-height</span><span class="token punctuation">:</span> 10%<span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          <p>Percentage-based maximum heights.</p>
+
+        </p>
+        
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="max-height-20">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.max-height-20</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.max-height-20</span> <span class="token punctuation">{</span>
+  <span class="token property">max-height</span><span class="token punctuation">:</span> 20%<span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="max-height-25">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.max-height-25</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.max-height-25</span> <span class="token punctuation">{</span>
+  <span class="token property">max-height</span><span class="token punctuation">:</span> 25%<span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="max-height-30">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.max-height-30</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.max-height-30</span> <span class="token punctuation">{</span>
+  <span class="token property">max-height</span><span class="token punctuation">:</span> 30%<span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="max-height-40">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.max-height-40</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.max-height-40</span> <span class="token punctuation">{</span>
+  <span class="token property">max-height</span><span class="token punctuation">:</span> 40%<span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="max-height-50">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.max-height-50</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.max-height-50</span> <span class="token punctuation">{</span>
+  <span class="token property">max-height</span><span class="token punctuation">:</span> 50%<span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="max-height-60">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.max-height-60</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.max-height-60</span> <span class="token punctuation">{</span>
+  <span class="token property">max-height</span><span class="token punctuation">:</span> 60%<span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="max-height-70">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.max-height-70</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.max-height-70</span> <span class="token punctuation">{</span>
+  <span class="token property">max-height</span><span class="token punctuation">:</span> 70%<span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="max-height-75">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.max-height-75</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.max-height-75</span> <span class="token punctuation">{</span>
+  <span class="token property">max-height</span><span class="token punctuation">:</span> 75%<span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="max-height-80">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.max-height-80</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.max-height-80</span> <span class="token punctuation">{</span>
+  <span class="token property">max-height</span><span class="token punctuation">:</span> 80%<span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="max-height-90">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.max-height-90</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.max-height-90</span> <span class="token punctuation">{</span>
+  <span class="token property">max-height</span><span class="token punctuation">:</span> 90%<span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="max-height-100">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.max-height-100</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.max-height-100</span> <span class="token punctuation">{</span>
+  <span class="token property">max-height</span><span class="token punctuation">:</span> 100%<span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="max-height-third">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.max-height-third</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.max-height-third</span> <span class="token punctuation">{</span>
+  <span class="token property">max-height</span><span class="token punctuation">:</span> <span class="token function">calc</span><span class="token punctuation">(</span>100% / 3<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="max-height-two-thirds">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.max-height-two-thirds</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.max-height-two-thirds</span> <span class="token punctuation">{</span>
+  <span class="token property">max-height</span><span class="token punctuation">:</span> <span class="token function">calc</span><span class="token punctuation">(</span>100% / 1.5<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+    
+      <h3 class="f-5 mt-4" id="class-scale:height-view-max-height">Height View Max Height</h3>
+      <p class="p">
+        <p>View-height percentage maximum heights</p>
+
+      </p>
+      
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="max-height-10vh">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.max-height-10vh</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.max-height-10vh</span> <span class="token punctuation">{</span>
+  <span class="token property">max-height</span><span class="token punctuation">:</span> 10vh<span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="max-height-20vh">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.max-height-20vh</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.max-height-20vh</span> <span class="token punctuation">{</span>
+  <span class="token property">max-height</span><span class="token punctuation">:</span> 20vh<span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="max-height-30vh">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.max-height-30vh</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.max-height-30vh</span> <span class="token punctuation">{</span>
+  <span class="token property">max-height</span><span class="token punctuation">:</span> 30vh<span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="max-height-40vh">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.max-height-40vh</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.max-height-40vh</span> <span class="token punctuation">{</span>
+  <span class="token property">max-height</span><span class="token punctuation">:</span> 40vh<span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="max-height-50vh">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.max-height-50vh</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.max-height-50vh</span> <span class="token punctuation">{</span>
+  <span class="token property">max-height</span><span class="token punctuation">:</span> 50vh<span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="max-height-60vh">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.max-height-60vh</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.max-height-60vh</span> <span class="token punctuation">{</span>
+  <span class="token property">max-height</span><span class="token punctuation">:</span> 60vh<span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="max-height-70vh">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.max-height-70vh</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.max-height-70vh</span> <span class="token punctuation">{</span>
+  <span class="token property">max-height</span><span class="token punctuation">:</span> 70vh<span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="max-height-80vh">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.max-height-80vh</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.max-height-80vh</span> <span class="token punctuation">{</span>
+  <span class="token property">max-height</span><span class="token punctuation">:</span> 80vh<span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="max-height-90vh">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.max-height-90vh</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.max-height-90vh</span> <span class="token punctuation">{</span>
+  <span class="token property">max-height</span><span class="token punctuation">:</span> 90vh<span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+        <div class="mt-4 flex gap-3 items-center justify-between" id="max-height-100vh">
+          <h4 class="f-4 fw-3 ws-nowrap"><code>.max-height-100vh</code></h4>
+          <pre class="f-3 highlighted-code"><span class="token selector">.max-height-100vh</span> <span class="token punctuation">{</span>
+  <span class="token property">max-height</span><span class="token punctuation">:</span> 100vh<span class="token punctuation">;</span>
+<span class="token punctuation">}</span></pre>
+        </div>
+        <div class="ml-3">
+        <p class="p">
+          
+        </p>
+        
+        
+        </div>
+      
+    
+  </article>
+  <div class="z-5 ma-0 overflow-y-auto pa-2 w-20 h-100 pos-absolute top-0 right-2">
+    <div class="pa-3 ba bc-gray-700 bg-gray-900 br-3 shadow-1 ridiculous-liquid-glass-is-all-the-rage">
+      <h3>On this Page</h3>
+      <ul class="lst-none ma-0 pa-0">
+      
+        <li class="lh-copy"><a href="#class-scale:widths">Widths</a></li>
+      
+        <li class="lh-copy"><a href="#class-scale:width-percent">Width Percent</a></li>
+      
+        <li class="lh-copy"><a href="#class-scale:width-view-width">Width View Width</a></li>
+      
+        <li class="lh-copy"><a href="#class-scale:width-view-max-width">Width View Max Width</a></li>
+      
+        <li class="lh-copy"><a href="#class-scale:min-width">Min Width</a></li>
+      
+        <li class="lh-copy"><a href="#class-scale:min-width-percent">Min Width Percent</a></li>
+      
+        <li class="lh-copy"><a href="#class-scale:min-width-view-width">Min Width View Width</a></li>
+      
+        <li class="lh-copy"><a href="#class-scale:heights">Heights</a></li>
+      
+        <li class="lh-copy"><a href="#class-scale:height-percent">Height Percent</a></li>
+      
+        <li class="lh-copy"><a href="#class-scale:height-view-height">Height View Height</a></li>
+      
+        <li class="lh-copy"><a href="#class-scale:height-view-max-height">Height View Max Height</a></li>
+      
+      </ul>
+    </div>
+  </div>
+        </div>
+      <footer class="bg-black white mt-auto">
+        <p class="tc">
+          Copyright &copy; 2025 David Bryant Copeland.
+        </p>
+      </footer>
+    </section>
+  </main>
+</body>
+
+</html>
+

@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: ConstraintViolationMessages.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: ConstraintViolationMessages.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import BaseCustomElement from "./BaseCustomElement"
+import RichString from "./RichString"
+import ConstraintViolationMessage from "./ConstraintViolationMessage"
+
+/**
+ * Custom element to translate keys from {@link external:ValidityState} into 
+ * actual messges for a human.  This works by inserting `&lt;brut-cv>` elements
+ * as children, where the key represents the particular errors present in the `ValidityState` passed
+ * to `createMessages`. Note that this will not insert an element for `customError`, since there can't be
+ * any sort of general error message to correspond to that.
+ *
+ * @property {string} input-name if set, this indicates this element contains constraint violation messages
+ *                               for the input with this name inside the form this element is in. Currently doesn't affect
+ *                               this element's behavior, however AjaxSubmit will use it to locate where it 
+ *                               should insert server-side errors.
+ *
+ * @see Form
+ * @see ConstraintViolationMessage
+ * @see AjaxSubmit
+ *
+ * @customElement brut-cv-messages
+ */
+class ConstraintViolationMessages extends BaseCustomElement {
+  static tagName = "brut-cv-messages"
+
+  static observedAttributes = [
+    "show-warnings",
+    "input-name",
+  ]
+
+  inputNameChangedCallback({newValue}) {
+    // attribute listed for documentation purposes only
+  }
+
+  /** 
+   * Creates error messages based on the passed `ValidityState` and input name.
+   *
+   * This should be called as part of a Form validation event to provide a customized UX for
+   * the error messages, beyond what the browser would do by default.  The keys used are the same
+   * as the attributes of a `ValidityState`, so for example, a range underflow would mean that `validity.rangeUnderflow` would return
+   * true.  Thus, a `&lt;brut-cv>` would be created with `key="cv.fe.rangeUnderflow"`.
+   *
+   * The `cv.fe` is hard-coded to be consistent with Brut's server-side translation management.
+   *
+   * @param {ValidityState} validityState - the return from an element's `validity` when it's found to have constraint violations.
+   * @param {String} inputName - the element's `name`.
+   */
+  createMessages({validityState,inputName}) {
+    const errors = this.#VALIDITY_STATE_ATTRIBUTES.filter( (attribute) => validityState[attribute] )
+    this.clearClientSideMessages()
+    errors.forEach( (key) => {
+      const options = {
+        key: key,
+        "input-name": inputName,
+      }
+      const showWarnings = this.getAttribute("show-warnings")
+      if (showWarnings != null) {
+        options["show-warnings"] = showWarnings
+      }
+      const element = ConstraintViolationMessage.createElement(document,options)
+      this.appendChild(element)
+    })
+  }
+
+  /**
+   * Clear any client-side messages previously inserted by another element.
+   * This is useful to remove potentially out-of-date messages to replace with up-to-date ones.
+   */
+  clearClientSideMessages() {
+    this.querySelectorAll(ConstraintViolationMessage.clientSideSelector()).forEach( (element) => {
+      this.removeChild(element)
+    })
+  }
+
+  /**
+   * Clear any server-side messages previously inserted by another element or rendered from the server.
+   * This is useful to remove potentially out-of-date messages to replace with up-to-date ones.
+   */
+  clearServerSideMessages() {
+    this.querySelectorAll(ConstraintViolationMessage.serverSideSelector()).forEach( (element) => {
+      this.removeChild(element)
+    })
+  }
+
+  #VALIDITY_STATE_ATTRIBUTES = [
+    "badInput",
+    "patternMismatch",
+    "rangeOverflow",
+    "rangeUnderflow",
+    "stepMismatch",
+    "tooLong",
+    "tooShort",
+    "typeMismatch",
+    "valueMissing",
+    // customError omitted, since it makes no sense as a general error key to look up
+  ]
+}
+export default ConstraintViolationMessages
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-testing.html">testing</a></li></ul><h3>Externals</h3><ul><li><a href="external-CustomElementRegistry.html">CustomElementRegistry</a></li><li><a href="external-Performance.html">Performance</a></li><li><a href="external-Promise.html">Promise</a></li><li><a href="external-ValidityState.html">ValidityState</a></li><li><a href="external-Window.html">Window</a></li><li><a href="external-fetch.html">fetch</a></li></ul><h3>Classes</h3><ul><li><a href="AjaxSubmit.html">AjaxSubmit</a></li><li><a href="Autosubmit.html">Autosubmit</a></li><li><a href="BaseCustomElement.html">BaseCustomElement</a></li><li><a href="BrutCustomElements.html">BrutCustomElements</a></li><li><a href="BufferedLogger.html">BufferedLogger</a></li><li><a href="ConfirmSubmit.html">ConfirmSubmit</a></li><li><a href="ConfirmationDialog.html">ConfirmationDialog</a></li><li><a href="ConstraintViolationMessage.html">ConstraintViolationMessage</a></li><li><a href="ConstraintViolationMessages.html">ConstraintViolationMessages</a></li><li><a href="CopyToClipboard.html">CopyToClipboard</a></li><li><a href="Form.html">Form</a></li><li><a href="I18nTranslation.html">I18nTranslation</a></li><li><a href="LocaleDetection.html">LocaleDetection</a></li><li><a href="Logger.html">Logger</a></li><li><a href="Message.html">Message</a></li><li><a href="PrefixedLogger.html">PrefixedLogger</a></li><li><a href="RichString.html">RichString</a></li><li><a href="Tabs.html">Tabs</a></li><li><a href="Tracing.html">Tracing</a></li><li><a href="testing.AssetMetadata.html">AssetMetadata</a></li><li><a href="testing.AssetMetadataLoader.html">AssetMetadataLoader</a></li><li><a href="testing.CustomElementTest.html">CustomElementTest</a></li><li><a href="testing.DOMCreator.html">DOMCreator</a></li></ul><h3><a href="global.html">Global</a></h3>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.4</a> on Wed Jun 25 2025 22:30:10 GMT+0000 (Coordinated Universal Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>
