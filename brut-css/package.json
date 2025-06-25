@@ -5,6 +5,9 @@
   "keywords": [
     "css"
   ],
+  "files": [
+    "dist/"
+  ],
   "bugs": {
     "url": "https://github.com/thirdtank/brut/issues",
     "email": "davec@naildrivin5.com"
