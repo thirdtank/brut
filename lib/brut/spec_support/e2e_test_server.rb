@@ -1,3 +1,6 @@
+require "socket"
+require "timeout"
+
 # Manages running the app in test mode for the purposes of running End-to-End tests against it.
 class Brut::SpecSupport::E2ETestServer
   include SemanticLogger::Loggable
