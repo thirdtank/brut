@@ -20,16 +20,17 @@ module Sequel
 
 
         if args.last.is_a?(Hash)
+          name = args.first
           if name != "schema_migrations" && name != "schema_info"
             if args.last[:comment]
               run %{
-              comment on table #{args.first} is #{literal args.last[:comment]}
+                comment on table #{name} is #{literal args.last[:comment]}
               }
             else
-              raise ArgumentError, "Table #{args.first} must have a comment"
+              raise ArgumentError, "Table #{name} must have a comment"
             end
             if args.last[:external_id]
-              add_column args.first, :external_id, :citext, unique: true
+              add_column name, :external_id, :citext, unique: true
             end
           end
         end
