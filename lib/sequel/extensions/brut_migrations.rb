@@ -18,16 +18,19 @@ module Sequel
       def create_table(*args)
         super
 
+
         if args.last.is_a?(Hash)
-          if args.last[:comment]
-            run %{
+          if name != "schema_migrations" && name != "schema_info"
+            if args.last[:comment]
+              run %{
               comment on table #{args.first} is #{literal args.last[:comment]}
-            }
-          elsif args.first != "schema_info"
-            raise ArgumentError, "Table #{args.first} must have a comment"
-          end
-          if args.last[:external_id]
-            add_column args.first, :external_id, :citext, unique: true
+              }
+            else
+              raise ArgumentError, "Table #{args.first} must have a comment"
+            end
+            if args.last[:external_id]
+              add_column args.first, :external_id, :citext, unique: true
+            end
           end
         end
       end
@@ -52,7 +55,7 @@ module Sequel
       end
 
       def create_table_from_generator(name, generator, options)
-        if name != "schema_migrations"
+        if name != "schema_migrations" && name != "schema_info"
           if generator.columns.none? { |column| column[:primary_key] }
             generator.primary_key :id
           end
