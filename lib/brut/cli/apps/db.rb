@@ -170,6 +170,9 @@ class Brut::CLI::Apps::DB < Brut::CLI::App
       if !migrations_dir.exist?
         err.puts "#{migrations_dir} doesn't exist"
         return
+      elsif Dir[migrations_dir / "*.rb"].empty?
+        out.puts "No migrations yet"
+        return
       end
       Brut.container.sequel_db_handle.extension :pg_array
 
