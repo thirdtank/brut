@@ -16,6 +16,9 @@ class Brut::CLI::Apps::Test < Brut::CLI::App
     opts.on("--seed SEED", "Set the random seed to allow duplicating a test run")
     args "specs_to_run..."
     env_var("LOGGER_LEVEL_FOR_TESTS",purpose: "Can be set to debug, info, warn, error, or fatal to control logging during tests. Defaults to 'warn' to avoid verbose test output")
+    env_var("RSPEC_WARNINGS", purpose: "If set to 'true', configures RSpec warnings for the test run. NOTE: this is used in the app's spec_helper.rb so could've been removed")
+    env_var("RSPEC_PROFILE_EXAMPLES", purpose: "If set to any value, it is converted to an int and set as RSpec's number of examples to profile. NOTE: this is used in the app's spec_helper.rb so could've been removed")
+
 
     def rspec_command
       parts = [
@@ -77,6 +80,8 @@ class Brut::CLI::Apps::Test < Brut::CLI::App
     env_var("E2E_SLOW_MO",purpose: "If set to, will attempt to slow operations down by this many milliseconds")
     env_var("E2E_TIMEOUT_MS",purpose: "ms to wait for any browser activity before failing the test. And here you didn't think you'd get away without using sleep in browse-based tests?")
     env_var("LOGGER_LEVEL_FOR_TESTS",purpose: "Can be set to debug, info, warn, error, or fatal to control logging during tests. Defaults to 'warn' to avoid verbose test output")
+    env_var("RSPEC_WARNINGS", purpose: "If set to 'true', configures RSpec warnings for the test run. NOTE: this is used in the app's spec_helper.rb so could've been removed")
+    env_var("RSPEC_PROFILE_EXAMPLES", purpose: "If set to any value, it is converted to an int and set as RSpec's number of examples to profile. NOTE: this is used in the app's spec_helper.rb so could've been removed")
 
     def rspec_cli_args = "--tag e2e"
     def rebuild_by_default?       = true
