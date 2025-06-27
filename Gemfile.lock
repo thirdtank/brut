@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    brut (0.0.24)
+    brut (0.0.25)
       concurrent-ruby
       i18n
       irb
