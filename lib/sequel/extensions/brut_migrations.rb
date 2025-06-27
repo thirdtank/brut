@@ -23,7 +23,7 @@ module Sequel
             run %{
               comment on table #{args.first} is #{literal args.last[:comment]}
             }
-          else
+          elsif args.first != "schema_info"
             raise ArgumentError, "Table #{args.first} must have a comment"
           end
           if args.last[:external_id]
