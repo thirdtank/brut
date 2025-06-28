@@ -12,14 +12,18 @@ class Brut::FrontEnd::Components::Inputs::RadioButton < Brut::FrontEnd::Componen
   # @param [String] value the value for this radio button.  The {Brut::FrontEnd::Forms::RadioButtonGroupInput} value is compared
   # against this value to determine if this `<input>` will have the `checked` attribute.
   # @param [Hash] html_attributes any additional HTML attributes to include on the `<input>` element.
-  def self.for_form_input(form:, input_name:, value:, html_attributes: {})
+  def initialize(form:, input_name:, value:, html_attributes: {})
+    input = form.input(input_name)
     default_html_attributes = {}
     html_attributes = html_attributes.map { |key,value| [ key.to_sym, value ] }.to_h
-    input = form.input(input_name)
 
     default_html_attributes[:required] = input.required
     default_html_attributes[:type]     = "radio"
-    default_html_attributes[:name]     = input.name
+    default_html_attributes[:name]     = if input.array?
+                                            "#{input.name}[]"
+                                          else
+                                            input.name
+                                          end
     default_html_attributes[:value]    = value
 
     selected_value = input.value
@@ -36,6 +40,6 @@ class Brut::FrontEnd::Components::Inputs::RadioButton < Brut::FrontEnd::Componen
         end
       end
     end
-    Brut::FrontEnd::Components::Inputs::RadioButton.new(default_html_attributes.merge(html_attributes))
+    @attributes = default_html_attributes.merge(html_attributes)
   end
 end
