@@ -4,16 +4,24 @@ class Brut::FrontEnd::Components::FormTag < Brut::FrontEnd::Component
   # If the form's action is GET, it will not.
   #
   # @example Route without parameters
-  #   <%= form_tag(for: NewWidgetForm, class: "new-form") do %>
-  #     <input type="text" name="name">
-  #     <button>Create</button>
-  #   <% end %>
+  #   # assumes you have included Brut::FrontEnd::Components 
+  #   def view_template
+  #     FormTag(for: NewWidgetForm, class: "new-form") do
+  #       input(type: "text",  name: "name")
+  #       button { "Create" }
+  #     end
+  #   end
   #
   # @example Route with parameters
-  #   <%= form_tag(for: SaveWidgetWithIdForm, route_params: { id: widget.external_id }, class: "new-form") do %>
-  #     <input type="text" name="name">
-  #     <button>Save</button>
-  #   <% end %>
+  #   # assumes you have included Brut::FrontEnd::Components 
+  #   def view_template
+  #     FormTag(for: SaveWidgetWithIdForm,
+  #             route_params: { id: widget.external_id },
+  #             class: "new-form") do
+  #       input(type: "text",  name: "name")
+  #       button { "Save" }
+  #     end
+  #   end
   #
   # @param route_params [Hash] if the form requires route parameters, their values must be passed here so that the HTML `action`
   # attribute can be constructed properly.
