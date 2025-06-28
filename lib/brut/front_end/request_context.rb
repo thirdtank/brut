@@ -167,6 +167,7 @@ private
 
   def args_for_method(method:, request_params:, form:,route:)
     args = {}
+    rack_request = Rack::Request.new(self[:env])
     method.parameters.each do |(type,name)|
 
       if name.to_s == "**" || name.to_s == "*"
@@ -182,6 +183,14 @@ private
         header_value = self[:env][name.to_s.upcase]
         if header_value
           args[name] = header_value
+        elsif type == :keyreq
+          args[name] = nil
+        end
+      elsif name.to_s =~ /^rack_request_[^_]+/ &&
+        rack_request.respond_to?(name.to_s.sub(/^rack_request_/,""))
+        value = rack_request.send(name.to_s.sub(/^rack_request_/,""))
+        if value
+          args[name] = value
         elsif type == :keyreq
           args[name] = nil
         end
