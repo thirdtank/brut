@@ -96,7 +96,7 @@ class Brut::FrontEnd::Components::Inputs::InputTag < Brut::FrontEnd::Components:
         default_html_attributes["data-#{constraint}"] = true
       end
     end
-    @attributes = default_html_attributes.merge(html_attributes))
+    @attributes = default_html_attributes.merge(html_attributes)
   end
 
   def view_template
