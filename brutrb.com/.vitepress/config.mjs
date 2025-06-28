@@ -83,12 +83,24 @@ export default defineConfig({
       },
       {
         text: "Advanced Topics",
-        collapsed: false,
+        collapsed: true,
         items: [
           { text: "Route Hooks", link: "/hooks" },
           { text: "Middleware", link: "/middleware" },
           { text: "Instrumentation", link: "/instrumentation" },
           { text: "Security", link: "/security" },
+        ],
+      },
+      {
+        text: "Recipes",
+        collapsed: true,
+        items: [
+          { text: "Authentication", link: "/recipes/authentication" },
+          { text: "Form Validations", link: "/recipes/form-validations" },
+          { text: "Database Migrations", link: "/recipes/database-migrations" },
+          { text: "Ajax Form Submission", link: "/recipes/ajax-form" },
+          { text: "Custom Telemetry", link: "/recipes/telemetry" },
+          { text: "CLI App/Task", link: "/recipes/cli-app" },
         ],
       }
     ],
