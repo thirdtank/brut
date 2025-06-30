@@ -24,3 +24,16 @@ RSpec::Matchers.define :have_i18n_string do |key,**args|
   end
 end
 
+# Used in component or page specs to check if a Nokogiri node's 
+# text contains a specific i18n string, without you having
+# to use `t` to look it up.
+#
+# @example
+#   result = generate_and_parse(page)
+#   expect(result.e!("h3")).to have_i18n_string(:greeting)
+#
+# @example I18n string with parameters
+#   result = generate_and_parse(page)
+#   expect(result.e!("h3")).to have_i18n_string(:user_greeting, email: account.email)
+class Brut::SpecSupport::Matchers::HaveI18nString
+end

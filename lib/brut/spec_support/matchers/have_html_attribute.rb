@@ -25,6 +25,16 @@ RSpec::Matchers.define :have_html_attribute do |attribute|
   end
 end
 
+# Used in component or page specs to check that a given node
+# has a particular HTML attribnute, or an attribute with a speecific value.
+#
+# @example
+#   result = generate_and_parse(page)
+#   expect(result.e!("blockquote")).to have_html_attribute(:id)
+#
+# @example Expecting a value as well
+#   result = generate_and_parse(page)
+#   expect(result.e!("blockquote")).to have_html_attribute(id: "foo")
 class Brut::SpecSupport::Matchers::HaveHTMLAttribute
 
   attr_reader :error

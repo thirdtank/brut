@@ -133,7 +133,8 @@ class Brut::CLI::Apps::Test < Brut::CLI::App
           test_expected: true,
         }
         if pathname.fnmatch?( (Brut.container.components_src_dir / "**").to_s )
-          if pathname.basename.to_s == "app_component.rb"
+          if pathname.basename.to_s == "app_component.rb" || 
+             pathname.basename.to_s == "custom_element_registration.rb"
             hash[:type] = :infrastructure
             hash[:test_expected] = false
           else

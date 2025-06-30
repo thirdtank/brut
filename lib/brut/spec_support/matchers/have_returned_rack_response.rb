@@ -42,3 +42,25 @@ RSpec::Matchers.define :have_returned_rack_response do |http_status: :any, heade
   end
 
 end
+
+# Used on handler specs to check that a response returned
+# a Rack response. Can also be used
+# with {Brut::SpecSupport::ComponentSupport#generate_result} to 
+# check that a Page's {Brut::FrontEnd::Page#before_generate} method
+# did what you expect
+#
+# The matcher expects these keyword arguments:
+#
+# * `http_status:` - the expected HTTP status code as a number, or `:any` (the default), if it's not relevant to the test.
+# * `headers:` - the expected headers as a Hash of Strings to Strings, or `:any` (the default), if they are not relevant to the test.
+# * `body:` - the expected body, or `:any` (the default), if it is not relevant to the test.
+#
+# @example
+#   result = handler.handle
+#   expect(result).to have_returned_rack_response(
+#                        http_status: 200,
+#                        headers: { "Content-Type" => "text/html" }
+#                        )
+#
+class Brut::SpecSupport::Matchers::HaveReturnedRackResponse
+end

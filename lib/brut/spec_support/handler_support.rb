@@ -6,7 +6,7 @@ require_relative "session_support"
 #
 #
 # * `have_redirected_to` to check that the handler redirected to a give URI
-# * `have_rendered` to check that the handler rendered a specific page
+# * `have_generated` to check that the handler rendered a specific page
 # * `have_returned_http_status` to check that the handler returned an HTTP status
 module Brut::SpecSupport::HandlerSupport
   include Brut::SpecSupport::FlashSupport

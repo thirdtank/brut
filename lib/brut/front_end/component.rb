@@ -72,16 +72,24 @@ class Brut::FrontEnd::Component < Phlex::HTML
       }
     end
 
-    # Return a component that you would like Brut to instantiate.
-    # This will use keyword injection to create the component, which means that if the component
-    # doesn't require any data from this component, you do not need to pass through those values.
-    # For example, you may have a component that renders the flash message.  To avoid requiring your component to
-    # be passed the flash, a global component can be injected with it from Brut.
+    # Render (in Phlex parlance) a component that you would like Brut to
+    # instantiate.  This is useful when you want to use a component that
+    # only requires values from the {Brut::FrontEnd::RequestContext}. By
+    # using this method, *this* component does not have to receive
+    # data from the {Brut::FrontEnd::RequestContext} that only serves to pass
+    # to the component you use here.
     #
-    # @return [Object] instance of `component_klass`, as created by Brut. This will
-    #         not render the component.
+    # For example, you may have a component that renders the flash message.  To avoid requiring *this* component/page to be passed the flash, a global component can be injected with it from Brut.
+    #
+    # This component *will* be rendered into the Phlex context. Do not call
+    # `render` on the result, nor rely on the return value.
+    #
+    # @param [Class] component_klass the component class to use in the view.
+    #        This class's
+    #        initializer must only require information available from the 
+    #        {Brut::FrontEnd::RequestContext}.
     def global_component(component_klass)
-      Brut::FrontEnd::RequestContext.inject(component_klass)
+      render Brut::FrontEnd::RequestContext.inject(component_klass)
     end
   end
   include Helpers

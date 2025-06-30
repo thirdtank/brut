@@ -14,3 +14,13 @@ RSpec::Matchers.define :be_page_for do |klass|
     end
   end
 end
+
+# Matcher for end-to-end tests to assert that the current page
+# is the page you expect it to be.  This is based on the
+# {Brut::FrontEnd::Components::PageIdentifier} component, which must
+# be included on the page for this matcher to work.
+#
+# @example
+#   expect(page).to be_page_for(HomePage)
+class Brut::SpecSupport::Matchers::BePageFor
+end

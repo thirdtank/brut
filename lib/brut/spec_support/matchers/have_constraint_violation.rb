@@ -29,6 +29,16 @@ RSpec::Matchers.define :have_constraint_violation do |field,key:,index:nil|
   end
 end
 
+# Matcher to check that a from has a specific constraint violation.
+#
+# @example
+#    expect(form).to have_constraint_violation(:email, key: :required)
+#
+# @example Index fields (requires that the third email field have a constraint violation)
+#    expect(form).to have_constraint_violation(:email, key: :required, index: 2)
+#
+# @example Negated
+#    expect(form).not_to have_constraint_violation(:email, key: :required)
 class Brut::SpecSupport::Matchers::HaveConstraintViolation
   attr_reader :fields_found
   attr_reader :keys_on_field_found

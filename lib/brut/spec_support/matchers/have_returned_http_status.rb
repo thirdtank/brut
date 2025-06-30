@@ -31,5 +31,25 @@ RSpec::Matchers.define :have_returned_http_status do |http_status=nil|
       "Got #{http_status} when not expected (#{result.class} was returned)"
     end
   end
+end
 
+# Used on handler specs to check that a response returned
+# a particular HTTP status code. Can also be used
+# with {Brut::SpecSupport::ComponentSupport#generate_result} to 
+# check that a Page's {Brut::FrontEnd::Page#before_generate} method
+# did what you expect
+#
+# @example
+#   result = handler.handle
+#   expect(result).to have_returned_http_status(404)
+#
+# @example dont' care what status, just that one was returned instead of a page generation
+#   result = handler.handle
+#   expect(result).to have_returned_http_status
+#
+#
+# @example testing a `before_generate` method
+#   result = generate_result(page)
+#   expect(result).to have_returned_http_status(403)
+class Brut::SpecSupport::Matchers::HaveReturnedHttpStatus
 end

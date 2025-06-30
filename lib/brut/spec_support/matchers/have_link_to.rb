@@ -13,3 +13,18 @@ RSpec::Matchers.define :have_link_to do |page_klass,**args|
     "Did not expect to find link to #{page_klass.routing(**args)}."
   end
 end
+
+# Used on a component/page spec to check that there is a link
+# to a specific routing.  This handles creating a CSS selector
+# like `[href="#{page_klass.routing(**args)}"]`.
+#
+# @example
+#   result = generate_and_parse(page)
+#   expect(result.e!("nav")).to have_link_to(HomePage)
+#
+# @example link with parameters
+#   result = generate_and_parse(page)
+#   expect(result.e!("nav")).to have_link_to(WidgetsByWidgetIdPage, id: widget.id)
+#
+class Brut::SpecSupport::Matchers::HaveLinkTo
+end
