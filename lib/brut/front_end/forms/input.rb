@@ -82,14 +82,14 @@ class Brut::FrontEnd::Forms::Input
     step_mismatch = false
 
     @validity_state = Brut::FrontEnd::Forms::ValidityState.new(
-      value_missing: missing,
-      too_short: too_short,
-      too_long: too_short,
-      range_overflow: range_overflow,
-      range_underflow: range_underflow,
-      pattern_mismatch: pattern_mismatch,
-      step_mismatch: step_mismatch,
-      type_mismatch: type_mismatch,
+      valueMissing: missing,
+      tooShort: too_short,
+      tooLong: too_short,
+      rangeOverflow: range_overflow,
+      rangeUnderflow: range_underflow,
+      patternMismatch: pattern_mismatch,
+      stepMismatch: step_mismatch,
+      typeMismatch: type_mismatch,
     )
     @value = new_value
   end

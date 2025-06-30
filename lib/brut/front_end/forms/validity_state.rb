@@ -3,6 +3,11 @@
 # In a sense, this is a wrapper for one or more {Brut::FrontEnd::Forms::ConstraintViolation} instances in the
 # context of an input.
 #
+# This class also holds the logic related to client- vs. server-side constraint
+# violations.  As such, {.KEYS} is the list of known client-side 
+# constraint violation keys, as defined by browser's `ValidityState` class. These
+# are left as camel-case to make this clear.
+#
 # @see https://developer.mozilla.org/en-US/docs/Web/API/ValidityState
 class Brut::FrontEnd::Forms::ValidityState
   include Enumerable
@@ -45,6 +50,24 @@ class Brut::FrontEnd::Forms::ValidityState
       block.call(constraint)
     end
   end
+
+
+  # These are the attributes of the browser's `ValidityState`'s properties.
+  # They are left as camel-case to clearly indicate they come from the browser.
+  #
+  # @see https://developer.mozilla.org/en-US/docs/Web/API/ValidityState
+  KEYS = [
+    "badInput",
+    "customError",
+    "patternMismatch",
+    "rangeOverflow",
+    "rangeUnderflow",
+    "stepMismatch",
+    "tooLong",
+    "tooShort",
+    "typeMismatch",
+    "valueMissing",
+  ]
 
 end
 

@@ -32,7 +32,7 @@ class Brut::FrontEnd::Forms::RadioButtonGroupInput
               end
 
     @validity_state = Brut::FrontEnd::Forms::ValidityState.new(
-      value_missing: missing,
+      valueMissing: missing,
     )
     @value = new_value
   end
