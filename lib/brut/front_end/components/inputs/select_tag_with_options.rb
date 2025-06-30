@@ -27,14 +27,14 @@ class Brut::FrontEnd::Components::Inputs::SelectTagWithOptions < Brut::FrontEnd:
   #        to be used as the `value` attribute and option text content, respectively.
   #
   # @return [Brut::FrontEnd::Components::Inputs::SelectTagWithOptions] the select input ready to be placed into a view.
-  def self.for_form_input(form:,
-                          input_name:,
-                          options:,
-                          include_blank: false,
-                          value_attribute:,
-                          option_text_attribute:,
-                          index: nil,
-                          html_attributes: {})
+  def initialize(form:,
+                 input_name:,
+                 options:,
+                 include_blank: false,
+                 value_attribute:,
+                 option_text_attribute:,
+                 index: nil,
+                 html_attributes: {})
     html_attributes = html_attributes.map { |key,value| [ key.to_sym, value ] }.to_h
     default_html_attributes = {}
     index ||= 0
@@ -54,84 +54,26 @@ class Brut::FrontEnd::Components::Inputs::SelectTagWithOptions < Brut::FrontEnd:
              input.name
            end
 
-    Brut::FrontEnd::Components::Inputs::SelectTagWithOptions.new(
-      name: name,
-      options:,
-      selected_value: input.value,
-      value_attribute:,
-      option_text_attribute:,
-      include_blank:,
-      html_attributes: default_html_attributes.merge(html_attributes)
-    )
-  end
+    input_value = input.value
 
-  # Create the element.
-  #
-  # @param [String] name the name of the input
-  # @param [Array<Object>] options An array of objects represented what is being selected.
-  #        These can be any object and are ideally whatever domain object or
-  #        data type you want on the backend to represent this selection.
-  # @param [Symbol|String] value_attribute the name of an attribute to determine an option's value.
-  #        This will be called on each element of `options` to get the value used for the `<option>`'s
-  #        `value` attribute.  The value returned by `value_attribute` should be unique amongst the
-  #        `options` provided *and* be distinct from whatever `value` is used for `include_blank`.
-  # @param [String] selected_value the value of the selected option. Note that this is the *value*
-  #        of the selected option, not the selected option itself. To set the selected value
-  #        based on a selected option, omit this and use `selected_option`
-  # @param [String] selected_option the selected option. Note that `value_attribute` will be called
-  #        on this to determine the selected value to use when generating HTML. Also note that
-  #        this object must be in `options` or an exeception is raised.
-  # @param [Symbol|String] option_text_attribute the name of an attribute to determine the text for an option.
-  #        This will be called on each element of `options` to get the value used for the `<option>`'s
-  #        text content.  The value returned by `option_text_attribute` need not be unique, though if it
-  #        is not unique, it will certainly be confusing.
-  # @param [Hash] html_attributes any additional HTML attributes to include on the `<select>` element.
-  # @param [false|true|Hash] include_blank configure how and if to include a blank element in the select.
-  #        If this is false, there will be no blank element. If it's `true`, there will be one with
-  #        no value or text.  If this is a `Hash` it must contain a `value:` key and a `text_content:` key
-  #        to be used as the `value` attribute and option text content, respectively.
-  #
-  # @raise ArgumentError if `selected_option` is present, but not in `options` or if `selected_value` is
-  #        present, but no option's value for `value_attribute` is that value.
-  #
-  # XXX: Why does this not ask the form for the selected_value?
-  # XXX: This doesn't do well when values are strings
-  def initialize(name:,
-                 options:,
-                 value_attribute:,
-                 selected_value: nil,
-                 selected_option: nil,
-                 option_text_attribute:,
-                 include_blank: false,
-                 html_attributes:)
     @options                = options
     @include_blank          = IncludeBlank.from_param(include_blank)
     @value_attribute        = value_attribute
     @option_text_attribute  = option_text_attribute
-    @html_attributes        = html_attributes
+    @html_attributes        = default_html_attributes.merge(html_attributes)
     @html_attributes[:name] = name
 
-    if selected_value.nil?
-      if selected_option.nil?
-        @selected_value = nil # explicitly nothing is selected
-      else
-        option = options.detect { |option|
-          option.send(@value_attribute) == selected_option.send(@value_attribute)
-        }
-        if option.nil?
-          raise ArgumentError, "selected_option #{selected_option} (with #{value_attribute} '#{selected_option.send(value_attribute)}') was not found in options"
-        end
-        @selected_value = option.send(@value_attribute)
-      end
+    if input_value.nil?
+      @selected_value = nil # explicitly nothing is selected
     else
-      if selected_value.kind_of?(Array)
-        raise "WTF: #{name}"
+      if input_value.kind_of?(Array)
+        raise "WTF: #{name}" # XXX?
       end
       option = options.detect { |option|
-        selected_value == option.send(@value_attribute)
+        input_value == option.send(@value_attribute)
       }
       if option.nil?
-        raise ArgumentError, "selected_value #{selected_value} was not the value for #{value_attribute} on any of the options: #{options.map { |option| option.send(value_attribute) }.join(', ')}"
+        raise ArgumentError, "selected_value #{input_value} was not the value for #{value_attribute} on any of the options: #{options.map { |option| option.send(value_attribute) }.join(', ')}"
       end
       @selected_value = option.send(@value_attribute)
     end
