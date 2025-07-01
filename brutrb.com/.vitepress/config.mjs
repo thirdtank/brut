@@ -89,6 +89,7 @@ export default defineConfig({
           { text: "Middleware", link: "/middleware" },
           { text: "Instrumentation", link: "/instrumentation" },
           { text: "Security", link: "/security" },
+          { text: "LSP Support", link: "/lsp" },
         ],
       },
       {

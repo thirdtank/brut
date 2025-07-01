@@ -12,8 +12,8 @@ module Brut::FrontEnd::Forms::InputDeclarations
   end
 
   # Declares a select for this form, to be modeled via an HTML `<SELECT>` tag. Note that this will not define the values that appear
-  # in the select.  That is done when the select is rendered, which you might do with
-  # {Brut::FrontEnd::Components::Inputs::Select.for_form_input}
+  # in the select.  That is done when the select is rendered, which you might do with a
+  # {Brut::FrontEnd::Components::Inputs::Select}
   #
   # @param [String] name The name of the input (used in the `name` attribute)
   # @param [Hash] attributes Attributes to be used on the tag that represent its contraints. See {Brut::FrontEnd::Forms::SelectInputDefinition}
@@ -28,7 +28,7 @@ module Brut::FrontEnd::Forms::InputDeclarations
   # input tags.
   #
   # Note that this is not where you would define the possible values for the group. That is done in
-  # {Brut::FrontEnd::Components::Inputs::RadioButton.for_form_input}.
+  # {Brut::FrontEnd::Components::Inputs::RadioButton}.
   #
   # @param [String] name The name of the group (used in the `name` attribute)
   # @param [Hash] attributes Attributes to be used on the tag that represent its contraints. See {Brut::FrontEnd::Forms::RadioButtonGroupInputDefinition}

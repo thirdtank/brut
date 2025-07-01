@@ -87,7 +87,7 @@ class LoginPage < AppPage
 end
 ```
 
-Brut can generate the HTML for the needed inputs via `Brut::FrontEnd::Components::Inputs::TextField.for_form_input`, which is a very long name.  Hold that thought for now. This method will generate an `<input>` element for you, based on how you've set up the field in your form class. The HTML element will have a value set based on the form, if there is a value.
+Brut can generate the HTML for the needed inputs via `Brut::FrontEnd::Components::Inputs::TextField`, which is a very long class name.  Hold that thought for now. This method will generate an `<input>` element for you, based on how you've set up the field in your form class. The HTML element will have a value set based on the form, if there is a value.
 
 ```ruby {11,12}
 # app/src/front_end/pages/login_page.rb
@@ -100,8 +100,8 @@ class LoginPage < AppPage
     form_tag(method: :post,
              action: LoginHandler.routing) do
       # We promise you don't have to type this every time!
-      Brut::FrontEnd::Components::Inputs::TextField.for_form_input(form: @form, input_name: :email)
-      Brut::FrontEnd::Components::Inputs::TextField.for_form_input(form: @form, input_name: :password)
+      Brut::FrontEnd::Components::Inputs::TextField.new(form: @form, input_name: :email)
+      Brut::FrontEnd::Components::Inputs::TextField.new(form: @form, input_name: :password)
       button { "Login" }
     end
   end
@@ -134,7 +134,7 @@ class LoginPage < AppPage
 end
 ```
 
-This allows you to call `Inputs::TextField.for_form_input`:
+This allows you to call `Inputs::TextField` like a method:
 
 ```ruby {12,13}
 # app/src/front_end/pages/login_page.rb
@@ -148,8 +148,8 @@ class LoginPage < AppPage
   def page_template
     form_tag(method: :post,
              action: LoginHandler.routing) do
-      Inputs::TextField.for_form_input(form: @form, input_name: :email)
-      Inputs::TextField.for_form_input(form: @form, input_name: :password)
+      Inputs::TextField(form: @form, input_name: :email)
+      Inputs::TextField(form: @form, input_name: :password)
       button { "Login" }
     end
   end
@@ -217,7 +217,7 @@ with that email and password. Let's assume the existence of the class `Authorize
 If that returns `nil`, we want to re-render the `LoginPage`, exposing some sort of constraint violation message
 so it can be rendered. We also want the form fields to be pre-filled with the values the visitor provided.
 
-`for_form_input` can handle this, so we need to pass our form object into `LoginPage` instead of allowing `LoginPage` to create an empty one.  We can do that by adding a `form:` keyword argument that defaults to `nil`:
+`Brut::FrontEnd::Components` can handle this, so we need to pass our form object into `LoginPage` instead of allowing `LoginPage` to create an empty one.  We can do that by adding a `form:` keyword argument that defaults to `nil`:
 
 ```ruby {3,4}
 # app/src/front_end/pages/login_page.rb
@@ -229,8 +229,8 @@ class LoginPage < AppPage
   def page_template
     form_tag(method: :post,
              action: LoginHandler.routing) do
-      Inputs::TextField.for_form_input(form: @form, input_name: :email)
-      Inputs::TextField.for_form_input(form: @form, input_name: :password)
+      Inputs::TextField(form: @form, input_name: :email)
+      Inputs::TextField(form: @form, input_name: :password)
       button { "Login" }
     end
   end
@@ -267,12 +267,11 @@ class LoginHandler < AppHandler
 end
 ```
 
-When `LoginPage` generates HTML, different HTML is generated, since the form being passed to
-`for_form_input` contains constraint violations.
+When `LoginPage` generates HTML, different HTML is generated, since the form being passed to the components contains constraint violations.
 
 #### Showing Constraint Violations in HTML
 
-When `Inputs::TextField.for_form_input` is called with an existing form that has constraint violations, different HTML is generated.  This is what would be produced by our existing `LoginPage` (again, formatted her for clarity):
+When `Brut::FrontEnd::Components::Inputs::TextField` is created with an existing form that has constraint violations, different HTML is generated.  This is what would be produced by our existing `LoginPage` (again, formatted her for clarity):
 
 ```html {3}
 <form method="post" action="/login">
@@ -335,10 +334,10 @@ def page_template
   form_tag(method: :post,
            action: LoginHandler.routing) do
 
-    Inputs::TextField.for_form_input(form: @form, input_name: :email)
+    Inputs::TextField(form: @form, input_name: :email)
     ConstraintViolations(form: @form, input_name: :email)
 
-    Inputs::TextField.for_form_input(form: @form, input_name: :password)
+    Inputs::TextField(form: @form, input_name: :password)
     ConstraintViolations(form: @form, input_name: :password)
 
     button { "Login" }
@@ -419,10 +418,10 @@ def page_template
     form_tag(method: :post,
              action: LoginHandler.routing) do
 
-      Inputs::TextField.for_form_input(form: @form, input_name: :email)
+      Inputs::TextField(form: @form, input_name: :email)
       ConstraintViolations(form: @form, input_name: :email)
 
-      Inputs::TextField.for_form_input(form: @form, input_name: :password)
+      Inputs::TextField(form: @form, input_name: :password)
       ConstraintViolations(form: @form, input_name: :password)
 
       button { "Login" }
@@ -564,7 +563,7 @@ class LoginForm < AppForm
 end
 ```
 
-Checkboxes can be rendered by `Inputs::TextField.for_form_input`, and their `value` attribute would always be the string `"true"`. If the form's value for the input is the string `"true"`, the checkbox would have the `checked` attribute:
+Checkboxes can be rendered by a `Brut::FrontEnd::Components::Inputs::TextField`, and their `value` attribute would always be the string `"true"`. If the form's value for the input is the string `"true"`, the checkbox would have the `checked` attribute:
 
 ```html
 <!-- Form.new(params: { remember: "true" }) -->
@@ -578,8 +577,7 @@ Radio buttons are implemented in HTML by `<input type="radio">`, with an expecta
 having the same value for the `name` attribute, but different values for the `value` attributes, one of which may
 be `checked`.
 
-Brut implements this via `Brut::FrontEnd::Components::Inputs::RadioButton`, which has the class method
-`for_form_input`.  To create radio buttons in a form, use `radio_button_group`:
+Brut implements this via `Brut::FrontEnd::Components::Inputs::RadioButton`, whose initializer behaves like the other form input components. To create radio buttons in a form, use `radio_button_group`:
 
 ```ruby {5}
 # app/src/front_end/forms/login_form.rb
@@ -598,7 +596,7 @@ def view_template
     [ :never, :one_week, :one_month ].each do |remember|
       label do
         render(
-          Inputs::RadioButton.for_form_input(
+          Inputs::RadioButton(
             form:,
             input_name: :remember,
             value: remember
@@ -643,8 +641,7 @@ class LoginForm < AppForm
 end
 ```
 
-Creating the HTML can be done with `Brut::FrontEnd::Components::Inputs::Select`. It's `for_form_input` is more complex, since it provides a way to show visitor-friendly values instead of the innate `value` for each option,
-  as well as to allow for a "blank" entry.
+Creating the HTML can be done with `Brut::FrontEnd::Components::Inputs::Select`. It's initializer is more complex, since it provides a way to show visitor-friendly values instead of the innate `value` for each option, as well as to allow for a "blank" entry.
 
 Let's suppose we have a class named `LoginRememberOption`. It's a simple wrapper around a value we might store in the database and use to lookup an I18n key.
 
@@ -677,7 +674,7 @@ To show these options in a `<select>`, we might do this:
 def view_template
   form do
     render(
-      Inputs::Select.for_form_input(
+      Inputs::Select(
         form:,
         input_name: :remember,
         options: LoginRememberOption.all,
@@ -718,8 +715,7 @@ end
 
 In this case, we need `required: false` or every single field we generate will be required.
 
-To generate the HTML, use the optional `index:` parameter to `for_form_input` as well as for
-`ConstraintViolations`:
+To generate the HTML, use the optional `index:` parameter to the initializer as well as for `ConstraintViolations`:
 
 ```ruby {11,16}
 # Inside e.g. app/src/front_end/pages/create_bulk_widget_page.rb
@@ -729,7 +725,7 @@ def page_template
              action: BulkWidgetForm.routing) do
 
       10.times do |i|
-        Inputs::TextField.for_form_input(
+        Inputs::TextField(
           form: @form,
           input_name: :name,
           index: i

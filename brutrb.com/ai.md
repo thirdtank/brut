@@ -58,7 +58,7 @@ The logo is level 4 - ChatGPT created it. I'd love to have a real person make a 
 something to get this launched.  Please reach out if you want to make a better one + other assets. I'm
 willing to pay a real person.
 
-## AI That Teachs You About Brut Does Not Currently Exist
+## AI Completions Should Be Viewed with Skepticism
 
 Due to how LLMs work, there is naturally nothing in any model about Brut.  Anything an
 existing model tells you about Brut is **100% untrustworthy**.  We hope to allow LLMs to consume Brut's
@@ -66,3 +66,8 @@ code, documentation, and examples, so it can be an additional source of help, bu
 the case.
 
 **Do not ask an LLM about Brut** until this part of the documentation changes.
+
+For completion-based AI suggestions, **view them with skepticism**.  In my
+experience, completions from e.g. GitHub CoPilot work OK when replicating a pattern
+in the file you are editing, but suggestions in a freshly-opened file tend to be
+entirely imaginary or Rails-based.  Beware.

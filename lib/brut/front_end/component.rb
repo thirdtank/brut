@@ -1,6 +1,22 @@
 require "phlex"
 
-# Components holds Brut-provided components that are of general use to any web app
+# Namespace for Brut-provided components that are of general use to any web app.
+# Also extends [`Phlex:::Kit`](https://www.phlex.fun/components/kits.html), meaning
+# you can include this module in your pages and components to be able to 
+# create Brut's components without `.new` or without the full classname:
+#
+# @example
+#   class AppPage < Brut::FrontEnd::Page
+#     include Brut::FrontEnd::Components
+#   end
+#
+#   class HomePage < AppPage
+#     def page_template
+#     h1 do
+#       span { "It's }
+#       TimeTag(timestamp: Time.now)
+#     end
+#   end
 module Brut::FrontEnd::Components
   autoload(:FormTag,"brut/front_end/components/form_tag")
   autoload(:Input,"brut/front_end/components/input")

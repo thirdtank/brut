@@ -1,46 +1,51 @@
 # Getting Started
 
-To make a new app with Brut, you'll need to clone a template app, initialize it, then set up your dev environment.
+Brut is developed alongside a separate gem called `mkbrut`, which allows you to
+create a new Brut app. It will set up you dev environment as well.
 
-## Clone the App Template
+## Get `mkbrut`
 
-To get started, clone the Brut app template:
+If you have a Ruby 3.4 (or later) environment set up on your computer, you can use 
+RubyGems:
 
 ```
-> git clone https://github.com/thirdtank/brut-app-template your-app-name
+gem install mkbrut
+```
+
+If not, we recommend you use a pre-built Docker image:
+
+```
+docker pull XXXX
 ```
 
 ## Init Your App
 
-The template includes `init`, which will ask you a few questions to get everything set up.
+A Brut app just needs a name, which will be used to derive a few more useful values.
+For now:
 
 ```
-> cd your-app-name
-> ./init
+mkbrut my-new-app
 ```
 
-You'll need to provide four pieces of info:
+This will create your new app, along with some demo routes, components, handlers, and tests. If this is your first time using Brut, we recommend you examine these demo components.  However, if you just want to skip all that:
 
-* Your app's name, suitable has a hostname or identifier
-* A prefix for your app's externalizable ids
-* A prefix for your app's custom elements
-* An organization name, needed for deployment
+```
+mkbrut --no-demo my-new-app
+```
 
-::: tip
-Choose your app's name wisely, however everything else can be easily changed later, so don't stress!
-:::
+## Start Your Dev Environment
 
-## Set Up Your Dev Environment
-
-Brut includes a dev environment based on Docker.
+Brut includes a dev environment based on Docker.  It uses Docker compose to run a
+Docker container where your app will run, a Docker container for Postgres, and a
+Docker container for local observability via OpenTelemetry.
 
 1. [Install Docker](https://docs.docker.com/get-started/get-docker/)
-2. Build Your images
+2. Build the image used to create you app's container:
 
    ```
    > dx/build
    ```
-3. Start up the environment
+3. Start up all the containers:
 
    ```
    > dx/start
@@ -51,6 +56,13 @@ Brut includes a dev environment based on Docker.
    > dx/exec bin/setup
    ```
 
+   OR:
+
+   ```
+   > dx/exec bash
+   inside-container> bin/setup
+   ```
+
 Now, you're ready to go
 
 ## Run the App
@@ -59,8 +71,31 @@ Now, you're ready to go
 > dx/exec bin/dev
 ```
 
+OR
+
+```
+> dx/exec bash
+> bin/dev
+```
+
 You can now visit your app at `localhost:6502`
+
+## Run the Tests
+
+Even without the demo, there are a few components set up, and there are some tests:
+
+```
+> dx/exec bin/ci
+```
+
+OR
+
+```
+> dx/exec bash
+> bin/ci
+```
 
 ## Now Build The Rest of Your App 🦉
 
-You can [follow the tutorial](/tutorial), check out the [conceptual overview](/overview), or dive straight into the API docs.
+You can [follow the tutorial](/tutorial), check out the [conceptual overview](/overview), or dive straight into the API docs.  You might also want to check out the docs for [LSP Support](/lsp).
+

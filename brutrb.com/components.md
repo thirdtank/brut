@@ -136,7 +136,7 @@ To use it without having to instantiate it, call `global_component` with the com
 class HomePage < AppPage
   def page_template
     header do
-      render global_component(FlashMessage)
+      global_component(FlashMessage) # note: render not required
     end
   end
 end
