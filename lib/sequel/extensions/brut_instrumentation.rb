@@ -1,6 +1,10 @@
 module Sequel
   module Extensions
     # Instruments all SQL executions.
+    #
+    # *NOTE* this will include the actual SQL query text in the
+    # span, so any literal values in the query will be in the observability 
+    # platforms.
     module BrutInstrumentation
       # @!visibility private
       def log_connection_yield(sql,conn,args=nil)

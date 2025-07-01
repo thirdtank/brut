@@ -66,6 +66,17 @@ Here is a non-exhaustive list of what Brut automatically instruments:
 * Ignored parameters on all form submissions
 * How long reloading takes in development
 * CSP reporting results
+* SQL Statements
+
+> [!WARNING]
+> `Sequel::Extensions::BrutInstrumentation` sets up telemetry for
+> Sequel, and it does it in a relatively simplistic way.  The result
+> is that *all* SQL statements are part of the telemetry, including
+> the actual values inserted or used in `WHERE` clauses.
+> While you should not be putting sensitive data into your database,
+> be warned that this is happening. There are plans to improve this
+> to be more flexible and reduce the Schance of sensitive data
+> being sent in traces.
 
 ### Adding Your Own Instrumentation
 
@@ -174,6 +185,7 @@ specific issues.
 > internals, the source code is always more correct.
 
 _Last Updated June 12, 2025_
+
 
 Brut does not have plans to support non-OTel instrumentation, nor does it have plans to provide hooks to
 use proprietary formats.  This could change of course.
