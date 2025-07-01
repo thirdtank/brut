@@ -6,7 +6,7 @@ Brut attempts to use existing terminology where possible, particularly where tha
 
 When speaking about Ruby, we prefer the term *initializer* over constructor, *parameters* over arguments, and *methods* over messages.  We also prefer *tests* over specs, however test files *are* located in `specs/` and named `*.spec.rb` to be consistent with RSpec's nomenclature.  We prefer *end-to-end* or *e2e* tests instead of browser tests or request specs. 
 
-Further, Brut doesn't render HTML, it *generates* it.  The browser renders the HTML for the website's visitor.
+Further, Brut doesn't render HTML, it *generates* it.  The browser renders the HTML for the website's visitor. One exception is Phlex, which uses the term *render* to mean "generate HTML to an internal buffer that will be delivered to the client later".  Thus, you will need to call Phlex's `render` method from time to time, even though it is not rendering HTML but helping to generate it.
 
 Lastly, the documentation tries to talk about the person accessing a website as a "vistor" not a "user". Though the "user" nomenclature is near-ossified in software development, we feel "visitor" is more apt.
 

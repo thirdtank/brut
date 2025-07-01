@@ -39,6 +39,7 @@ export default defineConfig({
         items: [
           { text: "Routes", link: "/routes" },
           { text: "Pages", link: "/pages" },
+          { text: "Layouts", link: "/layouts" },
           { text: "Forms", link: "/forms" },
           { text: "Handlers and Actions", link: "/handlers" },
           { text: "Components", link: "/components" },

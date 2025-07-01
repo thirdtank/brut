@@ -137,16 +137,17 @@ that the versions of these command line apps provided when you set up your app a
 While you are free to set up mise or rbenv or whatever to run all this on your computer, this way of
 working is currently not supported nor encouraged.  For now, Brut will focus on the Docker-based approach.
 
-You are encouraged to understand how it works, especially because the Docker skills you learn in doing so
-will help with production deployment and operations.
+The primary reason is that it's a tightly controlled environment that is almost
+entirely scriptable, but does not require devs to abandon their preffered editor.
+Environment manager-based approaches tend to be more fussy and require documentation
+to ensure they are set up.
 
-Beyond this, we recommend that you keep a few things in mind with respect to automation:
+Keep in mind a few things when adding your own automation:
 
 * The *Foundational Core* is bootstrapped in a degenerate environment without reliable tools beyond Bash.
 This is why it's almost entirely written in Bash, since it's available everywhere and relatively stable.
 * The *Workspace* **can and should** rely on the languages and third party modules that are part of your
-app. Just keep in mind that `bin/setup` can only rely on programming language runtimes and not any
-particular Ruby gem having been installed.
+app. The only exception is `bin/setup`, since it installs third party modules.  As such, it should work entirely based on Ruby and its standard library.
 
 ## Technical Notes
 

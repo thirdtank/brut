@@ -1,21 +1,26 @@
 # Getting Started
 
 Brut is developed alongside a separate gem called `mkbrut`, which allows you to
-create a new Brut app. It will set up you dev environment as well.
+create a new Brut app. It will set up your dev environment as well.
 
 ## Get `mkbrut`
 
-If you have a Ruby 3.4 (or later) environment set up on your computer, you can use 
-RubyGems:
+The simplest way to use `mkbrut` is to use an existing [Docker image](https://hub.docker.com/repository/docker/thirdtank/mkbrut/general).  You don't have to install or configure Ruby:
 
 ```
-gem install mkbrut
+docker run \
+       -v "$PWD":"$PWD" \
+       -w "$PWD" \
+       -it \
+       thirdtank/mkbrut \
+       mkbrut my-new-app
 ```
 
-If not, we recommend you use a pre-built Docker image:
+If you already have Ruby 3.4 installed, you can install `mkbrut` directly:
 
 ```
-docker pull XXXX
+> gem install mkbrut
+> mkbrut my-new-app
 ```
 
 ## Init Your App
@@ -23,15 +28,43 @@ docker pull XXXX
 A Brut app just needs a name, which will be used to derive a few more useful values.
 For now:
 
+::: code-group
+
+``` [Docker-based]
+docker run \
+       -v "$PWD":"$PWD" \
+       -w "$PWD" \
+       -it \
+       thirdtank/mkbrut \
+       mkbrut my-new-app
 ```
+
+``` [RubyGems-based]
 mkbrut my-new-app
 ```
 
-This will create your new app, along with some demo routes, components, handlers, and tests. If this is your first time using Brut, we recommend you examine these demo components.  However, if you just want to skip all that:
+:::
 
+This will create your new app, along with some demo routes, components, handlers, and tests. If this is your first time using Brut, we recommend you examine these demo components.
+
+To create your app without the demo components:
+
+::: code-group
+
+``` [Docker-based]
+docker run \
+       -v "$PWD":"$PWD" \
+       -w "$PWD" \
+       -it \
+       thirdtank/mkbrut \
+       mkbrut my-new-app --no-demo
 ```
-mkbrut --no-demo my-new-app
+
+``` [RubyGems-based]
+mkbrut my-new-app --no-demo
 ```
+
+:::
 
 ## Start Your Dev Environment
 
@@ -50,49 +83,52 @@ Docker container for local observability via OpenTelemetry.
    ```
    > dx/start
    ```
-4. Install gems and modules for your app. In another terminal:
+4. Now, "log in" to the container where your app and its tests will run:
 
    ```
-   > dx/exec bin/setup
+   > dx/exec login
    ```
 
-   OR:
+5. Set everything up:
 
    ```
-   > dx/exec bash
    inside-container> bin/setup
    ```
 
-Now, you're ready to go
+Now, you're ready to go.  See [Dev Environemnt](/dev-environment) for details on how
+this all works.
 
 ## Run the App
 
 ```
-> dx/exec bin/dev
-```
-
-OR
-
-```
-> dx/exec bash
-> bin/dev
+inside-container> bin/dev
 ```
 
 You can now visit your app at `localhost:6502`
 
+You can make changes and see them when you reload.  Open up `app/src/front_end/pages/home_page.rb` *in your editor running on your computer* and change the `h1` to look like so:
+
+```ruby {6}
+class HomePage < AppPage
+  def page_template
+    div(class: "flex flex-column items-center justify-center h-80vh") do
+      img(src: "/static/images/icon.png", class: "h-50")
+      h1(class: "ff-sans ma-0 lh-title f-5") do
+        "Welcome to My New App!"
+      end
+
+      # ...
+```
+
+When you reload your browser, you'll see your change
+
 ## Run the Tests
 
-Even without the demo, there are a few components set up, and there are some tests:
+There are a few tests you can run, as well as some checks that you aren't using
+RubyGems with security vulnerabilities.  Run it all now with `bin/ci`:
 
 ```
-> dx/exec bin/ci
-```
-
-OR
-
-```
-> dx/exec bash
-> bin/ci
+inside-container> bin/dev
 ```
 
 ## Now Build The Rest of Your App 🦉
