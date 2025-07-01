@@ -78,7 +78,7 @@ class Brut::Framework::Container
     self.validate_name!(name:,type:,allow_app_override:)
     if value == :use_block
       derive_with = block
-      @container[name] = { value: nil, derive_with: derive_with }
+      @container[name] = { derive_with: derive_with }
     else
       if type == :boolean
         value = !!value
@@ -111,9 +111,11 @@ class Brut::Framework::Container
       raise ArgumentError,"#{name} does not allow the app to override it"
     end
     if value == :use_block
-      @container[name] = { value: nil, derive_with: block }
+      @container[name][:derive_with] = block
+      @container[name].delete(:value)
     else
-      @container[name] = { value: value }
+      @container[name][:value] = value
+      @container[name].delete(:derive_with)
     end
   end
 
@@ -191,16 +193,16 @@ class Brut::Framework::Container
     # TODO: Provide a cleanr impl and better error checking if things go wrong
     x = @container.fetch(name)
 
-    value = x[:value]
+    has_value = x.key?(:value)
 
-    if !value.nil? || (x[:allow_nil] && value.nil?)
+    if has_value
       handle_path_values(name,x)
-      return value
+      return x[:value]
     end
 
     deriver = x[:derive_with]
     if deriver.nil?
-      raise "Something is seriously wrong. '#{name}' was stored in container without a derive_with value"
+      raise "Something is seriously wrong. '#{name}' was stored in container without a static value, but also without a derive_with key"
     end
 
     parameters = deriver.parameters(lambda: true)
@@ -217,6 +219,28 @@ class Brut::Framework::Container
     end
     handle_path_values(name,x)
     x[:value]
+  end
+
+  def reload
+    @container.each do |name, contained_value|
+      if contained_value.key?(:value) && contained_value[:type].to_s == "Class"
+        puts "WE GOT A CLASS PEOPLE: #{name}"
+        if contained_value.key?(:derive_with)
+          puts "Is is block best, so deleting the value to force a reload later"
+          contained_value.delete(:value)
+        else
+          klass = contained_value[:value]
+          puts "Reload.  We have #{klass.object_id} on its way out"
+          new_klass = klass.name.split(/::/).reduce(Module) { |mod,part|
+            mod.const_get(part)
+          }
+          puts "Reload.  We have #{new_klass.object_id} on its way in"
+          contained_value[:value] = new_klass
+        end
+      elsif name.to_s == "session_class"
+        puts "WTAF: #{contained_value.inspect}"
+      end
+    end
   end
 private
 

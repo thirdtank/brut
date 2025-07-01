@@ -28,6 +28,8 @@ class Brut::FrontEnd::Middlewares::ReloadApp < Brut::FrontEnd::Middleware
             span.add_event("Routing reloaded")
             Brut.container.asset_path_resolver.reload
             span.add_event("Asset Path Resolver reloaded")
+            Brut.container.reload
+            span.add_event("Brut.container reloaded")
             ::I18n.reload!
             span.add_event("I18n reloaded")
           rescue => ex
