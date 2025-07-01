@@ -224,21 +224,15 @@ class Brut::Framework::Container
   def reload
     @container.each do |name, contained_value|
       if contained_value.key?(:value) && contained_value[:type].to_s == "Class"
-        puts "WE GOT A CLASS PEOPLE: #{name}"
         if contained_value.key?(:derive_with)
-          puts "Is is block best, so deleting the value to force a reload later"
           contained_value.delete(:value)
         else
           klass = contained_value[:value]
-          puts "Reload.  We have #{klass.object_id} on its way out"
           new_klass = klass.name.split(/::/).reduce(Module) { |mod,part|
             mod.const_get(part)
           }
-          puts "Reload.  We have #{new_klass.object_id} on its way in"
           contained_value[:value] = new_klass
         end
-      elsif name.to_s == "session_class"
-        puts "WTAF: #{contained_value.inspect}"
       end
     end
   end
