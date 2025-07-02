@@ -132,7 +132,7 @@ such, the CLI has several parts that you can configure:</p>
 
 </div><div id="subclasses">
   <h2>Direct Known Subclasses</h2>
-  <p class="children"><span class='object_link'><a href="Apps/BuildAssets.html" title="Brut::CLI::Apps::BuildAssets (class)">Brut::CLI::Apps::BuildAssets</a></span>, <span class='object_link'><a href="Apps/DB.html" title="Brut::CLI::Apps::DB (class)">Brut::CLI::Apps::DB</a></span>, <span class='object_link'><a href="Apps/Scaffold.html" title="Brut::CLI::Apps::Scaffold (class)">Brut::CLI::Apps::Scaffold</a></span>, <span class='object_link'><a href="Apps/Test.html" title="Brut::CLI::Apps::Test (class)">Brut::CLI::Apps::Test</a></span></p>
+  <p class="children"><span class='object_link'><a href="Apps/BuildAssets.html" title="Brut::CLI::Apps::BuildAssets (class)">Brut::CLI::Apps::BuildAssets</a></span>, <span class='object_link'><a href="Apps/DB.html" title="Brut::CLI::Apps::DB (class)">Brut::CLI::Apps::DB</a></span>, <span class='object_link'><a href="Apps/DeployBase.html" title="Brut::CLI::Apps::DeployBase (class)">Brut::CLI::Apps::DeployBase</a></span>, <span class='object_link'><a href="Apps/Scaffold.html" title="Brut::CLI::Apps::Scaffold (class)">Brut::CLI::Apps::Scaffold</a></span>, <span class='object_link'><a href="Apps/Test.html" title="Brut::CLI::Apps::Test (class)">Brut::CLI::Apps::Test</a></span></p>
 </div>
 
 
@@ -414,7 +414,7 @@ such, the CLI has several parts that you can configure:</p>
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#after_bootstrap-instance_method" title="#after_bootstrap (instance method)">#<strong>after_bootstrap</strong>  &#x21d2; Object </a>
+      <a href="#after_bootstrap-instance_method" title="#after_bootstrap (instance method)">#<strong>after_bootstrap</strong>(app:)  &#x21d2; Object </a>
     
 
     
@@ -1353,7 +1353,7 @@ needs to know if it should operate on development, test, or production.  When ca
       <div class="method_details first">
   <h3 class="signature first" id="after_bootstrap-instance_method">
   
-    #<strong>after_bootstrap</strong>  &#x21d2; <tt>Object</tt> 
+    #<strong>after_bootstrap</strong>(app:)  &#x21d2; <tt>Object</tt> 
   
 
   
@@ -1368,7 +1368,26 @@ caused execution to be aborted.</p>
   </div>
 </div>
 <div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
   
+    <li>
+      
+        <span class='name'>app</span>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="../Framework/App.html" title="Brut::Framework::App (class)">Brut::Framework::App</a></span></tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>Your Brut app.</p>
+</div>
+      
+    </li>
+  
+</ul>
+
 
 </div><table class="source_code">
   <tr>
@@ -1376,13 +1395,13 @@ caused execution to be aborted.</p>
       <pre class="lines">
 
 
-182
-183</pre>
+184
+185</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/brut/cli/app.rb', line 182</span>
+      <pre class="code"><span class="info file"># File 'lib/brut/cli/app.rb', line 184</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_after_bootstrap'>after_bootstrap</span>
+<span class='kw'>def</span> <span class='id identifier rubyid_after_bootstrap'>after_bootstrap</span><span class='lparen'>(</span><span class='label'>app:</span><span class='rparen'>)</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -1486,8 +1505,6 @@ caused execution to be aborted.</p>
       <pre class="lines">
 
 
-189
-190
 191
 192
 193
@@ -1518,10 +1535,15 @@ caused execution to be aborted.</p>
 218
 219
 220
-221</pre>
+221
+222
+223
+224
+225
+226</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/brut/cli/app.rb', line 189</span>
+      <pre class="code"><span class="info file"># File 'lib/brut/cli/app.rb', line 191</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_execute!'>execute!</span><span class='lparen'>(</span><span class='id identifier rubyid_command'>command</span><span class='comma'>,</span><span class='label'>project_root:</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_before_execute'>before_execute</span>
@@ -1529,6 +1551,7 @@ caused execution to be aborted.</p>
   <span class='id identifier rubyid_command'>command</span><span class='period'>.</span><span class='id identifier rubyid_set_env_if_needed'>set_env_if_needed</span>
   <span class='id identifier rubyid_load_env'>load_env</span><span class='lparen'>(</span><span class='label'>project_root:</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_command'>command</span><span class='period'>.</span><span class='id identifier rubyid_before_execute'>before_execute</span>
+  <span class='id identifier rubyid_app'>app</span> <span class='op'>=</span> <span class='kw'>nil</span>
   <span class='id identifier rubyid_bootstrap_result'>bootstrap_result</span> <span class='op'>=</span> <span class='kw'>begin</span>
                        <span class='id identifier rubyid_require'>require</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_project_root'>project_root</span><span class='embexpr_end'>}</span><span class='tstring_content'>/app/bootstrap</span><span class='tstring_end'>&quot;</span></span>
                        <span class='id identifier rubyid_bootstrap'>bootstrap</span> <span class='op'>=</span> <span class='const'>Bootstrap</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span>
@@ -1537,6 +1560,7 @@ caused execution to be aborted.</p>
                        <span class='kw'>else</span>
                          <span class='id identifier rubyid_bootstrap'>bootstrap</span><span class='period'>.</span><span class='id identifier rubyid_bootstrap!'>bootstrap!</span>
                        <span class='kw'>end</span>
+                       <span class='id identifier rubyid_app'>app</span> <span class='op'>=</span> <span class='id identifier rubyid_bootstrap'>bootstrap</span><span class='period'>.</span><span class='id identifier rubyid_app'>app</span>
                        <span class='id identifier rubyid_continue_execution'>continue_execution</span>
                      <span class='kw'>rescue</span> <span class='op'>=&gt;</span> <span class='id identifier rubyid_ex'>ex</span>
                        <span class='id identifier rubyid_as_execution_result'>as_execution_result</span><span class='lparen'>(</span><span class='id identifier rubyid_command'>command</span><span class='period'>.</span><span class='id identifier rubyid_handle_bootstrap_exception'>handle_bootstrap_exception</span><span class='lparen'>(</span><span class='id identifier rubyid_ex'>ex</span><span class='rparen'>)</span><span class='rparen'>)</span>
@@ -1544,7 +1568,8 @@ caused execution to be aborted.</p>
   <span class='kw'>if</span> <span class='id identifier rubyid_bootstrap_result'>bootstrap_result</span><span class='period'>.</span><span class='id identifier rubyid_stop?'>stop?</span>
     <span class='kw'>return</span> <span class='id identifier rubyid_bootstrap_result'>bootstrap_result</span>
   <span class='kw'>end</span>
-  <span class='id identifier rubyid_after_bootstrap'>after_bootstrap</span>
+  <span class='id identifier rubyid_after_bootstrap'>after_bootstrap</span><span class='lparen'>(</span><span class='label'>app:</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_command'>command</span><span class='period'>.</span><span class='id identifier rubyid_after_bootstrap'>after_bootstrap</span><span class='lparen'>(</span><span class='label'>app:</span><span class='rparen'>)</span>
   <span class='kw'>if</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_class'>class</span><span class='period'>.</span><span class='id identifier rubyid_configure_only?'>configure_only?</span>
     <span class='id identifier rubyid_as_execution_result'>as_execution_result</span><span class='lparen'>(</span><span class='id identifier rubyid_command'>command</span><span class='period'>.</span><span class='id identifier rubyid_execute'>execute</span><span class='rparen'>)</span>
   <span class='kw'>else</span>
@@ -1566,7 +1591,7 @@ caused execution to be aborted.</p>
 </div>
 
       <div id="footer">
-  Generated on Wed Jun 25 22:57:20 2025 by
+  Generated on Wed Jul  2 21:45:27 2025 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.37 (ruby-3.4.4).
 </div>

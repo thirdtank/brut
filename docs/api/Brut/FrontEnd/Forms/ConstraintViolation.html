@@ -111,50 +111,6 @@ form-related classes.</p>
   
 
 </div>
-  
-    <h2>
-      Constant Summary
-      <small><a href="#" class="constants_summary_toggle">collapse</a></small>
-    </h2>
-
-    <dl class="constants">
-      
-        <dt id="CLIENT_SIDE_KEYS-constant" class="">CLIENT_SIDE_KEYS =
-          <div class="docstring">
-  <div class="discussion">
-    <p>These are underscorized versions of the attributes of the browser's <code>ValidityState</code>'s properties.</p>
-
-
-  </div>
-</div>
-<div class="tags">
-  
-
-  <p class="tag_title">See Also:</p>
-  <ul class="see">
-    
-      <li><a href="https://developer.mozilla.org/en-US/docs/Web/API/ValidityState" target="_parent" title="https://developer.mozilla.org/en-US/docs/Web/API/ValidityState">https://developer.mozilla.org/en-US/docs/Web/API/ValidityState</a></li>
-    
-  </ul>
-
-</div>
-        </dt>
-        <dd><pre class="code"><span class='lbracket'>[</span>
-  <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>bad_input</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
-  <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>custom_error</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
-  <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>pattern_mismatch</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
-  <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>range_overflow</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
-  <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>range_underflow</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
-  <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>step_mismatch</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
-  <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>too_long</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
-  <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>too_short</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
-  <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>type_mismatch</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
-  <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>value_missing</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
-<span class='rbracket'>]</span></pre></dd>
-      
-    </dl>
-  
-
 
 
 
@@ -371,7 +327,7 @@ form-related classes.</p>
       
       
         &mdash;
-        <div class='inline'><p>If <code>:based_on_key</code>, <span class='object_link'><a href="#client_side%3F-instance_method" title="Brut::FrontEnd::Forms::ConstraintViolation#client_side? (method)">#client_side?</a></span> will return true if <code>key</code> is in <span class='object_link'><a href="#CLIENT_SIDE_KEYS-constant" title="Brut::FrontEnd::Forms::ConstraintViolation::CLIENT_SIDE_KEYS (constant)">CLIENT_SIDE_KEYS</a></span>.</p>
+        <div class='inline'><p>If <code>:based_on_key</code>, <span class='object_link'><a href="#client_side%3F-instance_method" title="Brut::FrontEnd::Forms::ConstraintViolation#client_side? (method)">#client_side?</a></span> will return true if <code>key</code> is in <span class='object_link'><a href="ValidityState.html#KEYS-constant" title="Brut::FrontEnd::Forms::ValidityState::KEYS (constant)">ValidityState::KEYS</a></span>.</p>
 </div>
       
     </li>
@@ -385,21 +341,21 @@ form-related classes.</p>
       <pre class="lines">
 
 
-32
-33
-34
-35
-36
-37
-38
-39</pre>
+16
+17
+18
+19
+20
+21
+22
+23</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/brut/front_end/forms/constraint_violation.rb', line 32</span>
+      <pre class="code"><span class="info file"># File 'lib/brut/front_end/forms/constraint_violation.rb', line 16</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_initialize'>initialize</span><span class='lparen'>(</span><span class='label'>key:</span><span class='comma'>,</span><span class='label'>context:</span><span class='comma'>,</span> <span class='label'>server_side:</span> <span class='symbol'>:based_on_key</span><span class='rparen'>)</span>
   <span class='ivar'>@key</span> <span class='op'>=</span> <span class='id identifier rubyid_key'>key</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span>
-  <span class='ivar'>@client_side</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="#CLIENT_SIDE_KEYS-constant" title="Brut::FrontEnd::Forms::ConstraintViolation::CLIENT_SIDE_KEYS (constant)">CLIENT_SIDE_KEYS</a></span></span><span class='period'>.</span><span class='id identifier rubyid_include?'>include?</span><span class='lparen'>(</span><span class='ivar'>@key</span><span class='rparen'>)</span> <span class='op'>&amp;&amp;</span> <span class='id identifier rubyid_server_side'>server_side</span> <span class='op'>!=</span> <span class='kw'>true</span>
+  <span class='ivar'>@client_side</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../../../Brut.html" title="Brut (module)">Brut</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../../FrontEnd.html" title="Brut::FrontEnd (module)">FrontEnd</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../Forms.html" title="Brut::FrontEnd::Forms (module)">Forms</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="ValidityState.html" title="Brut::FrontEnd::Forms::ValidityState (class)">ValidityState</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="ValidityState.html#KEYS-constant" title="Brut::FrontEnd::Forms::ValidityState::KEYS (constant)">KEYS</a></span></span><span class='period'>.</span><span class='id identifier rubyid_include?'>include?</span><span class='lparen'>(</span><span class='ivar'>@key</span><span class='rparen'>)</span> <span class='op'>&amp;&amp;</span> <span class='id identifier rubyid_server_side'>server_side</span> <span class='op'>!=</span> <span class='kw'>true</span>
   <span class='ivar'>@context</span> <span class='op'>=</span> <span class='id identifier rubyid_context'>context</span> <span class='op'>||</span> <span class='lbrace'>{</span><span class='rbrace'>}</span>
   <span class='kw'>if</span> <span class='op'>!</span><span class='ivar'>@context</span><span class='period'>.</span><span class='id identifier rubyid_kind_of?'>kind_of?</span><span class='lparen'>(</span><span class='const'>Hash</span><span class='rparen'>)</span>
     <span class='id identifier rubyid_raise'>raise</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_class'>class</span><span class='embexpr_end'>}</span><span class='tstring_content'> created for key </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_key'>key</span><span class='embexpr_end'>}</span><span class='tstring_content'> with an invalid context: &#39;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_context'>context</span><span class='embexpr_end'>}</span><span class='tstring_content'>/</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_context'>context</span><span class='period'>.</span><span class='id identifier rubyid_class'>class</span><span class='embexpr_end'>}</span><span class='tstring_content'>&#39;. Context must be nil or a hash</span><span class='tstring_end'>&quot;</span></span>
@@ -459,12 +415,12 @@ form-related classes.</p>
       <pre class="lines">
 
 
-24
-25
-26</pre>
+8
+9
+10</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/brut/front_end/forms/constraint_violation.rb', line 24</span>
+      <pre class="code"><span class="info file"># File 'lib/brut/front_end/forms/constraint_violation.rb', line 8</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_context'>context</span>
   <span class='ivar'>@context</span>
@@ -518,12 +474,12 @@ form-related classes.</p>
       <pre class="lines">
 
 
-22
-23
-24</pre>
+6
+7
+8</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/brut/front_end/forms/constraint_violation.rb', line 22</span>
+      <pre class="code"><span class="info file"># File 'lib/brut/front_end/forms/constraint_violation.rb', line 6</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_key'>key</span>
   <span class='ivar'>@key</span>
@@ -582,10 +538,10 @@ form-related classes.</p>
       <pre class="lines">
 
 
-42</pre>
+26</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/brut/front_end/forms/constraint_violation.rb', line 42</span>
+      <pre class="code"><span class="info file"># File 'lib/brut/front_end/forms/constraint_violation.rb', line 26</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_client_side?'>client_side?</span> <span class='op'>=</span> <span class='ivar'>@client_side</span></pre>
     </td>
@@ -608,10 +564,10 @@ form-related classes.</p>
       <pre class="lines">
 
 
-43</pre>
+27</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/brut/front_end/forms/constraint_violation.rb', line 43</span>
+      <pre class="code"><span class="info file"># File 'lib/brut/front_end/forms/constraint_violation.rb', line 27</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_to_s'>to_s</span> <span class='op'>=</span> <span class='ivar'>@key</span></pre>
     </td>
@@ -624,7 +580,7 @@ form-related classes.</p>
 </div>
 
       <div id="footer">
-  Generated on Wed Jun 25 22:57:21 2025 by
+  Generated on Wed Jul  2 21:45:28 2025 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.37 (ruby-3.4.4).
 </div>

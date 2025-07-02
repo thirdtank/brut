@@ -203,7 +203,7 @@ normally.  You can also seed this with data that a component may need.</li>
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#initialize-instance_method" title="#initialize (instance method)">#<strong>initialize</strong>(rspec_config:)  &#x21d2; RSpecSetup </a>
+      <a href="#initialize-instance_method" title="#initialize (instance method)">#<strong>initialize</strong>(rspec_config:, monkey_patch_summary_notification: true)  &#x21d2; RSpecSetup </a>
     
 
     
@@ -257,7 +257,7 @@ normally.  You can also seed this with data that a component may need.</li>
     <div class="method_details first">
   <h3 class="signature first" id="initialize-instance_method">
   
-    #<strong>initialize</strong>(rspec_config:)  &#x21d2; <tt><span class='object_link'><a href="" title="Brut::SpecSupport::RSpecSetup (class)">RSpecSetup</a></span></tt> 
+    #<strong>initialize</strong>(rspec_config:, monkey_patch_summary_notification: true)  &#x21d2; <tt><span class='object_link'><a href="" title="Brut::SpecSupport::RSpecSetup (class)">RSpecSetup</a></span></tt> 
   
 
   
@@ -266,6 +266,10 @@ normally.  You can also seed this with data that a component may need.</li>
 </h3><div class="docstring">
   <div class="discussion">
     <p>Create the setup with the given RSpec configuration.</p>
+
+<p>RSpec's Notifications::SumaryNotification will be monkey-patched to show
+<code>bin/test</code> in the summary instead of <code>./rspec</code>, as that is how you would
+re-run a test.  But, it's still monkey-patching.</p>
 
 
   </div>
@@ -289,6 +293,23 @@ normally.  You can also seed this with data that a component may need.</li>
       
     </li>
   
+    <li>
+      
+        <span class='name'>monkey_patch_summary_notification</span>
+      
+      
+        <span class='type'>(<tt>boolean</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>true</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'><p>if true (the default),</p>
+</div>
+      
+    </li>
+  
 </ul>
 
 
@@ -298,16 +319,24 @@ normally.  You can also seed this with data that a component may need.</li>
       <pre class="lines">
 
 
-46
-47
-48
-49</pre>
+50
+51
+52
+53
+54
+55
+56
+57</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/brut/spec_support/rspec_setup.rb', line 46</span>
+      <pre class="code"><span class="info file"># File 'lib/brut/spec_support/rspec_setup.rb', line 50</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_initialize'>initialize</span><span class='lparen'>(</span><span class='label'>rspec_config:</span><span class='rparen'>)</span>
-  <span class='ivar'>@config</span> <span class='op'>=</span> <span class='id identifier rubyid_rspec_config'>rspec_config</span>
+<span class='kw'>def</span> <span class='id identifier rubyid_initialize'>initialize</span><span class='lparen'>(</span><span class='label'>rspec_config:</span><span class='comma'>,</span>
+               <span class='label'>monkey_patch_summary_notification:</span> <span class='kw'>true</span><span class='rparen'>)</span>
+
+  <span class='ivar'>@config</span>                            <span class='op'>=</span> <span class='id identifier rubyid_rspec_config'>rspec_config</span>
+  <span class='ivar'>@monkey_patch_summary_notification</span> <span class='op'>=</span> <span class='id identifier rubyid_monkey_patch_summary_notification'>monkey_patch_summary_notification</span>
+
   <span class='const'>SemanticLogger</span><span class='period'>.</span><span class='id identifier rubyid_default_level'>default_level</span> <span class='op'>=</span> <span class='const'>ENV</span><span class='period'>.</span><span class='id identifier rubyid_fetch'>fetch</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>LOGGER_LEVEL_FOR_TESTS</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>warn</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
 <span class='kw'>end</span></pre>
     </td>
@@ -368,14 +397,6 @@ normally.  You can also seed this with data that a component may need.</li>
       <pre class="lines">
 
 
-54
-55
-56
-57
-58
-59
-60
-61
 62
 63
 64
@@ -472,10 +493,21 @@ normally.  You can also seed this with data that a component may need.</li>
 155
 156
 157
-158</pre>
+158
+159
+160
+161
+162
+163
+164
+165
+166
+167
+168
+169</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/brut/spec_support/rspec_setup.rb', line 54</span>
+      <pre class="code"><span class="info file"># File 'lib/brut/spec_support/rspec_setup.rb', line 62</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_setup!'>setup!</span><span class='lparen'>(</span><span class='label'>inside_db_transaction:</span> <span class='tlambda'>-&gt;</span><span class='lparen'>(</span><span class='rparen'>)</span> <span class='tlambeg'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
 
@@ -581,6 +613,9 @@ normally.  You can also seed this with data that a component may need.</li>
   <span class='ivar'>@config</span><span class='period'>.</span><span class='id identifier rubyid_after'>after</span><span class='lparen'>(</span><span class='symbol'>:suite</span><span class='rparen'>)</span> <span class='kw'>do</span>
     <span class='const'><span class='object_link'><a href="../../Brut.html" title="Brut (module)">Brut</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../SpecSupport.html" title="Brut::SpecSupport (module)">SpecSupport</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="E2ETestServer.html" title="Brut::SpecSupport::E2ETestServer (class)">E2ETestServer</a></span></span><span class='period'>.</span><span class='id identifier rubyid_instance'><span class='object_link'><a href="E2ETestServer.html#instance-class_method" title="Brut::SpecSupport::E2ETestServer.instance (method)">instance</a></span></span><span class='period'>.</span><span class='id identifier rubyid_stop'>stop</span>
   <span class='kw'>end</span>
+  <span class='kw'>if</span> <span class='ivar'>@monkey_patch_summary_notification</span>
+    <span class='id identifier rubyid_monkey_patch_summary_notification!'>monkey_patch_summary_notification!</span>
+  <span class='kw'>end</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -592,7 +627,7 @@ normally.  You can also seed this with data that a component may need.</li>
 </div>
 
       <div id="footer">
-  Generated on Wed Jun 25 22:57:20 2025 by
+  Generated on Wed Jul  2 21:45:27 2025 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.37 (ruby-3.4.4).
 </div>

@@ -127,7 +127,7 @@ methods.  Include this module to gain access to those methods.</p>
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#abstract_method!-instance_method" title="#abstract_method! (instance method)">#<strong>abstract_method!</strong>  &#x21d2; Object </a>
+      <a href="#abstract_method!-instance_method" title="#abstract_method! (instance method)">#<strong>abstract_method!</strong>(method_name = nil)  &#x21d2; Object </a>
     
 
     
@@ -182,7 +182,7 @@ methods.  Include this module to gain access to those methods.</p>
       <div class="method_details first">
   <h3 class="signature first" id="abstract_method!-instance_method">
   
-    #<strong>abstract_method!</strong>  &#x21d2; <tt>Object</tt> 
+    #<strong>abstract_method!</strong>(method_name = nil)  &#x21d2; <tt>Object</tt> 
   
 
   
@@ -198,7 +198,28 @@ implementation.</p>
   </div>
 </div>
 <div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
   
+    <li>
+      
+        <span class='name'>method_name</span>
+      
+      
+        <span class='type'>(<tt>String|Symbol</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>nil</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'><p>name of the method that must be implemented. If omitted, the value is guessed from <code>caller_locations</code></p>
+</div>
+      
+    </li>
+  
+</ul>
+
 <p class="tag_title">Raises:</p>
 <ul class="raise">
   
@@ -219,15 +240,17 @@ implementation.</p>
       <pre class="lines">
 
 
-31
 32
-33</pre>
+33
+34
+35</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/brut/framework/errors.rb', line 31</span>
+      <pre class="code"><span class="info file"># File 'lib/brut/framework/errors.rb', line 32</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_abstract_method!'>abstract_method!</span>
-  <span class='id identifier rubyid_raise'>raise</span> <span class='const'><span class='object_link'><a href="../../Brut.html" title="Brut (module)">Brut</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../Framework.html" title="Brut::Framework (module)">Framework</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="" title="Brut::Framework::Errors (module)">Errors</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Errors/AbstractMethod.html" title="Brut::Framework::Errors::AbstractMethod (class)">AbstractMethod</a></span></span>
+<span class='kw'>def</span> <span class='id identifier rubyid_abstract_method!'>abstract_method!</span><span class='lparen'>(</span><span class='id identifier rubyid_method_name'>method_name</span><span class='op'>=</span><span class='kw'>nil</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_method_name'>method_name</span> <span class='op'>||=</span> <span class='id identifier rubyid_caller_locations'>caller_locations</span><span class='lparen'>(</span><span class='int'>1</span><span class='comma'>,</span><span class='int'>1</span><span class='rparen'>)</span><span class='lbracket'>[</span><span class='int'>0</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_label'>label</span>
+  <span class='id identifier rubyid_raise'>raise</span> <span class='const'><span class='object_link'><a href="../../Brut.html" title="Brut (module)">Brut</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../Framework.html" title="Brut::Framework (module)">Framework</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="" title="Brut::Framework::Errors (module)">Errors</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Errors/AbstractMethod.html" title="Brut::Framework::Errors::AbstractMethod (class)">AbstractMethod</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="Errors/AbstractMethod.html#initialize-instance_method" title="Brut::Framework::Errors::AbstractMethod#initialize (method)">new</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_method_name'>method_name</span><span class='rparen'>)</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -318,7 +341,7 @@ state of the system is such that it would never be misused.</p>
 </div>
 
       <div id="footer">
-  Generated on Wed Jun 25 22:57:19 2025 by
+  Generated on Wed Jul  2 21:45:26 2025 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.37 (ruby-3.4.4).
 </div>

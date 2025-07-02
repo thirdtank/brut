@@ -99,7 +99,37 @@
   
 </div>
 
+<h2>Overview</h2><div class="docstring">
+  <div class="discussion">
+    <p>Matcher to check that a from has a specific constraint violation.</p>
 
+
+  </div>
+</div>
+<div class="tags">
+  
+  <div class="examples">
+    <h4 class="tag_title">Examples:</h4>
+    
+      
+      <pre class="example code"><code><span class='id identifier rubyid_expect'>expect</span><span class='lparen'>(</span><span class='id identifier rubyid_form'>form</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_to'>to</span> <span class='id identifier rubyid_have_constraint_violation'>have_constraint_violation</span><span class='lparen'>(</span><span class='symbol'>:email</span><span class='comma'>,</span> <span class='label'>key:</span> <span class='symbol'>:required</span><span class='rparen'>)</span></code></pre>
+    
+      
+        <h5 class="example_title"><div class='inline'><p>Index fields (requires that the third email field have a constraint violation)</p>
+</div></h5>
+      
+      <pre class="example code"><code><span class='id identifier rubyid_expect'>expect</span><span class='lparen'>(</span><span class='id identifier rubyid_form'>form</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_to'>to</span> <span class='id identifier rubyid_have_constraint_violation'>have_constraint_violation</span><span class='lparen'>(</span><span class='symbol'>:email</span><span class='comma'>,</span> <span class='label'>key:</span> <span class='symbol'>:required</span><span class='comma'>,</span> <span class='label'>index:</span> <span class='int'>2</span><span class='rparen'>)</span></code></pre>
+    
+      
+        <h5 class="example_title"><div class='inline'><p>Negated</p>
+</div></h5>
+      
+      <pre class="example code"><code><span class='id identifier rubyid_expect'>expect</span><span class='lparen'>(</span><span class='id identifier rubyid_form'>form</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_not_to'>not_to</span> <span class='id identifier rubyid_have_constraint_violation'>have_constraint_violation</span><span class='lparen'>(</span><span class='symbol'>:email</span><span class='comma'>,</span> <span class='label'>key:</span> <span class='symbol'>:required</span><span class='rparen'>)</span></code></pre>
+    
+  </div>
+
+
+</div>
 
 
 
@@ -277,16 +307,6 @@
       <pre class="lines">
 
 
-36
-37
-38
-39
-40
-41
-42
-43
-44
-45
 46
 47
 48
@@ -305,10 +325,20 @@
 61
 62
 63
-64</pre>
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/brut/spec_support/matchers/have_constraint_violation.rb', line 36</span>
+      <pre class="code"><span class="info file"># File 'lib/brut/spec_support/matchers/have_constraint_violation.rb', line 46</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_initialize'>initialize</span><span class='lparen'>(</span><span class='id identifier rubyid_form'>form</span><span class='comma'>,</span> <span class='id identifier rubyid_field'>field</span><span class='comma'>,</span> <span class='id identifier rubyid_key'>key</span><span class='comma'>,</span> <span class='id identifier rubyid_index'>index</span><span class='rparen'>)</span>
   <span class='kw'>if</span> <span class='op'>!</span><span class='id identifier rubyid_form'>form</span><span class='period'>.</span><span class='id identifier rubyid_kind_of?'>kind_of?</span><span class='lparen'>(</span><span class='const'><span class='object_link'><a href="../../../Brut.html" title="Brut (module)">Brut</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../../FrontEnd.html" title="Brut::FrontEnd (module)">FrontEnd</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../../FrontEnd/Form.html" title="Brut::FrontEnd::Form (class)">Form</a></span></span><span class='rparen'>)</span>
@@ -376,12 +406,12 @@
       <pre class="lines">
 
 
-33
-34
-35</pre>
+43
+44
+45</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/brut/spec_support/matchers/have_constraint_violation.rb', line 33</span>
+      <pre class="code"><span class="info file"># File 'lib/brut/spec_support/matchers/have_constraint_violation.rb', line 43</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_fields_found'>fields_found</span>
   <span class='ivar'>@fields_found</span>
@@ -418,12 +448,12 @@
       <pre class="lines">
 
 
-34
-35
-36</pre>
+44
+45
+46</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/brut/spec_support/matchers/have_constraint_violation.rb', line 34</span>
+      <pre class="code"><span class="info file"># File 'lib/brut/spec_support/matchers/have_constraint_violation.rb', line 44</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_keys_on_field_found'>keys_on_field_found</span>
   <span class='ivar'>@keys_on_field_found</span>
@@ -478,10 +508,10 @@
       <pre class="lines">
 
 
-67</pre>
+77</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/brut/spec_support/matchers/have_constraint_violation.rb', line 67</span>
+      <pre class="code"><span class="info file"># File 'lib/brut/spec_support/matchers/have_constraint_violation.rb', line 77</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_found_field?'>found_field?</span>  <span class='op'>=</span> <span class='ivar'>@found_field</span></pre>
     </td>
@@ -527,10 +557,10 @@
       <pre class="lines">
 
 
-66</pre>
+76</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/brut/spec_support/matchers/have_constraint_violation.rb', line 66</span>
+      <pre class="code"><span class="info file"># File 'lib/brut/spec_support/matchers/have_constraint_violation.rb', line 76</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_matches?'>matches?</span>      <span class='op'>=</span> <span class='ivar'>@matches</span></pre>
     </td>
@@ -543,7 +573,7 @@
 </div>
 
       <div id="footer">
-  Generated on Wed Jun 25 22:57:21 2025 by
+  Generated on Wed Jul  2 21:45:28 2025 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.37 (ruby-3.4.4).
 </div>

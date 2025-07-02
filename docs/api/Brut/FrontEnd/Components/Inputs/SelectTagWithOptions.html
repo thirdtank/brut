@@ -124,38 +124,6 @@
 
   
     <h2>
-      Class Method Summary
-      <small><a href="#" class="summary_toggle">collapse</a></small>
-    </h2>
-
-    <ul class="summary">
-      
-        <li class="public ">
-  <span class="summary_signature">
-    
-      <a href="#for_form_input-class_method" title="for_form_input (class method)">.<strong>for_form_input</strong>(form:, input_name:, options:, include_blank: false, value_attribute:, option_text_attribute:, index: nil, html_attributes: {})  &#x21d2; Brut::FrontEnd::Components::Inputs::SelectTagWithOptions </a>
-    
-
-    
-  </span>
-  
-  
-  
-  
-  
-  
-  
-
-  
-    <span class="summary_desc"><div class='inline'><p>Creates the appropriate select input for the given <span class='object_link'><a href="../../Form.html" title="Brut::FrontEnd::Form (class)">Form</a></span> and input name.</p>
-</div></span>
-  
-</li>
-
-      
-    </ul>
-  
-    <h2>
       Instance Method Summary
       <small><a href="#" class="summary_toggle">collapse</a></small>
     </h2>
@@ -165,7 +133,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#initialize-instance_method" title="#initialize (instance method)">#<strong>initialize</strong>(name:, options:, value_attribute:, selected_value: nil, selected_option: nil, option_text_attribute:, include_blank: false, html_attributes:)  &#x21d2; SelectTagWithOptions </a>
+      <a href="#initialize-instance_method" title="#initialize (instance method)">#<strong>initialize</strong>(form:, input_name:, options:, include_blank: false, value_attribute:, option_text_attribute:, index: nil, html_attributes: {})  &#x21d2; Brut::FrontEnd::Components::Inputs::SelectTagWithOptions </a>
     
 
     
@@ -181,7 +149,7 @@
   
 
   
-    <span class="summary_desc"><div class='inline'><p>Create the element.</p>
+    <span class="summary_desc"><div class='inline'><p>Creates the appropriate select input for the given <span class='object_link'><a href="../../Form.html" title="Brut::FrontEnd::Form (class)">Form</a></span> and input name.</p>
 </div></span>
   
 </li>
@@ -281,294 +249,7 @@
     <div class="method_details first">
   <h3 class="signature first" id="initialize-instance_method">
   
-    #<strong>initialize</strong>(name:, options:, value_attribute:, selected_value: nil, selected_option: nil, option_text_attribute:, include_blank: false, html_attributes:)  &#x21d2; <tt><span class='object_link'><a href="" title="Brut::FrontEnd::Components::Inputs::SelectTagWithOptions (class)">SelectTagWithOptions</a></span></tt> 
-  
-
-  
-
-  
-</h3><div class="docstring">
-  <div class="discussion">
-    <p>Create the element.</p>
-
-<p>XXX: Why does this not ask the form for the selected_value?
-XXX: This doesn't do well when values are strings</p>
-
-
-  </div>
-</div>
-<div class="tags">
-  <p class="tag_title">Parameters:</p>
-<ul class="param">
-  
-    <li>
-      
-        <span class='name'>name</span>
-      
-      
-        <span class='type'>(<tt>String</tt>)</span>
-      
-      
-      
-        &mdash;
-        <div class='inline'><p>the name of the input</p>
-</div>
-      
-    </li>
-  
-    <li>
-      
-        <span class='name'>options</span>
-      
-      
-        <span class='type'>(<tt>Array&lt;Object&gt;</tt>)</span>
-      
-      
-      
-        &mdash;
-        <div class='inline'><p>An array of objects represented what is being selected.
-These can be any object and are ideally whatever domain object or
-data type you want on the backend to represent this selection.</p>
-</div>
-      
-    </li>
-  
-    <li>
-      
-        <span class='name'>value_attribute</span>
-      
-      
-        <span class='type'>(<tt>Symbol|String</tt>)</span>
-      
-      
-      
-        &mdash;
-        <div class='inline'><p>the name of an attribute to determine an option's value.
-This will be called on each element of <code>options</code> to get the value used for the <code>&lt;option&gt;</code>'s
-<code>value</code> attribute.  The value returned by <code>value_attribute</code> should be unique amongst the
-<code>options</code> provided <em>and</em> be distinct from whatever <code>value</code> is used for <code>include_blank</code>.</p>
-</div>
-      
-    </li>
-  
-    <li>
-      
-        <span class='name'>selected_value</span>
-      
-      
-        <span class='type'>(<tt>String</tt>)</span>
-      
-      
-        <em class="default">(defaults to: <tt>nil</tt>)</em>
-      
-      
-        &mdash;
-        <div class='inline'><p>the value of the selected option. Note that this is the <em>value</em>
-of the selected option, not the selected option itself. To set the selected value
-based on a selected option, omit this and use <code>selected_option</code></p>
-</div>
-      
-    </li>
-  
-    <li>
-      
-        <span class='name'>selected_option</span>
-      
-      
-        <span class='type'>(<tt>String</tt>)</span>
-      
-      
-        <em class="default">(defaults to: <tt>nil</tt>)</em>
-      
-      
-        &mdash;
-        <div class='inline'><p>the selected option. Note that <code>value_attribute</code> will be called
-on this to determine the selected value to use when generating HTML. Also note that
-this object must be in <code>options</code> or an exeception is raised.</p>
-</div>
-      
-    </li>
-  
-    <li>
-      
-        <span class='name'>option_text_attribute</span>
-      
-      
-        <span class='type'>(<tt>Symbol|String</tt>)</span>
-      
-      
-      
-        &mdash;
-        <div class='inline'><p>the name of an attribute to determine the text for an option.
-This will be called on each element of <code>options</code> to get the value used for the <code>&lt;option&gt;</code>'s
-text content.  The value returned by <code>option_text_attribute</code> need not be unique, though if it
-is not unique, it will certainly be confusing.</p>
-</div>
-      
-    </li>
-  
-    <li>
-      
-        <span class='name'>html_attributes</span>
-      
-      
-        <span class='type'>(<tt>Hash</tt>)</span>
-      
-      
-      
-        &mdash;
-        <div class='inline'><p>any additional HTML attributes to include on the <code>&lt;select&gt;</code> element.</p>
-</div>
-      
-    </li>
-  
-    <li>
-      
-        <span class='name'>include_blank</span>
-      
-      
-        <span class='type'>(<tt>false|true|Hash</tt>)</span>
-      
-      
-        <em class="default">(defaults to: <tt>false</tt>)</em>
-      
-      
-        &mdash;
-        <div class='inline'><p>configure how and if to include a blank element in the select.
-If this is false, there will be no blank element. If it's <code>true</code>, there will be one with
-no value or text.  If this is a <code>Hash</code> it must contain a <code>value:</code> key and a <code>text_content:</code> key
-to be used as the <code>value</code> attribute and option text content, respectively.</p>
-</div>
-      
-    </li>
-  
-</ul>
-
-<p class="tag_title">Raises:</p>
-<ul class="raise">
-  
-    <li>
-      
-      
-        <span class='type'></span>
-      
-      
-      
-        
-        <div class='inline'><p>ArgumentError if <code>selected_option</code> is present, but not in <code>options</code> or if <code>selected_value</code> is
-present, but no option's value for <code>value_attribute</code> is that value.</p>
-</div>
-      
-    </li>
-  
-</ul>
-
-</div><table class="source_code">
-  <tr>
-    <td>
-      <pre class="lines">
-
-
-99
-100
-101
-102
-103
-104
-105
-106
-107
-108
-109
-110
-111
-112
-113
-114
-115
-116
-117
-118
-119
-120
-121
-122
-123
-124
-125
-126
-127
-128
-129
-130
-131
-132
-133
-134
-135
-136
-137
-138</pre>
-    </td>
-    <td>
-      <pre class="code"><span class="info file"># File 'lib/brut/front_end/components/inputs/select_tag_with_options.rb', line 99</span>
-
-<span class='kw'>def</span> <span class='id identifier rubyid_initialize'>initialize</span><span class='lparen'>(</span><span class='label'>name:</span><span class='comma'>,</span>
-               <span class='label'>options:</span><span class='comma'>,</span>
-               <span class='label'>value_attribute:</span><span class='comma'>,</span>
-               <span class='label'>selected_value:</span> <span class='kw'>nil</span><span class='comma'>,</span>
-               <span class='label'>selected_option:</span> <span class='kw'>nil</span><span class='comma'>,</span>
-               <span class='label'>option_text_attribute:</span><span class='comma'>,</span>
-               <span class='label'>include_blank:</span> <span class='kw'>false</span><span class='comma'>,</span>
-               <span class='label'>html_attributes:</span><span class='rparen'>)</span>
-  <span class='ivar'>@options</span>                <span class='op'>=</span> <span class='id identifier rubyid_options'>options</span>
-  <span class='ivar'>@include_blank</span>          <span class='op'>=</span> <span class='const'>IncludeBlank</span><span class='period'>.</span><span class='id identifier rubyid_from_param'>from_param</span><span class='lparen'>(</span><span class='id identifier rubyid_include_blank'>include_blank</span><span class='rparen'>)</span>
-  <span class='ivar'>@value_attribute</span>        <span class='op'>=</span> <span class='id identifier rubyid_value_attribute'>value_attribute</span>
-  <span class='ivar'>@option_text_attribute</span>  <span class='op'>=</span> <span class='id identifier rubyid_option_text_attribute'>option_text_attribute</span>
-  <span class='ivar'>@html_attributes</span>        <span class='op'>=</span> <span class='id identifier rubyid_html_attributes'>html_attributes</span>
-  <span class='ivar'>@html_attributes</span><span class='lbracket'>[</span><span class='symbol'>:name</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='id identifier rubyid_name'>name</span>
-
-  <span class='kw'>if</span> <span class='id identifier rubyid_selected_value'>selected_value</span><span class='period'>.</span><span class='id identifier rubyid_nil?'>nil?</span>
-    <span class='kw'>if</span> <span class='id identifier rubyid_selected_option'>selected_option</span><span class='period'>.</span><span class='id identifier rubyid_nil?'>nil?</span>
-      <span class='ivar'>@selected_value</span> <span class='op'>=</span> <span class='kw'>nil</span> <span class='comment'># explicitly nothing is selected
-</span>    <span class='kw'>else</span>
-      <span class='id identifier rubyid_option'>option</span> <span class='op'>=</span> <span class='id identifier rubyid_options'>options</span><span class='period'>.</span><span class='id identifier rubyid_detect'>detect</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_option'>option</span><span class='op'>|</span>
-        <span class='id identifier rubyid_option'>option</span><span class='period'>.</span><span class='id identifier rubyid_send'>send</span><span class='lparen'>(</span><span class='ivar'>@value_attribute</span><span class='rparen'>)</span> <span class='op'>==</span> <span class='id identifier rubyid_selected_option'>selected_option</span><span class='period'>.</span><span class='id identifier rubyid_send'>send</span><span class='lparen'>(</span><span class='ivar'>@value_attribute</span><span class='rparen'>)</span>
-      <span class='rbrace'>}</span>
-      <span class='kw'>if</span> <span class='id identifier rubyid_option'>option</span><span class='period'>.</span><span class='id identifier rubyid_nil?'>nil?</span>
-        <span class='id identifier rubyid_raise'>raise</span> <span class='const'>ArgumentError</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>selected_option </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_selected_option'>selected_option</span><span class='embexpr_end'>}</span><span class='tstring_content'> (with </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_value_attribute'>value_attribute</span><span class='embexpr_end'>}</span><span class='tstring_content'> &#39;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_selected_option'>selected_option</span><span class='period'>.</span><span class='id identifier rubyid_send'>send</span><span class='lparen'>(</span><span class='id identifier rubyid_value_attribute'>value_attribute</span><span class='rparen'>)</span><span class='embexpr_end'>}</span><span class='tstring_content'>&#39;) was not found in options</span><span class='tstring_end'>&quot;</span></span>
-      <span class='kw'>end</span>
-      <span class='ivar'>@selected_value</span> <span class='op'>=</span> <span class='id identifier rubyid_option'>option</span><span class='period'>.</span><span class='id identifier rubyid_send'>send</span><span class='lparen'>(</span><span class='ivar'>@value_attribute</span><span class='rparen'>)</span>
-    <span class='kw'>end</span>
-  <span class='kw'>else</span>
-    <span class='kw'>if</span> <span class='id identifier rubyid_selected_value'>selected_value</span><span class='period'>.</span><span class='id identifier rubyid_kind_of?'>kind_of?</span><span class='lparen'>(</span><span class='const'>Array</span><span class='rparen'>)</span>
-      <span class='id identifier rubyid_raise'>raise</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>WTF: </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_name'>name</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span>
-    <span class='kw'>end</span>
-    <span class='id identifier rubyid_option'>option</span> <span class='op'>=</span> <span class='id identifier rubyid_options'>options</span><span class='period'>.</span><span class='id identifier rubyid_detect'>detect</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_option'>option</span><span class='op'>|</span>
-      <span class='id identifier rubyid_selected_value'>selected_value</span> <span class='op'>==</span> <span class='id identifier rubyid_option'>option</span><span class='period'>.</span><span class='id identifier rubyid_send'>send</span><span class='lparen'>(</span><span class='ivar'>@value_attribute</span><span class='rparen'>)</span>
-    <span class='rbrace'>}</span>
-    <span class='kw'>if</span> <span class='id identifier rubyid_option'>option</span><span class='period'>.</span><span class='id identifier rubyid_nil?'>nil?</span>
-      <span class='id identifier rubyid_raise'>raise</span> <span class='const'>ArgumentError</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>selected_value </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_selected_value'>selected_value</span><span class='embexpr_end'>}</span><span class='tstring_content'> was not the value for </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_value_attribute'>value_attribute</span><span class='embexpr_end'>}</span><span class='tstring_content'> on any of the options: </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_options'>options</span><span class='period'>.</span><span class='id identifier rubyid_map'>map</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_option'>option</span><span class='op'>|</span> <span class='id identifier rubyid_option'>option</span><span class='period'>.</span><span class='id identifier rubyid_send'>send</span><span class='lparen'>(</span><span class='id identifier rubyid_value_attribute'>value_attribute</span><span class='rparen'>)</span> <span class='rbrace'>}</span><span class='period'>.</span><span class='id identifier rubyid_join'>join</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>, </span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span>
-    <span class='kw'>end</span>
-    <span class='ivar'>@selected_value</span> <span class='op'>=</span> <span class='id identifier rubyid_option'>option</span><span class='period'>.</span><span class='id identifier rubyid_send'>send</span><span class='lparen'>(</span><span class='ivar'>@value_attribute</span><span class='rparen'>)</span>
-  <span class='kw'>end</span>
-<span class='kw'>end</span></pre>
-    </td>
-  </tr>
-</table>
-</div>
-  
-</div>
-
-
-  <div id="class_method_details" class="method_details_list">
-    <h2>Class Method Details</h2>
-
-    
-      <div class="method_details first">
-  <h3 class="signature first" id="for_form_input-class_method">
-  
-    .<strong>for_form_input</strong>(form:, input_name:, options:, include_blank: false, value_attribute:, option_text_attribute:, index: nil, html_attributes: {})  &#x21d2; <tt><span class='object_link'><a href="" title="Brut::FrontEnd::Components::Inputs::SelectTagWithOptions (class)">Brut::FrontEnd::Components::Inputs::SelectTagWithOptions</a></span></tt> 
+    #<strong>initialize</strong>(form:, input_name:, options:, include_blank: false, value_attribute:, option_text_attribute:, index: nil, html_attributes: {})  &#x21d2; <tt><span class='object_link'><a href="" title="Brut::FrontEnd::Components::Inputs::SelectTagWithOptions (class)">Brut::FrontEnd::Components::Inputs::SelectTagWithOptions</a></span></tt> 
   
 
   
@@ -728,23 +409,6 @@ to be used as the <code>value</code> attribute and option text content, respecti
   
 </ul>
 
-<p class="tag_title">Returns:</p>
-<ul class="return">
-  
-    <li>
-      
-      
-        <span class='type'>(<tt><span class='object_link'><a href="" title="Brut::FrontEnd::Components::Inputs::SelectTagWithOptions (class)">Brut::FrontEnd::Components::Inputs::SelectTagWithOptions</a></span></tt>)</span>
-      
-      
-      
-        &mdash;
-        <div class='inline'><p>the select input ready to be placed into a view.</p>
-</div>
-      
-    </li>
-  
-</ul>
 
 </div><table class="source_code">
   <tr>
@@ -788,19 +452,33 @@ to be used as the <code>value</code> attribute and option text content, respecti
 63
 64
 65
-66</pre>
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80</pre>
     </td>
     <td>
       <pre class="code"><span class="info file"># File 'lib/brut/front_end/components/inputs/select_tag_with_options.rb', line 30</span>
 
-<span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_for_form_input'>for_form_input</span><span class='lparen'>(</span><span class='label'>form:</span><span class='comma'>,</span>
-                        <span class='label'>input_name:</span><span class='comma'>,</span>
-                        <span class='label'>options:</span><span class='comma'>,</span>
-                        <span class='label'>include_blank:</span> <span class='kw'>false</span><span class='comma'>,</span>
-                        <span class='label'>value_attribute:</span><span class='comma'>,</span>
-                        <span class='label'>option_text_attribute:</span><span class='comma'>,</span>
-                        <span class='label'>index:</span> <span class='kw'>nil</span><span class='comma'>,</span>
-                        <span class='label'>html_attributes:</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
+<span class='kw'>def</span> <span class='id identifier rubyid_initialize'>initialize</span><span class='lparen'>(</span><span class='label'>form:</span><span class='comma'>,</span>
+               <span class='label'>input_name:</span><span class='comma'>,</span>
+               <span class='label'>options:</span><span class='comma'>,</span>
+               <span class='label'>include_blank:</span> <span class='kw'>false</span><span class='comma'>,</span>
+               <span class='label'>value_attribute:</span><span class='comma'>,</span>
+               <span class='label'>option_text_attribute:</span><span class='comma'>,</span>
+               <span class='label'>index:</span> <span class='kw'>nil</span><span class='comma'>,</span>
+               <span class='label'>html_attributes:</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_html_attributes'>html_attributes</span> <span class='op'>=</span> <span class='id identifier rubyid_html_attributes'>html_attributes</span><span class='period'>.</span><span class='id identifier rubyid_map'>map</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_key'>key</span><span class='comma'>,</span><span class='id identifier rubyid_value'>value</span><span class='op'>|</span> <span class='lbracket'>[</span> <span class='id identifier rubyid_key'>key</span><span class='period'>.</span><span class='id identifier rubyid_to_sym'>to_sym</span><span class='comma'>,</span> <span class='id identifier rubyid_value'>value</span> <span class='rbracket'>]</span> <span class='rbrace'>}</span><span class='period'>.</span><span class='id identifier rubyid_to_h'>to_h</span>
   <span class='id identifier rubyid_default_html_attributes'>default_html_attributes</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span>
   <span class='id identifier rubyid_index'>index</span> <span class='op'>||=</span> <span class='int'>0</span>
@@ -820,22 +498,37 @@ to be used as the <code>value</code> attribute and option text content, respecti
            <span class='id identifier rubyid_input'>input</span><span class='period'>.</span><span class='id identifier rubyid_name'>name</span>
          <span class='kw'>end</span>
 
-  <span class='const'><span class='object_link'><a href="../../../../Brut.html" title="Brut (module)">Brut</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../../../FrontEnd.html" title="Brut::FrontEnd (module)">FrontEnd</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../../Components.html" title="Brut::FrontEnd::Components (module)">Components</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../Inputs.html" title="Brut::FrontEnd::Components::Inputs (module)">Inputs</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="" title="Brut::FrontEnd::Components::Inputs::SelectTagWithOptions (class)">SelectTagWithOptions</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="#initialize-instance_method" title="Brut::FrontEnd::Components::Inputs::SelectTagWithOptions#initialize (method)">new</a></span></span><span class='lparen'>(</span>
-    <span class='label'>name:</span> <span class='id identifier rubyid_name'>name</span><span class='comma'>,</span>
-    <span class='label'>options:</span><span class='comma'>,</span>
-    <span class='label'>selected_value:</span> <span class='id identifier rubyid_input'>input</span><span class='period'>.</span><span class='id identifier rubyid_value'>value</span><span class='comma'>,</span>
-    <span class='label'>value_attribute:</span><span class='comma'>,</span>
-    <span class='label'>option_text_attribute:</span><span class='comma'>,</span>
-    <span class='label'>include_blank:</span><span class='comma'>,</span>
-    <span class='label'>html_attributes:</span> <span class='id identifier rubyid_default_html_attributes'>default_html_attributes</span><span class='period'>.</span><span class='id identifier rubyid_merge'>merge</span><span class='lparen'>(</span><span class='id identifier rubyid_html_attributes'>html_attributes</span><span class='rparen'>)</span>
-  <span class='rparen'>)</span>
+  <span class='id identifier rubyid_input_value'>input_value</span> <span class='op'>=</span> <span class='id identifier rubyid_input'>input</span><span class='period'>.</span><span class='id identifier rubyid_value'>value</span>
+
+  <span class='ivar'>@options</span>                <span class='op'>=</span> <span class='id identifier rubyid_options'>options</span>
+  <span class='ivar'>@include_blank</span>          <span class='op'>=</span> <span class='const'>IncludeBlank</span><span class='period'>.</span><span class='id identifier rubyid_from_param'>from_param</span><span class='lparen'>(</span><span class='id identifier rubyid_include_blank'>include_blank</span><span class='rparen'>)</span>
+  <span class='ivar'>@value_attribute</span>        <span class='op'>=</span> <span class='id identifier rubyid_value_attribute'>value_attribute</span>
+  <span class='ivar'>@option_text_attribute</span>  <span class='op'>=</span> <span class='id identifier rubyid_option_text_attribute'>option_text_attribute</span>
+  <span class='ivar'>@html_attributes</span>        <span class='op'>=</span> <span class='id identifier rubyid_default_html_attributes'>default_html_attributes</span><span class='period'>.</span><span class='id identifier rubyid_merge'>merge</span><span class='lparen'>(</span><span class='id identifier rubyid_html_attributes'>html_attributes</span><span class='rparen'>)</span>
+  <span class='ivar'>@html_attributes</span><span class='lbracket'>[</span><span class='symbol'>:name</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='id identifier rubyid_name'>name</span>
+
+  <span class='kw'>if</span> <span class='id identifier rubyid_input_value'>input_value</span><span class='period'>.</span><span class='id identifier rubyid_nil?'>nil?</span>
+    <span class='ivar'>@selected_value</span> <span class='op'>=</span> <span class='kw'>nil</span> <span class='comment'># explicitly nothing is selected
+</span>  <span class='kw'>else</span>
+    <span class='kw'>if</span> <span class='id identifier rubyid_input_value'>input_value</span><span class='period'>.</span><span class='id identifier rubyid_kind_of?'>kind_of?</span><span class='lparen'>(</span><span class='const'>Array</span><span class='rparen'>)</span>
+      <span class='id identifier rubyid_raise'>raise</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>WTF: </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_name'>name</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span> <span class='comment'># XXX?
+</span>    <span class='kw'>end</span>
+    <span class='id identifier rubyid_option'>option</span> <span class='op'>=</span> <span class='id identifier rubyid_options'>options</span><span class='period'>.</span><span class='id identifier rubyid_detect'>detect</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_option'>option</span><span class='op'>|</span>
+      <span class='id identifier rubyid_input_value'>input_value</span> <span class='op'>==</span> <span class='id identifier rubyid_option'>option</span><span class='period'>.</span><span class='id identifier rubyid_send'>send</span><span class='lparen'>(</span><span class='ivar'>@value_attribute</span><span class='rparen'>)</span>
+    <span class='rbrace'>}</span>
+    <span class='kw'>if</span> <span class='id identifier rubyid_option'>option</span><span class='period'>.</span><span class='id identifier rubyid_nil?'>nil?</span>
+      <span class='id identifier rubyid_raise'>raise</span> <span class='const'>ArgumentError</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>selected_value </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_input_value'>input_value</span><span class='embexpr_end'>}</span><span class='tstring_content'> was not the value for </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_value_attribute'>value_attribute</span><span class='embexpr_end'>}</span><span class='tstring_content'> on any of the options: </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_options'>options</span><span class='period'>.</span><span class='id identifier rubyid_map'>map</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_option'>option</span><span class='op'>|</span> <span class='id identifier rubyid_option'>option</span><span class='period'>.</span><span class='id identifier rubyid_send'>send</span><span class='lparen'>(</span><span class='id identifier rubyid_value_attribute'>value_attribute</span><span class='rparen'>)</span> <span class='rbrace'>}</span><span class='period'>.</span><span class='id identifier rubyid_join'>join</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>, </span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span>
+    <span class='kw'>end</span>
+    <span class='ivar'>@selected_value</span> <span class='op'>=</span> <span class='id identifier rubyid_option'>option</span><span class='period'>.</span><span class='id identifier rubyid_send'>send</span><span class='lparen'>(</span><span class='ivar'>@value_attribute</span><span class='rparen'>)</span>
+  <span class='kw'>end</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
 </table>
 </div>
-    
-  </div>
+  
+</div>
+
 
   <div id="instance_method_details" class="method_details_list">
     <h2>Instance Method Details</h2>
@@ -856,28 +549,28 @@ to be used as the <code>value</code> attribute and option text content, respecti
       <pre class="lines">
 
 
-140
-141
-142
-143
-144
-145
-146
-147
-148
-149
-150
-151
-152
-153
-154
-155
-156
-157
-158</pre>
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/brut/front_end/components/inputs/select_tag_with_options.rb', line 140</span>
+      <pre class="code"><span class="info file"># File 'lib/brut/front_end/components/inputs/select_tag_with_options.rb', line 82</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_view_template'>view_template</span>
   <span class='id identifier rubyid_select'>select</span><span class='lparen'>(</span><span class='op'>**</span><span class='ivar'>@html_attributes</span><span class='rparen'>)</span> <span class='lbrace'>{</span>
@@ -908,7 +601,7 @@ to be used as the <code>value</code> attribute and option text content, respecti
 </div>
 
       <div id="footer">
-  Generated on Wed Jun 25 22:57:21 2025 by
+  Generated on Wed Jul  2 21:45:28 2025 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.37 (ruby-3.4.4).
 </div>

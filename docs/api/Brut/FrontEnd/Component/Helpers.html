@@ -133,7 +133,7 @@ from the various methods of the component.</p>
   
 
   
-    <span class="summary_desc"><div class='inline'><p>Return a component that you would like Brut to instantiate.</p>
+    <span class="summary_desc"><div class='inline'><p>Render (in Phlex parlance) a component that you would like Brut to instantiate.</p>
 </div></span>
   
 </li>
@@ -182,35 +182,45 @@ from the various methods of the component.</p>
   
 </h3><div class="docstring">
   <div class="discussion">
-    <p>Return a component that you would like Brut to instantiate.
-This will use keyword injection to create the component, which means that if the component
-doesn't require any data from this component, you do not need to pass through those values.
-For example, you may have a component that renders the flash message.  To avoid requiring your component to
-be passed the flash, a global component can be injected with it from Brut.</p>
+    <p>Render (in Phlex parlance) a component that you would like Brut to
+instantiate.  This is useful when you want to use a component that
+only requires values from the <span class='object_link'><a href="../RequestContext.html" title="Brut::FrontEnd::RequestContext (class)">RequestContext</a></span>. By
+using this method, <em>this</em> component does not have to receive
+data from the <span class='object_link'><a href="../RequestContext.html" title="Brut::FrontEnd::RequestContext (class)">RequestContext</a></span> that only serves to pass
+to the component you use here.</p>
+
+<p>For example, you may have a component that renders the flash message.  To avoid requiring <em>this</em> component/page to be passed the flash, a global component can be injected with it from Brut.</p>
+
+<p>This component <em>will</em> be rendered into the Phlex context. Do not call
+<code>render</code> on the result, nor rely on the return value.</p>
 
 
   </div>
 </div>
 <div class="tags">
-  
-<p class="tag_title">Returns:</p>
-<ul class="return">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
   
     <li>
       
+        <span class='name'>component_klass</span>
       
-        <span class='type'>(<tt>Object</tt>)</span>
+      
+        <span class='type'>(<tt>Class</tt>)</span>
       
       
       
         &mdash;
-        <div class='inline'><p>instance of <code>component_klass</code>, as created by Brut. This will
-not render the component.</p>
+        <div class='inline'><p>the component class to use in the view.
+This class's
+initializer must only require information available from the
+<span class='object_link'><a href="../RequestContext.html" title="Brut::FrontEnd::RequestContext (class)">RequestContext</a></span>.</p>
 </div>
       
     </li>
   
 </ul>
+
 
 </div><table class="source_code">
   <tr>
@@ -218,15 +228,15 @@ not render the component.</p>
       <pre class="lines">
 
 
-83
-84
-85</pre>
+107
+108
+109</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/brut/front_end/component.rb', line 83</span>
+      <pre class="code"><span class="info file"># File 'lib/brut/front_end/component.rb', line 107</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_global_component'>global_component</span><span class='lparen'>(</span><span class='id identifier rubyid_component_klass'>component_klass</span><span class='rparen'>)</span>
-  <span class='const'><span class='object_link'><a href="../../../Brut.html" title="Brut (module)">Brut</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../../FrontEnd.html" title="Brut::FrontEnd (module)">FrontEnd</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../RequestContext.html" title="Brut::FrontEnd::RequestContext (class)">RequestContext</a></span></span><span class='period'>.</span><span class='id identifier rubyid_inject'><span class='object_link'><a href="../RequestContext.html#inject-class_method" title="Brut::FrontEnd::RequestContext.inject (method)">inject</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_component_klass'>component_klass</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_render'>render</span> <span class='const'><span class='object_link'><a href="../../../Brut.html" title="Brut (module)">Brut</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../../FrontEnd.html" title="Brut::FrontEnd (module)">FrontEnd</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../RequestContext.html" title="Brut::FrontEnd::RequestContext (class)">RequestContext</a></span></span><span class='period'>.</span><span class='id identifier rubyid_inject'><span class='object_link'><a href="../RequestContext.html#inject-class_method" title="Brut::FrontEnd::RequestContext.inject (method)">inject</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_component_klass'>component_klass</span><span class='rparen'>)</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -288,16 +298,16 @@ looking</p>
       <pre class="lines">
 
 
-67
-68
-69
-70
-71
-72
-73</pre>
+83
+84
+85
+86
+87
+88
+89</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/brut/front_end/component.rb', line 67</span>
+      <pre class="code"><span class="info file"># File 'lib/brut/front_end/component.rb', line 83</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_inline_svg'>inline_svg</span><span class='lparen'>(</span><span class='id identifier rubyid_svg'>svg</span><span class='rparen'>)</span>
   <span class='const'><span class='object_link'><a href="../../../Brut.html" title="Brut (module)">Brut</a></span></span><span class='period'>.</span><span class='id identifier rubyid_container'><span class='object_link'><a href="../../../Brut.html#container-class_method" title="Brut.container (method)">container</a></span></span><span class='period'>.</span><span class='id identifier rubyid_svg_locator'>svg_locator</span><span class='period'>.</span><span class='id identifier rubyid_locate'>locate</span><span class='lparen'>(</span><span class='id identifier rubyid_svg'>svg</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_then'>then</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_svg_file'>svg_file</span><span class='op'>|</span>
@@ -316,7 +326,7 @@ looking</p>
 </div>
 
       <div id="footer">
-  Generated on Wed Jun 25 22:57:19 2025 by
+  Generated on Wed Jul  2 21:45:26 2025 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.37 (ruby-3.4.4).
 </div>

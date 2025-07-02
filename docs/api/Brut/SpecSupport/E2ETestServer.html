@@ -284,13 +284,13 @@ from the given bin dir</p>
       <pre class="lines">
 
 
-12
-13
-14
-15</pre>
+15
+16
+17
+18</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/brut/spec_support/e2e_test_server.rb', line 12</span>
+      <pre class="code"><span class="info file"># File 'lib/brut/spec_support/e2e_test_server.rb', line 15</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_initialize'>initialize</span><span class='lparen'>(</span><span class='label'>bin_dir:</span><span class='rparen'>)</span>
   <span class='ivar'>@bin_dir</span> <span class='op'>=</span> <span class='id identifier rubyid_bin_dir'>bin_dir</span>
@@ -323,12 +323,12 @@ from the given bin dir</p>
       <pre class="lines">
 
 
-4
-5
-6</pre>
+7
+8
+9</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/brut/spec_support/e2e_test_server.rb', line 4</span>
+      <pre class="code"><span class="info file"># File 'lib/brut/spec_support/e2e_test_server.rb', line 7</span>
 
 <span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_instance'>instance</span>
   <span class='ivar'>@instance</span> <span class='op'>||=</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='label'>bin_dir:</span> <span class='const'><span class='object_link'><a href="../../Brut.html" title="Brut (module)">Brut</a></span></span><span class='period'>.</span><span class='id identifier rubyid_container'><span class='object_link'><a href="../../Brut.html#container-class_method" title="Brut.container (method)">container</a></span></span><span class='period'>.</span><span class='id identifier rubyid_project_root'>project_root</span> <span class='op'>/</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>bin</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
@@ -369,9 +369,6 @@ from the given bin dir</p>
       <pre class="lines">
 
 
-18
-19
-20
 21
 22
 23
@@ -389,10 +386,13 @@ from the given bin dir</p>
 35
 36
 37
-38</pre>
+38
+39
+40
+41</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/brut/spec_support/e2e_test_server.rb', line 18</span>
+      <pre class="code"><span class="info file"># File 'lib/brut/spec_support/e2e_test_server.rb', line 21</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_start'>start</span>
   <span class='kw'>if</span> <span class='op'>!</span><span class='ivar'>@pid</span><span class='period'>.</span><span class='id identifier rubyid_nil?'>nil?</span>
@@ -445,9 +445,6 @@ from the given bin dir</p>
       <pre class="lines">
 
 
-41
-42
-43
 44
 45
 46
@@ -461,10 +458,13 @@ from the given bin dir</p>
 54
 55
 56
-57</pre>
+57
+58
+59
+60</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/brut/spec_support/e2e_test_server.rb', line 41</span>
+      <pre class="code"><span class="info file"># File 'lib/brut/spec_support/e2e_test_server.rb', line 44</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_stop'>stop</span>
   <span class='kw'>if</span> <span class='ivar'>@pid</span><span class='period'>.</span><span class='id identifier rubyid_nil?'>nil?</span>
@@ -493,7 +493,7 @@ from the given bin dir</p>
 </div>
 
       <div id="footer">
-  Generated on Wed Jun 25 22:57:20 2025 by
+  Generated on Wed Jul  2 21:45:28 2025 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.37 (ruby-3.4.4).
 </div>

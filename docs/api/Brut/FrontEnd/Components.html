@@ -92,13 +92,34 @@
 
 <h2>Overview</h2><div class="docstring">
   <div class="discussion">
-    <p>Components holds Brut-provided components that are of general use to any web app</p>
+    <p>Namespace for Brut-provided components that are of general use to any web app.
+Also extends <a href="https://www.phlex.fun/components/kits.html"><code>Phlex:::Kit</code></a>, meaning
+you can include this module in your pages and components to be able to
+create Brut's components without <code>.new</code> or without the full classname:</p>
 
 
   </div>
 </div>
 <div class="tags">
   
+  <div class="examples">
+    <h4 class="tag_title">Examples:</h4>
+    
+      
+      <pre class="example code"><code>class AppPage &lt; Brut::FrontEnd::Page
+  include Brut::FrontEnd::Components
+end
+
+class HomePage &lt; AppPage
+  def page_template
+  h1 do
+    span { &quot;It&#39;s }
+    TimeTag(timestamp: Time.now)
+  end
+end</code></pre>
+    
+  </div>
+
 
 </div><h2>Defined Under Namespace</h2>
 <p class="children">
@@ -125,7 +146,7 @@
 </div>
 
       <div id="footer">
-  Generated on Wed Jun 25 22:57:19 2025 by
+  Generated on Wed Jul  2 21:45:26 2025 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.37 (ruby-3.4.4).
 </div>

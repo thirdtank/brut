@@ -245,18 +245,18 @@
       <pre class="lines">
 
 
-44
-45
-46
-47
 48
 49
 50
 51
-52</pre>
+52
+53
+54
+55
+56</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/sequel/extensions/brut_migrations.rb', line 44</span>
+      <pre class="code"><span class="info file"># File 'lib/sequel/extensions/brut_migrations.rb', line 48</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_add_column'>add_column</span><span class='lparen'>(</span><span class='id identifier rubyid_table'>table</span><span class='comma'>,</span><span class='op'>*</span><span class='id identifier rubyid_args'>args</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='id identifier rubyid_args'>args</span><span class='period'>.</span><span class='id identifier rubyid_last'>last</span>
@@ -317,12 +317,12 @@ Inside a <code>create_table</code> block, this can be called via <code>key</code
       <pre class="lines">
 
 
-39
-40
-41</pre>
+43
+44
+45</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/sequel/extensions/brut_migrations.rb', line 39</span>
+      <pre class="code"><span class="info file"># File 'lib/sequel/extensions/brut_migrations.rb', line 43</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_add_key'>add_key</span><span class='lparen'>(</span><span class='id identifier rubyid_fields'>fields</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_add_index'>add_index</span> <span class='id identifier rubyid_fields'>fields</span><span class='comma'>,</span> <span class='label'>unique:</span> <span class='kw'>true</span>
@@ -424,7 +424,11 @@ Inside a <code>create_table</code> block, this can be called via <code>key</code
 30
 31
 32
-33</pre>
+33
+34
+35
+36
+37</pre>
     </td>
     <td>
       <pre class="code"><span class="info file"># File 'lib/sequel/extensions/brut_migrations.rb', line 18</span>
@@ -432,16 +436,20 @@ Inside a <code>create_table</code> block, this can be called via <code>key</code
 <span class='kw'>def</span> <span class='id identifier rubyid_create_table'>create_table</span><span class='lparen'>(</span><span class='op'>*</span><span class='id identifier rubyid_args'>args</span><span class='rparen'>)</span>
   <span class='kw'>super</span>
 
+
   <span class='kw'>if</span> <span class='id identifier rubyid_args'>args</span><span class='period'>.</span><span class='id identifier rubyid_last'>last</span><span class='period'>.</span><span class='id identifier rubyid_is_a?'>is_a?</span><span class='lparen'>(</span><span class='const'>Hash</span><span class='rparen'>)</span>
-    <span class='kw'>if</span> <span class='id identifier rubyid_args'>args</span><span class='period'>.</span><span class='id identifier rubyid_last'>last</span><span class='lbracket'>[</span><span class='symbol'>:comment</span><span class='rbracket'>]</span>
-      <span class='id identifier rubyid_run'>run</span> <span class='tstring'><span class='tstring_beg'>%{</span><span class='tstring_content'>
-        comment on table </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_args'>args</span><span class='period'>.</span><span class='id identifier rubyid_first'>first</span><span class='embexpr_end'>}</span><span class='tstring_content'> is </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_literal'>literal</span> <span class='id identifier rubyid_args'>args</span><span class='period'>.</span><span class='id identifier rubyid_last'>last</span><span class='lbracket'>[</span><span class='symbol'>:comment</span><span class='rbracket'>]</span><span class='embexpr_end'>}</span><span class='tstring_content'>
-      </span><span class='tstring_end'>}</span></span>
-    <span class='kw'>else</span>
-      <span class='id identifier rubyid_raise'>raise</span> <span class='const'>ArgumentError</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Table </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_args'>args</span><span class='period'>.</span><span class='id identifier rubyid_first'>first</span><span class='embexpr_end'>}</span><span class='tstring_content'> must have a comment</span><span class='tstring_end'>&quot;</span></span>
-    <span class='kw'>end</span>
-    <span class='kw'>if</span> <span class='id identifier rubyid_args'>args</span><span class='period'>.</span><span class='id identifier rubyid_last'>last</span><span class='lbracket'>[</span><span class='symbol'>:external_id</span><span class='rbracket'>]</span>
-      <span class='id identifier rubyid_add_column'>add_column</span> <span class='id identifier rubyid_args'>args</span><span class='period'>.</span><span class='id identifier rubyid_first'>first</span><span class='comma'>,</span> <span class='symbol'>:external_id</span><span class='comma'>,</span> <span class='symbol'>:citext</span><span class='comma'>,</span> <span class='label'>unique:</span> <span class='kw'>true</span>
+    <span class='id identifier rubyid_name'>name</span> <span class='op'>=</span> <span class='id identifier rubyid_args'>args</span><span class='period'>.</span><span class='id identifier rubyid_first'>first</span>
+    <span class='kw'>if</span> <span class='id identifier rubyid_name'>name</span> <span class='op'>!=</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>schema_migrations</span><span class='tstring_end'>&quot;</span></span> <span class='op'>&amp;&amp;</span> <span class='id identifier rubyid_name'>name</span> <span class='op'>!=</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>schema_info</span><span class='tstring_end'>&quot;</span></span>
+      <span class='kw'>if</span> <span class='id identifier rubyid_args'>args</span><span class='period'>.</span><span class='id identifier rubyid_last'>last</span><span class='lbracket'>[</span><span class='symbol'>:comment</span><span class='rbracket'>]</span>
+        <span class='id identifier rubyid_run'>run</span> <span class='tstring'><span class='tstring_beg'>%{</span><span class='tstring_content'>
+          comment on table </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_name'>name</span><span class='embexpr_end'>}</span><span class='tstring_content'> is </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_literal'>literal</span> <span class='id identifier rubyid_args'>args</span><span class='period'>.</span><span class='id identifier rubyid_last'>last</span><span class='lbracket'>[</span><span class='symbol'>:comment</span><span class='rbracket'>]</span><span class='embexpr_end'>}</span><span class='tstring_content'>
+        </span><span class='tstring_end'>}</span></span>
+      <span class='kw'>else</span>
+        <span class='id identifier rubyid_raise'>raise</span> <span class='const'>ArgumentError</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Table </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_name'>name</span><span class='embexpr_end'>}</span><span class='tstring_content'> must have a comment</span><span class='tstring_end'>&quot;</span></span>
+      <span class='kw'>end</span>
+      <span class='kw'>if</span> <span class='id identifier rubyid_args'>args</span><span class='period'>.</span><span class='id identifier rubyid_last'>last</span><span class='lbracket'>[</span><span class='symbol'>:external_id</span><span class='rbracket'>]</span>
+        <span class='id identifier rubyid_add_column'>add_column</span> <span class='id identifier rubyid_name'>name</span><span class='comma'>,</span> <span class='symbol'>:external_id</span><span class='comma'>,</span> <span class='symbol'>:citext</span><span class='comma'>,</span> <span class='label'>unique:</span> <span class='kw'>true</span>
+      <span class='kw'>end</span>
     <span class='kw'>end</span>
   <span class='kw'>end</span>
 <span class='kw'>end</span></pre>
@@ -465,10 +473,6 @@ Inside a <code>create_table</code> block, this can be called via <code>key</code
       <pre class="lines">
 
 
-54
-55
-56
-57
 58
 59
 60
@@ -486,13 +490,17 @@ Inside a <code>create_table</code> block, this can be called via <code>key</code
 72
 73
 74
-75</pre>
+75
+76
+77
+78
+79</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/sequel/extensions/brut_migrations.rb', line 54</span>
+      <pre class="code"><span class="info file"># File 'lib/sequel/extensions/brut_migrations.rb', line 58</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_create_table_from_generator'>create_table_from_generator</span><span class='lparen'>(</span><span class='id identifier rubyid_name'>name</span><span class='comma'>,</span> <span class='id identifier rubyid_generator'>generator</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span><span class='rparen'>)</span>
-  <span class='kw'>if</span> <span class='id identifier rubyid_name'>name</span> <span class='op'>!=</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>schema_migrations</span><span class='tstring_end'>&quot;</span></span>
+  <span class='kw'>if</span> <span class='id identifier rubyid_name'>name</span> <span class='op'>!=</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>schema_migrations</span><span class='tstring_end'>&quot;</span></span> <span class='op'>&amp;&amp;</span> <span class='id identifier rubyid_name'>name</span> <span class='op'>!=</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>schema_info</span><span class='tstring_end'>&quot;</span></span>
     <span class='kw'>if</span> <span class='id identifier rubyid_generator'>generator</span><span class='period'>.</span><span class='id identifier rubyid_columns'>columns</span><span class='period'>.</span><span class='id identifier rubyid_none?'>none?</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_column'>column</span><span class='op'>|</span> <span class='id identifier rubyid_column'>column</span><span class='lbracket'>[</span><span class='symbol'>:primary_key</span><span class='rbracket'>]</span> <span class='rbrace'>}</span>
       <span class='id identifier rubyid_generator'>generator</span><span class='period'>.</span><span class='id identifier rubyid_primary_key'>primary_key</span> <span class='symbol'>:id</span>
     <span class='kw'>end</span>
@@ -523,7 +531,7 @@ Inside a <code>create_table</code> block, this can be called via <code>key</code
 </div>
 
       <div id="footer">
-  Generated on Wed Jun 25 22:57:19 2025 by
+  Generated on Wed Jul  2 21:45:27 2025 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.37 (ruby-3.4.4).
 </div>

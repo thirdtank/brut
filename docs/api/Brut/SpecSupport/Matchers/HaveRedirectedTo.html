@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>
+  Class: Brut::SpecSupport::Matchers::HaveRedirectedTo
+  
+    &mdash; Documentation by YARD 0.9.37
+  
+</title>
+
+  <link rel="stylesheet" href="../../../css/style.css" type="text/css" />
+
+  <link rel="stylesheet" href="../../../css/common.css" type="text/css" />
+
+<script type="text/javascript">
+  pathId = "Brut::SpecSupport::Matchers::HaveRedirectedTo";
+  relpath = '../../../';
+</script>
+
+
+  <script type="text/javascript" charset="utf-8" src="../../../js/jquery.js"></script>
+
+  <script type="text/javascript" charset="utf-8" src="../../../js/app.js"></script>
+
+
+  </head>
+  <body>
+    <div class="nav_wrap">
+      <iframe id="nav" src="../../../class_list.html?1"></iframe>
+      <div id="resizer"></div>
+    </div>
+
+    <div id="main" tabindex="-1">
+      <div id="header">
+        <div id="menu">
+  
+    <a href="../../../_index.html">Index (H)</a> &raquo;
+    <span class='title'><span class='object_link'><a href="../../../Brut.html" title="Brut (module)">Brut</a></span></span> &raquo; <span class='title'><span class='object_link'><a href="../../SpecSupport.html" title="Brut::SpecSupport (module)">SpecSupport</a></span></span> &raquo; <span class='title'><span class='object_link'><a href="../Matchers.html" title="Brut::SpecSupport::Matchers (module)">Matchers</a></span></span>
+     &raquo; 
+    <span class="title">HaveRedirectedTo</span>
+  
+</div>
+
+        <div id="search">
+  
+    <a class="full_list_link" id="class_list_link"
+        href="../../../class_list.html">
+
+        <svg width="24" height="24">
+          <rect x="0" y="4" width="24" height="4" rx="1" ry="1"></rect>
+          <rect x="0" y="12" width="24" height="4" rx="1" ry="1"></rect>
+          <rect x="0" y="20" width="24" height="4" rx="1" ry="1"></rect>
+        </svg>
+    </a>
+  
+</div>
+        <div class="clear"></div>
+      </div>
+
+      <div id="content"><h1>Class: Brut::SpecSupport::Matchers::HaveRedirectedTo
+  
+  
+  
+</h1>
+<div class="box_info">
+  
+  <dl>
+    <dt>Inherits:</dt>
+    <dd>
+      <span class="inheritName">Object</span>
+      
+        <ul class="fullTree">
+          <li>Object</li>
+          
+            <li class="next">Brut::SpecSupport::Matchers::HaveRedirectedTo</li>
+          
+        </ul>
+        <a href="#" class="inheritanceTree">show all</a>
+      
+    </dd>
+  </dl>
+  
+
+  
+  
+  
+  
+  
+
+  
+
+  
+  <dl>
+    <dt>Defined in:</dt>
+    <dd>lib/brut/spec_support/matchers/have_redirected_to.rb</dd>
+  </dl>
+  
+</div>
+
+<h2>Overview</h2><div class="docstring">
+  <div class="discussion">
+    <p>Used on handler specs to check that a response has
+redirected to a page or URI.  Can also be used
+with <span class='object_link'><a href="../ComponentSupport.html#generate_result-instance_method" title="Brut::SpecSupport::ComponentSupport#generate_result (method)">ComponentSupport#generate_result</a></span> to
+check that a Page's <span class='object_link'><a href="../../FrontEnd/Page.html#before_generate-instance_method" title="Brut::FrontEnd::Page#before_generate (method)">FrontEnd::Page#before_generate</a></span> method
+did what you expect</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+  <div class="examples">
+    <h4 class="tag_title">Examples:</h4>
+    
+      
+      <pre class="example code"><code><span class='id identifier rubyid_result'>result</span> <span class='op'>=</span> <span class='id identifier rubyid_handler'>handler</span><span class='period'>.</span><span class='id identifier rubyid_handle'>handle</span>
+<span class='id identifier rubyid_expect'>expect</span><span class='lparen'>(</span><span class='id identifier rubyid_result'>result</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_to'>to</span> <span class='id identifier rubyid_have_redirected_to'>have_redirected_to</span><span class='lparen'>(</span><span class='const'>HomePage</span><span class='rparen'>)</span></code></pre>
+    
+      
+        <h5 class="example_title"><div class='inline'><p>with parameters</p>
+</div></h5>
+      
+      <pre class="example code"><code><span class='id identifier rubyid_result'>result</span> <span class='op'>=</span> <span class='id identifier rubyid_handler'>handler</span><span class='period'>.</span><span class='id identifier rubyid_handle'>handle</span>
+<span class='id identifier rubyid_expect'>expect</span><span class='lparen'>(</span><span class='id identifier rubyid_result'>result</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_to'>to</span> <span class='id identifier rubyid_have_redirected_to'>have_redirected_to</span><span class='lparen'>(</span><span class='const'>WidgetsByWidgetIdPage</span><span class='comma'>,</span> <span class='label'>id:</span> <span class='id identifier rubyid_widget'>widget</span><span class='period'>.</span><span class='id identifier rubyid_id'>id</span><span class='rparen'>)</span></code></pre>
+    
+      
+        <h5 class="example_title"><div class='inline'><p>arbitrary URI</p>
+</div></h5>
+      
+      <pre class="example code"><code><span class='id identifier rubyid_result'>result</span> <span class='op'>=</span> <span class='id identifier rubyid_handler'>handler</span><span class='period'>.</span><span class='id identifier rubyid_handle'>handle</span>
+<span class='id identifier rubyid_expect'>expect</span><span class='lparen'>(</span><span class='id identifier rubyid_result'>result</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_to'>to</span> <span class='id identifier rubyid_have_redirected_to'>have_redirected_to</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>http://kagi.com</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span></code></pre>
+    
+      
+        <h5 class="example_title"><div class='inline'><p>testing a <code>before_generate</code> method</p>
+</div></h5>
+      
+      <pre class="example code"><code><span class='id identifier rubyid_result'>result</span> <span class='op'>=</span> <span class='id identifier rubyid_generate_result'>generate_result</span><span class='lparen'>(</span><span class='id identifier rubyid_page'>page</span><span class='rparen'>)</span>
+<span class='id identifier rubyid_expect'>expect</span><span class='lparen'>(</span><span class='id identifier rubyid_result'>result</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_to'>to</span> <span class='id identifier rubyid_have_redirected_to'>have_redirected_to</span><span class='lparen'>(</span><span class='const'>LoginPage</span><span class='rparen'>)</span></code></pre>
+    
+  </div>
+
+
+</div>
+
+
+
+
+
+
+
+
+</div>
+
+      <div id="footer">
+  Generated on Wed Jul  2 21:45:28 2025 by
+  <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
+  0.9.37 (ruby-3.4.4).
+</div>
+
+    </div>
+  </body>
+</html>

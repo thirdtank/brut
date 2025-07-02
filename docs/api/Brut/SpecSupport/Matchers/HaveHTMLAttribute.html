@@ -99,7 +99,34 @@
   
 </div>
 
+<h2>Overview</h2><div class="docstring">
+  <div class="discussion">
+    <p>Used in component or page specs to check that a given node
+has a particular HTML attribnute, or an attribute with a speecific value.</p>
 
+
+  </div>
+</div>
+<div class="tags">
+  
+  <div class="examples">
+    <h4 class="tag_title">Examples:</h4>
+    
+      
+      <pre class="example code"><code><span class='id identifier rubyid_result'>result</span> <span class='op'>=</span> <span class='id identifier rubyid_generate_and_parse'>generate_and_parse</span><span class='lparen'>(</span><span class='id identifier rubyid_page'>page</span><span class='rparen'>)</span>
+<span class='id identifier rubyid_expect'>expect</span><span class='lparen'>(</span><span class='id identifier rubyid_result'>result</span><span class='period'>.</span><span class='id identifier rubyid_e!'>e!</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>blockquote</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_to'>to</span> <span class='id identifier rubyid_have_html_attribute'>have_html_attribute</span><span class='lparen'>(</span><span class='symbol'>:id</span><span class='rparen'>)</span></code></pre>
+    
+      
+        <h5 class="example_title"><div class='inline'><p>Expecting a value as well</p>
+</div></h5>
+      
+      <pre class="example code"><code><span class='id identifier rubyid_result'>result</span> <span class='op'>=</span> <span class='id identifier rubyid_generate_and_parse'>generate_and_parse</span><span class='lparen'>(</span><span class='id identifier rubyid_page'>page</span><span class='rparen'>)</span>
+<span class='id identifier rubyid_expect'>expect</span><span class='lparen'>(</span><span class='id identifier rubyid_result'>result</span><span class='period'>.</span><span class='id identifier rubyid_e!'>e!</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>blockquote</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_to'>to</span> <span class='id identifier rubyid_have_html_attribute'>have_html_attribute</span><span class='lparen'>(</span><span class='label'>id:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>foo</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span></code></pre>
+    
+  </div>
+
+
+</div>
 
 
 
@@ -226,16 +253,6 @@
       <pre class="lines">
 
 
-32
-33
-34
-35
-36
-37
-38
-39
-40
-41
 42
 43
 44
@@ -268,10 +285,20 @@
 71
 72
 73
-74</pre>
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/brut/spec_support/matchers/have_html_attribute.rb', line 32</span>
+      <pre class="code"><span class="info file"># File 'lib/brut/spec_support/matchers/have_html_attribute.rb', line 42</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_initialize'>initialize</span><span class='lparen'>(</span><span class='id identifier rubyid_result'>result</span><span class='comma'>,</span> <span class='id identifier rubyid_attribute'>attribute</span><span class='rparen'>)</span>
   <span class='ivar'>@error</span> <span class='op'>=</span> <span class='kw'>nil</span>
@@ -353,12 +380,12 @@
       <pre class="lines">
 
 
-30
-31
-32</pre>
+40
+41
+42</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/brut/spec_support/matchers/have_html_attribute.rb', line 30</span>
+      <pre class="code"><span class="info file"># File 'lib/brut/spec_support/matchers/have_html_attribute.rb', line 40</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_error'>error</span>
   <span class='ivar'>@error</span>
@@ -413,10 +440,10 @@
       <pre class="lines">
 
 
-76</pre>
+86</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/brut/spec_support/matchers/have_html_attribute.rb', line 76</span>
+      <pre class="code"><span class="info file"># File 'lib/brut/spec_support/matchers/have_html_attribute.rb', line 86</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_matches?'>matches?</span> <span class='op'>=</span> <span class='ivar'>@error</span><span class='period'>.</span><span class='id identifier rubyid_nil?'>nil?</span></pre>
     </td>
@@ -429,7 +456,7 @@
 </div>
 
       <div id="footer">
-  Generated on Wed Jun 25 22:57:21 2025 by
+  Generated on Wed Jul  2 21:45:28 2025 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.37 (ruby-3.4.4).
 </div>
