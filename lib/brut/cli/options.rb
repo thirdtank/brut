@@ -12,6 +12,10 @@ class Brut::CLI::Options
   # Access an options value directly.
   # @param [String] key the key to use. This must be the exact name you used when calling `opts.on` or when creating the `OptionParser` for your app or command. Generally, use the {#method_missing}-provided version instead of this.
   def [](key) = @parsed_options[key]
+
+  def []=(key,value)
+    @parsed_options[key] = value
+  end
   # Check if `key` was provided on the command line.
   # @param [String] key the key to use. This must be the exact name you used when calling `opts.on` or when creating the `OptionParser` for your app or command.
   def key?(key) = @parsed_options.key?(key)
