@@ -25,7 +25,7 @@ class Brut::CLI::Executor
   # to do special error-handling when the underlying command fails.
   #
   # @see https://docs.ruby-lang.org/en/3.3/Open3.html#method-c-popen3
-  # @see {#system!}
+  # @see #system!
   #
   # @param [String|Array] args Whatever you would give to `Kernel#system` or `Open3.popen3`.
   # @return [int] 0 if the command completed normally, otherwise the nonzero exit status. **DO NOT TREAT THIS AS A BOOLEAN VALUE**
@@ -45,7 +45,7 @@ class Brut::CLI::Executor
   # instead, as it will not raise an exception.
   #
   # @see https://docs.ruby-lang.org/en/3.3/Open3.html#method-c-popen3
-  # @see {#system}
+  # @see #system
   #
   # @param [String|Array] args Whatever you would give to `Kernel#system` or `Open3.popen3`.
   # @raise Brut::CLI::Error::SystemExecError if the spawed command exits nonzero
