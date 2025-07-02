@@ -27,9 +27,11 @@ module Brut
       # a method that a subclass must implement, but for which there is no useful default
       # implementation.
       #
+      # @param String|Symbol] method_name name of the method that must be implemented. If omitted, the value is guessed from `caller_locations`
       # @raise [Brut::Framework::Errors::AbstractMethod]
-      def abstract_method!
-        raise Brut::Framework::Errors::AbstractMethod
+      def abstract_method!(method_name=nil)
+        method_name ||= caller_locations(1,1)[0].label
+        raise Brut::Framework::Errors::AbstractMethod.new(method_name)
       end
     end
     # Base class for errors thrown by Brut classes. Generally, Brut will not create its own version
