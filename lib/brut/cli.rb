@@ -42,9 +42,10 @@ module Brut
     # Holds Brut-provided CLI apps that are set up in your project.
     module Apps
       autoload(:DB,"brut/cli/apps/db")
-      autoload(:DB,"brut/cli/apps/test")
-      autoload(:DB,"brut/cli/apps/build_assets")
-      autoload(:DB,"brut/cli/apps/scaffold")
+      autoload(:Test,"brut/cli/apps/test")
+      autoload(:BuildAssets,"brut/cli/apps/build_assets")
+      autoload(:Scaffold,"brut/cli/apps/scaffold")
+      autoload(:DeployBase,"brut/cli/apps/deploy_base")
     end
   end
 end
