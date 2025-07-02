@@ -179,7 +179,9 @@ class Brut::CLI::App
 
   # Called after all setup has been executed. Brut will have been started/loaded.  This will *not* be called if anything
   # caused execution to be aborted.
-  def after_bootstrap
+  #
+  # @param [Brut::Framework::App] app Your Brut app.
+  def after_bootstrap(app:)
   end
 
   # Executes the command.  Called by {Brut::CLI::AppRunner}.
@@ -192,6 +194,7 @@ class Brut::CLI::App
     command.set_env_if_needed
     load_env(project_root:)
     command.before_execute
+    app = nil
     bootstrap_result = begin
                          require "#{project_root}/app/bootstrap"
                          bootstrap = Bootstrap.new
@@ -200,6 +203,7 @@ class Brut::CLI::App
                          else
                            bootstrap.bootstrap!
                          end
+                         app = bootstrap.app
                          continue_execution
                        rescue => ex
                          as_execution_result(command.handle_bootstrap_exception(ex))
@@ -207,7 +211,8 @@ class Brut::CLI::App
     if bootstrap_result.stop?
       return bootstrap_result
     end
-    after_bootstrap
+    after_bootstrap(app:)
+    command.after_bootstrap(app:)
     if self.class.configure_only?
       as_execution_result(command.execute)
     else

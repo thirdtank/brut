@@ -198,6 +198,13 @@ class Brut::CLI::Command
   def before_execute
   end
 
+  # Called after all setup has been executed. Brut will have been started/loaded.
+  # This will *not* be called if anything caused execution to be aborted.
+  #
+  # @param [Brut::Framework::App] app Your Brut app.
+  def after_bootstrap(app:)
+  end
+
   # @!visibility private
   def set_env_if_needed
     if self.class.requires_project_env?
@@ -217,19 +224,6 @@ class Brut::CLI::Command
   # @raise [StandardError] if thrown, this will bubble up and show your user a very sad stack trace that will make them cry. Don't.
   def handle_bootstrap_exception(ex)
     raise ex
-  end
-
-  # @!visibility private
-  def bootstrap!(project_root:, configure_only:)
-    require "bundler"
-    Bundler.require(:default, ENV["RACK_ENV"].to_sym)
-    if configure_only
-      require "#{project_root}/app/pre_boot"
-      Brut::Framework.new(app: ::App.new)
-    else
-      require "#{project_root}/app/boot"
-    end
-    continue_execution
   end
 
 private
