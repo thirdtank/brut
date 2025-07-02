@@ -43,8 +43,16 @@ class Brut::SpecSupport::RSpecSetup
   # Create the setup with the given RSpec configuration.
   #
   # @param [RSpec::Core::Configuration] rspec_config yielded from `RSpec.configure`
-  def initialize(rspec_config:)
-    @config = rspec_config
+  # @param [boolean] monkey_patch_summary_notification if true (the default),
+  # RSpec's Notifications::SumaryNotification will be monkey-patched to show
+  # `bin/test` in the summary instead of `./rspec`, as that is how you would
+  # re-run a test.  But, it's still monkey-patching.
+  def initialize(rspec_config:,
+                 monkey_patch_summary_notification: true)
+
+    @config                            = rspec_config
+    @monkey_patch_summary_notification = monkey_patch_summary_notification
+
     SemanticLogger.default_level = ENV.fetch("LOGGER_LEVEL_FOR_TESTS","warn")
   end
 
@@ -155,6 +163,9 @@ class Brut::SpecSupport::RSpecSetup
     @config.after(:suite) do
       Brut::SpecSupport::E2ETestServer.instance.stop
     end
+    if @monkey_patch_summary_notification
+      monkey_patch_summary_notification!
+    end
   end
 
   class OptionalSidekiqSupport
@@ -181,4 +192,33 @@ class Brut::SpecSupport::RSpecSetup
     end
   end
 
+private
+
+  def monkey_patch_summary_notification!
+    require "rspec/core/notifications"
+    klass = RSpec::Core::Notifications::SummaryNotification
+    if !klass.instance_variable_get("@_brut_has_monkeypatched")
+      klass.class_eval do
+        # Slightly reformatted, but the only line that's different
+        # is the one that said to use './rspec'. Now it says 'bin/test run'
+        def colorized_rerun_commands(colorizer=::RSpec::Core::Formatters::ConsoleCodes)
+          "\nFailed examples:\n\n" +
+            failed_examples.map do |example|
+              rerun_argument = rerun_argument_for(example)
+              colorizer.wrap(
+                "bin/test run #{rerun_argument}", # <--- this is the only difference
+                RSpec.configuration.failure_color
+              )   + 
+              " " +
+              colorizer.wrap(
+                "# #{example.full_description}",
+                RSpec.configuration.detail_color
+              )
+            end.join("\n")
+        end
+      end
+      klass.instance_variable_set("@_brut_has_monkeypatched",true)
+    end
+  end
 end
+
