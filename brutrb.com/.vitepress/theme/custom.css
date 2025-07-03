@@ -5,3 +5,6 @@
 .image-bg {
   display: none;
 }
+td > code {
+  white-space: nowrap;
+}
