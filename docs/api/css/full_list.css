@@ -1,6 +1,6 @@
 body {
   margin: 0;
-  font-family: "Lucida Sans", "Lucida Grande", Verdana, Arial, sans-serif;
+  font-family: "Helvetica Neue", "Lucida Sans", "Lucida Grande", Verdana, Arial, sans-serif;
   font-size: 13px;
   height: 101%;
   overflow-x: hidden;
@@ -56,3 +56,4 @@ li small.search_info { display: none; }
 #full_list.insearch .found { display: block; padding-left: 11px !important; }
 #full_list.insearch li a.toggle { display: none; }
 #full_list.insearch li small.search_info { display: block; }
+code { font-family: 'Courier New', monospace; font-weight: 600; }

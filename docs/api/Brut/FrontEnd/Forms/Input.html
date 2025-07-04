@@ -108,7 +108,26 @@
   <div class="discussion">
     <p>An Input is a stateful object representing a specific input and its value
 during the course of a form submission process. In particular, it wraps a value
-and a <span class='object_link'><a href="ValidityState.html" title="Brut::FrontEnd::Forms::ValidityState (class)">ValidityState</a></span>. These are mutable, whereas the wrapped <span class='object_link'><a href="InputDefinition.html" title="Brut::FrontEnd::Forms::InputDefinition (class)">InputDefinition</a></span> is not.</p>
+and a <span class='object_link'><a href="ValidityState.html" title="Brut::FrontEnd::Forms::ValidityState (class)">ValidityState</a></span>. These are mutable, whereas
+the wrapped <span class='object_link'><a href="InputDefinition.html" title="Brut::FrontEnd::Forms::InputDefinition (class)">InputDefinition</a></span> is not.</p>
+
+<p>Of note, this class also initiates the server-execution of the
+client-side validations.  When a form is posted, and you ask the form
+to validate itself, this class examines the value for the inputs
+and determines if a client-side violation should've happened in the browser.</p>
+
+<p>It does its best to mimic the browser's behavior, however there will be
+some subtle differences.</p>
+
+<p>An important considering is that everything is a string.  The browser wants
+strings and its internal API is string-based.  So is this.  That said,
+this will convert strings into richer types in order to perform constraint
+analysis.</p>
+
+<p>Where possible, standard library classes are used, but in some cases -
+colors and times - there is no standard library class.</p>
+
+<p>See <span class='object_link'><a href="#typed_value-instance_method" title="Brut::FrontEnd::Forms::Input#typed_value (method)">#typed_value</a></span>.</p>
 
 
   </div>
@@ -116,12 +135,50 @@ and a <span class='object_link'><a href="ValidityState.html" title="Brut::FrontE
 <div class="tags">
   
 
-</div>
+</div><h2>Defined Under Namespace</h2>
+<p class="children">
+  
+    
+  
+    
+      <strong class="classes">Classes:</strong> <span class='object_link'><a href="Input/Color.html" title="Brut::FrontEnd::Forms::Input::Color (class)">Color</a></span>, <span class='object_link'><a href="Input/TimeOfDay.html" title="Brut::FrontEnd::Forms::Input::TimeOfDay (class)">TimeOfDay</a></span>
+    
+  
+</p>
+
 
 
 
   <h2>Instance Attribute Summary <small><a href="#" class="summary_toggle">collapse</a></small></h2>
   <ul class="summary">
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#typed_value-instance_method" title="#typed_value (instance method)">#<strong>typed_value</strong>  &#x21d2; Date|Time|BigDecimal|String|true|false|nil </a>
+    
+
+    
+  </span>
+  
+  
+  
+    
+      <span class="note title readonly">readonly</span>
+    
+    
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>The value of the input, as coerced to the type used to evaluate constraints.</p>
+</div></span>
+  
+</li>
+
     
       <li class="public ">
   <span class="summary_signature">
@@ -193,6 +250,29 @@ and a <span class='object_link'><a href="ValidityState.html" title="Brut::FrontE
         <li class="public ">
   <span class="summary_signature">
     
+      <a href="#array%3F-instance_method" title="#array? (instance method)">#<strong>array?</strong>  &#x21d2; String|nil </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>The value from the <code>input_definition</code> given to the initializer.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
       <a href="#initialize-instance_method" title="#initialize (instance method)">#<strong>initialize</strong>(input_definition:, value:, index:)  &#x21d2; Input </a>
     
 
@@ -218,6 +298,167 @@ and a <span class='object_link'><a href="ValidityState.html" title="Brut::FrontE
         <li class="public ">
   <span class="summary_signature">
     
+      <a href="#max-instance_method" title="#max (instance method)">#<strong>max</strong>  &#x21d2; String|nil </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>The value from the <code>input_definition</code> given to the initializer.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#maxlength-instance_method" title="#maxlength (instance method)">#<strong>maxlength</strong>  &#x21d2; String|nil </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>The value from the <code>input_definition</code> given to the initializer.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#min-instance_method" title="#min (instance method)">#<strong>min</strong>  &#x21d2; String|nil </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>The value from the <code>input_definition</code> given to the initializer.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#minlength-instance_method" title="#minlength (instance method)">#<strong>minlength</strong>  &#x21d2; String|nil </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>The value from the <code>input_definition</code> given to the initializer.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#name-instance_method" title="#name (instance method)">#<strong>name</strong>  &#x21d2; String|nil </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>The value from the <code>input_definition</code> given to the initializer.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#pattern-instance_method" title="#pattern (instance method)">#<strong>pattern</strong>  &#x21d2; String|nil </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>The value from the <code>input_definition</code> given to the initializer.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#required-instance_method" title="#required (instance method)">#<strong>required</strong>  &#x21d2; String|nil </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>The value from the <code>input_definition</code> given to the initializer.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
       <a href="#server_side_constraint_violation-instance_method" title="#server_side_constraint_violation (instance method)">#<strong>server_side_constraint_violation</strong>(key, context = true)  &#x21d2; Object </a>
     
 
@@ -233,6 +474,52 @@ and a <span class='object_link'><a href="ValidityState.html" title="Brut::FrontE
 
   
     <span class="summary_desc"><div class='inline'><p>Set a server-side constraint violation on this input.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#step-instance_method" title="#step (instance method)">#<strong>step</strong>  &#x21d2; String|nil </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>The value from the <code>input_definition</code> given to the initializer.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#type-instance_method" title="#type (instance method)">#<strong>type</strong>  &#x21d2; String|nil </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>The value from the <code>input_definition</code> given to the initializer.</p>
 </div></span>
   
 </li>
@@ -319,15 +606,15 @@ and a <span class='object_link'><a href="ValidityState.html" title="Brut::FrontE
       <pre class="lines">
 
 
-16
-17
-18
-19
-20
-21</pre>
+58
+59
+60
+61
+62
+63</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/brut/front_end/forms/input.rb', line 16</span>
+      <pre class="code"><span class="info file"># File 'lib/brut/front_end/forms/input.rb', line 58</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_initialize'>initialize</span><span class='lparen'>(</span><span class='label'>input_definition:</span><span class='comma'>,</span> <span class='label'>value:</span><span class='comma'>,</span> <span class='label'>index:</span><span class='rparen'>)</span>
   <span class='ivar'>@input_definition</span> <span class='op'>=</span> <span class='id identifier rubyid_input_definition'>input_definition</span>
@@ -348,7 +635,94 @@ and a <span class='object_link'><a href="ValidityState.html" title="Brut::FrontE
       
       <span id=""></span>
       <div class="method_details first">
-  <h3 class="signature first" id="validity_state-instance_method">
+  <h3 class="signature first" id="typed_value-instance_method">
+  
+    #<strong>typed_value</strong>  &#x21d2; <tt>Date|Time|BigDecimal|String|true|false|nil</tt>  <span class="extras">(readonly)</span>
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>The value of the input,
+as coerced to the type used to evaluate constraints.
+Returns <code>nil</code> if the value could not be coerced (which likely means
+there is or will be a constraint violation), <strong>or</strong>
+if it is a blank String.</p>
+
+<p>Of note, <code>type=color</code> will return a String here, but that String
+should be parseable into a hex code, i.e. #XXXXXX, where each "X"
+is 0-9 or a-f.  Further, <code>type=time</code> will also return a string
+in the format HH:MM or HH:MM:SS, where the time is in 24 hour
+time.  Lastly, <code>type=datetime-local</code> will return a <code>Time</code>, even
+though the control allows the visitor to choose an invalid time.
+If there is no <code>valueMissing</code> constraint violation, but this
+attribute returns <code>nil</code>, <span class='object_link'><a href="#value-instance_method" title="Brut::FrontEnd::Forms::Input#value (method)">#value</a></span> <em>will</em> return the string sent by
+the browser, even if it's not a real timestamp.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Date|Time|BigDecimal|String|true|false|nil</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>the value of the input,
+as coerced to the type used to evaluate constraints.
+Returns <code>nil</code> if the value could not be coerced (which likely means
+there is or will be a constraint violation), <strong>or</strong>
+if it is a blank String.</p>
+
+<p>Of note, <code>type=color</code> will return a String here, but that String
+should be parseable into a hex code, i.e. #XXXXXX, where each "X"
+is 0-9 or a-f.  Further, <code>type=time</code> will also return a string
+in the format HH:MM or HH:MM:SS, where the time is in 24 hour
+time.  Lastly, <code>type=datetime-local</code> will return a <code>Time</code>, even
+though the control allows the visitor to choose an invalid time.
+If there is no <code>valueMissing</code> constraint violation, but this
+attribute returns <code>nil</code>, <span class='object_link'><a href="#value-instance_method" title="Brut::FrontEnd::Forms::Input#value (method)">#value</a></span> <em>will</em> return the string sent by
+the browser, even if it's not a real timestamp.</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+50
+51
+52</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/brut/front_end/forms/input.rb', line 50</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_typed_value'>typed_value</span>
+  <span class='ivar'>@typed_value</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      
+      <span id=""></span>
+      <div class="method_details ">
+  <h3 class="signature " id="validity_state-instance_method">
   
     #<strong>validity_state</strong>  &#x21d2; <tt><span class='object_link'><a href="ValidityState.html" title="Brut::FrontEnd::Forms::ValidityState (class)">Brut::FrontEnd::Forms::ValidityState</a></span></tt>  <span class="extras">(readonly)</span>
   
@@ -389,12 +763,12 @@ and a <span class='object_link'><a href="ValidityState.html" title="Brut::FrontE
       <pre class="lines">
 
 
-11
-12
-13</pre>
+53
+54
+55</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/brut/front_end/forms/input.rb', line 11</span>
+      <pre class="code"><span class="info file"># File 'lib/brut/front_end/forms/input.rb', line 53</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_validity_state'>validity_state</span>
   <span class='ivar'>@validity_state</span>
@@ -417,7 +791,10 @@ and a <span class='object_link'><a href="ValidityState.html" title="Brut::FrontE
   
 </h3><div class="docstring">
   <div class="discussion">
-    <p>Returns the input's value.</p>
+    <p>Returns the input's value. <strong>DO NOTE</strong> this returns a string.  This is
+because HTML stores these values as Strings.  When using a checkbox, in
+particular, the value will <em>not</em> be a boolean. You cannot do <code>if
+input.value</code> and expect that work. See <span class='object_link'><a href="#typed_value-instance_method" title="Brut::FrontEnd::Forms::Input#typed_value (method)">#typed_value</a></span> instead.</p>
 
 
   </div>
@@ -435,7 +812,10 @@ and a <span class='object_link'><a href="ValidityState.html" title="Brut::FrontE
       
       
         &mdash;
-        <div class='inline'><p>the input's value</p>
+        <div class='inline'><p>the input's value. <strong>DO NOTE</strong> this returns a string.  This is
+because HTML stores these values as Strings.  When using a checkbox, in
+particular, the value will <em>not</em> be a boolean. You cannot do <code>if
+input.value</code> and expect that work. See <span class='object_link'><a href="#typed_value-instance_method" title="Brut::FrontEnd::Forms::Input#typed_value (method)">#typed_value</a></span> instead.</p>
 </div>
       
     </li>
@@ -448,12 +828,12 @@ and a <span class='object_link'><a href="ValidityState.html" title="Brut::FrontE
       <pre class="lines">
 
 
-9
-10
-11</pre>
+33
+34
+35</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/brut/front_end/forms/input.rb', line 9</span>
+      <pre class="code"><span class="info file"># File 'lib/brut/front_end/forms/input.rb', line 33</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_value'>value</span>
   <span class='ivar'>@value</span>
@@ -471,7 +851,465 @@ and a <span class='object_link'><a href="ValidityState.html" title="Brut::FrontE
 
     
       <div class="method_details first">
-  <h3 class="signature first" id="server_side_constraint_violation-instance_method">
+  <h3 class="signature first" id="array?-instance_method">
+  
+    #<strong>array?</strong>  &#x21d2; <tt>String|nil</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>Returns the value from the <code>input_definition</code> given to the
+initializer.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>String|nil</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>the value from the <code>input_definition</code> given to the
+initializer</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/brut/front_end/forms/input.rb', line 105</span>
+
+<span class='id identifier rubyid_def_delegators'>def_delegators</span> <span class='symbol'>:&quot;@input_definition&quot;</span><span class='comma'>,</span> <span class='symbol'>:max</span><span class='comma'>,</span>
+<span class='symbol'>:maxlength</span><span class='comma'>,</span>
+<span class='symbol'>:min</span><span class='comma'>,</span>
+<span class='symbol'>:minlength</span><span class='comma'>,</span>
+<span class='symbol'>:name</span><span class='comma'>,</span>
+<span class='symbol'>:pattern</span><span class='comma'>,</span>
+<span class='symbol'>:required</span><span class='comma'>,</span>
+<span class='symbol'>:step</span><span class='comma'>,</span>
+<span class='symbol'>:type</span><span class='comma'>,</span>
+<span class='symbol'>:array?</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="max-instance_method">
+  
+    #<strong>max</strong>  &#x21d2; <tt>String|nil</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>Returns the value from the <code>input_definition</code> given to the
+initializer.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>String|nil</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>the value from the <code>input_definition</code> given to the
+initializer</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/brut/front_end/forms/input.rb', line 65</span>
+
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="maxlength-instance_method">
+  
+    #<strong>maxlength</strong>  &#x21d2; <tt>String|nil</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>Returns the value from the <code>input_definition</code> given to the
+initializer.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>String|nil</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>the value from the <code>input_definition</code> given to the
+initializer</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/brut/front_end/forms/input.rb', line 69</span>
+
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="min-instance_method">
+  
+    #<strong>min</strong>  &#x21d2; <tt>String|nil</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>Returns the value from the <code>input_definition</code> given to the
+initializer.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>String|nil</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>the value from the <code>input_definition</code> given to the
+initializer</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/brut/front_end/forms/input.rb', line 73</span>
+
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="minlength-instance_method">
+  
+    #<strong>minlength</strong>  &#x21d2; <tt>String|nil</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>Returns the value from the <code>input_definition</code> given to the
+initializer.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>String|nil</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>the value from the <code>input_definition</code> given to the
+initializer</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/brut/front_end/forms/input.rb', line 77</span>
+
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="name-instance_method">
+  
+    #<strong>name</strong>  &#x21d2; <tt>String|nil</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>Returns the value from the <code>input_definition</code> given to the
+initializer.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>String|nil</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>the value from the <code>input_definition</code> given to the
+initializer</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/brut/front_end/forms/input.rb', line 81</span>
+
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="pattern-instance_method">
+  
+    #<strong>pattern</strong>  &#x21d2; <tt>String|nil</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>Returns the value from the <code>input_definition</code> given to the
+initializer.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>String|nil</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>the value from the <code>input_definition</code> given to the
+initializer</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/brut/front_end/forms/input.rb', line 85</span>
+
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="required-instance_method">
+  
+    #<strong>required</strong>  &#x21d2; <tt>String|nil</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>Returns the value from the <code>input_definition</code> given to the
+initializer.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>String|nil</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>the value from the <code>input_definition</code> given to the
+initializer</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/brut/front_end/forms/input.rb', line 89</span>
+
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="server_side_constraint_violation-instance_method">
   
     #<strong>server_side_constraint_violation</strong>(key, context = true)  &#x21d2; <tt>Object</tt> 
   
@@ -532,16 +1370,126 @@ that <code>key</code> should not be a key used for client-side validations.</p>
       <pre class="lines">
 
 
-102
-103
-104</pre>
+265
+266
+267</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/brut/front_end/forms/input.rb', line 102</span>
+      <pre class="code"><span class="info file"># File 'lib/brut/front_end/forms/input.rb', line 265</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_server_side_constraint_violation'>server_side_constraint_violation</span><span class='lparen'>(</span><span class='id identifier rubyid_key'>key</span><span class='comma'>,</span><span class='id identifier rubyid_context'>context</span><span class='op'>=</span><span class='kw'>true</span><span class='rparen'>)</span>
   <span class='ivar'>@validity_state</span><span class='period'>.</span><span class='id identifier rubyid_server_side_constraint_violation'>server_side_constraint_violation</span><span class='lparen'>(</span><span class='label'>key:</span> <span class='id identifier rubyid_key'>key</span><span class='comma'>,</span> <span class='label'>context:</span> <span class='id identifier rubyid_context'>context</span><span class='rparen'>)</span>
 <span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="step-instance_method">
+  
+    #<strong>step</strong>  &#x21d2; <tt>String|nil</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>Returns the value from the <code>input_definition</code> given to the
+initializer.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>String|nil</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>the value from the <code>input_definition</code> given to the
+initializer</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/brut/front_end/forms/input.rb', line 93</span>
+
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="type-instance_method">
+  
+    #<strong>type</strong>  &#x21d2; <tt>String|nil</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>Returns the value from the <code>input_definition</code> given to the
+initializer.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>String|nil</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>the value from the <code>input_definition</code> given to the
+initializer</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/brut/front_end/forms/input.rb', line 97</span>
+
+</pre>
     </td>
   </tr>
 </table>
@@ -589,10 +1537,10 @@ that <code>key</code> should not be a key used for client-side validations.</p>
       <pre class="lines">
 
 
-107</pre>
+270</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/brut/front_end/forms/input.rb', line 107</span>
+      <pre class="code"><span class="info file"># File 'lib/brut/front_end/forms/input.rb', line 270</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_valid?'>valid?</span> <span class='op'>=</span> <span class='ivar'>@validity_state</span><span class='period'>.</span><span class='id identifier rubyid_valid?'>valid?</span></pre>
     </td>
@@ -605,7 +1553,7 @@ that <code>key</code> should not be a key used for client-side validations.</p>
 </div>
 
       <div id="footer">
-  Generated on Wed Jul  2 21:45:27 2025 by
+  Generated on Fri Jul  4 21:27:28 2025 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.37 (ruby-3.4.4).
 </div>

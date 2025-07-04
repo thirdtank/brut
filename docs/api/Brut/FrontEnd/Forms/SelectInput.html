@@ -415,7 +415,10 @@
   
 </h3><div class="docstring">
   <div class="discussion">
-    <p>Returns the input's value.</p>
+    <p>Returns the input's value. <strong>DO NOTE</strong> this returns a string.  This is
+because HTML stores these values as Strings.  When using a checkbox, in
+particular, the value will <em>not</em> be a boolean. You cannot do <code>if
+input.value</code> and expect that work. See #typed_value instead.</p>
 
 
   </div>
@@ -433,7 +436,10 @@
       
       
         &mdash;
-        <div class='inline'><p>the input's value</p>
+        <div class='inline'><p>the input's value. <strong>DO NOTE</strong> this returns a string.  This is
+because HTML stores these values as Strings.  When using a checkbox, in
+particular, the value will <em>not</em> be a boolean. You cannot do <code>if
+input.value</code> and expect that work. See #typed_value instead.</p>
 </div>
       
     </li>
@@ -603,7 +609,7 @@ that <code>key</code> should not be a key used for client-side validations.</p>
 </div>
 
       <div id="footer">
-  Generated on Wed Jul  2 21:45:27 2025 by
+  Generated on Fri Jul  4 21:27:28 2025 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.37 (ruby-3.4.4).
 </div>

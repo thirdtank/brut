@@ -418,7 +418,7 @@ such as implementing a <span class='object_link'><a href="../../BackEnd/Validato
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#initialize-instance_method" title="#initialize (instance method)">#<strong>initialize</strong>(max: nil, maxlength: nil, min: nil, minlength: nil, name: nil, pattern: nil, required: :based_on_type, step: nil, type: nil, array: false)  &#x21d2; InputDefinition </a>
+      <a href="#initialize-instance_method" title="#initialize (instance method)">#<strong>initialize</strong>(max: nil, maxlength: nil, min: nil, minlength: nil, name: nil, pattern: :based_on_type, required: :based_on_type, step: nil, type: nil, array: false)  &#x21d2; InputDefinition </a>
     
 
     
@@ -483,7 +483,7 @@ such as implementing a <span class='object_link'><a href="../../BackEnd/Validato
     <div class="method_details first">
   <h3 class="signature first" id="initialize-instance_method">
   
-    #<strong>initialize</strong>(max: nil, maxlength: nil, min: nil, minlength: nil, name: nil, pattern: nil, required: :based_on_type, step: nil, type: nil, array: false)  &#x21d2; <tt><span class='object_link'><a href="" title="Brut::FrontEnd::Forms::InputDefinition (class)">InputDefinition</a></span></tt> 
+    #<strong>initialize</strong>(max: nil, maxlength: nil, min: nil, minlength: nil, name: nil, pattern: :based_on_type, required: :based_on_type, step: nil, type: nil, array: false)  &#x21d2; <tt><span class='object_link'><a href="" title="Brut::FrontEnd::Forms::InputDefinition (class)">InputDefinition</a></span></tt> 
   
 
   
@@ -595,7 +595,7 @@ we can in Ruby so that client side validations can be safely used for user exper
         <span class='type'>(<tt>Regexp</tt>)</span>
       
       
-        <em class="default">(defaults to: <tt>nil</tt>)</em>
+        <em class="default">(defaults to: <tt>:based_on_type</tt>)</em>
       
       
         &mdash;
@@ -690,6 +690,8 @@ we can in Ruby so that client side validations can be safely used for user exper
       <pre class="lines">
 
 
+60
+61
 62
 63
 64
@@ -734,10 +736,13 @@ we can in Ruby so that client side validations can be safely used for user exper
 103
 104
 105
-106</pre>
+106
+107
+108
+109</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/brut/front_end/forms/input_definition.rb', line 62</span>
+      <pre class="code"><span class="info file"># File 'lib/brut/front_end/forms/input_definition.rb', line 60</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_initialize'>initialize</span><span class='lparen'>(</span>
   <span class='label'>max:</span> <span class='kw'>nil</span><span class='comma'>,</span>
@@ -745,7 +750,7 @@ we can in Ruby so that client side validations can be safely used for user exper
   <span class='label'>min:</span> <span class='kw'>nil</span><span class='comma'>,</span>
   <span class='label'>minlength:</span> <span class='kw'>nil</span><span class='comma'>,</span>
   <span class='label'>name:</span> <span class='kw'>nil</span><span class='comma'>,</span>
-  <span class='label'>pattern:</span> <span class='kw'>nil</span><span class='comma'>,</span>
+  <span class='label'>pattern:</span> <span class='symbol'>:based_on_type</span><span class='comma'>,</span>
   <span class='label'>required:</span> <span class='symbol'>:based_on_type</span><span class='comma'>,</span>
   <span class='label'>step:</span> <span class='kw'>nil</span><span class='comma'>,</span>
   <span class='label'>type:</span> <span class='kw'>nil</span><span class='comma'>,</span>
@@ -769,20 +774,25 @@ we can in Ruby so that client side validations can be safely used for user exper
     <span class='id identifier rubyid_required'>required</span> <span class='op'>=</span> <span class='id identifier rubyid_type'>type</span> <span class='op'>!=</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>checkbox</span><span class='tstring_end'>&quot;</span></span>
   <span class='kw'>end</span>
 
-  <span class='ivar'>@max</span>       <span class='op'>=</span> <span class='id identifier rubyid_type!'>type!</span><span class='lparen'>(</span> <span class='id identifier rubyid_max'>max</span>       <span class='comma'>,</span> <span class='const'>Numeric</span>                   <span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>max</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+  <span class='ivar'>@max</span>       <span class='op'>=</span> <span class='id identifier rubyid_max'>max</span>
   <span class='ivar'>@maxlength</span> <span class='op'>=</span> <span class='id identifier rubyid_type!'>type!</span><span class='lparen'>(</span> <span class='id identifier rubyid_maxlength'>maxlength</span> <span class='comma'>,</span> <span class='const'>Numeric</span>                   <span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>maxlength</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
-  <span class='ivar'>@min</span>       <span class='op'>=</span> <span class='id identifier rubyid_type!'>type!</span><span class='lparen'>(</span> <span class='id identifier rubyid_min'>min</span>       <span class='comma'>,</span> <span class='const'>Numeric</span>                   <span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>min</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+  <span class='ivar'>@min</span>       <span class='op'>=</span> <span class='id identifier rubyid_min'>min</span>
   <span class='ivar'>@minlength</span> <span class='op'>=</span> <span class='id identifier rubyid_type!'>type!</span><span class='lparen'>(</span> <span class='id identifier rubyid_minlength'>minlength</span> <span class='comma'>,</span> <span class='const'>Numeric</span>                   <span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>minlength</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
   <span class='ivar'>@name</span>      <span class='op'>=</span> <span class='id identifier rubyid_type!'>type!</span><span class='lparen'>(</span> <span class='id identifier rubyid_name'>name</span>      <span class='comma'>,</span> <span class='const'>String</span>                    <span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>name</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>required:</span> <span class='kw'>true</span><span class='rparen'>)</span>
-  <span class='ivar'>@pattern</span>   <span class='op'>=</span> <span class='id identifier rubyid_type!'>type!</span><span class='lparen'>(</span> <span class='id identifier rubyid_pattern'>pattern</span>   <span class='comma'>,</span> <span class='const'>String</span>                    <span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>pattern</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
   <span class='ivar'>@required</span>  <span class='op'>=</span> <span class='id identifier rubyid_type!'>type!</span><span class='lparen'>(</span> <span class='id identifier rubyid_required'>required</span>  <span class='comma'>,</span> <span class='lbracket'>[</span><span class='kw'>true</span><span class='comma'>,</span> <span class='kw'>false</span><span class='rbracket'>]</span>             <span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>required</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>required:</span> <span class='kw'>true</span><span class='rparen'>)</span>
   <span class='ivar'>@step</span>      <span class='op'>=</span> <span class='id identifier rubyid_type!'>type!</span><span class='lparen'>(</span> <span class='id identifier rubyid_step'>step</span>      <span class='comma'>,</span> <span class='const'>Numeric</span>                   <span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>step</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
   <span class='ivar'>@type</span>      <span class='op'>=</span> <span class='id identifier rubyid_type!'>type!</span><span class='lparen'>(</span> <span class='id identifier rubyid_type'>type</span>      <span class='comma'>,</span> <span class='const'>INPUT_TYPES_TO_CLASS</span><span class='period'>.</span><span class='id identifier rubyid_keys'>keys</span> <span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>type</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>required:</span> <span class='kw'>true</span><span class='rparen'>)</span>
   <span class='ivar'>@array</span>     <span class='op'>=</span> <span class='id identifier rubyid_type!'>type!</span><span class='lparen'>(</span> <span class='id identifier rubyid_array'>array</span>     <span class='comma'>,</span> <span class='lbracket'>[</span><span class='kw'>true</span><span class='comma'>,</span> <span class='kw'>false</span><span class='rbracket'>]</span>             <span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>array</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>required:</span> <span class='kw'>true</span><span class='rparen'>)</span>
 
-  <span class='kw'>if</span> <span class='ivar'>@pattern</span><span class='period'>.</span><span class='id identifier rubyid_nil?'>nil?</span> <span class='op'>&amp;&amp;</span> <span class='id identifier rubyid_type'>type</span> <span class='op'>==</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>email</span><span class='tstring_end'>&quot;</span></span>
-    <span class='ivar'>@pattern</span> <span class='op'>=</span> <span class='tstring'><span class='regexp_beg'>/</span><span class='tstring_content'>^[^@]+@[^@]+\.[^@]+$</span><span class='regexp_end'>/</span></span><span class='period'>.</span><span class='id identifier rubyid_source'>source</span>
-  <span class='kw'>end</span>
+  <span class='ivar'>@pattern</span> <span class='op'>=</span> <span class='kw'>if</span> <span class='id identifier rubyid_pattern'>pattern</span> <span class='op'>==</span> <span class='symbol'>:based_on_type</span> 
+               <span class='kw'>if</span> <span class='id identifier rubyid_type'>type</span> <span class='op'>==</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>email</span><span class='tstring_end'>&quot;</span></span>
+                 <span class='tstring'><span class='regexp_beg'>/</span><span class='tstring_content'>^[^@]+@[^@]+\.[^@]+$</span><span class='regexp_end'>/</span></span><span class='period'>.</span><span class='id identifier rubyid_source'>source</span>
+               <span class='kw'>else</span>
+                 <span class='kw'>nil</span>
+               <span class='kw'>end</span>
+             <span class='kw'>else</span>
+               <span class='id identifier rubyid_type!'>type!</span><span class='lparen'>(</span> <span class='id identifier rubyid_pattern'>pattern</span><span class='comma'>,</span> <span class='const'>String</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>pattern</span><span class='tstring_end'>&quot;</span></span> <span class='rparen'>)</span>
+             <span class='kw'>end</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -1217,10 +1227,10 @@ we can in Ruby so that client side validations can be safely used for user exper
       <pre class="lines">
 
 
-108</pre>
+111</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/brut/front_end/forms/input_definition.rb', line 108</span>
+      <pre class="code"><span class="info file"># File 'lib/brut/front_end/forms/input_definition.rb', line 111</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_array?'>array?</span> <span class='op'>=</span> <span class='ivar'>@array</span></pre>
     </td>
@@ -1288,12 +1298,12 @@ inputs. <code>nil</code> is allowed only if the input definition is not for an a
       <pre class="lines">
 
 
-115
-116
-117</pre>
+118
+119
+120</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/brut/front_end/forms/input_definition.rb', line 115</span>
+      <pre class="code"><span class="info file"># File 'lib/brut/front_end/forms/input_definition.rb', line 118</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_make_input'>make_input</span><span class='lparen'>(</span><span class='label'>value:</span><span class='comma'>,</span> <span class='label'>index:</span><span class='rparen'>)</span>
   <span class='const'><span class='object_link'><a href="../../../Brut.html" title="Brut (module)">Brut</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../../FrontEnd.html" title="Brut::FrontEnd (module)">FrontEnd</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../Forms.html" title="Brut::FrontEnd::Forms (module)">Forms</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Input.html" title="Brut::FrontEnd::Forms::Input (class)">Input</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="Input.html#initialize-instance_method" title="Brut::FrontEnd::Forms::Input#initialize (method)">new</a></span></span><span class='lparen'>(</span><span class='label'>input_definition:</span> <span class='kw'>self</span><span class='comma'>,</span> <span class='label'>value:</span><span class='comma'>,</span> <span class='label'>index:</span><span class='rparen'>)</span>
@@ -1308,7 +1318,7 @@ inputs. <code>nil</code> is allowed only if the input definition is not for an a
 </div>
 
       <div id="footer">
-  Generated on Wed Jul  2 21:45:28 2025 by
+  Generated on Fri Jul  4 21:27:28 2025 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.37 (ruby-3.4.4).
 </div>
