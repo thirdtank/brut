@@ -22,12 +22,11 @@ class Brut::FrontEnd::Forms::InputDefinition
   INPUT_TYPES_TO_CLASS = {
     "checkbox"       => String,
     "color"          => String,
-    "date"           => String,
-    "datetime-local" => String,
+    "date"           => Date,
+    "datetime-local" => Time,
     "email"          => String,
     "file"           => String,
     "hidden"         => String,
-    "month"          => String,
     "number"         => Numeric,
     "password"       => String,
     "radio"          => String,
@@ -35,9 +34,8 @@ class Brut::FrontEnd::Forms::InputDefinition
     "search"         => String,
     "tel"            => String,
     "text"           => String,
-    "time"           => String,
+    "time"           => Time, # XXX
     "url"            => String,
-    "week"           => String,
   }
 
   # Create an InputDefinition. This should very closely mirror
@@ -65,7 +63,7 @@ class Brut::FrontEnd::Forms::InputDefinition
     min: nil,
     minlength: nil,
     name: nil,
-    pattern: nil,
+    pattern: :based_on_type,
     required: :based_on_type,
     step: nil,
     type: nil,
@@ -89,20 +87,25 @@ class Brut::FrontEnd::Forms::InputDefinition
       required = type != "checkbox"
     end
 
-    @max       = type!( max       , Numeric                   , "max")
+    @max       = max
     @maxlength = type!( maxlength , Numeric                   , "maxlength")
-    @min       = type!( min       , Numeric                   , "min")
+    @min       = min
     @minlength = type!( minlength , Numeric                   , "minlength")
     @name      = type!( name      , String                    , "name", required: true)
-    @pattern   = type!( pattern   , String                    , "pattern")
     @required  = type!( required  , [true, false]             , "required", required: true)
     @step      = type!( step      , Numeric                   , "step")
     @type      = type!( type      , INPUT_TYPES_TO_CLASS.keys , "type", required: true)
     @array     = type!( array     , [true, false]             , "array", required: true)
 
-    if @pattern.nil? && type == "email"
-      @pattern = /^[^@]+@[^@]+\.[^@]+$/.source
-    end
+    @pattern = if pattern == :based_on_type 
+                 if type == "email"
+                   /^[^@]+@[^@]+\.[^@]+$/.source
+                 else
+                   nil
+                 end
+               else
+                 type!( pattern, String, "pattern" )
+               end
   end
 
   def array? = @array

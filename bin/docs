@@ -14,13 +14,35 @@ OptionParser.new do |opts|
   end
 end.parse!
 
-public_dir = (Pathname(__FILE__).dirname / ".." / "brutrb.com" / "public" ).expand_path.to_s
-docs_dir   =  public_dir + "/api"
+public_dir = (Pathname(__FILE__).dirname / ".." / "brutrb.com" / "public" ).expand_path
+docs_dir   =  public_dir / "api"
 brutjs_dir = (Pathname(__FILE__).dirname / ".." / "brut-js" ).expand_path.to_s
 
 system(
   "bundle exec yard doc -o '#{docs_dir}' -m markdown -M rdiscount --backtrace"
 )
+
+puts "Hacking CSS"
+[
+  docs_dir /  "css" / "style.css",
+  docs_dir /  "css" / "full_list.css"
+].each do |css_file_to_hack|
+  lines = File.read(css_file_to_hack).split(/\n/)
+  File.open(css_file_to_hack, "w") do |f|
+    lines.each do |line|
+      if line =~ /\"Lucida Sans"/
+        f.puts line.gsub(/\"Lucida Sans\"/, '"Helvetica Neue", "Lucida Sans"')
+      elsif line =~ / Monaco,/
+        f.puts line.gsub(/ Monaco,/, '"Courier New", Monaco,')
+      elsif line =~ /font-family: monospace;/
+        f.puts line.gsub(/font-family: monospace;/, 'font-family: "Courier New", monospace;')
+      else
+        f.puts line
+      end
+    end
+    f.puts "code { font-family: 'Courier New', monospace; font-weight: 600; }"
+  end
+end
 
 FileUtils.chdir brutjs_dir do
   system("bin/build")
