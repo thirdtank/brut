@@ -5,6 +5,10 @@ class Brut::FrontEnd::Forms::SelectInput
 
   # (see Brut::FrontEnd::Forms::Input#value)
   attr_reader :value
+
+  # (see Brut::FrontEnd::Forms::Input#typed_value)
+  attr_reader :typed_value
+
   # (see Brut::FrontEnd::Forms::Input#validity_state)
   attr_reader :validity_state
 
@@ -22,7 +26,10 @@ class Brut::FrontEnd::Forms::SelectInput
 
   # (see Brut::FrontEnd::Forms::Input#value=)
   def value=(new_value)
-    value_missing = new_value.nil? || (new_value.kind_of?(String) && new_value.strip == "")
+    new_value = new_value.to_s
+    @typed_value = new_value.strip == "" ? nil : new_value
+
+    value_missing = @typed_value.nil?
     missing = if self.required
                 value_missing
               else
