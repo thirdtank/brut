@@ -6,8 +6,8 @@ hero:
   name: "Brut RB"
   text: "Raw Ruby Web Apps"
   tagline: Standards-based, No-nonsense, HTML-first, Low Ceremony
-  image:
-    src: /images/logo.png
+  ximage:
+    src: /images/LogoTall.png
     alt: "A Ruby gemstone embedded into a concrete, brutalist building"
   actions:
     - theme: brand
@@ -20,7 +20,7 @@ hero:
       text: Conceptual Overview
       link: /overview
 
-features:
+xfeatures:
   - title: Standards-Based
     icon:  📄
     details: "Brut leverages HTML, HTTP, SQL, and the Ruby standard library to let you write apps using standards you already know…or could quickly learn"
@@ -34,3 +34,4 @@ features:
     icon: 🏘️
     details: "Sequel, Phlex, I18n, RSpec. They do it best"
 ---
+![logo](/images/LogoStop.png)

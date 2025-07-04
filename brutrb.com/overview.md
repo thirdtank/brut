@@ -24,18 +24,18 @@ the *server side*, however it exists to provide a user interface of some sort.
 * *Back End* is the code that deals with everything else, such as accessing a database, executing business logic, or managing background jobs.
 
 
-![Architectural Overview](/images/overview.png)
+![Architectural Overview](/images/OverviewMetro.png)
 
+* **Visitor** is someone visiting your web site or app.
 * **Browser** is, well, a web browser
 * [**Pages**](/pages) generate web pages, which is what happens when a browser's UI navigates to a URL.
+* [**Forms**](/forms) describe the inputs of an HTML `<form>` element, and hold a form's submitted data for server-side processing. Browser submit forms to the server.
 * [**Components**](/components) generate HTML fragments and are used to generate the HTML of a page or for re-use across pages.
-* [**Forms**](/forms) describe the inputs of an HTML `<form>` element, and hold a form's submitted data for server-side
-processing.
 * [**Handlers**](/handlers) receive non-GET HTTP requests from the browser, notably form submissions.
-* [**JS**](/javascript) and [**Assets**](/assets) (including [CSS](/css)) are bundled on the server and sent to the client.
+* [**JavaScript**](/javascript) and [**Assets**](/assets) (including [CSS](/css)) are bundled on the server and sent to the client.
+* [**Domain Logic**](/business-logic) as where your business and domain logic lives and can be implemented however you like.
 * [**DB Models**](/database-access) are objects that provide access to your database.
-* [**Domain Logic**](/business-logic) as where your business and domain logic lives and can be implemented
-however you like.
+* **Relational Database** is your database, where data is stored.
 
 ## Brut is Not a Resource-Oriented MVC Framework.
 

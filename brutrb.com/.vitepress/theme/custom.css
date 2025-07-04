@@ -8,3 +8,7 @@
 td > code {
   white-space: nowrap;
 }
+
+.VPHero img, .VPHome img {
+  border-radius: 0.5rem;
+}
