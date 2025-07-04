@@ -124,6 +124,34 @@
       <li class="public ">
   <span class="summary_signature">
     
+      <a href="#typed_value-instance_method" title="#typed_value (instance method)">#<strong>typed_value</strong>  &#x21d2; Date|Time|BigDecimal|String|true|false|nil </a>
+    
+
+    
+  </span>
+  
+  
+  
+    
+      <span class="note title readonly">readonly</span>
+    
+    
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>The value of the input, as coerced to the type used to evaluate constraints.</p>
+</div></span>
+  
+</li>
+
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
       <a href="#validity_state-instance_method" title="#validity_state (instance method)">#<strong>validity_state</strong>  &#x21d2; Brut::FrontEnd::Forms::ValidityState </a>
     
 
@@ -317,15 +345,15 @@
       <pre class="lines">
 
 
-12
-13
-14
-15
 16
-17</pre>
+17
+18
+19
+20
+21</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/brut/front_end/forms/select_input.rb', line 12</span>
+      <pre class="code"><span class="info file"># File 'lib/brut/front_end/forms/select_input.rb', line 16</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_initialize'>initialize</span><span class='lparen'>(</span><span class='label'>input_definition:</span><span class='comma'>,</span> <span class='label'>value:</span><span class='comma'>,</span> <span class='label'>index:</span><span class='rparen'>)</span>
   <span class='ivar'>@input_definition</span> <span class='op'>=</span> <span class='id identifier rubyid_input_definition'>input_definition</span>
@@ -346,7 +374,94 @@
       
       <span id=""></span>
       <div class="method_details first">
-  <h3 class="signature first" id="validity_state-instance_method">
+  <h3 class="signature first" id="typed_value-instance_method">
+  
+    #<strong>typed_value</strong>  &#x21d2; <tt>Date|Time|BigDecimal|String|true|false|nil</tt>  <span class="extras">(readonly)</span>
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>The value of the input,
+as coerced to the type used to evaluate constraints.
+Returns <code>nil</code> if the value could not be coerced (which likely means
+there is or will be a constraint violation), <strong>or</strong>
+if it is a blank String.</p>
+
+<p>Of note, <code>type=color</code> will return a String here, but that String
+should be parseable into a hex code, i.e. #XXXXXX, where each "X"
+is 0-9 or a-f.  Further, <code>type=time</code> will also return a string
+in the format HH:MM or HH:MM:SS, where the time is in 24 hour
+time.  Lastly, <code>type=datetime-local</code> will return a <code>Time</code>, even
+though the control allows the visitor to choose an invalid time.
+If there is no <code>valueMissing</code> constraint violation, but this
+attribute returns <code>nil</code>, <span class='object_link'><a href="#value-instance_method" title="Brut::FrontEnd::Forms::SelectInput#value (method)">#value</a></span> <em>will</em> return the string sent by
+the browser, even if it's not a real timestamp.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Date|Time|BigDecimal|String|true|false|nil</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>the value of the input,
+as coerced to the type used to evaluate constraints.
+Returns <code>nil</code> if the value could not be coerced (which likely means
+there is or will be a constraint violation), <strong>or</strong>
+if it is a blank String.</p>
+
+<p>Of note, <code>type=color</code> will return a String here, but that String
+should be parseable into a hex code, i.e. #XXXXXX, where each "X"
+is 0-9 or a-f.  Further, <code>type=time</code> will also return a string
+in the format HH:MM or HH:MM:SS, where the time is in 24 hour
+time.  Lastly, <code>type=datetime-local</code> will return a <code>Time</code>, even
+though the control allows the visitor to choose an invalid time.
+If there is no <code>valueMissing</code> constraint violation, but this
+attribute returns <code>nil</code>, <span class='object_link'><a href="#value-instance_method" title="Brut::FrontEnd::Forms::SelectInput#value (method)">#value</a></span> <em>will</em> return the string sent by
+the browser, even if it's not a real timestamp.</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+10
+11
+12</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/brut/front_end/forms/select_input.rb', line 10</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_typed_value'>typed_value</span>
+  <span class='ivar'>@typed_value</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      
+      <span id=""></span>
+      <div class="method_details ">
+  <h3 class="signature " id="validity_state-instance_method">
   
     #<strong>validity_state</strong>  &#x21d2; <tt><span class='object_link'><a href="ValidityState.html" title="Brut::FrontEnd::Forms::ValidityState (class)">Brut::FrontEnd::Forms::ValidityState</a></span></tt>  <span class="extras">(readonly)</span>
   
@@ -387,12 +502,12 @@
       <pre class="lines">
 
 
-9
-10
-11</pre>
+13
+14
+15</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/brut/front_end/forms/select_input.rb', line 9</span>
+      <pre class="code"><span class="info file"># File 'lib/brut/front_end/forms/select_input.rb', line 13</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_validity_state'>validity_state</span>
   <span class='ivar'>@validity_state</span>
@@ -418,7 +533,7 @@
     <p>Returns the input's value. <strong>DO NOTE</strong> this returns a string.  This is
 because HTML stores these values as Strings.  When using a checkbox, in
 particular, the value will <em>not</em> be a boolean. You cannot do <code>if
-input.value</code> and expect that work. See #typed_value instead.</p>
+input.value</code> and expect that work. See <span class='object_link'><a href="#typed_value-instance_method" title="Brut::FrontEnd::Forms::SelectInput#typed_value (method)">#typed_value</a></span> instead.</p>
 
 
   </div>
@@ -439,7 +554,7 @@ input.value</code> and expect that work. See #typed_value instead.</p>
         <div class='inline'><p>the input's value. <strong>DO NOTE</strong> this returns a string.  This is
 because HTML stores these values as Strings.  When using a checkbox, in
 particular, the value will <em>not</em> be a boolean. You cannot do <code>if
-input.value</code> and expect that work. See #typed_value instead.</p>
+input.value</code> and expect that work. See <span class='object_link'><a href="#typed_value-instance_method" title="Brut::FrontEnd::Forms::SelectInput#typed_value (method)">#typed_value</a></span> instead.</p>
 </div>
       
     </li>
@@ -536,12 +651,12 @@ that <code>key</code> should not be a key used for client-side validations.</p>
       <pre class="lines">
 
 
-39
-40
-41</pre>
+46
+47
+48</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/brut/front_end/forms/select_input.rb', line 39</span>
+      <pre class="code"><span class="info file"># File 'lib/brut/front_end/forms/select_input.rb', line 46</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_server_side_constraint_violation'>server_side_constraint_violation</span><span class='lparen'>(</span><span class='id identifier rubyid_key'>key</span><span class='comma'>,</span><span class='id identifier rubyid_context'>context</span><span class='op'>=</span><span class='kw'>true</span><span class='rparen'>)</span>
   <span class='ivar'>@validity_state</span><span class='period'>.</span><span class='id identifier rubyid_server_side_constraint_violation'>server_side_constraint_violation</span><span class='lparen'>(</span><span class='label'>key:</span> <span class='id identifier rubyid_key'>key</span><span class='comma'>,</span> <span class='label'>context:</span> <span class='id identifier rubyid_context'>context</span><span class='rparen'>)</span>
@@ -593,10 +708,10 @@ that <code>key</code> should not be a key used for client-side validations.</p>
       <pre class="lines">
 
 
-44</pre>
+51</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/brut/front_end/forms/select_input.rb', line 44</span>
+      <pre class="code"><span class="info file"># File 'lib/brut/front_end/forms/select_input.rb', line 51</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_valid?'>valid?</span> <span class='op'>=</span> <span class='ivar'>@validity_state</span><span class='period'>.</span><span class='id identifier rubyid_valid?'>valid?</span></pre>
     </td>
@@ -609,7 +724,7 @@ that <code>key</code> should not be a key used for client-side validations.</p>
 </div>
 
       <div id="footer">
-  Generated on Fri Jul  4 21:27:28 2025 by
+  Generated on Fri Jul  4 21:44:57 2025 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.37 (ruby-3.4.4).
 </div>
