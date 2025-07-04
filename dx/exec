@@ -9,20 +9,24 @@ SCRIPT_DIR=$( cd -- "$( dirname -- "${0}" )" > /dev/null 2>&1 && pwd )
 require_command "docker"
 load_docker_compose_env
 
-usage_description="Execute a command inside the app's container with ssh-agent active."
-usage_args="[-s service] [-A] command"
+usage_description="Execute a command inside the app's container. Any command other than 'bash' will be run with bash -lc. Use -B to just run the command directly. Use -A to avoid ssh-agent."
+usage_args="[-s service] [-B] [-A] command"
 usage_pre="exec.pre"
 usage_on_help "${usage_description}" "${usage_args}" "${usage_pre}" "" "${@}"
 
 SERVICE="${SERVICE_NAME:-${DEFAULT_SERVICE}}"
-SSH_AGENT="ssh-agent "
-while getopts "s:A" opt "${@}"; do
+INCLUDE_PREFIX_FOR_NON_BASH=true
+SSH_AGENT=true
+while getopts "s:AB" opt "${@}"; do
   case ${opt} in
     s )
       SERVICE="${OPTARG}"
       ;;
     A )
-      SSH_AGENT="" 
+      SSH_AGENT=false
+      ;;
+    B )
+      INCLUDE_PREFIX_FOR_NON_BASH=false
       ;;
     \? )
       log "🛑" "Unknown option: ${opt}"
@@ -41,10 +45,23 @@ if [ $# -eq 0 ]; then
   usage "${description}" "${usage_args}" "${usage_pre}"
 fi
 
+if ! exec_hook_if_exists "exec.pre"; then
+  log "build.pre failed"
+  exit 1
+fi
 
-exec_hook_if_exists "exec.pre"
+if [ "$#" -eq 1 ] && [ "$1" = "bash" ]; then
+  COMMAND=(bash)
+elif [ "$INCLUDE_PREFIX_FOR_NON_BASH" = "true" ]; then
+  COMMAND=(bash -lc "$*")
+else
+  COMMAND=("$@")
+fi
+if [ "$SSH_AGENT" = "true" ]; then
+  COMMAND=(ssh-agent "${COMMAND[@]}")
+fi
 
-log "🚂" "Running '${*}' inside container with service name '${SERVICE}'"
+log "🚂" "Running '${COMMAND[@]}' inside container with service name '${SERVICE}'"
 
 docker \
   compose \
@@ -53,6 +70,6 @@ docker \
     --env-file "${ENV_FILE}" \
   exec \
     "${SERVICE}" \
-    ${SSH_AGENT} "${@}"
+    "${COMMAND[@]}"
 
 # vim: ft=bash

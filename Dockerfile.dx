@@ -10,27 +10,45 @@ RUN apt-get -y clean && \
     apt-get -y update && \
     apt-get install --quiet --yes ca-certificates curl gnupg rsync
 
-# Install NODE per https://github.com/nodesource/distributions?tab=readme-ov-file#using-debian-as-root-nodejs-22
-RUN curl -fsSL https://deb.nodesource.com/setup_22.x -o /tmp/nodesource_setup.sh && \
-    bash /tmp/nodesource_setup.sh && \
-    apt-get install -y nodejs
-
-# Install Postgres client per https://www.postgresql.org/download/linux/debian/ - note that the 
-# automated configuration doesn't work, I think because it assumes non-root.
-RUN apt-get -y install lsb-release && \
-    sh -c 'echo "deb http://apt.postgresql.org/pub/repos/apt $(lsb_release -cs)-pgdg main" > /etc/apt/sources.list.d/pgdg.list' && \
-    wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | apt-key add - && \
-    apt-get update && \
-    apt-get -y install postgresql-client-16
-
 RUN echo "gem: --no-document" >> ~/.gemrc && \
     gem update --system && \
     gem install bundler
-
 # Need vim at all times
 ENV EDITOR=vim
 RUN apt-get install -y vim && \
     echo "set -o vi" >> /root/.bashrc
+
+
+# Setup a non-root user
+
+# Their user id, which ideally matches their user id on the host
+ARG user_uid=10001
+# Their group id, which ideally matches their group id on the host
+ARG user_gid=10002
+
+# Create the user's group ID if it does not exist
+RUN getent group ${user_gid} || groupadd --gid ${user_gid} appgroup
+# Create the user. Note that we put bash_customizations in both .profile and .bashrc
+# to increase the chances they are used when running bash in various configurations
+RUN useradd --uid ${user_uid} --gid ${user_gid} --create-home --home-dir /home/appuser appuser && \
+    echo ". ~/.bash_customizations" >> /home/appuser/.profile && \
+    echo ". ~/.bash_customizations.local" >> /home/appuser/.profile && \
+    echo ". ~/.bash_customizations" >> /home/appuser/.bashrc && \
+    echo ". ~/.bash_customizations.local" >> /home/appuser/.bashrc
+
+COPY --chown=appuser:${user_gid} dx/show-help-in-app-container-then-wait.sh /home/appuser
+COPY --chown=appuser:${user_gid} dx/bash_customizations /home/appuser/.bash_customizations
+COPY --chown=appuser:${user_gid} dx/bash_customizations.local /home/appuser/.bash_customizations.local
+
+# NOT including the group here as that will place the user's environment
+# ONLY in that group and not in all the groups in which they are a part.
+USER appuser
+
+# Install NodeJS, per https://nodejs.org/en/download
+RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.3/install.sh | bash && \
+    \. "$HOME/.nvm/nvm.sh" && \
+    nvm install 22 && \
+    node -v && nvm current && npm -v
 
 # Node's colors are hand-crafted to always look bad and render at least some text unreadable 
 # no matter what your setup. Cool.

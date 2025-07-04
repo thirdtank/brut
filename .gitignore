@@ -32,3 +32,9 @@
 /brut-css/dist
 # This is where the CSS lives temporarily while docs are being built
 /brut-css/src/docs/brut.css
+
+# Per-developer Bash customizations that could contain secrets
+/dx/bash_customizations.local
+
+# Gems are installed here for LSP convienience
+/local-gems

@@ -11,11 +11,22 @@ load_docker_compose_env
 
 usage_on_help "Builds the Docker image based on the Dockerfile" "" "build.pre" "build.post" "${@}"
 
-exec_hook_if_exists "build.pre" Dockerfile.dx "${IMAGE}"
+if ! exec_hook_if_exists "build.pre" Dockerfile.dx "${IMAGE}"; then
+  log "build.pre failed"
+  exit 1
+fi
+build_args_file="${SCRIPT_DIR}/build.args"
+BUILD_ARGS=()
+if [ -e "${build_args_file}" ]; then
+  for arg in `grep -v '^#' "${build_args_file}"`; do
+    BUILD_ARGS+=(--build-arg ${arg})
+  done
+fi
 
 docker build \
   --file Dockerfile.dx \
-  --tag "${IMAGE}" \
+  --progress plain \
+  --tag "${IMAGE}" ${BUILD_ARGS[@]} \
   ./
 
 exec_hook_if_exists "build.post" Dockerfile.dx "${IMAGE}"

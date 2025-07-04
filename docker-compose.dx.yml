@@ -8,11 +8,14 @@ services:
         source: ${PWD}
         target: ${PWD}
         consistency: "consistent"
+      # This allows access to Git configuration so Git commands work
       - type: bind
         source: ${GIT_CONFIG}
-        target: "/root/.gitconfig"
-    entrypoint: /root/show-help-in-app-container-then-wait.sh
+        target: "/home/appuser/.gitconfig"
+    command: /home/appuser/show-help-in-app-container-then-wait.sh
     working_dir: ${PWD}
+    environment:
+      PROJECT_ROOT: ${PWD}
     ports:
       - "8086:8086"
       - "8087:8087"

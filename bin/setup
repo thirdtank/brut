@@ -83,7 +83,7 @@ def setup(update_gems:,setup_credentials:)
       system! "ssh-add #{key_file}"
     end
 
-    known_hosts_dest = Pathname("/") / "root" / ".ssh" / "known_hosts"
+    known_hosts_dest = Pathname("/") / "home" / "appuser" / ".ssh" / "known_hosts"
     if known_hosts_dest.exist?
       log "#{known_hosts_dest} exists, your ssh key should work with GitHub"
     else
@@ -117,7 +117,7 @@ def setup(update_gems:,setup_credentials:)
     end
     log "Your ssh key looks good"
 
-    gem_credentials_dest = Pathname("/") / "root" / ".gem" / "credentials"
+    gem_credentials_dest = Pathname("/") / "home" / "appuser" / ".gem" / "credentials"
     if gem_credentials_dest.exist?
       log "Gem credentials look good"
     else
@@ -139,7 +139,7 @@ def setup(update_gems:,setup_credentials:)
       end
     end
 
-    npm_credentials_dest = Pathname("/") / "root" / ".npmrc"
+    npm_credentials_dest = Pathname("/") / "home" / "appuser" / ".npmrc"
     if npm_credentials_dest.exist?
       log "NPM credentials look good"
     else
