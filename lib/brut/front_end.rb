@@ -12,6 +12,7 @@ module Brut::FrontEnd
   autoload(:Download, "brut/front_end/download")
   autoload(:Flash, "brut/front_end/flash")
   autoload(:Form, "brut/front_end/form")
+  autoload(:Forms, "brut/front_end/form")
   autoload(:GenericResponse, "brut/front_end/generic_response")
   autoload(:Handler, "brut/front_end/handler")
   autoload(:Handlers, "brut/front_end/handler")
