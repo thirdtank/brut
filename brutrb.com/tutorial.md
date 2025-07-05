@@ -1,3 +1,3 @@
 # Tutorial
 
-This section will walk you through creating a Brut app and should touch on most of the major features.
+TBD - this will be created once Brut is somewhat stabilized.

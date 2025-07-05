@@ -1,26 +1,35 @@
 # Routes
 
-The primary function of a web framework like Brut is to map URLs requested by the browser or an HTTP client and invoke code based on
-them.
+The primary function of a web framework like Brut is to map URLs requested by the browser or an HTTP client and invoke code based on them.
 
-Brut has a fairly simple routing system. It's not desgined to be flexible—it's designed to make the most common cases you
-will need as straigthforward as possible.
+Brut has a fairly simple routing system that's not designed for flexibility.
 
 ## Overview
 
-### Route Syntax
+Your app has a subclass of `Brut::Framework::App`, called `App`. It includes a call
+to the `routes` class method.  In there, you declare your routes by using one of
+four methods:
 
-A route is a string that contains the path part of a [URL](https://developer.mozilla.org/en-US/docs/Web/API/URL).  *Segments* of the
-path (i.e. the stuff between each forward slash `/`) can be either *static* or a *placeholder*.  The route is given as a parameter to
-a method that indicates the purpose of the route (e.g. `page`), and these two factors determine the  name of the class that will
-handle requests to that route.
+| Method                           | HTTP Method | Purpose                                                                                       |
+|----------------------------------|-------------|-----------------------------------------------------------------------------------------------|
+| `page «route»`                   | GET         | Declare a page                                                                                |
+| `form «route»`                   | POST        | Declare a form to be submitted to a handler                                                   |
+| `action «route»`                 | POST        | Declare an element-less form to be submitted to a handler (akin to Rails' `button_to` helper) |
+| `path «route», method: «method»` | `«method»`  | Declare an arbitrary path to a handler                                                        |
 
-Specifically:
+The value for `«route»`, along with the method called, is used to determine what
+class(es) will be used to handle the route.
+
+### «route» Syntax
+
+A route is a string that contains the *path part* of a [URL](https://developer.mozilla.org/en-US/docs/Web/API/URL).  *Segments* of the path (i.e. the stuff between each forward slash `/`) can be either *static* or a *placeholder*.
+
+As such:
 
 * Only the [pathname](https://developer.mozilla.org/en-US/docs/Web/API/URL/pathname) of a request may be specified.
 * All routes must start with a slash
-* The segements of the pathname may be static or placeholders. Placeholders must be a valid Ruby keyword argument prepended with a
-colon.
+* A placeholder segment must be a valid Ruby identifier preceded by a colon, e.g.
+`:company_id` is allowed, but `:company-id` is not.
 * Routes may not start with a placeholder.
 
 Some examples:
@@ -32,50 +41,23 @@ Some examples:
 "/"
 ```
 
-### Specifying Routes
+### Class Naming Conventions
 
-As mentioned above, routes are passed to methods that determine their purpose.  There are currently four types of routes, and thus
-four possible methods you would use to configure them:
+Brut is convention-based, so you are not able to specify the name of the classes
+used to handle routes.  Brut will use the method you called (e.g. `page`) and the
+route your provided to determine the class name.
 
-|Method|Purpose| HTTP Method | More Info |
-|------|-------|-------------|-----------|
-|`page` | Specifies a web page at that route | `GET` | [Pages](/pages) |
-|`form` | Indicates a form will exist and post its form data to this route | `POST` | [Forms](/pages) |
-|`action` | Indicates a form with no form data will exist and post to this route | `POST` | [Handlers](/handlers) |
-|`path` | This route will respond to an arbitrary HTTP method, which must be specified as an additional parameter | Any | [Handlers](/handlers) |
+Some examples:
 
-Brut is designed around generating HTML.  HTML provides the ability to navigate to new web pages via `GET`, or submit data to the
-server from a `<form>` via `POST`.  That is why three of the four methods are focused on these use-cases.
+| Route invocation                              | Expected Class Name(s)             |
+|-----------------------------------------------|------------------------------------|
+| `page "/dashboard"`                           | `DashboardPage`                    |
+| `page "/widgets/:id"`                         | `WidgetsByIdPage`                  |
+| `form "/login"`                               | `LoginForm` and `LoginHandler`     |
+| `action "/delete_widget/:id"`                 | `DeleteWidgetWithIdHandler`        |
+| `path "/tokens/personal/:token, method :put"` | `Tokens::PersonalWithTokenHandler` |
 
-To specify routes, you can call these methods inside the `routes do` block of your `App` class, located in `app/src/app.rb`:
-
-```ruby{6-9} [app/src/app.rb]
-class App < Brut::Framework::App
-  def id           = "my-app"
-  def organization = "my-org"
-
-  routes do
-    page   "/widgets/:id"
-    form   "/new_widget"
-    action "/archive_widget/:id"
-    path   "/widget_payment_received", method: :put
-  end
-end
-```
-
-> [!NOTE]
-> Brut does not use an abstraction like resources to manage the routes of your web app.
-> Few non-programmers know what a resource is, so the routing API is designed to match
-> concepts a non-programmer can observe or identify, like URLs, forms, and pages.
-
-### Connecting Routes to Code
-
-Brut is convention-based, so the routes you specify, and the method you pass them to, determine the class that will handle the
-request.  For `page` routes, Brut will locate a page class (see [Pages](/pages)), which will be used to
-render the web page.  All other routes will be managed by a handler (see [Handlers](/handlers)), which are somewhat like a controller
-in Rails, but with only a single method.
-
-The name of the class is determined as follows:
+Specifically, the name of the class(es) is/are determined as follows:
 
 * Static segments of the pathname are mapped to namespaces or a class based on converting the path segment to camel-case. For example `new_widget` becomes `NewWidget`.
 * The final static segment in the path represents a class name.  All other static segments represent modules in which the final class is namespaced
@@ -89,15 +71,6 @@ The name of the class is determined as follows:
 * These are now connected to form a valid Ruby class name.
 * The route `/` is special and always maps to `HomePage`.
 
-The examples in the previous section demonstrate how this works:
-
-| Route | Class name |
-|-------|------------|
-| `page   "/widgets/:id"` | `WidgetsByIdPage` |
-| `form   "/new_widget"` | `NewWidgetForm` and `NewWidgetHandler`
-| `action "/archive_widget/:id"` | `ArchiveWidgetByIdHandler`
-| `path   "/widget_payment_received", method: :put` | `WidgetPaymentReceivedHandler`
-
 Note that deeply nested routes that contain several placeholders will work, and create complicated classnames.
 
 ```ruby
@@ -105,10 +78,12 @@ page "/company/:company_id/location/:location_id"
 # => CompanyByCompanyId::LocationByLocationIdPage
 ```
 
-> [!TIP]
-> If you don't like long complicated names, deeply-nested namespaces, and long directory names, name your routes accordingly.
+> [!NOTE]
+> All routes can receive query string parameters. These are not factored
+> into the name of the class that will handle the route, but they
+> *are* made available to your Page or Handler.
 
-### Creating URIs from Routes
+### Creating URIs for Routes
 
 Because each route is associated with a class, you can use the class to create the route, including any placeholders and query string
 parameters.
@@ -120,6 +95,8 @@ The most direct way to do this is with the `routing` method available on each pa
 # => /widgets/42
 > WidgetsByIdPage.routing(id: 42, compact: true)
 # => /widgets/42?compact=true
+> WidgetsByIdPage.routing(id: 42, compact: true, anchor: "summary")
+# => /widgets/42?compact=true#summary
 > ArchiveWidgetByIdHandler.routing(id: 42)
 # => /archive_widget/42
 ```
@@ -147,7 +124,7 @@ explaining the problem.
 ```
 
 > [!NOTE]
-> You can use `routing` to create `<form>` actions, but `form_tag`, which we'll discuss in [Forms](/forms), can do this for you.
+> You can use `routing` to create `<form>` actions, but `Brut::FrontEnd::Components::FormTag`, which we'll discuss in [Forms](/forms), can do this for you.
 
 The `routing` method isn't an abstraction around routes. It's more of a strongly-typed translation.  This means when you change
 something, your app won't route to non-existent routes—it'll blow up with a helpful error.
@@ -157,40 +134,37 @@ rename the class.  At this point, any code that routes to `DashboardPage.routing
 
 ## Testing
 
-Routes are configuration, so you do not need to test them.  Your end-to-end tests will ensure your links and form actions are working, and your page tests will ensure any routes they generate in HTML are valid.
+Routes are configuration, so you do not need to test them.  In fact, you can't test them directly. Your end-to-end tests should adequately cover the correct usage of your routes. If you always using `.routing` to generate routes, Ruby's runtime check swill also ensure you have not used a non-existent or invalid route.
 
 ## Recommended Practices
 
-Brut does not provide flexibility with routes.  For example, you cannot specify an optional placeholder.  While this may change, Brut
-is designed to isolate logic to classes like pages, forms, hooks, middlewares, or handlers.  Brut does not want logic to exist at the
-routing layer.
-
-Beyond these technical limitations, here are some recommendations regarding routes.
+Brut does not provide flexibility with routes, nor is logic intended to exist where
+you are declaring them.
 
 ### Routes Should be Named for Concepts Anyone Can Understand
 
-You don't need your routes to be the names of models or database tables.  If you have an account management page that allows modifying data in a table called `user_preferences`, but everyone just calls it "the account management page", the route should be `/account_management`.
+If you have an account management page that allows modifying data in a table called `user_preferences`, but everyone just calls it "the account management page", the route should be `/account_management`.
 
-Although routes are primarily for programmers to manage, there's no reason not to name them using the terms everyone involved in your
-app uses.  This is part of the reason Brut inserts `By` or `With` when there is a placeholder.  It allows you to have a page for all
-widgets—the "widgets page"—and a page for a specific widget by id—the "widgets by id page".
+Although routes are primarily for programmers, there's no reason not to name them using the terms everyone involved in your app uses.  This is part of the reason Brut inserts `By` or `With` when there is a placeholder.  It allows you to have a page for all widgets—the "widgets page"—and a page for a specific widget by id—the "widgets by id page".
 
 ### Prefer Shallow Routes with a Single Placeholder
 
 The more path segments your route has, and the more placeholders it is, the longer your class name will be and the more you lose the
 connection to reality.  The "company by company id location by location id page" doesn't exactly roll off the tongue.
 
-Life will be easier if you can choose names and routes that have a single placeholder.  Multiple path segments can be useful for
-namespacing.
+Life will be easier if you can choose names and routes that have a single placeholder.  Multiple path segments can be useful for namespacing.
 
 ### Placeholders Identify Things, Query Strings Search for Things
 
-You could certainly have a `/widgets` route, and then look at a query string parameter named `id` to know what widget to show.  This
-is likely not what you want.  If a route should always identify a specific thing in your back-end, it should have a placeholder where
-that thing's identifier goes.
+A query string is for just that: querying. The query string is not for identifying
+things.  That's what URIs are for.
 
-If a route allows searching for things with multiple optional critiera, a query string is more appropriate.  This is the HTTP spec, so
-if you follow its guidelines, you'll be fine.
+As such, for routes where a specific *thing* is being identified, use route
+placeholders like `/widgets/:id`. When a route is used for searching or locating
+*things*, a query string is better: `/widgets?type=«type»`.
+
+Remember that the query string is *not* part of the class name. The values for the
+query string will be made available to your page or handler.
 
 ### Pluralization Is Up to You
 

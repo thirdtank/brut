@@ -27,9 +27,11 @@ export default defineConfig({
         items: [
           { text: "Getting Started", link: "/getting-started" },
           { text: "Concepts", link: "/overview" },
-          { text: "Documentation Conventions", link: "/doc-conventions" },
-          { text: "Tutorial", link: "/tutorial" },
+          { text: "Features", link: "/features" },
+          { text: "Directory Structure", link: "/dir-structure" },
           { text: "Dev Environment", link: "/dev-environment" },
+          { text: "Tutorial", link: "/tutorial" },
+          { text: "Documentation Conventions", link: "/doc-conventions" },
           { text: "AI Declaration", link: "/ai" },
         ]
       },

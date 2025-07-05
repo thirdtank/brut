@@ -83,25 +83,24 @@ Docker container for local observability via OpenTelemetry.
    ```
    > dx/start
    ```
-4. Now, "log in" to the container where your app and its tests will run:
+4. Now, install your aps gems and set it all up:
 
    ```
-   > dx/exec login
-   ```
-
-5. Set everything up:
-
-   ```
-   inside-container> bin/setup
+   > dx/exec bin/setup
    ```
 
 Now, you're ready to go.  See [Dev Environemnt](/dev-environment) for details on how
 this all works.
 
+> [!NOTE]
+> Instead of running `dx/exec` in front of your commands, you
+> can instead do `dx/exec bash` to "log in" to the running container.
+> You'll have a normal prompt and can issue commands directly from there.
+
 ## Run the App
 
 ```
-inside-container> bin/dev
+dx/exec bin/dev
 ```
 
 You can now visit your app at `localhost:6502`
@@ -128,10 +127,10 @@ There are a few tests you can run, as well as some checks that you aren't using
 RubyGems with security vulnerabilities.  Run it all now with `bin/ci`:
 
 ```
-inside-container> bin/dev
+dx/exec bin/ci
 ```
 
 ## Now Build The Rest of Your App 🦉
 
-You can [follow the tutorial](/tutorial), check out the [conceptual overview](/overview), or dive straight into the API docs.  You might also want to check out the docs for [LSP Support](/lsp).
+You can [follow the tutorial](/tutorial), check out the [conceptual overview](/overview), or dive straight into the [API docs](/api/index.html).  You might also want to check out the docs for [LSP Support](/lsp).
 

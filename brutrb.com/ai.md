@@ -52,22 +52,17 @@ documentation, is produced by a machine, although spelling and grammar correctio
 
 We expect an LLM to be able to digest this documentation and source code and provide alternate analysis of how Brut works and how to use it.  We hope such analysis is correct and useful, however that cannot be guaranteed, so this documentation is the second best source of truth, the source code being the best.
 
-## Logo
+## Logos
 
-The logo is level 4 - ChatGPT created it. I'd love to have a real person make a better one.  I just needed
-something to get this launched.  Please reach out if you want to make a better one + other assets. I'm
-willing to pay a real person.
+While the various logos look like someone typed "make me a logo in the style of the Washington, DC Metro", if you look closely, you will see the telltale sings that they were made by a person…a person who is not a professional designer.
 
-## AI Completions Should Be Viewed with Skepticism
+As such, these are all Level 1.
 
-Due to how LLMs work, there is naturally nothing in any model about Brut.  Anything an
-existing model tells you about Brut is **100% untrustworthy**.  We hope to allow LLMs to consume Brut's
-code, documentation, and examples, so it can be an additional source of help, but currently that is not
-the case.
+## AI Information about Brut Should Be Viewed with Skepticism
 
-**Do not ask an LLM about Brut** until this part of the documentation changes.
-
-For completion-based AI suggestions, **view them with skepticism**.  In my
-experience, completions from e.g. GitHub CoPilot work OK when replicating a pattern
-in the file you are editing, but suggestions in a freshly-opened file tend to be
-entirely imaginary or Rails-based.  Beware.
+* **Answers from an LLM about Brut are likely incorrect.** LLMs will certainly not
+have been trained on information about Brut, since it is new.
+* **Code Completions of Brut Code are suspect.** I have observed that e.g. GitHub
+CoPilot is capable for properly completing Brut code if there is enough context, but
+it is not capable of, say, creating a component from scratch. **Review all Code
+Completions Carefully**.

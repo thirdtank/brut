@@ -2,32 +2,35 @@
 
 ## Terminology
 
-Brut attempts to use existing terminology where possible, particularly where that technology applies to the web platform.  For example, there is not a thing called "CSS variables", rather the term is "custom properties". HTML entities are *elements* or *tags* that have *attributes*. As another example, HTML doesn't have *validations*, rather it as *constraints*, which can be *violated*.
+Brut attempts to use existing terminology where possible, particularly where that technology applies to the web platform.  For example, there is not a thing called "CSS variables", rather the term is "custom properties".
 
-When speaking about Ruby, we prefer the term *initializer* over constructor, *parameters* over arguments, and *methods* over messages.  We also prefer *tests* over specs, however test files *are* located in `specs/` and named `*.spec.rb` to be consistent with RSpec's nomenclature.  We prefer *end-to-end* or *e2e* tests instead of browser tests or request specs. 
+Here are some common exampels:
 
-Further, Brut doesn't render HTML, it *generates* it.  The browser renders the HTML for the website's visitor. One exception is Phlex, which uses the term *render* to mean "generate HTML to an internal buffer that will be delivered to the client later".  Thus, you will need to call Phlex's `render` method from time to time, even though it is not rendering HTML but helping to generate it.
 
-Lastly, the documentation tries to talk about the person accessing a website as a "vistor" not a "user". Though the "user" nomenclature is near-ossified in software development, we feel "visitor" is more apt.
+- HTML entities are **elements** or **tags**
+- HTML elements have **attributes**.
+- Forms don't have validations, they have **constraints** which are **violated** by invalid data.
+- Ruby classes don't have constructors, they have **initializers**.
+- Invoking behavior on a Ruby object is **calling a method**, not sending a message.
+- Despite being in `specs/`, the files in there are **tests**, not specifications or
+-specs".
+- Tests that use a browser are **end to end** or **e2e** tests.
+- HTML is not rendered, but **generated**. The browser renders the HTML sent to it by the server, along with the CSS.
+- Your app or site doesn't have users, it has **visitors**.
 
 ## Structure of These Documents
 
 Each page here documents on aspect of Brut, called a *module*, and these pages are organized along four sections:
 
-* **Overview** - provides detailed information on how this part of Brut works, with minimal examples to orient you to
-the terms and design of that module.  Links to reference documentation are provided inline as needed.
-* **Testing** - information about how to write tests for the code in this module.  For example, in [Pages](/pages), we detail how you are intended to test page classes.
-* **Recommended Practices** - this section outlines what we believe is the best way to use the module, along with
-justifications for the recommended approach.  While you are free to ignore this advice, it's often useful to
-understand the intention of the authors.
-* **Technical Notes** - where appropriate, technical details about how or why the module works the way it does
-are provided.  This section should be marked with a date to allow you to understand the recency of the
-information. It may not always be up to date, but this can help further clarify what is happening under the
-covers and why.
+* **Overview** - What the module does, how it works, and a brief example.
+* **Testing** - How to test the code you write in this module.
+* **Recommended Practices** - Opinions from the creators about how best to think about the code in this module.
+* **Technical Notes** - details about the technical implementations that may be
+useful as context.
 
 ## Names of the Library and Associated Modules
 
-This framework is called "Brut" though may be called "BrutRB".  It lives at `brutrb.com`.
+This framework is called "Brut" though may be called "BrutRB" or "brut-rp".  It lives at `brutrb.com`.  Never use "brutRB", "brut_rb", etc.
 
 The JavaScript library is called "BrutJS", but is `brut-js` in code or the filesystem. "Brut-JS" is wrong, as is `brut_js`.
 

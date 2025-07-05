@@ -1,6 +1,6 @@
 # Dev Environment
 
-Brut provides sophisticatd tooling to manage your dev environment
+Brut provides sophisticated tooling to manage your dev environment
 
 ## Overview
 
@@ -41,7 +41,7 @@ Your editor and version control system run on your computer.
 These are the commands you will use to manage the *foundational core*, which is the Docker containers and
 their contents.
 
-A few brief terminoloy notes if you aren't familiar with Docker:
+A few brief terminology notes if you aren't familiar with Docker:
 
 * A Docker *container* is akin to a virtual machine. On Linux this isn't strictly true, but conceptually, you can think of this like a virtual computer.
 * A Docker *image* is what you use to start a container.  This is akin to a disk image you might use to
@@ -52,7 +52,7 @@ A few verbs to provide additional help:
 
 * One *builds* a Docker image from a Dockerfile.
 * One *starts* a Docker container from an image.
-* One *stops* a Docker conatiner when it's no longer needed.
+* One *stops* a Docker container when it's no longer needed.
 
 
 | App        | Purpose                                                                |
@@ -68,7 +68,7 @@ The workflow for the foundational core is shown in this diagram.
 
 In words:
 
-1. You build the images based on the latest instrutions via `dx/build`.
+1. You build the images based on the latest instructions via `dx/build`.
 2. You start up the environment with `dx/start`.
 3. You then use `dx/exec` to execute commands from the Workspace (see below).
 4. When you are done working for the day, `dx/stop` shuts everything down.
@@ -90,7 +90,7 @@ you full documentation about what the command and subcommands do.
 |                 | `drop`                | Drop the database if it exists                                                            |
 |                 | `migrate`             | Apply any outstanding migrations to the database                                          |
 |                 | `new_migration`       | Create a new migration file                                                               |
-|                 | `rebuild`             | Drop, re-create, and run migrations, effecitvely rebuilding the entire database           |
+|                 | `rebuild`             | Drop, re-create, and run migrations, effectively rebuilding the entire database           |
 |                 | `seed`                | Load seed data into the database                                                          |
 |                 | `status`              | Check the status of the database and migrations                                           |
 | <code style="white-space: nowrap">bin/dbconsole</code> | None                  | Starts up a `psql` session to your database                                               |
@@ -138,7 +138,7 @@ While you are free to set up mise or rbenv or whatever to run all this on your c
 working is currently not supported nor encouraged.  For now, Brut will focus on the Docker-based approach.
 
 The primary reason is that it's a tightly controlled environment that is almost
-entirely scriptable, but does not require devs to abandon their preffered editor.
+entirely scriptable, but does not require devs to abandon their preferred editor.
 Environment manager-based approaches tend to be more fussy and require documentation
 to ensure they are set up.
 
@@ -174,7 +174,7 @@ exit Brut::CLI.app(
      )
 ```
 
-These files have a lot of duplication, but should be relatively stable.
+These files have some duplication, but should be relatively stable.
 
 This means that Brut-provided CLIs *will*  be updated when you update Brut.  Compare this to the files in
 `dx/` which are entire Bash scripts that will not be updated when Brut is updated.
