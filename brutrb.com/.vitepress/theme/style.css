@@ -44,6 +44,7 @@
  * -------------------------------------------------------------------------- */
 
 :root {
+  --vp-c-text-1: #362400;
   --vp-c-default-1: var(--vp-c-gray-1);
   --vp-c-default-2: var(--vp-c-gray-2);
   --vp-c-default-3: var(--vp-c-gray-3);
@@ -115,8 +116,8 @@
   --vp-home-hero-name-color: transparent;
   --vp-home-hero-name-background: -webkit-linear-gradient(
     120deg,
-    #333333 30%,
-    #d14141
+    #D67402 20%,
+    #11AC0E
   );
 
   --vp-home-hero-image-background-image: linear-gradient(
