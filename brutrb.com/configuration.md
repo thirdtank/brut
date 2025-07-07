@@ -92,7 +92,7 @@ end
 
 ### Type and Name Enforcement
 
-You'll note that `store`, accepts a class parameter.  This is mostly used for documentation, with two exceptions:
+You'll note that `store` accepts a class parameter.  This is mostly used for documentation, with two exceptions:
 
 * If the type is `Pathname` (which is what is used by `store_ensured_path` and `store_required_path`), the configuration parameter name *must* end in `_file` or `_dir`.
 * If the type is `"boolean"` or `:boolean`, the configuration parameter name *must* end in a question mark. In this case, the value itself is coerced into `true` or `false`.
@@ -103,8 +103,7 @@ Brut may add more constraints or conversions over time.
 
 By default, Brut configuration values cannot be overridden and they cannot be `nil`.  When calling `store`, `allow_app_override: true` and `allow_nil: true`, can be passed to change this behavior.
 
-In [Flash and Session](/flash-and-session), we discussed setting your own custom class for managing the flash.
-This is possible due to how Brut defines the configuration parameter `flash_class`:
+In [Flash and Session](/flash-and-session), we discussed that you can set your own class for the flash. This is possible due to how Brut defines the configuration parameter `flash_class`:
 
 ```ruby {6}
 Brut.container.store(
@@ -126,7 +125,7 @@ Calling `override` for parameters where `allow_app_override` is not true results
 `store` on a previously `store`-d parameter results in an error.
 
 The idea is to make it extremely clear what values are being set and overridden, and to avoid setting values that
-don't exist.
+don't exist or aren't relevant.
 
 Some values can be `nil`.  Generally, `nil` is a pain and will cause you great hardship.  On occasion, it's
 needed.  For example, [external IDs](/database-schema#external-ids) only work if the app provides an app-wide

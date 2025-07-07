@@ -46,14 +46,7 @@ JavaScript is on line 1 of `app.js`.  This is not helpful for diagnosing issues.
 *SourceMaps* are separate files that translate the minified files back to normal ones, so you can see a normal
 stack trace with the actual line numbers of your source files.
 
-There are many ways to create source maps and if you've used a tool like WebPack, you'll recall that many of them
-don't produce usable source maps.  Brut uses esbuild's facility for this, with a focus on correctness. When
-you see a line number and a source file in your browser, you can be sure it's accurate.
-
-The tradeoff is that it can take longer to produce than producing an inaccurate one. I'm not sure who wants
-inaccurate source maps, but Brut does not support this. In practice, esbuild is quite fast, so it should not make
-a practical difference in your day to day work.
-
+Brut's configuration of esbuild is to produce sourcemaps.
 
 ## Fonts
 
@@ -93,7 +86,7 @@ end
 ## SVGs
 
 You can place `.svg` files in `app/src/front_end/images` if you wish to use them in `<img>` tags.  However, if
-you place svgs in `app/src/front_end/svgs`, they can be inlined into your HTML via `inline_svg`.  In this case,
+you place svgs in `app/src/front_end/svgs`, they can be inlined into your HTML via `inline_svg`, provided by `Brut::FrontEnd::Component::Helpers` and included in all components and pages.  In this case,
 there is no need for a build step, since the SVG source is included directly in your HTML. This works well
 for icons.
 

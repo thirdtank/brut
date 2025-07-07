@@ -6,11 +6,10 @@ hooks can happen before a page or handler is called, or after.
 ## Overview
 
 We've seen examples thusfar of using a route hook to place the authenticated user or account into the
-request context for later injection into pages or handlers. Brut uses route hooks to locale detection and
-for content security policies.
+request context for later injection into pages or handlers. Brut uses route hooks for locale detection and for content security policies.
 
-At its core, a before hook is a class that extends `Brut::FrontEnd::RouteHook` and implements `before`
-and an after hook implements `after`.  Both `before` and `after` can be [injected](/keyword-injection) with request-time information.
+At its core, a *before* hook is a class that extends `Brut::FrontEnd::RouteHook` and implements `before`
+and an *after* hook implements `after`.  Both `before` and `after` can be [injected](/keyword-injection) with request-time information.
 
 To register a hook, you'd call `before` or `after` in your `App`:
 
@@ -28,16 +27,11 @@ end
 
 The value can be a string or symbol, but should not be the class itself, as this can mess with load order.
 
-The code for `RequireAuthBeforeHook` we saw before was marked with a red warning that it wasn't production ready.  Let's
-see what a more realistic hook would look like.
+Let's implement a realistic hook that checks for authenticated users.  Our hook will
+detect if a user is logged in. If not, we'll redirect to a login page. 
 
-The purpose of `RequireAuthBeforeHook` is to detect if a user is logged in.  If they are, all is well. If they are not,
-we want to redirect them to a login page unless the page they've requested is allowed for logged-out users.
-
-Let's suppose that the home page (`/`) and any page starting with `/auth/` are allowed for logged-out users (`/auth/` being pages related to logging in).
-
-Brut also reserves some routes for its own, and we want those to be allowed to logged-out users as well. Brut sets
-`"brut.owned_path"` in the Rack environment if the requested URL is one it is managing.
+Of course, the login page will need to be accessible without logging in.  We also
+don't want Brut-owned paths to require login, either.
 
 `before` will need access to the request context, session, Rack request, and Rack environment:
 
@@ -51,8 +45,7 @@ class RequireAuthBeforeHook < Brut::FrontEnd::RouteHook
 end
 ```
 
-We'll use the Rack request's `path_info` to check for allowed routes, and the aforementioned `env["brut.owned_path"]` to
-check for a Brut-owned path:
+We'll use the Rack request's `path_info` to check for allowed routes.  Brut will set `"brut.owned_path"` in the Rack environment for any path that it owns. We can check that to allow access to those paths.
 
 ```ruby {4-6}
 # app/src/front_end/route_hooks/require_auth_before_hook.rb
@@ -154,9 +147,7 @@ end
 
 ## Testing
 
-Route hooks are normal classes, you could test them as you would a handler or other class.  This may be
-advisable for complex hooks, however it may be more realistic to test their behavior through end-to-end
-tests as this will ensure they are configured correctly in the context of the app.
+Route hooks are normal classes, you could test them as you would a handler or other class.  This may be advisable for complex hooks, however it may be more realistic to test their behavior through end-to-end tests as this will ensure they are configured correctly in the context of the app.
 
 ## Recommended Practices
 
@@ -174,5 +165,12 @@ For page- or use-case-specific behavior, it may be better to put the logic in a 
 
 _Last Updated June 12, 2025_
 
-Route hooks and Middlewares do not share implementations, however they are similar in concept.  These
-concepts may be unified in the future.
+Route hooks and Middlewares do not share implementations, however they are similar in concept.  These concepts may be unified in the future.
+
+Hooks are applied in `Brut::Framework::MCP` usiung Sinatra's hooks mechanism.  While
+Brut may not always be based on Sinatra, it is now. You should not rely on it.
+
+Lastly, there is some dissonance in how keyword injection works.  Pages and Handlers
+have initializer injection, while hooks use method injection.  This may change -
+Hooks may be re-designed to use initializer injection, and even changed so that
+before and after hooks have different base classes.

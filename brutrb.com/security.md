@@ -100,6 +100,3 @@ This may change in the future.
 Session cookies are set to expire after 1 year and use the value `Lax` for
 [`SameSite`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Guides/Cookies#controlling_third-party_cookies_with_samesite). "Lax" allows other sites to submit the Brut-powered site's cookies, but only if the user navigates to the site.  They are not sent if another site submits an Ajax request.  We feel this is the right tradeoff betweeen usability and security.
 
-### Content Security Policy headers and tools
-
-### `bundle audit`

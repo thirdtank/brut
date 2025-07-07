@@ -6,11 +6,13 @@ different pages.  Conceptually, they are the same as a Rails layout.  Technicall
 ## Overview
 
 Your app should include `app/src/front_end/layouts/default_layout.rb`. The name
-"default" is special, in that all pages will use this layout by default.
+"default" isn't special, it's just what the `layout` method from
+`Brut::FrontEnd::Page` returns.
 
-Since a layout is a Phlex component, its HTML is generated from `view_template`, and
-it is expected to have exactly one `yield`, where the page's content will be
-inserted.
+A layout is a Phlex component that's expected to have a single call to `yield` in
+its `view_template` method.
+
+Here is the `DefaultLayout` provided to new Brut apps:
 
 ```ruby {33}
 class DefaultLayout < Brut::FrontEnd::Layout
@@ -53,53 +55,18 @@ class DefaultLayout < Brut::FrontEnd::Layout
 end
 ```
 
-### Maintaining Layouts
+You will likely want to customize what's in your layout, but a few components
+included by default are important for other features of Brut:
 
-You are free to manage this how you like, however a few components inside the
-`<head>` and `<body>` that are important to keep:
+| Component | Purpose
+|---|---|
+| `Brut::FrontEnd::Components::PageIdentifier` | Creates a `<meta>` tag with the page's name in it, which is handy for managing your end-to-end tests. |
+| `Brut::FrontEnd::Components::I18nTranslations` | Includes translatsion for common client-side constraint violations.  These are used by `<brut-cv-messages>` and `,brut-cv>`. See [Forms](/forms), [I18n](/i18n), and [JavaScript](/javascript) for more details |
+| `Brut::FrontEnd::Components::Traceparent` | Includes the OpenTelemetry *traceparent* on the page so that client-side telemetry is reported back to the server.  See `<brut-tracing>` and [observability](/instrumentation) |
+| `<brut-tracing>` / `brut_tracing` | Custom element that collects the client-side telemetry and sends it back to the server. See [observability](/instrumentation) |
 
-* `Brut::FrontEnd::Components::PageIdentifier` includes a `<meta>` tag with the page's name in it, which is handy for managing your end-to-end tests.
-* `Brut::FrontEnd::Components::I18nTranslations` includes translatsion for common client-side constraint violations.  See [Forms](/forms), [I18n](/i18n), and [JavaScript](/javascript) for more details on how this is used.
-* `Brut::FrontEnd::Components::Traceparent` ensures that the OpenTelemetry *traceparent* is available so when client-side telemetry is reported back to the server, it can be connected to the request that initiated it.
-* The `<brut-tracing>` element collects the client-side telemetry and sends it back
-to the server.
-
-### Creating Alternate Layouts
-
-The way each page knows to use `DefaultLayout` is due to the `layout` method of
-`Brut::FrontEnd::Page`, which returns `"default"`.  The return value of `layout` is
-used to figure out the name of the layout class.
-
-You can set up your own by overriding `layout`:
-
-```ruby
-class MyOtherPage < AppPage
-  def layout = "other_design"
-
-  # ...
-
-end
-```
-
-Brut will expect the class `OtherDesignLayout` to exist and provide HTML.  Based on
-Zeitwerk's conventions, that class should be in
-`app/src/front_end/layouts/other_design_layout.rb`.
-
-### No Layout
-
-If you don't want a layout, you are encouraged to creat a blank layout, for example:
-
-```ruby
-class BlankLayout < Brut::FrontEnd::Layout
-  def view_template
-    yield
-  end
-end
-
-# use like so:
-
-def layout = "blank"
-```
+See [creating alternate layouts](/recipes/alternate-layouts) and [blank
+layouts](/recipes/blank-layouts) for customization options.
 
 ## Testing
 
@@ -109,9 +76,10 @@ needs complex logic, you are encouraged to extract that to a
 
 ## Recommended Practices
 
-Keep your layouts as simple as you can.
-
-
+Layouts can use components, just keep in mind that any data a component needs must
+be passed to its initializer. Since the layout doesn't have access to the page, this
+implies that components used in your layout must either not require dynamic data or
+be [global components](/components#global-components)
 
 ## Technical Notes
 

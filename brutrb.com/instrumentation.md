@@ -28,7 +28,7 @@ Brut automatically sets up OpenTelemetry (OTel) tracing.  The primary interface 
 `Brut::Instrumentation::OpenTelemetry`, which is available via `Brut.container.instrumentation`.  We'll
 discuss that in a moment.
 
-To configure the specifics of where the traces wil go, the OTel gem uses environment variables:
+To configure the specifics of where the traces will go, the OTel gem uses environment variables:
 
 | Variable                             | Value                      | Purpose                                                                                                                                                         |
 |--------------------------------------|----------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------|
@@ -44,7 +44,7 @@ When you created your Brut app, your `.env.development` and `.env.test` should h
 environment variables that will send instrumentation to the otel-desktop-viewer that was also configured.
 
 If you run your app using `bin/dev` and use the app for a bit, then go to `http://localhost:8000`, you
-will see the otel-desktop-viewer UI and can browser the spans and traces sent by Brut.
+will see the otel-desktop-viewer UI and can browse the spans and traces sent by Brut.
 
 
 ### What is Instrumented By Default
@@ -54,7 +54,7 @@ data.  Brut will attempt to conform to standard semantics for HTTP requests and 
 
 Here is a non-exhaustive list of what Brut automatically instruments:
 
-* How long each page or handler request takes
+* How long each page or handler request takes, broken down by components.
 * CLI execution time
 * Time to rebuild the schema for tests
 * Time to run tests
@@ -75,7 +75,7 @@ Here is a non-exhaustive list of what Brut automatically instruments:
 > the actual values inserted or used in `WHERE` clauses.
 > While you should not be putting sensitive data into your database,
 > be warned that this is happening. There are plans to improve this
-> to be more flexible and reduce the Schance of sensitive data
+> to be more flexible and reduce the chance of sensitive data
 > being sent in traces.
 
 ### Adding Your Own Instrumentation
@@ -155,16 +155,14 @@ The class `Brut::FrontEnd::Handlers::InstrumentationHandler` is set up to receiv
 client-side to provide insights about client-side behavior as part of a server-side request.  Brut
 attempts to join up any client-side instrumentation to the request that served it.
 
-It does this `Brut::FrontEnd::Components::Traceparent` component, which is included in your default layout
-when you created your Brut app.  This creates a `<meta>` tag containing standardized information used to
+It does this via the `Brut::FrontEnd::Components::Traceparent` component, which is included in your default layout when you created your Brut app.  This creates a `<meta>` tag containing standardized information used to
 connect the client-side behavior to the server-side request.
 
 The Brut custom element `<brut-tracing>` uses this information, along with statistics from the browser, to
 send a custom payload back to Brut at the route `/__brut/instrumentation`, which is handled by the
 aforementioned `InstrumentationHandler`.
 
-You should then see client-side tracing information as a sub-span of your HTTP request.  The information
-available depends on the browser, and some browsers don't send much.
+You should then see client-side tracing information as a sub-span of your HTTP request.  The information available depends on the browser, and some browsers don't send much. Also keep in mind that clock drift is real and while client-side timings are accurate, the timestamps will not be.
 
 ## Testing
 
@@ -187,8 +185,7 @@ specific issues.
 _Last Updated June 12, 2025_
 
 
-Brut does not have plans to support non-OTel instrumentation, nor does it have plans to provide hooks to
-use proprietary formats.  This could change of course.
+Brut does not have plans to support non-OTel instrumentation, nor does it have plans to provide hooks to use proprietary formats.
 
 The client-side portion of this is highly customized.  The Otel open source code for the client side is
 massive and hugely complex, so Brut decided to try to produce something simple and straightforward as a

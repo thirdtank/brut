@@ -37,8 +37,7 @@ as well, such as `assert`.
 The idea is that you use the browser APIs to examine the DOM and assert the behavior of the custom element
 (as opposed to interacting with the custom element's class).
 
-Suppose that `my-element` transform text inside it based on the `transform` attribute. By default, it's
-`lower`, but can be set to `upper` to lower case or upper case, respectively, the text inside.
+Suppose that `my-element` transform text inside it based on the `transform` attribute. By default, it's `lower` (which will lower-case the text), but can be set to `upper` to upper case the text inside.
 
 This means you'll need three tests, each with a different DOM:
 
@@ -72,7 +71,7 @@ describe("<some-element>", () => {
 })
 ```
 
-when the function you give to `test` is executed, the DOM will have been setup, so you can rely on your
+When the function you give to `test` is executed, the DOM will have been setup, so you can rely on your
 custom elements `connectedCallback` having been called.  Assuming the text transformation for `my-element`
 occurs in `connectedCallback`, here is how you'd test all three cases:
 
@@ -109,7 +108,7 @@ describe("<some-element>", () => {
 })
 ```
 
-You'll notice almost all of this uses the browser APIs you (should :) know and (hopefully :) love.
+You'll notice almost all of this uses the browser APIs you (should) know and (hopefully) love.
 
 You can manipulate the DOM inside a test as well, and it should behave as if you are doing it in a
 browser.  Note that many browser APIs are synchronous, so you don't have to add `await` before every

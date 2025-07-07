@@ -1,1 +1,0 @@
-import{_ as i,c as a,o as e,ag as n}from"./chunks/framework.1L-BeKqY.js";const E=JSON.parse('{"title":"Route Hooks","description":"","frontmatter":{},"headers":[],"relativePath":"hooks.md","filePath":"hooks.md"}'),h={name:"hooks.md"};function t(l,s,k,p,r,o){return e(),a("div",null,s[0]||(s[0]=[n("",33)]))}const g=i(h,[["render",t]]);export{E as __pageData,g as default};

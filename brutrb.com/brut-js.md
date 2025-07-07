@@ -73,7 +73,7 @@ improvements):
 * Default implementations of `connectedCallback` and `attributeChangedCallback` that call the template method `update`, thus allowing your element to centralize its logic in one place, regardless of how a state change was triggered.
 * Static `define()` method that defines your element based on its static `tagName` field. This allows richer interaction of elements, as you can do e.g. `document.querySelector(SomeOtherElement.tagName)`  and better navigate changes to your code over time.
 
-If you are familiary with the API for autonomous custom elements, `BaseCustomElement` doesn't require
+If you are familiar with the API for autonomous custom elements, `BaseCustomElement` doesn't require
 learning much more.  What you know already will be leveraged.
 
 ### Removing BrutJS
@@ -81,9 +81,19 @@ learning much more.  What you know already will be leveraged.
 To remove BrutJS from your app, modify `app/src/front_end/js/index.js` to remove the `import` and call to
 `define()`.  You can then remove it from your `package.json`.
 
-**Note** If you remove it like this, several features will not work, including locale detection, client-side observability, and client-side form validation UX.
+> [!NOTE]
+> If you remove it like this, several features will not work, including locale detection, client-side observability, and client-side form validation UX.
 
 ## Recommnded Practices
+
+### Leaving BrutJS In Your App
+
+BrutJS provides useful tools unrelated to single-page apps, or reactivity, or
+whatever else you might be concerned with in your client-side code.  These features
+can work alongside whatever framework you want to use. Leave them in unless they are
+causing a specific problem.
+
+### You Probably Don't Need a Single-Page App
 
 Consider this decision tree from Alex Russell's [If Not React, Then
 What?](https://infrequently.org/2024/11/if-not-react-then-what/):

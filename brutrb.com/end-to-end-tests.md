@@ -55,7 +55,7 @@ RSpec.describe "logging into the website" do
 end
 ```
 
-`playwright-ruby-client` provides excellent documentation on how it has adapter Playwright's API for use
+`playwright-ruby-client` provides excellent documentation on how it has adapted Playwright's API for use
 in Ruby.
 
 ### Test Setup
@@ -70,9 +70,15 @@ jobs, but rather assert the effects those jobs will have. Redis is flushed betwe
 
 Inside your test, `t` is available to produce translations. You can also access all your page and handler classes, so you can (and should) use `.routing`, e.g. `DashboardPage.routing`, to generate or access routes for your app.
 
-You can set `e2e_timeout` on any test to override the default amount of time Playwright will wait for a
+You can set the `e2e_timeout` metadata on any test to override the default amount of time Playwright will wait for a
 locator to locate an element. The default is 5 seconds.
-`, to generate or access routes for your app.
+
+```ruby
+RSpec.describe "Test for login", e2e_timeout: 10 do
+  # ...
+end
+```
+
 You can also configure behavior with environment variables:
 
 | Variable            | Default | Purpose                                                                                           |
@@ -122,12 +128,9 @@ The main Playwright documentation encourages you to locate elements by "accessib
 indirect ways of finding elements.  In practice, this is error prone and tedious.  Determining the
 accessible name of an element is not always easy.
 
-We recommend you assess your app's accssibility in another way than trying to do it while performing
-end-to-end tests.  Instead, locate elements with CSS selectors—this is what you'd use to debug your app so
-it makes sense as a testing technique.
+We recommend you assess your app's accessibility in another way than trying to do it while performing end-to-end tests.  Instead, locate elements with CSS selectors—this is what you'd use to debug your app so it makes sense as a testing technique.
 
-Insulating your end-to-end tests from markup changes does not produce significant savinsg and can make
-tests more difficult to write.
+Insulating your end-to-end tests from markup changes does not produce significant savings and can make tests more difficult to write.
 
 ### Testing Must Inform your HTML
 
@@ -170,5 +173,4 @@ make sure it's still needed.
 
 _Last Updated June 13, 2025_
 
-The test server is run bin `bin/test-server`, which is why Sidekiq will be running when your app is
-running for an e2e test.
+The test server is run via `bin/test-server`.

@@ -156,7 +156,7 @@ end
 ### Do Not Put Business Logic On Your Database Models
 
 There's no reason to, or benefit to doing so.  What you'll find is that any app of even moderate complexity will
-not have a strict mapping from page to business concept to database table.  Rather these things will all differ
+not have a strict mapping from page to business concept to database table.  Rather, these things will all differ
 greatly, and each serves a different purpose.
 
 The job of your data models—and the tables they provide access to—is to store reliable and unambiguous data.

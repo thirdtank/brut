@@ -32,7 +32,6 @@ export default defineConfig({
           { text: "Dev Environment", link: "/dev-environment" },
           { text: "Tutorial", link: "/tutorial" },
           { text: "Documentation Conventions", link: "/doc-conventions" },
-          { text: "AI Declaration", link: "/ai" },
         ]
       },
       {
@@ -43,6 +42,7 @@ export default defineConfig({
           { text: "Pages", link: "/pages" },
           { text: "Layouts", link: "/layouts" },
           { text: "Forms", link: "/forms" },
+          { text: "Form Constraints", link: "/form-constraints" },
           { text: "Handlers and Actions", link: "/handlers" },
           { text: "Components", link: "/components" },
           { text: "Flash and Session", link: "/flash-and-session" },
@@ -100,12 +100,20 @@ export default defineConfig({
         collapsed: true,
         items: [
           { text: "Authentication", link: "/recipes/authentication" },
-          { text: "Form Validations", link: "/recipes/form-validations" },
-          { text: "Database Migrations", link: "/recipes/database-migrations" },
-          { text: "Ajax Form Submission", link: "/recipes/ajax-form" },
-          { text: "Custom Telemetry", link: "/recipes/telemetry" },
-          { text: "CLI App/Task", link: "/recipes/cli-app" },
+          { text: "Alternate Layouts", link: "/recipes/alternate-layouts" },
+          { text: "Blank Layouts", link: "/recipes/blank-layouts" },
+          { text: "Custom Flash Class", link: "/recipes/custom-flash" },
+          { text: "Indexed Form Elements", link: "/recipes/indexed-forms" },
+          { text: "Text Field Component", link: "/recipes/text-field-component" },
         ],
+      },
+      {
+        text: "Meta",
+        collapsed: false,
+        items: [
+          { text: "Why?!", link: "/why" },
+          { text: "AI Declaration", link: "/ai" },
+        ]
       }
     ],
 

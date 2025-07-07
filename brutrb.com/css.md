@@ -42,7 +42,7 @@ First, `package.json` (in your app's root) would include `"foobar-css"`:
 
 Next, `app/src/front_end/css/index.css` would import both `"foobar-css"` and `"pages/HomePage.css"`.
 
-```javascript
+```css
 @import "foobar-css/everything.css";
 @import "pages/HomePage.css";
 ```
@@ -73,7 +73,7 @@ To use `foobar-thin.css`, you'd write this `@import` directive:
 
 ## Using Brut-CSS
 
-By default, Brut includes a lightweight functional CSS library called "brut-css".  It provides a basic design system and single-purpose classes to allow you to quickly prototype or build UIs.  It is similar to TailwindCSS by far far smaller and simpler (and less powered).
+By default, Brut includes a lightweight functional CSS library called [BrutCSS](/brut-css/index.html).  It provides a basic design system and single-purpose classes to allow you to quickly prototype or build UIs.  It is similar to TailwindCSS but far far smaller and simpler (and less powered).
 
 It is included so you have something to start with. You can use it by using its various classes like `bg-green-300` and `m-4`, or you can use its provided custom properties like `var(--green-300)` and `var(--sp-4)`.
 

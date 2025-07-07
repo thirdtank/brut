@@ -119,7 +119,7 @@ class Brut::FrontEnd::Form
   # Set a server-side constraint violation on a given input's name.
   #
   # @param [String|Symbol] input_name the name of the input, as passed to {Brut::FrontEnd::Forms::InputDeclarations#input} et. al.
-  # @param [String] key the i18n key fragment representing the constraint. Assume this will be appended to `general.cv.be.` in order
+  # @param [String] key the i18n key fragment representing the constraint. Assume this will be appended to `cv.be.` in order
   # to form the entire key.
   # @param [Hash] context additional information about the violation, typically interpolated values for the I18n message.
   def server_side_constraint_violation(input_name:, key:, index: nil, context:{})
@@ -137,13 +137,13 @@ class Brut::FrontEnd::Form
   # element is the index of the input in the array.  This index is used when you have more than one field with the same
   # name.
   #
-  # @example iterationg
-  # form.constraint_violations.each do |input_name, (constraint_violations,index)|
-  #   # input_name is the input's name, e.g. "email"
-  #   # constraint_violations is an array of {Brut::FrontEnd::Forms::ValidityState} instances, one for each
-  #   #                       problem with the field's value
-  #   # index is the index of the input in the array, e.g. 0  for the first email field, 1 for the second, etc.
-  # end
+  # @example iterating
+  #   form.constraint_violations.each do |input_name, (constraint_violations,index)|
+  #     # input_name is the input's name, e.g. "email"
+  #     # constraint_violations is an array of {Brut::FrontEnd::Forms::ValidityState} instances, one for each
+  #     #                       problem with the field's value
+  #     # index is the index of the input in the array, e.g. 0  for the first email field, 1 for the second, etc.
+  #   end
   #
   def constraint_violations(server_side_only: false)
     @inputs.map { |input_name, inputs|

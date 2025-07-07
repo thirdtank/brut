@@ -1,9 +1,9 @@
 # JavaScript
 
-Brut provides basic bundling using [esbuild](https://esbuild.github.io/).  Brut does not support nor prevent the
-use of any front-end framework.  Brut does, however, include [BrutJS](/brut-js), a lightweight library of HTML custom
-elements and utility code.  These elements can provide a fair bit of front-end functionality using progressive
-enhancement without the need for a framework.
+Brut provides basic bundling using [esbuild](https://esbuild.github.io/).  You can
+use any front-end framework with Brut, but you don't have to use one.
+
+Brut provides [BrutJS](/brut-js), which is a lightweight library of HTML custom elements and utility code.  These elements can provide a fair bit of front-end functionality using progressive enhancement without the need for a framework.
 
 ## Overview
 
@@ -19,7 +19,7 @@ For example, if you have a `Widget` class that uses a `Status` class, and you al
 
 First, `package.json` (in your app's root) would include `"foobar"` (and it must set `"type"` to `"module"`):
 
-```json {2,5}
+```json {3,6}
 {
   "name": "your-app",
   "type": "module",
@@ -50,7 +50,7 @@ Notice that "foobar", since it's brought in as a third party dependency, is impo
 here!  Every third party library has a different syntax for how to import whatever it is or does. Consult the
 documentation of each third party library you wish to import.
 
-The second `import` uses a `./` because it's importing a file in `app/src/front_end/js` namely `Widget.js`.  Be
+The second `import` uses a `./` because it's importing a file in `app/src/front_end/js`, namely `Widget.js`.  Be
 careful here, too, as you must be sure to `export` the right thing.  Here's what `app/src/front_end/js/Widget.js`
 might look like:
 
@@ -96,16 +96,13 @@ details on this can be found in [assets](/assets).
 ## Testing
 
 Client-side behavior is best tested with end-to-end tests, however you can simplify your end-to-end tests by
-creating unit tests of your custom elements.  BrutJS provides support for this. TBD LINK.
+creating unit tests of your custom elements.  [BrutJS provides limited support for this](/brut-js/api/module-testing.html)
 
 ## Recommended Practices
 
-Brut encourages you to use HTML custom elements as progressive enhancements over server-generated views.  This
-sort of client-side code will age well.  The toolchain and dependencies are minimal, so you will not have to
-worry too much about code written this way.
+Brut encourages you to use HTML custom elements as progressive enhancements over server-generated views.  This sort of client-side code will age well.  The toolchain and dependencies are minimal, so you will not have to worry too much about code written this way.
 
-It *will* be lower level and more verbose than existing frameworks.  We would argue that it is not significantly
-more difficult and the sustainability is worth it.
+It *will* be lower level and more verbose than existing frameworks.  We would argue that it is not significantly more difficult and the sustainability is worth it.
 
 ## Technical Notes
 
@@ -118,5 +115,8 @@ _Last Updated May 7, 2025_
 Currently, Brut only supports a single entry point and bundle.  This could be easily made more flexible if there
 is a desire to finely tweak the JavaScript loaded on specific pages.
 
-Brut also does not expose any esbuild configuration.  This could be provided in the future, but for now, it is
-hard-coded.
+Brut also does not expose any esbuild configuration.  This could be provided in the future, but for now, it is hard-coded.
+
+Brut may provide more direct support for import maps, but as of now, import maps are
+not widely used outside of Rails, and tend to cause a lot of problems, especially if
+you aren't able to field an HTTP/2 web server (or even know what that is).

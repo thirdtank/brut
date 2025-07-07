@@ -112,8 +112,8 @@ This produces this HTML:
 Here's an example of a flash message component:
 
 ```ruby
-# components/flash_message.rb
-class FlashMessage < AppComponent
+# components/flash_component.rb
+class FlashComponent < AppComponent
   def initialize(flash:)
     if flash.notice?
       @message_key = flash.notice
@@ -127,7 +127,7 @@ class FlashMessage < AppComponent
   def any_message? = !@message_key.nil?
 
   def view_template
-    if !@message_key.nil?
+    if any_message?
       div(role: @role) do
         t([ :flash, @message_key ])
       end
@@ -141,7 +141,7 @@ You can then use this in any other view using `render`, provided by Phlex.
 ```ruby
 def page_template
   header do
-    render FlashMessage.new(flash:)
+    render FlashComponent.new(flash:)
   end
 end
 ```

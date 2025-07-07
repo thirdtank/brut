@@ -6,72 +6,26 @@ Handlers process form submissions, and *actions* work similarly to process any a
 
 Where a [page](/pages) renders a web page in HTML, a *handler* responds to all other HTTP requests.  To respond to such HTTP requests, you'd first create a [route](/routes), using `form`, `action`, or `path`.
 
-### Declaring Routes
+### Handler Structure
 
-`form` and `action` are intended to be used when an HTTP form is being submitted. The latter—`action`—is for when your form has no user-editable elements.  This is akin to Rails' `button_to` helper, where the contents of the URL contains everything needed to service the request.
+A handler's initializer is subject to [keyword injection](/keyword-injection), with
+the addition of the `form:` keyword, which, if present, will be an instance of the
+associated form class, populated with the data in the form submission (not available for `path` or `action` routes).
 
-`path` is for arbitrary HTTP requests and methods, so to create a webhook that responds to a PUT, you'd use:
+You must implement `handle` to process the form.  **A handler's public API, as
+called by Brut and your tests, is `handle!`**, however you implement `handle`, which
+`handle!` calls.
 
-```ruby
-# inside app/src/app.rb
-path "/webhooks/stripe", method: :put
-```
+`handle`'s return value dictates what will happen next:
 
-In all cases, the class to receive and process these requests is a handler, whose name is conventional based on the route. For example, the webhook above would be handled by `Webhooks::StripeHandler`.
-
-### Implementing Handlers
-
-A handler works like a page, in that its initializer can receive any injectible arguments.  These would include a form object, dynamic elements of the route, or anything else available from the request.  See [Keyword Injection](/keyword-injection) for the details, noting that your handler can be inejcted with custom objects you've configured in a route hook.
-
-After the handler is created, it's `before_handle` method is called. If it returns `nil`, `handle` is called to trigger whatever logic the handler needs to trigger.
-
-Both `handle` and `before_handle` can return a variety of objects that determine what will happen:
-
-* An instance of a page or component means that page or component is rendered.  This is not a redirect to the page, so it is more like Rails' `render :new` and **not** a `redirect_to(new_widgets_path)`.
-* A `Brut::FrontEnd::HttpStatus` which sends that status and an empty body back.  This object can be created from
-an integer using the `http_status` helper, available to all handlers.
-* A `URI`, which will cause a redirect to that URI.  You can create the `URI` yourself, or use the helper
-`redirect_to`, which accepts a string.
-* A two-element array with a page or component as the first element and an `Brut::FrontEnd::HttpStatus` as the
-second.  This will render that page  or component's HTML, but use the given status instead of 200.  This can be useful for Ajax requests where you want to use HTML your respond format, but also, say, a 422 status to indicate a constraint violation has occured.
-* A `Brut::FrontEnd::Download`, which encapsulates a file to be downloaded.
-* A `Brut::FrontEnd::GenericResponse`, which wraps any Rack response with a defined type.
-
-`before_handle` may also return `nil` to indicate that `handle` should be called. `handle` may not return `nil`.
-
-Supposing our `LoginForm` and `LoginHandler` wanted to use a common pattern of re-rendering `LoginPage` on constraint violations, and forwarding on to, say, a `DashboardPage`.  Your handler might look like so:
-
-```ruby {23-27}
-# app/src/front_end/handlers/login_handler.rb
-class LoginHandler < AppHandler
-  def initialize(form:, session:) # We'll discuss the session later
-    @form    = form
-    @session = session
-  end
-
-  def handle
-    if !@form.constraint_violations?
-      authorized_user = AuthorizedUser.login(
-        email: form.email,
-        password: form.password
-      )
-      if authorized_user.nil?
-        @form.server_side_constraint_violation(
-          input_name: :email,
-          key: :login_not_found
-        )
-      else
-        session.authorized_user = authorized_user
-      end
-    end
-    if @form.constraint_violations?
-      LoginPage.new(form: @form)
-    else
-      redirect_to(DashboardPage.routing)
-    end
-  end
-end
-```
+| Return Value | Behavior |
+|---|---|
+|Instance of a page or component | That page or component's HTML is generated and returned.  This is not a redirect, but more like `render :new` in a Rails controller |
+|`Brut::FrontEnd::HttpStatus` | This HTTP status is returned with no body. Use `http_status` from `Brut::FrontEnd::HandlingResults` (included in all handlers) to create an instance from a number |
+| `URI` | Redirect to the URI.  Use `redirect_to` from `Brut::FrontEnd::HandlingResults` (included in all handlers) to generate a URI from a page class and parameters |
+| Two element array with *element 0* being a `Brut::FrontEnd::HttpStatus`, and *element 1* being a page or component instance | Generates the page or component's HTML, but sets the given status instead of 200. Useful for Ajax responses where the HTTP status affects client-side behavior |
+| `Brut::FrontEnd::Download` | Download a file |
+| `Brut::FrontEnd::GenericResponse` | wrap any Rack response |
 
 > [!IMPORTANT]
 > The only way to render something other than HTML is to do so as a
@@ -80,63 +34,133 @@ end
 > APIs to interact with that HTML.  Brut may make it easier to work
 > with other types of content in the future.
 
-## Testing
+### Handling a Form Submission
 
-Testing handlers requires calling their *public API*, which is `handle!`.  This is not the method you implement (which is the non-bang `handle`).  The reason is that `handle!` manages the logic around calling `before_handle`, which allows your tests to always call `handle!` and know they are testing how the  handler would be used in produciton.
+A common pattern when handling a form submisssion is to check for any constraint
+violations. If there are some, re-generate the HTML for the page containing the
+form, highlighting the violations. Otherwise, save the data and redirect to another
+page.
 
-Each handler spec includes `Brut::SpecSupport::HandlerSupport`, which allows you to create production-like flash, clock, and session objects. To assert the results of calling `handle!`, there are several RSpec matchers you can use to make your tests easier to write.
-
-* `have_redirected_to` will check that the handler redirected to a give URI.
-* `have_rendered` will check that the handler rendered a specific page
-* `have_returned_http_status` will check that the handler returned an HTTP status
-* `have_constraint_violation` will check if a form had a particular constraint violation set on it
+Here's how that looks:
 
 ```ruby
-require "spec_helper"
+class NewWidgetHandler < AppHandler
+  def initialize(form:)
+    @form = form
+  end
 
-RSpec.describe LoginPage do
-  describe "#handle!" do
-    context "when login is not valid" do
-      it "re-renders LoginPage" do
-        form = LoginForm.new(params: {
-          email: "nonexistent@example.com",
-          password: "not a password",
-        })
-        result = described_class.new(
-          form:,
-          session: empty_session # empty_session provided by HandlerSupport
+  def handle
+    # if no client-side violations were submitted
+    if !@form.constraint_violations?
+      widget = DB::Widget.find(name: form.name)
+      if widget
+        @form.server_side_constraint_violation(
+          input_name: :name,
+          key: :name_is_taken
         )
-        expect(result).to have_rendered(LoginPage)
-        expect(form).to have_constraint_violation(:email, key: :login_not_found)
       end
     end
-    context "when login is valid" do
-      it "forward to the DashboardPage" do
-        user = create(:user, # Assume this is set up via FactoryBot
-                      email: "pat@example.com",
-                      password: "1q2w3e4r5t6y7u8i9o")
 
-        form = LoginForm.new(params: {
-          email: "pat@example.com",
-          password: "1q2w3e4r5t6y7u8i9o",
-        })
-        session = empty_session
-        result = described_class.new(
-          form:,
-          session:,
-        )
-        expect(result).to have_redirected_to(DashboardPage.routing)
-        expect(session.authorized_user).not_to eq(nil)
-        # Session will be explained later
-      end
+    if @form.constraint_violations?
+      NewWidgetPage.new(form: @form)
+    else
+      DB::Widget.create(name: form.name,
+                        quantity: form.quantity,
+                        description: form.description)
+      redirect_to(WidgetsPage)
     end
   end
 end
 ```
 
+Unlike a Rails controller, the return value of `handle` controls the behavior.  As
+we saw in [Form Constraints](/form-constraints), the HTML generated by
+`NewWidgetPage` will show constraint violations, so by returning
+`NewWidgetPage.new(form: @form)`, the page has the same form instance, including all
+the constraint violations, and the visitor will see the problems.
+
+### Handling Other Requests
+
+Non-form submissions work similarly, however there is no form available.  If the
+request could potentially involve a visitor-initiated error, you can use the
+[flash](/flash-and-session) to communicate back.  The flash is available for injection into the
+initializer and, assuming your page uses it to show messages, can allow for
+communication when something is wrong:
+
+```ruby
+class App
+  # ...
+
+  routes do
+    action "/delete_widget/:widget_id"
+
+    # ...
+  end
+end
+
+class DeleteWidgetByIdHandler < AppHandler
+  def initialize(widget_id:, flash:)
+    @widget_id = widget_id
+    @flash     = flash
+  end
+
+  def handle
+    widget = DB::Widget.find!(id: @widget_id)
+    if widget.can_delete?
+      widget.delete
+      @flash.notice = :widget_deleted
+      redirect_to(WidgetsPage)
+    else
+      @flash.alert = :widget_cannot_be_deleted
+      WidgetsPage.new
+    end
+  end
+end
+```
+
+### Hooks
+
+A handler's public API is `handle!`, because it first calls `before_handle`. This
+operates as a before hook, and has the same return values as `handle`, with the
+exception of also recognizing `nil`, which indicates processing should proceed to
+`handle`.
+
+Generally, you don't need to implement hooksd on a per-handler  basis, but may find
+it useful in a shared super class to implement cross-cutting behavior.
+
+## Testing
+
+See [Unit Testing](/unit-tests) for some basic assumptions and configuration available for all Brut unit tests.
+
+Handler tests should be straightforward: you create your handler, call `handle!`
+(remember, `handle!` is the public API, and will call your hooks, which you want in
+ a test), then examine the result returned and any ancillary behavior, such as
+updated database records.
+
+Some matchers are available to make assertions about `handle!`'s return value:
+
+* `have_redirected_to` will check that the handler redirected to a give URI. See `Brut::SpecSupport::Matchers::HaveRedirectedTo`.
+* `have_generated` will check that the handler generated a specific page or component's HTML. See `<D-f>Brut::SpecSupport::Matchers::HaveGenerated`.
+* `have_returned_http_status` will check that the handler returned an HTTP status. See `Brut::SpecSupport::Matchers::HaveReturnedHttpStatus`.
+* `have_constraint_violation` will check if a form had a particular constraint violation set on it. See `Brut::SpecSupport::Matchers::HaveConstraintViolation`.
+
 ## Recommended Practices
 
-You should avoid having business logic in your handlers.  Since handlers bridge the gap between HTTP and your app, their API is naturally simplistic and String-based.  The handler should defer to business logic (which can be done by either passing the form object directly, or extracting its data and passing that).  Based on the response, the handler will then decide what HTTP response is approriate.
+### You Don't Always Need Resourceful or RESTful Routes
+
+For any code where the browser is performing a submission, use either `form` or
+`action` to declare your route. These will both use an HTTP `POST` to your server and handler.  In the example above, we had a `POST` to `/delete_widget/:widget_id`, and not, say, a `DELETE` to it.
+
+The main reason is that a browser can only submit to a server using `GET` or `POST`, so there's little value in "tunneling" another verb of POST. It doesn't really matter.  And, even though you may use Ajax to submit such data, having it degrade to normal browser-based HTTP is a good practice.
+
+For API-like calls where a browser will never directly interact with the route, and
+it would only be via a server-to-server call, RESTful routes makes sense. But they
+don't need to be the default.
+
+### Avoid Business Logic in Handlers
+
+
+Since handlers bridge the gap between HTTP and your app, their API is naturally simplistic and String-based.  The handler should defer to business logic (which can be done by either passing the form object directly, or extracting its data and passing that).  Based on the response, the handler will then decide what HTTP response is approriate.
 
 This means that your handlers will be relatively simple and their tests will as well.  It does mean that their tests may require the use of mocks or stubs, but that's fine.  Mocks and stubs exist for a reason.
 

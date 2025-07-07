@@ -1,10 +1,6 @@
 # Database Schema / Migrations
 
-Brut provides access to the database via the [Sequel library](https://sequel.jeremyevans.net/).  Sequel is fully featured and provides a lot of ways of interacting with and managing your database.  Brut includes several plugins and extensions to provide opinionated default behavior or additional features.
-
-One thing to keep in mind is that Brut refers to your database layer as *database models* (notably not the un-qualified "models").  Brut treats this layer as a *model* of your database, not a model of your *domain* (though you are free to conflate the two).
-
-This section details how to manage your database schema.
+Brut provides access to the database via the [Sequel library](https://sequel.jeremyevans.net/).  To manage your database schema, Brut uses Sequel's facility for this, with some of its own enhancements.
 
 > [!NOTE]
 > Brut currently only supports Postgres. Sequel supports many database systems, however Brut's extensions are
@@ -12,22 +8,14 @@ This section details how to manage your database schema.
 
 ## Overview
 
-Brut uses *migrations* to control and manage the schema of your database. Migrations are changes to the
-schema that depend on the changes before them.  In a running production database, you will not be able to
-create the database schema from scratch—you will have to modify the existing schema to produce the schema
-you want.
+Your database schema is managed by a series of changes that build upon one another
+called *migrations*.
 
-For example, if you have a table `widgets` that has a `name` and `description`, to add a `status` field,
-you cannot `drop table widgets` and then `create table widgets(...)` with the fields. You must instead
-`alter table widgets(...)` to add the new column.
+For example, if you have a table `widgets` that has a `name` and `description`, to add a `status` field, you cannot `drop table widgets` and then `create table widgets(...)` with the fields. You must instead `alter table widgets(...)` to add the new column.
 
 Thus, each migration file is a change to the schema produced by all previous migration files. 
 
-Brut's provides this via Sequels. See [both](https://sequel.jeremyevans.net/rdoc/files/doc/schema_modification_rdoc.html) [docs](https://sequel.jeremyevans.net/rdoc/files/doc/migration_rdoc.html) for details on the API.  Any schema modification method Sequel documents is available, however some default behavior has changed.
-
-Schema files are located in `app/src/back_end/data_models/migrations` and are named using a timestamp-based
-scheme.  This means that when you create a new migration, its name will be based on the time and date you
-created it, and any migrations that have not been applied will be applied in timestamp order.
+Brut's provides this via Sequel. See [both](https://sequel.jeremyevans.net/rdoc/files/doc/schema_modification_rdoc.html) [docs](https://sequel.jeremyevans.net/rdoc/files/doc/migration_rdoc.html) for details on the API.  Any schema modification method Sequel documents is available, however some default behavior has changed.
 
 ### Creating Migrations
 
@@ -40,6 +28,10 @@ together to form the filename:
     app/src/back_end/data_models/migrations/20250508132646_user-accounts.rb
 ```
 
+Note that the files are located in `app/src/back_end/data_models/migrations` and
+have a name prefixed with a timestamp.  This timestamp determins an ordering of how
+the files are applied to the database.
+
 The file is created mostly blank:
 
 ```ruby
@@ -49,19 +41,17 @@ Sequel.migration do
 end
 ```
 
-Sequels' migration system is similar to Active Record's/Rails' in design and spirit, but the API is different.
-Please consult the documentation and don't assume Active Record's DSL will work. It will not.
+> [!NOTE]
+> Sequels' migration API is similar in concept to Rails', but differs
+> significantly in specifics. Please consult Sequel's documentation and
+> don't assume Railsism will work the same way.
 
-One thing to note is that Brut encourages the creation of only "up" migrations. That is, migrations that change a
-database. "Down" migrations, which revert a change, are discouraged.  See *Recommended Practices* for a detailed
-explanation.
+Brut encourages only "up" migrations.  Since Brut treats your development database
+as ephemeral, there is little value to managing "down" migrations.
 
-This is also why Sequel's `change` method is not included in the scaffolded code.  `change`, like Active Record's
-method of the same name, automagically creates both "up" and "down" migrations, but *only* if you use the DSL. If
-you use raw SQL, `change` doesn't work.  But that doesn't matter for Brut (again, see *Recommended Practices*).
+This is why Sequel's `change` method is not included in the scaffolded code.  `change`, like Active Record's method of the same name, automagically creates both "up" and "down" migrations, but *only* if you use the DSL. If you use raw SQL, `change` doesn't work. By using only `up`, you won't have to worry about this.
 
-Let's create a user accounts table that has an email field, a `deactivated_at` timestamp, and a `created_at`
-timestamp:
+Let's create an accounts table that has an email field, a `deactivated_at` timestamp, and a `created_at` timestamp:
 
 ```ruby
 Sequel.migration do
@@ -89,10 +79,6 @@ To apply this migration use `bin/db migrate`
 ```
 > bin/db migrate
 ```
-
-If you create a new migration, it will use a timestamp that is alphanumerically greater than the one we just made
-and thus that migration will be applied after this one.  Thus, you can rely on previous migrations having been
-applied when authoring new ones.
 
 ### Managing Migrations
 
@@ -126,16 +112,19 @@ provides a more helpful error message when no records are found
 #### External IDs
 
 It's often useful to provide a unique identifier for a record that is not the database primary key.  There are
-many advantages to doing so, but the core value Brut has regarding this is that database primary and foreign keys
-are considered private and internal and for developer use only.  It is trivial to produce externalizable keys, as
-you'll see, so there's no reason to expose primary keys.
+many advantages to doing so, the main being that your primary and foreign keys are
+considered private and for developer use only.  Creating additional externalizable
+unique keys is trivial, so Brut provides a way to do that.
 
 > [!NOTE]
-> Take care to differentiate the terms *primary key* and *key*.  In relational database literature, and thus
-> in Brut, a *key* is any value that uniquely identifies a record. `email` in the `accounts` table above
-> is a key.  The *primary key* is single source of truth for identifying records internally in the database.
-> Thus, it can be used as a *foreign key* to create relationships between tables.  Brut further implements
-> this as a *surrogate* or *synthetic* key, which means the value itself has  no business  or domain meaning.
+> **Primary keys** and **keys** are not the same thing.  **Primary keys** are
+> what is used to identify a record for the purposes of referential integrity.
+> A **key** simply uniquely identifies a row or is a unique constraint on a table.
+> Tables have only one primary key, but potentially many keys. Brut uses
+> *synthetic* (sometimes called *surrogate*) keys as primary keys.  This means
+> they have no business meaning and can be safely used for foreighn keys
+> and other cases without conflating them with domain concepts.
+
 
 In Brut, an external ID is automatically generated by the database when a record is created.  By convention, it
 is prefixed with a short string representing your app and a short string representing the table, followed by a
@@ -190,8 +179,7 @@ This means that you can set values explicitly if you like, *and* you can change 
 
 ### Brut Migration Changes and Enhancement
 
-Brut attempts to set default behavior for migrations to encourage a modicum of best practices.  This lists out
-the changes and a brief explanation for the purpose of the change.
+Brut attempts to set default behavior for migrations to encourage a modicum of best practices.  These are:
 
 * **Automatic synthetic primary key named `id` of type `int`.**  You almost always want this. You can change the
 primary key configuration per table if you like, but if you do nothing, you get a primary key that works for 99%

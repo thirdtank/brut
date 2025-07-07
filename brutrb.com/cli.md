@@ -117,7 +117,7 @@ All of this means that the bulk of CLI-specific code you will write is specifyin
 
 Every CLI app is a class that extends `Brut::CLI::App`. This class should contain one inner class for each subcommand. Those classes should extend `Brut::CLI::App`.
 
-Inside your `Brut::CLI::App` class, you can call a few class methods to declare aspects of the UI. In particular, `opts` returns the `OptionParser` in play that you can use to declare global options.  Unlike `OptionParser`'s `on` method, Brut's does not require providing a block. Brut will store the runtime options in a hash (see below).
+Inside your `Brut::CLI::App` class, you can call a few class methods to declare aspects of the UI. In particular, `opts` returns the `OptionParser` in play that you can use to declare global options.  Unlike `OptionParser`'s `on` method, Brut's does not require providing a block. Brut will store the runtime options in an object (see below).
 
 ```ruby
 class MyAppCLI < Brut::CLI::App
@@ -132,7 +132,7 @@ This code means your app's global options are `--dry-run`, which will not accept
 
 Declaring subcommands provides a similar API.  Let's say our app has a "status" subcommand, and a "run" subcommand.
 
-```ruby
+```ruby {7-11,13-16}
 class MyAppCLI < Brut::CLI::App
   description "My awesome command line app"
 
@@ -189,7 +189,7 @@ end
 
 ### Implementing `execute`
 
-Once `execute` is called, your app's internals will have been setup and bootstrapped. That means all you data models can access the database, and any other setup will have ocurred. Generally, `execute` can then have whatever code makes sense.
+Once `execute` is called, your app's internals will have been setup and bootstrapped. That means all your data models can access the database, and any other setup will have ocurred. Generally, `execute` can then have whatever code makes sense.
 
 That said, `execute` has access to a few values to understand the command line invocation and to support testing.
 
@@ -220,23 +220,19 @@ use that affect its behavior.
 
 Currently, Brut doesn't provide a way to create this file, but it's relatively straightforward.  It's almost entirely boilerplate except for your class:
 
-```ruby {14}
+```ruby {9}
 #!/usr/bin/env ruby
 
 require "bundler"
 Bundler.require
 require "pathname"
-
-require "brut/cli"
-
-APP_PATH = File.join(File.dirname($0),"..","app","src")
-$: << APP_PATH
-require "cli/my_app"
+require "brut/cli/apps/db"
 
 exit Brut::CLI.app(
-  MyAppCLI,
-  project_root: Pathname($0).dirname / ".."
-)
+      Brut::CLI::Apps::DB,
+      project_root: Pathname($0).dirname / ".."
+     )
+
 ```
 
 ## Testing

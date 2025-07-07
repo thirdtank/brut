@@ -12,135 +12,158 @@ Components in Brut are Phlex Components: a class that can hold data and use that
 
 ### Simple Component
 
-For example, suppose you want a re-usable button component whose HTML would look like so:
 
-```html
-<button class="button button__small button__red">
-  Delete Files
-</button>
-```
+For example, suppose you want a re-usable button that can be gray, green, or red, and have an optional `formaction`.
 
-Your button can be large (the default) or small, and could be gray (default), green, or red.  Your button could also have an optional `formaction` attribute. Let's also suppose the label could be a string or embedded HTML.
 
-Your constructor would need to accept the size, color, label, and formaction.
-
-You can create a scaffold via `bin/scaffold`:
+You can create a component with `bin/scaffold component`:
 
 ```
-> bin/scaffold component Button
+bin/scaffold component button
+# => app/src/front_end/components/button_component.rb
+# => specs/front_end/components/button_component.spec.rb
 ```
 
-You'll first implement the initializer, like so:
+Component inititalizers are called by you when you use them, so you can define it
+how you like.  Brut uses keyword arguments by convention.
 
 ```ruby
-# app/src/front_end/components/button.rb
-class Button < AppComponent
-  def initialize(
-    size: :large,
-    color: :gray,
-    formaction: nil,
-    label: :use_block
-  )
-    @size       = size
+# app/src/front_end/components/button_component.rb
+class ButtonComponent < AppComponent
+  def initialize(color: :gray,
+                 formaction: nil)
     @color      = color
     @formaction = formaction
-    @label      = label
   end
 end
 ```
 
-This initializer is rather simplistic. You may want to validate the values here to prevent the construction of an invalid component.
-
-Now, implement `view_template`.  This method will receive a block if one is given when the component is used. We'll see an example in a minute.
+Since it's a Phlex component, implement `view_template` to generate the HTML you
+like.  Our `view_template` will `yield` so the button's contents can be controlled
+by the caller.  Note that the CSS here is [BrutCSS](/brut-css/index.html), but it
+can be anything you are using in your oapp.
 
 ```ruby
-# app/src/front_end/components/button.rb
-class Button < AppComponent
+# app/src/front_end/components/button_component.rb
+class ButtonComponent < AppComponent
 
   # ...
 
   def view_template
     attributes = {
       class: [
-        "button",
-        "button__#{@size}",
-        "button__#@{color}",
+        "tc",               # centered text
+        "br-3",             # border radius @ 3rd step of scale
+        "bn",               # no border
+        "f-3",              # font size @ 3rd step of scale
+        "ph-4",             # horizontal padding @ 4th step of scale
+        "pv-2",             # vertical padding @ 2nd step of scale
+        "bg-#{@color}-800", # background is second lighest of scale
+        "#{@color}-300",    # text is third darkest of scale
       ],
-      formaction: @formaction,
+      formaction: @formaction
     }
 
     button(**attributes) do
-      if @label == :use_block
-        yield
-      else
-        @label
+      yield
+    end
+  end
+end
+```
+
+Here are two examples of how you'd use this component and the HTML that would be
+generated:
+
+::: code-group
+
+```ruby
+render ButtonComponent(color: :green) do
+  "Click Here"
+end
+```
+
+```html
+<button class="tc br-3 bn f-3 ph-4 pv-2 bg-green-800 green-300">
+  Click Here
+<button>
+```
+
+:::
+
+::: code-group
+
+```ruby
+render ButtonComponent(color: :red, formaction: DeleteWidget.routing) do
+  "Delete Widget"
+end
+```
+
+```html
+<button class="tc br-3 bn f-3 ph-4 pv-2 bg-red-800 green-300"
+        formaction="/delete_widget">
+  Delete Widget
+<button>
+```
+:::
+
+One issue with components is that you must pass them all their initializer arguments
+to use them.  This means that if your component needs access to, say, the session,
+any page or component that uses your component must also require the session to
+be passed in.
+
+Brut provides a partial solution to this called *global components*.
+
+### Global Components
+
+A global component can be created by Brut using [keyword
+injection](/keyword-injection). This means that, in our example above, a page that
+uses your component does not need to be given the session.  It can have Brut inject
+it.
+
+This provides a partial solution to so-called "prop drilling".
+
+In [the features overview](/features), we saw a basic component for rendering a
+flash:
+
+```ruby
+# components/flash_component.rb
+class FlashComponent < AppComponent
+  def initialize(flash:)
+    if flash.notice?
+      @message_key = flash.notice
+      @role = :info
+    elsif flash.alert?
+      @message_key = flash.alert
+      @role = :alert
+    end
+  end
+
+  def any_message? = !@message_key.nil?
+
+  def view_template
+    if any_message?
+      div(role: @role) do
+        t([ :flash, @message_key ])
       end
     end
   end
 end
 ```
 
-If you've never used Phlex before, it's refreshingly straightforward:
-
-* There's a method for each  HTML element.
-* The method's parameters produce attributes in the HTML that is generated.
-* If a parameter's value is an array (like `class:`), the values are joined with strings to form the atttribute's value in HTML.
-* If the element can have inner content, whatever happens inside a yielded block becomes that inner content.
-
-To use this component, we can call `render` in either the `view_template` of another component or the `page_template` of a [page](/pages):
+Instead of requiring each user of this component to manually inject the flash, we
+can call `global_component`, provided by `Brut::FrontEnd::Component::Helpers`, which
+is included in all pages and components.
 
 ```ruby
 def view_template
-  form do
-    render Button.new(label: "Submit")
-    render Button.new(label: "Nevermind", size: :small, color: :red)
-    render Button.new(color: :green) do
-      img(src: "/images/ok.png", alt: "OK icon")
-    end
+  header do
+    global_component(FlashComponent)
   end
 end
 ```
 
-Note that the block passed to `render` is the block available when `yield` is called inside `view_template`.
-
-There are two special types of components beyond what we have just seen.  *Global* Components and *Page private* components.
-
-### Global Components
-
-As we saw above, creating a component is just like creating any Ruby class: you call `.new` on it.  If you create a component that uses request-level data, such as the flash or session, it would mean that any page or component that used *that* component would need to accept the flash or session as a parameter to its initializer, even if it it was otherwise not needed.
-
-In those cases, `global_component` can be used to leverage [keyword injection](/keyword-injection) to have Brut create the component.  That way, its initializer's parameters don't need to be passed into the page or component using the global component.
-
-Suppose we had a component to display the flash:
-
-```ruby
-class FlashMessage < AppComponent
-
-  def initialize(flash:)
-    @flash = flash
-  end
-
-  def view_template
-    if @flash.notice?
-      div(role: "status") { @flash.notice }
-    elsif @flash.alert?
-      div(role: "alert") { @flash.alert }
-    end
-  end
-end
-```
-
-To use it without having to instantiate it, call `global_component` with the component's class:
-
-```ruby
-class HomePage < AppPage
-  def page_template
-    header do
-      global_component(FlashMessage) # note: render not required
-    end
-  end
-end
-```
+Components used in layouts will tend to be global components, to avoid creating odd
+dependencies between pages.
 
 > [!IMPORTANT]
 > Brut currently requires an all-or-nothing approach to global components. Either 
@@ -157,9 +180,19 @@ Often, components are helpful to simplifying a page's template or managing re-us
 
 Brut provides a way to create a *page private* component that exists as an inner class of a page.  It's not truly private, since it's still a Ruby class anyone can use, but it's form and source location communicate intent.
 
-Suppose our `HomePage` has a list of widgets on it, but we want each widget's HTML managed by a separate component:
+They can be created with `bin/scaffold`:
 
-```ruby
+```
+bin/scaffold component --page HomePage Widget
+# => app/src/front_end/page/home_page/widget_component.rb
+# => specs/front_end/page/home_page/widget_component.spec.rb
+```
+
+The class will be an inner class of `HomePage` in this example, `HomePage::WidgetComponent`. You build them and use them like normal:
+
+::: code-group
+
+```ruby [Page]
 class HomePage < AppPage
   def page_template
     header do
@@ -176,50 +209,39 @@ class HomePage < AppPage
 end
 ```
 
-`HomePage::WidgetListItem` can be created like so:
+```ruby [Page Private Component]
+class HomePage::WidgetListItem < AppComponent
+  def initialize(widget:)
+    @widget = widget
+  end
 
-```
-bin/scaffold component --page=HomePage WidgetListItem
+  def view_template
+    li do
+      h2 { @widget.name }
+      p { @widget.description }
+    end
+  end
+end
 ```
 
-This will create `app/src/front_end/pages/home_page/widget_list_item.rb`, which you can then implement like a normal component:
+:::
+
+The main difference between a page-private component and a normal component's
+behavior is how [I18n](/i18n) strings are resolved.  In short, given this:
 
 ```ruby
-# app/src/front_end/pages/home_page/widget_list_item.rb
-class HomePage::WidgetListItem < AppComponent
-  def initialize(widget:)
-    @widget = widget
-  end
-
-  def view_template
-    li do
-      h2 { @widget.name }
-      p { @widget.description }
-    end
-  end
+p do
+  t(:hello)
 end
 ```
 
-The only special thing about a page private component is that it can access the page's I18n translations. As we'll discussion in [I18n](/i18n), The `t` method will try to locate translations based on the page on which `t` is called.  A page private component will also trigger this behavior, but a normal component will not.
+In a normal component named `WidgetComponent`, the keys searched for translations
+would be `"components.WidgetComponent.hello"` and `"hello"` .  For the page-private
+component `HomePage::WidgetComponent`, the keys searched would be
+`"pages.HomePage.hello"` and `"hello"`.  This means that page private components can
+access a page's translations.
 
-For example, the following code will look for `pages.HomePage.status.«status»` when generated the `<h3>`:
 
-```ruby {10}
-# app/src/front_end/pages/home_page/widget_list_item.rb
-class HomePage::WidgetListItem < AppComponent
-  def initialize(widget:)
-    @widget = widget
-  end
-
-  def view_template
-    li do
-      h2 { @widget.name }
-      h3 { t([ :status, @widget.status ]) }
-      p { @widget.description }
-    end
-  end
-end
-```
 
 ## Testing
 

@@ -525,13 +525,6 @@ values are arrays of <span class='object_link'><a href="Forms/ValidityState.html
 element is the index of the input in the array.  This index is used when you have more than one field with the same
 name.</p>
 
-<p>form.constraint_violations.each do |input_name, (constraint_violations,index)|
-  # input_name is the input's name, e.g. "email"
-  # constraint_violations is an array of <span class='object_link'><a href="Forms/ValidityState.html" title="Brut::FrontEnd::Forms::ValidityState (class)">Brut::FrontEnd::Forms::ValidityState</a></span> instances, one for each
-  #                       problem with the field's value
-  # index is the index of the input in the array, e.g. 0  for the first email field, 1 for the second, etc.
-end</p>
-
 
   </div>
 </div>
@@ -541,10 +534,15 @@ end</p>
     <h4 class="tag_title">Examples:</h4>
     
       
-        <h5 class="example_title"><div class='inline'><p>iterationg</p>
+        <h5 class="example_title"><div class='inline'><p>iterating</p>
 </div></h5>
       
-      <pre class="example code"><code></code></pre>
+      <pre class="example code"><code><span class='id identifier rubyid_form'>form</span><span class='period'>.</span><span class='id identifier rubyid_constraint_violations'>constraint_violations</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_input_name'>input_name</span><span class='comma'>,</span> <span class='lparen'>(</span><span class='id identifier rubyid_constraint_violations'>constraint_violations</span><span class='comma'>,</span><span class='id identifier rubyid_index'>index</span><span class='rparen'>)</span><span class='op'>|</span>
+  <span class='comment'># input_name is the input&#39;s name, e.g. &quot;email&quot;
+</span>  <span class='comment'># constraint_violations is an array of {Brut::FrontEnd::Forms::ValidityState} instances, one for each
+</span>  <span class='comment'>#                       problem with the field&#39;s value
+</span>  <span class='comment'># index is the index of the input in the array, e.g. 0  for the first email field, 1 for the second, etc.
+</span><span class='kw'>end</span></code></pre>
     
   </div>
 <p class="tag_title">Parameters:</p>
@@ -1029,7 +1027,7 @@ values provided by the user.  This can allow a form with values in it to be cons
       
       
         &mdash;
-        <div class='inline'><p>the i18n key fragment representing the constraint. Assume this will be appended to <code>general.cv.be.</code> in order</p>
+        <div class='inline'><p>the i18n key fragment representing the constraint. Assume this will be appended to <code>cv.be.</code> in order</p>
 </div>
       
     </li>
@@ -1147,7 +1145,7 @@ will be represented as a key in the resulting hash—only those keys that were p
 </div>
 
       <div id="footer">
-  Generated on Fri Jul  4 21:44:56 2025 by
+  Generated on Mon Jul  7 20:33:28 2025 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.37 (ruby-3.4.4).
 </div>

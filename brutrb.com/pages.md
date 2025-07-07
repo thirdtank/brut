@@ -236,7 +236,7 @@ below, you won't need to use `before_generate` as a failsafe check on authorizat
 
 The list of available data for injection above will always be available to your page, with the exception of query string parameters.  The real power comes when you learn how to [inject your own data](/keyword-injection#injecting-custom-data) into the request context.
 
-A great example of this is in the [recipe for keywords and auth](/recipes/page-keyword-auth), which results in a much simpler and less error-prone way to prevent unauthorized access to pages when compared to how you might do it in Rails.
+A great example of this is in the [recipe for keywords and auth](/recipes/authentication), which results in a much simpler and less error-prone way to prevent unauthorized access to pages when compared to how you might do it in Rails.
 
 ### In Tests, It's Fine to Locate Elements Via CSS Selectors
 

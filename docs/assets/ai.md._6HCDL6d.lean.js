@@ -1,1 +1,0 @@
-import{_ as t,c as o,o as a,ag as i}from"./chunks/framework.1L-BeKqY.js";const p=JSON.parse('{"title":"AI Declaration and Notes","description":"","frontmatter":{},"headers":[],"relativePath":"ai.md","filePath":"ai.md"}'),s={name:"ai.md"};function n(r,e,l,d,h,c){return a(),o("div",null,e[0]||(e[0]=[i("",27)]))}const b=t(s,[["render",n]]);export{p as __pageData,b as default};

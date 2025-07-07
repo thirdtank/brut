@@ -1,1 +1,0 @@
-import{_ as i,c as a,o as n,ag as t}from"./chunks/framework.1L-BeKqY.js";const g=JSON.parse('{"title":"Forms","description":"","frontmatter":{},"headers":[],"relativePath":"forms.md","filePath":"forms.md"}'),e={name:"forms.md"};function l(h,s,p,k,r,d){return n(),a("div",null,s[0]||(s[0]=[t("",164)]))}const E=i(e,[["render",l]]);export{g as __pageData,E as default};
