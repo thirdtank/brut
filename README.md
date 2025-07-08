@@ -21,6 +21,26 @@ Or install it yourself as:
 
     $ gem install brut
 
+## Getting Started
+
+[Please note there is extensive documentation](https://brutrb.com), however to get started, you can use [mkrbut](https://github.com/thirdtank/mkrbut):
+
+```
+docker run --pull always \
+           -v "$PWD":"$PWD" \
+           -w "$PWD" 
+           -it \
+           thirdtank/mkbrut \
+           mkbrut your-new-app
+```
+
+If you have Ruby 3.4 installed somewhere, you can use this via RubyGems as well:
+
+```
+> gem install mkbrut
+> mkbrut your-new-app
+```
+
 ## Developing
 
 The dev environment is managed by Docker and you are encouraged to use this. It's set up so you can edit your code on your computer
