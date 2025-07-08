@@ -3,6 +3,8 @@
 Brut is a way to make web apps with Ruby, captializing on the knowledge you have—HTTP, HTML, CSS, JavaScript, SQL—without requiring
 *too* much extra stuff to learn.
 
+![Brut Logo in the style of the Washington DC Metro.  It has the metro brown background with all text in white Helvetica.  Centered at the top is "BrutRB". Below that, in the style of metro stops is "Ruby", next to a red dot with "RB" in it, "HTML/CSS/JS" next to an orange dot with "WP" in it, "Phlex" next to a blue dot with "PL" in it, and "RSpec" next to a green dot with "RS" in it.](brutrb.com/images/LogoStop.png)
+
 ## Installation
 
 Add this line to your application's Gemfile:
