@@ -59,4 +59,4 @@ to resources and HTTP verbs.  We also find that the consonance features, resourc
 ## Brut is Hippocratic Licensed
 
 It's important to me that Brut is used to make the world a better place. Please take
-a not of [its license](https://firstdonoharm.dev/version/3/0/cl-eco-media-my-tal-xuar.txt)
+a note of [its license](https://firstdonoharm.dev/version/3/0/cl-eco-media-my-tal-xuar.txt)
