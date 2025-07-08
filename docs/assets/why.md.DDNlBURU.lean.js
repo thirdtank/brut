@@ -1,1 +1,0 @@
-import{_ as e,c as t,o as s,ag as i}from"./chunks/framework.1L-BeKqY.js";const c=JSON.parse('{"title":"Why Does Brut Exist?","description":"","frontmatter":{},"headers":[],"relativePath":"why.md","filePath":"why.md"}'),o={name:"why.md"};function r(n,a,l,d,h,u){return s(),t("div",null,a[0]||(a[0]=[i("",14)]))}const p=e(o,[["render",r]]);export{c as __pageData,p as default};
