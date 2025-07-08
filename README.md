@@ -23,7 +23,7 @@ Or install it yourself as:
 
 ## Getting Started
 
-[Please note there is extensive documentation](https://brutrb.com), however to get started, you can use [mkrbut](https://github.com/thirdtank/mkrbut):
+[Please note there is extensive documentation](https://brutrb.com), however to get started, you can use [mkbrut](https://github.com/thirdtank/mkrbut):
 
 ```
 docker run --pull always \
@@ -67,6 +67,5 @@ with your editor, but all commands are run inside Docker, which should be more c
 
         dx/exec bin/setup --no-credentials
 
-   The `--no-credentials` means that you will not be able to push to GitHub or RubyGems from within the Docker container. This
-   ability is only needed by maintainers to push new versions of the gem. You can push to GitHub from your computer.
+   The `--no-credentials` means that you will not be able to push to GitHub or RubyGems from within the Docker container. This ability is only needed by maintainers to push new versions of the gem. You can push to GitHub from your computer.
 
