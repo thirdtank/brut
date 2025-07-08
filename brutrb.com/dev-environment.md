@@ -34,7 +34,12 @@ as a separate Docker container available to the dev Docker container.
 
 Your editor and version control system run on your computer.
 
-![Conceptual Overview](/images/dev-env-overview.png)
+![Diagram showing the parts of the dev environment. The foundational core is also
+labeled "Docker containers" and it contains three boxes labeled "Container".  One
+box contains ValKey, another contains Postrgres. The third box contains "Your Brut
+App", "NodeJS", "Ruby", and part of "Source Code". The "Source Code" also also
+partially inside a box containing the foundational core labeled "Your Computer".
+This box contains "Browser" and "source code editor".](/images/DevEnvironment.png)  
 
 ### Foundational Core Command Line Apps
 

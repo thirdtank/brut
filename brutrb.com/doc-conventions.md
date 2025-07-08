@@ -12,8 +12,7 @@ Here are some common exampels:
 - Forms don't have validations, they have **constraints** which are **violated** by invalid data.
 - Ruby classes don't have constructors, they have **initializers**.
 - Invoking behavior on a Ruby object is **calling a method**, not sending a message.
-- Despite being in `specs/`, the files in there are **tests**, not specifications or
--specs".
+- Despite being in `specs/`, the files in there are **tests**, not specifications or "specs".
 - Tests that use a browser are **end to end** or **e2e** tests.
 - HTML is not rendered, but **generated**. The browser renders the HTML sent to it by the server, along with the CSS.
 - Your app or site doesn't have users, it has **visitors**.

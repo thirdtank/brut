@@ -139,6 +139,7 @@ export default defineConfig({
         collapsed: false,
         items: [
           { text: "Why?!", link: "/why" },
+          { text: "Roadmap to 1.0", link: "/roadmap" },
           { text: "AI Declaration", link: "/ai" },
         ]
       }
