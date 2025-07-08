@@ -6,6 +6,33 @@ import jsdocLinker from './plugins/jsdocLinker'
 export default defineConfig({
   title: "Brut RB",
   description: "Documentation for the Brut.RB web framework.",
+  head: [
+    ["link", { rel: "icon", href: "/favicon.ico" }],
+    [
+      "meta", {
+        property: "og:title",
+        content: "BrutRB Documentation"
+      }
+    ],
+    [
+      "meta", {
+        property: "og:type",
+        content: "website"
+      }
+    ],
+    [
+      "meta", {
+        property: "og:image",
+        content: "https://github.com/thirdtank/brut/blob/main/assets/SocialImage.png?raw=true"
+      }
+    ],
+    ["script", {
+      defer: "",
+      "data-domain": "brutrb.com",
+      src: "https://plausible.io/js/script.js"
+    }
+    ],
+  ],
   themeConfig: {
     // https://vitepress.dev/reference/default-theme-config
     search: {
