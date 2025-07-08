@@ -62,6 +62,8 @@
 <p>Brut is a way to make web apps with Ruby, captializing on the knowledge you have—HTTP, HTML, CSS, JavaScript, SQL—without requiring
 <em>too</em> much extra stuff to learn.</p>
 
+<p><img src="brutrb.com/images/LogoStop.png" alt="Brut Logo in the style of the Washington DC Metro.  It has the metro brown background with all text in white Helvetica.  Centered at the top is &quot;BrutRB&quot;. Below that, in the style of metro stops is &quot;Ruby&quot;, next to a red dot with &quot;RB&quot; in it, &quot;HTML/CSS/JS&quot; next to an orange dot with &quot;WP&quot; in it, &quot;Phlex&quot; next to a blue dot with &quot;PL&quot; in it, and &quot;RSpec&quot; next to a green dot with &quot;RS&quot; in it." /></p>
+
 <h2>Installation</h2>
 
 <p>Add this line to your application's Gemfile:</p>
@@ -77,6 +79,24 @@
 <p>Or install it yourself as:</p>
 
 <pre class="code ruby"><code class="ruby">$ gem install brut
+</code></pre>
+
+<h2>Getting Started</h2>
+
+<p><a href="https://brutrb.com">Please note there is extensive documentation</a>, however to get started, you can use <a href="https://github.com/thirdtank/mkrbut">mkbrut</a>:</p>
+
+<pre class="code ruby"><code class="ruby">docker run --pull always \
+           -v &quot;$PWD&quot;:&quot;$PWD&quot; \
+           -w &quot;$PWD&quot; 
+           -it \
+           thirdtank/mkbrut \
+           mkbrut your-new-app
+</code></pre>
+
+<p>If you have Ruby 3.4 installed somewhere, you can use this via RubyGems as well:</p>
+
+<pre class="code ruby"><code class="ruby">&gt; gem install mkbrut
+&gt; mkbrut your-new-app
 </code></pre>
 
 <h2>Developing</h2>
@@ -110,14 +130,13 @@ with your editor, but all commands are run inside Docker, which should be more c
 <pre class="code ruby"><code class="ruby"> dx/exec bin/setup --no-credentials
 </code></pre>
 
-<p>The <code>--no-credentials</code> means that you will not be able to push to GitHub or RubyGems from within the Docker container. This
-ability is only needed by maintainers to push new versions of the gem. You can push to GitHub from your computer.</p></li>
+<p>The <code>--no-credentials</code> means that you will not be able to push to GitHub or RubyGems from within the Docker container. This ability is only needed by maintainers to push new versions of the gem. You can push to GitHub from your computer.</p></li>
 </ol>
 
 </div></div>
 
       <div id="footer">
-  Generated on Mon Jul  7 20:33:28 2025 by
+  Generated on Tue Jul  8 01:36:09 2025 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.37 (ruby-3.4.4).
 </div>
