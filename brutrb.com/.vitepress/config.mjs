@@ -23,7 +23,7 @@ export default defineConfig({
     [
       "meta", {
         property: "og:image",
-        content: "https://github.com/thirdtank/brut/blob/main/assets/SocialImage.png?raw=true"
+        content: "https://brutrb.com/SocialImage.png"
       }
     ],
     ["script", {

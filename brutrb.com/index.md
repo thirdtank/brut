@@ -11,9 +11,6 @@ hero:
     alt: "A Ruby gemstone embedded into a concrete, brutalist building"
   actions:
     - theme: brand
-      text: "Brut is Not Yet Released"
-      link: /not-released
-    - theme: brand
       text: "Getting Started"
       link: /getting-started
     - theme: alt
