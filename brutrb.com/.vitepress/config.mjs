@@ -139,10 +139,11 @@ export default defineConfig({
         collapsed: false,
         items: [
           { text: "Why?!", link: "/why" },
+          { text: "ADRs", link: "/adrs" },
           { text: "Roadmap to 1.0", link: "/roadmap" },
           { text: "AI Declaration", link: "/ai" },
         ]
-      }
+      },
     ],
 
     socialLinks: [
