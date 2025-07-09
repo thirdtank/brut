@@ -54,7 +54,7 @@ abstraction.  Although HTTP does include this concept, we find it's not as usefu
 for managing web apps as it may seem.
 
 We've found that teams often struggle with mapping what everyone else calls pages
-to resources and HTTP verbs.  We also find that the consonance features, resources, actions, and database tables never materializes.  We're basically not going to debate what the meaning of the `DELETE` verb on the `widgets` resource is actually supposed to mean.
+to resources and HTTP verbs.  We also find that the consonance of features, resources, actions, and database tables never materializes.  We're basically not going to debate what the meaning of the `DELETE` verb on the `widgets` resource is actually supposed to mean.
 
 ## Brut is Hippocratic Licensed
 
