@@ -63,7 +63,7 @@ class Brut::FrontEnd::Components::Inputs::SelectTagWithOptions < Brut::FrontEnd:
     @html_attributes        = default_html_attributes.merge(html_attributes)
     @html_attributes[:name] = name
 
-    if input_value.nil?
+    if input_value.nil? || input_value.to_s.strip == ""
       @selected_value = nil # explicitly nothing is selected
     else
       if input_value.kind_of?(Array)
@@ -72,7 +72,7 @@ class Brut::FrontEnd::Components::Inputs::SelectTagWithOptions < Brut::FrontEnd:
       option = options.detect { |option|
         input_value == option.send(@value_attribute)
       }
-      if option.nil? && option.to_s.strip != ""
+      if option.nil?
         raise ArgumentError, "selected_value #{input_value}/#{input_value.class} was not the value for #{value_attribute} on any of the options: #{options.map { |option| option.send(value_attribute) }.join(', ')}"
       end
       @selected_value = option.send(@value_attribute)
