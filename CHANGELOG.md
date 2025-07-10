@@ -1,5 +1,9 @@
 # Brut CHANGELOG
 
+## v0.2.3 - July 10, 2025
+
+* **References nonexistent class**
+
 ## v0.2.2 - July 10, 2025
 
 * **Address incorrect underscorization on classnames**
