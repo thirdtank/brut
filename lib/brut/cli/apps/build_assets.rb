@@ -38,7 +38,7 @@ This is to ensure that any images your code references will end up in the public
     end
   end
 
-  class CSS < Brut::CLI::Command
+  class Css < Brut::CLI::Command
     description "Builds a single CSS file suitable for sending to the browser"
 
     detailed_description %{
@@ -77,7 +77,7 @@ This is to ensure that any images your code references will end up in the public
       asset_metadata.save!
     end
   end
-  class JS < Brut::CLI::Command
+  class Js < Brut::CLI::Command
     description "Builds and bundles JavaScript destined for the browser"
     opts.on("--output-file=FILE","Bundle to create that will be sent to the browser, relative to the JS public folder. Default is app.js")
     opts.on("--source-file=FILE","Entry point used to create the bundle, relative to the source JS folder. Default is index.js")
