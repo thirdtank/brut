@@ -19,7 +19,7 @@ class Brut::CLI::Apps::BuildAssets < Brut::CLI::App
         out.puts "Removing #{asset_metadata_file}"
         FileUtils.rm_f(asset_metadata_file)
       end
-      delegate_to_commands(Images, JS, CSS)
+      delegate_to_commands(Images, Js, Css)
     end
   end
 
