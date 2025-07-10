@@ -72,8 +72,8 @@ class Brut::FrontEnd::Components::Inputs::SelectTagWithOptions < Brut::FrontEnd:
       option = options.detect { |option|
         input_value == option.send(@value_attribute)
       }
-      if option.nil?
-        raise ArgumentError, "selected_value #{input_value} was not the value for #{value_attribute} on any of the options: #{options.map { |option| option.send(value_attribute) }.join(', ')}"
+      if option.nil? && option.to_s.strip != ""
+        raise ArgumentError, "selected_value #{input_value}/#{input_value.class} was not the value for #{value_attribute} on any of the options: #{options.map { |option| option.send(value_attribute) }.join(', ')}"
       end
       @selected_value = option.send(@value_attribute)
     end
