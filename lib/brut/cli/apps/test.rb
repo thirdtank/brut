@@ -87,7 +87,7 @@ class Brut::CLI::Apps::Test < Brut::CLI::App
     def rebuild_by_default?       = true
     def rebuild_after_by_default? = true
   end
-  class JS < Brut::CLI::Command
+  class Js < Brut::CLI::Command
     description "Run JavaScript unit tests"
     opts.on("--[no-]build-assets","Build all assets before running the tests")
     def execute

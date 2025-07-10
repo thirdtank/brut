@@ -51,29 +51,64 @@ class Clock
 end
 
 # A wrapper around a string to avoid adding a ton of methods to `String`.
+#
+# This may not survive to 1.0 - use at your own risk.
 class RichString
+  # Create a RichString, return `nil` instead for blank strings or nil
+  # @param [String|nil] string the string to convert.
+  # @param [true|false] blank_is_nil if true, a blank string or nil is considered
+  #        nil and nil is returned.
+  # @return [RichString|nil] a RichString containing the string or nil if the 
+  #         string is blank or nil, accounting for `blank_is_nil:`
   def self.from_string(string,blank_is_nil:true)
+    if string.nil?
+        return nil
+    end
     if string.to_s.strip == "" && blank_is_nil
       return nil
     end
     self.new(string)
   end
+
+  # Create a RichString. This calls `to_s` on its argument.
+  #
+  # @param [String|Object] string the string to wrap. `to_s` is called, so be sure
+  #        that's what you want.
   def initialize(string)
     @string = string.to_s
   end
 
+  # Return a snake_case version of the string.  This will convert dashes to
+  # underscores, and use A-Z to know where to insert underscores.  Repeated
+  # underscores are coalesced into one, and there will be no leading or trailing
+  # underscores in the string.
+  # @visibility private
   def underscorized
-    return self unless /[A-Z-]|::/.match?(@string)
-    word = @string.gsub("::", "/")
-    word.gsub!(/(?<=[A-Z])(?=[A-Z][a-z])|(?<=[a-z\d])(?=[A-Z])/, "_")
-    word.tr!("-", "_")
-    word.downcase!
-    RichString.new(word)
+    RichString.new(
+      self.to_s.split(/([A-Z])/).
+      select { it.length > 0 }.
+      map { |part|
+        if part == part.upcase
+          "_#{part.downcase}"
+        else
+          part
+        end
+      }.
+      join.gsub("-","_").
+      gsub(/[_]+/,"_").
+      gsub(/^_+/,"").
+      gsub(/_+$/,"")
+    )
   end
 
+  # Turn a string into CamelCase by captializing any
+  # letter that is preceded by an underscore or dash.
+  # @visibility private
   def camelize
-    @string.to_s.split(/[_-]/).map { |part|
-      RichString.new(part).capitalize(:first_only).to_s
+    @string.to_s.split(/[_-]/).select {
+      it.strip.length > 0
+    }.map {
+      RichString.new(it).capitalize(:first_only).to_s
     }.join("")
   end
 
@@ -85,6 +120,7 @@ class RichString
   #
   # @param [Array] options options suitable for Ruby's built-in `String#capitalize` method
   # @return [RichString] a new string where the wrapped string has been capitalized
+  # @visibility private
   def capitalize(*options)
     if options.include?(:first_only)
       options.delete(:first_only)
@@ -94,6 +130,9 @@ class RichString
     end
   end
 
+  # Takes a snake_case_or-kebab-case-string and returns it with the underscores
+  # and dashes replaced with spaces.
+  # @visibility private
   def humanized
     RichString.new(@string.tr("_-"," "))
   end
@@ -102,7 +141,7 @@ class RichString
   def to_str = self.to_s
   def length = to_s.length
 
-  def to_s_or_nil = @string.empty? ? nil : self.to_s
+  def to_s_or_nil = @string.to_s.strip.empty? ? nil : self.to_s
 
   def ==(other)
     if other.kind_of?(RichString)
