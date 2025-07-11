@@ -459,20 +459,18 @@ end}
       form_code = %{class #{form_class_name} < AppForm
   input :some_field, minlength: 3
 end}
-      handle_method_code = if form
-                             'raise "You need to implement your Handler\#{form.class.input_definitions.length < 2 ? " and likely your Form as well" : ""}"'
-                           else
-                             'raise "You need to implement your Handler"'
-                           end
+      handle_method_code = 'raise "You need to implement your Handler"'
       handler_code = begin
                        handle_params = []
                        if form
                          handle_params << :form
                        end
                        handle_params += route.path_params
-                       handle_params_code = handle_params.map { "#{it}:" }.join(", ")
+                       initializer_params_code = handle_params.map { "#{it}:" }.join(", ")
         %{class #{handler_class_name} < AppHandler
-  def handle(#{handle_params_code}) # add other args here as needed
+  def initialize(#{initializer_params_code}) # add other args here as needed
+  end
+  def handle
     #{handle_method_code}
   end
 end}
@@ -481,10 +479,10 @@ end}
       spec_code = %{require "spec_helper"
 
 RSpec.describe #{handler_class_name} do
-  subject(:handler) { described_class.new }
   describe "#handle!" do
     it "needs tests" do
       expect(true).to eq(false)
+      # Make sure to call handle! (not handle)
     end
   end
 end}
