@@ -1,5 +1,9 @@
 # Brut CHANGELOG
 
+## v0.3.0 - July 11, 2025
+
+* **`bin/scaffold form` generates correct handler code**
+
 ## v0.2.3 - July 10, 2025
 
 * **References nonexistent class**
