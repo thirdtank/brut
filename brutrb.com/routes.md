@@ -134,7 +134,7 @@ rename the class.  At this point, any code that routes to `DashboardPage.routing
 
 ## Testing
 
-Routes are configuration, so you do not need to test them.  In fact, you can't test them directly. Your end-to-end tests should adequately cover the correct usage of your routes. If you always using `.routing` to generate routes, Ruby's runtime check swill also ensure you have not used a non-existent or invalid route.
+Routes are configuration, so you do not need to test them.  In fact, you can't test them directly. Your end-to-end tests should adequately cover the correct usage of your routes. If you always using `.routing` to generate routes, Ruby's runtime checks will also ensure you have not used a non-existent or invalid route.
 
 ## Recommended Practices
 
