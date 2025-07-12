@@ -110,21 +110,17 @@ JavaScript.  The <code>&lt;brut-constraint-violation-message&gt;</code> tag uses
 
 <p>The default layout included in new Brut apps includes this:</p>
 
-<pre class="code html"><code class="html">&lt;%= component(
-      Brut::FrontEnd::Components::I18nTranslations.new(
-        &quot;general.cv.fe&quot;
-      )
-) %&gt;
+<pre class="code ruby"><code class="ruby"><span class='const'>I18nTranslations</span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="#initialize-instance_method" title="Brut::FrontEnd::Components::I18nTranslations#initialize (method)">new</a></span></span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>cv.cs</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
 </code></pre>
 
 <p>At runtime, this will produce this:</p>
 
 <pre class="code html"><code class="html">&lt;brut-i18n-translation
-  key=&quot;general.cv.fe.badInput&quot;
+  key=&quot;cv.cs.badInput&quot;
   value=&quot;%{field} is the wrong type of data&quot;&gt;
 &lt;/brut-i18n-translation&gt;
 &lt;brut-i18n-translation
-  key=&quot;general.cv.fe.patternMismatch&quot;
+  key=&quot;cv.cs.patternMismatch&quot;
   value=&quot;%{field} isn&#39;t in the right format&quot;&gt;
 &lt;/brut-i18n-translation&gt;
 &lt;!-- etc --&gt;
@@ -132,7 +128,7 @@ JavaScript.  The <code>&lt;brut-constraint-violation-message&gt;</code> tag uses
 
 <p>Thus, it will render the translations for all client side errors supported by the browser.  This means that if a
 client side <code>ValidityState</code> returns true for, say, <code>badInput</code>, JavaScript can look up by the <code>key</code>
-<code>general.cv.fe.badInput</code> and find the <code>value</code> to produce the string "This field is the wrong type of data".</p>
+<code>cv.cs.badInput</code> and find the <code>value</code> to produce the string "This field is the wrong type of data".</p>
 
 
   </div>
@@ -272,7 +268,7 @@ client side <code>ValidityState</code> returns true for, say, <code>badInput</co
       
       
         &mdash;
-        <div class='inline'><p>A prefix or full key for the i18n messages to render.  For example, if you have <code>en.cv.fe.valueMissing</code> and <code>en.cv.fe.badInput</code>, an <code>i18n_key_root</code> value of <code>"en.cv.fe"</code> will result in both of those keys being rendered.</p>
+        <div class='inline'><p>A prefix or full key for the i18n messages to render.  For example, if you have <code>cv.cs.valueMissing</code> and <code>cv.cs.badInput</code>, an <code>i18n_key_root</code> value of <code>"cv.cs"</code> will result in both of those keys being rendered.</p>
 </div>
       
     </li>
@@ -286,12 +282,12 @@ client side <code>ValidityState</code> returns true for, say, <code>badInput</co
       <pre class="lines">
 
 
-35
-36
-37</pre>
+31
+32
+33</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/brut/front_end/components/i18n_translations.rb', line 35</span>
+      <pre class="code"><span class="info file"># File 'lib/brut/front_end/components/i18n_translations.rb', line 31</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_initialize'>initialize</span><span class='lparen'>(</span><span class='id identifier rubyid_i18n_key_root'>i18n_key_root</span><span class='rparen'>)</span>
   <span class='ivar'>@i18n_key_root</span> <span class='op'>=</span> <span class='id identifier rubyid_i18n_key_root'>i18n_key_root</span>
@@ -307,7 +303,7 @@ client side <code>ValidityState</code> returns true for, say, <code>badInput</co
 </div>
 
       <div id="footer">
-  Generated on Thu Jul 10 13:41:05 2025 by
+  Generated on Sat Jul 12 21:25:22 2025 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.37 (ruby-3.4.4).
 </div>

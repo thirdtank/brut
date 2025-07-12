@@ -360,9 +360,7 @@
 533
 534
 535
-536
-537
-538</pre>
+536</pre>
     </td>
     <td>
       <pre class="code"><span class="info file"># File 'lib/brut/cli/apps/scaffold.rb', line 414</span>
@@ -415,20 +413,18 @@
   <span class='id identifier rubyid_form_code'>form_code</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>%{</span><span class='tstring_content'>class </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_form_class_name'>form_class_name</span><span class='embexpr_end'>}</span><span class='tstring_content'> &lt; AppForm
   input :some_field, minlength: 3
 end</span><span class='tstring_end'>}</span></span>
-  <span class='id identifier rubyid_handle_method_code'>handle_method_code</span> <span class='op'>=</span> <span class='kw'>if</span> <span class='id identifier rubyid_form'>form</span>
-                         <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>raise &quot;You need to implement your Handler\#{form.class.input_definitions.length &lt; 2 ? &quot; and likely your Form as well&quot; : &quot;&quot;}&quot;</span><span class='tstring_end'>&#39;</span></span>
-                       <span class='kw'>else</span>
-                         <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>raise &quot;You need to implement your Handler&quot;</span><span class='tstring_end'>&#39;</span></span>
-                       <span class='kw'>end</span>
+  <span class='id identifier rubyid_handle_method_code'>handle_method_code</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>raise &quot;You need to implement your Handler&quot;</span><span class='tstring_end'>&#39;</span></span>
   <span class='id identifier rubyid_handler_code'>handler_code</span> <span class='op'>=</span> <span class='kw'>begin</span>
                    <span class='id identifier rubyid_handle_params'>handle_params</span> <span class='op'>=</span> <span class='lbracket'>[</span><span class='rbracket'>]</span>
                    <span class='kw'>if</span> <span class='id identifier rubyid_form'>form</span>
                      <span class='id identifier rubyid_handle_params'>handle_params</span> <span class='op'>&lt;&lt;</span> <span class='symbol'>:form</span>
                    <span class='kw'>end</span>
                    <span class='id identifier rubyid_handle_params'>handle_params</span> <span class='op'>+=</span> <span class='id identifier rubyid_route'>route</span><span class='period'>.</span><span class='id identifier rubyid_path_params'>path_params</span>
-                   <span class='id identifier rubyid_handle_params_code'>handle_params_code</span> <span class='op'>=</span> <span class='id identifier rubyid_handle_params'>handle_params</span><span class='period'>.</span><span class='id identifier rubyid_map'>map</span> <span class='lbrace'>{</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_it'>it</span><span class='embexpr_end'>}</span><span class='tstring_content'>:</span><span class='tstring_end'>&quot;</span></span> <span class='rbrace'>}</span><span class='period'>.</span><span class='id identifier rubyid_join'>join</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>, </span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+                   <span class='id identifier rubyid_initializer_params_code'>initializer_params_code</span> <span class='op'>=</span> <span class='id identifier rubyid_handle_params'>handle_params</span><span class='period'>.</span><span class='id identifier rubyid_map'>map</span> <span class='lbrace'>{</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_it'>it</span><span class='embexpr_end'>}</span><span class='tstring_content'>:</span><span class='tstring_end'>&quot;</span></span> <span class='rbrace'>}</span><span class='period'>.</span><span class='id identifier rubyid_join'>join</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>, </span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
     <span class='tstring'><span class='tstring_beg'>%{</span><span class='tstring_content'>class </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_handler_class_name'>handler_class_name</span><span class='embexpr_end'>}</span><span class='tstring_content'> &lt; AppHandler
-  def handle(</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_handle_params_code'>handle_params_code</span><span class='embexpr_end'>}</span><span class='tstring_content'>) # add other args here as needed
+  def initialize(</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_initializer_params_code'>initializer_params_code</span><span class='embexpr_end'>}</span><span class='tstring_content'>) # add other args here as needed
+  end
+  def handle
 </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_handle_method_code'>handle_method_code</span><span class='embexpr_end'>}</span><span class='tstring_content'>
   end
 end</span><span class='tstring_end'>}</span></span>
@@ -437,10 +433,10 @@ end</span><span class='tstring_end'>}</span></span>
   <span class='id identifier rubyid_spec_code'>spec_code</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>%{</span><span class='tstring_content'>require &quot;spec_helper&quot;
 
 RSpec.describe </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_handler_class_name'>handler_class_name</span><span class='embexpr_end'>}</span><span class='tstring_content'> do
-  subject(:handler) { described_class.new }
   describe &quot;#handle!&quot; do
 it &quot;needs tests&quot; do
   expect(true).to eq(false)
+  # Make sure to call handle! (not handle)
 end
   end
 end</span><span class='tstring_end'>}</span></span>
@@ -502,7 +498,7 @@ end</span><span class='tstring_end'>}</span></span>
 </div>
 
       <div id="footer">
-  Generated on Thu Jul 10 13:41:04 2025 by
+  Generated on Sat Jul 12 21:25:21 2025 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.37 (ruby-3.4.4).
 </div>

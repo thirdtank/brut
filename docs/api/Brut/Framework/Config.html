@@ -602,7 +602,14 @@ connection to your database.</p>
 426
 427
 428
-429</pre>
+429
+430
+431
+432
+433
+434
+435
+436</pre>
     </td>
     <td>
       <pre class="code"><span class="info file"># File 'lib/brut/framework/config.rb', line 12</span>
@@ -800,6 +807,13 @@ connection to your database.</p>
       <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Path to the root of all data modeling</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
     <span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_back_end_src_dir'>back_end_src_dir</span><span class='op'>|</span>
       <span class='id identifier rubyid_back_end_src_dir'>back_end_src_dir</span> <span class='op'>/</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>data_models</span><span class='tstring_end'>&quot;</span></span>
+    <span class='kw'>end</span>
+
+    <span class='id identifier rubyid_c'>c</span><span class='period'>.</span><span class='id identifier rubyid_store_ensured_path'>store_ensured_path</span><span class='lparen'>(</span>
+      <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>data_models_specs_dir</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+      <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Path to the root of all data model specs</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+    <span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_app_specs_dir'>app_specs_dir</span><span class='op'>|</span>
+      <span class='id identifier rubyid_app_specs_dir'>app_specs_dir</span> <span class='op'>/</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>back_end</span><span class='tstring_end'>&quot;</span></span> <span class='op'>/</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>data_models</span><span class='tstring_end'>&quot;</span></span>
     <span class='kw'>end</span>
 
     <span class='id identifier rubyid_c'>c</span><span class='period'>.</span><span class='id identifier rubyid_store_ensured_path'>store_ensured_path</span><span class='lparen'>(</span>
@@ -1035,7 +1049,7 @@ connection to your database.</p>
 </div>
 
       <div id="footer">
-  Generated on Thu Jul 10 13:41:04 2025 by
+  Generated on Sat Jul 12 21:25:21 2025 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.37 (ruby-3.4.4).
 </div>

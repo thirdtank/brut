@@ -344,6 +344,29 @@ for processing them or for testing.</p>
 </li>
 
       
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#valid%3F-instance_method" title="#valid? (instance method)">#<strong>valid?</strong>  &#x21d2; Boolean </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>Returns true if this form has no constraint violations.</p>
+</div></span>
+  
+</li>
+
+      
     </ul>
   
 
@@ -591,9 +614,6 @@ name.</p>
       <pre class="lines">
 
 
-148
-149
-150
 151
 152
 153
@@ -613,10 +633,13 @@ name.</p>
 167
 168
 169
-170</pre>
+170
+171
+172
+173</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/brut/front_end/form.rb', line 148</span>
+      <pre class="code"><span class="info file"># File 'lib/brut/front_end/form.rb', line 151</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_constraint_violations'>constraint_violations</span><span class='lparen'>(</span><span class='label'>server_side_only:</span> <span class='kw'>false</span><span class='rparen'>)</span>
   <span class='ivar'>@inputs</span><span class='period'>.</span><span class='id identifier rubyid_map'>map</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_input_name'>input_name</span><span class='comma'>,</span> <span class='id identifier rubyid_inputs'>inputs</span><span class='op'>|</span>
@@ -689,7 +712,7 @@ name.</p>
     <td>
       <pre class="code"><span class="info file"># File 'lib/brut/front_end/form.rb', line 117</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_constraint_violations?'>constraint_violations?</span> <span class='op'>=</span> <span class='op'>!</span><span class='ivar'>@inputs</span><span class='period'>.</span><span class='id identifier rubyid_values'>values</span><span class='period'>.</span><span class='id identifier rubyid_flatten'>flatten</span><span class='period'>.</span><span class='id identifier rubyid_all?'>all?</span><span class='lparen'>(</span><span class='op'>&amp;</span><span class='symbol'>:valid?</span><span class='rparen'>)</span></pre>
+<span class='kw'>def</span> <span class='id identifier rubyid_constraint_violations?'>constraint_violations?</span> <span class='op'>=</span> <span class='op'>!</span><span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_valid?'>valid?</span></pre>
     </td>
   </tr>
 </table>
@@ -969,10 +992,10 @@ values provided by the user.  This can allow a form with values in it to be cons
       <pre class="lines">
 
 
-176</pre>
+179</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/brut/front_end/form.rb', line 176</span>
+      <pre class="code"><span class="info file"># File 'lib/brut/front_end/form.rb', line 179</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_params_empty?'>params_empty?</span><span class='lparen'>(</span><span class='id identifier rubyid_params'>params</span><span class='rparen'>)</span> <span class='op'>=</span> <span class='id identifier rubyid_params'>params</span><span class='period'>.</span><span class='id identifier rubyid_nil?'>nil?</span> <span class='op'>||</span> <span class='id identifier rubyid_params'>params</span><span class='period'>.</span><span class='id identifier rubyid_empty?'>empty?</span></pre>
     </td>
@@ -1027,7 +1050,7 @@ values provided by the user.  This can allow a form with values in it to be cons
       
       
         &mdash;
-        <div class='inline'><p>the i18n key fragment representing the constraint. Assume this will be appended to <code>cv.be.</code> in order</p>
+        <div class='inline'><p>the i18n key fragment representing the constraint. Assume this will be appended to <code>cv.ss.</code> in order</p>
 </div>
       
     </li>
@@ -1058,13 +1081,13 @@ values provided by the user.  This can allow a form with values in it to be cons
       <pre class="lines">
 
 
-125
-126
-127
-128</pre>
+128
+129
+130
+131</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/brut/front_end/form.rb', line 125</span>
+      <pre class="code"><span class="info file"># File 'lib/brut/front_end/form.rb', line 128</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_server_side_constraint_violation'>server_side_constraint_violation</span><span class='lparen'>(</span><span class='label'>input_name:</span><span class='comma'>,</span> <span class='label'>key:</span><span class='comma'>,</span> <span class='label'>index:</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='label'>context:</span><span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_index'>index</span> <span class='op'>||=</span> <span class='int'>0</span>
@@ -1121,14 +1144,14 @@ will be represented as a key in the resulting hash—only those keys that were p
       <pre class="lines">
 
 
-184
-185
-186
 187
-188</pre>
+188
+189
+190
+191</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/brut/front_end/form.rb', line 184</span>
+      <pre class="code"><span class="info file"># File 'lib/brut/front_end/form.rb', line 187</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_to_h'>to_h</span>
   <span class='ivar'>@params</span><span class='period'>.</span><span class='id identifier rubyid_map'>map</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_key'>key</span><span class='comma'>,</span><span class='id identifier rubyid_value'>value</span><span class='op'>|</span>
@@ -1140,12 +1163,61 @@ will be represented as a key in the resulting hash—only those keys that were p
 </table>
 </div>
     
+      <div class="method_details ">
+  <h3 class="signature " id="valid?-instance_method">
+  
+    #<strong>valid?</strong>  &#x21d2; <tt>Boolean</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>Returns true if this form has no constraint violations.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Boolean</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+120</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/brut/front_end/form.rb', line 120</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_valid?'>valid?</span> <span class='op'>=</span> <span class='ivar'>@inputs</span><span class='period'>.</span><span class='id identifier rubyid_values'>values</span><span class='period'>.</span><span class='id identifier rubyid_flatten'>flatten</span><span class='period'>.</span><span class='id identifier rubyid_all?'>all?</span><span class='lparen'>(</span><span class='op'>&amp;</span><span class='symbol'>:valid?</span><span class='rparen'>)</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
   </div>
 
 </div>
 
       <div id="footer">
-  Generated on Thu Jul 10 13:41:04 2025 by
+  Generated on Sat Jul 12 21:25:21 2025 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.37 (ruby-3.4.4).
 </div>
