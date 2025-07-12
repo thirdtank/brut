@@ -1,5 +1,9 @@
 # Brut CHANGELOG
 
+## v0.3.1 - July 12, 2025
+
+* **`bin/db new_migration` includes link to the migrations recipe**
+
 ## v0.3.0 - July 11, 2025
 
 * **`bin/scaffold form` generates correct handler code**
