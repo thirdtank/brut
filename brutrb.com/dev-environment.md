@@ -107,6 +107,7 @@ you full documentation about what the command and subcommands do.
 |                 | `custom_element_test` | Create a test for a custom element in your app                                            |
 |                 | `form`                | Create a form and handler                                                                 |
 |                 | `page`                | Create a new page and associated test                                                     |
+|                 | `db_model`            | Create one or more database models, specs, and factories, plus a migration to create the tables for those models |
 |                 | `test`                | Create the shell of a unit test based on an existing source file                          |
 |                 | `test:e2e`            | Create the shell of an end-to-end test                                                    |
 | <code style="white-space: nowrap">bin/test</code>      |                       | Run tests |

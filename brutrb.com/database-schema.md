@@ -19,14 +19,34 @@ Brut's provides this via Sequel. See [both](https://sequel.jeremyevans.net/rdoc/
 
 ### Creating Migrations
 
-To create a migration, use `bin/db new-migration`. It accepts any  number of arguments that will be joined
-together to form the filename:
+To create a migration, use `bin/db new-migration`. It accepts any  number of arguments that will be joined together to form the filename:
 
 ```
 > bin/db new-migration user accounts
 [ bin/db ] Migration created:
     app/src/back_end/data_models/migrations/20250508132646_user-accounts.rb
 ```
+
+If you will be creating [database models](/database-access) as well, you may find it
+easier to use `bin/scaffold db_model`, which will create an empty database model
+class, empty test, and empty factory, along with an outline of your migration:
+
+```
+bin/scaffold db_model widget
+[ bin/scaffold ] Executing ["bin/db new_migration create_widget"]
+[ bin/db ] Migration created:
+    app/src/back_end/data_models/migrations/20250712182257_create_widgets.rb
+[ bin/scaffold ] ["bin/db new_migration create_widgets"] succeeded
+[ bin/scaffold ] Creating DB::Foo in app/src/back_end/data_models/db/widget.rb
+[ bin/scaffold ] Creating spec for DB::Foo in specs/back_end/data_models/db/widget.spec.rb
+[ bin/scaffold ] Creating factory for DB::Foo in specs/factories/db/widget.factory.rb
+```
+
+> [!IMPORTANT]
+> Brut doesn't do pluralization logic.  Although Sequel does do some, you should
+> not refer to your database model plurally. If you were do run `bin/scaffold
+> db_model widgets`, you'd create the class `DB::Widgets`, which would not work.
+> Be aware.
 
 Note that the files are located in `app/src/back_end/data_models/migrations` and
 have a name prefixed with a timestamp.  This timestamp determins an ordering of how

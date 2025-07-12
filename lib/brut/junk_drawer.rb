@@ -175,3 +175,56 @@ class RichString
 
 end
 
+class ModuleName
+  def self.from_string(string)
+    string = RichString.from_string(string)
+    if string.nil?
+      raise ArgumentError, "ClassName cannot be initialized with a blank string"
+    end
+    self.new(string.camelize.split(/::/).map { RichString.new(it) })
+  end
+
+  attr_reader :parts_of_module
+
+  def initialize(parts_of_module)
+    @parts_of_module = parts_of_module
+  end
+
+  def in_module(module_name)
+    if in_module?(module_name)
+      return self
+    else
+      module_name.append(self)
+    end
+  end
+
+  def append(module_name)
+    self.class.new(@parts_of_module + module_name.parts_of_module)
+  end
+
+  def to_s = @parts_of_module.join("::")
+
+  def path_from(base_path, extname: ".rb")
+    parts_as_path_segment = @parts_of_module.map { |part|
+      if part.to_s == "DB"
+        "db"
+      else
+        part.underscorized.to_s
+      end
+    }
+    *subdir_parts,file_name_part = parts_as_path_segment
+    base_path.join(*subdir_parts,file_name_part + extname)
+  end
+
+private
+
+  def in_module?(module_name)
+    if module_name.parts_of_module.length <= @parts_of_module.length
+      module_name.parts_of_module == @parts_of_module[0, module_name.parts_of_module.length]
+    else
+      false
+    end
+  end
+
+end
+

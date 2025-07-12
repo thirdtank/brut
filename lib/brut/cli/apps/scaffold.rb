@@ -613,6 +613,83 @@ describe("#{description}", () => {
     end
   end
 
+  class DbModel < Brut::CLI::Command
+    description "Creates a DB models, factories, and a single placeholder migration"
+    args "model_name..."
+
+    detailed_description "Creates empty versions of the files you'd need to access a database table or tables, along with a migration to, in theory, create those tables. Do note that this will guess at external id prefixes"
+
+    def execute
+      if @args.length == 0
+        return abort_execution("You must provide a model name")
+      end
+      db_module = ModuleName.from_string("DB")
+      actions = @args.map { |arg|
+        ModuleName.from_string(arg)
+      }.map { |module_name|
+        module_name.in_module(db_module)
+      }.map do |model_name|
+        {
+          class_name: model_name.to_s,
+          path: model_name.path_from(Brut.container.data_models_src_dir),
+          prefix: model_name.parts_of_module[1].to_s[0,2].downcase,
+          spec_path: model_name.path_from(Brut.container.data_models_specs_dir, extname: ".spec.rb"),
+          factory_path: model_name.path_from(Brut.container.app_specs_dir / "factories", extname: ".factory.rb"),
+          factory_name: model_name.parts_of_module[1..-1].map(&:underscorized).join("_"),
+        }
+      end
+      migration_name = "create_" + @args.join("_").gsub(/[^\w]/,"_").gsub(/__/,"_")
+      if global_options.dry_run?
+        @out.puts "Would create the following DB models:"
+        actions.each do |action|
+          @out.puts "#{action[:class_name]}"
+          @out.puts "  prefix:  #{action[:prefix]}"
+          @out.puts "  in:      #{action[:path]}"
+          @out.puts "  spec:    #{action[:spec_path]}"
+          @out.puts "  factory: #{action[:factory_path]}"
+          @out.puts "     name: #{action[:factory_name]}"
+
+        end
+        @out.puts "Would create a migration file"
+        @out.puts "  via:   bin/db new_migration #{migration_name}"
+      else
+        system!("bin/db new_migration #{migration_name}")
+        actions.each do |action|
+          FileUtils.mkdir_p action[:path].dirname
+          @out.puts "Creating #{action[:class_name]} in #{action[:path].relative_path_from(Brut.container.project_root)}"
+          File.open(action[:path].to_s,"w") do |file|
+            file.puts %{class #{action[:class_name]} < AppDataModel
+  has_external_id :#{action[:prefix]} # !IMPORTANT: Make sure this is unique amongst your DB models
+end}
+          end
+          FileUtils.mkdir_p action[:spec_path].dirname
+          @out.puts "Creating spec for #{action[:class_name]} in #{action[:spec_path].relative_path_from(Brut.container.project_root)}"
+          File.open(action[:spec_path].to_s,"w") do |file|
+            file.puts %{require "spec_helper"
+RSpec.describe #{action[:class_name]} do
+  # Remove this if you decide to put logic on
+  # your model
+  implementation_is_trival
+end}
+          end
+          FileUtils.mkdir_p action[:factory_path].dirname
+          @out.puts "Creating factory for #{action[:class_name]} in #{action[:factory_path].relative_path_from(Brut.container.project_root)}"
+          File.open(action[:factory_path].to_s,"w") do |file|
+            file.puts %{FactoryBot.define do
+  factory :#{action[:factory_name]}, class: "#{action[:class_name]}" do
+    # Add attributes here
+  end
+end
+
+}
+          end
+        end
+      end
+      0
+    end
+    
+  end
+
   class RoutesEditor
     def initialize(app_path:,out:)
       @app_path       = app_path

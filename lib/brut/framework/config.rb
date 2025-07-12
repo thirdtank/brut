@@ -205,6 +205,13 @@ class Brut::Framework::Config
       end
 
       c.store_ensured_path(
+        "data_models_specs_dir",
+        "Path to the root of all data model specs",
+      ) do |app_specs_dir|
+        app_specs_dir / "back_end" / "data_models"
+      end
+
+      c.store_ensured_path(
         "migrations_dir",
         "Path to the DB migrations",
       ) do |data_models_src_dir|
