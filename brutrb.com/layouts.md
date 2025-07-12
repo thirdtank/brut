@@ -35,7 +35,7 @@ class DefaultLayout < Brut::FrontEnd::Layout
         script(defer: true, src: asset_path("/js/app.js"))
         title { app_name }
         PageIdentifier(@page_name)
-        I18nTranslations("cv.fe")
+        I18nTranslations("cv.cs")
         I18nTranslations("cv.this_field")
         Traceparent()
         render(

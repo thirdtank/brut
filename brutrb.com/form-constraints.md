@@ -31,7 +31,7 @@ form.server_side_constraint_violation(
 ```
 
 The `input_name` is the same value you used when creating your form class, and `key`
-is an [I18n](/i18n) key that will have `cv.be` prepended to it (for **c*onstratin **v**iolation, **b**ack **e**nd).  Thus, the key in the above example is `"cv.be.name_is_taken"`.
+is an [I18n](/i18n) key that will have `cv.ss` prepended to it (for **c*onstratin **v**iolation, **s**server **s**ide).  Thus, the key in the above example is `"cv.ss.name_is_taken"`.
 
 Brut forms will automatically add client-side constraints based on the value
 assigned to the input.  For example, since `name` must be 3 or more characters, this
@@ -128,7 +128,7 @@ They `key` attribute is for an I18n key that is expected to be on the page insid
 `<brut-i18n-translation>` element.  These are typically included in the [layout](/layouts), and generate HTML like so:
 
 ```html
-<brut-i18n-translation key="cv.fe.rangeUnderflow"
+<brut-i18n-translation key="cv.cs.rangeUnderflow"
                        value="%{field} is too short"></brut-i18n-translation>
 ```
 

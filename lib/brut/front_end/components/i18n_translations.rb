@@ -3,23 +3,19 @@
 #
 # The default layout included in new Brut apps includes this:
 #
-# ```html
-# <%= component(
-#       Brut::FrontEnd::Components::I18nTranslations.new(
-#         "general.cv.fe"
-#       )
-# ) %>
+# ```ruby
+# I18nTranslations.new("cv.cs")
 # ```
 #
 # At runtime, this will produce this:
 #
 # ```html
 # <brut-i18n-translation
-#   key="general.cv.fe.badInput"
+#   key="cv.cs.badInput"
 #   value="%{field} is the wrong type of data">
 # </brut-i18n-translation>
 # <brut-i18n-translation
-#   key="general.cv.fe.patternMismatch"
+#   key="cv.cs.patternMismatch"
 #   value="%{field} isn't in the right format">
 # </brut-i18n-translation>
 # <!-- etc -->
@@ -27,11 +23,11 @@
 #
 # Thus, it will render the translations for all client side errors supported by the browser.  This means that if a
 # client side `ValidityState` returns true for, say, `badInput`, JavaScript can look up by the `key` 
-# `general.cv.fe.badInput` and find the `value` to produce the string "This field is the wrong type of data".
+# `cv.cs.badInput` and find the `value` to produce the string "This field is the wrong type of data".
 class Brut::FrontEnd::Components::I18nTranslations < Brut::FrontEnd::Component
 
   # Create the component for all keys under the given root
-  # @param [String] i18n_key_root A prefix or full key for the i18n messages to render.  For example, if you have `en.cv.fe.valueMissing` and `en.cv.fe.badInput`, an `i18n_key_root` value of `"en.cv.fe"` will result in both of those keys being rendered.
+  # @param [String] i18n_key_root A prefix or full key for the i18n messages to render.  For example, if you have `cv.cs.valueMissing` and `cv.cs.badInput`, an `i18n_key_root` value of `"cv.cs"` will result in both of those keys being rendered.
   def initialize(i18n_key_root)
     @i18n_key_root = i18n_key_root
   end

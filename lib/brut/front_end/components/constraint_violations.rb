@@ -1,4 +1,4 @@
-# Renders the custom elements used to manage both client- and server-side constraint violations via the `<brut-cv-messages>` and `<brut-cv>` tags. Each constraint violation on the input's {Brut::FrontEnd::Forms::ValidityState} will generate a `<brut-cv server-side>` tag that will contain the I18n translation of the violation's {Brut::FrontEnd::Forms::ConstraintViolation#key} prefixed with `"cv.be"`.
+# Renders the custom elements used to manage both client- and server-side constraint violations via the `<brut-cv-messages>` and `<brut-cv>` tags. Each constraint violation on the input's {Brut::FrontEnd::Forms::ValidityState} will generate a `<brut-cv server-side>` tag that will contain the I18n translation of the violation's {Brut::FrontEnd::Forms::ConstraintViolation#key} prefixed with `"cv.ss"`.
 #
 # The general form of this component will be:
 #
@@ -46,7 +46,7 @@ class Brut::FrontEnd::Components::ConstraintViolations < Brut::FrontEnd::Compone
         !constraint.client_side?
       }.each do |constraint|
         brut_cv(**message_html_attributes) do
-          t("cv.be.#{constraint}", **constraint.context)
+          t("cv.ss.#{constraint}", **constraint.context)
         end
       end
     end

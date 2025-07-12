@@ -119,7 +119,7 @@ class Brut::FrontEnd::Form
   # Set a server-side constraint violation on a given input's name.
   #
   # @param [String|Symbol] input_name the name of the input, as passed to {Brut::FrontEnd::Forms::InputDeclarations#input} et. al.
-  # @param [String] key the i18n key fragment representing the constraint. Assume this will be appended to `cv.be.` in order
+  # @param [String] key the i18n key fragment representing the constraint. Assume this will be appended to `cv.ss.` in order
   # to form the entire key.
   # @param [Hash] context additional information about the violation, typically interpolated values for the I18n message.
   def server_side_constraint_violation(input_name:, key:, index: nil, context:{})
