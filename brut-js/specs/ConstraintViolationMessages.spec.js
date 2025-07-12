@@ -2,8 +2,8 @@ import { withHTML } from "./SpecHelper.js"
 
 describe("<brut-cv-messages>", () => {
   withHTML(`
-    <brut-i18n-translation key="cv.fe.patternMismatch" value="%{field} does not match the pattern"></brut-i18n-translation>
-    <brut-i18n-translation key="cv.fe.rangeOverflow" value="%{field} is above the range"></brut-i18n-translation>
+    <brut-i18n-translation key="cv.cs.patternMismatch" value="%{field} does not match the pattern"></brut-i18n-translation>
+    <brut-i18n-translation key="cv.cs.rangeOverflow" value="%{field} is above the range"></brut-i18n-translation>
 
     <brut-cv-messages input-name="some-field"></brut-cv-messages>
   `).test("Inserts constraint violation messages based on validity state", ({document,assert}) => {

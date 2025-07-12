@@ -7,7 +7,7 @@ import I18nTranslation from "./I18nTranslation"
  *
  * Here is how the field's name is determined:
  *
- * 1. It will look for a `<brut-i18n-translation>` element with the `key` `cv.fe.fieldNames.«input-name»`.
+ * 1. It will look for a `<brut-i18n-translation>` element with the `key` `cv.cs.fieldNames.«input-name»`.
  * 2. If that's not found, it will attempt to use "this field" by locating a `<brut-i18n-translation>` element with the `key`
  *    `cv.this_field` (the underscore being what is used on Brut's server side).
  * 3. If that is not found, it will use the literaly string "this field" and emit a console warning.
@@ -37,7 +37,7 @@ class ConstraintViolationMessage extends BaseCustomElement {
 
   static createElement(document,attributes) {
     const element = document.createElement(ConstraintViolationMessage.tagName)
-    element.setAttribute("key",this.i18nKey("fe", attributes.key))
+    element.setAttribute("key",this.i18nKey("cs", attributes.key))
     element.setAttribute("input-name",attributes["input-name"])
     if (Object.hasOwn(attributes,"show-warnings")) {
       element.setAttribute("show-warnings",attributes["show-warnings"])
@@ -79,7 +79,7 @@ class ConstraintViolationMessage extends BaseCustomElement {
   }
 
   inputNameChangedCallback({newValue}) {
-    this.#inputNameKey = this.#i18nKey("fe", "fieldNames", newValue)
+    this.#inputNameKey = this.#i18nKey("cs", "fieldNames", newValue)
   }
 
   serverSideChangedCallback({newValueAsBoolean}) {

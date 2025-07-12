@@ -51,9 +51,9 @@ describe("<brut-form>", () => {
     assert(gotInvalid)
     assert.equal(brutForm.getAttribute("submitted-invalid"),"")
 
-    let error = textFieldLabel.querySelector("brut-cv[key='cv.fe.valueMissing']")
+    let error = textFieldLabel.querySelector("brut-cv[key='cv.cs.valueMissing']")
     assert(error)
-    error = numberFieldLabel.querySelector("brut-cv[key='cv.fe.valueMissing']")
+    error = numberFieldLabel.querySelector("brut-cv[key='cv.cs.valueMissing']")
     assert(error)
 
     const textField = textFieldLabel.querySelector("input")
@@ -71,9 +71,9 @@ describe("<brut-form>", () => {
     assert(gotInvalid)
     assert.equal(brutForm.getAttribute("submitted-invalid"),"")
 
-    error = textFieldLabel.querySelector("brut-cv[key='cv.fe.valueMissing']")
+    error = textFieldLabel.querySelector("brut-cv[key='cv.cs.valueMissing']")
     assert(!error)
-    error = numberFieldLabel.querySelector("brut-cv[key='cv.fe.valueMissing']")
+    error = numberFieldLabel.querySelector("brut-cv[key='cv.cs.valueMissing']")
     assert(error)
 
     const numberField = numberFieldLabel.querySelector("input")
@@ -174,7 +174,7 @@ describe("<brut-form>", () => {
     assert(gotInvalid)
     assert.equal(brutForm.getAttribute("submitted-invalid"),"")
 
-    let error = brutForm.querySelector("brut-cv[input-name='text'][key='cv.fe.valueMissing']")
+    let error = brutForm.querySelector("brut-cv[input-name='text'][key='cv.cs.valueMissing']")
     assert(error)
 
   })

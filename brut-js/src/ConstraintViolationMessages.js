@@ -38,9 +38,9 @@ class ConstraintViolationMessages extends BaseCustomElement {
    * This should be called as part of a Form validation event to provide a customized UX for
    * the error messages, beyond what the browser would do by default.  The keys used are the same
    * as the attributes of a `ValidityState`, so for example, a range underflow would mean that `validity.rangeUnderflow` would return
-   * true.  Thus, a `<brut-cv>` would be created with `key="cv.fe.rangeUnderflow"`.
+   * true.  Thus, a `<brut-cv>` would be created with `key="cv.cs.rangeUnderflow"`.
    *
-   * The `cv.fe` is hard-coded to be consistent with Brut's server-side translation management.
+   * The `cv.cs` is hard-coded to be consistent with Brut's server-side translation management.
    *
    * @param {ValidityState} validityState - the return from an element's `validity` when it's found to have constraint violations.
    * @param {String} inputName - the element's `name`.
