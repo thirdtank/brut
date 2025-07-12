@@ -183,8 +183,7 @@ class Brut::CLI::Command
   # * {#err} - on IO you should use to print messages to the standard error.
   # * {#system!} - the method you should use to spawn child processes.
   #
-  # @return [Brut::CLI::ExecutionResults::Result] a description of what happened during processing. It is preferable to try to return
-  # something instead of raising an exception.
+  # @return [Brut::CLI::ExecutionResults::Result] a description of what happened during processing. It is preferable to try to return something instead of raising an exception.
   # @raise [Brurt::CLI::Error] if thrown, this will be caught and handled by {Brut::CLI::AppRunner}.
   # @raise [StandardError] if thrown, this will bubble up and show your user a very sad stack trace that will make them cry. Don't.
   def execute
