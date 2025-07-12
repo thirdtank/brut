@@ -216,6 +216,8 @@ class Brut::CLI::Apps::DB < Brut::CLI::App
       File.open(file_name,"w") do |file|
         file.puts "Sequel.migration do"
         file.puts "  up do"
+        file.puts "    # See https://brutrb.com/recipes/migrations.html"
+        file.puts "    # for a recipe on writing migrations"
         file.puts "  end"
         file.puts "end"
       end
