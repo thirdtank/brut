@@ -114,7 +114,10 @@ class Brut::FrontEnd::Form
   end
 
   # Returns true if this form has constraint violations.
-  def constraint_violations? = !@inputs.values.flatten.all?(&:valid?)
+  def constraint_violations? = !self.valid?
+
+  # Returns true if this form has no constraint violations.
+  def valid? = @inputs.values.flatten.all?(&:valid?)
 
   # Set a server-side constraint violation on a given input's name.
   #

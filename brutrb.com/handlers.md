@@ -51,7 +51,7 @@ class NewWidgetHandler < AppHandler
 
   def handle
     # if no client-side violations were submitted
-    if !@form.constraint_violations?
+    if @form.valid?
       widget = DB::Widget.find(name: form.name)
       if widget
         @form.server_side_constraint_violation(
