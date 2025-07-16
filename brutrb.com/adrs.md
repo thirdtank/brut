@@ -13,3 +13,4 @@ them, and mostly hold up.
 * [Brut will not provider mailers, cloud storage, or background jobs](https://adrs.cloud/shared_adrs/padr_e7078d29f00710848ebbe43aea6094a6)
 * [Requiring files should not execute code](https://adrs.cloud/shared_adrs/padr_03b5cf8e34bb7900a38f6de27e50adaa)
 * [Phlex will be used for HTML templating](https://adrs.cloud/shared_adrs/padr_9529a5ada671254b5e5865b45abde92d)
+* [RSpec is the default testing framework](https://adrs.cloud/shared_adrs/padr_724a65340d734970ea222593a4a2760f)
