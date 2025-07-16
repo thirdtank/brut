@@ -1,6 +1,6 @@
 # Brut CHANGELOG
 
-## v0.4.0 - July 12, 2025
+## v0.4.0 - July 12, 2025 and July 16, 2025 (see note)
 
 * **Breaking Change** - changed `cv.fe` and `cv.be` I18n keys to `cv.cs` and `cv.ss`
   - This is to be consistent with Brut terminology
@@ -17,6 +17,9 @@
     4. Change anywhere in your code or tests that you refer to those keys
 * Added `#valid?` to `Brut::FrontEnd::Form` to make it easier to check a lack
   of constraint violations
+* Added response body to `<brut-ajax-submit>`
+
+**NOTE:** BrutJS and BrutCSS versions were changed to 0.4.0 on July 16 to mirror the Brut RubyGem. Intention is to keep all three in sync to avoid confusion about what the versions mean.
 
 ## v0.3.1 - July 12, 2025
 
