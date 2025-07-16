@@ -13,7 +13,13 @@ import ConstraintViolationMessage from "./ConstraintViolationMessage"
  * 4. If the request returns OK:
  *    - `requesting` will be removed and `submitted` will be added.
  *    - `submitted` will be removed after `submitted-lifetime` ms.
- * 5. If the request returned a 422, error messages are parsed. See below.
+ *    - the `brut:submitok` event will be fired with the response text, **parsed as HTML**, as `event.detail`.
+ * 5. If the request returned a 422:
+ *    - If you have set `no-server-side-error-parsing`, the results will be included in the 
+ *      detail field of the `brut:submitinvalid` event.
+ *    - If you have NOT set `no-server-side-error-parsing`, the response is parsed as
+ *      errors to be inserted into the DOM.  See below for how that works.  In this case,
+ *      `brut:submitinvalid`'s detail bill be null.
  * 6. If the request returns not OK and not 422:
  *    - if it has been `request-timeout` ms or more since the button was first clicked, the operation is aborted (see below).
  *    - if it has been less than `request-timeout` ms and the HTTP status code was 5xx, the operation is retried.
@@ -23,7 +29,8 @@ import ConstraintViolationMessage from "./ConstraintViolationMessage"
  * Aborting the operation will submit the form in the normal way, allowing the browser to deal with whatever the issue is. You can set
  * `log-request-errors` to introspect this process.
  *
- * For a 422 response, this element assumes the response is `text/html` and contains one or more `<brut-cv>`
+ * For a 422 response (where `no-server-side-error-parsing` is *not* set),
+ * this element assumes the response is `text/html` and contains one or more `<brut-cv>`
  * elements.  These elements will be inserted into the proper `<brut-cv-messages>` element, as follows:
  *
  * 1. The `input-name` is examined.
@@ -37,6 +44,17 @@ import ConstraintViolationMessage from "./ConstraintViolationMessage"
  * 9. The first input located is scrolled into view
  * 10. If the input is modified after this all happens, custom validity is cleared
  *
+ * For the server you are contacting, this element has a few requirements:
+ *
+ * - If everything is OK/the operation did what it was intended to do:
+ *   - the server will respond with a 2xx
+ *   - the response body, if it contains anything, be `text/html` (this is provided in the event detail)
+ * - If there are server-side constraint violations.
+ *   - the server will return 422
+ *   - the response body will be `text/html`
+ *   - the response body will contain one or more `<brut-cv>` elements
+ *
+ * @property {boolean} no-server-side-error-parsing - if set, the response body for a 422 will not be parsed and inserted into the DOM. Instead, the body will be part of the detail of the `brut:submitinvalid` event.
  * @property {number} request-timeout - number of ms that the entire operation is expected to complete within. Default is 5000
  * @property {number} submitted-lifetime - number of ms that "submitted" should remain on the element after the form has completed. Default is 2000
  * @property {boolean} requesting - boolean attribute that indicates the request has been made, but not yet returned. Don't set this yourself outside of development. It will be set and removed by this element.
@@ -44,8 +62,8 @@ import ConstraintViolationMessage from "./ConstraintViolationMessage"
  * @property {boolean} log-request-errors - if set, logging related to request error handling will appear in the console. It will also
  * cause any form submission to be delayed by 2s to allow you to read the console.
  *
- * @fires brut:submitok Fired when the AJAX request initated by this returns OK and all processing has completed
- * @fires brut:submitinvalid Fired when the AJAX request initated by this returns a 422 and all logic around managing the reponse has completed
+ * @fires brut:submitok Fired when the AJAX request initated by this returns OK and all processing has completed. The detail will include the *parsed document* of the HTML returned in the response.
+ * @fires brut:submitinvalid Fired when the AJAX request initated by this returns a 422 and all logic around managing the reponse has completed. The detail will be null unless `no-server-side-error-parsing` is set, in which case it will be the parsed document of the HTML returned in the response.
  *
  * @example
  * <form action="/widgets" method="post">
@@ -68,6 +86,7 @@ class AjaxSubmit extends BaseCustomElement {
     "request-timeout",
     "max-retry-attempts",
     "log-request-errors",
+    "no-server-side-error-parsing",
   ]
 
   #requestErrorLogger = () => {}
@@ -75,6 +94,12 @@ class AjaxSubmit extends BaseCustomElement {
   #submittedLifetime  = 2000
   #requestTimeout     = 5000
   #maxRetryAttempts   = 25
+  #serverSideErrorParsing = true
+
+  constructor() {
+    super()
+    this.domParser = new DOMParser()
+  }
 
   submittedLifetimeChangedCallback({newValue}) {
     const newValueAsInt = parseInt(newValue)
@@ -82,6 +107,10 @@ class AjaxSubmit extends BaseCustomElement {
       throw `submitted-lifetime must be a number, not '${newValue}'`
     }
     this.#submittedLifetime = newValueAsInt
+  }
+
+  noServerSideErrorParsingChangedCallback({newValueAsBoolean}) {
+    this.#serverSideErrorParsing = !newValueAsBoolean
   }
 
   maxRetryAttemptsChangedCallback({newValue}) {
@@ -187,7 +216,10 @@ class AjaxSubmit extends BaseCustomElement {
         this.setAttribute("submitted",true)
 
         setTimeout( () => this.removeAttribute("submitted"), this.#submittedLifetime )
-        this.dispatchEvent(new CustomEvent("brut:submitok"))
+        response.text().then( (text) =>  {
+          const parsedDocument = this.domParser.parseFromString(text,"text/html")
+          this.dispatchEvent(new CustomEvent("brut:submitok", { detail: parsedDocument }))
+        })
       }
       else {
 
@@ -250,47 +282,51 @@ class AjaxSubmit extends BaseCustomElement {
   #handleConstraintViolations(response) {
     let resubmit = false
     response.text().then( (text) => {
-      try {
-        const inputsToMessages = ErrorMessagesForInput.mapInputsToErrorMessages(
-          this.#errorMessagesFromServer(text),
-          this.#requestErrorLogger
-        )
+      const parsedDocument = this.domParser.parseFromString(text,"text/html")
+      let event
+      if (this.#serverSideErrorParsing) {
+        event = new CustomEvent("brut:submitinvalid")
+      }
+      else {
+        event = new CustomEvent("brut:submitinvalid", { detail: parsedDocument })
+      }
+      this.dispatchEvent(event)
+      if (this.#serverSideErrorParsing) {
+        const constraintViolationNodes = parsedDocument.querySelectorAll(ConstraintViolationMessage.tagName)
+        try {
+          const inputsToMessages = ErrorMessagesForInput.mapInputsToErrorMessages(
+            constraintViolationNodes,
+            this.#requestErrorLogger
+          )
 
-        let inputToScrollToAfterReportingValidity
-        for (const [inputName, {input, messagesElement, errorMessages}] of Object.entries(inputsToMessages)) {
-          if (!inputToScrollToAfterReportingValidity) {
-            inputToScrollToAfterReportingValidity = input
+          let inputToScrollToAfterReportingValidity
+          for (const [inputName, {input, messagesElement, errorMessages}] of Object.entries(inputsToMessages)) {
+            if (!inputToScrollToAfterReportingValidity) {
+              inputToScrollToAfterReportingValidity = input
+            }
+            messagesElement.clearServerSideMessages()
+            errorMessages.forEach( (element) => {
+              ConstraintViolationMessage.markServerSide(element)
+              messagesElement.appendChild(element) 
+            })
+            this.#setCustomValidityThatClearsOnChange(input,errorMessages)
           }
-          messagesElement.clearServerSideMessages()
-          errorMessages.forEach( (element) => {
-            ConstraintViolationMessage.markServerSide(element)
-            messagesElement.appendChild(element) 
-          })
-          this.#setCustomValidityThatClearsOnChange(input,errorMessages)
-        }
 
-        if (inputToScrollToAfterReportingValidity) {
-          inputToScrollToAfterReportingValidity.scrollIntoView()
+          if (inputToScrollToAfterReportingValidity) {
+            inputToScrollToAfterReportingValidity.scrollIntoView()
+          }
+          resubmit = false
+          this.removeAttribute("requesting")
         }
-        resubmit = false
-        this.removeAttribute("requesting")
-        this.dispatchEvent(new CustomEvent("brut:submitinvalid"))
-      }
-      catch (e) {
-        this.#requestErrorLogger("While parsing %s, got %s", text, e)
-        resubmit = true
-      }
-      if (resubmit) {
-        this.#submitFormThroughBrowser(form)
+        catch (e) {
+          this.#requestErrorLogger("While parsing %s, got %s", text, e)
+          resubmit = true
+        }
+        if (resubmit) {
+          this.#submitFormThroughBrowser(form)
+        }
       }
     })
-  }
-
-  #errorMessagesFromServer(text) {
-    const parser   = new DOMParser()
-    const fragment = parser.parseFromString(text,"text/html")
-
-    return fragment.querySelectorAll(ConstraintViolationMessage.tagName)
   }
 
   #setCustomValidityThatClearsOnChange(input,errorMessages) {
