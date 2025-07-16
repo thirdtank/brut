@@ -44,9 +44,18 @@ the form it's a part of via AJAX. It accounts for network failures and timeouts.
 <ul>
 <li><code>requesting</code> will be removed and <code>submitted</code> will be added.</li>
 <li><code>submitted</code> will be removed after <code>submitted-lifetime</code> ms.</li>
+<li>the <code>brut:submitok</code> event will be fired with the response text, <strong>parsed as HTML</strong>, as <code>event.detail</code>.</li>
 </ul>
 </li>
-<li>If the request returned a 422, error messages are parsed. See below.</li>
+<li>If the request returned a 422:
+<ul>
+<li>If you have set <code>no-server-side-error-parsing</code>, the results will be included in the
+detail field of the <code>brut:submitinvalid</code> event.</li>
+<li>If you have NOT set <code>no-server-side-error-parsing</code>, the response is parsed as
+errors to be inserted into the DOM.  See below for how that works.  In this case,
+<code>brut:submitinvalid</code>'s detail bill be null.</li>
+</ul>
+</li>
 <li>If the request returns not OK and not 422:
 <ul>
 <li>if it has been <code>request-timeout</code> ms or more since the button was first clicked, the operation is aborted (see below).</li>
@@ -58,7 +67,8 @@ the form it's a part of via AJAX. It accounts for network failures and timeouts.
 </ol>
 <p>Aborting the operation will submit the form in the normal way, allowing the browser to deal with whatever the issue is. You can set
 <code>log-request-errors</code> to introspect this process.</p>
-<p>For a 422 response, this element assumes the response is <code>text/html</code> and contains one or more <code>&lt;brut-cv&gt;</code>
+<p>For a 422 response (where <code>no-server-side-error-parsing</code> is <em>not</em> set),
+this element assumes the response is <code>text/html</code> and contains one or more <code>&lt;brut-cv&gt;</code>
 elements.  These elements will be inserted into the proper <code>&lt;brut-cv-messages&gt;</code> element, as follows:</p>
 <ol>
 <li>The <code>input-name</code> is examined.</li>
@@ -71,7 +81,23 @@ elements.  These elements will be inserted into the proper <code>&lt;brut-cv-mes
 <li>validity is reported</li>
 <li>The first input located is scrolled into view</li>
 <li>If the input is modified after this all happens, custom validity is cleared</li>
-</ol></div>
+</ol>
+<p>For the server you are contacting, this element has a few requirements:</p>
+<ul>
+<li>If everything is OK/the operation did what it was intended to do:
+<ul>
+<li>the server will respond with a 2xx</li>
+<li>the response body, if it contains anything, be <code>text/html</code> (this is provided in the event detail)</li>
+</ul>
+</li>
+<li>If there are server-side constraint violations.
+<ul>
+<li>the server will return 422</li>
+<li>the response body will be <code>text/html</code></li>
+<li>the response body will contain one or more <code>&lt;brut-cv&gt;</code> elements</li>
+</ul>
+</li>
+</ul></div>
         
     
 </header>
@@ -127,6 +153,29 @@ elements.  These elements will be inserted into the proper <code>&lt;brut-cv-mes
     </thead>
 
     <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>no-server-side-error-parsing</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">boolean</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>if set, the response body for a 422 will not be parsed and inserted into the DOM. Instead, the body will be part of the detail of the <code>brut:submitinvalid</code> event.</p></td>
+        </tr>
+
     
 
         <tr>
@@ -279,7 +328,7 @@ cause any form submission to be delayed by 2s to allow you to read the console.<
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="AjaxSubmit.js.html">AjaxSubmit.js</a>, <a href="AjaxSubmit.js.html#line61">line 61</a>
+        <a href="AjaxSubmit.js.html">AjaxSubmit.js</a>, <a href="AjaxSubmit.js.html#line79">line 79</a>
     </li></ul></dd>
     
 
@@ -296,9 +345,9 @@ cause any form submission to be delayed by 2s to allow you to read the console.<
 
 <h5>Fires:</h5>
 <ul>
-    <li>brut:submitok Fired when the AJAX request initated by this returns OK and all processing has completed</li>
+    <li>brut:submitok Fired when the AJAX request initated by this returns OK and all processing has completed.event: The detail will include the *parsed document* of the HTML returned in the response.</li>
 
-    <li>brut:submitinvalid Fired when the AJAX request initated by this returns a 422 and all logic around managing the reponse has completed</li>
+    <li>brut:submitinvalid Fired when the AJAX request initated by this returns a 422 and all logic around managing the reponse has completed. The detail will be null unless `no-server-side-error-parsing` is set,event: in which case it will be the parsed document of the HTML returned in the response.</li>
 </ul>
 
 
@@ -365,7 +414,7 @@ cause any form submission to be delayed by 2s to allow you to read the console.<
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.4</a> on Sat Jul 12 2025 21:26:00 GMT+0000 (Coordinated Universal Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.4</a> on Wed Jul 16 2025 21:21:26 GMT+0000 (Coordinated Universal Time)
 </footer>
 
 <script> prettyPrint(); </script>

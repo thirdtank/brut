@@ -6069,7 +6069,7 @@ progress {
 
 /* Flex shrink, using a six-step scale.
  *
- * @scale flex-grow
+ * @scale flex-shrink
  */
 
 .flex-shrink-0 {
