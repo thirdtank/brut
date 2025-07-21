@@ -107,6 +107,17 @@ class Brut::FrontEnd::Component < Phlex::HTML
     def global_component(component_klass)
       render Brut::FrontEnd::RequestContext.inject(component_klass)
     end
+
+    # Add an HTML entity to the Phlex output.  This avoids having to call `raw(safe("%nsbp;"))` or
+    # whatever.
+    #
+    # @param [Number|String] value the value of the entity **without** leading ampersand or trailing
+    #        semicolon.
+    # @return [void] Do not rely on the return value. This will mutate the current Phlex context.
+    def entity(value)
+      raw(safe("&#{value};"))
+    end
+
   end
   include Helpers
 
