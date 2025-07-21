@@ -669,7 +669,7 @@ end}
 RSpec.describe #{action[:class_name]} do
   # Remove this if you decide to put logic on
   # your model
-  implementation_is_trival
+  implementation_is_trivial
 end}
           end
           FileUtils.mkdir_p action[:factory_path].dirname
