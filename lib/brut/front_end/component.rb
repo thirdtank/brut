@@ -126,6 +126,14 @@ class Brut::FrontEnd::Component < Phlex::HTML
   # @!visibility private
   def containing_page_name = self.containing_page_class.page_name
 
+  # Override's Phlex' callback to add instrumentation to the `view_template` method.
+  def around_template
+    Brut.container.instrumentation.span(self.class.name + "#view_template") do |span|
+      span.add_prefixed_attributes("brut", type: :component, class: self.class)
+      super
+    end
+  end
+
 private
 
   def containing_page_class
