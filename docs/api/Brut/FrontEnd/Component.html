@@ -192,6 +192,29 @@ the markup for your component.</p>
         <li class="public ">
   <span class="summary_signature">
     
+      <a href="#around_template-instance_method" title="#around_template (instance method)">#<strong>around_template</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>Override's Phlex' callback to add instrumentation to the <code>view_template</code> method.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
       <a href="#component_name-instance_method" title="#component_name (instance method)">#<strong>component_name</strong>  &#x21d2; Object </a>
     
 
@@ -225,7 +248,7 @@ the markup for your component.</p>
   
   
   <h3 class="inherited">Methods included from <span class='object_link'><a href="Component/Helpers.html" title="Brut::FrontEnd::Component::Helpers (module)">Helpers</a></span></h3>
-  <p class="inherited"><span class='object_link'><a href="Component/Helpers.html#global_component-instance_method" title="Brut::FrontEnd::Component::Helpers#global_component (method)">#global_component</a></span>, <span class='object_link'><a href="Component/Helpers.html#inline_svg-instance_method" title="Brut::FrontEnd::Component::Helpers#inline_svg (method)">#inline_svg</a></span></p>
+  <p class="inherited"><span class='object_link'><a href="Component/Helpers.html#entity-instance_method" title="Brut::FrontEnd::Component::Helpers#entity (method)">#entity</a></span>, <span class='object_link'><a href="Component/Helpers.html#global_component-instance_method" title="Brut::FrontEnd::Component::Helpers#global_component (method)">#global_component</a></span>, <span class='object_link'><a href="Component/Helpers.html#inline_svg-instance_method" title="Brut::FrontEnd::Component::Helpers#inline_svg (method)">#inline_svg</a></span></p>
 
   
   
@@ -292,12 +315,12 @@ override this.</p>
       <pre class="lines">
 
 
-115
-116
-117</pre>
+126
+127
+128</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/brut/front_end/component.rb', line 115</span>
+      <pre class="code"><span class="info file"># File 'lib/brut/front_end/component.rb', line 126</span>
 
 <span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_component_name'>component_name</span> <span class='op'>=</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_name'>name</span>
 <span class='comment'># Convenience method to get the component name. This just calls the class
@@ -314,7 +337,53 @@ override this.</p>
 
     
       <div class="method_details first">
-  <h3 class="signature first" id="component_name-instance_method">
+  <h3 class="signature first" id="around_template-instance_method">
+  
+    #<strong>around_template</strong>  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>Override's Phlex' callback to add instrumentation to the <code>view_template</code> method.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+141
+142
+143
+144
+145
+146</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/brut/front_end/component.rb', line 141</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_around_template'>around_template</span>
+  <span class='const'><span class='object_link'><a href="../../Brut.html" title="Brut (module)">Brut</a></span></span><span class='period'>.</span><span class='id identifier rubyid_container'><span class='object_link'><a href="../../Brut.html#container-class_method" title="Brut.container (method)">container</a></span></span><span class='period'>.</span><span class='id identifier rubyid_instrumentation'>instrumentation</span><span class='period'>.</span><span class='id identifier rubyid_span'>span</span><span class='lparen'>(</span><span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_class'>class</span><span class='period'>.</span><span class='id identifier rubyid_name'>name</span> <span class='op'>+</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>#view_template</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_span'>span</span><span class='op'>|</span>
+    <span class='id identifier rubyid_span'>span</span><span class='period'>.</span><span class='id identifier rubyid_add_prefixed_attributes'>add_prefixed_attributes</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>brut</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>type:</span> <span class='symbol'>:component</span><span class='comma'>,</span> <span class='label'>class:</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_class'>class</span><span class='rparen'>)</span>
+    <span class='kw'>super</span>
+  <span class='kw'>end</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="component_name-instance_method">
   
     #<strong>component_name</strong>  &#x21d2; <tt>Object</tt> 
   
@@ -339,10 +408,10 @@ method <span class='object_link'><a href="#component_name-class_method" title="B
       <pre class="lines">
 
 
-118</pre>
+129</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/brut/front_end/component.rb', line 118</span>
+      <pre class="code"><span class="info file"># File 'lib/brut/front_end/component.rb', line 129</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_component_name'>component_name</span> <span class='op'>=</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_class'>class</span><span class='period'>.</span><span class='id identifier rubyid_component_name'>component_name</span></pre>
     </td>
@@ -355,7 +424,7 @@ method <span class='object_link'><a href="#component_name-class_method" title="B
 </div>
 
       <div id="footer">
-  Generated on Sat Jul 12 21:25:21 2025 by
+  Generated on Mon Jul 21 18:28:18 2025 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.37 (ruby-3.4.4).
 </div>
