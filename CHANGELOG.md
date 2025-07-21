@@ -1,5 +1,30 @@
 # Brut CHANGELOG
 
+## v0.5.0 - July 21, 2025
+
+* **New helper** `entity` for creating HTML entities without needing `raw(safe(...))`
+
+  ```ruby
+  # BEFORE
+  a(href:HomePage.routing) do
+    raw(safe("&larr;"))
+    whitespace
+    plain("Back")
+  end
+
+  # AFTER
+  a(href:HomePage.routing) do
+    entity("larr")  # <----
+    whitespace
+    plain("Back")
+  end
+  ```
+
+* Insturment each component's `view_template` method to give a breakdown on 
+  performance per component
+* Added a few additional events for tracing
+* Fix bug in `bin/scaffold db_model` where `implementation_is_trivial` was misspelled
+
 ## v0.4.0 - July 12, 2025 and July 16, 2025 (see note)
 
 * **Breaking Change** - changed `cv.fe` and `cv.be` I18n keys to `cv.cs` and `cv.ss`
