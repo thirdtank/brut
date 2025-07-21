@@ -40,13 +40,17 @@ class Brut::FrontEnd::Page < Brut::FrontEnd::Component
   # Core method of this class. Do not override. This handles the use of {#before_generate} and is what Brut
   # calls to possibly render the page.
   def handle!
-    case before_generate
-    in URI => uri
-      uri
-    in Brut::FrontEnd::HttpStatus => http_status
-      http_status
-    else
-      self.call
+    Brut.container.instrumentation.span(self.class.name + "#handle!") do |span|
+      case before_generate
+      in URI => uri
+        uri
+      in Brut::FrontEnd::HttpStatus => http_status
+        http_status
+      else
+        Brut.container.instrumentation.span(self.class.name + "#handle") do |span|
+          self.call
+        end
+      end
     end
   end
 

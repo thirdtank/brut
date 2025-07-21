@@ -85,6 +85,7 @@ module Brut::SinatraHelpers
           )
           span.add_prefixed_attributes("brut.initializer.args", constructor_args.map { |k,v| [k.to_s,v.class.name] }.to_h)
           page_instance = page_class.new(**constructor_args)
+          span.add_event("page object initialized")
 
           result = page_instance.handle!
 
