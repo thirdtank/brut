@@ -11,6 +11,7 @@ The simplest way to use `mkbrut` is to use an existing [Docker image](https://hu
 docker run \
        -v "$PWD":"$PWD" \
        -w "$PWD" \
+       -u $(id -u):$(id -g) \
        -it \
        thirdtank/mkbrut \
        mkbrut my-new-app
@@ -34,6 +35,7 @@ For now:
 docker run \
        -v "$PWD":"$PWD" \
        -w "$PWD" \
+       -u $(id -u):$(id -g) \
        -it \
        thirdtank/mkbrut \
        mkbrut my-new-app
@@ -55,6 +57,7 @@ To create your app without the demo components:
 docker run \
        -v "$PWD":"$PWD" \
        -w "$PWD" \
+       -u $(id -u):$(id -g) \
        -it \
        thirdtank/mkbrut \
        mkbrut my-new-app --no-demo
