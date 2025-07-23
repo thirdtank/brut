@@ -12,6 +12,9 @@ services:
       - type: bind
         source: ${GIT_CONFIG}
         target: "/home/appuser/.gitconfig"
+      - type: bind
+        source: "/var/run/docker.sock"
+        target: "/var/run/docker.sock"
     command: /home/appuser/show-help-in-app-container-then-wait.sh
     working_dir: ${PWD}
     environment:

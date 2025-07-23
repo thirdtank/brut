@@ -6,6 +6,41 @@ SCRIPT_DIR=$( cd -- "$( dirname -- "${0}" )" > /dev/null 2>&1 && pwd )
 
 . "${SCRIPT_DIR}/dx.sh.lib"
 
+read_custom_build_args() {
+  build_args_file="${SCRIPT_DIR}/build.args"
+  if [ -e "${build_args_file}" ]; then
+    for arg in `grep -v '^#' "${build_args_file}"`; do
+      BUILD_ARGS+=(--build-arg ${arg})
+    done
+  fi
+}
+
+setup_local_user_build_args() {
+  require_command "id"
+  require_command "uname"
+  user_uid=$(id -u)
+  user_gid=$(id -g)
+  docker_gid=
+  sadly_user_must_be_added_to_root=
+  OS=$(uname)
+  if [ "${OS}" == "Darwin" ] ; then
+    docker_gid=$(stat -f %g /var/run/docker.sock)
+    sadly_user_must_be_added_to_root="0,"
+  else
+    if [ "${OS}" == "Linux" ] ; then
+      docker_gid=$(stat -c %g /var/run/docker.sock)
+    else
+      log "Could not determine OS, which is needed to know how to invoke stat to figure out the group id of /var/run/docker.sock"
+      log "Docker commands will not work"
+    fi
+  fi
+  echo user_uid=${user_uid}                                                 >  "${SCRIPT_DIR}"/build.args
+  echo user_gid=${user_gid}                                                 >> "${SCRIPT_DIR}"/build.args
+  echo docker_gid=${docker_gid}                                             >> "${SCRIPT_DIR}"/build.args
+  echo sadly_user_must_be_added_to_root=${sadly_user_must_be_added_to_root} >> "${SCRIPT_DIR}"/build.args
+}
+
+
 require_command "docker"
 load_docker_compose_env
 
@@ -15,23 +50,24 @@ if ! exec_hook_if_exists "build.pre" Dockerfile.dx "${IMAGE}"; then
   log "build.pre failed"
   exit 1
 fi
-build_args_file="${SCRIPT_DIR}/build.args"
 BUILD_ARGS=()
-if [ -e "${build_args_file}" ]; then
-  for arg in `grep -v '^#' "${build_args_file}"`; do
-    BUILD_ARGS+=(--build-arg ${arg})
-  done
-fi
+
+setup_local_user_build_args
+read_custom_build_args
 
 docker build \
   --file Dockerfile.dx \
-  --progress plain \
-  --tag "${IMAGE}" ${BUILD_ARGS[@]} \
+  --tag "${IMAGE}" \
+  ${BUILD_ARGS[@]} \
   ./
 
-exec_hook_if_exists "build.post" Dockerfile.dx "${IMAGE}"
+if ! exec_hook_if_exists "build.post" Dockerfile.dx "${IMAGE}"; then
+  log "build.pre failed"
+  exit 1
+fi
 
 log "🌈" "Your Docker image has been built tagged '${IMAGE}'"
 log "🔄" "You can now run dx/start to start it up, though you may need to stop it first with Ctrl-C"
 
 # vim: ft=bash
+

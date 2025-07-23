@@ -44,12 +44,19 @@ RUN apt-get install -y vim && \
 ARG user_uid=10001
 # Their group id, which ideally matches their group id on the host
 ARG user_gid=10002
+# The group id that can access /var/run/docker.sock on the host.
+# If this isn't mapped properly, no docker-out-of-docker commands will work
+ARG docker_gid=10003
+# Can be set to ',0' in order to add the user to roo's group
+ARG sadly_user_must_be_added_to_root=
 
 # Create the user's group ID if it does not exist
 RUN getent group ${user_gid} || groupadd --gid ${user_gid} appgroup
+# Create the docker group id if it does not exist
+RUN getent group ${docker_gid} || groupadd --gid ${docker_gid} hostdocker
 # Create the user. Note that we put bash_customizations in both .profile and .bashrc
 # to increase the chances they are used when running bash in various configurations
-RUN useradd --uid ${user_uid} --gid ${user_gid} --create-home --home-dir /home/appuser appuser && \
+RUN useradd --uid ${user_uid} --gid ${user_gid} --groups ${sadly_user_must_be_added_to_root}${docker_gid} --create-home --home-dir /home/appuser appuser && \
     echo ". ~/.bash_customizations" >> /home/appuser/.profile && \
     echo ". ~/.bash_customizations.local" >> /home/appuser/.profile && \
     echo ". ~/.bash_customizations" >> /home/appuser/.bashrc && \
