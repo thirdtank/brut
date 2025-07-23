@@ -1,0 +1,256 @@
+#!/usr/bin/env ruby
+
+
+require "fileutils"
+require "open3"
+require "optparse"
+require "pathname"
+
+# This is intended to run inside the Workspace (i.e. Docker container) to
+# set up the Foundation, thus enabling development.  This script should:
+#
+# a) Rely only on Ruby and its standard library, since it runs
+#    before any gems are installed
+# b) Be idempotent, with the ability to run in a CI server
+# c) Be organized with the setup method first, as this is the main chunk
+#    of logic, with all other supporting methods following
+#
+# NOTE: It is not clear yet how Brut will manage this file for you, especially
+#       given that you will need to add to it based on your own setup needs.
+#
+#       Take care to only add code and not change what is here.
+
+def setup(update_gems:,update_node:)
+  if update_gems
+    log "Updating gems"
+    system! "bundle update"
+  else
+    log "Installing gems"
+    # Only do bundle install if the much-faster
+    # bundle check indicates we need to
+    system! "bundle check --no-color || bundle install --no-color --quiet"
+  end
+
+  log "Installing puma binstubs"
+  system! "bundle binstub puma"
+
+  log "Installing rspec binstubs"
+  system! "bundle binstub rspec-core"
+
+  # https://github.com/ddollar/foreman/wiki/Don't-Bundle-Foreman
+  log "Installing foreman"
+  system! "gem install foreman"
+
+  # Installs Shopify's LSP. You can remove this if you don't want that,
+  # but this is here to show where to do it vs requiring you to read
+  # documentation.
+  log "Installing Ruby LSP"
+  system! "gem install ruby-lsp"
+
+  if update_node
+    log "Updating Node Modules"
+    system! "npm --no-color --no-progress update"
+  else
+    log "Installing Node Modules"
+    system! "npm --no-color --no-progress install"
+  end
+
+  # In theory, this was installed when the Workspace was setup, but
+  # it doesn't alwaysd work propertly, so this ensures
+  # Chromium is set up.  See comments in Dockerfile.dx as to why
+  # Chromium and not Chrome.
+  log "Re-installing playwright/chromium if needed"
+  system! "node_modules/.bin/playwright install chromium"
+
+  log "Ensuring tmp dir exists"
+  system! "mkdir -p tmp"
+
+  setup_dot_env_local
+
+  log "Setting up databases"
+
+  log "Re-creating development database"
+  system! "bin/db rebuild --env=development"
+
+  log "Re-creating test database"
+  system! "bin/db rebuild --env=test"
+
+  log "Loading seed data into the development database"
+  system! "bin/db seed --env=development"
+
+  log "All set up."
+  help
+end
+
+def setup_dot_env_local() 
+
+  dot_env = ROOT_DIR / ".env.development"
+  if !File.exist?(dot_env)
+    raise "Problem: '#{dot_env}' does not exist"
+  end
+
+  log "Checking #{dot_env} for required local environment variables"
+  previous_comment = ""
+  dot_env_need_local = {}
+  File.read(dot_env).split(/\n/).each do |line|
+    if line =~ /^#(.*)$/
+      previous_comment << line
+    elsif line =~ /^LOCAL:([^=]+)$/
+      dot_env_need_local[$1] = previous_comment
+      previous_comment = ""
+    elsif line =~ /^([^=])+/
+      previous_comment = ""
+    end
+  end
+
+  dot_env_local = ROOT_DIR / ".env.development.local"
+  log "Ensuring '#{dot_env_local}' exists"
+  if !File.exist?(dot_env_local)
+    log "Creating '#{dot_env_local}'"
+    FileUtils.touch dot_env_local
+  end
+
+  log "Checking #{dot_env_local} for values for required local environment variables"
+  local_contents = File.read(dot_env_local).split(/\n/).map { |line|
+    if line =~ /^([^=]+)=(.*)$/
+      var = $1
+      val = $2
+      if dot_env_need_local[var] && val.to_s != ""
+        log "Value for '#{var}' is good"
+        dot_env_need_local.delete(var)
+      end
+    end
+    line
+  }.compact
+
+  dot_env_need_local.each do |var,comment|
+    log "A value is needed locally for '#{var}'"
+    log ""
+    log comment
+    log ""
+    puts "Enter the value below and hit Return"
+    value = gets
+    local_contents << "#{var}=#{value}"
+    log "Got it, thanks"
+  end
+
+  log "Updating '#{dot_env_local}'"
+  File.open(dot_env_local,"w") do |file|
+    local_contents.each do |line|
+      file.puts line
+    end
+  end
+
+  log "Checking that #{dot_env_local} is being ignored"
+  gitignore = ROOT_DIR / ".gitignore"
+  if File.exist?(gitignore)
+    lines = File.read(gitignore).split(/\n/)
+    if lines.include?("/#{dot_env_local.basename}")
+      log "It's there!"
+    else
+      log "It's missing. Adding..."
+      lines << ""
+      lines << "# This contains actual secrets and should not be checked in"
+      lines << "/#{dot_env_local.basename}"
+      File.open(gitignore,"w") do |file|
+        lines.each do |line|
+          file.puts line
+        end
+      end
+    end
+  else
+    log "No #{gitignore}, so make sure you DO NOT CHECK #{dot_env_local} IN!!!"
+  end
+end
+
+# We don't want the setup method to have to do all this error
+# checking, and we also want to explicitly log what we are
+# executing. Thus, we use this method instead of Kernel#system
+def system!(*args)
+  if ENV["BRUT_BIN_KIT_DEBUG"] == "true"
+    log "Executing #{args}"
+    out,err,status = Open3.capture3(*args)
+    if status.success?
+      log "#{args} succeeded"
+    else
+      log "#{args} failed"
+      log "STDOUT:"
+      $stdout.puts out
+      log "STDERR:"
+      $stderr.puts err
+      abort
+    end
+  else
+    log "Executing #{args}"
+    if system(*args)
+      log "#{args} succeeded"
+    else
+      log "#{args} failed"
+      abort
+    end
+  end
+end
+
+# It's helpful to know what messages came from this
+# script, so we'll use log instead of `puts`
+def log(message)
+  puts "[ #{$0} ] #{message}"
+end
+
+ROOT_DIR = ((Pathname(__dir__) / ".." ).expand_path)
+
+def help(option_parser=nil)
+  if option_parser
+    puts option_parser
+    puts
+    puts "OTHER USEFUL COMMANDS"
+  else
+    puts
+    puts "USEFUL COMMANDS"
+  end
+  puts ""
+  puts "  bin/dev"
+  puts "     # run app locally, rebuilding and reloading as needed"
+  puts ""
+  puts "  bin/ci"
+  puts "     # runs all tests and checks as CI would"
+  puts ""
+  puts "  bin/console"
+  puts "     # get an IRB console with the app loaded"
+  puts ""
+  puts "  bin/db"
+  puts "     # interact with the DB for migrations, information, etc"
+  puts ""
+  puts "  bin/dbconsole"
+  puts "     # get a PSQL session to the database"
+  puts ""
+  puts "  bin/scaffold"
+  puts "     # Create various structures in your app, like pages or forms"
+  puts ""
+  puts "  bin/setup help"
+  puts "     # show this help"
+  puts ""
+end
+
+options = {
+  update_gems: false,
+  update_node: false,
+}
+option_parser = OptionParser.new do |opts|
+  opts.banner = "Usage: bin/setup [options]\n\n    Set up the Foundation, allowing for development and testing of the app\n\nOPTIONS\n"
+  opts.on("--update[=TYPE]","Update gems or modules to get the latest versions consistent with Gemfile or package.json. TYPE can be 'all', 'gems', or 'node'. If TYPE is omitted, 'all' is assumed.") do |value|
+    options[:update_gems] = value.nil? || value == "gems"
+    options[:update_node] = value.nil? || value == "node"
+  end
+  opts.on("-h", "--help", "Display this help message") do
+    help(opts)
+    exit
+  end
+end
+option_parser.parse!
+
+if ARGV[0] == "help"
+  help(option_parser)
+else
+  setup(**options)
+end

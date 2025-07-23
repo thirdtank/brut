@@ -1,0 +1,61 @@
+#!/usr/bin/env ruby
+
+require "optparse"
+require "pathname"
+require "fileutils"
+require "json"
+require_relative "bin_kit"
+
+def main
+
+  log "Building artifacts"
+  system!("bin/build")
+
+  brutjs_dir  = (Pathname(__FILE__).dirname / ".." / "brut-js" ).expand_path.to_s
+  brutcss_dir = (Pathname(__FILE__).dirname / ".." / "brut-css" ).expand_path.to_s
+  mkbrut_dir  = (Pathname(__FILE__).dirname / ".." / "mkbrut" ).expand_path.to_s
+
+  log "Pushing brut"
+  system!("bin/rake release")
+
+  log "Pushing brujt-js"
+  FileUtils.chdir brutjs_dir do
+    system!("bin/publish")
+  end
+
+  log "Pushing brut-css"
+  FileUtils.chdir brutcss_dir do
+    system!("bin/publish")
+  end
+
+  log "Building mkbrut"
+  FileUtils.chdir mkbrut_dir do
+    system!("bin/publish")
+  end
+end
+
+options = {
+  repo_check: true,
+}
+OptionParser.new do |opts|
+  opts.banner = "Usage: publish [options]\n\n    Builds and publishes all artifacts\n\nOPTIONS"
+
+  opts.on("-h", "--help", "Display this help message") do
+    puts opts
+    exit
+  end
+end.parse!
+
+def require_clean_repo!
+  out, err = capture!("git status --porcelain")
+  if out.to_s.strip != ""
+    log out
+    log err
+    log "Your git repository is not clean. Please commit or stash your changes before running this script."
+    exit 1
+  end
+end
+
+require_clean_repo!
+main
+

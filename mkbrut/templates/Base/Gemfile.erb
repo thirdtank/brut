@@ -1,0 +1,53 @@
+source "https://rubygems.org"
+
+# Gemfile organization:
+#
+# 1. Brut is always at the top
+# 2. The rest of the gems are in alphabetical order
+# 3. Do not specify a gem version unless there is a specific reason.
+# 4. Each gem should have a comment preceding it explaining
+#    what the gem is for and why the project needs it.
+# 5. If a version was specified, make sure the comment explains
+#    why it had to be specified and the conditions under which it
+#    can be removed.
+# 6. Do not create group blocks. Instead, use the group: option for each
+#    gem.  This creates a single clean list of gems in order.
+
+gem "brut", "<%= versions.brut_version_specifier %>"
+
+# Audit our dependencies
+gem "bundler-audit", groups: [ :test ]
+
+# This allows us to make assertions about test setup that are not themselves tests
+gem "confidence-check", groups: [ :test ]
+
+# Dotenv manages the environment variables in the development
+# and test environments. See .env.development, .env.development.local,
+# and .env.test
+gem "dotenv", groups: [ :development, :test ]
+
+# FactoryBot manages test and seed data
+gem "factory_bot", groups: [ :development, :test ]
+
+# Faker is used to create realistic data for test and seed data.
+gem "faker", groups: [ :development, :test ]
+
+
+# We use Postgres
+gem "pg"
+
+# Allows using Playwright from Ruby.
+# We lock the version because it must be the same as the verison
+# of playwright in package.json.  This ensures that we can reliably
+# install the right browsers and that everything will work right.
+gem "playwright-ruby-client", "1.52.0", groups: [ :test ]
+
+# Sinatra needs a webserver and puma is the best
+gem "puma"
+
+# Uses RSpec for testing
+gem "rspec", groups: [ :test ]
+
+# Allows for diagnosing failing tests
+gem "with_clues", groups: [ :test ]
+

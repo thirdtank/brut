@@ -1,0 +1,12 @@
+/* Gives all SVGS a somewhat small height so as CSS loads,
+ * you don't have a big huge SVG */
+svg {
+  width: 1em;
+  height: 1em;
+}
+
+/* Assuming SVGs are monochrome line art,
+ * this ensures the lines are drawn in the current color */
+svg path {
+  fill: currentColor;
+}

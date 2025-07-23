@@ -1,0 +1,11 @@
+#!/usr/bin/env ruby
+
+require "bundler"
+Bundler.require
+require "pathname"
+require "brut/cli/apps/heroku_container_based_deploy"
+
+exit Brut::CLI.app(
+  Brut::CLI::Apps::HerokuContainerBasedDeploy,
+  project_root: Pathname($0).dirname / ".."
+)

@@ -1,0 +1,18 @@
+module MKBrut
+  autoload :App, "mkbrut/app"
+  autoload :AppId, "mkbrut/app_id"
+  autoload :AppName, "mkbrut/app_name"
+  autoload :AppOptions, "mkbrut/app_options"
+  autoload :Base, "mkbrut/base"
+  autoload :CLI, "mkbrut/cli"
+  autoload :ErbBindingDelegate, "mkbrut/erb_binding_delegate"
+  autoload :InternetIdentifier, "mkbrut/internet_identifier"
+  autoload :InvalidIdentifier, "mkbrut/invalid_identifier"
+  autoload :Ops, "mkbrut/ops"
+  autoload :Organization, "mkbrut/organization"
+  autoload :Prefix, "mkbrut/prefix"
+  autoload :Segments, "mkbrut/segments"
+  autoload :Versions, "mkbrut/versions"
+  autoload :PrefixedIO, "mkbrut/prefixed_io"
+  autoload :VERSION, "mkbrut/version"
+end

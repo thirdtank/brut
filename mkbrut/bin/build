@@ -1,0 +1,36 @@
+#!/usr/bin/env ruby
+
+require "optparse"
+require "pathname"
+require "fileutils"
+require_relative "../../bin/bin_kit"
+
+def main
+
+  log "Building mkbrut gem"
+  system!("bin/rake build")
+
+end
+
+OptionParser.new do |opts|
+  opts.banner = "Usage: build [options]\n\n    Builds deployable artifacts\n\nOPTIONS"
+
+  opts.on("-h", "--help", "Display this help message") do
+    puts opts
+    exit
+  end
+end.parse!
+
+def require_clean_repo!
+  out, err = capture!("git status --porcelain")
+  if out.to_s.strip != ""
+    log out
+    log err
+    log "Your git repository is not clean. Please commit or stash your changes before running this script."
+    exit 1
+  end
+end
+
+require_clean_repo!
+main
+

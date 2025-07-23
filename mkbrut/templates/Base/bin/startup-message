@@ -1,0 +1,65 @@
+#!/usr/bin/env ruby
+
+require "pathname"
+require "yaml"
+require "optparse"
+
+option_parser = OptionParser.new do |opts|
+  opts.banner = "Usage: bin/startup-message\n\n    Outputs a message about where the dev server is running\n\nENVIRONMENT VARIABLES\n\n    PORT - the port configured for bin/run"
+end
+option_parser.parse!
+
+docker_compose_file = Pathname.new(__FILE__).dirname / ".." / "docker-compose.dx.yml"
+
+port_config = nil
+error       = nil
+
+if docker_compose_file.exist?
+  docker_compose = YAML.load_file(docker_compose_file)
+
+  docker_port = begin
+                  ENV.fetch("PORT")
+                rescue KeyError
+                  $stderr.puts "ERROR: The PORT environment variable is not set."
+                  $stderr.puts "       Please set it to the port your app is running on."
+                  exit 1
+                end
+
+  ports_config = docker_compose.dig("services", "app", "ports")
+  error = nil
+  if ports_config
+    port_config = ports_config.detect { |port_mapping|
+      host_port, container_port = port_mapping.split(":")
+      container_port.to_s == docker_port
+    }
+    if !port_config
+      error = "#{docker_compose_file} does not expose the port #{docker_port} for the 'app' service."
+    end
+  else
+    error = "#{docker_compose_file} does not contain a 'ports' section for the 'app' service."
+  end
+else
+  error = "#{docker_compose_file} does not exist. This is assumed to be in placefor your dev environment"
+end
+if !error
+  sleep 2 # allow all other initial output from bin/dev to happen first
+
+  host_port = port_config.split(":")[0]
+
+  url = "http://localhost:#{host_port}"
+
+  $stdout.puts "Your app is now running at"
+  $stdout.puts
+  $stdout.puts "  #{url}"
+  $stdout.puts
+  $stdout.flush # ensure this output happens immediately
+else
+  $stderr.puts "WARN: #{$0} could not figure out what port the app is exposed on"
+  $stderr.puts
+  $stderr.puts "      #{error}"
+  $stderr.puts
+  $stderr.puts "      This won't stop your app from running, but it does mean"
+  $stderr.puts "      there is some issue with your dev environment"
+  $stderr.flush # ensure this error output happens immediately
+end
+sleep

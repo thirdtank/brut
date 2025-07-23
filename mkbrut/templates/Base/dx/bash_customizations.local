@@ -1,0 +1,8 @@
+# Insert developer-specifilc Bash customizations here.
+# This file is not checked into version control, so you
+# are safe to export EDITOR=vim and avoid any guff from 
+# co-workers.
+
+# Sets up a multi-line prompt since the working directory
+# may be very deep.  Customize or change at your leisure.
+PS1='\[\e[35m\]docker-container\[\e[0m\] - \[\e[37m\]\w\n\[\e[0m\]> '

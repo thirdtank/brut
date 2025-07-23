@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+
+set -e
+SCRIPT_DIR=$( cd -- "$( dirname -- "${0}" )" > /dev/null 2>&1 && pwd )
+ROOT_DIR=$(realpath "$SCRIPT_DIR/..")
+
+usage() {
+  echo "Usage: $0"
+  echo
+  echo "    Publish node module"
+  echo
+}
+
+for arg in "$@"; do
+  if [ "${arg}" = "-h" ] || [ "${arg}" = "--help" ] || [ "${arg}" = "help" ]; then
+    usage
+    exit 0
+  fi
+done
+
+npm publish brut-js

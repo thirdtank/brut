@@ -1,0 +1,73 @@
+# The default layout used by all pages.
+# This code is heavily commented to explain what each 
+# line that isn't hopefully obvious does. Feel free to remove.
+class DefaultLayout < Brut::FrontEnd::Layout
+  include Brut::FrontEnd::Components
+
+  def initialize(page_name:)
+    @page_name = page_name
+  end
+
+  # Brut::FrontEnd::Page's view_template ultimately calls this method
+  # to wrap itself in the layout defined below.
+  def view_template
+    doctype
+    html(lang: "en") do
+      head do
+        meta(charset: "utf-8")
+        meta(content: "width=device-width,initial-scale=1", name:"viewport")
+        meta(content: "website", property:"og:type")
+        # Sets this up as a PWA - see app/public/static/manifest.json
+        link(rel: "manifest",  href: "/static/manifest.json")
+
+        # Load the bundled stylesheet.  asset_path translates the logical
+        # path to the hased value produced by esbuild
+        link(rel: "preload", as: "style", href: asset_path("/css/styles.css"))
+        link(rel: "stylesheet",           href: asset_path("/css/styles.css"))
+
+        # Load the bundled JavaScript.  asset_path translates the logical
+        # path to the hased value produced by esbuild
+        script(defer: true, src: asset_path("/js/app.js"))
+
+        title do
+          "<%= app_name %>"
+        end
+
+        # Brut::FrontEnd::Components::PageIdentifier, which produces
+        # a <meta> tag with the page's name. Useful for end to end tests.
+        PageIdentifier(@page_name)
+
+        # Brut::FrontEnd::Components::I18nTranslations, which includes
+        # translations starting with cv.cs for use with client-side
+        # constraint violation messaging.
+        I18nTranslations("cv.cs")
+        # Brut::FrontEnd::Components::I18nTranslations, which includes
+        # translations for cv.this_field, which is used with client-side
+        # constraint violation messaging.
+        I18nTranslations("cv.this_field")
+        # Brut::FrontEnd::Components::Traceparent, which stores
+        # the OpenTelemetry traceparent in a <meta> attribute for use
+        # by the <brut-tracing> element.
+        Traceparent()
+        # Brut::FrontEnd::Components::LocaleDetection, which
+        # will send the browser's locale and timezone back to the server to
+        # help with locale determination.
+        render(
+          Brut::FrontEnd::RequestContext.inject(
+            Brut::FrontEnd::Components::LocaleDetection
+          )
+        )
+      end
+      # Adds the page's name as a class name. You can use this for
+      # CSS if needed.
+      body(class: @page_name) do
+        # Render the <brut-tracing> element, which will send
+        # OpenTelemetry traces back to the server to be joined up with
+        # the server's traces.
+        brut_tracing url: "/__brut/instrumentation", show_warnings: true
+        yield # Contents of the page are inserted here
+      end
+    end
+  end
+end
+

@@ -1,0 +1,19 @@
+/* Example of font-management. */
+@font-face {
+  font-family: "Monaspace Xenon";
+  /** url is relative to this file. When bin/build-assets runs,
+   * esbuild will see this and modify it to work with the bundle
+   * that is ultimately produced */
+  src: url("../fonts/monaspace-xenon.ttf") format("truetype");
+  font-display: swap;
+}
+
+:root {
+  /* Sets the mono font for BrutCSS */
+  --ff-mono: 'Monaspace Xenon', monospace;
+}
+
+code {
+  /* Uses the mono font for <code> elements */
+  font-family: var(--ff-mono);
+}

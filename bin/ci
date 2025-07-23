@@ -1,0 +1,36 @@
+#!/usr/bin/env ruby
+
+require "optparse"
+require "pathname"
+require "fileutils"
+require_relative "bin_kit"
+
+OptionParser.new do |opts|
+  opts.banner = "Usage: ci [options]\n\n    Runs all tests/QA in all repos\n\nOPTIONS\n\n"
+
+  opts.on("-h", "--help", "Display this help message") do
+    puts opts
+    puts
+    exit
+  end
+end.parse!
+
+brutjs_dir  = (Pathname(__FILE__).dirname / ".." / "brut-js" ).expand_path.to_s
+brutcss_dir = (Pathname(__FILE__).dirname / ".." / "brut-css" ).expand_path.to_s
+mkbrut_dir  = (Pathname(__FILE__).dirname / ".." / "mkbrut" ).expand_path.to_s
+
+log "Running BrutRB tests"
+system!("bin/rspec")
+
+log "Running brut-js tests"
+FileUtils.chdir brutjs_dir do
+  system!("bin/ci")
+end
+log "Running brut-css tests"
+FileUtils.chdir brutcss_dir do
+  system!("bin/ci")
+end
+log "Running mkbrut tests"
+FileUtils.chdir mkbrut_dir do
+  system!("bin/ci")
+end

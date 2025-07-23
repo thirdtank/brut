@@ -1,4 +1,22 @@
+#!/usr/bin/env bash
 set -e
+
+SCRIPT_DIR=$( cd -- "$( dirname -- "${0}" )" > /dev/null 2>&1 && pwd )
+ROOT_DIR=$(realpath "$SCRIPT_DIR/..")
+
+usage() {
+  echo "Usage: $0"
+  echo
+  echo "    Build CSS for distribution"
+  echo
+}
+
+for arg in "$@"; do
+  if [ "${arg}" = "-h" ] || [ "${arg}" = "--help" ] || [ "${arg}" = "help" ]; then
+    usage
+    exit 0
+  fi
+done
 
 echo "[ bin/docs ] Building brut.css"
 node src/js/build.js \
@@ -17,6 +35,7 @@ node src/js/build.js \
   -p config/pseudo-classes-all.css \
   -i src/css/index.css \
   -o dist/brut-ns-only.max.css
+
 echo "[ bin/docs ] Removing comments and minifying brut-ns-only.css"
 npx postcss --config config dist/brut-ns-only.max.css -o dist/brut-ns-only.css
 rm dist/brut-ns-only.max.css

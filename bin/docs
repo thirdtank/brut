@@ -3,26 +3,38 @@
 require "optparse"
 require "pathname"
 require "fileutils"
+require_relative "bin_kit"
 
-options = {}
+options = {
+  dotcom: true,
+}
+
 OptionParser.new do |opts|
-  opts.banner = "Usage: docs [options]"
+  opts.banner = "Usage: docs [options]\n\n    Generates all documentation for the project\n\nOPTIONS\n\n"
 
   opts.on("-h", "--help", "Display this help message") do
     puts opts
+    puts
     exit
+  end
+  opts.on("--[no-]dotcom", "Deploy (or not), brutrb.com to the docs/ directory (default #{options[:dotcom]})") do |value|
+    options[:dotcom] = value
   end
 end.parse!
 
-public_dir = (Pathname(__FILE__).dirname / ".." / "brutrb.com" / "public" ).expand_path
-docs_dir   =  public_dir / "api"
-brutjs_dir = (Pathname(__FILE__).dirname / ".." / "brut-js" ).expand_path.to_s
+dotcom_dir  = (Pathname(__FILE__).dirname / ".." / "brutrb.com" ).expand_path
+public_dir  = (dotcom_dir / "public" ).expand_path
+docs_dir    =  public_dir / "api"
+brutjs_dir  = (Pathname(__FILE__).dirname / ".." / "brut-js" ).expand_path.to_s
+brutcss_dir = (Pathname(__FILE__).dirname / ".." / "brut-css" ).expand_path.to_s
+mkbrut_dir  = (Pathname(__FILE__).dirname / ".." / "mkbrut" ).expand_path.to_s
 
-system(
-  "bundle exec yard doc -o '#{docs_dir}' -m markdown -M rdiscount --backtrace"
+system!(
+  "bundle exec yard doc -o '#{docs_dir}' --no-progress -m markdown -M rdiscount --backtrace",
 )
 
-puts "Hacking CSS"
+log "Hacking CSS"
+
 [
   docs_dir /  "css" / "style.css",
   docs_dir /  "css" / "full_list.css"
@@ -44,6 +56,24 @@ puts "Hacking CSS"
   end
 end
 
+log "Generating brut-js docs"
 FileUtils.chdir brutjs_dir do
-  system("bin/build")
+  system!("bin/docs")
+end
+log "Generating brut-css docs"
+FileUtils.chdir brutcss_dir do
+  system!("bin/docs")
+end
+log "Generating mkbrut docs"
+FileUtils.chdir mkbrut_dir do
+  system!("bin/docs")
+end
+
+if options[:dotcom]
+  log "Deploying brutrb.com to docs/"
+  FileUtils.chdir dotcom_dir do
+    system!("bin/deploy")
+  end
+else
+  log "Skipping brutrb.com deployment"
 end

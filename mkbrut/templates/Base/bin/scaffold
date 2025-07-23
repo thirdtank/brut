@@ -1,0 +1,9 @@
+#!/usr/bin/env ruby
+
+require "bundler"
+Bundler.require
+require "pathname"
+
+require "brut/cli/apps/scaffold"
+exit Brut::CLI.app(Brut::CLI::Apps::Scaffold,project_root: Pathname($0).dirname / "..")
+

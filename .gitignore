@@ -38,3 +38,7 @@
 
 # Gems are installed here for LSP convienience
 /local-gems
+
+# All I want in life is for every single instance of this file
+# to be placed in hell, and waiting for Alan Dye when he arrives.
+.DS_Store

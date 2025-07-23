@@ -69,3 +69,22 @@ with your editor, but all commands are run inside Docker, which should be more c
 
    The `--no-credentials` means that you will not be able to push to GitHub or RubyGems from within the Docker container. This ability is only needed by maintainers to push new versions of the gem. You can push to GitHub from your computer.
 
+### Conventions in MonoRepo
+
+This repo contains all five main parts of Brut:
+
+* BrutRB, the Ruby web framework (in this directory, code in `lib`)
+* BrutJS, the JS library with custom elements (in `brut-js/`)
+* BrutCSS, the CSS library (in `brut-css/`)
+* `mkbrut`, the CLI to create new Brut apps (in `mkbrut/`)
+* `brutrb.com`, the website, powered by VitePress (in `brutrb.com`)
+
+Each repo must conform to the *Workspace Protocol*, which are scripts in `bin/` that perform certain tasks:
+
+* `bin/setup` - performs any setup
+* `bin/docs` - builds all documentation, placing it where `brutrb.com` can find it.
+* `bin/build` - builds deployable artifacts, if needed
+* `bin/ci` - runs all tests, if applicable
+
+The primary `bin` scripts at the root work for both BrutRB, the web framework, and recurse into the other directories to perform their
+actions as well.

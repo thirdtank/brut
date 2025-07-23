@@ -1,0 +1,25 @@
+#!/usr/bin/env bash
+
+set -e
+SCRIPT_DIR=$( cd -- "$( dirname -- "${0}" )" > /dev/null 2>&1 && pwd )
+ROOT_DIR=$(realpath "$SCRIPT_DIR/..")
+
+usage() {
+  echo "Usage: $0"
+  echo
+  echo "    Build JSDoc into the brutrb.com location"
+  echo
+}
+
+for arg in "$@"; do
+  if [ "${arg}" = "-h" ] || [ "${arg}" = "--help" ] || [ "${arg}" = "help" ]; then
+    usage
+    exit 0
+  fi
+done
+
+cd ${ROOT_DIR}/docs
+npx jsdoc --configure   ${ROOT_DIR}/docs/jsdoc.config.json \
+          --readme      ${ROOT_DIR}/README.md \
+          --destination ${ROOT_DIR}/../brutrb.com/public/brut-js/api \
+          --recurse     ${ROOT_DIR}/src/
