@@ -133,12 +133,38 @@ with your editor, but all commands are run inside Docker, which should be more c
 <p>The <code>--no-credentials</code> means that you will not be able to push to GitHub or RubyGems from within the Docker container. This ability is only needed by maintainers to push new versions of the gem. You can push to GitHub from your computer.</p></li>
 </ol>
 
+
+<h3>Conventions in MonoRepo</h3>
+
+<p>This repo contains all five main parts of Brut:</p>
+
+<ul>
+<li>BrutRB, the Ruby web framework (in this directory, code in <code>lib</code>)</li>
+<li>BrutJS, the JS library with custom elements (in <code>brut-js/</code>)</li>
+<li>BrutCSS, the CSS library (in <code>brut-css/</code>)</li>
+<li><code>mkbrut</code>, the CLI to create new Brut apps (in <code>mkbrut/</code>)</li>
+<li><code>brutrb.com</code>, the website, powered by VitePress (in <code>brutrb.com</code>)</li>
+</ul>
+
+
+<p>Each repo must conform to the <em>Workspace Protocol</em>, which are scripts in <code>bin/</code> that perform certain tasks:</p>
+
+<ul>
+<li><code>bin/setup</code> - performs any setup</li>
+<li><code>bin/docs</code> - builds all documentation, placing it where <code>brutrb.com</code> can find it.</li>
+<li><code>bin/build</code> - builds deployable artifacts, if needed</li>
+<li><code>bin/ci</code> - runs all tests, if applicable</li>
+</ul>
+
+
+<p>The primary <code>bin</code> scripts at the root work for both BrutRB, the web framework, and recurse into the other directories to perform their
+actions as well.</p>
 </div></div>
 
       <div id="footer">
-  Generated on Mon Jul 21 18:28:17 2025 by
+  Generated on Wed Jul 23 19:49:26 2025 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.37 (ruby-3.4.4).
+  0.9.37 (ruby-3.4.5).
 </div>
 
     </div>
