@@ -164,6 +164,46 @@ def setup(update_gems:,setup_credentials:)
       end
     end
 
+    docker_credentials_source = credentials_dir / "dockerhub.credentials"
+    docker_credentials_preamble = [
+      "# Username and PAT for Docker commands",
+      "# The file format is for bin/setup and bin/deploy",
+      "# to coordinate. This file format should be able to be",
+      "# sourced into a bash script via .",
+    ]
+    if !docker_credentials_source.exist?
+      log "#{docker_credentials_source} doesn't exist - creating"
+      File.open(docker_credentials_source,"w") do |file|
+        docker_credentials_preamble.each { |line| file.puts line }
+      end
+    end
+    existing_file = File.read(docker_credentials_source).split(/\n/).reject { 
+      it =~ /^\s*#/
+    }.map { |line|
+      line.split(/=/,2).map(&:strip)
+    }.to_h
+    changed = false
+    if !existing_file.key?("DOCKERHUB_USERNAME")
+      log "What is the username for DockerHub you will use to push mkbrut images?"
+      existing_file["DOCKERHUB_USERNAME"] = gets.chomp
+      changed = true
+    end
+    if !existing_file.key?("DOCKERHUB_PAT")
+      log "What is the Personal Access Token (PAT) for DockerHub you will use to push mkbrut images?"
+      existing_file["DOCKERHUB_PAT"] = gets.chomp
+      changed = true
+    end
+    if changed
+      File.open(docker_credentials_source,"w") do |file|
+        docker_credentials_preamble.each { |line| file.puts line }
+        existing_file.each do |key,value|
+          file.puts "#{key}=#{value}"
+        end
+      end
+    else
+      log "#{docker_credentials_source} exists and looks good"
+    end
+
     log "Setting up BrutJS"
     FileUtils.chdir project_root / "brut-js" do
       system! "bin/setup"
