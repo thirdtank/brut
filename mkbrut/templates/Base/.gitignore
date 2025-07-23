@@ -1,0 +1,31 @@
+# Never checkin tmp
+/tmp
+# This should never be checked in
+/node_modules
+# This contains generated code, so should not be checked in
+/app/public/css
+# This contains generated code, so should not be checked in
+/app/public/js
+# This contains generated code, so should not be checked in
+/app/public/static/images/
+# Don't want to check in the generated JSDocs dir
+/jsdocs
+# This is generated per environment
+/app/config/asset_metadata.json
+# Don't check in logs
+/logs
+
+# This could contain actual secrets and should not be checked in
+/.env.development.local
+
+# These are generated artifacts
+/deploy/Dockerfile.*
+/deploy/docker-compose.yml
+
+# RSpec configuration should be in one place.
+# Devs can override as needed, but this is not how
+# configuration is to be shared
+/.rspec
+
+# Gems installed locally should not be checked in
+/local-gems

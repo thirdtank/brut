@@ -1,0 +1,39 @@
+#!/usr/bin/env bash
+
+set -e
+
+usage() {
+  echo "Usage: $0"
+  echo
+  echo "    Run all tests and quality checks, as if on a CI server"
+  echo
+}
+
+for arg in "$@"; do
+  if [ "${arg}" = "-h" ] || [ "${arg}" = "--help" ] || [ "${arg}" = "help" ]; then
+    usage
+    exit 0
+  fi
+done
+
+
+echo "[ bin/ci ] Building Assets"
+bin/build-assets
+
+echo "[ bin/ci ] Running non E2E tests"
+bin/test run --rebuild
+
+echo "[ bin/ci ] Running JS tests"
+bin/test js
+
+echo "[ bin/ci ] Running E2E tests"
+bin/test e2e --rebuild --rebuild-after
+
+echo "[ bin/ci ] Analyzing Ruby gems for"
+echo "[ bin/ci ] security vulnerabilities"
+bundle exec bundle audit check --update
+
+echo "[ bin/ci ] Checking to see that all classes have tests"
+bin/test audit --ignore app/src/front_end/components/custom_element_registration.rb 
+
+echo "[ bin/ci ] Done"

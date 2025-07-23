@@ -1,0 +1,86 @@
+#!/bin/sh
+
+set -e 
+SCRIPT_DIR=$( cd -- "$( dirname -- "${0}" )" > /dev/null 2>&1 && pwd )
+
+usage() {
+  echo "Usage: $0"
+  echo
+  echo "    Run the app in the given RACK_ENV."
+  echo "    You likely want to use bin/dev instead of this command."
+  echo
+  echo "ENVIRONMENT VARIABLES"
+  echo
+  echo "   PORT     - The port to run the app on. Default is 6502"
+  echo "   RACK_ENV - The Rack environment to use. Default is development"
+  echo
+}
+
+for arg in "$@"; do
+  if [ "${arg}" = "-h" ] || [ "${arg}" = "--help" ] || [ "${arg}" = "help" ]; then
+    usage
+    exit 0
+  fi
+done
+
+PORT="${PORT:-6502}"
+RACK_ENV="${RACK_ENV:-development}"
+
+export PORT
+export RACK_ENV
+
+set -e 
+
+# Everything here is trying its best to prevent more than
+# one server from running, as this is extremely confusing.
+# Note that the puma invocation at the bottom
+# of this script uses the pidfile concept.
+if [ -f tmp/pidfile ]; then
+  echo "[ $0 ] pidfile found"
+  pid=$(cat tmp/pidfile)
+
+  # First, try to gracefully stop the server with kill
+  if ps -p "${pid}" > /dev/null; then
+    echo "[ $0 ] Attempting to kill PID '${pid}'"
+    kill "${pid}"
+  else
+    echo "[ $0 ] PID '${pid}' no longer running"
+  fi
+
+  # Now, wait 5 seconds to see if it stopped
+  if timeout 5 tail --pid="${pid}" -f /dev/null; then
+    echo "[ $0 ] PID '${pid}' stopped. Restarting server"
+  else
+    # if it has not stopeed, use kill -9 which should work.
+    # But, like all things computer, it's not guaranteed.
+    echo "[ $0 ] PID '${pid}' has not stopped. Trying kill -9"
+    kill -9 "${pid}"
+    if timeout 1 tail --pid="${pid}" -f /dev/null; then
+      echo "[ $0 ] PID '${pid}' killed. Restarting server"
+    else
+      echo "[ $0 ] PID '${pid}' still running. Something seriously wrong"
+      echo "[ $0 ] You may need to stop all Docker containers and restart them"
+      exit 1
+    fi
+  fi
+
+else
+  echo "[ $0 ] No pidfile-Starting up"
+fi
+
+# Run puma in a UNIX environment provided by dotenv.
+#
+# A few things to note:
+#
+# * dotenv is OK if -f is given non-existent files. That's why this works
+#   in production where there are no .env files.
+# * the `--` marks the end of dotenv's options and the start of the command
+#   to run. That's why the flags given to puma are not interpreted by dotenv
+#   as flags for itself.
+dotenv \
+  -f "${SCRIPT_DIR}/../.env.${RACK_ENV}.local,${SCRIPT_DIR}/../.env.${RACK_ENV}" \
+  --ignore \
+  -- \
+  bin/puma \
+    -C puma.config.rb \
+    --pid tmp/pidfile

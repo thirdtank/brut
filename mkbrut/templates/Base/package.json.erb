@@ -1,0 +1,37 @@
+{
+  "name": "<%= app_name %>",
+  "type": "module",
+  "license": "UNLICENSED",
+  "dependencies": {
+    "brut-css": "<%= versions.brut_css_version_specifier %>",
+    "brut-js": "<%= versions.brut_js_version_specifier %>"
+  },
+  "devDependencies": {
+    "chokidar-cli": "^3.0.0",
+    "esbuild": "^0.20.2",
+    "jsdom": "^25.0.1",
+    "mocha": "^10.7.3",
+    "playwright": "1.50.1",
+    "typescript": "^5.8.3",
+    "typescript-language-server": "^4.3.4",
+    "vscode-langservers-extracted": "^4.10.0"
+  },
+  "notes": {
+    "note": "This section provides documentation on what the various information in here is for",
+    "type": "Needs to be 'module' so that the web components unit tests work properly",
+    "dependencies": {
+      "brut-css": "Basic CSS library to get you started. See Brut's docs for how to use or remove",
+      "brut-js": "Autonomous custom elements and utilities. See Brut's docs for how to use and why you should not remove"
+    },
+    "devDependencies": {
+      "chokidar-cli": "Used to watch files and and rebuild stuff on changes",
+      "esbuild": "Bundles JS and CSS - you may need this in dependencies depending on how you deploy",
+      "jsdom": "Used for unit testing custom elements",
+      "mocha": "Used for unit testing custom elements",
+      "playwright": "Used for end-to-end testing. This version is locked and must be the same as the one in the Gemfile for playwright-ruby-client.",
+      "typescript": "Needed for the JS and CSS LSP servers",
+      "typescript-language-server": "Provides a JS LSP server",
+      "vscode-langservers-extracted": "Despite the name, provides a CSS LSP server"
+    }
+  }
+}

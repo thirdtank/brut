@@ -1,0 +1,137 @@
+# shellcheck shell=bash
+
+# These are various functions needed by all the other scripts in dx/
+
+# Log a fatal error and exit nonzero
+fatal() {
+  remainder=${*:2}
+  if [ -z "$remainder" ]; then
+    log "🛑" "${@}"
+  else
+    log "${@}"
+  fi
+  exit 1
+}
+
+# Log an informational message. This is preferable to simply
+# using `echo` because it prepends the message with the name
+# of the script so you can tell where the message came from. 
+log() {
+  emoji=$1
+  remainder=${*:2}
+  if [ -z "${NO_EMOJI}" ]; then
+    echo "[ ${0} ] ${*}"
+  else
+    # if remainder is empty that means no emoji was passed
+    if [ -z "$remainder" ]; then
+      echo "[ ${0} ] ${*}"
+    else # emoji was passed, but we ignore it
+      echo "[ ${0} ] ${remainder}"
+    fi
+  fi
+}
+
+# Output a debug message if BRUT_WORKSPACE_DEBUG is set
+debug() {
+  message=$1
+  if [ -z "${BRUT_WORKSPACE_DEBUG}" ]; then
+    return
+  fi
+  log "🐛" "${message}"
+}
+
+# Output general usage information for the command and exit zero.
+#
+# Args:
+#
+# [1] the description of the command
+# [2] The names of the arguments
+# [3] If given, the name of the pre hook that the command responds to
+# [4] If given, the name of the post hook that the command responds to
+usage() {
+  description=$1
+  arg_names=$2
+  pre_hook=$3
+  post_hook=$4
+  echo "usage: ${0} [-h] ${arg_names}"
+  if [ -n "${description}" ]; then
+    echo
+    echo "DESCRIPTION"
+    echo "    ${description}"
+  fi
+  if [ -n "${pre_hook}" ] || [ -n "${post_hook}" ]; then
+    echo
+    echo "HOOKS"
+    if [ -n "${pre_hook}" ]; then
+      echo "    ${pre_hook} - if present, called before the main action"
+    fi
+    if [ -n "${post_hook}" ]; then
+      echo "    ${post_hook} - if present, called after the main action"
+    fi
+  fi
+  exit 0
+}
+
+# Show usage if the command line invocation indicated that help was requested.
+# This calls usage, so this will exit 0
+#
+# Args:
+#
+# [1] the description of the command
+# [2] The names of the arguments
+# [3] If given, the name of the pre hook that the command responds to
+# [4] If given, the name of the post hook that the command responds to
+usage_on_help() {
+  description=$1
+  arg_names=$2
+  pre_hook=$3
+  post_hook=$4
+  # These are the args passed to the invocation so this
+  # function can determine if the user requested help
+  cli_args=( "${@:5}" ) 
+
+  for arg in "${cli_args[@]}"; do
+    if [ "${arg}" = "-h" ] || [ "${arg}" = "--help" ]; then
+      usage "${description}" "${arg_names}" "${pre_hook}" "${post_hook}"
+    fi
+  done
+}
+
+# Ensure that a command line utility exists, exiting nonzero if not.
+# This is needed to avoid assumptions about what commands a user may have
+# on their computer. It attempts to provide a more useful error message
+# than "command not found".
+require_command() {
+  command_name=$1
+  if ! command -v "${command_name}" >/dev/null 2>&1; then
+    fatal "Command '${command_name}' not found - it is required for this script to run"
+  fi
+}
+
+# This loads dx/docker-compose.env as variables to the bash script, thus
+# allowing Docker Compose and these scripts to share configuration.
+load_docker_compose_env() {
+  . "${ENV_FILE}"
+}
+
+# Execute a hook if the file exists.  Note that if the hook exits
+# nonzero, the caller will need to check the return value of this function and decide
+# what to do.
+exec_hook_if_exists() {
+  script_name=$1
+  shift
+  if [ -x "${SCRIPT_DIR}"/"${script_name}" ]; then
+    log "🪝" "${script_name} exists - executing"
+    "${SCRIPT_DIR}"/"${script_name}" "${@}"
+  else
+    debug "${script_name} does not exist"
+  fi
+}
+
+require_command "realpath"
+require_command "cat"
+
+# Set up the location to the docker-compose.env file.
+ENV_FILE=$(realpath "${SCRIPT_DIR}")/docker-compose.env
+
+# vim: ft=bash

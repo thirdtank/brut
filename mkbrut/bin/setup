@@ -1,0 +1,30 @@
+#!/usr/bin/env ruby
+
+require_relative "../../bin/bin_kit"
+require "optparse"
+require "pathname"
+require "fileutils"
+
+def setup(update_gems:)
+  if update_gems
+    log "Updating gems"
+    system! "bundle update"
+  else
+    log "Installing gems"
+    # Only do bundle install if the much-faster
+    # bundle check indicates we need to
+    system! "bundle check --no-color || bundle install --no-color --quiet"
+  end
+end
+
+
+options = {
+  update_gems: false,
+}
+OptionParser.new do |opts|
+  opts.on("--update-gems","Update gems get the latest versions consistent with Gemfile / gemspec.") do
+    options[:update_gems] = true
+  end
+end.parse!
+
+setup(**options)

@@ -1,0 +1,38 @@
+import { withHTML } from "./SpecHelper.js"
+
+// Autonomouse custom element support is very basic.
+// In this spec, we use `withHTML` which was defined in SpecHelper.js,
+// which ultimately uses `createTestBasedOnHTML` from BrutJS.
+// This will configure JSDom with the HTML you provide, then execute
+// your test as if that HTML is the document.
+describe("<<%= prefix %>-example>", () => {
+
+  // The example custom element will transform its contents to 
+  // either upper or lower case. In this test, we assert that, by
+  // default, it transforms to upper case. To do that,
+  // create an HTML document you can see below.  The element
+  // will have been connected (connectedCallback will have been 
+  // called) by the time the test executes.  Thus, 
+  // document.querySelector(...) will find the element and its
+  // .textContent will have already been transformed.
+  withHTML(`
+  <<%= prefix %>-example>This is some Text</<%= prefix %>-example>
+  `).test("upper case by default", ({document,assert}) => {
+    const element = document.querySelector("<%= prefix %>-example")
+    assert.equal(element.textContent,"THIS IS SOME TEXT")
+  })
+
+  withHTML(`
+  <<%= prefix %>-example transform="lower">This is some Text</<%= prefix %>-example>
+  `).test("lower case when asked", ({document,assert}) => {
+    const element = document.querySelector("<%= prefix %>-example")
+    assert.equal(element.textContent,"this is some text")
+    // Remember that setAttribute is synchronous, so by the time
+    // its done executing, attributeChangedCallback will have been called,
+    // and thus the element's `update()` method will have been called and
+    // its textContent transformed.
+    element.setAttribute("transform","upper")
+    assert.equal(element.textContent,"THIS IS SOME TEXT")
+  })
+})
+

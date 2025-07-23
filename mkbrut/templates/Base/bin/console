@@ -1,0 +1,31 @@
+#!/usr/bin/env ruby
+
+require "optparse"
+
+option_parser = OptionParser.new do |opts|
+  opts.banner = "Usage: bin/console [options]\n\n    Get an IRB session with your app loaded in the development RACK_ENV\n\nOPTIONS"
+
+  opts.on("-h", "--help", "Display this help message") do
+    puts opts
+    exit
+  end
+end
+option_parser.parse!
+if ARGV[0] == "help"
+  puts option_parser
+  exit
+end
+
+ENV["RACK_ENV"] = "development"
+if ENV["LOG_LEVEL"].to_s == ""
+  ENV["LOG_LEVEL"] = "warn"
+end
+require "pathname"
+require "dotenv"
+
+project_root = Pathname(__dir__) / ".."
+Dotenv.load(project_root / ".env.development.local",
+            project_root / ".env.development")
+require_relative project_root / "app" / "bootstrap"
+Bootstrap.new.bootstrap!
+binding.irb

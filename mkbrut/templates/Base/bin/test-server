@@ -1,0 +1,29 @@
+#!/bin/bash
+
+set -e 
+SCRIPT_DIR=$( cd -- "$( dirname -- "${0}" )" > /dev/null 2>&1 && pwd )
+ROOT_DIR="${SCRIPT_DIR}/.."
+
+usage() {
+  echo "Usage: $0"
+  echo
+  echo "    Run the app in the test environment, suitable for end-to-end tests"
+  echo "    This will build all assets first, but not rebuild or reload after that"
+  echo
+}
+
+for arg in "$@"; do
+  if [ "${arg}" = "-h" ] || [ "${arg}" = "--help" ] || [ "${arg}" = "help" ]; then
+    usage
+    exit 0
+  fi
+done
+
+RACK_ENV="test"
+export RACK_ENV
+echo "[ bin/test-server ] Building assets"
+"${SCRIPT_DIR}"/build-assets
+
+echo "[ bin/test-server ] Starting server"
+PORT=6503 bin/run &
+wait

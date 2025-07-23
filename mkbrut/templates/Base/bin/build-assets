@@ -1,0 +1,7 @@
+#!/usr/bin/env ruby
+
+require "bundler"
+Bundler.require
+require "pathname"
+require "brut/cli/apps/build_assets"
+exit Brut::CLI.app(Brut::CLI::Apps::BuildAssets,project_root: Pathname($0).dirname / "..")

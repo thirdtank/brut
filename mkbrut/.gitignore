@@ -1,0 +1,16 @@
+# AI droppings
+/.cursor
+# Local gem cache
+/local-gems
+# Forever banned from ringside
+/node_modules
+
+# Local developer credentials - should not be checked in!
+/dx/credentials
+/dx/build.args
+
+# Bundler uses this for locally-built gems.
+/pkg
+
+# From hell’s heart I stab at thee; for hate’s sake I spit my last breath at thee.
+.DS_Store

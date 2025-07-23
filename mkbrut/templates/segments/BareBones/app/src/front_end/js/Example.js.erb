@@ -1,0 +1,49 @@
+import { BaseCustomElement } from "brut-js"
+
+// This is very similar to a vanilla on-spec
+// implementation of an autonomous custom element.
+// The only difference is BaseCustomElement (which
+// extends HTMLElement) provides a few convenience
+// methods to make it easier to build your own custom
+// elements.
+class Example extends BaseCustomElement {
+  // tagName allows BaseCustomElement's define() method to
+  // define your custom element
+  static tagName = "<%= prefix %>-example"
+
+  static observedAttributes = [
+    "transform",
+    "show-warnings", // recognized by BaseCustomElement to allow
+                     // for debugguing in the browser console,
+                     // but clean consoles in production.
+  ]
+
+  #transform = "upper"
+
+  // Called by BaseCustomElement's attributeChangedCallback.
+  transformChangedCallback({newValue}) {
+    this.#transform = newValue
+  }
+
+  // Called by connectCallback and attributeChangedCallback, this
+  // method should make whatever changes are necessary based on the current
+  // state of the element.
+  update() {
+    const content = this.textContent
+    if (this.#transform == "upper") {
+      this.textContent = content.toLocaleUpperCase()
+    }
+    else if (this.#transform == "lower") {
+      this.textContent = content.toLocaleLowerCase()
+    }
+    else {
+      // Example of debugging. if show-warnings is not set, this message
+      // is not shown in the console. If show-warnings IS set (including
+      // when you override it in production using the browser's devtools)
+      // this message WILL be shown
+      this.logger.info("We only support upper or lower, but got %s",this.#transform)
+    }
+  }
+}
+
+export default Example

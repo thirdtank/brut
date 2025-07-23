@@ -1,0 +1,205 @@
+# This file is heavily documented to explain what is going on and why.
+# If you are reading this, however, you now own this file and can
+# change it how you like. Just be sure you understand how it works in the
+# context of docker-compose.dx.yml and the files in dx/,
+# which are referred to as the Workspace
+#
+# This file is a set of instructions to build a Docker _image_, which is
+# then use to _start_ a _container_.
+
+# This uses a base image where Ruby is already installed. This saves
+# us from having to install Ruby ourselves.  Change this whenever you update
+# Ruby. Note that by convention, "3.4" will be whatever the latest point
+# release of Ruby 3.4 is. If you don't want that, specify an exact Ruby version here.
+# Note that this value is intended to be in sync with the tag of the image
+# found in dx/docker-compose.env
+FROM ruby:3.4
+
+# This attempts to make RUN directives fail when UNIX pipelines are involved
+SHELL [ "/bin/bash", "-o", "pipefail", "-c" ]
+
+# This tells apt-get and friends not to ask for interactive input
+# as this creates massive confusion in the context of building a Docker image.
+ENV DEBIAN_FRONTEND=noninteractive
+
+# These packages are needed to set up other repos to install other
+# packages and/or are useful in installing other software
+#
+# - ca-certificates  - needed by Postgres client
+# - curl             - needed by various installation instructions
+# - gnupg            - needed to install Docker
+# - lsb-release      - needed by Postgres install instructions
+# - rsync            - needed by Brut's build_assets command
+# - vim              - needed when we want to edit files inside container
+RUN apt-get -y clean && \
+    apt-get -y update && \
+    apt-get install --quiet --yes \
+      ca-certificates \
+      curl \
+      gnupg \
+      lsb-release \
+      rsync \
+      vim
+
+# These are dependencies needed to install Chromium via Playright.
+# You can check this list via
+#
+#     npx playwright install-deps --dry-run chromium
+#
+RUN apt-get install -y --no-install-recommends libasound2 \
+                                               libatk-bridge2.0-0 \
+                                               libatk1.0-0 \
+                                               libatspi2.0-0 \
+                                               libcairo2 \
+                                               libcups2 \
+                                               libdbus-1-3 \
+                                               libdrm2 \
+                                               libgbm1 \
+                                               libglib2.0-0 \
+                                               libnspr4 \
+                                               libnss3 \
+                                               libpango-1.0-0 \
+                                               libx11-6 \
+                                               libxcb1 \
+                                               libxcomposite1 \
+                                               libxdamage1 \
+                                               libxext6 \
+                                               libxfixes3 \
+                                               libxkbcommon0 \
+                                               libxrandr2 \
+                                               xvfb \
+                                               fonts-noto-color-emoji \
+                                               fonts-unifont \
+                                               libfontconfig1 \
+                                               libfreetype6 \
+                                               xfonts-scalable \
+                                               fonts-liberation \
+                                               fonts-ipafont-gothic \
+                                               fonts-wqy-zenhei \
+                                               fonts-tlwg-loma-otf \
+                                               fonts-freefont-ttf
+
+
+# Install Docker itself. Note that this is installed only what is needed to run
+# the Docker CLI - the docker-compose.dx.yml will connect this docker's socket
+# to the one on the host. This sets up "Docker outside Docker" and
+# is here only to build the production Docker containers and to push
+# them to a repository. This is not intended to run containers from
+# inside this one.
+RUN install -m 0755 -d /etc/apt/keyrings && \
+    curl -fsSL https://download.docker.com/linux/debian/gpg | gpg --dearmor -o /etc/apt/keyrings/docker.gpg && \
+    chmod a+r /etc/apt/keyrings/docker.gpg  && \
+    echo \
+      "deb [arch="$(dpkg --print-architecture)" signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/debian \
+      "$(. /etc/os-release && echo "$VERSION_CODENAME")" stable" | \
+      tee /etc/apt/sources.list.d/docker.list > /dev/null && \
+    apt-get update --quiet --yes && \
+    apt-get install --quiet --yes docker-ce \
+                       docker-ce-cli \
+                       containerd.io \
+                       docker-buildx-plugin \
+                       docker-compose-plugin
+
+
+# Install Postgres Client, per https://www.postgresql.org/download/linux/debian/
+# Note that ca-certificates and curl are installed above
+#
+# Also note that the version here should match the version set up in
+# docker-compose.dx.yml
+RUN sh -c 'echo "deb http://apt.postgresql.org/pub/repos/apt $(lsb_release -cs)-pgdg main" > /etc/apt/sources.list.d/pgdg.list' && \
+    wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | apt-key add - && \
+    apt-get update && \
+    apt-get -y install postgresql-client-16
+
+# Update RubyGems and Bundler, setting RubyGems not to generate
+# documentation as that is slow and you likely won't use it.
+RUN echo "gem: --no-document" >> ~/.gemrc && \
+    gem update --system && \
+    gem install bundler
+
+# Installs the Heroku CLI, per Heroku docs at 
+# https://devcenter.heroku.com/articles/heroku-cli#install-with-ubuntu-debian-apt-get
+RUN curl https://cli-assets.heroku.com/install-ubuntu.sh | sh
+
+# Up to now, RUN directives ran as the root user.  When using this container
+# for development, we do not want to run as the root user.  On macOS, this is not 
+# a big deal, but in Linux, the root user inside this container can create files
+# as the root user on your computer. You don't want that.
+
+# What is tricky is that we ultimately want the non-root user here
+# to have the same UID and same groups as your user on your host/computer.
+# And, we want that user to be able to run Docker commands.
+
+# First, set up some build args that `dx/build` will override with the actual values.
+# The reason these all have values is that Docker will not fail if they are omitted,
+# but it will behave strangely.
+#
+# Their user id, which ideally is overridden to match your user id on the host
+ARG user_uid=10001
+
+# Their group id, which ideally is overridden to match your group id on the host
+ARG user_gid=10002
+
+# The group id that can access /var/run/docker.sock on the host.
+# If this isn't mapped properly, no docker-out-of-docker commands will work
+ARG docker_gid=10003
+
+# This can be blank if the OS is such that the user inside the container can access
+# /var/run/docker.sock simply from being in docker_gid.  If this is not
+# the case (as on macOS), it is not only sad, but we must add the group
+# 0 (root) to the groups our new user is in.
+ARG sadly_user_must_be_added_to_root=
+
+# Create the user's group ID if it does not exist
+RUN getent group ${user_gid} || groupadd --gid ${user_gid} appgroup
+
+# Create the docker group id if it does not exist
+RUN getent group ${docker_gid} || groupadd --gid ${docker_gid} hostdocker
+
+# Create the user and set up their shell.
+# Note that we put bash_customizations in both .profile and .bashrc
+# to increase the chances they are used when running bash in various configurations
+RUN useradd --uid ${user_uid} --gid ${user_gid} --groups ${sadly_user_must_be_added_to_root}${docker_gid} --create-home --home-dir /home/appuser appuser && \
+    echo ". ~/.bash_customizations" >> /home/appuser/.profile && \
+    echo ". ~/.bash_customizations.local" >> /home/appuser/.profile && \
+    echo ". ~/.bash_customizations" >> /home/appuser/.bashrc && \
+    echo ". ~/.bash_customizations.local" >> /home/appuser/.bashrc
+
+# Now we must grant ownership to the new user over various files they will need to
+# run or use
+COPY --chown=appuser:${user_gid} dx/show-help-in-app-container-then-wait.sh /home/appuser
+COPY --chown=appuser:${user_gid} dx/bash_customizations /home/appuser/.bash_customizations
+COPY --chown=appuser:${user_gid} dx/bash_customizations.local /home/appuser/.bash_customizations.local
+
+# This switches to the new user, meaniung all subsequent RUN directives will
+# be run as this user.  The USER directive allows changing both the user
+# and the current group. We are omitting the group part of that because
+# to include would exclude the user from all other groups we just set them up
+# as belonging to.
+USER appuser
+
+# Install NodeJS, per https://nodejs.org/en/download
+#
+# Yes, this is seting up nvm just to install one version of node we will ever user in
+# here and yes, this sucks.  But it's better to use the vendor's official
+# recommendation.
+RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.3/install.sh | bash && \
+    \. "$HOME/.nvm/nvm.sh" && \
+    nvm install 22 && \
+    node -v && nvm current && npm -v
+
+
+
+# This arg should have the version of playwright present in the app's Gemfile.lock.
+# This is because the playright NodeJS library and the Ruby gem must have the same
+# version or things won't work right.  The value is blank because it really has to be
+# detected during `dx/build`.
+ARG PLAYWRIGHT_VERSION
+# Now install the version of Playwright we detected as well as Chromium. NOTE, we
+# must install Chromium, not chrome, because there is no version of Chrome for an
+# ARM-based Debian linux, which is what this Dockerfile will build on an Apple
+# Silicon Mac.
+RUN \. "$HOME/.nvm/nvm.sh" && \
+    nvm use default && \
+    npm install -g playwright@$PLAYWRIGHT_VERSION && \
+    npx playwright install chromium

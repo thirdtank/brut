@@ -1,0 +1,37 @@
+class App < Brut::Framework::App
+  def id           = "<%= app_id %>"
+  def organization = "<%= organization %>"
+
+  def initialize
+    # Add additional initialization to this initializers.
+    # Be sure to use the lazy/block form of store because when this code
+    # runs, the app may not have access to networked resources.
+    Brut.container.override("session_class",AppSession)
+    Brut.container.override("external_id_prefix","<%= prefix %>")
+  end
+
+  def boot!
+    # Perform any additional bootstrapping here, such as configuration of
+    # job back-ends or other data stores. When this runs, you can be sure
+    # the app has access to networked resources
+  end
+
+  # Various class methods may be called here to configure your app.  See the API
+  # documentation for Brut::Framework::App.
+
+  # Generic error handler.  Is expected to return a Rack response.
+  error do |exception:, http_status_code:|
+    SemanticLogger["App"].error(exception || "Unknown error", http_status_code:)
+    [ 
+      http_status_code || 500,
+      {},
+      exception&.message || "Internal Server Error '#{http_status_code}'"
+    ]
+  end
+
+  # Declare your app's routes.
+  routes do
+    page "/" # Special route for HomePage
+  end
+end
+

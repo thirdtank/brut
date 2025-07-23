@@ -1,0 +1,86 @@
+#!/usr/bin/env ruby
+
+require "optparse"
+require "pathname"
+require "fileutils"
+require "json"
+require_relative "bin_kit"
+
+def main
+
+  brutjs_dir  = (Pathname(__FILE__).dirname / ".." / "brut-js" ).expand_path.to_s
+  brutcss_dir = (Pathname(__FILE__).dirname / ".." / "brut-css" ).expand_path.to_s
+  mkbrut_dir  = (Pathname(__FILE__).dirname / ".." / "mkbrut" ).expand_path.to_s
+
+  require_relative "../lib/brut/version"
+  require_relative "#{mkbrut_dir}/lib/mkbrut/version"
+
+  brut_js_package_json  = JSON.parse(File.read("#{brutjs_dir}/package.json"))
+  brut_css_package_json = JSON.parse(File.read("#{brutcss_dir}/package.json"))
+
+  brut_version     = Brut::VERSION.strip
+  brut_js_version  = brut_js_package_json["version"].strip
+  brut_css_version = brut_css_package_json["version"].strip
+  mkbrut_version   = MKBrut::VERSION.strip
+
+  if [ brut_version, brut_js_version, brut_css_version, mkbrut_version ].uniq.size != 1
+    log "Some versions are mismatched!  All versions should be the same to build and release"
+    puts
+    log sprintf("BrutRb:  %10s from lib/brut/version.rb", brut_version)
+    log sprintf("BrutJS:  %10s from brut-js/package.json", brut_js_version)
+    log sprintf("BrutCSS: %10s from brut-css/package.json", brut_css_version)
+    log sprintf("mkbrut:  %10s from mkbrut/lib/mkbrut/version.rb", mkbrut_version)
+    exit 1
+  else
+    log "Building v#{brut_version} of all artifacts"
+  end
+
+  log "Building brut gem"
+  system!("bin/rake build")
+
+  log "Building brut-js"
+  FileUtils.chdir brutjs_dir do
+    system!("bin/build")
+  end
+
+  log "Building brut-css"
+  FileUtils.chdir brutcss_dir do
+    system!("bin/build")
+  end
+
+  log "Building mkbrut"
+  FileUtils.chdir mkbrut_dir do
+    system!("bin/build")
+  end
+end
+
+options = {
+  repo_check: true,
+}
+OptionParser.new do |opts|
+  opts.banner = "Usage: build [options]\n\n    Builds deployable artifacts\n\nOPTIONS"
+
+  opts.on("-h", "--help", "Display this help message") do
+    puts opts
+    exit
+  end
+  opts.on("--skip-repo-check", "If set, allows you to proceed without a clean Git repo. Note that this may cause gems not to build properly") do
+    options[:repo_check] = false
+  end
+end.parse!
+
+def require_clean_repo!
+  out, err = capture!("git status --porcelain")
+  if out.to_s.strip != ""
+    log out
+    log err
+    log "Your git repository is not clean. Please commit or stash your changes before running this script."
+    exit 1
+  end
+end
+
+if options[:repo_check]
+  require_clean_repo!
+end
+main
+

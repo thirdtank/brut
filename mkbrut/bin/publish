@@ -1,0 +1,129 @@
+#!/usr/bin/env bash
+
+set -e
+SCRIPT_DIR=$( cd -- "$( dirname -- "${0}" )" > /dev/null 2>&1 && pwd )
+ROOT_DIR=$(realpath "$SCRIPT_DIR/..")
+
+main() {
+  detect_gem_version
+  detect_docker_platform
+  release_gem
+  build_and_maybe_push
+}
+
+log() {
+  echo "[ mkbrut/bin/publish ] ${*}"
+}
+
+usage() {
+  echo "Usage: $0"
+  echo
+  echo "    Publish Ruby Gem and Docker image"
+  echo
+}
+
+release_gem() {
+  log "Releasing Gem"
+  rake release
+  wait_for_rubygems
+}
+
+wait_for_rubygems() {
+  timeout=30
+  interval=2
+  elapsed=0
+
+  log "Waiting ${timeout} seconds for mkbrut $GEM_VERSION to be available on RubyGems"
+  while (( elapsed < timeout )); do
+    if gem list -r "mkbrut" -a | grep -q "$GEM_VERSION"; then
+      log "mkbrut $GEM_VERSION is available on RubyGems"
+      return 0
+    fi
+    sleep $interval
+    (( elapsed += interval ))
+  done
+
+  log "mkbrut $GEM_VERSION is not available on RubyGems after $timeout seconds"
+  log "Something may have gone wrong. Or, it could just be taking a while"
+  log "You can re-run this with -G to bypassing pushing to RubyGems"
+  echo 
+  log "    bin/deploy -G"
+  exit 1
+}
+
+setup_docker_buildx() {
+  local builder_name=mkbrut-builder
+
+  if ! docker buildx ls | grep -q "^$builder_name"; then
+    log "Creating Docker buildx builder: $builder_name"
+    docker buildx create --name "$builder_name" --use
+    docker buildx inspect "$builder_name" --bootstrap
+  else
+    log "Docker buildx builder $builder_name already exists"
+    docker buildx use "$builder_name"
+  fi
+}
+
+detect_gem_version() {
+
+  GEM_VERSION=$( rake -T | grep "rake install " | sed 's/^.*mkbrut-//g' | sed 's/\.gem.*$//g')
+  if [[ "$GEM_VERSION" =~ ^[0-9]+\.[0-9]\.[0-9]+$ ]]; then
+    log "Releasing version ${GEM_VERSION}"
+  else
+    log "Version '${GEM_VERSION}' does not look like a version: X.Y.Z"
+    exit 1
+  fi
+}
+
+detect_docker_platform() {
+
+  KERNEL_NAME_FOR_ARCHITECTURE=$(docker info --format '{{.Architecture}}')
+  OSTYPE=$(docker info --format '{{.OSType}}')
+
+  case "$KERNEL_NAME_FOR_ARCHITECTURE" in
+    "aarch64")
+      DOCKER_NAME_FOR_ARCHITECTURE="arm64"
+      ;;
+    "x86_64")
+      DOCKER_NAME_FOR_ARCHITECTURE="amd64"
+      ;;
+    *)
+      log "Docker reported architecture is $KERNEL_NAME_FOR_ARCHITECTURE - hoping this works"
+      ;;
+  esac
+  HOST_PLATFORM=${OSTYPE}/${DOCKER_NAME_FOR_ARCHITECTURE}
+}
+
+build_and_maybe_push() {
+
+  # See bin/setup for another use of this page
+  local docker_credentials_source="${SCRIPT_DIR}/../dx/credentials/dockerhub.credentials"
+  setup_docker_buildx
+
+  . "${docker_credentials_source}"
+  log "Loging into DockerHub with credentials from ${docker_credentials_source}"
+  docker login --username "${DOCKERHUB_USERNAME}" --password "${DOCKERHUB_PAT}"
+
+  DOCKER_BUILD_PUSH_OR_LOAD=--push
+  DOCKER_PLATFORMS="linux/amd64,linux/arm64"
+
+  log "Building Docker image and pushing to DockerHub"
+
+  docker buildx build \
+    --platform ${DOCKER_PLATFORMS} \
+    ${DOCKER_BUILD_PUSH_OR_LOAD} \
+    --no-cache \
+    --build-arg brut_version="${GEM_VERSION}" \
+    --tag thirdtank/mkbrut:"${GEM_VERSION}" \
+    --tag thirdtank/mkbrut:latest \
+    deploy
+}
+
+for arg in "${@}"; do
+  if [ "${arg}" = "-h" ] || [ "${arg}" = "--help" ] || [ "${arg}" = "help" ]; then
+    usage
+    exit 0
+  fi
+done
+
+main

@@ -1,0 +1,92 @@
+# This file is heavily documented to explain what is going on and why.
+# If you are reading this, however, you now own this file and can
+# change it how you like. Just be sure you understand how it works in the
+# context of Dockerfile.dx and the files in dx/,
+# which are referred to as the Workspace
+#
+# This file is used to run several Docker containers, based on images, together
+# in a shared private network.  All containers run by this file will be able to see
+# each other over a network, but the only access your host (computer) will have to
+# these services is via explicitly exposed ports.
+
+services:
+  # 'app' is the service where all your dev tools will run. The tests will
+  # run in here as will the dev server.
+  #
+  # You interact with this container via `dx/exec`
+  app:
+    # IMAGE is defined in dx/docker-compose.env and is the name of an image
+    # built LOCALLY (never pushed to DockerHub) that has all the tools needed
+    # for developing your app installed into it.
+    image: ${IMAGE}
+    # This is magic that makes the Docker container stop much more quickly when
+    # you hit Ctrl-C.
+    init: true
+    # There are two types of volumes (drives) mounted.
+    volumes:
+      # This volume is your source code. Its source and target are the same
+      # so that stuff like language servers can work.
+      - type: bind
+        source: ${PWD}
+        target: ${PWD}
+        consistency: "consistent"
+      # This allows docker build commands run inside Docker, referred to
+      # as "docker out of docker". Essentially, Docker binaries installed into
+      # this container will access your host (you computer)'s Docker install.
+      # This is to allow it to build the production images.
+      - type: bind
+        source: "/var/run/docker.sock"
+        target: "/var/run/docker.sock"
+    # This is what is started up when you run `dx/start`. It just
+    # waits forever keeping the container running.
+    command: /home/appuser/show-help-in-app-container-then-wait.sh
+    # The working directory for any command, this is the same as your
+    # project root.
+    working_dir: ${PWD}
+    # This sets environment variables
+    environment:
+      # Because we'll install RubyGems inside our project (mostly to allow
+      # language servers to work), configuration in bash_customizations relies
+      # on this value being set
+      PROJECT_ROOT: ${PWD}
+    # This exposes ports from this running container to your localhost.
+    # In this case, we expose 6502, where the app runs, and 6503, where
+    # the test server runs.
+    #
+    # To change this, the port before the colon is where the app
+    # will be available on your localhost. The port AFTER the colon is where
+    # the app runs in the container.  So: change the port before the colon, and
+    # don't change the one after.
+    #
+    # * 6502 - dev
+    # * 6503 - test server (run by E2E tests)
+    ports:
+      - "6502:6502"
+      - "6503:6503"
+  # This "service" runs Postgres.  The service name ("postgres") is the host
+  # on which the service is available to other containers, namely from the 
+  # app container. You cannot connect to thise service from your host (computer)
+  # directly without additional configuration.
+  postgres:
+    # This image is the name of the image from DockerHub that will be pulled
+    # down to run Postgres.
+    image: postgres:16.4
+    pull_policy: "missing"
+    environment:
+      # Postgres will not work without being told the password. The most
+      # direct way to do that is via this environment variable.
+      POSTGRES_PASSWORD: postgres
+  # This runes otel-deskop-viewer, which will receive OpenTelemetry traces
+  # from your app. You can connect to this to observe those traces.
+  otel-desktop-viewer:
+    # The otel-desktop-viewer maintainers do not maintain a Docker
+    # image of the app. I have made one available on my DockerHub account.
+    # If you want to build your own, see 
+    # https://github.com/CtrlSpice/otel-desktop-viewer?tab=readme-ov-file#via-docker
+    # When you build that image, change the value for image: below to the image
+    # name you chose.
+    image: davetron5000/otel-desktop-viewer:alpine-3
+    # This runs internally on port 8000 but will be available
+    # on port 6504 of your machine.
+    ports:
+      - "6504:8000"

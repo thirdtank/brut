@@ -1,0 +1,26 @@
+#!/bin/sh
+set -e
+
+usage() {
+  echo "Usage: $0"
+  echo
+  echo "    Run tasks on production after code is avaiable, but before deployment"
+  echo
+}
+
+for arg in "$@"; do
+  if [ "${arg}" = "-h" ] || [ "${arg}" = "--help" ] || [ "${arg}" = "help" ]; then
+    usage
+    exit 0
+  fi
+done
+
+echo "[ bin/release ] started"
+echo "[ bin/release ] Creating DB if needed"
+BRUT_CLI_RAISE_ON_ERROR=true bundle exec ./bin/db create --env=production
+echo "[ bin/release ] Migrating DB if needed"
+BRUT_CLI_RAISE_ON_ERROR=true bundle exec ./bin/db migrate --env=production
+
+# Add additional commands here as needed
+
+echo "[ bin/release ] DONE"

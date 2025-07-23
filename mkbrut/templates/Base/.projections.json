@@ -1,0 +1,59 @@
+{
+  "app/src/*.rb": {
+    "alternate": "specs/{}.spec.rb",
+    "type": "source"
+  },
+  "app/src/front_end/js/*.js": {
+    "alternate": "specs/front_end/js/{}.spec.js",
+    "type": "js"
+  },
+  "specs/*.spec.rb": {
+    "alternate": "app/src/{}.rb",
+    "type": "spec"
+  },
+  "specs/front_end/js/*.spec.js": {
+    "alternate": "app/src/front_end/js/{}.js",
+    "type": "jsspec"
+  },
+  "app/src/front_end/components/*.rb": {
+    "type": "component"
+  },
+  "app/src/front_end/forms/*.rb": {
+    "type": "form"
+  },
+  "app/src/front_end/handlers/*.rb": {
+    "type": "handler"
+  },
+  "app/src/front_end/pages/*.rb": {
+    "type": "page"
+  },
+  "app/src/front_end/pages/*.html.rb": {
+    "type": "erb"
+  },
+  "app/src/back_end/data_models/db/*.rb": {
+    "type": "db"
+  },
+  "app/src/back_end/data_models/migrations/*.rb": {
+    "type": "migration"
+  },
+  "app/src/back_end/data_models/migrations/*.sql": {
+    "type": "migration"
+  },
+  "app/src/back_end/data_models/seed/*.rb": {
+    "type": "seed"
+  },
+  "app/src/back_end/domain/*.rb": {
+    "type": "domain"
+  },
+  "app/src/back_end/jobs/*.rb": {
+    "type": "job"
+  },
+  "app/src/back_end/service_wrappers/*.rb": {
+    "type": "service_wrapper"
+  },
+  "specs/factories/*.factory.rb": {
+    "type": "factory",
+    "alternate": "app/src/back_end/data_models/{}.rb"
+  }
+
+}

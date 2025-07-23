@@ -1,0 +1,25 @@
+# Ignore git directory.
+/.git/
+/.gitignore
+
+# Ignore bundler config.
+/.bundle
+
+# Ignore all environment files
+/.env*
+
+# Ignore all logfiles and tempfiles.
+/logs/*
+/tmp/*
+
+# The most important thing to ignore of all time
+/node_modules/
+
+# Ignore generated assets
+/app/public/*
+
+# Ignore Docker-related files
+/.dockerignore
+/Dockerfile*
+/docker-compose.*
+/deploy/docker-compose.*

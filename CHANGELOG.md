@@ -1,5 +1,12 @@
 # Brut CHANGELOG
 
+## v0.8.0 - July 23, 2025
+
+* Moved `mkbrut` into this repo
+* Unify versioning for Brut, `mkbrut`, BrutJS, and BrutCSS
+* Unify all workspace workflow scripts (see README.md)
+* Minor doc updates to remove references to non-existent `form_tag`
+
 ## v0.5.0 - July 21, 2025
 
 * **New helper** `entity` for creating HTML entities without needing `raw(safe(...))`

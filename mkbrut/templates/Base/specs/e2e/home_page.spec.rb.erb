@@ -1,0 +1,23 @@
+require "spec_helper"
+
+RSpec.describe "The home page works" do
+  it "shows a welcome message" do
+    # Instead of hard-coding URLs, you can use the 
+    # page classes to navigate to their routing.
+    page.goto(HomePage.routing)
+
+    # The Brut::FrontEnd::Components::PageIdentifier component
+    # renders a <meta> tag that Brut's `be_page_for` will look for.
+    # This is a useful check that you ended up on the page you meant to.
+    expect(page).to be_page_for(HomePage)
+
+    # In Playwright, elements are "located" asynchronously.  What is returned
+    # here is an object that will look for an <h1> only when an expectation
+    # is made on it.
+    h1 = page.locator("h1")
+
+    # This will actually locate the <h1> (waiting for some time for it to
+    # show up if it's not there), and then assert its text content.
+    expect(h1).to have_text("Welcome to Brut")
+  end
+end

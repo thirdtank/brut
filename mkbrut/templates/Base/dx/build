@@ -1,0 +1,107 @@
+#!/bin/bash
+
+set -e
+
+SCRIPT_DIR=$( cd -- "$( dirname -- "${0}" )" > /dev/null 2>&1 && pwd )
+
+. "${SCRIPT_DIR}/dx.sh.lib"
+
+read_custom_build_args() {
+  build_args_file="${SCRIPT_DIR}/build.args"
+  if [ -e "${build_args_file}" ]; then
+    for arg in `grep -v '^#' "${build_args_file}"`; do
+      BUILD_ARGS+=(--build-arg ${arg})
+    done
+  fi
+}
+
+setup_local_user_build_args() {
+  require_command "id"
+  require_command "uname"
+  user_uid=$(id -u)
+  user_gid=$(id -g)
+  docker_gid=
+  sadly_user_must_be_added_to_root=
+  OS=$(uname)
+  if [ "${OS}" == "Darwin" ] ; then
+    docker_gid=$(stat -f %g /var/run/docker.sock)
+    sadly_user_must_be_added_to_root="0,"
+  else
+    if [ "${OS}" == "Linux" ] ; then
+      docker_gid=$(stat -c %g /var/run/docker.sock)
+    else
+      log "Could not determine OS, which is needed to know how to invoke stat to figure out the group id of /var/run/docker.sock"
+      log "Docker commands will not work"
+    fi
+  fi
+  echo user_uid=${user_uid}                                                 >> "${SCRIPT_DIR}"/build.args
+  echo user_gid=${user_gid}                                                 >> "${SCRIPT_DIR}"/build.args
+  echo docker_gid=${docker_gid}                                             >> "${SCRIPT_DIR}"/build.args
+  echo sadly_user_must_be_added_to_root=${sadly_user_must_be_added_to_root} >> "${SCRIPT_DIR}"/build.args
+}
+
+initialize_build_args() {
+  echo "# This is generated - see build.pre" > "${SCRIPT_DIR}"/build.args
+}
+
+setup_playright_build_args() {
+  require_command "grep"
+  require_command "sed"
+
+  if [ ! -e "${SCRIPT_DIR}"/Gemfile.lock ]; then
+    log "Could not find Gemfile.lock, which is needed to determine the playwright-ruby-client version"
+    log "Assuming your app is brand-new, this should be OK"
+    echo "# When this file was created, there was no Gemfile.lock, so"               >> "${SCRIPT_DIR}"/build.args
+    echo "# it was not possible to determine which version of Playright was set up." >> "${SCRIPT_DIR}"/build.args
+    echo "# Once you've build your app and installed gems, you are "                 >> "${SCRIPT_DIR}"/build.args
+    echo "# encouraged to re-run \`dx/build\` to address this issue."                >> "${SCRIPT_DIR}"/build.args
+    echo PLAYWRIGHT_VERSION=latest                                                   >> "${SCRIPT_DIR}"/build.args
+  else
+    PLAYWRIGHT_VERSION=$(grep playwright-ruby-client Gemfile.lock  | grep '(' | sed 's/^.*(//' | sed 's/).*$//' | grep -v ^=)
+    if [ -z "${PLAYWRIGHT_VERSION}" ]; then
+      log "Could not find precise version of playwright-ruby-client from Gemfile.lock"
+      log "This means that your playwright-ruby-client version and playwright NPM modules may be out of sync and may not work"
+      echo "# When this file was created, Gemfile.lock did not"                    >> "${SCRIPT_DIR}"/build.args
+      echo "# contain playwrith-ruby-client.  This means it"                       >> "${SCRIPT_DIR}"/build.args
+      echo "# it was not possible to determine which version of"                   >> "${SCRIPT_DIR}"/build.args
+      echo "# Playright was set up. If you aren't using Playwright,"               >> "${SCRIPT_DIR}"/build.args
+      echo "# that's fine, this won't cause issues"                                >> "${SCRIPT_DIR}"/build.args
+      echo "# If you ARE using Playwright, something may be wrong with your setup" >> "${SCRIPT_DIR}"/build.args
+      echo PLAYWRIGHT_VERSION=latest                                               >> "${SCRIPT_DIR}"/build.args
+    else
+      echo PLAYWRIGHT_VERSION=${PLAYWRIGHT_VERSION} >> "${SCRIPT_DIR}"/build.args
+    fi
+  fi
+}
+
+require_command "docker"
+load_docker_compose_env
+
+usage_on_help "Builds the Docker image based on the Dockerfile" "" "build.pre" "build.post" "${@}"
+
+if ! exec_hook_if_exists "build.pre" Dockerfile.dx "${IMAGE}"; then
+  log "build.pre failed"
+  exit 1
+fi
+BUILD_ARGS=()
+
+initialize_build_args
+setup_local_user_build_args
+setup_playright_build_args
+read_custom_build_args
+
+docker build \
+  --file Dockerfile.dx \
+  --tag "${IMAGE}" \
+  ${BUILD_ARGS[@]} \
+  ./
+
+if ! exec_hook_if_exists "build.post" Dockerfile.dx "${IMAGE}"; then
+  log "build.pre failed"
+  exit 1
+fi
+
+log "🌈" "Your Docker image has been built tagged '${IMAGE}'"
+log "🔄" "You can now run dx/start to start it up, though you may need to stop it first with Ctrl-C"
+
+# vim: ft=bash

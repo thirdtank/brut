@@ -1,0 +1,18 @@
+/* Hide <brut-cv> tags so that we don't see
+ * client-side errors before the form is submitted */
+brut-cv {
+  display: none;
+  color: var(--red-400);
+}
+
+/* Server-side errors are always visible */
+brut-cv[server-side] {
+  display: block;
+}
+
+/* Only when a form submission is attempted do 
+ * we show the <brut-cv>s that are not server-side,
+ * and thus client-side */
+brut-form[submitted-invalid] brut-cv {
+  display: block;
+}

@@ -1,0 +1,37 @@
+#!/usr/bin/env bash
+
+# This script exists to ensure that chokidar actually terminates when foreman stops all the processes.
+# For whatever reason, if Procfile has the npx chokidar… invocation below, these processes are not
+# stopped.  Putting them into this script addresses that. Cool.
+
+set -e
+
+if [ -z "${1}" ] ; then
+  echo "[ $0 ] error: asset type required. Must be css, js, or images"
+  exit 65
+fi
+usage() {
+  echo "usage: $0 asset_type"
+  echo
+  echo "  Sets up a watching/rebuild command for the given asset. Useful in dev only"
+  echo
+  echo "  asset_types:"
+  echo
+  echo "    - css"
+  echo "    - js"
+  echo "    - images"
+  echo
+}
+for arg in "${@}"; do
+  if [ "${arg}" = "-h" ] || [ "${arg}" = "--help" ] || [ "${arg}" = "help" ]; then
+    usage
+    exit 0
+  fi
+done
+
+asset_type=$1
+watch_dir="app/src/front_end/${asset_type}/**/*"
+build_command="bin/build-assets ${asset_type}"
+
+export SHELL # chokidar needs this for reasons unknown to me
+exec npx chokidar --initial --polling --command "${build_command}" "${watch_dir}"

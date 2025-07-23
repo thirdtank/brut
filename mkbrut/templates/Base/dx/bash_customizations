@@ -1,0 +1,12 @@
+# This sets up RubyGems and Bundler so they install
+# all gems inside this project's root and not into the system
+# location.  This allows LSP servers to work more easily.
+if [ ! -n "$PROJECT_ROOT" ]; then
+  echo "[ bash_customizations ] WARNING: PROJECT_ROOT is not set - this will break RubyGems"
+fi
+export GEM_HOME=${PROJECT_ROOT}/local-gems/gem-home
+export PATH=${PATH}:${GEM_HOME}/bin
+# This sets up the Node version so we don't have to do it before every. single.
+# shell. invocation.
+. ~/.nvm/nvm.sh
+nvm use default
