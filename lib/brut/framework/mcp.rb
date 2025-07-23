@@ -174,7 +174,7 @@ class Brut::Framework::MCP
     end
 
     message = if Brut.container.project_env.development?
-                "Form submission did not include an authenticity token. All forms must include one. To add one, use the `form_tag` helper, or include Brut::FrontEnd::Components::Inputs::CsrfToken somewhere inside your <form> tag"
+                "Form submission did not include an authenticity token. All forms must include one. To add one, use the `Brut::FrontEnd::Components::FormTag` component, or include Brut::FrontEnd::Components::Inputs::CsrfToken somewhere inside your <form> tag"
               else
                 "Forbidden"
               end

@@ -36,10 +36,10 @@ class Brut::FrontEnd::Components::FormTag < Brut::FrontEnd::Component
         form_class = form_class.class
       end
       if html_attributes[:action]
-        raise ArgumentError, "You cannot specify both for: (#{form_class}) and and action: (#{html_attributes[:action]}) to a form_tag"
+        raise ArgumentError, "You cannot specify both for: (#{form_class}) and and action: (#{html_attributes[:action]}) to #{self.class}"
       end
       if html_attributes[:method]
-        raise ArgumentError, "You cannot specify both for: (#{form_class}) and and method: (#{html_attributes[:method]}) to a form_tag"
+        raise ArgumentError, "You cannot specify both for: (#{form_class}) and and method: (#{html_attributes[:method]}) to #{self.class}"
       end
       begin
         route = Brut.container.routing.route(form_class)
