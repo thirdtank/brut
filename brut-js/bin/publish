@@ -18,4 +18,4 @@ for arg in "$@"; do
   fi
 done
 
-npm publish brut-js
+npm publish
