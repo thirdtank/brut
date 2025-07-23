@@ -20,6 +20,12 @@ more aestheticly pleasing form. You already need to know CSS, HTML, the Web
 Platform, and SQL, so there's little to gain by requiring you to learn a different
 way to use them.
 
+## Yes, You Can Build a Blog in 15 Minutes
+
+<iframe title="Make a Blog App in 15(ish) minutes With BrutRB - A New Ruby Web Framework" width="560" height="315" src="https://video.hardlimit.com/videos/embed/ae7EMhwjDq9kSH5dqQ9swV" frameborder="0" allowfullscreen="" sandbox="allow-same-origin allow-scripts allow-popups allow-forms"></iframe>
+
+[Check out the source code](https://github.com/thirdtank/blog-demo) if you want to dive right in.
+
 ## Basic Elements
 
 Brut organizes its code and behavior around four basic concepts:
