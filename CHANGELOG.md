@@ -3,6 +3,7 @@
 ## v0.8.0 - July 23, 2025
 
 * Moved `mkbrut` into this repo
+* Fixed issue where generated `dx/build` script would mess up `build.args`. See https://github.com/thirdtank/brut/issues/45
 * Unify versioning for Brut, `mkbrut`, BrutJS, and BrutCSS
 * Unify all workspace workflow scripts (see README.md)
 * Minor doc updates to remove references to non-existent `form_tag`
