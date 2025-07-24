@@ -1,5 +1,7 @@
 lib = File.expand_path("../lib", __FILE__)
-$LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
+if !$LOAD_PATH.include?(lib)
+  $LOAD_PATH.unshift(lib)
+end
 require "mkbrut/version"
 Gem::Specification.new do |spec|
   spec.name          = "mkbrut"

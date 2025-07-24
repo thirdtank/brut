@@ -34,7 +34,7 @@ module MKBrut
           app_options:,
           current_dir:,
           templates_dir:,
-        )
+        ),
       ]
       if app_options.demo?
         @segments << MKBrut::Segments::Demo.new(

@@ -76,7 +76,7 @@ Manages a deploy process based on using Heroku's Container Registry. See
             image_name:,
             dockerfile: "deploy/Dockerfile.#{name}",
             heroku_image_name: "registry.heroku.com/#{heroku_app_name}/#{name}",
-          }
+          },
         ]
       }.to_h
 

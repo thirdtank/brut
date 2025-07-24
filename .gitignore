@@ -14,6 +14,9 @@
 # Location of YARD templates, this is temporary
 /.yard
 
+# This is generated, so no need to check in
+/.rubocop.yml
+
 # This is where generated API docs go
 /brutrb.com/public/api
 /brutrb.com/public/brut-js/api

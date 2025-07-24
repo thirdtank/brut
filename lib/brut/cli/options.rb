@@ -74,4 +74,8 @@ class Brut::CLI::Options
       value
     end
   end
+  def respond_to_missing?(sym, include_private = false)
+    # XXX: Maybe this should not
+    true
+  end
 end

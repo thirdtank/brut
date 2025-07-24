@@ -276,7 +276,7 @@ private
       }
       part_names[-1] += suffix
       begin
-        part_names.inject(Module) { |mod,path_element|
+        part_names.reduce(Module) { |mod,path_element|
           mod.const_get(path_element,mod == Module)
         }
       rescue NameError => ex

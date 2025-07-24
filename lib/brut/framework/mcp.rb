@@ -131,9 +131,9 @@ class Brut::Framework::MCP
             exception: ex)
         rescue => ex2
           $stderr.puts "While handling an error recording an exception, we get another error from SemanticLogger." + [
-            [ :original_exception,  exception,  ].join(": "),
-            [ :exception_from_recording_exception,  ex, ].join(": "),
-            [ :exception_from_semantic_logger,  ex2 ].join(": "),
+            [ :original_exception,                  exception  ].join(": "),
+            [ :exception_from_recording_exception,  ex ].join(": "),
+            [ :exception_from_semantic_logger,      ex2 ].join(": "),
 
           ].join(", ")
         end
@@ -188,8 +188,8 @@ class Brut::Framework::MCP
           {
             allow_if: ->(env) { env["brut.owned_path"] },
             message: message,
-          }
-        ]
+          },
+        ],
       ],
     ]
     if Brut.container.auto_reload_classes?
@@ -275,7 +275,7 @@ class Brut::Framework::MCP
             in TrueClass
               nil
             else
-              raise NoMatchingPatternError, "Result from #{method} hook #{klass}'s #{method} method was a #{result.class} (#{result.to_s} as a string), which cannot be used to understand the response to generate. Return nil or true if processing should proceed"
+              raise NoMatchingPatternError, "Result from #{method} hook #{klass}'s #{method} method was a #{result.class} (#{result} as a string), which cannot be used to understand the response to generate. Return nil or true if processing should proceed"
             end
           end
         end

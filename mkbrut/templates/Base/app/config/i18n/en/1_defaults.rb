@@ -114,7 +114,7 @@
       has_interpolations: "Test %{interp} Test",
       has_pluralizations: {
         one: "Once!",
-        other: "More than once!"
+        other: "More than once!",
       },
       has_pluralizations_and_zero: {
         zero: "ZERO",
@@ -123,6 +123,6 @@
       },
       simple1: "SIMPLE1",
       simple2: "SIMPLE2",
-    }
+    },
   },
 }

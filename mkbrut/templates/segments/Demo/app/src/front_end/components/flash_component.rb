@@ -12,7 +12,7 @@ class FlashComponent < AppComponent
     "pa-3",
     "ba",
     "br-3",
-    "tc"
+    "tc",
   ]
   COLORS = [
     "%{color}-300",

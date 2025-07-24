@@ -58,7 +58,7 @@ private
       (span.events || []).each do |event|
         event_message = (" " * (indent + 2)) + "event:#{event.name}"
         event_params = {
-          timing: ((event.timestamp - previous_timestamp)/1_000.0).to_i/1_000.0
+          timing: ((event.timestamp - previous_timestamp)/1_000.0).to_i/1_000.0,
         }.merge(event.attributes).merge(synthetic_attributes)
         SemanticLogger[self.class].info(event_message,event_params)
         previous_timestamp = event.timestamp

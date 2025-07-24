@@ -16,8 +16,14 @@ def setup(update_gems:,setup_credentials:)
     system! "bundle check --no-color || bundle install --no-color --quiet"
   end
 
+  log "Creating Rubocop configuration"
+  system! "bin/generate-and-run-rubocop -R"
+
   log "Installing Ruby LSP"
   system! "gem install ruby-lsp"
+
+  log "Installing rubocop-disable_syntax because I have not set up RubyLSP for bundler yet"
+  system! "gem install rubocop-disable_syntax"
 
   log "Installing JS/TS and CSS LSPs"
   system! "npm install -g typescript typescript-language-server vscode-langservers-extracted"

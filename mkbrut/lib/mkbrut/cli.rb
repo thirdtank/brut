@@ -100,7 +100,7 @@ module MKBrut
       options[:app_name] = MKBrut::AppName.new(args.first)
       options[:app_id] = options[:'app-id']
       options[:dry_run] = !!options[:'dry-run']
-      MKBrut::AppOptions.new(**options.merge(versions:))
+      MKBrut::AppOptions.new(**options, versions:)
     end
 
   end

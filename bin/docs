@@ -37,7 +37,7 @@ log "Hacking CSS"
 
 [
   docs_dir /  "css" / "style.css",
-  docs_dir /  "css" / "full_list.css"
+  docs_dir /  "css" / "full_list.css",
 ].each do |css_file_to_hack|
   lines = File.read(css_file_to_hack).split(/\n/)
   File.open(css_file_to_hack, "w") do |f|
