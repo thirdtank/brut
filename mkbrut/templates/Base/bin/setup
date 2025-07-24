@@ -82,7 +82,7 @@ def setup(update_gems:,update_node:)
   help
 end
 
-def setup_dot_env_local() 
+def setup_dot_env_local
 
   dot_env = ROOT_DIR / ".env.development"
   if !File.exist?(dot_env)

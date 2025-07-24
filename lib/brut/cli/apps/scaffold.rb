@@ -51,7 +51,7 @@ class Brut::CLI::Apps::Scaffold < Brut::CLI::App
       files_to_test_files.each do |source,destination|
         result = Prism.parse_file(source.to_s)
         if !result
-          raise "For some reason Prism did not parse #{source.to_s}"
+          raise "For some reason Prism did not parse #{source}"
         end
         classes = find_classes(result.value).map { |(module_nodes,class_node)|
           (module_nodes.map(&:constant_path).map(&:full_name).map(&:to_s) + [class_node.constant_path.full_name.to_s]).compact.join("::")

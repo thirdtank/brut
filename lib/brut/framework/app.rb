@@ -89,7 +89,7 @@ class Brut::Framework::App
       raise ArgumentError, "Your error handler block may only accept exception: and http_status_code: as required keyword parameters.  The following parameters were found:\n  #{messages.join("\n  ")}"
     end
     if @error_blocks[condition]
-      raise ArgumentError, "You have already configured error handling for condition '#{condition.to_s}'"
+      raise ArgumentError, "You have already configured error handling for condition '#{condition}'"
     end
     @error_blocks[condition] = block
   end

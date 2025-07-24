@@ -86,7 +86,7 @@ private
     layout_class = Module.const_get(
       layout_class = RichString.new([
         self.layout,
-        "layout"
+        "layout",
       ].join("_")).camelize
     )
     Brut.container.instrumentation.add_prefixed_attributes("brut", layout_class: layout_class)

@@ -100,10 +100,10 @@ class Brut::SpecSupport::RSpecSetup
       if needs_request_context
         session = {
           "session_id" => "test-session-id",
-          "csrf" => "test-csrf-token"
+          "csrf" => "test-csrf-token",
         }
         env = {
-          "rack.session" => session
+          "rack.session" => session,
         }
         app_session = Brut.container.session_class.new(rack_session: session)
         request_context = Brut::FrontEnd::RequestContext.new(

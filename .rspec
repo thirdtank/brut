@@ -1,3 +1,0 @@
--I specs
---require spec_helper
--P "specs/**/*.spec.rb"

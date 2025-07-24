@@ -1,0 +1,52 @@
+#!/bin/bash
+
+set -e
+
+SCRIPT_DIR=$( cd -- "$( dirname -- "${0}" )" > /dev/null 2>&1 && pwd )
+ROOT_DIR=$(realpath "$SCRIPT_DIR/..")
+
+usage() {
+  echo "Usage: $0 [-R]"
+  echo
+  echo "    Generates .rubocop.yml and runs rubocop"
+  echo
+  echo "OPTIONS"
+  echo
+  echo "    -R - Do not run rubocop, just generate the configuration"
+  echo
+}
+
+for arg in "$@"; do
+  if [ "${arg}" = "-h" ] || [ "${arg}" = "--help" ] || [ "${arg}" = "help" ]; then
+    usage
+    exit 0
+  fi
+done
+
+RUN_RUBOCOP=true
+while getopts "R" opt "${@}"; do
+  case ${opt} in
+    R )
+      RUN_RUBOCOP=false
+      ;;
+    \? )
+      log "🛑" "Unknown option: ${opt}"
+      usage
+      ;;
+    : )
+      log "🛑" "Invalid option: ${opt} requires an argument"
+      usage
+      ;;
+  esac
+done
+shift $((OPTIND -1))
+
+cd $ROOT_DIR
+echo "[ "$0" ] Generating .rubocop.yml"
+ruby -I "lib" -r brut/rubocop_config -e "Brut::RubocopConfig.new.create_ridiculous_yaml" .rubocop.yml
+if [ "$RUN_RUBOCOP" = true ]; then
+  echo "[ "$0" ] Running rubocop"
+  bin/rubocop
+else
+  echo "[ "$0" ] Not Running rubocop"
+fi

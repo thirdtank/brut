@@ -211,7 +211,7 @@ module Brut::I18n::BaseMethods
       block_contents = safe(capture(&block))
       interpolated_values[:block] = block_contents
     end
-    t_direct(keys_to_check,**interpolated_values.merge(key_given: key))
+    t_direct(keys_to_check,**interpolated_values, key_given: key)
   rescue I18n::MissingInterpolationArgument => ex
     if ex.key.to_s == "block"
       raise ArgumentError,"One of the keys #{key.join(", ")} contained a %{block} interpolation value: '#{ex.string}'. This means you must yield a block to `t`"

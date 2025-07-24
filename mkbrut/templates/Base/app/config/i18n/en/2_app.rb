@@ -12,7 +12,7 @@
     pages: { # Page-specific messages - this key is relied-upon by Brut to exist
       HomePage: {
         title: "Welcome!",
-      }
+      },
     },
     components: { # Component-specific messages - this key is relied-upon by Brut to exist
     },

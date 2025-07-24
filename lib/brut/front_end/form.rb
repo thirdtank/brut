@@ -73,7 +73,7 @@ class Brut::FrontEnd::Form
                  }
                else
                  [
-                   input_definition.make_input(value:, index: nil)
+                   input_definition.make_input(value:, index: nil),
                  ]
                end
 
@@ -109,7 +109,7 @@ class Brut::FrontEnd::Form
   # @return [Brut::FrontEnd::Forms::Input]
   def inputs(input_name)
     @inputs.fetch(input_name.to_s)
-  rescue KeyError => ex
+  rescue KeyError
     raise Brut::Framework::Errors::Bug, "Form does not define the input '#{input_name}'. You must add this to your form. Found these inputs: #{@inputs.keys.join(', ')}"
   end
 
@@ -164,8 +164,8 @@ class Brut::FrontEnd::Form
                   true
                 end
               },
-              index
-            ]
+              index,
+           ],
           ]
         end
       }.compact

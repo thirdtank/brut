@@ -56,7 +56,7 @@ class Brut::CLI::App
   # @!visibility private
   def self.env_vars
     @env_vars ||= {
-      "BRUT_CLI_RAISE_ON_ERROR" => "if set, shows backtrace on errors"
+      "BRUT_CLI_RAISE_ON_ERROR" => "if set, shows backtrace on errors",
     }
   end
 
