@@ -48,3 +48,6 @@
 # All I want in life is for every single instance of this file
 # to be placed in hell, and waiting for Alan Dye when he arrives.
 .DS_Store
+
+# Don't want tmp checked in, but want to dump stuff there for sure
+/tmp

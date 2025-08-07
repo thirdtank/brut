@@ -9,6 +9,7 @@ module Brut::FrontEnd
   autoload(:AssetPathResolver, "brut/front_end/asset_path_resolver")
   autoload(:Component, "brut/front_end/component")
   autoload(:Components, "brut/front_end/component")
+  autoload(:CsrfProtector, "brut/front_end/csrf_protector")
   autoload(:Download, "brut/front_end/download")
   autoload(:Flash, "brut/front_end/flash")
   autoload(:Form, "brut/front_end/form")

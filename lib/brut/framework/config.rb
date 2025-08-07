@@ -320,6 +320,17 @@ class Brut::Framework::Config
       )
 
       c.store(
+        "csrf_protector",
+        Brut::FrontEnd::CsrfProtector,
+        "Object to allow custom logic related to CSRF protection",
+        allow_app_override: true
+      ) do
+        Brut::FrontEnd::CsrfProtector.new
+      end
+
+
+
+      c.store(
         "semantic_logger_appenders",
         { Hash => "if only one appender is needed", Array => "to configure multiple appenders" },
         "List of appenders to be configured for SemanticLogger",

@@ -186,7 +186,12 @@ class Brut::Framework::MCP
         Rack::Protection::AuthenticityToken,
         [
           {
-            allow_if: ->(env) { env["brut.owned_path"] },
+            allow_if: ->(env) { 
+              brut_owned_path = env["brut.owned_path"] 
+              app_allowed = Brut.container.csrf_protector.tap {|_| puts _.class.name }.allowed?(env)
+
+              brut_owned_path || app_allowed
+            },
             message: message,
           },
         ],
