@@ -550,10 +550,10 @@ re-run a test.  But, it's still monkey-patching.</p>
     <span class='kw'>if</span> <span class='id identifier rubyid_needs_request_context'>needs_request_context</span>
       <span class='id identifier rubyid_session'>session</span> <span class='op'>=</span> <span class='lbrace'>{</span>
         <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>session_id</span><span class='tstring_end'>&quot;</span></span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>test-session-id</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
-        <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>csrf</span><span class='tstring_end'>&quot;</span></span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>test-csrf-token</span><span class='tstring_end'>&quot;</span></span>
+        <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>csrf</span><span class='tstring_end'>&quot;</span></span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>test-csrf-token</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
       <span class='rbrace'>}</span>
       <span class='id identifier rubyid_env'>env</span> <span class='op'>=</span> <span class='lbrace'>{</span>
-        <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>rack.session</span><span class='tstring_end'>&quot;</span></span> <span class='op'>=&gt;</span> <span class='id identifier rubyid_session'>session</span>
+        <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>rack.session</span><span class='tstring_end'>&quot;</span></span> <span class='op'>=&gt;</span> <span class='id identifier rubyid_session'>session</span><span class='comma'>,</span>
       <span class='rbrace'>}</span>
       <span class='id identifier rubyid_app_session'>app_session</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../../Brut.html" title="Brut (module)">Brut</a></span></span><span class='period'>.</span><span class='id identifier rubyid_container'><span class='object_link'><a href="../../Brut.html#container-class_method" title="Brut.container (method)">container</a></span></span><span class='period'>.</span><span class='id identifier rubyid_session_class'>session_class</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='label'>rack_session:</span> <span class='id identifier rubyid_session'>session</span><span class='rparen'>)</span>
       <span class='id identifier rubyid_request_context'>request_context</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../../Brut.html" title="Brut (module)">Brut</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../FrontEnd.html" title="Brut::FrontEnd (module)">FrontEnd</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../FrontEnd/RequestContext.html" title="Brut::FrontEnd::RequestContext (class)">RequestContext</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="../FrontEnd/RequestContext.html#initialize-instance_method" title="Brut::FrontEnd::RequestContext#initialize (method)">new</a></span></span><span class='lparen'>(</span>
@@ -627,7 +627,7 @@ re-run a test.  But, it's still monkey-patching.</p>
 </div>
 
       <div id="footer">
-  Generated on Wed Jul 23 19:49:27 2025 by
+  Generated on Thu Aug  7 13:50:18 2025 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.37 (ruby-3.4.5).
 </div>

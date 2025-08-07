@@ -511,7 +511,7 @@ defined.</p>
                <span class='rbrace'>}</span>
              <span class='kw'>else</span>
                <span class='lbracket'>[</span>
-                 <span class='id identifier rubyid_input_definition'>input_definition</span><span class='period'>.</span><span class='id identifier rubyid_make_input'>make_input</span><span class='lparen'>(</span><span class='label'>value:</span><span class='comma'>,</span> <span class='label'>index:</span> <span class='kw'>nil</span><span class='rparen'>)</span>
+                 <span class='id identifier rubyid_input_definition'>input_definition</span><span class='period'>.</span><span class='id identifier rubyid_make_input'>make_input</span><span class='lparen'>(</span><span class='label'>value:</span><span class='comma'>,</span> <span class='label'>index:</span> <span class='kw'>nil</span><span class='rparen'>)</span><span class='comma'>,</span>
                <span class='rbracket'>]</span>
              <span class='kw'>end</span>
 
@@ -657,8 +657,8 @@ name.</p>
                 <span class='kw'>true</span>
               <span class='kw'>end</span>
             <span class='rbrace'>}</span><span class='comma'>,</span>
-            <span class='id identifier rubyid_index'>index</span>
-          <span class='rbracket'>]</span>
+            <span class='id identifier rubyid_index'>index</span><span class='comma'>,</span>
+         <span class='rbracket'>]</span><span class='comma'>,</span>
         <span class='rbracket'>]</span>
       <span class='kw'>end</span>
     <span class='rbrace'>}</span><span class='period'>.</span><span class='id identifier rubyid_compact'>compact</span>
@@ -891,7 +891,7 @@ name.</p>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_inputs'>inputs</span><span class='lparen'>(</span><span class='id identifier rubyid_input_name'>input_name</span><span class='rparen'>)</span>
   <span class='ivar'>@inputs</span><span class='period'>.</span><span class='id identifier rubyid_fetch'>fetch</span><span class='lparen'>(</span><span class='id identifier rubyid_input_name'>input_name</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span><span class='rparen'>)</span>
-<span class='kw'>rescue</span> <span class='const'>KeyError</span> <span class='op'>=&gt;</span> <span class='id identifier rubyid_ex'>ex</span>
+<span class='kw'>rescue</span> <span class='const'>KeyError</span>
   <span class='id identifier rubyid_raise'>raise</span> <span class='const'><span class='object_link'><a href="../../Brut.html" title="Brut (module)">Brut</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../Framework.html" title="Brut::Framework (module)">Framework</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../Framework/Errors.html" title="Brut::Framework::Errors (module)">Errors</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../Framework/Errors/Bug.html" title="Brut::Framework::Errors::Bug (class)">Bug</a></span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Form does not define the input &#39;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_input_name'>input_name</span><span class='embexpr_end'>}</span><span class='tstring_content'>&#39;. You must add this to your form. Found these inputs: </span><span class='embexpr_beg'>#{</span><span class='ivar'>@inputs</span><span class='period'>.</span><span class='id identifier rubyid_keys'>keys</span><span class='period'>.</span><span class='id identifier rubyid_join'>join</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>, </span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span>
 <span class='kw'>end</span></pre>
     </td>
@@ -1217,7 +1217,7 @@ will be represented as a key in the resulting hash—only those keys that were p
 </div>
 
       <div id="footer">
-  Generated on Wed Jul 23 19:49:26 2025 by
+  Generated on Thu Aug  7 13:50:17 2025 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.37 (ruby-3.4.5).
 </div>
