@@ -142,7 +142,7 @@ unique keys is trivial, so Brut provides a way to do that.
 > A **key** simply uniquely identifies a row or is a unique constraint on a table.
 > Tables have only one primary key, but potentially many keys. Brut uses
 > *synthetic* (sometimes called *surrogate*) keys as primary keys.  This means
-> they have no business meaning and can be safely used for foreighn keys
+> they have no business meaning and can be safely used for foreign keys
 > and other cases without conflating them with domain concepts.
 
 
