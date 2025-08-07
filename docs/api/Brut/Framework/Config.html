@@ -609,7 +609,18 @@ connection to your database.</p>
 433
 434
 435
-436</pre>
+436
+437
+438
+439
+440
+441
+442
+443
+444
+445
+446
+447</pre>
     </td>
     <td>
       <pre class="code"><span class="info file"># File 'lib/brut/framework/config.rb', line 12</span>
@@ -925,6 +936,17 @@ connection to your database.</p>
     <span class='rparen'>)</span>
 
     <span class='id identifier rubyid_c'>c</span><span class='period'>.</span><span class='id identifier rubyid_store'>store</span><span class='lparen'>(</span>
+      <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>csrf_protector</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+      <span class='const'><span class='object_link'><a href="../../Brut.html" title="Brut (module)">Brut</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../FrontEnd.html" title="Brut::FrontEnd (module)">FrontEnd</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../FrontEnd/CsrfProtector.html" title="Brut::FrontEnd::CsrfProtector (class)">CsrfProtector</a></span></span><span class='comma'>,</span>
+      <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Object to allow custom logic related to CSRF protection</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+      <span class='label'>allow_app_override:</span> <span class='kw'>true</span>
+    <span class='rparen'>)</span> <span class='kw'>do</span>
+      <span class='const'><span class='object_link'><a href="../../Brut.html" title="Brut (module)">Brut</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../FrontEnd.html" title="Brut::FrontEnd (module)">FrontEnd</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../FrontEnd/CsrfProtector.html" title="Brut::FrontEnd::CsrfProtector (class)">CsrfProtector</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span>
+    <span class='kw'>end</span>
+
+
+
+    <span class='id identifier rubyid_c'>c</span><span class='period'>.</span><span class='id identifier rubyid_store'>store</span><span class='lparen'>(</span>
       <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>semantic_logger_appenders</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
       <span class='lbrace'>{</span> <span class='const'>Hash</span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>if only one appender is needed</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='const'>Array</span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>to configure multiple appenders</span><span class='tstring_end'>&quot;</span></span> <span class='rbrace'>}</span><span class='comma'>,</span>
       <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>List of appenders to be configured for SemanticLogger</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
@@ -1049,7 +1071,7 @@ connection to your database.</p>
 </div>
 
       <div id="footer">
-  Generated on Thu Aug  7 13:50:17 2025 by
+  Generated on Thu Aug  7 21:05:54 2025 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.37 (ruby-3.4.5).
 </div>

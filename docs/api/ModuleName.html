@@ -327,12 +327,12 @@
       <pre class="lines">
 
 
-189
-190
-191</pre>
+191
+192
+193</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/brut/junk_drawer.rb', line 189</span>
+      <pre class="code"><span class="info file"># File 'lib/brut/junk_drawer.rb', line 191</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_initialize'>initialize</span><span class='lparen'>(</span><span class='id identifier rubyid_parts_of_module'>parts_of_module</span><span class='rparen'>)</span>
   <span class='ivar'>@parts_of_module</span> <span class='op'>=</span> <span class='id identifier rubyid_parts_of_module'>parts_of_module</span>
@@ -374,12 +374,12 @@
       <pre class="lines">
 
 
-187
-188
-189</pre>
+189
+190
+191</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/brut/junk_drawer.rb', line 187</span>
+      <pre class="code"><span class="info file"># File 'lib/brut/junk_drawer.rb', line 189</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_parts_of_module'>parts_of_module</span>
   <span class='ivar'>@parts_of_module</span>
@@ -411,16 +411,16 @@
       <pre class="lines">
 
 
-179
-180
 181
 182
 183
 184
-185</pre>
+185
+186
+187</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/brut/junk_drawer.rb', line 179</span>
+      <pre class="code"><span class="info file"># File 'lib/brut/junk_drawer.rb', line 181</span>
 
 <span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_from_string'>from_string</span><span class='lparen'>(</span><span class='id identifier rubyid_string'>string</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_string'>string</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="RichString.html" title="RichString (class)">RichString</a></span></span><span class='period'>.</span><span class='id identifier rubyid_from_string'><span class='object_link'><a href="RichString.html#from_string-class_method" title="RichString.from_string (method)">from_string</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_string'>string</span><span class='rparen'>)</span>
@@ -455,12 +455,12 @@
       <pre class="lines">
 
 
-201
-202
-203</pre>
+203
+204
+205</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/brut/junk_drawer.rb', line 201</span>
+      <pre class="code"><span class="info file"># File 'lib/brut/junk_drawer.rb', line 203</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_append'>append</span><span class='lparen'>(</span><span class='id identifier rubyid_module_name'>module_name</span><span class='rparen'>)</span>
   <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_class'>class</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='ivar'>@parts_of_module</span> <span class='op'>+</span> <span class='id identifier rubyid_module_name'>module_name</span><span class='period'>.</span><span class='id identifier rubyid_parts_of_module'>parts_of_module</span><span class='rparen'>)</span>
@@ -485,16 +485,16 @@
       <pre class="lines">
 
 
-193
-194
 195
 196
 197
 198
-199</pre>
+199
+200
+201</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/brut/junk_drawer.rb', line 193</span>
+      <pre class="code"><span class="info file"># File 'lib/brut/junk_drawer.rb', line 195</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_in_module'>in_module</span><span class='lparen'>(</span><span class='id identifier rubyid_module_name'>module_name</span><span class='rparen'>)</span>
   <span class='kw'>if</span> <span class='id identifier rubyid_in_module?'>in_module?</span><span class='lparen'>(</span><span class='id identifier rubyid_module_name'>module_name</span><span class='rparen'>)</span>
@@ -523,8 +523,6 @@
       <pre class="lines">
 
 
-207
-208
 209
 210
 211
@@ -533,10 +531,12 @@
 214
 215
 216
-217</pre>
+217
+218
+219</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/brut/junk_drawer.rb', line 207</span>
+      <pre class="code"><span class="info file"># File 'lib/brut/junk_drawer.rb', line 209</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_path_from'>path_from</span><span class='lparen'>(</span><span class='id identifier rubyid_base_path'>base_path</span><span class='comma'>,</span> <span class='label'>extname:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>.rb</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
   <span class='id identifier rubyid_parts_as_path_segment'>parts_as_path_segment</span> <span class='op'>=</span> <span class='ivar'>@parts_of_module</span><span class='period'>.</span><span class='id identifier rubyid_map'>map</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_part'>part</span><span class='op'>|</span>
@@ -569,10 +569,10 @@
       <pre class="lines">
 
 
-205</pre>
+207</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/brut/junk_drawer.rb', line 205</span>
+      <pre class="code"><span class="info file"># File 'lib/brut/junk_drawer.rb', line 207</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_to_s'>to_s</span> <span class='op'>=</span> <span class='ivar'>@parts_of_module</span><span class='period'>.</span><span class='id identifier rubyid_join'>join</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>::</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span></pre>
     </td>
@@ -585,7 +585,7 @@
 </div>
 
       <div id="footer">
-  Generated on Thu Aug  7 13:50:17 2025 by
+  Generated on Thu Aug  7 21:05:54 2025 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.37 (ruby-3.4.5).
 </div>
