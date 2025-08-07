@@ -1,5 +1,11 @@
 # Brut CHANGELOG
 
+## v0.9.0 - Aug 7, 2025
+
+* Added `Brut::FrontEnd::CsrfProtector` and the `csrf_protector` configuration option to allow some customization
+  over how CSRF protection works app-wide, namely to allow a POST to a webhook to not have to have an authenticity token.
+  I don't super love this solution, but it's unblocking me for now.
+
 ## v0.8.0 - July 23, 2025
 
 * Moved `mkbrut` into this repo
