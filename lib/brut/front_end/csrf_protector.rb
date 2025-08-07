@@ -4,22 +4,22 @@
 # `Brut.container.override("csrf_protector", YourCustomCsrfProtector.new)` in your `App` class' initializer.
 #
 # @example
-# class CsrfProtector < Brut::FrontEnd::CsrfProtector
-#   def allowed?(env)
-#     !!env["PATH_INFO"].to_s.match?(/^\/webhooks\//)
-#   end
-# end
-# # Then, in app.rb
-# class App < Brut::Framework::App
-#   def id           = "some-id"
-#   def organization = "some-org"
-# 
-#   def initialize
-#     Brut.container.override("csrf_protector") do
-#       CsrfProtector.new
+#   class CsrfProtector < Brut::FrontEnd::CsrfProtector
+#     def allowed?(env)
+#       !!env["PATH_INFO"].to_s.match?(/^\/webhooks\//)
 #     end
-#
-#     # ...
+#   end
+#   # Then, in app.rb
+#   class App < Brut::Framework::App
+#     def id           = "some-id"
+#     def organization = "some-org"
+#   
+#     def initialize
+#       Brut.container.override("csrf_protector") do
+#         CsrfProtector.new
+#       end
+#       
+#       # ...
 #
 class Brut::FrontEnd::CsrfProtector
 
