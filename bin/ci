@@ -20,7 +20,7 @@ brutcss_dir = (Pathname(__FILE__).dirname / ".." / "brut-css" ).expand_path.to_s
 mkbrut_dir  = (Pathname(__FILE__).dirname / ".." / "mkbrut" ).expand_path.to_s
 
 log "Running BrutRB tests"
-system!("bin/rspec -I specs --require spec_helper -P \"specs/**/*.spec.rb\"")
+system!("bin/test")
 
 log "Running mkbrut tests"
 FileUtils.chdir mkbrut_dir do

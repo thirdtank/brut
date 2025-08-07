@@ -1,0 +1,18 @@
+#!/usr/bin/env ruby
+
+require "optparse"
+require_relative "bin_kit"
+
+OptionParser.new do |opts|
+  opts.banner = "Usage: test [options]\n\n    Runs Brut tests only\n\nOPTIONS\n\n"
+
+  opts.on("-h", "--help", "Display this help message") do
+    puts opts
+    puts
+    exit
+  end
+end.parse!
+
+log "Running BrutRB tests"
+system!("bin/rspec -I specs --require spec_helper -P \"specs/**/*.spec.rb\"")
+
