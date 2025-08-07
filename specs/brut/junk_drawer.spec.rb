@@ -38,6 +38,10 @@ RSpec.describe "RichString" do
       rich_string = RichString.new("Dash--BoardHTMLPage---")
       expect(rich_string.underscorized.to_s).to eq("dash_board_h_t_m_l_page")
     end
+    it "handles namespaces" do
+      rich_string = RichString.new("WebHooks::Stripe")
+      expect(rich_string.underscorized.to_s).to eq("web_hooks/stripe")
+    end
   end
   describe "#camelize" do
     it "splits on _ and -, captializes each part and joins them" do

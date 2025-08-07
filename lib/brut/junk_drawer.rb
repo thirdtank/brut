@@ -96,7 +96,9 @@ class RichString
       }.
       join.gsub("-","_").
       gsub(/[_]+/,"_").
-      gsub(/^_+/,"").
+      split(/::/).
+      map { |it| it.gsub(/^_+/,"") }.
+      join("/").
       gsub(/_+$/,"")
     )
   end
