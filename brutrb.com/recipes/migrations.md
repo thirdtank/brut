@@ -66,7 +66,7 @@ bin/db migrate
 > [!IMPORTANT]
 > This only applied migrations to the dev database.  `bin/ci` and `bin/test e2e`
 > will apply them to the test database, but you may need to do it yourself via
-> `bin/db migration -e test`
+> `bin/db migrate -e test`
 
 > [!NOTE]
 > There is no down migration. If you need to change and re-apply this before
