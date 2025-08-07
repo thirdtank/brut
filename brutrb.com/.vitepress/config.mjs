@@ -6,6 +6,9 @@ import jsdocLinker from './plugins/jsdocLinker'
 export default defineConfig({
   title: "Brut RB",
   description: "Documentation for the Brut.RB web framework.",
+  ignoreDeadLinks: [
+    /^https?:\/\/localhost/,
+  ],
   head: [
     ["link", { rel: "icon", href: "/favicon.ico" }],
     [
