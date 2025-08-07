@@ -51,9 +51,6 @@ module Brut::SpecSupport::ComponentSupport
   #   result = generate_and_parse(HeaderComponent.new(title: "Hello!")
   #   expect(result.e!("h1").text).to eq("Hello!")
   #
-  # @example Using context
-  #   result = generate_and_parse(TableRow.new([ "one", "two" ]), context: "tbody")
-  #
   # @param [Brut::FrontEnd::Component] component the component instance you wish to generate. This should be set up to simulate the test
   # you are running.
   # @yield if the component requires or accepts a yielded block, this is how you do that in the test.
