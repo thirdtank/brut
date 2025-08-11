@@ -10,32 +10,23 @@ If you'd just like to read source code, there are two apps you can check out:
 
 You can be running either of these locally in minutes as long as you have Docker installed.
 
-## Set Up
+## Understanding This Tutorial
 
-The only two pieces of software you need are Docker and a code editor:
+This tutorial will show you command line invocations and code.  You should be able to follow along and just type what we say and it should work.
 
-1. [Install Docker](https://docker.com)
+That said, it's not always clera what we are talking about.
 
-   > [!TIP]
-   > If you are on Windows, we *highly* recommend you use the 
-   > Windows Subystem for Linux (WSL2), as this makes Brut, web developement,
-   > and, honestly, your entire life as you know it, far easier than trying to
-   > get things working natively in Windows.
-2. Get a code editor like VSCode.  We don't use VSCode, but we are old and learned Vi/Vim/NeoVim when we were young.  If you have no code editor installed, Vi/Vim/NeoVim will be harder to get started, so use VSCode in this case.   
-
-To test that Docker is working, open a terminal and we'll run a command using the `docker` command line app.
-
-### Diversion: How to Understand the Command Line Invocations
+### Understanding Command Line Invocations
 
 If you aren't comfortable on the command line, it can be hard to understand what parts of this tutorial represent stuff you should type/paste and what is output from those commands.  Here is how that works.
 
-For a command to run, the preceding text will tell you something like "run this command", and then you'll see a codeblock that has the label "bash" in the upper right corner, like so:
+When we want you to run a command, the preceding text will tell you something like "run this command", and then you'll see a codeblock that has the label "bash" in the upper right corner, like so:
 
 ```bash
 ls -l
 ```
 
-If you hover over it, an icon witih the tooltip "Copy Code" will appear on the right, and you can click that to copy the command-line invocation. Or, you can select it and copy it, or you can type it in manually.
+If you hover over it, an icon with the tooltip "Copy Code" will appear on the right, and you can click that to copy the command-line invocation. Or, you can select it and copy it, or you can type it in manually.
 
 In any case, you are expected to type/paste/execute the entire thing.  Other parts of this documentation site may precede command lines with `>` to indicate it's a shell command. For this tutorial, we aren't doing that.
 
@@ -76,9 +67,62 @@ puma.config.rb
 «LOTS OF OUTPUTS»
 ```
 
+### Understanding Code Changes
+
+In most cases, we'll show you the entire code for a file/class, and you should make your copy look like it.  Suppose you have this:
+
+```ruby
+class SomeComponent < AppComponent
+end
+```
+
+We might say "add the `view_template` to your component so it looks like this:"
+
+```ruby
+class SomeComponent < AppComponent
+  def view_template
+    h3 { "My component" }
+    a(href:HelpPage.routing) { "Would You Like to Know More?" }
+  end
+end
+```
+
+That means you can replace the file with this code.  Other times, we may only focus on one method.  We might write "Change `view_template` in `SomeComponent` so it looks like so:"
+
+```ruby
+def view_template
+  h3 { "My component" }
+  a(href:HelpPage.routing) { "Would You Like to Know More?" }
+end
+```
+
+In this case, you'd replace the method, but the leave the rest of the class as-is.
+
+On occasion we'll want to only change a few lines and, in that case, we'll use a diff format like so:
+
+```diff
+-     a(href: "") { "Write New Blog Post" }
++     a(href: BlogPostEditorPage.routing) { "Write New Blog Post" }
+```
+
+This says to find the line that looks like the first one (preceded with a `-` and shown in red) and replace it with the second one (preceded with a `+` and shown in green).  **Do not use the `+` or `-` in your code**, that is just to indicate which line is which.
+
+Lastly, we'll try to mention the path to the file either in the preceding text or as a comment in the code.
+
 OK, back to your regularly-scheduled tutorial
 
-### Verifying Docker is Installed
+## Set Up
+
+The only two pieces of software you need are Docker and a code editor:
+
+1. [Install Docker](https://docker.com)
+
+   > [!TIP]
+   > If you are on Windows, we *highly* recommend you use the 
+   > Windows Subystem for Linux (WSL2), as this makes Brut, web developement,
+   > and, honestly, your entire life as you know it, far easier than trying to
+   > get things working natively in Windows.
+2. If you are new to programming or new to Ruby and don't know what editor to get, use VSCode.  If you are a vim or emacs person, those will be far better, but if you are used to an IDE, VSCode will be the easiest to get set up and learn to use.
 
 To check that docker is installed, open up a terminal and run:
 
@@ -108,13 +152,16 @@ echo $?
 
 Now, let's create the app by first initializing it.
 
+
 ## Initialize Your App
 
 `mkbrut` is a command line app that will initialize your new app. It's available as a RubyGem or a Docker image.  We'll use the Docker image since that doesn't require installing anything.
 
-We'll call the blog simply "blog". This is the only argument we need to give to `mkbrut`, although the command line to run it via Docker is pretty long.
+We'll call the blog simply "blog". `mkbrut` will insert some demo features in new apps to show you have to use Brut.  Since you're following this tutorial, you don't need that, so we'll use the `--no-demo` flag.
 
 `cd` to a folder where you'd like to work. `mkbrut` will create a folder called `blog` in there and in *that* folder, your app will be initialized.
+
+The command to do this is pretty long, because it downloads `mkbrut` and then runs it inside a Docker container, meaning you don't have to install anything new.  Here it is:
 
 ```
 docker run \
@@ -135,7 +182,7 @@ You should see this output:
 [ mkbrut ] App ID:        blog
 [ mkbrut ] Prefix:        bl
 [ mkbrut ] Organization:  blog
-[ mkbrut ] Include demo?  true
+[ mkbrut ] Include demo?  false
 [ mkbrut ] Creating Base app
 [ mkbrut ] Creating segment: Bare bones framing
 [ mkbrut ] blog was created
@@ -187,7 +234,15 @@ dx/build
 
 This may take a while, but it's building a Docker image where all your work will happen, although you'll be able to edit your code on your computer with the editor of your choice.
 
-When this is done, we'll start up the dev environment:
+When this is done, you should see a message like so:
+
+```
+# OUTPUT
+[ dx/build ] 🌈 Your Docker image has been built tagged 'blog/blog:ruby-3.4'
+[ dx/build ] 🔄 You can now run dx/start to start it up, though you may need to stop it first with Ctrl-C
+```
+
+Now, start up the environment:
 
 ```bash
 dx/start
@@ -201,9 +256,26 @@ dx/start
  ⠙ Container blog-app-1
  ⠙ Container blog-otel-desktop-viewer-1
 «LOTS OF OUTPUT»
+app-1                  | 2025-08-11T16:39:11.568390000-04:00
+app-1                  | 2025-08-11T16:39:11.568978000-04:00
+app-1                  | 2025-08-11T16:39:11.569430000-04:00
+app-1                  | 2025-08-11T16:39:11.569825000-04:00 🎉  Dev Environment Initialized! 🎉
+app-1                  | 2025-08-11T16:39:11.570214000-04:00
+app-1                  | 2025-08-11T16:39:11.570599000-04:00 ℹ️   To use this environment, open a new terminal and run
+app-1                  | 2025-08-11T16:39:11.570980000-04:00
+app-1                  | 2025-08-11T16:39:11.571250000-04:00     dx/exec bash
+app-1                  | 2025-08-11T16:39:11.571521000-04:00
+app-1                  | 2025-08-11T16:39:11.571795000-04:00 🕹  Use `ctrl-c` to exit.
+app-1                  | 2025-08-11T16:39:11.572064000-04:00
+app-1                  | 2025-08-11T16:39:11.572327000-04:00
+app-1                  | 2025-08-11T16:39:11.572596000-04:00
 ```
 
-This command won't stop, it'll keep running.  The first time it runs, it may take a while since it will be downloading Postgres and otel-desktop-viewer.  Postgres is your database and otel-desktop-viewer allows you to look at app telemetry in development.
+`dx/start` will keep running. If you stop it, your dev environment will stop.  It's running three containers:
+
+* `app`, which is where the app and its test will run 
+* `postgres`, which is running PostgreSQL, a SQL database you'll use
+* `otel-desktop-viewer` which can view telemetry of your app. We'll see that later.
 
 Now, let's access the container we started.
 
@@ -216,7 +288,7 @@ dx/exec bash
 ```
 # OUTPUT
 [ dx/exec ] 🚂 Running 'ssh-agent bash' inside container with service name 'app'
-Now using node v22.17.1 (npm v10.9.2)
+Now using node v22.18.0 (npm v10.9.3)
 docker-container - Projects/blog
 > 
 ```
@@ -249,7 +321,7 @@ This is because the folder on your computer is synced to the one inside the cont
 * Creating your dev and test databases
 * Setting up Chromium, which we'll use to run end-to-end tests
 
-Run it now (rememeber, this is inside the container, so you should've run `dx/exec bash` on your computer first)
+Run it now (remember, this is inside the container, so you should've run `dx/exec bash` on your computer first)
 
 ```bash
 bin/setup
@@ -260,9 +332,33 @@ bin/setup
 [ bin/setup ] Installing gems
 [ bin/setup ] Executing ["bundle check --no-color || bundle install --no-color --quiet"]
 «LOTS OF OUTPUT»
+[ bin/setup ] All set up.
+
+USEFUL COMMANDS
+
+  bin/dev
+     # run app locally, rebuilding and reloading as needed
+
+  bin/ci
+     # runs all tests and checks as CI would
+
+  bin/console
+     # get an IRB console with the app loaded
+
+  bin/db
+     # interact with the DB for migrations, information, etc
+
+  bin/dbconsole
+     # get a PSQL session to the database
+
+  bin/scaffold
+     # Create various structures in your app, like pages or forms
+
+  bin/setup help
+     # show this help
 ```
 
-When this is done, we can check that everything's working by running `bin/ci`.  `bin/ci` runs all tests and quality checks.  Even though you haven't written any code, there's just a bit included to demonstrate that things are working.  So there are a few tests.
+When this is done, we can check that everything's working by running `bin/ci`.  `bin/ci` runs all tests and quality checks.  Even though you haven't written any code, there's just a bit included to ensure that what little is there is working properly. It's a good check before you start to make sure install and setup worked.
 
 ```bash
 bin/ci
@@ -298,15 +394,15 @@ bin/dev
 ```
 # OUTPUT
 « LOTS OF OUTPUT »
-Your app is now running at
-
-   http://localhost:6502
-
+20:43:41 startup_message.1 | Your app is now running at
+20:43:41 startup_message.1 | 
+20:43:41 startup_message.1 |   http://localhost:6502
+20:43:41 startup_message.1 | 
 ```
 
 Go to http://localhost:6502 in your web browser.  You should see a welcome screen like so:
 
-XXXX
+![Screenshot of the Brut welcome screen](/images/tutorial/welcome-to-brut.png)
 
 ## The Blog We'll Build
 
@@ -381,7 +477,7 @@ If you've never used Phlex before, it's a Ruby API that defines one method for e
 
 If your server is still running, refresh the page and you'll see this wonderful UI (otherwise, start your server with `bin/dev`):
 
-XXXXX
+![Screenshot of the page we built](/images/tutorial/initial-home-page.png)
 
 Let's make it a bit nicer.
 
@@ -419,9 +515,9 @@ header {
 
 If you reload the home page in your browser, it now looks at least a little bit respectible:
 
-XXXXX
+![Screenshot of the styled home page](/images/tutorial/styled-home-page.png)
 
-Now, let's do the blog post editor.
+Now, let's build the blog post editor.
 
 ## Creating Forms
 
@@ -433,18 +529,28 @@ To create blog posts, we need three things:
 
 ### Creating a New Page
 
-To make a new page in Brut, we'll need to declare a route, and Brut will choose the class name.  We'll use `/blog_post_editor`, meaning Brut will expect `BlogPostEditorPage` to exist.  We can do all this at once with `bin/scaffold`, which you can run now like so:
+To make a new page in Brut, we'll need to declare a route, and Brut will choose the class name.  We'll use `/blog_post_editor`, meaning Brut will expect `BlogPostEditorPage` to exist.  We can do all this at once with `bin/scaffold page`.  `bin/scaffold page` accepts the URL of the page we want to build.  Brut will use that URL to figure out the page class' name and generate it, along with a failing test. It will also insert the route into `app.rb`.  Run it now, like so:
 
 ```bash
 bin/scaffold page /blog_post_editor
 ```
 
+Your output should look like so:
+
 ```
 # OUTPUT
-TBD
+[ bin/scaffold ] Inserted route into app/src/app.rb
+[ bin/scaffold ] Page source is in app/src/front_end/pages/blog_post_editor_page.rb
+[ bin/scaffold ] Page test is in   specs/front_end/pages/blog_post_editor_page.spec.rb
+[ bin/scaffold ] Added title to    app/config/i18n/en/2_app.rb
+[ bin/scaffold ] Added route to    app/src/app.rb
 ```
 
-Before we look at the page, let's fix the link on the home page. If you recall, we set `href` to `""`.  While we could use `"/blog_post_editor"` as the URL, it's better to let Brut create routes.  Each page class has a class method called `routing` that will generate a URL to that page.
+Restart your server (Brut currently cannot auto-reload new routes).
+
+If you manually navigate to `http://localhost:6502/blog_post_editor`, you can see a very basic page has been created.  Before we build the actual page, let's change the home page so it links here.
+
+If you'll recall, we had a `a(href:"") { ... }` in our template.  We now know the URL for that `href`.  We *could* use the actual url, `/blog_post_editor`, but it's going to be easier to manage our app over time if we don't hard-code paths and instead use our new page class to generate the URL.
 
 Open up `app/src/front_end/pages/home_page.rb` and make this change:
 
@@ -453,19 +559,21 @@ Open up `app/src/front_end/pages/home_page.rb` and make this change:
 +     a(href: BlogPostEditorPage.routing) { "Write New Blog Post" }
 ```
 
-Although `BlogPostEditorPage` doesn't take any query string parameters or have any dynamic parts of its route, using `.routing` will be more consistent as the app grows.
+All page classes have a `.routing` method.  By using this instead of building a URL ourselves, we get some advantages:
 
-With this change, you can now click the link and see the `BlogPostEditorPage`'s HTML:
+* If we rename or remove `BlogPostEditorPage`, any page referencing it will generate a nice, easy-to-understand error.
+* `routing` can manage query strings and anchors in a safe way, plus it can check that if a page has
+required routing parameters (e.g. the `123` in `/posts/123`), that they are provided.
 
-XXXX
+With this change, you can now click the link and see the `BlogPostEditorPage`'s template we saw earlier.
 
-Before we change the HTML, we'll need to describe our form as a *form class*.  In Brut, forms are managed with classes, and they are provided to a *handler* which handles the submission and provides a response (like a controller in Rails, if you are familiar).
+Most of the `BlogPostEditorPage`'s HTML will be a form to submit a new blog post.  While we could write that using HTML, Brut makes life easier by allowing the use of a *form class* to do it, which also will describe the data to be submitted to the server. This data is handled by a *handler*.
 
 ### Create a Form and Handler
 
 A form gets submitted to a URL, and Brut routes that submission to a handler.  To create both a form class and a handler, we'll use `bin/scaffold form`, giving it the URL to respond on.
 
-In this case, we'll use the URL `/new_blog_post`:
+In this case, we'll use the URL `/new_blog_post`.  Stop your server and run this command:
 
 ```bash
 bin/scaffold form /new_blog_post
@@ -473,12 +581,20 @@ bin/scaffold form /new_blog_post
 
 ```
 # OUTPUT
-TBD
+[ bin/scaffold ] NewBlogPostForm    in app/src/front_end/forms/new_blog_post_form.rb
+[ bin/scaffold ] NewBlogPostHandler in app/src/front_end/handlers/new_blog_post_handler.rb
+[ bin/scaffold ] Spec               in specs/front_end/handlers/new_blog_post_handler.spec.rb
+[ bin/scaffold ] Inserted route into app/src/app.rb
 ```
 
-The form class that was just created, `NewBlogPostForm` (located in `app/src/front_end/forms/new_blog_post_form.rb`) can be used to generate HTML (after we declare the inputs it accepts), and hold the values submitted from the browser.
+When creating a new form, the first thing we have to do is edit the form class (in this case, 
+`NewBlogPostForm`, located in `app/src/front_end/forms/new_blog_post_form.rb`) to describe the values being accepted by the server.
 
-First, let's declare our inputs.  Open up `app/src/front_end/forms/new_blog_post_form.rb` and make it look like so:
+This can be done by calling static/class methods provided by `Brut::FrontEnd::Form`, the superclass of `AppForm`, which is the superclass of our app's forms.
+
+Open up `app/src/front_end/forms/new_blog_post_form.rb`.  We'll call `input` twice, once for the title and once for the content.  `input` takes keyword arguments that mirror those of the web platform's constraint validation system.  Since our title must be at least 3 characters, that means we'll use `minlength` to specify this.
+
+Here's the code:
 
 ```ruby
 class NewBlogPostForm < AppForm
@@ -487,7 +603,7 @@ class NewBlogPostForm < AppForm
 end
 ```
 
-Each field is required by default.  You can specify additional constraints using the same attributes you'd use on an `<input>` in HTML (this is why you see `minlength` above and not a more idiomatic `min_length` or even `min`—Brut tries to mirror the web platform when possible).
+Each field is required by default (you can set `required: false` on fields that aren't required).
 
 With these declarations, we can use an instance of this class to generate HTML.
 
@@ -521,10 +637,8 @@ This will require four parts of Brut's API and use one optional one:
 constraint violation visitor experience if JavaScript is enabled.
 * `FormTag`, a Phlex component provided by Brut that generates the correct `<form>` element, as well as
 CSRF protection.
-* `Inputs::` components, namely `Inputs::InputTag` and `Inputs::TextareaTag`, which generate `<input>`
-and `<textarea>`, respectively. This Phlex components (provided by Brut) will add the correct attributes for validation, and set the values if the form they are given has values set.
-* `ConstraintViolations`, a Phlex component provided by Brut that generates custom elements that, when
-JavaScript is enabled, allow for control over the visitor experience when there are constraint violations.
+* `Inputs::` components, namely `Brut::FrontEnd::Components::Inputs::InputTag` and `Brut::FrontEnd::Components::Inputs::TextareaTag`, which generate `<input>` and `<textarea>`, respectively. These Phlex components (provided by Brut) will add the correct attributes for validation, and set the values if the form they are given has values set.
+* `Brut::FrontEnd::Components::ConstraintViolations`, a Phlex component provided by Brut that generates custom elements that, when JavaScript is enabled, allow for control over the visitor experience when there are constraint violations.
 * *(optional)* `t` provides access to localized strings, instead of hard-coding English.
 
 Create `page_template` to look like so:
@@ -551,12 +665,24 @@ def page_template
 end
 ```
 
-If you reload the page now, you'll get an error about missing translation keys.  Let's add those.
+> [!TIP]
+> You'll notice that we mentioned classes like `Brut::FrontEnd::Components::Inputs::InputTag`, but the
+> code above is only using `Input::InputTag`.  This is due to [*Phlex
+> Kits*](https://www.phlex.fun/components/kits.html), which allow you to use relative class names
+> in certain circumstances.
+>
+> Brut makes use of this so there is a clear and organized name for a component, but you almost never
+> have to type or read the entire thing.
 
+Make sure your server is running, then reload the blog post editor page.  You should see an error like so:
+
+> `Translation missing. Options considered were: - en.pages.BlogPostEditorPage.write_new_post - en.write_new_post`
+
+Let's add those keys.
 
 ### Adding Translation Keys
 
-In Brut, translations aren't stored in YAML, but in a Ruby hash.  Brut provides standard translations in `app/config/i18n/en/1_defaults.rb`, but your app will set its own in `app/config/i18n/en/2_app.rb`:
+In Brut, translations aren't stored in YAML 🥳🎉, but in a Ruby hash.  Brut provides standard translations in `app/config/i18n/en/1_defaults.rb`, but your app will set its own in `app/config/i18n/en/2_app.rb`:
 
 ```ruby
 # All app-specific translations, or overrides of Brut's defaults, go here.
@@ -607,7 +733,7 @@ Give them values like so:
         title: "Welcome!",
       },
       BlogPostEditorPage: {
-        title: "BlogPostEditorPage"
+        title: "BlogPostEditorPage",
         write_new_post: "Write a new post!",
         form: {
           title: "Title",
@@ -621,11 +747,11 @@ Give them values like so:
 
 Now, when you reload the page, it should work:
 
-XXXX
+![screenshot of the form working, but unstyled](/images/tutorial/basic-form.png)
 
 Without filling anything in, click the submit button. The form should show you some error messages that are unstyled:
 
-XXXX
+![screenshot of the form working, but unstyled](/images/tutorial/basic-form-with-violations.png)
 
 Let's style them and learn about how the `<brut-cv>` tags created by `ConstraintViolations` work.
 
@@ -722,7 +848,8 @@ Let's also do some styling for the form and its elements.  Add this below the CS
 
 Two notes about this CSS:
 
-* It's using nesting, which is part of Baseline
+* It's using nesting, which is part of
+[Baseline](https://developer.mozilla.org/en-US/docs/Glossary/Baseline/Compatibility)
 * We've nested all the CSS inside the `.BlogPostEditorPage` class. The default layout Brut provides
 includes this:
 
@@ -736,7 +863,7 @@ includes this:
 
 *Now*, if you submit the form without providing any values, you'll see a decent-looking experience:
 
-XXXX
+![screenshot of the styled form with constraint violations](/images/tutorial/styled-form-with-violations.png)
 
 If you fill out the fields correctly, you should see an error that you need to implement your handler.  Let's do that next.
 
@@ -790,9 +917,11 @@ class NewBlogPostHandler < AppHandler
 end
 ```
 
-Of course, `BlogPostEditorPage` does not accept the form as a paramter.  We'll need to change that:
+Of course, `BlogPostEditorPage` does not accept the form as a parameter.  We'll need to change that.  Since we are using the `@form` instance to help generate HTML, if we pass the instance from our handler to the `BlogPostEditorPage`, when *that* instance generates HTML, it will have errors indicated and show the visitor's provided values instead of defaults.
 
-```ruby
+Of course, we still need to create a blank form when the page is accessed for the first time, so we'll make `form:` default to `nil` and create it if we aren't given a value:
+
+```ruby{2,3}
 class BlogPostEditorPage < AppPage
 
   def initialize(form: nil)
@@ -802,9 +931,13 @@ class BlogPostEditorPage < AppPage
 
 With this in place, create a new blog post but with only four words in the content. This will pass client-side checks, but fail server-side checks. When you submit, you'll see an error related to `cv.ss.not_enough_words`, which is the key Brut is trying to use to find the actual error message.
 
+> `Translation missing. Options considered were: -
+> en.components.Brut::FrontEnd::Components::ConstraintViolations.cv.ss.not_enough_words -
+> en.cv.ss.not_enough_words`
+
 Add it to `app/config/i18n/en/2_app.rb`, under `en`, `cv` (for constraint violations), `ss` (for server-side):
 
-```ruby
+```ruby {10}
 # All app-specific translations, or overrides of Brut's defaults, go here.
 {
   # en: must be the first entry, thus indicating this is the EN translations
@@ -821,24 +954,28 @@ Add it to `app/config/i18n/en/2_app.rb`, under `en`, `cv` (for constraint violat
 
 *Now*, try again, and you'll see this message, rendered exactly like client-side errors:
 
-XXXX
+![screenshot of the styled form with server-generated constraint violations](/images/tutorial/styled-form-with-server-side-violations.png)
 
 Now that we have the user experience in place, let's actually store the blog post in the database.
 
 ## Using a Database
 
-Brut uses Postgres, and you can access your database using the Sequel library.  The class you'll create to access a table is called a *database model*, and to create one, you'll want to make a few changes to the app:
+Brut uses Postgres, and includes and configures the [Sequel](https://sequel.jeremyevans.net/) library to access your data.  Sequel has some similarity to Rails' Active Record, but it's not quite the same.
 
-* Create a migration that creates the schema for the new table.
-* Create the database model class itself.
-* Create a FactoryBot factory that can create sample instances of rows in the table, useful for testing and development
-* Modify seed data to create sample data for development.
+The main way to access data is to create a *database model* class (which is similar to an Active Record).  Sequel also provides a way to manage your database schema via *migrations*.
+
+The steps to take when creating a new table you want to access are:
+
+1. Create a migration that creates the schema for the new table.
+2. Create the database model class itself.
+3. Create a FactoryBot factory that can create sample instances of rows in the table, useful for testing and development
+4. Modify seed data to create sample data for development.
 
 Most of this can be done via `bin/scaffold db_model`.
 
 ### Creating a New Database Table
 
-Run `bin/scaffold` like so:
+Stop your server and run `bin/scaffold` like so:
 
 ```bash
 bin/scaffold db_model blog_post
@@ -846,12 +983,29 @@ bin/scaffold db_model blog_post
 
 ```
 # OUTPUT
-TBD
+[ bin/scaffold ] Executing ["bin/db new_migration create_blog_post"]
+[ bin/db ] Migration created:
+    app/src/back_end/data_models/migrations/20250811213758_create_blog_post.rb
+[ bin/scaffold ] ["bin/db new_migration create_blog_post"] succeeded
+[ bin/scaffold ] Creating DB::BlogPost in app/src/back_end/data_models/db/blog_post.rb
+[ bin/scaffold ] Creating spec for DB::BlogPost in specs/back_end/data_models/db/blog_post.spec.rb
+[ bin/scaffold ] Creating factory for DB::BlogPost in specs/factories/db/blog_post.factory.rb
 ```
 
-This created a migration file in `app/src/back_end/data_models/migrations`, named something like `20250801120000_blog_post.rb`.  The numbers in the name are a timestamp, so yours will be different.
+Your migration file name will be different than ours, since it has a timestamp embedded into it.
 
-Open that file in your editor and use `create_table`, as provided by Sequel, to describe the table:
+Open that file in your editor and use `create_table`, as provided by Sequel, to describe the table.
+
+Brut enhances Sequel's `create_table` in the following ways:
+
+* A numeric primary key called `id` is created.
+* `comment:` is required.
+* `external_id` can be given, and will create a managed unique key called `external_id` that is safe to externalize and is not used in foreign key or referential integrity.
+* A timestamped field, `created_at` is created and will be set when new rows are created from your app.
+
+Inside `create_table`, we'll call `column` to define columns.  Brut defaults all columns to `NOT NULL`, so you don't need to specify `null: false`.
+
+All of this goes inside a block given to the method `up`, like so:
 
 ```ruby
 Sequel.migration do
@@ -866,11 +1020,7 @@ Sequel.migration do
 end
 ```
 
-`up` is a method from Sequel that accepts a block to run when making a change to the schema. Sequel supports `down` which can undo that change, but Brut apps do need to use this.
-
-Inside the block given to `up`, `create_table` creates a new table. *It* is given a block in which the schema of that table is defined.  All tables require a comment, and the `external_id:` option will create a unique externalizable key for our table that is managed separate from the table's primary key.
-
-Inside the block given to `create_table` we call `column` twice to define our two columns.  Neither column is nullable. In Brut, database columns may not contain null by default. You can specify `null: true` to any column that is allowed null values.
+If you've used migrations before, you may know that `down` can be used to specify a way to undo the migration, or that a method like `change` can be used to automatically do both.  Brut recommends only using forward migrations inside `up`.  If you need to undo and redo your changes, you can use `bin/db rebuild` to rebuild your database from scratch.
 
 Save this file, then apply this migration to your development database:
 
@@ -880,7 +1030,7 @@ bin/db migrate
 
 ```
 # OUTPUT
-TBD
+[ bin/db ] Migrations applied
 ```
 
 Now, apply it to your test database:
@@ -891,7 +1041,7 @@ bin/db migrate -e test
 
 ```
 # OUTPUT
-TBD
+[ bin/db ] Migrations applied
 ```
 
 You can examine the table that was created by running `bin/dbconsole`:
@@ -911,12 +1061,21 @@ blog_development=#
 This will give you a new prompt where you can type commands to `psql`, the Postgres command-line client.  Try describing the table:
 
 ```bash
-\d+ blog_posts
+\d blog_posts
 ```
 
 ```
-# OUTPUT
-TBD
+                                    Table "public.blog_posts"
+   Column    |           Type           | Collation | Nullable |             Default              
+-------------+--------------------------+-----------+----------+----------------------------------
+ id          | integer                  |           | not null | generated by default as identity
+ title       | text                     |           | not null | 
+ content     | text                     |           | not null | 
+ created_at  | timestamp with time zone |           | not null | 
+ external_id | citext                   |           | not null | 
+Indexes:
+    "blog_posts_pkey" PRIMARY KEY, btree (id)
+    "blog_posts_external_id_key" UNIQUE CONSTRAINT, btree (external_id)
 ```
 
 `bin/scaffold` created the database model for you in `app/src/back_end/data_models/db/blog_post.rb`:
@@ -927,31 +1086,29 @@ class DB::BlogPost < AppDataModel
 end
 ```
 
-In Brut, database models are in the `DB::` namespace, so you do not need to conflate them with a *domain* model.
+In Brut, database models are in the `DB::` namespace, so you do not conflate them with a *domain* model.
 
-Note `has_external_id`.  Brut chose this value, and it will be used to create a second identifier for blog posts.  Those identifiers are prefixed with the app prefix (`bl` in this case) and then the model prefix (also `bl`). An example would be `blbl_9783245789345789345789345`.
-
-These ids can be shared, and when you see one, you'll know that the first two characters being `bl` indicate the id is from your app. The next two characters being `bl` indicate its the ID of a blog post.
-
-Let's change it to be `bp` just to avoid any confusiong with the app prefix:
-
-```ruby
-class DB::BlogPost < AppDataModel
-  has_external_id :bp
-end
-```
-
+> [!TIP]
+> Note `has_external_id`. This tells Brut and Sequel that the underlying table is expected
+> to have the field `external_id` and that it is expected to be unique.  You can see this in
+> the output of `\d blog_posts`, where it says `UNIQUE CONSTRAINT, btree (external_id)`.
+>
+> `has_external_id` configures the database model to provide a value for this key when saving or 
+> creating a row.  To aid in understanding the values out of context, external ids are prefixed
+> with two values: one is an app-wide value, in our case `bl`.  The other is a model-specific
+> value, also `bl`.  Thus, external ids might look like `blbl_9783245789345789345789345`.
+>
 Before we use this database model, we want to be able to create instances in tests, as well as for local development.  The way to do that in Brut is to create a factory.
 
 ### Creating Test and Development Data
 
-Brut uses FactoryBot to create sample instance of your data.  Open up `specs/factories/db/blog_post.factory.rb` in your editor.
+Brut uses [FactoryBot](https://github.com/thoughtbot/factory_bot) to create sample instance of your data.  Open up `specs/factories/db/blog_post.factory.rb` in your editor.
 
-If you are new to FactoryBot, it is a lightweight (ish) DSL that allows creating test data.  You'll call methods based on the column names in order to specify values.  Brut also includes Faker, which creates randomized but realistic test data.
+If you are new to FactoryBot, it is a lightweight (ish) DSL that allows creating test data.  You'll call methods based on the column names in order to specify values.  Brut also includes [Faker](https://github.com/faker-ruby/faker), which creates randomized but realistic test data.
 
 For the title, we'll use Faker's "hipster ipsum". For the content, we want several paragraphs delineated by `\n\r`, so we'll create between 2 and 6 paragraphs and join them.
 
-Add code to `specs/factories/db/blog_post.factory.rb` to look like so:
+Make `specs/factories/db/blog_post.factory.rb` look like so:
 
 ```ruby
 FactoryBot.define do
@@ -974,10 +1131,23 @@ bin/test run specs/lint_factories.spec.rb
 
 ```
 # OUTPUT
-TBD
+[ bin/test ] Executing ["bin/rspec -I /Users/davec/Projects/ThirdTank/brutcasts/01-make-a-blog/blog/specs -I /Users/davec/Projects/ThirdTank/brutcasts/01-make-a-blog/blog/app/src -I lib/ --tag ~e2e -P \"**/*.spec.rb\" \"specs/lint_factories.spec.rb\""]
+Run options: exclude {e2e: true}
+
+Randomized with seed 29315
+
+factories
+  should be possible to create them all
+
+Finished in 0.59465 seconds (files took 0.7718 seconds to load)
+1 example, 0 failures
+
+Randomized with seed 29315
+
+[ bin/test ] ["bin/rspec -I /Users/davec/Projects/ThirdTank/brutcasts/01-make-a-blog/blog/specs -I /Users/davec/Projects/ThirdTank/brutcasts/01-make-a-blog/blog/app/src -I lib/ --tag ~e2e -P \"**/*.spec.rb\" \"specs/lint_factories.spec.rb\""] succeeded
 ```
 
-Now, we can use this for seed data in development.  Edit `app/src/back_end/data_models/seed/seed_data.rb`, and add the following code, which will create 10 blog posts:
+We can use this factory for seed data to provide realistic data for development. Edit `app/src/back_end/data_models/seed/seed_data.rb`, and make it look like so, which will create 10 blog posts:
 
 ```ruby
 require "brut/back_end/seed_data"
@@ -999,12 +1169,7 @@ Now, load the seed data into the development database with `bin/db seed`:
 bin/db seed
 ```
 
-```
-# OUTPUT
-TBD
-```
-
-Now, let's use this to show our blog posts and create new ones.
+We can now show this data on the home page.
 
 ## Accessing the Database
 
@@ -1012,9 +1177,11 @@ On `HomePage`, we put in a `<p>` as a placeholder for blog posts.  Let's replace
 
 In Brut, since HTML is generated by Phlex and thus by Ruby code, we can structure our HTML generation however we like, including by accessing the database directly.  This may not scale as our app gets large, but for now, it's the simplest thing to do.
 
-Sequel's database models are similar to Rails' Active Record's in that we can call class methods to access data. In this case, `DB::BlogPost` has a method `order` that will fetch all records sorted by the field we give it in the order we decide. The sort field and order is specified via `Sequel.desc` for descining or `Sequel.asc` for ascending. We want posts in reverse-chronological order, so `Sequel.desc(:created_at)` will achieve this.
+Sequel's database models are similar to Rails' Active Record's in that we can call class methods to access data. In this case, `DB::BlogPost` has a method `order` that will fetch all records sorted by the field we give it in the order we decide. The sort field and order is specified via `Sequel.desc` for descending or `Sequel.asc` for ascending. We want posts in reverse-chronological order, so `Sequel.desc(:created_at)` will achieve this.
 
-We can call `.each` on the result and iterate over each blog post.  Here's what `page_template` should look like now:
+We can call `.each` on the result and iterate over each blog post.  For the content, we'll split by `\n\r` to create paragraphs.
+
+Here's what `HomePage`'s `page_template` should look like now:
 
 ```ruby
 def page_template
@@ -1038,11 +1205,15 @@ end
 
 Start your server if you stopped it before. Go to the home page, and you should see our fake blog posts:
 
-XXXX
+![Home page showing two posts from the seed data, formatted properly](/images/tutorial/styled-home-page-with-posts.png)
 
-To create rows in the database, the class method `create` can be called on `DB::BlogPost`, so lets change the handler to use that.  Open up `app/src/front_end/handlers/new_blog_post_handler.rb` and make `handle` look like so:
+If we modify our handler to save new posts to the database, they'll show up here.
 
-```ruby
+## Saving to the Database
+
+To create rows in the database, the class method `create` can be called on `DB::BlogPost`. Let's change the handler to use that.  Open up `app/src/front_end/handlers/new_blog_post_handler.rb` and make `handle` look like so (the changed lines are highlighted):
+
+```ruby {12-15}
 def handle
   if !@form.constraint_violations?
     if @form.content.split(/\s/).length < 5
@@ -1054,10 +1225,10 @@ def handle
     end
   end
   if @form.valid?
-    DB::BlogPost.create(      # <----
-      title: @form.title,     # <----
-      content: @form.content  # <----
-    )                         # <----
+    DB::BlogPost.create(
+      title: @form.title,
+      content: @form.content
+    )
     redirect_to(HomePage)
   else
     NewBlogPostPage.new(form: @form)
@@ -1067,7 +1238,13 @@ end
 
 The form object provides access to the values of any field we've declared via a method call.
 
-Now, create a new blog post, provide valid data, and submit it. You should be taken to `HomePage` with your blog post at the top!
+Now, create a new blog post, provide valid data, and submit it.
+
+![Screenshot of the blog post editor, with a new post filled in](/images/tutorial/new-post-editor.png)
+
+Once you submit it, you should see the homage page with your new post at the top:
+
+![Screenshot of the home page, showing the new blog post](/images/tutorial/new-post-home-page.png)
 
 Our work isn't quite done. We need tests.
 
@@ -1092,7 +1269,7 @@ post and re-generate the blog post editor page, showing the errors.
 new blog post and re-generate the blog post editor page, showing the errors.
 * If everything looks good, we save the new blog post and redirect to the home page.
 
-Brut apps are tested with RSpec, and Brut provides several convienience methods and matchers to make testing as painless as possible.
+Brut apps are tested with RSpec, and Brut provides several convenience methods and matchers to make testing as painless as possible.
 
 When testing a handler, the public method is `handle!`, not `handle`, so we want to call that (Brut implements `handle!` to call `handle`).
 
@@ -1120,7 +1297,14 @@ end
 
 `have_generated` asserts that the value returned from `handle!` is an instance of the page given, `BlogPostEditorPage` in this case.  You could just as easily write `expect(result.kind_of?(BlogPostEditorPage)).to eq(true)`, but `have_generated` expressed the intent of what's happening.
 
-`have_constraint_violation` checks that form's `constraint_violations` contains one for the given field and the given key.  In this case, we check both `:title` and `:content` for `:valueMissing`.  This key is used because it's the value in the web platform's `ValidityState` for when a required value is missing.  Brut re-uses names and symbols from the web platform where it makes sense.
+`have_constraint_violation` checks that the form's `constraint_violations` contains one for the given field and the given key.  In this case, we check both `:title` and `:content` for `:valueMissing`.
+
+> [!TIP]
+> Client-side constraint violations use the same keys on the server as they do in the browser.
+> In the case of a required field, the browser's
+> [`ValidityState`](https://developer.mozilla.org/en-US/docs/Web/API/ValidityState) would set
+> `valueMissing` to true.  So, that's what Brut would do on the server-side, when reflecting
+> client-side constraints.
 
 Next, we'll check that the server-side constraint violations are being checked. Add this just below the `context` you just added:
 
@@ -1146,8 +1330,9 @@ This test introduces two new concepts:
 
 * To initialize a form with data, you must pass a `Hash` to the keyword argument `params:`.  If the
 `Hash` contains parameters that the form doesn't recognize, they are ignored and discarded.
-* Since we are assuming there are no client-side constraint violations, we can check that the form has
-none by calling `constraint_violations?` and checking that it returns false.  Since this is not part of the test, but a confidence check that our test setup is correct, this is wrapped in `confidence_check { ... }`, which will produce a different error message than if a test fails.
+* Although we aren't expecting the form to have client-side constraint violations, if there are any, the
+test would fail in a confusing way. To manage this, Brut includes the [confidence-check](https://github.com/sustainable-rails/confidence-check) gem that allows you to make assertions that are not part of the test.  If the confidence check fails, the test output will be obvious that the test could not run due to an assumption being violated.
+
 
 Lastly, we'll check that everything worked when there aren't any constraint violations. Add this below the `context` you just added:
 
@@ -1186,7 +1371,26 @@ bin/test run specs/front_end/handlers/new_blog_post_handler.spec.rb
 
 ```
 # OUTPUT
-TBD
+[ bin/test ] Executing ["bin/rspec -I /Users/davec/Projects/ThirdTank/brutcasts/01-make-a-blog/blog/specs -I /Users/davec/Projects/ThirdTank/brutcasts/01-make-a-blog/blog/app/src -I lib/ --tag ~e2e -P \"**/*.spec.rb\" \"specs/front_end/handlers/new_blog_post_handler.spec.rb\""]
+Run options: exclude {e2e: true}
+
+Randomized with seed 61034
+
+NewBlogPostHandler
+  post is not enough words
+    re-generates the HTML for the BlogPostEditorPage, with server-side errors indicated
+  post is good!
+    saves the post and redirects to the HomePage
+  #handle!
+    client-side violations got to the server
+      re-generates the HTML for the BlogPostEditorPage
+
+Finished in 0.0138 seconds (files took 0.73976 seconds to load)
+3 examples, 0 failures
+
+Randomized with seed 61034
+
+[ bin/test ] ["bin/rspec -I /Users/davec/Projects/ThirdTank/brutcasts/01-make-a-blog/blog/specs -I /Users/davec/Projects/ThirdTank/brutcasts/01-make-a-blog/blog/app/src -I lib/ --tag ~e2e -P \"**/*.spec.rb\" \"specs/front_end/handlers/new_blog_post_handler.spec.rb\""] succeeded
 ```
 
 It passes!
@@ -1195,13 +1399,19 @@ Next, let's test `HomePage`.
 
 ### Testing Pages
 
-Unlike our handler, which accepts arguments and returns a result, pages generate HTML.  We are better off testing pages by asking them to generate HTML and then examine the HTML directly.
+Unlike our handler, which accepts arguments and returns a result, pages generate HTML.  We are better off testing pages by asking them to generate HTML and then examining the HTML directly.
 
-Brut provides the method `generate_and_parse` to generate a page's HTML, then use Nokogiri to parse it. We can use CSS selectors on the result to assert things about the HTML.
+Brut provides the method `generate_and_parse` to generate a page's HTML, then use [Nokogiri](https://nokogiri.org/) to parse it. We can use CSS selectors on the result to assert things about the HTML.
 
 `mkbrut` created `specs/front_end/pages/home_page.spec.rb`, so let's open that up on your editor.
 
-The way we'll write this test is to generate four random blog posts using our factory, request the page, then assert that each blog post is on the page.  Rather than assert that each blog post's text is just somewhere on the page, we'll make use of the `external_id` concept. We'll use it as the `id` attribute of the `<article>`.
+The way we'll write this test is to generate four random blog posts using our factory, request the page, then assert that each blog post is on the page.
+
+Rather than assert that each blog post's text is just somewhere on the page, we'll make use of the `external_id` concept. We'll use it as the `id` attribute of the `<article>`.
+
+Brut intends for you to use Nokogiri's API to access information about the parsed document, however it provides a few convenience methods.   In the test below, you'll see `e!`, which is added to Nokogiri nodes.
+
+`e!` asserts that exactly one node matches the given CSS selector and returns that node. This makes it more expedient to access something that should be there, but fail with a useful error message when it's not.
 
 Here's the test:
 
@@ -1215,7 +1425,7 @@ RSpec.describe HomePage do
 
     result = generate_and_parse(described_class.new)
 
-    expect(result.e!("h1").text).to eq("Dave's Exicting Information")
+    expect(result.e!("h1").text).to eq("My Amazing Blog")
 
     blog_posts.each do |blog_post|
       post_article = result.e!("article##{blog_post.external_id}")
@@ -1228,18 +1438,56 @@ RSpec.describe HomePage do
 end
 ```
 
-The value returned from `generate_and_parse` responds to the Brut-provided `e!` which accepts a CSS selector that must return exactly one match, or the test fails.  It returns a Nokogiri node, where `.text` returns the equivalent of `innerContent`.
-
 Let's run the test, which should fail:
 
 ```bash
-bin/test run specs/front_end/handlers/new_blog_post_handler.spec.rb
+bin/test run specs/front_end/pages/home_page.spec.rb
 ```
 
 ```
 # OUTPUT
-TBD
+[ bin/test ] Executing ["bin/rspec -I /Users/davec/Projects/ThirdTank/brutcasts/01-make-a-blog/blog/specs -I /Users/davec/Projects/ThirdTank/brutcasts/01-make-a-blog/blog/app/src -I lib/ --tag ~e2e -P \"**/*.spec.rb\" \"specs/front_end/pages/home_page.spec.rb\""]
+Run options: exclude {e2e: true}
+
+Randomized with seed 44491
+
+HomePage
+  should show the blog posts (FAILED - 1)
+
+Failures:
+
+  1) HomePage should show the blog posts
+     Failure/Error: post_article = result.e!("article##{blog_post.external_id}")
+
+       article#blbl_6f04feaefb9520d86b19c3ac4ad22c4f matched 0 elements, not exactly 1:
+
+«HUGE HTML DOCUMENT»
+
+     # ./local-gems/gem-home/gems/brut-0.5.0/lib/brut/spec_support/enhanced_node.rb:32:in 'Brut::SpecSupport::EnhancedNode#e!'
+     # ./specs/front_end/pages/home_page.spec.rb:13:in 'block (3 levels) in <top (required)>'
+     # ./specs/front_end/pages/home_page.spec.rb:12:in 'Array#each'
+     # ./specs/front_end/pages/home_page.spec.rb:12:in 'block (2 levels) in <top (required)>'
+     # ./local-gems/gem-home/gems/brut-0.5.0/lib/brut/spec_support/rspec_setup.rb:158:in 'block (2 levels) in Brut::SpecSupport::RSpecSetup#setup!'
+     # ./local-gems/gem-home/gems/sequel-5.95.1/lib/sequel/database/transactions.rb:264:in 'Sequel::Database#_transaction'
+     # ./local-gems/gem-home/gems/sequel-5.95.1/lib/sequel/database/transactions.rb:239:in 'block in Sequel::Database#transaction'
+     # ./local-gems/gem-home/gems/sequel-5.95.1/lib/sequel/connection_pool/timed_queue.rb:90:in 'Sequel::TimedQueueConnectionPool#hold'
+     # ./local-gems/gem-home/gems/sequel-5.95.1/lib/sequel/database/connecting.rb:283:in 'Sequel::Database#synchronize'
+     # ./local-gems/gem-home/gems/sequel-5.95.1/lib/sequel/database/transactions.rb:197:in 'Sequel::Database#transaction'
+     # ./local-gems/gem-home/gems/brut-0.5.0/lib/brut/spec_support/rspec_setup.rb:156:in 'block in Brut::SpecSupport::RSpecSetup#setup!'
+
+Finished in 0.54876 seconds (files took 0.73025 seconds to load)
+1 example, 1 failure
+
+Failed examples:
+
+bin/test run ./specs/front_end/pages/home_page.spec.rb:4 # HomePage should show the blog posts
+
+Randomized with seed 44491
+
+[ bin/test ] error: ["bin/rspec -I /Users/davec/Projects/ThirdTank/brutcasts/01-make-a-blog/blog/specs -I /Users/davec/Projects/ThirdTank/brutcasts/01-make-a-blog/blog/app/src -I lib/ --tag ~e2e -P \"**/*.spec.rb\" \"specs/front_end/pages/home_page.spec.rb\""] failed - exited 1
 ```
+
+Brut obviously errs on the side of being verbose. But, you can see that the problem is that it cannot find an `<article>` with the `id=` of `blbl_6f04feaefb9520d86b19c3ac4ad22c4f`, the `external_id` of the first blog post.
 
 To make it pass, we'll need to add `id:` to each `<article>`.  Make this one-line change in `HomePage`:
 
@@ -1248,15 +1496,34 @@ To make it pass, we'll need to add `id:` to each `<article>`.  Make this one-lin
 +      article(id: blog_post.external_id) do
 ```
 
+> [!TIP]
+> This shows a useful feature of the `external_id`: Because it's not only unique
+> to the database table, but also across *all* database tables, it makes a pretty
+> good `ID` inside an HTML page, since it's highly unlikely any other part of the page
+> would use that value for the `id=` of an element.
+
 Now, the test should pass:
 
 ```bash
-bin/test run specs/front_end/handlers/new_blog_post_handler.spec.rb
+bin/test run specs/front_end/pages/home_page.spec.rb
 ```
 
 ```
 # OUTPUT
-TBD
+[ bin/test ] Executing ["bin/rspec -I /Users/davec/Projects/ThirdTank/brutcasts/01-make-a-blog/blog/specs -I /Users/davec/Projects/ThirdTank/brutcasts/01-make-a-blog/blog/app/src -I lib/ --tag ~e2e -P \"**/*.spec.rb\" \"specs/front_end/pages/home_page.spec.rb\""]
+Run options: exclude {e2e: true}
+
+Randomized with seed 56951
+
+HomePage
+  should show the blog posts
+
+Finished in 0.53858 seconds (files took 0.69257 seconds to load)
+1 example, 0 failures
+
+Randomized with seed 56951
+
+[ bin/test ] ["bin/rspec -I /Users/davec/Projects/ThirdTank/brutcasts/01-make-a-blog/blog/specs -I /Users/davec/Projects/ThirdTank/brutcasts/01-make-a-blog/blog/app/src -I lib/ --tag ~e2e -P \"**/*.spec.rb\" \"specs/front_end/pages/home_page.spec.rb\""] succeeded
 ```
 
 For `BlogPostEditorPage`, there really isn't anything to test - it's static HTML at this point.  Even still, it's good to record a decision about testing code or not, so it's clear we didn't just forget.  Brut provides the method `implementation_is_covered_by_other_tests` to do just that. It accepts a string where we can describe where the coverage for this class is.
@@ -1281,7 +1548,19 @@ bin/test run
 
 ```
 # OUTPUT
-TBD
+[ bin/test ] Running all tests
+[ bin/test ] Executing ["bin/rspec -I /Users/davec/Projects/ThirdTank/brutcasts/01-make-a-blog/blog/specs -I /Users/davec/Projects/ThirdTank/brutcasts/01-make-a-blog/blog/app/src -I lib/ --tag ~e2e -P \"**/*.spec.rb\" /Users/davec/Projects/ThirdTank/brutcasts/01-make-a-blog/blog/specs/"]
+Run options: exclude {e2e: true}
+
+Randomized with seed 63173
+...........
+
+Finished in 0.53248 seconds (files took 0.7012 seconds to load)
+11 examples, 0 failures
+
+Randomized with seed 63173
+
+[ bin/test ] ["bin/rspec -I /Users/davec/Projects/ThirdTank/brutcasts/01-make-a-blog/blog/specs -I /Users/davec/Projects/ThirdTank/brutcasts/01-make-a-blog/blog/app/src -I lib/ --tag ~e2e -P \"**/*.spec.rb\" /Users/davec/Projects/ThirdTank/brutcasts/01-make-a-blog/blog/specs/"] succeeded
 ```
 
 As our last test, we'll write an end-to-end that uses a browser.
@@ -1294,11 +1573,17 @@ Browser tests are expensive and slow, but it's good to test entire workflows tha
 2. Submit a post that's too short and make sure server-side errors show up.
 3. Submit a valid post and check that it makes it back to the home page.
 
-Brut uses Playwright to author end to end tests. Playwright is written in JavaScript, but there is a Ruby wrapper library that alleviates us from having to worry about async/await style coding.
+Brut uses [Playwright](https://playwright.dev/) to author end to end tests. Playwright is written in JavaScript, but there is a [Ruby wrapper library](https://playwright-ruby-client.vercel.app/) that alleviates us from having to worry about async/await style coding.
 
-Unfortunatley, Playwright's method of locating HTML elements and making assertions about them is different from Nokogiri's and from the web platform. Such is life.
+Ideally, we'd use the same API here as we do in our page tests. Or, equally ideally, we'd be able to use the API of the web platform.  Playwright went a third way. Such is life.
 
-The way this test will work is that we'll use `HomePage.routing` to kick everything off, find a link to `BlogPostEditorPage.routing`, then use Playwright's `page.locator` to find elements on the page to interact with.  Form fields respond to `fill` to put text in them, and buttons respond to `click`.  The matcher `have_text` can assert that text appears inside an element.
+The way this test will work is:
+
+1. Use `HomePage.routing` to kick everything off
+2. Find a link to `BlogPostEditorPage.routing` on the page
+3. Use Playwright's `page.locator` to find elements on the page to interact with (which will naturally wait for the page to load before doing so).
+4. We'll use `fill` to fill in data for the form fields and `click` to submit the form by clicking the submit button.
+5. The matcher `have_text` will be used assert that text appears inside an element.
 
 Brut provides the matcher `be_page_for` to assert that we are viewing the page we think we are. Nothing is more frustrating than watching assertions fail because your test ended up on the wrong page.
 
@@ -1371,7 +1656,43 @@ It should pass:
 
 ```
 # OUTPUT
-TBD
+[ bin/test ] Rebuilding test database schema
+[ bin/test ] Executing ["bin/db rebuild --env=test"]
+[ bin/db ] Database exists. Dropping...
+[ bin/db ] blog_test does not exit. Creating...
+[ bin/db ] Migrations applied
+[ bin/test ] ["bin/db rebuild --env=test"] succeeded
+[ bin/test ] Running all tests
+[ bin/test ] Executing ["bin/rspec -I /Users/davec/Projects/ThirdTank/brutcasts/01-make-a-blog/blog/specs -I /Users/davec/Projects/ThirdTank/brutcasts/01-make-a-blog/blog/app/src -I lib/ --tag e2e -P \"**/*.spec.rb\" /Users/davec/Projects/ThirdTank/brutcasts/01-make-a-blog/blog/specs/"]
+Run options: include {e2e: true}
+
+Randomized with seed 27681
+[ bin/test-server ] Building assets
+«TONS OF OUTPUT»
+[ bin/test-server ] Starting server
+[ bin/run ] No pidfile-Starting up
+[3352] Configuration:
+«TONS OF OUTPUT»
+[3352] Use Ctrl-C to stop
+[3352] - Worker 0 (PID: 3361) booted in 0.0s, phase: 0
+[3352] - Worker 1 (PID: 3364) booted in 0.0s, phase: 0
+.[3352] === puma shutdown: 2025-08-11 22:18:16 +0000 ===
+[3352] - Goodbye!
+[3352] - Gracefully shutting down workers...
+
+
+Finished in 3.45 seconds (files took 0.69401 seconds to load)
+1 example, 0 failures
+
+Randomized with seed 27681
+
+[ bin/test ] ["bin/rspec -I /Users/davec/Projects/ThirdTank/brutcasts/01-make-a-blog/blog/specs -I /Users/davec/Projects/ThirdTank/brutcasts/01-make-a-blog/blog/app/src -I lib/ --tag e2e -P \"**/*.spec.rb\" /Users/davec/Projects/ThirdTank/brutcasts/01-make-a-blog/blog/specs/"] succeeded
+[ bin/test ] Re-Rebuilding test database schema
+[ bin/test ] Executing ["bin/db rebuild --env=test"]
+[ bin/db ] Database exists. Dropping...
+[ bin/db ] blog_test does not exit. Creating...
+[ bin/db ] Migrations applied
+[ bin/test ] ["bin/db rebuild --env=test"] succeeded
 ```
 
 With that test done, `bin/ci`, which we ran at the start, should run all tests, plus check for CVEs in our installed gems.
@@ -1383,8 +1704,23 @@ bin/ci
 It should also pass:
 
 ```
-#OUTPUT
-TBD
+# OUTPUT
+«TONS OF OUTPUT»
+[ bin/ci ] Analyzing Ruby gems for
+[ bin/ci ] security vulnerabilities
+Updating ruby-advisory-db ...
+From https://github.com/rubysec/ruby-advisory-db
+ * branch            master     -> FETCH_HEAD
+Already up to date.
+Updated ruby-advisory-db
+ruby-advisory-db:
+  advisories:	998 advisories
+  last updated:	2025-08-08 10:26:18 -0700
+  commit:	43149b540b701c9683e402fcd7fa4e5b6e5b60e9
+No vulnerabilities found
+[ bin/ci ] Checking to see that all classes have tests
+[ bin/test ] All tests exists!
+[ bin/ci ] Done
 ```
 
 That's it!
