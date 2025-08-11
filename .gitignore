@@ -49,5 +49,5 @@
 # to be placed in hell, and waiting for Alan Dye when he arrives.
 .DS_Store
 
-# Don't want tmp checked in, but want to dump stuff there for sure
+# tmp is nice to have, but not nice to check in.
 /tmp
