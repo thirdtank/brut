@@ -1,5 +1,11 @@
 # Brut CHANGELOG
 
+## v0.9.1 - Aug 12, 2025
+
+* Changed `<brut-confirm-submit>` to not ask for confirmation if the form is invalid
+* Changed default production loggin to STDOUT as this is more correct + it cannot be changed by apps
+currently due to https://github.com/thirdtank/brut/issues/51
+
 ## v0.9.0 - Aug 7, 2025
 
 * Added `Brut::FrontEnd::CsrfProtector` and the `csrf_protector` configuration option to allow some customization
