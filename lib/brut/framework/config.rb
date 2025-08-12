@@ -328,27 +328,22 @@ class Brut::Framework::Config
         Brut::FrontEnd::CsrfProtector.new
       end
 
-
-
       c.store(
         "semantic_logger_appenders",
         { Hash => "if only one appender is needed", Array => "to configure multiple appenders" },
         "List of appenders to be configured for SemanticLogger",
         allow_app_override: true
       ) do |project_env,log_dir|
-        appenders = if project_env.development?
-                      [
-                        { formatter: :color, io: $stdout },
-                        { file_name: (log_dir / "development.log").to_s },
-                      ]
-                    end
-        if appenders.nil?
-          appenders = { file_name: (log_dir / "#{project_env}.log").to_s }
+        if project_env.development?
+          [
+            { formatter: :color, io: $stdout },
+            { file_name: (log_dir / "development.log").to_s },
+          ]
+        elsif project_env.test?
+          { file_name: (log_dir / "test.log").to_s }
+        else
+          { io: $stdout }
         end
-        if appenders.nil?
-          appenders = { io: $stdout }
-        end
-        appenders
       end
 
       c.store(
