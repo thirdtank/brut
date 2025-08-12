@@ -7,7 +7,7 @@ describe("<brut-confirm-submit>", () => {
       <input type="text" name="text">
       <brut-confirm-submit message='You sure?'>
         <button>Save</button>
-        <input type="submit" value="Submit">
+        <input type="submit" value="Submit" required minlength="3" value="abcd">
       </brut-confirm-submit>
     </form>
     `).test("uses window.confirm and cancels the click on Cancel", ({window,document,assert}) => {
@@ -81,6 +81,37 @@ describe("<brut-confirm-submit>", () => {
       assert(shown)
       assert.equal(messageShown,"You sure?")
       assert(submitted)
+    })
+    withHTML(`
+    <form>
+      <input type="text" name="text" required minlength="3">
+      <brut-confirm-submit message='You sure?'>
+        <button>Save</button>
+        <input type="submit" value="Submit">
+      </brut-confirm-submit>
+    </form>
+    `).test("Does not show if form is invalid", ({window,document,assert}) => {
+      const form   = document.querySelector("form")
+      const button = document.querySelector("button")
+
+      let submitted = false
+      form.addEventListener("submit", (event) => {
+        event.preventDefault()
+        submitted = true
+      })
+
+      let shown        = false
+      let messageShown = null
+
+      window.confirm = (message) => {
+        shown = true
+        messageShown = message
+        return false // "Cancel"
+      }
+
+      button.click()
+      assert(!shown)
+      assert(!submitted)
     })
   })
   describe("with an implicit dialog", () => {
