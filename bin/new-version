@@ -1,0 +1,8 @@
+set -e
+
+if [ -f /.dockerenv ]; then
+  echo "Do not run this inside Docker"
+  exit 1
+fi
+
+nvim -o lib/brut/version.rb mkbrut/lib/mkbrut/version.rb brut-js/package.json brut-css/package.json CHANGELOG.md
