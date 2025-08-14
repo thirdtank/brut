@@ -44,20 +44,19 @@ RUN apt-get update --quiet --yes && \
       gnupg \
       libjemalloc2 \
       lsb-release \
+      postgresql-common \
       rsync \
-      wget && \
-		rm -rf /var/lib/apt/lists /var/cache/apt/archives
+      wget
 
 # Install the PostgreSQL client.  The latest version is not available
 # from Debian, so we set up our own. This should match what's in Dockerfile.dx
 # and ideally the version of Postgres used in production.
 #
 # Incancation is based on: https://www.postgresql.org/download/linux/debian/
-RUN sh -c 'echo "deb http://apt.postgresql.org/pub/repos/apt $(lsb_release -cs)-pgdg main" > /etc/apt/sources.list.d/pgdg.list' && \
-    wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | apt-key add - && \
+RUN /usr/share/postgresql-common/pgdg/apt.postgresql.org.sh -y && \
     apt-get update && \
     apt-get --yes --quiet install postgresql-client-16 && \
-		rm -rf /var/lib/apt/lists /var/cache/apt/archives
+		rm -rf /var/lib/apt/lists/* /var/cache/apt/archives/*
 
 # Set basic env vars for production
 ENV RACK_ENV="production" \
