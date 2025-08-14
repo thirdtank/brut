@@ -1,5 +1,9 @@
 # Brut CHANGELOG
 
+## v0.9.2 - Aug 14, 2025
+
+* Updated Docker instructions for installing PostgreSQL client, due to ruby:3.4 image upgrading to Debian Trixie which removed something. See https://github.com/thirdtank/brut/issues/55
+
 ## v0.9.1 - Aug 12, 2025
 
 * Changed `<brut-confirm-submit>` to not ask for confirmation if the form is invalid
