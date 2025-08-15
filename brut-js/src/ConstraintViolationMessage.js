@@ -15,9 +15,15 @@ import I18nTranslation from "./I18nTranslation"
  * @property {string} key - the i18n translation key to use.  It must map to the `key` of a `<brut-i18n-translation>` on the page or
  * the element will not render any text.
  * @property {string} input-name - the name of the input, used to insert into the message, e.g. "Title is required".
+ * @property {boolean} server-generated if true, this indicates the element's HTML was generated on the server.
+ *           This means that your CSS can target it for display in all cases.  If this is not present,
+ *           you may want to avoid showing this element if the form has not been submitted yet.
+ *           Does not affect behavior.
  * @property {boolean} server-side if true, this indicates the element contains constraint violation messages
- *                                 from the server.  Currently doesn't affect this element's behavior, however
- *                                 AjaxSubmit will use it to locate where it should insert server-side errors.
+ *           from the server.  Does not affect behavior.
+ * @property {boolean} client-side if true, this indicates the element contains constraint violation messages
+ *           from the client, however they may have been generated from the server, since the server may
+ *           re-evaluate the client-side constraints.  Does not affect behavior of this tag.
  *
  * @see I18nTranslation
  * @see ConstraintViolationMessages
@@ -33,12 +39,15 @@ class ConstraintViolationMessage extends BaseCustomElement {
     "key",
     "input-name",
     "server-side",
+    "client-side",
+    "server-generated",
   ]
 
   static createElement(document,attributes) {
     const element = document.createElement(ConstraintViolationMessage.tagName)
     element.setAttribute("key",this.i18nKey("cs", attributes.key))
     element.setAttribute("input-name",attributes["input-name"])
+    element.setAttribute("client-side","")
     if (Object.hasOwn(attributes,"show-warnings")) {
       element.setAttribute("show-warnings",attributes["show-warnings"])
     }
@@ -83,6 +92,12 @@ class ConstraintViolationMessage extends BaseCustomElement {
   }
 
   serverSideChangedCallback({newValueAsBoolean}) {
+    // attribute listed for documentation purposes only
+  }
+  clientSideChangedCallback({newValueAsBoolean}) {
+    // attribute listed for documentation purposes only
+  }
+  serverGeneratedChangedCallback({newValueAsBoolean}) {
     // attribute listed for documentation purposes only
   }
 
