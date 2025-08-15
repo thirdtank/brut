@@ -9,6 +9,7 @@ The simplest way to use `mkbrut` is to use an existing [Docker image](https://hu
 
 ```
 docker run \
+       --pull always \
        -v "$PWD":"$PWD" \
        -w "$PWD" \
        -u $(id -u):$(id -g) \
@@ -33,6 +34,7 @@ For now:
 
 ``` [Docker-based]
 docker run \
+       --pull always \
        -v "$PWD":"$PWD" \
        -w "$PWD" \
        -u $(id -u):$(id -g) \
@@ -55,6 +57,7 @@ To create your app without the demo components:
 
 ``` [Docker-based]
 docker run \
+       --pull always \
        -v "$PWD":"$PWD" \
        -w "$PWD" \
        -u $(id -u):$(id -g) \
