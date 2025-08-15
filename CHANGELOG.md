@@ -1,5 +1,11 @@
 # Brut CHANGELOG
 
+## v0.10.0 - Aug 15, 2025
+
+* Changed `ConstraintViolations` HTML to indicate if a `<brut-cv>` is server-generated, even if it's generating  client-side constraint. See #56.
+* `<brut-form>` now requires that all `<brut-cv-messages>` have an `input-name`.
+
+
 ## v0.9.2 - Aug 14, 2025
 
 * Updated Docker instructions for installing PostgreSQL client, due to ruby:3.4 image upgrading to Debian Trixie which removed something. See https://github.com/thirdtank/brut/issues/55

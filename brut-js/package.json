@@ -1,6 +1,6 @@
 {
   "name": "brut-js",
-  "version": "0.9.2",
+  "version": "0.10.0",
   "type": "module",
   "keywords": [ "WebComponents", "Custom Elements" ],
   "bugs": {
