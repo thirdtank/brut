@@ -15,10 +15,7 @@ import ConstraintViolationMessages from "./ConstraintViolationMessages"
  *   set `submitted-invalid` on itself when that happens, thus allowing you to target invalid
  *   fields only after a submission attempt.
  * * You may wish to control the messaging of client-side constraint violations
- *   beyond what the browser gives you. Assuming your `INPUT` tags are inside a container
- *   like `LABEL`, a `brut-cv` tag found in that container
- *   (i.e. a sibling of your `INPUT`) will be modified to contain error messages specific
- *   to the {@link external:ValidityState} of the control.
+ *   beyond what the browser gives you. Assuming you have generated a `<brut-cv-messages input-name="«input name»"></brut-cv-messasges>`, it will be populated with `<brut-cv>` elements for each client-side constraint violation, based on the {@link external:ValidityState} of the control.
  *
  * @fires brut:invalid Fired when any element is found to be invalid
  * @fires brut:valid Fired when no element is found to be invalid.  This should be reliable to know
@@ -29,12 +26,12 @@ import ConstraintViolationMessages from "./ConstraintViolationMessages"
  *   <form ...>
  *     <label>
  *       <input type="text" required name="username">
- *       <brut-cv-messages>
+ *       <brut-cv-messages input-name="username">
  *       </brut-cv-messages>
  *     </label>
  *     <div> <!-- container need not be a label -->
  *       <input type="text" required minlength="4" name="alias">
- *       <brut-cv-messages>
+ *       <brut-cv-messages input-name="alias">
  *       </brut-cv-messages>
  *     </div>
  *     <button>Submit</button>
@@ -45,13 +42,13 @@ import ConstraintViolationMessages from "./ConstraintViolationMessages"
  *   <form ...>
  *     <label>
  *       <input type="text" required name="username">
- *       <brut-cv-messages>
+ *       <brut-cv-messages input-name="username">
  *         <brut-cv>This field is required</brut-cv>
  *       </brut-cv-messages>
  *     </label>
  *     <div> <!-- container need not be a label -->
  *       <input type="text" required minlength="4" name="alias">
- *       <brut-cv-messages>
+ *       <brut-cv-messages input-name="alias">
  *         <brut-cv>This field is required</brut-cv>
  *       </brut-cv-messages>
  *     </div>
@@ -107,28 +104,27 @@ class Form extends BaseCustomElement {
 
   #updateErrorMessages(event) {
     const element = event.target
-    const selector = ConstraintViolationMessages.tagName
-    let errorLabels = element.parentNode.querySelectorAll(selector)
-    if (errorLabels.length == 0) {
-      if (element.name && element.form) {
-        const moreGeneralSelector = `${ConstraintViolationMessages.tagName}[input-name='${element.name}']`
-        errorLabels = element.form.querySelectorAll(moreGeneralSelector)
-        if (errorLabels.length == 0) {
-          this.logger.warn(`Did not find any elements matching ${selector} or ${moreGeneralSelector}, so no error messages will be shown`)
-        }
-      }
-      else {
-        this.logger.warn("Did not find any elements matching %s and the form element has %s %s",
-          selector,
-          element.name ? "no name" : "a name, but",
-          element.form ? "no form" : "though has a form")
+    let constraintViolationMessages = []
+    if (element.name && element.form) {
+      const selector = `${ConstraintViolationMessages.tagName}[input-name='${element.name}']`
+      constraintViolationMessages = element.form.querySelectorAll(selector)
+      if (constraintViolationMessages.length == 0) {
+        this.logger.warn(`Did not find any elements matching ${selector}, so no error messages will be shown`)
       }
     }
-    if (errorLabels.length == 0) {
+    else {
+      if (element.name) {
+        this.logger.warn("Element has a name (%s), but is not associated with any form.", element.name)
+      }
+      else {
+        this.logger.warn("Element has a form, but has no name, which means we cannot locate %s by input-name", ConstraintViolationMessages.tagName)
+      }
+    }
+    if (constraintViolationMessages.length == 0) {
       return
     }
     let anyErrors = false
-    errorLabels.forEach( (errorLabel) => {
+    constraintViolationMessages.forEach( (errorLabel) => {
       if (element.validity.valid) {
         errorLabel.clearClientSideMessages()
       }
