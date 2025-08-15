@@ -120,7 +120,7 @@ inputs `ValidityState`.  That may look like so:
 ```html {3}
 <input type="text" name="name" required minlength="3">
 <brut-cv-messages input-name="name">
-  <brut-cv input-name="name" key="rangeUnderflow"></brut-cv>
+  <brut-cv input-name="name" client-side key="rangeUnderflow"></brut-cv>
 </brut-cv-messages>
 ```
 
@@ -139,7 +139,7 @@ this HTML:
 ```html {4}
 <input type="text" name="name" required minlength="3">
 <brut-cv-messages input-name="name">
-  <brut-cv input-name="name" key="rangeUnderflow">
+  <brut-cv input-name="name" client-side key="rangeUnderflow">
     This field is too short
   </brut-cv>
 </brut-cv-messages>
@@ -154,13 +154,13 @@ violation, the same general markup is generated:
 ```html {3,4}
 <input type="text" name="name" required minlength="3">
 <brut-cv-messages input-name="name">
-  <brut-cv server-side>
+  <brut-cv server-generated server-side>
     This name has already been taken.
   </brut-cv>
 </brut-cv-messages>
 ```
 
-The `server-side` attribute is set, which can help with CSS targeting.
+The `server-genereted` and `server-side` attributes is set, which can help with CSS targeting.
 
 The *last* piece of this puzzle is a solution for the issue where forms that have
 not yet been submitted are considered to have invalid values by the browser.
@@ -177,7 +177,7 @@ This might lead to HTML like so:
 
     <input type="text" name="name" required minlength="3">
     <brut-cv-messages input-name="name">
-      <brut-cv input-name="name" key="rangeUnderflow">
+      <brut-cv input-name="name" client-side key="rangeUnderflow">
         This field is too short
       </brut-cv>
     </brut-cv-messages>
@@ -199,7 +199,7 @@ brut-cv {
 /* brut-cv inside a submitted-invalid
    OR brut-cv from the server ARE shown */
 brut-form[submitted-invalid] brut-cv,
-brut-cv[server-side] {
+brut-cv[server-generated] {
   display: block;
   color: red; /* e.g. */
 }
