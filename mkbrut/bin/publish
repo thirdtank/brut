@@ -67,7 +67,7 @@ setup_docker_buildx() {
 detect_gem_version() {
 
   GEM_VERSION=$( rake -T | grep "rake install " | sed 's/^.*mkbrut-//g' | sed 's/\.gem.*$//g')
-  if [[ "$GEM_VERSION" =~ ^[0-9]+\.[0-9]\.[0-9]+$ ]]; then
+  if [[ "$GEM_VERSION" =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
     log "Releasing version ${GEM_VERSION}"
   else
     log "Version '${GEM_VERSION}' does not look like a version: X.Y.Z"
