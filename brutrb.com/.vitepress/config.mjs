@@ -130,6 +130,7 @@ export default defineConfig({
         collapsed: true,
         items: [
           { text: "Migration Basics", link: "/recipes/migrations" },
+          { text: "Styling Form Errors", link: "/recipes/form-errors" },
           { text: "Authentication", link: "/recipes/authentication" },
           { text: "Alternate Layouts", link: "/recipes/alternate-layouts" },
           { text: "Blank Layouts", link: "/recipes/blank-layouts" },

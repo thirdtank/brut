@@ -6,12 +6,12 @@ describe("<brut-form>", () => {
       <form>
         <label>
           <input required type="text" name="text">
-          <brut-cv-messages>
+          <brut-cv-messages input-name="text">
           </brut-cv-messages>
         </label>
         <label>
           <input required type="number" name="number">
-          <brut-cv-messages>
+          <brut-cv-messages input-name="number">
           </brut-cv-messages>
         </label>
         <input type="submit">Save</input>
@@ -133,49 +133,5 @@ describe("<brut-form>", () => {
     assert(!submitted)
     assert(gotValid)
     assert(!gotInvalid)
-  })
-  withHTML(`
-    <brut-form>
-      <form>
-        <label>
-          <input required type="text" name="text">
-        </label>
-        <brut-cv-messages input-name='text'>
-        </brut-cv-messages>
-        <input type="submit">Save</input>
-      </form>
-    </brut-form>
-  `).test("locates the messages for errors based on name", ({window,document,assert}) => {
-
-    const brutForm         = document.querySelector("brut-form")
-    const form             = brutForm.querySelector("form")
-    const button           = form.querySelector("input[type=submit]")
-    const textFieldLabel   = form.querySelector("label:has(input[type=text])")
-
-    let submitted  = false
-    let gotInvalid = false
-    let gotValid   = false
-
-    form.addEventListener("submit", (event) => {
-      event.preventDefault()
-      submitted = true
-    })
-    brutForm.addEventListener("brut:valid", () => {
-      gotValid = true
-    })
-    brutForm.addEventListener("brut:invalid", () => {
-      gotInvalid = true
-    })
-
-    button.click()
-
-    assert(!submitted)
-    assert(!gotValid)
-    assert(gotInvalid)
-    assert.equal(brutForm.getAttribute("submitted-invalid"),"")
-
-    let error = brutForm.querySelector("brut-cv[input-name='text'][key='cv.cs.valueMissing']")
-    assert(error)
-
   })
 })

@@ -18,9 +18,12 @@ describe("<brut-cv-messages>", () => {
 
     element.createMessages({validityState,inputName})
 
-    assert.equal(element.querySelectorAll("brut-cv").length,2)
+    const brutCvElements = element.querySelectorAll("brut-cv")
+    assert.equal(brutCvElements.length, 2)
     assert.match(element.textContent,new RegExp("This field does not match the pattern","m"))
     assert.match(element.textContent,new RegExp("This field is above the range","m"))
+    assert.equal(brutCvElements[0].getAttribute("client-side"),"")
+    assert.equal(brutCvElements[1].getAttribute("client-side"),"")
 
     element.clearClientSideMessages()
     assert.equal(element.textContent,"")

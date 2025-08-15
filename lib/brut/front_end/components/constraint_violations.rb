@@ -1,20 +1,26 @@
-# Renders the custom elements used to manage both client- and server-side constraint violations via the `<brut-cv-messages>` and `<brut-cv>` tags. Each constraint violation on the input's {Brut::FrontEnd::Forms::ValidityState} will generate a `<brut-cv server-side>` tag that will contain the I18n translation of the violation's {Brut::FrontEnd::Forms::ConstraintViolation#key} prefixed with `"cv.ss"`.
+# Renders the custom elements used to manage both client- and server-side constraint violations via the `<brut-cv-messages>` and `<brut-cv>` tags. Each constraint violation on the input's {Brut::FrontEnd::Forms::ValidityState} will generate a `<brut-cv server-generated>` tag that will contain the I18n translation of the violation's {Brut::FrontEnd::Forms::ConstraintViolation#key} prefixed with `"cv.cs"` or `"cv.ss"`.
 #
 # The general form of this component will be:
 #
 # ```html
 # <brut-cv-messages input-name="«input_name»">
-#   <brut-cv server-side>
+#   <brut-cv server-generated client-side>
 #     «message»
 #   </brut-cv>
-#   <brut-cv server-side>
+#   <brut-cv server-generated server-side>
 #     «message»
 #   </brut-cv>
 #   <!- ... ->
 # </brut-cv-messages>
 # ```
 #
-# Note that if you are using `<brut-form>` then `<brut-cv>` elements will be inserted into the `<brut-cv-messages>` element, however they will not have the `server-side` attribute.
+# Notes:
+#
+# * If the form is considered #{Brut::FrontEnd::Form#new?}, then the client-side constraint violations
+#   will not be generated.  This is to prevent a fresh form from being generated with a bunch of 
+#   errors already present.
+# * If using `<brut-form>`, the `<brut-cv-messages>` element this generates will be where it inserts
+#   client side constraint violations.
 class Brut::FrontEnd::Components::ConstraintViolations < Brut::FrontEnd::Component
   # Create a new ConstraintViolations component
   #
@@ -38,17 +44,24 @@ class Brut::FrontEnd::Components::ConstraintViolations < Brut::FrontEnd::Compone
     }.merge(@html_attributes)
 
     message_html_attributes = {
-      "server-side": true,
+      "server-generated": true,
     }.merge(@message_html_attributes)
 
     brut_cv_messages(**html_attributes) do
-      @form.input(@input_name, index: @index).validity_state.select { |constraint|
-        !constraint.client_side?
-      }.each do |constraint|
-        brut_cv(**message_html_attributes) do
-          t("cv.ss.#{constraint}", **constraint.context)
+      @form.input(@input_name, index: @index).validity_state.each do |constraint|
+        if constraint.client_side?
+          if !@form.new?
+            brut_cv(**message_html_attributes, client_side: true) do
+              t("cv.cs.#{constraint}", **constraint.context)
+            end
+          end
+        else
+          brut_cv(**message_html_attributes, server_side: true) do
+            t("cv.ss.#{constraint}", **constraint.context)
+          end
         end
       end
     end
   end
+
 end
