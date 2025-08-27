@@ -1,5 +1,19 @@
 # Brut CHANGELOG
 
+## v0.11.0 - Aug 27, 2025
+
+* Added `Brut::Instrumentation::Methods` to allow instrumenting existing methods via `instrument`:
+  ```ruby
+  class Widget
+    include Brut::Instrumentation::Methods
+
+    instrument def save
+    end
+  end
+  ```
+  See docs for more options and details.
+* When an exception is caught in a span, the span's status is set to an error.
+
 ## v0.10.0 - Aug 15, 2025
 
 * Changed `ConstraintViolations` HTML to indicate if a `<brut-cv>` is server-generated, even if it's generating  client-side constraint. See #56.

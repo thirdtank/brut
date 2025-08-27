@@ -1,8 +1,8 @@
 set -e
 
+VIM=nvim
 if [ -f /.dockerenv ]; then
-  echo "Do not run this inside Docker"
-  exit 1
+  VIM=vim
 fi
 
-nvim -o lib/brut/version.rb mkbrut/lib/mkbrut/version.rb brut-js/package.json brut-css/package.json CHANGELOG.md
+$VIM -o lib/brut/version.rb mkbrut/lib/mkbrut/version.rb brut-js/package.json brut-css/package.json CHANGELOG.md
