@@ -80,7 +80,99 @@ Here is a non-exhaustive list of what Brut automatically instruments:
 
 ### Adding Your Own Instrumentation
 
-You can add instrumentation in a few ways:
+You can add instrumentation in two main ways, both of which can be used together.
+
+#### Instrumenting Existing Methods
+
+Although Brut instruments the entrypoints to pages, handlers, and components, you will likely have your own set of back-end business logic that needs to be instrumented.  If you aren't trying to diagnose a specific problem and just want to see your back-end class' methods show up in your instrumentation vendor's dashboard, `Brut::Instrumentation::Methods` will be the easiest way to do that.
+
+`Brut::Instrumentation::Methods` can be included in any class, and provides three class methods, which are *mutually exclusive*:
+
+* `instrument_all` instruments all methods, public and private.
+* `instrument_public` instruments only public methods.
+* `instrument` instruments one or more named methods.
+
+`initialize` is never instrumented.
+
+Consider this class:
+
+```ruby
+class Widget
+  def initialize
+    # ...
+  end
+
+  def search
+    # ...
+  end
+
+  def save
+    # ...
+  end
+
+private
+
+  def delete_orphans
+    # ...
+  end
+end
+```
+
+If we use `instrument_all`…
+
+```ruby
+class Widget
+  include Brut::Instrumentation::Methods
+  instrument_all
+
+  # ...
+end
+```
+
+…`search`, `save`, and `delete_orphans` will be instrumented.  If we use `instrument_public`…
+
+```ruby
+class Widget
+  include Brut::Instrumentation::Methods
+  instrument_public
+
+  # ...
+end
+```
+
+…then only `search` and `save` are instrumented.
+
+We can pick and choose by using `instrument`.
+
+```ruby{2,7,20}
+class Widget
+  include Brut::Instrumentation::Methods
+  def initialize
+    # ...
+  end
+
+  instrument def search
+    # ...
+  end
+
+  def save
+    # ...
+  end
+
+private
+
+  def delete_orphans
+    # ...
+  end
+  instrument :delete_orphans
+end
+```
+
+Above, `search` and `delete_orphans` are instrumented. Since `def` in Ruby returns a symbol, `instrument def search` is the same as `instrument :search`.
+
+#### Explicit Instrumentation with Spans, Attributes, and Events
+
+To add explicit instrumentation, you'll create one or more of the following:
 
 * *Spans* record a block of code. They are shown as a sub-span if one is already in effect.  When you
 create a span, that means it will be shown in the context of the HTTP request.
@@ -164,6 +256,39 @@ aforementioned `InstrumentationHandler`.
 
 You should then see client-side tracing information as a sub-span of your HTTP request.  The information available depends on the browser, and some browsers don't send much. Also keep in mind that clock drift is real and while client-side timings are accurate, the timestamps will not be.
 
+### Logging
+
+Brut configures [SemanticLogger](https://logger.rocketjob.io/), but uses it sparingly.  Currently, Brut performs very little logging, and no request logging.  You may have noticed that your app doesn't produce a lot of output in development.  Brut's assumption is that you will use an OpenTelemetry vendor to understand your app in production or the otel-desktop-viewer in developoment.
+
+That said, since SemanticLogger is configured, you can use it at will:
+
+```ruby
+class HomePage
+  def page_template
+    SemanticLogger[self.class].debug "page being rendered"
+    
+    # ...
+
+  end
+end
+```
+
+The logging system is currently not very configurable, and works as follows:
+
+* In development, log messages are written to the standard output and to `logs/development.log`
+* In test, log messages are written to `logs/test.log`
+* In production, log messages are written to the standard output
+
+The default log level is "debug" for the web app at "fatal" for CLI apps.  You can set `LOG_LEVEL` in the environment to change this:
+
+* `"debug"` - Show all messages
+* `"info"` -  Show info and above (not debug messages)
+* `"warn"` -  Show warnings and above (not info, not debug)
+* `"error"` -  Show errors and fatals only
+* `"fatal"` -  Show fatals only
+
+Most CLIs also allow `--log-level` to accept one of these strings as wel ass `--verbose` to set the log level to debug.
+
 ## Testing
 
 Generally you don't want to test instrumentation unless it's highly complex and critical to the app's
@@ -182,11 +307,25 @@ specific issues.
 > Technical Notes are for deeper understanding and debugging. While we will try to keep them up-to-date with changes to Brut's
 > internals, the source code is always more correct.
 
-_Last Updated June 12, 2025_
+_Last Updated Aug 27, 2025_
 
+OpenTelemetry is notoriously opaque and, ironically, unobservable in its own behavior.  Thus, the implementation is subject to change as I figure out what actually does what.
 
-Brut does not have plans to support non-OTel instrumentation, nor does it have plans to provide hooks to use proprietary formats.
+### Web Requests
+
+`Brut::FrontEnd::Middlewares::OpenTelemetrySpan` is configured in `Brut::Framework::MCP` as the first middleware.  It sets up the outer span for all web requests.  Inside each request block (the code internal to Brut that calls handlers or pages), this span's name is modified with the HTTP method and path via the `brut.otel.root_span` in the Rack environment.
+
+### Client-Side
 
 The client-side portion of this is highly customized.  The Otel open source code for the client side is
 massive and hugely complex, so Brut decided to try to produce something simple and straightforward as a
 start. This can and will evolve over time.
+
+### CLI Commands
+
+Brut CLI commands are instrumented as well,
+in `Brut::CLI::App` in `execute!`, however the trace only begins if the underlying command is going to be executed. This may change.
+
+### Sidekiq Jobs
+
+Although Brut currently does not provide a default Sidekiq configuration, if you set up Sidekiq and include the `opentelemetry-instrumentation-sidekiq` gem in your app's `Gemfile`, you should see instrumentation of your Sidekiq jobs.  In practice, this default set up doesn't seem to work very well, so expect this to change for the better.
