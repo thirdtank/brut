@@ -25,6 +25,7 @@ class Brut::Instrumentation::OpenTelemetry
         result = block.(wrapped_span)
       rescue => ex
         span.record_exception(ex)
+        span.status = OpenTelemetry::Trace::Status.error("Unhandled exception: #{ex.class}")
         raise
       end
     end
