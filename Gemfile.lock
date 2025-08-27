@@ -23,7 +23,7 @@ PATH
 GEM
   remote: https://rubygems.org/
   specs:
-    activesupport (8.0.2)
+    activesupport (8.0.2.1)
       base64
       benchmark (>= 0.3)
       bigdecimal
@@ -47,26 +47,26 @@ GEM
     dotenv (3.1.8)
     drb (2.2.3)
     erb (5.0.2)
-    factory_bot (6.5.4)
+    factory_bot (6.5.5)
       activesupport (>= 6.1.0)
     faker (3.5.2)
       i18n (>= 1.8.11, < 2)
-    google-protobuf (4.31.1)
+    google-protobuf (4.32.0)
       bigdecimal
       rake (>= 13)
-    google-protobuf (4.31.1-aarch64-linux-gnu)
+    google-protobuf (4.32.0-aarch64-linux-gnu)
       bigdecimal
       rake (>= 13)
-    google-protobuf (4.31.1-arm64-darwin)
+    google-protobuf (4.32.0-arm64-darwin)
       bigdecimal
       rake (>= 13)
-    google-protobuf (4.31.1-x86-linux-gnu)
+    google-protobuf (4.32.0-x86-linux-gnu)
       bigdecimal
       rake (>= 13)
-    google-protobuf (4.31.1-x86_64-darwin)
+    google-protobuf (4.32.0-x86_64-darwin)
       bigdecimal
       rake (>= 13)
-    google-protobuf (4.31.1-x86_64-linux-gnu)
+    google-protobuf (4.32.0-x86_64-linux-gnu)
       bigdecimal
       rake (>= 13)
     googleapis-common-protos-types (1.20.0)
@@ -99,7 +99,7 @@ GEM
       racc (~> 1.4)
     nokogiri (1.18.9-x86_64-linux-gnu)
       racc (~> 1.4)
-    opentelemetry-api (1.5.0)
+    opentelemetry-api (1.6.0)
     opentelemetry-common (0.22.0)
       opentelemetry-api (~> 1.0)
     opentelemetry-exporter-otlp (0.30.0)
@@ -111,7 +111,7 @@ GEM
       opentelemetry-semantic_conventions
     opentelemetry-registry (0.4.0)
       opentelemetry-api (~> 1.1)
-    opentelemetry-sdk (1.8.0)
+    opentelemetry-sdk (1.8.1)
       opentelemetry-api (~> 1.1)
       opentelemetry-common (~> 0.20)
       opentelemetry-registry (~> 0.2)
@@ -149,7 +149,7 @@ GEM
     rdoc (6.14.2)
       erb
       psych (>= 4.0.0)
-    regexp_parser (2.11.1)
+    regexp_parser (2.11.2)
     reline (0.6.2)
       io-console (~> 0.5)
     rspec (3.13.1)
@@ -164,8 +164,8 @@ GEM
     rspec-mocks (3.13.5)
       diff-lcs (>= 1.2.0, < 2.0)
       rspec-support (~> 3.13.0)
-    rspec-support (3.13.4)
-    rubocop (1.79.2)
+    rspec-support (3.13.5)
+    rubocop (1.80.1)
       json (~> 2.3)
       language_server-protocol (~> 3.17.0.2)
       lint_roller (~> 1.1.0)
@@ -202,7 +202,7 @@ GEM
       concurrent-ruby (~> 1.0)
     tzinfo-data (1.2025.2)
       tzinfo (>= 1.0.0)
-    unicode-display_width (3.1.4)
+    unicode-display_width (3.1.5)
       unicode-emoji (~> 4.0, >= 4.0.4)
     unicode-emoji (4.0.4)
     uri (1.0.3)
