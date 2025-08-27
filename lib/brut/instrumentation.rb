@@ -4,5 +4,6 @@
 module Brut::Instrumentation
   autoload(:OpenTelemetry,"brut/instrumentation/open_telemetry")
   autoload(:LoggerSpanExporter,"brut/instrumentation/logger_span_exporter")
+  autoload(:Methods,"brut/instrumentation/methods")
 end
 
