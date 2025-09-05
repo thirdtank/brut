@@ -348,4 +348,58 @@ Error that should be ignored
       })
     })
   })
+  withHTML(`
+    <form action="http://example.net/foo" method="POST">
+      <input required type="text" name="some-text">
+      <input required type="number" name="some-number">
+      <brut-ajax-submit submitted-lifetime="10">
+        <input type="submit" name="button-name" value="button-value">
+      </brut-ajax-submit>
+    </form>
+  `).onFetch( "/foo", [
+    { then: { status: 200, text: "<div>some html</div>" }},
+  ]
+  ).test("submits the form, when wrapped around an input type=submi, setting various attributes during the lifecycle", 
+         ({document,assert,fetchRequests,waitForSetTimeout,readRequestBodyIntoString}) => {
+
+    const element = document.querySelector("brut-ajax-submit")
+    const button  = element.querySelector("input[type=submit]") 
+    const text    = document.querySelector("input[name=some-text]")
+    const number  = document.querySelector("input[name=some-number]")
+
+    let okReceived = false
+    let detailReceived = null
+    element.addEventListener("brut:submitok", (event) => {
+      okReceived = true
+      detailReceived = event.detail
+    })
+
+    text.value   = "Some Text"
+    number.value = "11"
+
+    button.click()
+    assert(element.getAttribute("requesting") != null)
+
+    const promises = fetchRequests.
+      filter( (fetchRequest) => fetchRequest.promiseReturned ).
+      map( (fetchRequest) => fetchRequest.promiseReturned )
+
+    return Promise.all(promises).then( () => {
+      assert(okReceived)
+      assert(detailReceived)
+      assert.equal(detailReceived.body.innerHTML,"<div>some html</div>")
+      assert(element.getAttribute("requesting") == null)
+      assert(element.getAttribute("submitted") != null)
+      return waitForSetTimeout(11).then( () => {
+        assert(element.getAttribute("submitted") == null)
+        return readRequestBodyIntoString(fetchRequests[0]).then( (string) => {
+          const params = new URLSearchParams(string)
+          assert.equal(params.get("some-text"),"Some Text")
+          assert.equal(params.get("some-number"),"11")
+          assert.equal(params.get("button-name"),"button-value")
+        })
+      })
+
+    })
+  })
 })

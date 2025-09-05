@@ -278,7 +278,14 @@ class AjaxSubmit extends BaseCustomElement {
     })
   }
 
-  #button = () => { return this.querySelector("button") }
+  #button = () => {
+    let button = this.querySelector("button")
+    if (!button) {
+      button = this.querySelector("input[type='submit']")
+    }
+    return button
+  }
+
 
   #submitFormThroughBrowser(form) {
     form.removeEventListener("submit",this.#formSubmitted)
