@@ -261,7 +261,9 @@ back end).</p>
   
 </h3><div class="docstring">
   <div class="discussion">
-    <p>Creates the appropriate button for the given <span class='object_link'><a href="../../Form.html" title="Brut::FrontEnd::Form (class)">Form</a></span> and input name.</p>
+    <p>Creates the appropriate button for the given <span class='object_link'><a href="../../Form.html" title="Brut::FrontEnd::Form (class)">Form</a></span> and input name. Note that if the
+form has no value for this input, the value <code>"true"</code> will be used, as this allows you to create
+buttons without worrying about an often irrelevant value.</p>
 
 
   </div>
@@ -344,8 +346,6 @@ the form (as per the HTML spec).  Also note that the various
       <pre class="lines">
 
 
-17
-18
 19
 20
 21
@@ -360,10 +360,13 @@ the form (as per the HTML spec).  Also note that the various
 30
 31
 32
-33</pre>
+33
+34
+35
+36</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/brut/front_end/components/inputs/button_tag.rb', line 17</span>
+      <pre class="code"><span class="info file"># File 'lib/brut/front_end/components/inputs/button_tag.rb', line 19</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_initialize'>initialize</span><span class='lparen'>(</span><span class='label'>form:</span><span class='comma'>,</span> <span class='label'>input_name:</span><span class='comma'>,</span> <span class='label'>index:</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='op'>**</span><span class='id identifier rubyid_html_attributes'>html_attributes</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_input'>input</span> <span class='op'>=</span> <span class='id identifier rubyid_form'>form</span><span class='period'>.</span><span class='id identifier rubyid_input'>input</span><span class='lparen'>(</span><span class='id identifier rubyid_input_name'>input_name</span><span class='comma'>,</span> <span class='label'>index:</span><span class='rparen'>)</span>
@@ -378,7 +381,8 @@ the form (as per the HTML spec).  Also note that the various
                                    <span class='kw'>else</span>
                                      <span class='id identifier rubyid_input'>input</span><span class='period'>.</span><span class='id identifier rubyid_name'>name</span>
                                    <span class='kw'>end</span>
-  <span class='id identifier rubyid_default_html_attributes'>default_html_attributes</span><span class='lbracket'>[</span><span class='symbol'>:value</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='id identifier rubyid_input'>input</span><span class='period'>.</span><span class='id identifier rubyid_value'>value</span>
+  <span class='id identifier rubyid_value'>value</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../../../../RichString.html" title="RichString (class)">RichString</a></span></span><span class='period'>.</span><span class='id identifier rubyid_from_string'><span class='object_link'><a href="../../../../RichString.html#from_string-class_method" title="RichString.from_string (method)">from_string</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_input'>input</span><span class='period'>.</span><span class='id identifier rubyid_value'>value</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_default_html_attributes'>default_html_attributes</span><span class='lbracket'>[</span><span class='symbol'>:value</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='lparen'>(</span><span class='id identifier rubyid_value'>value</span> <span class='op'>||</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>true</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span>
 
   <span class='ivar'>@attributes</span> <span class='op'>=</span> <span class='id identifier rubyid_default_html_attributes'>default_html_attributes</span><span class='period'>.</span><span class='id identifier rubyid_merge'>merge</span><span class='lparen'>(</span><span class='id identifier rubyid_html_attributes'>html_attributes</span><span class='rparen'>)</span>
 <span class='kw'>end</span></pre>
@@ -409,14 +413,14 @@ the form (as per the HTML spec).  Also note that the various
       <pre class="lines">
 
 
-35
-36
-37
 38
-39</pre>
+39
+40
+41
+42</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/brut/front_end/components/inputs/button_tag.rb', line 35</span>
+      <pre class="code"><span class="info file"># File 'lib/brut/front_end/components/inputs/button_tag.rb', line 38</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_view_template'>view_template</span>
   <span class='id identifier rubyid_button'>button</span><span class='lparen'>(</span><span class='op'>**</span><span class='ivar'>@attributes</span><span class='rparen'>)</span> <span class='kw'>do</span>
@@ -433,7 +437,7 @@ the form (as per the HTML spec).  Also note that the various
 </div>
 
       <div id="footer">
-  Generated on Fri Sep  5 13:46:23 2025 by
+  Generated on Fri Sep  5 20:59:15 2025 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.37 (ruby-3.4.5).
 </div>
