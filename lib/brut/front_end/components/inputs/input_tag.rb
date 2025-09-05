@@ -10,6 +10,9 @@ class Brut::FrontEnd::Components::Inputs::InputTag < Brut::FrontEnd::Components:
   # @param [Hash] html_attributes any additional HTML attributes to include on the `<input>` element.
   def initialize(form:, input_name:, index: nil, **html_attributes)
     input = form.input(input_name, index:)
+    if input.class.name != "Brut::FrontEnd::Forms::Input"
+      raise ArgumentError, "#{self.class} can only be used with `input` elements, not #{input.class.name} form elements"
+    end
     default_html_attributes = {}
     html_attributes = html_attributes.map { |key,value| [ key.to_sym, value ] }.to_h
 
