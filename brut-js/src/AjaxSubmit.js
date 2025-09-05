@@ -10,6 +10,8 @@ import ConstraintViolationMessage from "./ConstraintViolationMessage"
  * 1. When the button is clicked, the form's validity is checked. If it's not valid, nothing happens.
  * 2. If the form is valid, this element will be given the `requesting` attribute.
  * 3. The request will be initiated, set to abort after `request-timeout` ms (see below).
+ *    The data submitted will be the contents of `new FormData(form)`, along with the 
+ *    name/value of the button that was clicked, if it has a name and value.
  * 4. If the request returns OK:
  *    - `requesting` will be removed and `submitted` will be added.
  *    - `submitted` will be removed after `submitted-lifetime` ms.
@@ -67,12 +69,20 @@ import ConstraintViolationMessage from "./ConstraintViolationMessage"
  *
  * @example
  * <form action="/widgets" method="post">
- *   <input type=text name=name>
+ *   <input type="text" name="name">
  *
  *   <brut-ajax-submit>
- *     <button>Save</button>
+ *     <button name="button" value="save">Save</button>
+*    </brut-ajax-submit>
+ *   <brut-ajax-submit>
+ *     <button name="button" value="analyze">Analyze</button>
 *    </brut-ajax-submit>
  * </form>
+ *
+ * <!-- When "Save" is clicked, "name" will have the value from the text field,
+ *      and "button" will have the value "save".
+ *      When "Analyze" is clicked, "name" will have the value from the text
+ *      field, and "button" will have the value "analyze". -->
  *
  * @customelement brut-ajax-submit
  */
@@ -179,17 +189,20 @@ class AjaxSubmit extends BaseCustomElement {
     if (submitter == this.#button()) {
       event.preventDefault()
       const now = Date.now()
-      this.#submitForm(event.target, now, 0)
+      this.#submitForm(event.target, event.submitter, now, 0)
     }
   }
 
-  #submitForm(form, firstSubmittedAt, numAttempts) {
+  #submitForm(form, submitter, firstSubmittedAt, numAttempts) {
 
     const headers = new Headers()
     headers.append("X-Requested-With","XMLHttpRequest")
     headers.append("Content-Type","application/x-www-form-urlencoded")
 
     const formData = new FormData(form)
+    if (submitter && submitter.name) {
+      formData.append(submitter.name, submitter.value)
+    }
     const urlSearchParams = new URLSearchParams(formData)
 
     const timeoutSignal = AbortSignal.timeout(this.#requestTimeout)
@@ -251,7 +264,7 @@ class AjaxSubmit extends BaseCustomElement {
         }
         if (retry) {
           this.#requestErrorLogger("Trying again (attempt %d)",numAttempts +1)
-          setTimeout( () => this.#submitForm(form, firstSubmittedAt, numAttempts + 1), numAttempts * 10)
+          setTimeout( () => this.#submitForm(form, submitter, firstSubmittedAt, numAttempts + 1), numAttempts * 10)
         }
         else if (resubmit) {
           this.#requestErrorLogger("'retry' was marked false, but resubmit is 'true', so submitting through browser")

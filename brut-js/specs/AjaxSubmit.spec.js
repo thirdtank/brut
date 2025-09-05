@@ -6,7 +6,7 @@ describe("<brut-ajax-submit>", () => {
       <input required type="text" name="some-text">
       <input required type="number" name="some-number">
       <brut-ajax-submit submitted-lifetime="10">
-        <button>Submit</button>
+        <button name="button-name" value="button-value">Submit</button>
       </brut-ajax-submit>
     </form>
   `).onFetch( "/foo", [
@@ -43,12 +43,13 @@ describe("<brut-ajax-submit>", () => {
       assert.equal(detailReceived.body.innerHTML,"<div>some html</div>")
       assert(element.getAttribute("requesting") == null)
       assert(element.getAttribute("submitted") != null)
-      waitForSetTimeout(11).then( () => {
+      return waitForSetTimeout(11).then( () => {
         assert(element.getAttribute("submitted") == null)
         return readRequestBodyIntoString(fetchRequests[0]).then( (string) => {
           const params = new URLSearchParams(string)
           assert.equal(params.get("some-text"),"Some Text")
           assert.equal(params.get("some-number"),"11")
+          assert.equal(params.get("button-name"),"button-value")
         })
       })
 
@@ -79,7 +80,7 @@ describe("<brut-ajax-submit>", () => {
       <input required type="text" name="some-text">
       <input required type="number" name="some-number">
       <brut-ajax-submit submitted-lifetime="10">
-        <button>Submit</button>
+        <button name="button-name" value="button-value">Submit</button>
       </brut-ajax-submit>
     </form>
   `).onFetch( "/foo", [
@@ -114,6 +115,7 @@ describe("<brut-ajax-submit>", () => {
           const params = new URLSearchParams(string)
           assert.equal(params.get("some-text"),"Some Text")
           assert.equal(params.get("some-number"),"11")
+          assert.equal(params.get("button-name"),"button-value")
         })
       })
     })
@@ -123,7 +125,7 @@ describe("<brut-ajax-submit>", () => {
       <input required type="text" name="some-text">
       <input required type="number" name="some-number">
       <brut-ajax-submit submitted-lifetime="10" max-retry-attempts=2>
-        <button>Submit</button>
+        <button name="button-name" value="button-value">Submit</button>
       </brut-ajax-submit>
     </form>
   `).onFetch( "/foo", [
@@ -183,7 +185,7 @@ describe("<brut-ajax-submit>", () => {
       </brut-cv-messages>
 
       <brut-ajax-submit submitted-lifetime="10">
-        <button>Submit</button>
+        <button name="button-name" value="button-value">Submit</button>
       </brut-ajax-submit>
     </form>
   `).onFetch( "/foo", [
@@ -283,7 +285,7 @@ Error that should be ignored
       </brut-cv-messages>
 
       <brut-ajax-submit submitted-lifetime="10" no-server-side-error-parsing>
-        <button>Submit</button>
+        <button name="button-name" value="button-value">Submit</button>
       </brut-ajax-submit>
     </form>
   `).onFetch( "/foo", [
