@@ -1081,7 +1081,7 @@ Here's what `HomePage`'s `page_template` should look like now:
 def page_template
   header do
     h1 { "My Amazing Blog" }
-    a(href: "") { "Write New Blog Post" }
+    a(href: BlogPostEditorPage.routing) { "Write New Blog Post" }
   end
   main do
     DB::BlogPost.order(Sequel.desc(:created_at)).each do |blog_post|
@@ -1136,7 +1136,7 @@ Now, create a new blog post, provide valid data, and submit it.
 
 ![Screenshot of the blog post editor, with a new post filled in](/images/tutorial/new-post-editor.png)
 
-Once you submit it, you should see the homage page with your new post at the top:
+Once you submit it, you should see the home page with your new post at the top:
 
 ![Screenshot of the home page, showing the new blog post](/images/tutorial/new-post-home-page.png)
 
