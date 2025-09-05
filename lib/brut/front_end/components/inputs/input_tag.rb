@@ -3,7 +3,6 @@ class Brut::FrontEnd::Components::Inputs::InputTag < Brut::FrontEnd::Components:
   def invalid? = @attributes["data-invalid"] == true
 
   # Creates the appropriate input for the given {Brut::FrontEnd::Form} and input name.
-  # Generally, you want to use this method over the initializer.
   #
   # @param [Brut::FrontEnd::Form} form The form that is being rendered. This method will consult this class to understand the requirements on this input so its HTML is generated correctly.
   # @param [String] input_name the name of the input, which should be a member of `form`
@@ -11,6 +10,9 @@ class Brut::FrontEnd::Components::Inputs::InputTag < Brut::FrontEnd::Components:
   # @param [Hash] html_attributes any additional HTML attributes to include on the `<input>` element.
   def initialize(form:, input_name:, index: nil, **html_attributes)
     input = form.input(input_name, index:)
+    if input.class.name != "Brut::FrontEnd::Forms::Input"
+      raise ArgumentError, "#{self.class} can only be used with `input` elements, not #{input.class.name} form elements"
+    end
     default_html_attributes = {}
     html_attributes = html_attributes.map { |key,value| [ key.to_sym, value ] }.to_h
 

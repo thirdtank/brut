@@ -1,7 +1,6 @@
 # Renders an HTML `<select>`.
 class Brut::FrontEnd::Components::Inputs::SelectTagWithOptions < Brut::FrontEnd::Components::Input
   # Creates the appropriate select input for the given {Brut::FrontEnd::Form} and input name.
-  # Generally, you want to use this method over the initializer.
   #
   # @param [Brut::FrontEnd::Form} form The form that is being rendered.
   #        This method will consult this class to understand the requirements

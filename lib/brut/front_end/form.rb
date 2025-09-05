@@ -5,10 +5,12 @@ module Brut::FrontEnd::Forms
   autoload(:InputDeclarations, "brut/front_end/forms/input_declarations")
   autoload(:InputDefinition, "brut/front_end/forms/input_definition")
   autoload(:SelectInputDefinition, "brut/front_end/forms/select_input_definition")
+  autoload(:ButtonInputDefinition, "brut/front_end/forms/button_input_definition")
   autoload(:RadioButtonGroupInputDefinition, "brut/front_end/forms/radio_button_group_input_definition")
   autoload(:ConstraintViolation, "brut/front_end/forms/constraint_violation")
   autoload(:ValidityState, "brut/front_end/forms/validity_state")
   autoload(:Input, "brut/front_end/forms/input")
+  autoload(:Button, "brut/front_end/forms/button")
   autoload(:SelectInput, "brut/front_end/forms/select_input")
   autoload(:RadioButtonGroupInput, "brut/front_end/forms/radio_button_group_input")
 end
@@ -38,11 +40,11 @@ class Brut::FrontEnd::Form
       Brut.container.instrumentation.add_attributes(prefix: :brut, ignored_unknown_params: unknown_params.join(","))
     end
     @params = params.except(*unknown_params).map { |name,value|
-        input_definition = begin
-                             self.class.input_definitions[name] || self.class.input_definitions.fetch(name.to_s)
-                           rescue KeyError
-                             raise "cannot find input definition for '#{name}'. Have these: #{self.class.input_definitions.keys.inspect}"
-                           end
+      input_definition = begin
+                           self.class.input_definitions[name] || self.class.input_definitions.fetch(name.to_s)
+                         rescue KeyError
+                           raise "cannot find input definition for '#{name}'. Have these: #{self.class.input_definitions.keys.inspect}"
+                         end
       if value.kind_of?(Array)
         input_definition = begin
                              self.class.input_definitions[name] || self.class.input_definitions.fetch(name.to_s)
