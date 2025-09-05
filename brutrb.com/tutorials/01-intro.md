@@ -1136,7 +1136,7 @@ Now, create a new blog post, provide valid data, and submit it.
 
 ![Screenshot of the blog post editor, with a new post filled in](/images/tutorial/new-post-editor.png)
 
-Once you submit it, you should see the homage page with your new post at the top:
+Once you submit it, you should see the home page with your new post at the top:
 
 ![Screenshot of the home page, showing the new blog post](/images/tutorial/new-post-home-page.png)
 
