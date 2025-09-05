@@ -1,5 +1,10 @@
 # Brut CHANGELOG
 
+## v0.12.1 - Sep 5, 2025
+
+* Changed where a button's default value is set to avoid it
+  from being included in a form when it wasn't included in the submission.
+
 ## v0.12.0 - Sep 5, 2025
 
 * Added explicit support for buttons in forms, so that button name/values are submitted with the form and managed like any other form element.
