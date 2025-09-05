@@ -2,7 +2,10 @@
   "name": "brut-js",
   "version": "0.11.0",
   "type": "module",
-  "keywords": [ "WebComponents", "Custom Elements" ],
+  "keywords": [
+    "WebComponents",
+    "Custom Elements"
+  ],
   "bugs": {
     "url": "https://github.com/thirdtank/brut-js/issues",
     "email": "davec@naildrivin5.com"
@@ -25,7 +28,7 @@
     "bundle": "esbuild --sourcemap --bundle src/appForTestingOnly.js --outfile=specs/public/js/bundle.js"
   },
   "devDependencies": {
-    "esbuild": "^0.24.0",
+    "esbuild": "^0.24.2",
     "jsdom": "^25.0.1",
     "mocha": "^10.8.2"
   }
