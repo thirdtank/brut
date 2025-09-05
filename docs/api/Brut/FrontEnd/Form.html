@@ -380,7 +380,7 @@ for processing them or for testing.</p>
   
   
   <h3 class="inherited">Methods included from <span class='object_link'><a href="Forms/InputDeclarations.html" title="Brut::FrontEnd::Forms::InputDeclarations (module)">Brut::FrontEnd::Forms::InputDeclarations</a></span></h3>
-  <p class="inherited"><span class='object_link'><a href="Forms/InputDeclarations.html#inputs_from-instance_method" title="Brut::FrontEnd::Forms::InputDeclarations#inputs_from (method)">inputs_from</a></span>, <span class='object_link'><a href="Forms/InputDeclarations.html#radio_button_group-instance_method" title="Brut::FrontEnd::Forms::InputDeclarations#radio_button_group (method)">radio_button_group</a></span>, <span class='object_link'><a href="Forms/InputDeclarations.html#select-instance_method" title="Brut::FrontEnd::Forms::InputDeclarations#select (method)">select</a></span></p>
+  <p class="inherited"><span class='object_link'><a href="Forms/InputDeclarations.html#button-instance_method" title="Brut::FrontEnd::Forms::InputDeclarations#button (method)">button</a></span>, <span class='object_link'><a href="Forms/InputDeclarations.html#inputs_from-instance_method" title="Brut::FrontEnd::Forms::InputDeclarations#inputs_from (method)">inputs_from</a></span>, <span class='object_link'><a href="Forms/InputDeclarations.html#radio_button_group-instance_method" title="Brut::FrontEnd::Forms::InputDeclarations#radio_button_group (method)">radio_button_group</a></span>, <span class='object_link'><a href="Forms/InputDeclarations.html#select-instance_method" title="Brut::FrontEnd::Forms::InputDeclarations#select (method)">select</a></span></p>
 <div id="constructor_details" class="method_details_list">
   <h2>Constructor Details</h2>
   
@@ -412,8 +412,6 @@ defined.</p>
       <pre class="lines">
 
 
-32
-33
 34
 35
 36
@@ -462,10 +460,12 @@ defined.</p>
 79
 80
 81
-82</pre>
+82
+83
+84</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/brut/front_end/form.rb', line 32</span>
+      <pre class="code"><span class="info file"># File 'lib/brut/front_end/form.rb', line 34</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_initialize'>initialize</span><span class='lparen'>(</span><span class='label'>params:</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_params'>params</span> <span class='op'>=</span> <span class='id identifier rubyid_convert_to_string_or_nil'>convert_to_string_or_nil</span><span class='lparen'>(</span><span class='id identifier rubyid_params'>params</span><span class='period'>.</span><span class='id identifier rubyid_to_h'>to_h</span><span class='rparen'>)</span>
@@ -476,11 +476,11 @@ defined.</p>
     <span class='const'><span class='object_link'><a href="../../Brut.html" title="Brut (module)">Brut</a></span></span><span class='period'>.</span><span class='id identifier rubyid_container'><span class='object_link'><a href="../../Brut.html#container-class_method" title="Brut.container (method)">container</a></span></span><span class='period'>.</span><span class='id identifier rubyid_instrumentation'>instrumentation</span><span class='period'>.</span><span class='id identifier rubyid_add_attributes'>add_attributes</span><span class='lparen'>(</span><span class='label'>prefix:</span> <span class='symbol'>:brut</span><span class='comma'>,</span> <span class='label'>ignored_unknown_params:</span> <span class='id identifier rubyid_unknown_params'>unknown_params</span><span class='period'>.</span><span class='id identifier rubyid_join'>join</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>,</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span><span class='rparen'>)</span>
   <span class='kw'>end</span>
   <span class='ivar'>@params</span> <span class='op'>=</span> <span class='id identifier rubyid_params'>params</span><span class='period'>.</span><span class='id identifier rubyid_except'>except</span><span class='lparen'>(</span><span class='op'>*</span><span class='id identifier rubyid_unknown_params'>unknown_params</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_map'>map</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_name'>name</span><span class='comma'>,</span><span class='id identifier rubyid_value'>value</span><span class='op'>|</span>
-      <span class='id identifier rubyid_input_definition'>input_definition</span> <span class='op'>=</span> <span class='kw'>begin</span>
-                           <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_class'>class</span><span class='period'>.</span><span class='id identifier rubyid_input_definitions'>input_definitions</span><span class='lbracket'>[</span><span class='id identifier rubyid_name'>name</span><span class='rbracket'>]</span> <span class='op'>||</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_class'>class</span><span class='period'>.</span><span class='id identifier rubyid_input_definitions'>input_definitions</span><span class='period'>.</span><span class='id identifier rubyid_fetch'>fetch</span><span class='lparen'>(</span><span class='id identifier rubyid_name'>name</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span><span class='rparen'>)</span>
-                         <span class='kw'>rescue</span> <span class='const'>KeyError</span>
-                           <span class='id identifier rubyid_raise'>raise</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>cannot find input definition for &#39;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_name'>name</span><span class='embexpr_end'>}</span><span class='tstring_content'>&#39;. Have these: </span><span class='embexpr_beg'>#{</span><span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_class'>class</span><span class='period'>.</span><span class='id identifier rubyid_input_definitions'>input_definitions</span><span class='period'>.</span><span class='id identifier rubyid_keys'>keys</span><span class='period'>.</span><span class='id identifier rubyid_inspect'>inspect</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span>
-                         <span class='kw'>end</span>
+    <span class='id identifier rubyid_input_definition'>input_definition</span> <span class='op'>=</span> <span class='kw'>begin</span>
+                         <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_class'>class</span><span class='period'>.</span><span class='id identifier rubyid_input_definitions'>input_definitions</span><span class='lbracket'>[</span><span class='id identifier rubyid_name'>name</span><span class='rbracket'>]</span> <span class='op'>||</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_class'>class</span><span class='period'>.</span><span class='id identifier rubyid_input_definitions'>input_definitions</span><span class='period'>.</span><span class='id identifier rubyid_fetch'>fetch</span><span class='lparen'>(</span><span class='id identifier rubyid_name'>name</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span><span class='rparen'>)</span>
+                       <span class='kw'>rescue</span> <span class='const'>KeyError</span>
+                         <span class='id identifier rubyid_raise'>raise</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>cannot find input definition for &#39;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_name'>name</span><span class='embexpr_end'>}</span><span class='tstring_content'>&#39;. Have these: </span><span class='embexpr_beg'>#{</span><span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_class'>class</span><span class='period'>.</span><span class='id identifier rubyid_input_definitions'>input_definitions</span><span class='period'>.</span><span class='id identifier rubyid_keys'>keys</span><span class='period'>.</span><span class='id identifier rubyid_inspect'>inspect</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span>
+                       <span class='kw'>end</span>
     <span class='kw'>if</span> <span class='id identifier rubyid_value'>value</span><span class='period'>.</span><span class='id identifier rubyid_kind_of?'>kind_of?</span><span class='lparen'>(</span><span class='const'>Array</span><span class='rparen'>)</span>
       <span class='id identifier rubyid_input_definition'>input_definition</span> <span class='op'>=</span> <span class='kw'>begin</span>
                            <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_class'>class</span><span class='period'>.</span><span class='id identifier rubyid_input_definitions'>input_definitions</span><span class='lbracket'>[</span><span class='id identifier rubyid_name'>name</span><span class='rbracket'>]</span> <span class='op'>||</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_class'>class</span><span class='period'>.</span><span class='id identifier rubyid_input_definitions'>input_definitions</span><span class='period'>.</span><span class='id identifier rubyid_fetch'>fetch</span><span class='lparen'>(</span><span class='id identifier rubyid_name'>name</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span><span class='rparen'>)</span>
@@ -614,8 +614,6 @@ name.</p>
       <pre class="lines">
 
 
-151
-152
 153
 154
 155
@@ -636,10 +634,12 @@ name.</p>
 170
 171
 172
-173</pre>
+173
+174
+175</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/brut/front_end/form.rb', line 151</span>
+      <pre class="code"><span class="info file"># File 'lib/brut/front_end/form.rb', line 153</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_constraint_violations'>constraint_violations</span><span class='lparen'>(</span><span class='label'>server_side_only:</span> <span class='kw'>false</span><span class='rparen'>)</span>
   <span class='ivar'>@inputs</span><span class='period'>.</span><span class='id identifier rubyid_map'>map</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_input_name'>input_name</span><span class='comma'>,</span> <span class='id identifier rubyid_inputs'>inputs</span><span class='op'>|</span>
@@ -707,10 +707,10 @@ name.</p>
       <pre class="lines">
 
 
-117</pre>
+119</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/brut/front_end/form.rb', line 117</span>
+      <pre class="code"><span class="info file"># File 'lib/brut/front_end/form.rb', line 119</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_constraint_violations?'>constraint_violations?</span> <span class='op'>=</span> <span class='op'>!</span><span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_valid?'>valid?</span></pre>
     </td>
@@ -792,8 +792,6 @@ name.</p>
       <pre class="lines">
 
 
-95
-96
 97
 98
 99
@@ -802,10 +800,12 @@ name.</p>
 102
 103
 104
-105</pre>
+105
+106
+107</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/brut/front_end/form.rb', line 95</span>
+      <pre class="code"><span class="info file"># File 'lib/brut/front_end/form.rb', line 97</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_input'>input</span><span class='lparen'>(</span><span class='id identifier rubyid_input_name'>input_name</span><span class='comma'>,</span> <span class='label'>index:</span> <span class='kw'>nil</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_index'>index</span> <span class='op'>||=</span> <span class='int'>0</span>
@@ -880,14 +880,14 @@ name.</p>
       <pre class="lines">
 
 
-110
-111
 112
 113
-114</pre>
+114
+115
+116</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/brut/front_end/form.rb', line 110</span>
+      <pre class="code"><span class="info file"># File 'lib/brut/front_end/form.rb', line 112</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_inputs'>inputs</span><span class='lparen'>(</span><span class='id identifier rubyid_input_name'>input_name</span><span class='rparen'>)</span>
   <span class='ivar'>@inputs</span><span class='period'>.</span><span class='id identifier rubyid_fetch'>fetch</span><span class='lparen'>(</span><span class='id identifier rubyid_input_name'>input_name</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span><span class='rparen'>)</span>
@@ -940,10 +940,10 @@ Generally, don't override this. Instead, override <span class='object_link'><a h
       <pre class="lines">
 
 
-88</pre>
+90</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/brut/front_end/form.rb', line 88</span>
+      <pre class="code"><span class="info file"># File 'lib/brut/front_end/form.rb', line 90</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_new?'>new?</span> <span class='op'>=</span> <span class='ivar'>@new</span></pre>
     </td>
@@ -992,10 +992,10 @@ values provided by the user.  This can allow a form with values in it to be cons
       <pre class="lines">
 
 
-179</pre>
+181</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/brut/front_end/form.rb', line 179</span>
+      <pre class="code"><span class="info file"># File 'lib/brut/front_end/form.rb', line 181</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_params_empty?'>params_empty?</span><span class='lparen'>(</span><span class='id identifier rubyid_params'>params</span><span class='rparen'>)</span> <span class='op'>=</span> <span class='id identifier rubyid_params'>params</span><span class='period'>.</span><span class='id identifier rubyid_nil?'>nil?</span> <span class='op'>||</span> <span class='id identifier rubyid_params'>params</span><span class='period'>.</span><span class='id identifier rubyid_empty?'>empty?</span></pre>
     </td>
@@ -1081,13 +1081,13 @@ values provided by the user.  This can allow a form with values in it to be cons
       <pre class="lines">
 
 
-128
-129
 130
-131</pre>
+131
+132
+133</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/brut/front_end/form.rb', line 128</span>
+      <pre class="code"><span class="info file"># File 'lib/brut/front_end/form.rb', line 130</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_server_side_constraint_violation'>server_side_constraint_violation</span><span class='lparen'>(</span><span class='label'>input_name:</span><span class='comma'>,</span> <span class='label'>key:</span><span class='comma'>,</span> <span class='label'>index:</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='label'>context:</span><span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_index'>index</span> <span class='op'>||=</span> <span class='int'>0</span>
@@ -1144,14 +1144,14 @@ will be represented as a key in the resulting hash—only those keys that were p
       <pre class="lines">
 
 
-187
-188
 189
 190
-191</pre>
+191
+192
+193</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/brut/front_end/form.rb', line 187</span>
+      <pre class="code"><span class="info file"># File 'lib/brut/front_end/form.rb', line 189</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_to_h'>to_h</span>
   <span class='ivar'>@params</span><span class='period'>.</span><span class='id identifier rubyid_map'>map</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_key'>key</span><span class='comma'>,</span><span class='id identifier rubyid_value'>value</span><span class='op'>|</span>
@@ -1201,10 +1201,10 @@ will be represented as a key in the resulting hash—only those keys that were p
       <pre class="lines">
 
 
-120</pre>
+122</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/brut/front_end/form.rb', line 120</span>
+      <pre class="code"><span class="info file"># File 'lib/brut/front_end/form.rb', line 122</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_valid?'>valid?</span> <span class='op'>=</span> <span class='ivar'>@inputs</span><span class='period'>.</span><span class='id identifier rubyid_values'>values</span><span class='period'>.</span><span class='id identifier rubyid_flatten'>flatten</span><span class='period'>.</span><span class='id identifier rubyid_all?'>all?</span><span class='lparen'>(</span><span class='op'>&amp;</span><span class='symbol'>:valid?</span><span class='rparen'>)</span></pre>
     </td>
@@ -1217,7 +1217,7 @@ will be represented as a key in the resulting hash—only those keys that were p
 </div>
 
       <div id="footer">
-  Generated on Fri Aug 15 22:12:01 2025 by
+  Generated on Fri Sep  5 13:46:22 2025 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.37 (ruby-3.4.5).
 </div>

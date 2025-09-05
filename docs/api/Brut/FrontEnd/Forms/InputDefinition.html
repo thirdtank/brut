@@ -616,7 +616,7 @@ we can in Ruby so that client side validations can be safely used for user exper
       
       
         &mdash;
-        <div class='inline'><p>true if this field is required, false otherwise. Default is <code>true</code> unless <code>type</code> is <code>"checkbox"</code>.</p>
+        <div class='inline'><p>true if this field is required, false otherwise. Default is <code>true</code> unless <code>type</code> is <code>"checkbox"</code> or <code>"submit"</code>.</p>
 </div>
       
     </li>
@@ -690,7 +690,6 @@ we can in Ruby so that client side validations can be safely used for user exper
       <pre class="lines">
 
 
-60
 61
 62
 63
@@ -739,10 +738,15 @@ we can in Ruby so that client side validations can be safely used for user exper
 106
 107
 108
-109</pre>
+109
+110
+111
+112
+113
+114</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/brut/front_end/forms/input_definition.rb', line 60</span>
+      <pre class="code"><span class="info file"># File 'lib/brut/front_end/forms/input_definition.rb', line 61</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_initialize'>initialize</span><span class='lparen'>(</span>
   <span class='label'>max:</span> <span class='kw'>nil</span><span class='comma'>,</span>
@@ -771,7 +775,11 @@ we can in Ruby so that client side validations can be safely used for user exper
 
   <span class='id identifier rubyid_type'>type</span> <span class='op'>=</span> <span class='id identifier rubyid_type'>type</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span>
   <span class='kw'>if</span> <span class='id identifier rubyid_required'>required</span> <span class='op'>==</span> <span class='symbol'>:based_on_type</span>
-    <span class='id identifier rubyid_required'>required</span> <span class='op'>=</span> <span class='id identifier rubyid_type'>type</span> <span class='op'>!=</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>checkbox</span><span class='tstring_end'>&quot;</span></span>
+    <span class='id identifier rubyid_required'>required</span> <span class='op'>=</span> <span class='kw'>case</span> <span class='id identifier rubyid_type'>type</span>
+               <span class='kw'>when</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>checkbox</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>then</span> <span class='kw'>false</span>
+               <span class='kw'>when</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>submit</span><span class='tstring_end'>&quot;</span></span>   <span class='kw'>then</span> <span class='kw'>false</span>
+               <span class='kw'>else</span> <span class='kw'>true</span>
+               <span class='kw'>end</span>
   <span class='kw'>end</span>
 
   <span class='ivar'>@max</span>       <span class='op'>=</span> <span class='id identifier rubyid_max'>max</span>
@@ -1227,10 +1235,10 @@ we can in Ruby so that client side validations can be safely used for user exper
       <pre class="lines">
 
 
-111</pre>
+116</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/brut/front_end/forms/input_definition.rb', line 111</span>
+      <pre class="code"><span class="info file"># File 'lib/brut/front_end/forms/input_definition.rb', line 116</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_array?'>array?</span> <span class='op'>=</span> <span class='ivar'>@array</span></pre>
     </td>
@@ -1298,12 +1306,12 @@ inputs. <code>nil</code> is allowed only if the input definition is not for an a
       <pre class="lines">
 
 
-118
-119
-120</pre>
+123
+124
+125</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/brut/front_end/forms/input_definition.rb', line 118</span>
+      <pre class="code"><span class="info file"># File 'lib/brut/front_end/forms/input_definition.rb', line 123</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_make_input'>make_input</span><span class='lparen'>(</span><span class='label'>value:</span><span class='comma'>,</span> <span class='label'>index:</span><span class='rparen'>)</span>
   <span class='const'><span class='object_link'><a href="../../../Brut.html" title="Brut (module)">Brut</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../../FrontEnd.html" title="Brut::FrontEnd (module)">FrontEnd</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../Forms.html" title="Brut::FrontEnd::Forms (module)">Forms</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Input.html" title="Brut::FrontEnd::Forms::Input (class)">Input</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="Input.html#initialize-instance_method" title="Brut::FrontEnd::Forms::Input#initialize (method)">new</a></span></span><span class='lparen'>(</span><span class='label'>input_definition:</span> <span class='kw'>self</span><span class='comma'>,</span> <span class='label'>value:</span><span class='comma'>,</span> <span class='label'>index:</span><span class='rparen'>)</span>
@@ -1318,7 +1326,7 @@ inputs. <code>nil</code> is allowed only if the input definition is not for an a
 </div>
 
       <div id="footer">
-  Generated on Fri Aug 15 22:12:02 2025 by
+  Generated on Fri Sep  5 13:46:23 2025 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.37 (ruby-3.4.5).
 </div>
