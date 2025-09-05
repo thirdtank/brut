@@ -42,6 +42,7 @@ We'll also create `app/src/back_end/data_models/db/account.rb`:
 
 ```ruby
 class DB::Account < AppDataModel
+  has_external_id :a3 # !IMPORTANT: Make sure this is unique amongst your DB models
 end
 ```
 
