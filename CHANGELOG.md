@@ -1,5 +1,11 @@
 # Brut CHANGELOG
 
+## v0.12.0 - Sep 5, 2025
+
+* Added explicit support for buttons in forms, so that button name/values are submitted with the form and managed like any other form element.
+* `<brut-ajax-submit>` now works with `<input type="submit">`
+* Added notes to to the Blog Tutorial that you must re-run `bin/setup` if you've stopped your dev environment
+
 ## v0.11.0 - Aug 27, 2025
 
 * Added `Brut::Instrumentation::Methods` to allow instrumenting existing methods via `instrument`:

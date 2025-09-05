@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    mkbrut (0.11.0)
+    mkbrut (0.12.0)
 
 GEM
   remote: https://rubygems.org/
