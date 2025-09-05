@@ -40,11 +40,11 @@ class Brut::FrontEnd::Form
       Brut.container.instrumentation.add_attributes(prefix: :brut, ignored_unknown_params: unknown_params.join(","))
     end
     @params = params.except(*unknown_params).map { |name,value|
-        input_definition = begin
-                             self.class.input_definitions[name] || self.class.input_definitions.fetch(name.to_s)
-                           rescue KeyError
-                             raise "cannot find input definition for '#{name}'. Have these: #{self.class.input_definitions.keys.inspect}"
-                           end
+      input_definition = begin
+                           self.class.input_definitions[name] || self.class.input_definitions.fetch(name.to_s)
+                         rescue KeyError
+                           raise "cannot find input definition for '#{name}'. Have these: #{self.class.input_definitions.keys.inspect}"
+                         end
       if value.kind_of?(Array)
         input_definition = begin
                              self.class.input_definitions[name] || self.class.input_definitions.fetch(name.to_s)
