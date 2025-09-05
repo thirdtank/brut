@@ -11,6 +11,16 @@ module Brut::FrontEnd::Forms::InputDeclarations
     )
   end
 
+  # Declares a named button for this form, which is required in order to have this button's name and
+  # value sent to the back.  This will generate a `<button>` tag. To use `<input type="submit">`, {.input} should
+  # be used instead.
+  # @param [String] name The name of the button (used in the `name` attribute)
+  def button(name)
+    self.add_input_definition(
+      Brut::FrontEnd::Forms::ButtonInputDefinition.new(name:)
+    )
+  end
+
   # Declares a select for this form, to be modeled via an HTML `<SELECT>` tag. Note that this will not define the values that appear
   # in the select.  That is done when the select is rendered, which you might do with a
   # {Brut::FrontEnd::Components::Inputs::Select}

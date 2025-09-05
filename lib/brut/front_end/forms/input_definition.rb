@@ -32,6 +32,7 @@ class Brut::FrontEnd::Forms::InputDefinition
     "radio"          => String,
     "range"          => String,
     "search"         => String,
+    "submit"         => String,
     "tel"            => String,
     "text"           => String,
     "time"           => Time, # XXX
@@ -49,7 +50,7 @@ class Brut::FrontEnd::Forms::InputDefinition
   # @param [Integer] maxlength Maximum length of the value allowed.
   # @param [String] name Name of the input (required)
   # @param [Regexp] pattern that the value must match. Note that this technically must be a regular expression that works for both Ruby and JavaScript, so don't get fancy.
-  # @param [true|false] required true if this field is required, false otherwise. Default is `true` unless `type` is `"checkbox"`.
+  # @param [true|false] required true if this field is required, false otherwise. Default is `true` unless `type` is `"checkbox"` or `"submit"`.
   # @param [Integer] step Step value for ranged inputs.  A value that is not on a step is considered invalid.
   # @param [String] type the type of input to create. Should be a value from the HTML spec. Default is based on the value of `name`. If `email`, `type` is `email`. If `password` or `password_confirmation`, type is `password`. Otherwise `text`.
   # @param [true|false] array If true, the form will expect multiple values for this input.  The values will be available as an array. Any values omitted by the user will be present as empty strings.
@@ -84,7 +85,11 @@ class Brut::FrontEnd::Forms::InputDefinition
 
     type = type.to_s
     if required == :based_on_type
-      required = type != "checkbox"
+      required = case type
+                 when "checkbox" then false
+                 when "submit"   then false
+                 else true
+                 end
     end
 
     @max       = max

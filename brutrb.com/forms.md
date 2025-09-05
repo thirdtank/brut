@@ -83,6 +83,7 @@ for use in a radio button group. |
 |`Brut::FrontEnd::Components::SelectTagWithOptions` | Creates a `<select>` tag with
 `<option>` tags inside. |
 |`Brut::FrontEnd::Components::TextareaTag` | Creates a `<textarea>` tag. |
+|`Brut::FrontEnd::Components::ButtonTag` | Creates a `<button>` tag to submit the form. |
 
 All of these classes have an initializer that accepts:
 
