@@ -5,7 +5,9 @@
 # back end).
 class Brut::FrontEnd::Components::Inputs::ButtonTag < Brut::FrontEnd::Components::Input
 
-  # Creates the appropriate button for the given {Brut::FrontEnd::Form} and input name.
+  # Creates the appropriate button for the given {Brut::FrontEnd::Form} and input name. Note that if the
+  # form has no value for this input, the value `"true"` will be used, as this allows you to create
+  # buttons without worrying about an often irrelevant value.
   #
   # @param [Brut::FrontEnd::Form} form The form that is being rendered. This method will consult this class to understand the requirements on this input so its HTML is generated correctly.
   # @param [String] input_name the name of the input, which should be a member of `form`
@@ -27,7 +29,8 @@ class Brut::FrontEnd::Components::Inputs::ButtonTag < Brut::FrontEnd::Components
                                      else
                                        input.name
                                      end
-    default_html_attributes[:value] = input.value
+    value = RichString.from_string(input.value)
+    default_html_attributes[:value] = (value || "true").to_s
 
     @attributes = default_html_attributes.merge(html_attributes)
   end

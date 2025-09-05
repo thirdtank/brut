@@ -24,14 +24,10 @@ class Brut::FrontEnd::Forms::ButtonInputDefinition
 
 
   # Create an Input based on this definition, initializing it with the given value.
-  # @param [String] value the value to give this input initially. If this is blank,
-  #                 the button's value will be `"true"`.
+  # @param [String] value the value to give this input initially.
   # @param [Integer] index the index of this input, if it is part of an array of
   #                  inputs. `nil` is allowed only if the input definition is not for an array.
   def make_input(value:, index:)
-    if value.to_s.strip == ""
-      value = "true"
-    end
     Brut::FrontEnd::Forms::Button.new(input_definition: self, value:, index:)
   end
 end
