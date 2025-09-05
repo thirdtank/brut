@@ -2,7 +2,6 @@
 class Brut::FrontEnd::Components::Inputs::TextareaTag < Brut::FrontEnd::Components::Input
 
   # Creates the appropriate textarea for the given {Brut::FrontEnd::Form} and input name.
-  # Generally, you want to use this method over the initializer.
   #
   # @param [Brut::FrontEnd::Form} form The form that is being rendered. This method will consult this class to understand the requirements on this textarea so its HTML is generated correctly.
   # @param [String] input_name the name of the input, which should be a member of `form`
