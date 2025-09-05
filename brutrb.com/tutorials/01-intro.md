@@ -1019,6 +1019,10 @@ end
 
 Brut includes a test to make sure your factories are valid and will work.  It's in `specs/lint_factories.spec.rb`.  Run it now to make sure this factory works:
 
+> [!TIP]
+> If you stopped your entire dev environment (`dx/start`), when you restart it, you
+> *must* re-run `bin/setup`, since the disk inside your dev environment is ephemeral.
+
 ```bash
 bin/test run specs/lint_factories.spec.rb
 ```
@@ -1259,6 +1263,10 @@ This is using RSpec's `expect { ... }.to change { ... }.by(N)` to make sure that
 
 Let's run the test with `bin/test run`
 
+> [!TIP]
+> If you stopped your entire dev environment (`dx/start`), when you restart it, you
+> *must* re-run `bin/setup`, since the disk inside your dev environment is ephemeral.
+
 ```bash
 bin/test run specs/front_end/handlers/new_blog_post_handler.spec.rb
 ```
@@ -1334,6 +1342,10 @@ end
 
 Let's run the test, which should fail:
 
+> [!TIP]
+> If you stopped your entire dev environment (`dx/start`), when you restart it, you
+> *must* re-run `bin/setup`, since the disk inside your dev environment is ephemeral.
+
 ```bash
 bin/test run specs/front_end/pages/home_page.spec.rb
 ```
@@ -1398,6 +1410,10 @@ To make it pass, we'll need to add `id:` to each `<article>`.  Make this one-lin
 
 Now, the test should pass:
 
+> [!TIP]
+> If you stopped your entire dev environment (`dx/start`), when you restart it, you
+> *must* re-run `bin/setup`, since the disk inside your dev environment is ephemeral.
+
 ```bash
 bin/test run specs/front_end/pages/home_page.spec.rb
 ```
@@ -1435,6 +1451,10 @@ end
 ```
 
 Now, all unit tests should pass, which we can check via `bin/test run`:
+
+> [!TIP]
+> If you stopped your entire dev environment (`dx/start`), when you restart it, you
+> *must* re-run `bin/setup`, since the disk inside your dev environment is ephemeral.
 
 ```bash
 bin/test run
@@ -1541,6 +1561,10 @@ end
 ```
 
 Run it now with `bin/test e2e`:
+
+> [!TIP]
+> If you stopped your entire dev environment (`dx/start`), when you restart it, you
+> *must* re-run `bin/setup`, since the disk inside your dev environment is ephemeral.
 
 ```bash
 bin/test e2e
