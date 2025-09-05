@@ -1081,7 +1081,7 @@ Here's what `HomePage`'s `page_template` should look like now:
 def page_template
   header do
     h1 { "My Amazing Blog" }
-    a(href: "") { "Write New Blog Post" }
+    a(href: BlogPostEditorPage.routing) { "Write New Blog Post" }
   end
   main do
     DB::BlogPost.order(Sequel.desc(:created_at)).each do |blog_post|
