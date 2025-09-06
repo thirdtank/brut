@@ -140,7 +140,7 @@ class LoginPage < AppPage
     brut_form do
       FormTag(for: @form) do
         label do
-          Inputs::TextField(form: @form, input_name: :email)
+          Inputs::InputTag(form: @form, input_name: :email)
           div { "Email" }
           ConstraintViolations(form: @form, input_name: :email)
         end
@@ -185,19 +185,19 @@ class LoginHandler < AppHandler
   end
 
   def handle
-    if !form.constraint_violations? # no client-side issues
-      account = DB::Account.find(email: form.email, deactivated_at: nil)
+    if !@form.constraint_violations? # no client-side issues
+      account = DB::Account.find(email: @form.email, deactivated_at: nil)
       if !account
-        form.server_side_constraint_violation(
+        @form.server_side_constraint_violation(
           input_name: :email,
           key: :no_such_account
         )
       end
     end
-    if form.constraint_violations?
+    if @form.constraint_violations?
       LoginPage.new(form: @form)
     else
-      session.login!(account:)
+      @session.login!(account:)
       redirect_to(DashboardPage)
     end
   end
