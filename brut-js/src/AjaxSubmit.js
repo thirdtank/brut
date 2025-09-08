@@ -9,7 +9,8 @@ import ConstraintViolationMessage from "./ConstraintViolationMessage"
  *
  * 1. When the button is clicked, the form's validity is checked. If it's not valid, nothing happens.
  * 2. If the form is valid, this element will be given the `requesting` attribute.
- * 3. The request will be initiated, set to abort after `request-timeout` ms (see below).
+ * 3. The request will be initiated, set to abort after `request-timeout` ms as well
+ *    as to abort on an externally-provided AbortSignal (see below).
  *    The data submitted will be the contents of `new FormData(form)`, along with the 
  *    name/value of the button that was clicked, if it has a name and value.
  * 4. If the request returns OK:
@@ -28,8 +29,7 @@ import ConstraintViolationMessage from "./ConstraintViolationMessage"
  *    - otherwise, the operation is aborted.
  * 7. If fetch throws an error, the operation is aborted.
  *
- * Aborting the operation will submit the form in the normal way, allowing the browser to deal with whatever the issue is. You can set
- * `log-request-errors` to introspect this process.
+ * ## 422 Responses
  *
  * For a 422 response (where `no-server-side-error-parsing` is *not* set),
  * this element assumes the response is `text/html` and contains one or more `<brut-cv>`
@@ -56,6 +56,20 @@ import ConstraintViolationMessage from "./ConstraintViolationMessage"
  *   - the response body will be `text/html`
  *   - the response body will contain one or more `<brut-cv>` elements
  *
+ * ## Aborting the `fetch` Request
+ *
+ * By default, the call to `fetch` will be aborted after the value of `request-timeout` ms (default is 5,000).
+ * When this happens, the **form is submitted through the browser** without Ajax.  This is currently
+ * not configurable.
+ *
+ * You *can* set an additional `AbortSignal` by setting the `abortSignal` property.  When this is done, then
+ * either a timeout or your custom abort will abort the request and **submit the form through the browser**.
+ *
+ * For your custom abort signal, you can prevent browser submission by providing a reason
+ * with the value `AjaxSubmit.doNotSubmitThroughBrowser`. This can be useful when you are debouncing
+ * requests. See the examples. You will also find it useful to set `log-request-errors` on the element
+ * so you can see what is happening.
+ *
  * @property {boolean} no-server-side-error-parsing - if set, the response body for a 422 will not be parsed and inserted into the DOM. Instead, the body will be part of the detail of the `brut:submitinvalid` event.
  * @property {number} request-timeout - number of ms that the entire operation is expected to complete within. Default is 5000
  * @property {number} submitted-lifetime - number of ms that "submitted" should remain on the element after the form has completed. Default is 2000
@@ -67,22 +81,28 @@ import ConstraintViolationMessage from "./ConstraintViolationMessage"
  * @fires brut:submitok Fired when the AJAX request initated by this returns OK and all processing has completed. The detail will include the *parsed document* of the HTML returned in the response.
  * @fires brut:submitinvalid Fired when the AJAX request initated by this returns a 422 and all logic around managing the reponse has completed. The detail will be null unless `no-server-side-error-parsing` is set, in which case it will be the parsed document of the HTML returned in the response.
  *
- * @example
+ * @example <caption>Typical use</caption>
  * <form action="/widgets" method="post">
  *   <input type="text" name="name">
  *
  *   <brut-ajax-submit>
  *     <button name="button" value="save">Save</button>
-*    </brut-ajax-submit>
+ *   </brut-ajax-submit>
  *   <brut-ajax-submit>
  *     <button name="button" value="analyze">Analyze</button>
-*    </brut-ajax-submit>
+ *   </brut-ajax-submit>
  * </form>
- *
  * <!-- When "Save" is clicked, "name" will have the value from the text field,
  *      and "button" will have the value "save".
  *      When "Analyze" is clicked, "name" will have the value from the text
  *      field, and "button" will have the value "analyze". -->
+ *
+ * @example <caption>Using a custom abort signal</caption>
+ * const ajaxSubmit = document.querySelector("brut-ajax-submit")
+ * const controller = new AbortController()
+ * ajaxSubmit.abortSignal = controller.signal
+ * // later, when you want to abort the request
+ * controller.abort(AjaxSubmit.doNotSubmitThroughBrowser)
  *
  * @customelement brut-ajax-submit
  */
@@ -99,12 +119,28 @@ class AjaxSubmit extends BaseCustomElement {
     "no-server-side-error-parsing",
   ]
 
-  #requestErrorLogger = () => {}
-  #formSubmitDelay    = 0
-  #submittedLifetime  = 2000
-  #requestTimeout     = 5000
-  #maxRetryAttempts   = 25
+  /* Use this when calling abort() to indicate that the form 
+   * should be sub submitted through the browser.
+   */
+  static doNotSubmitThroughBrowser = "doNotSubmitThroughBrowser"
+
+  #requestErrorLogger     = () => {}
+  #formSubmitDelay        = 0
+  #submittedLifetime      = 2000
+  #requestTimeout         = 5000
+  #maxRetryAttempts       = 25
   #serverSideErrorParsing = true
+  #abortSignal            = null
+
+  /* Set an additional abort signal to be used when
+   * the form is submitted via Ajax.  This allows you to 
+   * control the fetch request beyond the built-in timeout.
+   *
+   * @param {AbortSignal} value the AbortSignal to add to the fetch request.
+   */
+  set abortSignal(value) {
+    this.#abortSignal = value
+  }
 
   constructor() {
     super()
@@ -205,17 +241,35 @@ class AjaxSubmit extends BaseCustomElement {
     }
     const urlSearchParams = new URLSearchParams(formData)
 
-    const timeoutSignal = AbortSignal.timeout(this.#requestTimeout)
+    const signals = [
+      AbortSignal.timeout(this.#requestTimeout),
+    ]
+    if (this.#abortSignal) {
+      signals.push(this.#abortSignal)
+    }
+    const abortSignals = AbortSignal.any(signals)
+
+    let url  = form.action
+    let body = null
+
+    if (form.method.toLowerCase() == "get") {
+      const sep = url.includes("?") ? "&" : "?"
+      url += sep + urlSearchParams.toString()
+    }
+    else {
+      body = urlSearchParams
+    }
 
     const request = new Request(
-      form.action,
+      url,
       {
         headers: headers,
         method: form.method,
-        body: urlSearchParams,
-        signal: timeoutSignal,
+        body: body,
+        signal: abortSignals,
       }
     )
+
 
     if (numAttempts > this.#maxRetryAttempts) {
       this.#requestErrorLogger("%d attempts. Giving up",numAttempts)
@@ -273,8 +327,13 @@ class AjaxSubmit extends BaseCustomElement {
         }
       }
     }).catch( (error) => {
-      this.#requestErrorLogger("Got %o, which cannot be retried",error)
-      this.#submitFormThroughBrowser(form)
+      if (error == AjaxSubmit.doNotSubmitThroughBrowser) {
+        this.#requestErrorLogger("Error indicates we should not submit through browser: %o",error)
+      }
+      else {
+        this.#requestErrorLogger("Got %o, which cannot be retried",error)
+        this.#submitFormThroughBrowser(form)
+      }
     })
   }
 
