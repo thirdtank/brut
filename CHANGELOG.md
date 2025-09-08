@@ -1,5 +1,10 @@
 # Brut CHANGELOG
 
+## v0.13.0 - Sep 8, 2025
+
+* `<brut-ajax-submit>` now works on forms that have `method="GET"`.
+* `<brut-ajax-submit>` can now allow an additional `AbortSignal` to cancel inflight requests, beyond the builtin timeout.
+
 ## v0.12.1 - Sep 5, 2025
 
 * Changed where a button's default value is set to avoid it
