@@ -90,7 +90,7 @@ private
       ].join("_")).camelize
     )
     Brut.container.instrumentation.add_prefixed_attributes("brut", layout_class: layout_class)
-    render layout_class.new(page_name:,&block)
+    render layout_class.new(page:self,&block)
   end
 
 
