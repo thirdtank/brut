@@ -6,6 +6,17 @@
 #
 # This base class contains helper methods needed for implementing a layout.
 class Brut::FrontEnd::Layout < Brut::FrontEnd::Component
+
+  # Access the page being laid out
+  attr_reader :page
+
+  # Create the layout for a given page.
+  #
+  # @param [Brut::FrontEnd::Page] page the page being laid out.
+  def initialize(page:)
+    @page = page
+  end
+
   # Get the actual path of an asset managed by Brut. This handles
   # locating the asset's URL as well as ensuring the hash is properly
   # inserted into the filename.
