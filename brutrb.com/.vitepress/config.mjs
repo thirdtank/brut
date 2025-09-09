@@ -133,7 +133,6 @@ export default defineConfig({
           { text: "Styling Form Errors", link: "/recipes/form-errors" },
           { text: "Authentication", link: "/recipes/authentication" },
           { text: "Alternate Layouts", link: "/recipes/alternate-layouts" },
-          { text: "Blank Layouts", link: "/recipes/blank-layouts" },
           { text: "Custom Flash Class", link: "/recipes/custom-flash" },
           { text: "Indexed Form Elements", link: "/recipes/indexed-forms" },
           { text: "Text Field Component", link: "/recipes/text-field-component" },

@@ -12,14 +12,16 @@ Your app should include `app/src/front_end/layouts/default_layout.rb`. The name
 A layout is a Phlex component that's expected to have a single call to `yield` in
 its `view_template` method.
 
+### Default Layout and Common Layout Needs
+
 Here is the `DefaultLayout` provided to new Brut apps:
 
 ```ruby {33}
 class DefaultLayout < Brut::FrontEnd::Layout
   include Brut::FrontEnd::Components
 
-  def initialize(page_name:)
-    @page_name = page_name
+  def initialize(page:)
+    @page = page
   end
 
   def view_template
@@ -34,7 +36,7 @@ class DefaultLayout < Brut::FrontEnd::Layout
         link(rel: "stylesheet",           href: asset_path("/css/styles.css"))
         script(defer: true, src: asset_path("/js/app.js"))
         title { app_name }
-        PageIdentifier(@page_name)
+        PageIdentifier(page)
         I18nTranslations("cv.cs")
         I18nTranslations("cv.this_field")
         Traceparent()
@@ -46,7 +48,7 @@ class DefaultLayout < Brut::FrontEnd::Layout
       end
       body do
         brut_tracing url: "/__brut/instrumentation", show_warnings: true
-        main class: @page_name do
+        main class: page.page_name do
           yield
         end
       end
@@ -65,8 +67,69 @@ included by default are important for other features of Brut:
 | `Brut::FrontEnd::Components::Traceparent` | Includes the OpenTelemetry *traceparent* on the page so that client-side telemetry is reported back to the server.  See `<brut-tracing>` and [observability](/instrumentation) |
 | `<brut-tracing>` / `brut_tracing` | Custom element that collects the client-side telemetry and sends it back to the server. See [observability](/instrumentation) |
 
-See [creating alternate layouts](/recipes/alternate-layouts) and [blank
-layouts](/recipes/blank-layouts) for customization options.
+### Adding Logic/Dynamic Behavior to Layouts
+
+Often, your pages will need to make slight tweaks to the layout that don't apply to all pages. For example, you may wish for a certain page to refresh on a schedule and you want to do that with a [meta refresh](https://en.wikipedia.org/wiki/Meta_refresh), which must appear in the `<head>` of the page.
+
+Unlike Rails, which uses named blocks to render optional or dynamic content, Brut allows you to use methods and normal Ruby-based flow logic.  Since your layouts have access to the page they are laying out, you can use your pages' APIs to do whatever it is you need.
+
+Taking the meta refresh example, suppose your `AppPage` defines a method, `auto_refresh_seconds` that, if non-`nil` means your page should automatically reload itself after that many seconds.  By default, you don't refresh, so it returns `nil`:
+
+```ruby
+class AppPage < Brut::FrontEnd::page
+
+  # ...
+
+  def auto_refresh_seconds = nil
+
+  # ...
+end
+```
+
+Your layout can refrence this API, since it's just a method on a class:
+
+```ruby
+class DefaultLayout < Brut::FrontEnd::Layout
+
+  # ...
+
+  def view_template
+    doctype
+    html(lang: "en") do
+      head do
+        if page.auto_refresh_seconds
+          meta(http_equiv: safe("refresh"), content: page.auto_refresh_seconds)
+        end
+
+        # ...
+  end
+  # ...
+end
+```
+
+Since your pages are a class hierarchy, you can override `auto_refresh_seconds` in any page, and that page will automatically refresh itself:
+
+```ruby
+class DashboardPage < AppPage
+
+  def auto_refresh_seconds = 60 * 60
+
+  # ...
+
+end
+```
+
+### Alternate Layouts
+
+If you used `mkbrut`, you should have access to a `BlankLayout` that is useful for allowing a page to respond to Ajax requests:
+
+```ruby
+class SomePage < AppPage
+  def layout = "blank"
+end
+```
+
+See [creating alternate layouts](/recipes/alternate-layouts) for more information on creating alternate layouts based on your needs.
 
 ## Testing
 
@@ -87,12 +150,7 @@ be [global components](/components#global-components)
 > Technical Notes are for deeper understanding and debugging. While we will try to keep them up-to-date with changes to Brut's
 > internals, the source code is always more correct.
 
-_Last Updated July 1, 2025_
+_Last Updated Sep 9, 2025_
 
 Layouts work due to the implementation of the method `view_template` in `Brut::FrontEnd::Page`. This is why a page class must provide `page_template` instead.
-
-While you could override `view_template` in your page to provide a "blank layout",
-this is discouraged, as the use of `view_template` should be considered a
-private implementation detail.
-
 
