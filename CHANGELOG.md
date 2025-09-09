@@ -1,5 +1,28 @@
 # Brut CHANGELOG
 
+## v0.14.0 - Sep 9, 2025
+
+* **BREAKING CHANGE** Layouts now have access to the page object they are 
+  laying out.  `Brut::FrontEnd::Layout` now requires being given the page
+  object in its constructor, and `Brut::FrontEnd::Components::PageIdentifier` 
+  **requires** the page, not the page\_name.
+
+  To fix, inside your layouts, you will likely have this code:
+
+  ```ruby
+  def initialize(page_name:)
+    @page_name = page_name
+  end
+  ```
+
+  Remove that initializer, then find all uses of `@page_name` and replace
+  them with `@page.page_name`, **except** for the call to `PageIdentifier`,
+  That should look like so:
+
+  ```ruby
+  PageIdentifer(page) # NOTE @page_name NOR @page.page_name
+  ```
+
 ## v0.13.0 - Sep 8, 2025
 
 * `<brut-ajax-submit>` now works on forms that have `method="GET"`.
