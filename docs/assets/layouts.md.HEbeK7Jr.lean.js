@@ -1,0 +1,1 @@
+import{_ as i,c as a,o as t,ag as n}from"./chunks/framework.C4nOkCZI.js";const y=JSON.parse('{"title":"Layouts","description":"","frontmatter":{},"headers":[],"relativePath":"layouts.md","filePath":"layouts.md"}'),e={name:"layouts.md"};function l(h,s,p,k,r,d){return t(),a("div",null,[...s[0]||(s[0]=[n("",31)])])}const c=i(e,[["render",l]]);export{y as __pageData,c as default};

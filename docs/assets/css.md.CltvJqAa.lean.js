@@ -1,1 +1,0 @@
-import{_ as i,c as a,o as e,ag as t}from"./chunks/framework.1L-BeKqY.js";const u=JSON.parse('{"title":"CSS","description":"","frontmatter":{},"headers":[],"relativePath":"css.md","filePath":"css.md"}'),n={name:"css.md"};function o(l,s,p,r,d,h){return e(),a("div",null,s[0]||(s[0]=[t("",31)]))}const k=i(n,[["render",o]]);export{u as __pageData,k as default};

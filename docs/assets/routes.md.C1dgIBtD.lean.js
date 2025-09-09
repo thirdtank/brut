@@ -1,0 +1,1 @@
+import{_ as a,c as t,o as s,ag as i}from"./chunks/framework.C4nOkCZI.js";const u=JSON.parse('{"title":"Routes","description":"","frontmatter":{},"headers":[],"relativePath":"routes.md","filePath":"routes.md"}'),o={name:"routes.md"};function n(r,e,l,h,d,p){return s(),t("div",null,[...e[0]||(e[0]=[i("",54)])])}const g=a(o,[["render",n]]);export{u as __pageData,g as default};

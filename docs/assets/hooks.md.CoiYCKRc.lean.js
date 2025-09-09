@@ -1,0 +1,1 @@
+import{_ as i,c as a,o as n,ag as e}from"./chunks/framework.C4nOkCZI.js";const E=JSON.parse('{"title":"Route Hooks","description":"","frontmatter":{},"headers":[],"relativePath":"hooks.md","filePath":"hooks.md"}'),h={name:"hooks.md"};function t(l,s,k,p,r,o){return n(),a("div",null,[...s[0]||(s[0]=[e("",33)])])}const g=i(h,[["render",t]]);export{E as __pageData,g as default};
