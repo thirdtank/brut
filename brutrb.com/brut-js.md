@@ -52,6 +52,7 @@ of what each one does.
 | `<brut-locale-detection>`    | Sends an Ajax request to the server with the browser's reported locale and timezone.  See [space-time continuum](/space-time-continuum#getting-timezone-from-the-browser) for more details.        |
 | `<brut-message>`             | Shows a message using an [i18n](/i18n) key to dynamically pull a localized message for client-side constraint violations. |
 | `<brut-tabs>`                | Uses ARIA roles related to a tab control and implements it client-side. |
+| `<brut-toast>`               | Support for managing i18-capable [toast notifications](https://en.wikipedia.org/wiki/Pop-up_notification) |
 | `<brut-tracing>`             | Sends observability data back to the server to unify a server-side request with client-side tracing.|
 
 > [!NOTE]
