@@ -49,7 +49,7 @@ class Message extends BaseCustomElement {
       return
     }
 
-    this.textContent = RichString.fromString(translation.translation()).capitalize().toString()
+    this.textContent = RichString.fromString(translation.translation(), {allowBlank: true }).capitalize().toString()
   }
 }
 

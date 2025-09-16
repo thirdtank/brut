@@ -13,9 +13,12 @@ class RichString {
    *
    * @param {null|undefined|String|RichString} possiblyDefinedStringOrRichString - if `null`, `undefined`, or otherwise falsey, this method returns `null`. If a String, returns a new `RichString` wrapping it. If a `RichString`, returns the `RichString` unchanged.
    */
-  static fromString(possiblyDefinedStringOrRichString) {
+  static fromString(possiblyDefinedStringOrRichString, {allowBlank=false} = {}) {
     if (possiblyDefinedStringOrRichString instanceof RichString) {
       return possiblyDefinedStringOrRichString
+    }
+    if (allowBlank && possiblyDefinedStringOrRichString === "") {
+      return new RichString("")
     }
     if (!possiblyDefinedStringOrRichString) {
       return null
