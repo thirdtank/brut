@@ -49,6 +49,9 @@ class I18nTranslation extends BaseCustomElement {
    * }
    */
   translation(interpolatedValues) {
+    if (!this.#value) {
+      this.logger.warn("No value attribute for key '%s', so translation will be blank", this.#key)
+    }
     return this.#value.replaceAll(/%\{([^}%]+)\}/g, (match,key) => {
       if (interpolatedValues[key]) {
         return interpolatedValues[key]
