@@ -23,10 +23,16 @@ class Message extends BaseCustomElement {
     "key",
   ]
 
+  /*
+   * Creates a new `<brut-message>` element with the given attributes.
+   */
   static createElement(document,attributes) {
     const element = document.createElement(Message.tagName)
-    element.setAttribute("key",attributes.key)
-    element.setAttribute("show-warnings",attributes["show-warnings"])
+    Object.entries(attributes).forEach(([name,value]) => {
+      if (value !== null && value !== undefined) {
+        element.setAttribute(name,value)
+      }
+    })
     return element
   }
 

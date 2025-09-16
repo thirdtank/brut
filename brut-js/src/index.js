@@ -12,6 +12,7 @@ import LocaleDetection             from "./LocaleDetection"
 import Message                     from "./Message"
 import RichString                  from "./RichString"
 import Tabs                        from "./Tabs"
+import Toast                       from "./Toast"
 import Tracing                     from "./Tracing"
 
 /**
@@ -105,6 +106,7 @@ BrutCustomElements.addElementClasses(
   AjaxSubmit,
   ConstraintViolationMessage,
   Tabs,
+  Toast,
   LocaleDetection,
   Autosubmit,
   Tracing,
@@ -125,6 +127,7 @@ export {
   Message,
   RichString,
   Tabs,
+  Toast,
   Tracing
 }
 
