@@ -1,5 +1,10 @@
 # Brut CHANGELOG
 
+## v0.15.0 - Sep 16, 2025
+
+* Added `<brut-toast>` to help with toast notifications.  They rely on CSS for showing, hiding, and animations, all your
+  client-side JS needs to do is set the `key` attribute to show the Toast with an i18n-provided message
+
 ## v0.14.0 - Sep 9, 2025
 
 * **BREAKING CHANGE** Layouts now have access to the page object they are 
