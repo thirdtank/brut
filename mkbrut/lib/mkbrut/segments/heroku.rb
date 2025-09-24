@@ -1,10 +1,9 @@
 class MKBrut::Segments::Heroku < MKBrut::Base
   def self.friendly_name = "Heroku-based Deployment"
 
-  def initialize(app_options:, current_dir:, templates_dir:)
-    @project_root  = current_dir / app_options.app_name
+  def initialize(project_root:, templates_dir:)
+    @project_root  = project_root
     @templates_dir = templates_dir / "segments" / "Heroku"
-    @erb_binding   = MKBrut::ErbBindingDelegate.new(app_options)
   end
 
   def add!
@@ -16,8 +15,29 @@ class MKBrut::Segments::Heroku < MKBrut::Base
     end
   end
 
+  def <=>(other)
+    if self.class == other.class
+      0
+    elsif other.class == MKBrut::Segments::Sidekiq
+      # If both herkou and sidekiq segments are activated, we want to do heroku first,
+      # since Sidekiq will need to modify it.
+      -1
+    else
+      1
+    end
+  end
+
   def other_operations
     [
+      MKBrut::Ops::InsertIntoFile.new(
+        file: @project_root / "Dockerfile.dx",
+        contents: %{
+# Installs the Heroku CLI, per Heroku docs at 
+# https://devcenter.heroku.com/articles/heroku-cli#install-with-ubuntu-debian-apt-get
+RUN curl https://cli-assets.heroku.com/install-ubuntu.sh | sh
+},
+        before_line: "# Up to now, RUN directives ran as the root user.  When using this container"
+      ),
       MKBrut::Ops::AppendToFile.new(
         file: @project_root / ".gitignore",
         content: %{

@@ -10,6 +10,14 @@ class MKBrut::Segments::Demo < MKBrut::Base
     @erb_binding   = ErbBindingDelegate.new(app_options)
   end
 
+  def <=>(other)
+    if self.class == other.class
+      0
+    else
+      1
+    end
+  end
+
   def add!
     operations = copy_files(@templates_dir, @project_root) + 
                  other_operations(@project_root)

@@ -8,6 +8,7 @@ class MKBrut::Base
     def session_secret = SecureRandom.hex(64)
   end
 
+  attr_reader :project_root
   def initialize(app_options:, current_dir:, templates_dir:)
     @project_root  = current_dir / app_options.app_name
     @templates_dir = templates_dir / "Base"
