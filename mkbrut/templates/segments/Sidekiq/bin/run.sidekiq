@@ -1,0 +1,4 @@
+PIDFILE="${SCRIPT_DIR}/../tmp/pidfile.sidekiq"
+CMD_MAP[sidekiq]="bin/sidekiq --config ${SCRIPT_DIR}/../app/config/sidekiq.yml  --require ${SCRIPT_DIR}/../app/boot_sidekiq.rb --verbose"
+PIDFILE_MAP[sidekiq]="${PIDFILE}"
+CREATES_PIDFILE_MAP[sidekiq]="false"

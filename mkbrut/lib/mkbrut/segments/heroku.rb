@@ -1,10 +1,9 @@
 class MKBrut::Segments::Heroku < MKBrut::Base
   def self.friendly_name = "Heroku-based Deployment"
 
-  def initialize(app_options:, current_dir:, templates_dir:)
-    @project_root  = current_dir / app_options.app_name
+  def initialize(project_root:, templates_dir:)
+    @project_root  = project_root
     @templates_dir = templates_dir / "segments" / "Heroku"
-    @erb_binding   = MKBrut::ErbBindingDelegate.new(app_options)
   end
 
   def add!
@@ -13,6 +12,18 @@ class MKBrut::Segments::Heroku < MKBrut::Base
 
     operations.each do |operation|
       operation.call
+    end
+  end
+
+  def <=>(other)
+    if self.class == other.class
+      0
+    elsif other.class == MKBrut::Segments::Sidekiq
+      # If both herkou and sidekiq segments are activated, we want to do heroku first,
+      # since Sidekiq will need to modify it.
+      -1
+    else
+      1
     end
   end
 

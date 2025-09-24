@@ -8,6 +8,7 @@ module MKBrut
     autoload :InsertRoute, "mkbrut/ops/insert_route"
     autoload :InsertCodeInMethod, "mkbrut/ops/insert_code_in_method"
     autoload :AppendToFile, "mkbrut/ops/append_to_file"
+    autoload :InsertIntoFile, "mkbrut/ops/insert_into_file"
     autoload :PrismParsingOp, "mkbrut/ops/prism_parsing_op"
     autoload :AddI18nMessage, "mkbrut/ops/add_i18n_message"
     autoload :AddCSSImport, "mkbrut/ops/add_css_import"

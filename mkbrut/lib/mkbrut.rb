@@ -3,6 +3,8 @@ module MKBrut
   autoload :AppId, "mkbrut/app_id"
   autoload :AppName, "mkbrut/app_name"
   autoload :AppOptions, "mkbrut/app_options"
+  autoload :AddSegment, "mkbrut/add_segment"
+  autoload :AddSegmentOptions, "mkbrut/add_segment_options"
   autoload :Base, "mkbrut/base"
   autoload :CLI, "mkbrut/cli"
   autoload :ErbBindingDelegate, "mkbrut/erb_binding_delegate"
