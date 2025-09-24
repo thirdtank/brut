@@ -56,10 +56,22 @@ private
     class_node
   end
 
-  def find_method(class_name:, method_name:)
+  def find_method(class_name:, method_name:, class_method: false)
     class_node = find_class(class_name:)
     method_node = class_node.body.body.detect { |node|
-      node.is_a?(Prism::DefNode) && node.name == @method_name
+
+      is_def            = node.is_a?(Prism::DefNode)
+      method_name_match = node.name == @method_name
+      receiver_match    = if class_method
+                            node.receiver.is_a?(Prism::SelfNode)
+                          else
+                            node.receiver.nil?
+                          end
+
+      if is_def && method_name_match && !receiver_match
+        puts "Found method '#{method_name}' in class '#{class_name}' but it was a #{node.receiver.class} receiver"
+      end
+      is_def && method_name_match && receiver_match
     }
 
     if !method_node
