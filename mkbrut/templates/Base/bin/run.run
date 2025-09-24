@@ -1,0 +1,4 @@
+PIDFILE="${SCRIPT_DIR}/../tmp/pidfile"
+CMD_MAP[run]="bin/puma --port ${PORT} -C puma.config.rb --environment ${RACK_ENV} --pid ${PIDFILE}"
+PIDFILE_MAP[run]="${PIDFILE}"
+CREATES_PIDFILE_MAP[run]="true"
