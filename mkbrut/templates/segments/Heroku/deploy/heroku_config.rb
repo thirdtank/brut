@@ -8,8 +8,8 @@ class HerokuConfig
   # The format of this Hash is:
   #
   # {
-  #   "«image name» => {
-  #     cmd: "«command line for Dockerfile RUN directive»",
+  #   *image name* => {
+  #     cmd: *command line for Dockerfile RUN directive*,
   #   }
   # }
   #
@@ -21,6 +21,7 @@ class HerokuConfig
   #     cmd: "bin/run-sidekiq",
   #   }
   # }
-  def self.additional_images = {}
+  #
+  def self.additional_images
+  end
 end
-

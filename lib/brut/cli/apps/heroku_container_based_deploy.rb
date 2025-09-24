@@ -65,7 +65,7 @@ Manages a deploy process based on using Heroku's Container Registry. See
       out.puts "Reading HerokuConfig:"
       require_relative Brut.container.project_root / "deploy" / "heroku_config"
 
-      additional_images = HerokuConfig.additional_images.map { |name,config|
+      additional_images = (HerokuConfig.additional_images || {}).map { |name,config|
         cmd = config.fetch(:cmd)
         out.puts "  - #{name} will run #{cmd} in production"
         image_name = %{#{@organization}/#{@app_id}:#{short_version}-#{name}}
