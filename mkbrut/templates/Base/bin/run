@@ -56,7 +56,7 @@ kill_previous() {
 }
 
 dotenv_run() {
-  local env_files="${SCRIPT_DIR}/../.env.${RACK_ENV},${SCRIPT_DIR}/../.env.${RACK_ENV}.local"
+  local env_files="${SCRIPT_DIR}/../.env.${RACK_ENV}.local,${SCRIPT_DIR}/../.env.${RACK_ENV}"
   dotenv -f "$env_files" --ignore -- "$@"
 }
 
