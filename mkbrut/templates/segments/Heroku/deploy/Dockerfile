@@ -55,8 +55,8 @@ RUN --mount=type=cache,target=/var/cache/apt \
 #
 # Incancation is based on: https://www.postgresql.org/download/linux/debian/
 RUN /usr/share/postgresql-common/pgdg/apt.postgresql.org.sh -y && \
-    apt-get update && \
-    apt-get --yes --quiet install postgresql-client-16 && \
+    apt-get update --quiet --yes && \
+    apt-get --yes --quiet --no-install-recommends install postgresql-client-16 && \
 		rm -rf /var/lib/apt/lists/* /var/cache/apt/archives/*
 
 # Set basic env vars for production
@@ -64,6 +64,8 @@ ENV RACK_ENV="production" \
     BUNDLE_DEPLOYMENT="1" \
     BUNDLE_PATH="/usr/local/bundle" \
     BUNDLE_WITHOUT="development"
+
+RUN rm -rf /var/lib/apt/lists/* /var/cache/apt/archives/*
 
 # This makes a new image that we'll throw away after building
 # needed artifacts.
@@ -82,9 +84,11 @@ RUN --mount=type=cache,target=/var/cache/apt \
       libpq-dev \
 			pkg-config
 
-# Install NodeJS from their Docker image
+# Copy NodeJS from the official image. This should be faster than
+# installing it via e.g. nvm
 COPY --from=node:22-slim /usr/local /usr/local
 
+# Copy Gemfile only as it may not change between deploys
 COPY Gemfile Gemfile.lock .
 
 # Install RubyGems from app's Gemfile
@@ -99,9 +103,7 @@ RUN npm clean-install --no-audit --no-fund --verbose
 COPY . .
 
 # Build all assets
-RUN \. "$HOME/.nvm/nvm.sh" && \
-    nvm use default && \
-    bin/build-assets && \
+RUN bin/build-assets && \
     rm -rf node_modules
 
 # We are now switching back to building the image that will be deployed.
@@ -118,7 +120,7 @@ RUN groupadd --system --gid 1000 brut && \
 USER 1000:1000
 
 ENV APP_GIT_SHA1="${app_git_sha1}"
+
 # This is used to execute other commands.  When the app is run in production,
 # this script is used to run it.
 ENTRYPOINT ["/brut-app/deploy/docker-entrypoint"]
-
