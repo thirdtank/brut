@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    mkbrut (0.16.0.pre.pre)
+    mkbrut (0.16.0)
 
 GEM
   remote: https://rubygems.org/
@@ -10,6 +10,7 @@ GEM
 
 PLATFORMS
   aarch64-linux
+  ruby
 
 DEPENDENCIES
   mkbrut!

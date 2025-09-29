@@ -1,6 +1,6 @@
 {
   "name": "brut-js",
-  "version": "0.16.0-pre",
+  "version": "0.16.0",
   "type": "module",
   "keywords": [
     "WebComponents",

@@ -1,9 +1,10 @@
 # Brut CHANGELOG
 
-## v0.16.0-pre - Sep 29, 2025
+## v0.16.0 - Sep 29, 2025
 
-* Sidekiq support - this may have some churn in various config files that only reveal themselves on deploy so this
-  is a pre-release. Do not use this version.
+* Sidekiq support via a *segment*.  This is a thing that can be installed by `mkbrut` after you create your app.
+* Improvcements to Heroku deployments.  Generally make Docker builds faster and more reliable
+* Changes in how Node is installed. Instead of using NVM this copies files from the Node Docker image
 
 ## v0.15.0 - Sep 16, 2025
 
