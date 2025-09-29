@@ -556,7 +556,7 @@
     <span class='kw'>end</span>
 
     <span class='id identifier rubyid_names'>names</span> <span class='op'>=</span> <span class='id identifier rubyid_images'>images</span><span class='period'>.</span><span class='id identifier rubyid_map'>map</span><span class='lparen'>(</span><span class='op'>&amp;</span><span class='symbol'>:first</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_join'>join</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'> </span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
-    <span class='id identifier rubyid_deploy_command'>deploy_command</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>heroku container:release </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_names'>names</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span>
+    <span class='id identifier rubyid_deploy_command'>deploy_command</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>heroku container:release </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_names'>names</span><span class='embexpr_end'>}</span><span class='tstring_content'> -a </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_heroku_app_name'>heroku_app_name</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span>
     <span class='kw'>if</span> <span class='id identifier rubyid_options'>options</span><span class='period'>.</span><span class='id identifier rubyid_deploy?'>deploy?</span>
       <span class='id identifier rubyid_out'>out</span><span class='period'>.</span><span class='id identifier rubyid_puts'>puts</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Deploying images to Heroku</span><span class='tstring_end'>&quot;</span></span>
       <span class='id identifier rubyid_system!'>system!</span><span class='lparen'>(</span><span class='id identifier rubyid_deploy_command'>deploy_command</span><span class='rparen'>)</span>
@@ -577,7 +577,7 @@
 </div>
 
       <div id="footer">
-  Generated on Mon Sep 29 18:39:07 2025 by
+  Generated on Mon Sep 29 20:49:38 2025 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.37 (ruby-3.4.6).
 </div>
