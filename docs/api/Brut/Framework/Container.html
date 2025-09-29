@@ -798,7 +798,9 @@ The names of the parameters must match the name of another configuration value.<
 235
 236
 237
-238</pre>
+238
+239
+240</pre>
     </td>
     <td>
       <pre class="code"><span class="info file"># File 'lib/brut/framework/container.rb', line 224</span>
@@ -810,10 +812,12 @@ The names of the parameters must match the name of another configuration value.<
         <span class='id identifier rubyid_contained_value'>contained_value</span><span class='period'>.</span><span class='id identifier rubyid_delete'>delete</span><span class='lparen'>(</span><span class='symbol'>:value</span><span class='rparen'>)</span>
       <span class='kw'>else</span>
         <span class='id identifier rubyid_klass'>klass</span> <span class='op'>=</span> <span class='id identifier rubyid_contained_value'>contained_value</span><span class='lbracket'>[</span><span class='symbol'>:value</span><span class='rbracket'>]</span>
-        <span class='id identifier rubyid_new_klass'>new_klass</span> <span class='op'>=</span> <span class='id identifier rubyid_klass'>klass</span><span class='period'>.</span><span class='id identifier rubyid_name'>name</span><span class='period'>.</span><span class='id identifier rubyid_split'>split</span><span class='lparen'>(</span><span class='tstring'><span class='regexp_beg'>/</span><span class='tstring_content'>::</span><span class='regexp_end'>/</span></span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_reduce'>reduce</span><span class='lparen'>(</span><span class='const'>Module</span><span class='rparen'>)</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_mod'>mod</span><span class='comma'>,</span><span class='id identifier rubyid_part'>part</span><span class='op'>|</span>
-          <span class='id identifier rubyid_mod'>mod</span><span class='period'>.</span><span class='id identifier rubyid_const_get'>const_get</span><span class='lparen'>(</span><span class='id identifier rubyid_part'>part</span><span class='rparen'>)</span>
-        <span class='rbrace'>}</span>
-        <span class='id identifier rubyid_contained_value'>contained_value</span><span class='lbracket'>[</span><span class='symbol'>:value</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='id identifier rubyid_new_klass'>new_klass</span>
+        <span class='kw'>if</span> <span class='id identifier rubyid_klass'>klass</span>
+          <span class='id identifier rubyid_new_klass'>new_klass</span> <span class='op'>=</span> <span class='id identifier rubyid_klass'>klass</span><span class='period'>.</span><span class='id identifier rubyid_name'>name</span><span class='period'>.</span><span class='id identifier rubyid_split'>split</span><span class='lparen'>(</span><span class='tstring'><span class='regexp_beg'>/</span><span class='tstring_content'>::</span><span class='regexp_end'>/</span></span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_reduce'>reduce</span><span class='lparen'>(</span><span class='const'>Module</span><span class='rparen'>)</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_mod'>mod</span><span class='comma'>,</span><span class='id identifier rubyid_part'>part</span><span class='op'>|</span>
+            <span class='id identifier rubyid_mod'>mod</span><span class='period'>.</span><span class='id identifier rubyid_const_get'>const_get</span><span class='lparen'>(</span><span class='id identifier rubyid_part'>part</span><span class='rparen'>)</span>
+          <span class='rbrace'>}</span>
+          <span class='id identifier rubyid_contained_value'>contained_value</span><span class='lbracket'>[</span><span class='symbol'>:value</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='id identifier rubyid_new_klass'>new_klass</span>
+        <span class='kw'>end</span>
       <span class='kw'>end</span>
     <span class='kw'>end</span>
   <span class='kw'>end</span>
@@ -1450,9 +1454,9 @@ The names of the parameters must match the name of another configuration value.<
 </div>
 
       <div id="footer">
-  Generated on Tue Sep 16 13:23:59 2025 by
+  Generated on Mon Sep 29 18:39:07 2025 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.37 (ruby-3.4.5).
+  0.9.37 (ruby-3.4.6).
 </div>
 
     </div>

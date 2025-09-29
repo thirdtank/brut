@@ -419,7 +419,8 @@
 170
 171
 172
-173</pre>
+173
+174</pre>
     </td>
     <td>
       <pre class="code"><span class="info file"># File 'lib/brut/cli/apps/heroku_container_based_deploy.rb', line 33</span>
@@ -459,7 +460,7 @@
   <span class='id identifier rubyid_out'>out</span><span class='period'>.</span><span class='id identifier rubyid_puts'>puts</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Reading HerokuConfig:</span><span class='tstring_end'>&quot;</span></span>
   <span class='id identifier rubyid_require_relative'>require_relative</span> <span class='const'><span class='object_link'><a href="../../../../Brut.html" title="Brut (module)">Brut</a></span></span><span class='period'>.</span><span class='id identifier rubyid_container'><span class='object_link'><a href="../../../../Brut.html#container-class_method" title="Brut.container (method)">container</a></span></span><span class='period'>.</span><span class='id identifier rubyid_project_root'>project_root</span> <span class='op'>/</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>deploy</span><span class='tstring_end'>&quot;</span></span> <span class='op'>/</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>heroku_config</span><span class='tstring_end'>&quot;</span></span>
 
-  <span class='id identifier rubyid_additional_images'>additional_images</span> <span class='op'>=</span> <span class='const'>HerokuConfig</span><span class='period'>.</span><span class='id identifier rubyid_additional_images'>additional_images</span><span class='period'>.</span><span class='id identifier rubyid_map'>map</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_name'>name</span><span class='comma'>,</span><span class='id identifier rubyid_config'>config</span><span class='op'>|</span>
+  <span class='id identifier rubyid_additional_images'>additional_images</span> <span class='op'>=</span> <span class='lparen'>(</span><span class='const'>HerokuConfig</span><span class='period'>.</span><span class='id identifier rubyid_additional_images'>additional_images</span> <span class='op'>||</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_map'>map</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_name'>name</span><span class='comma'>,</span><span class='id identifier rubyid_config'>config</span><span class='op'>|</span>
     <span class='id identifier rubyid_cmd'>cmd</span> <span class='op'>=</span> <span class='id identifier rubyid_config'>config</span><span class='period'>.</span><span class='id identifier rubyid_fetch'>fetch</span><span class='lparen'>(</span><span class='symbol'>:cmd</span><span class='rparen'>)</span>
     <span class='id identifier rubyid_out'>out</span><span class='period'>.</span><span class='id identifier rubyid_puts'>puts</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>  - </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_name'>name</span><span class='embexpr_end'>}</span><span class='tstring_content'> will run </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_cmd'>cmd</span><span class='embexpr_end'>}</span><span class='tstring_content'> in production</span><span class='tstring_end'>&quot;</span></span>
     <span class='id identifier rubyid_image_name'>image_name</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>%{</span><span class='embexpr_beg'>#{</span><span class='ivar'>@organization</span><span class='embexpr_end'>}</span><span class='tstring_content'>/</span><span class='embexpr_beg'>#{</span><span class='ivar'>@app_id</span><span class='embexpr_end'>}</span><span class='tstring_content'>:</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_short_version'>short_version</span><span class='embexpr_end'>}</span><span class='tstring_content'>-</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_name'>name</span><span class='embexpr_end'>}</span><span class='tstring_end'>}</span></span>
@@ -492,7 +493,8 @@
   <span class='id identifier rubyid_out'>out</span><span class='period'>.</span><span class='id identifier rubyid_puts'>puts</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>  - release will run bin/release in production</span><span class='tstring_end'>&quot;</span></span>
 
   <span class='id identifier rubyid_local_repo_checks'>local_repo_checks</span><span class='period'>.</span><span class='id identifier rubyid_check!'>check!</span>
-<span class='id identifier rubyid_require_heroku_login!'>require_heroku_login!</span><span class='lparen'>(</span><span class='id identifier rubyid_options'>options</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_require_heroku_login!'>require_heroku_login!</span><span class='lparen'>(</span><span class='id identifier rubyid_options'>options</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_login_to_heroku_container_registry!'>login_to_heroku_container_registry!</span><span class='lparen'>(</span><span class='id identifier rubyid_options'>options</span><span class='rparen'>)</span>
 
   <span class='const'>FileUtils</span><span class='period'>.</span><span class='id identifier rubyid_chdir'>chdir</span> <span class='const'><span class='object_link'><a href="../../../../Brut.html" title="Brut (module)">Brut</a></span></span><span class='period'>.</span><span class='id identifier rubyid_container'><span class='object_link'><a href="../../../../Brut.html#container-class_method" title="Brut.container (method)">container</a></span></span><span class='period'>.</span><span class='id identifier rubyid_project_root'>project_root</span> <span class='kw'>do</span>
 
@@ -575,9 +577,9 @@
 </div>
 
       <div id="footer">
-  Generated on Tue Sep 16 13:24:00 2025 by
+  Generated on Mon Sep 29 18:39:07 2025 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.37 (ruby-3.4.5).
+  0.9.37 (ruby-3.4.6).
 </div>
 
     </div>
