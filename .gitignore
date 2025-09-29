@@ -31,6 +31,8 @@
 /brut-js/node_modules
 /brut-js/docs/node_modules
 /brut-css/node_modules
+# Configured location for npm install -g
+/.npm-global
 
 # This is where the bundle is built during testing for BuildJS
 /brut-js/specs/public/js

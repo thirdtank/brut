@@ -1,14 +1,25 @@
 class MKBrut::Ops::InsertCodeInMethod < MKBrut::Ops::PrismParsingOp
-  def initialize(file:, class_name:, method_name:, code:, where: :end)
-    @file        = file
-    @class_name  = class_name
-    @method_name = method_name.to_sym
-    @code        = code
-    @where       = where
+  def initialize(file:,
+                 class_name:,
+                 method_name:,
+                 class_method: false,
+                 code:,
+                 ignore_if_file_not_found: false,
+                 where: :end)
+    @file                     = file
+    @class_name               = class_name
+    @method_name              = method_name.to_sym
+    @class_method             = class_method
+    @code                     = code
+    @ignore_if_file_not_found = ignore_if_file_not_found
+    @where                    = where
   end
 
   def call
-    method_node = find_method(class_name: @class_name, method_name: @method_name)
+    if !@file.exist? && @ignore_if_file_not_found
+      return
+    end
+    method_node = find_method(class_name: @class_name, method_name: @method_name, class_method: @class_method)
 
     insertion_point = if @where == :start
                         insertion_point_for_code_at_start_of_method(method_node: method_node)
@@ -42,6 +53,7 @@ private
       }.join("\n") + post_indent
   end
 
+  # XXX: This does not work with non-ASCII strings
   def insertion_point_for_code_at_end_of_method(method_node:)
     line_number_of_method_end = method_node.location.end_line - 1
     length_of_method_end      = @source.lines[line_number_of_method_end].length

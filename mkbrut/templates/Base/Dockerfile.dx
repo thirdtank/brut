@@ -25,13 +25,18 @@ ENV DEBIAN_FRONTEND=noninteractive
 # These packages are needed to set up other repos to install other
 # packages and/or are useful in installing other software
 #
+# --mount=type=cache,target=/var/cache/apt means that we'll save
+# the downloaded file used to install between builds, so that if they
+# have not changed, builds will be faster.
+#
 # - ca-certificates  - needed by Postgres client
 # - curl             - needed by various installation instructions
 # - gnupg            - needed to install Docker
 # - lsb-release      - needed by Postgres install instructions
 # - rsync            - needed by Brut's build_assets command
 # - vim              - needed when we want to edit files inside container
-RUN apt-get -y clean && \
+RUN --mount=type=cache,target=/var/cache/apt \
+    apt-get -y clean && \
     apt-get -y update && \
     apt-get install --quiet --yes \
       ca-certificates \
@@ -47,7 +52,8 @@ RUN apt-get -y clean && \
 #
 #     npx playwright install-deps --dry-run chromium
 #
-RUN apt-get install -y --no-install-recommends libasound2 \
+RUN --mount=type=cache,target=/var/cache/apt \
+    apt-get install -y --no-install-recommends libasound2 \
                                                libatk-bridge2.0-0 \
                                                libatk1.0-0 \
                                                libatspi2.0-0 \
@@ -117,10 +123,6 @@ RUN echo "gem: --no-document" >> ~/.gemrc && \
     gem update --system && \
     gem install bundler
 
-# Installs the Heroku CLI, per Heroku docs at 
-# https://devcenter.heroku.com/articles/heroku-cli#install-with-ubuntu-debian-apt-get
-RUN curl https://cli-assets.heroku.com/install-ubuntu.sh | sh
-
 # Up to now, RUN directives ran as the root user.  When using this container
 # for development, we do not want to run as the root user.  On macOS, this is not 
 # a big deal, but in Linux, the root user inside this container can create files
@@ -178,28 +180,23 @@ COPY --chown=appuser:${user_gid} dx/bash_customizations.local /home/appuser/.bas
 # as belonging to.
 USER appuser
 
-# Install NodeJS, per https://nodejs.org/en/download
-#
-# Yes, this is seting up nvm just to install one version of node we will ever user in
-# here and yes, this sucks.  But it's better to use the vendor's official
-# recommendation.
-RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.3/install.sh | bash && \
-    \. "$HOME/.nvm/nvm.sh" && \
-    nvm install 22 && \
-    node -v && nvm current && npm -v
-
-
+# Installs NodeJS from the official image.  This is simpler
+# than the canonical instructions which use NVM.  Inside the container, there
+# is not value to use NVM.
+COPY --from=node:22-slim /usr/local /usr/local
 
 # This arg should have the version of playwright present in the app's Gemfile.lock.
 # This is because the playright NodeJS library and the Ruby gem must have the same
 # version or things won't work right.  The value is blank because it really has to be
 # detected during `dx/build`.
 ARG PLAYWRIGHT_VERSION
+
 # Now install the version of Playwright we detected as well as Chromium. NOTE, we
 # must install Chromium, not chrome, because there is no version of Chrome for an
 # ARM-based Debian linux, which is what this Dockerfile will build on an Apple
-# Silicon Mac.
-RUN \. "$HOME/.nvm/nvm.sh" && \
-    nvm use default && \
-    npm install -g playwright@$PLAYWRIGHT_VERSION && \
+# Silicon Mac. Note that we set NPM_CONFIG_PREFIX so that the global
+# install will work for this user.
+ENV NPM_CONFIG_PREFIX=/home/appuser/.npm-global
+ENV PATH=/home/appuser/.npm-global/bin:$PATH
+RUN npm install -g playwright@$PLAYWRIGHT_VERSION && \
     npx playwright install chromium

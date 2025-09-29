@@ -22,30 +22,45 @@ When creating your Brut app with `mkbrut`, the Heroku segment can be used to cre
 
 How to deploy:
 
-1. Auth to Heroku from inside your dev container:
+1. Get an auth token from Heroku, which you can do from inside the container, and save it to
+   `bash_customizations.local`:
 
    ```
    your-computer> dx/exec bash
    devcontainer> heroku auth:login
    # You will need to copy/paste the URL to log in
-   devcontainer> heroku container:login
+   devcontainer> heroku authorizations:create -d "container pushes" --expires-in 31536000
+   # Copy the token output by this command
+   devcontainer> echo "HEROKU_API_KEY=«TOKEN YOU COPIED»" >> dx/bash_customizations.local
+   ```
+2. Exit the devcontainer and  stop `dx/start` (e.g. hit `Ctrl-C` wherever you ran it)
+3. Rebuild and restart the devcontainer (this will set `HEROKU_API_KEY` for you)
+
+   ```
+   your-computer> dx/build
+   your-computer> dx/start
+   # In another terminal window
+   your-computer> dx/exec bash
+   devcontainer> echo $HEROKU_API_KEY
+   # You should see the token
    ```
 
-2. Create your app using the container stack:
+   Setting this environment variable avoids having to constantly re-authenticate to Heroku.
+
+4. Create your app using the container stack:
 
    ```
    > heroku create --stack container -a «your heroku app name»
    ```
-3. Ensure your app's source code is all checked in, there are no uncommitted or unadded files, and you have pushed to main.
-4. `bin/deploy`
+5. Ensure your app's source code is all checked in, there are no uncommitted or unadded files, and you have pushed to the `main` branch of your remote Git repository.
+6. `bin/deploy`
 
    This will generate a `Dockerfile` for each process (by default, `Dockerfile.web` and `Dockerfile.release`), build images, push those images to Heroku, and ask Heroku to release them.
 
 Debugging Tips:
 
-* Keep in mind it's hard to make general deployment tools. You are expected to understand your deployment and be capable of deploying an arbitrary Rack app manually.  Brut's tooling automates what you need to know.
-* `bin/deploy` runs the `deploy` subcommand, so `bin/deploy help deploy` can provide
-some options for debugging issues:
+* Keep in mind it's hard to make general deployment tools. You are expected to understand your deployment and be capable of deploying an arbitrary Rack app manually.  Brut's tooling automates what you need to do based on what you already need to know.
+* `bin/deploy` runs the `deploy` subcommand, so `bin/deploy help deploy` can provide some options for debugging issues:
 
   ```
   devcontainer> bin/deploy help deploy
@@ -105,7 +120,6 @@ some options for debugging issues:
 
   You'll need to have a better understanding of Docker to do this, however if you
   are deploying with Docker, this is an understanding you hopefully already have.
-
 
 ### Other Mechanisms for Deployment
 

@@ -167,7 +167,9 @@ class Brut::CLI::Apps::Test < Brut::CLI::App
              type == "back_end" ||
              type == "seed" ||
              type == "migrations" ||
+             type == "segments" ||
              pathname.basename.to_s == "app_data_model.rb" ||
+             pathname.basename.to_s == "app_job.rb" ||
              pathname.basename.to_s == "db.rb"
 
             hash[:type] = :infrastructure

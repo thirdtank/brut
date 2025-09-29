@@ -228,10 +228,12 @@ class Brut::Framework::Container
           contained_value.delete(:value)
         else
           klass = contained_value[:value]
-          new_klass = klass.name.split(/::/).reduce(Module) { |mod,part|
-            mod.const_get(part)
-          }
-          contained_value[:value] = new_klass
+          if klass
+            new_klass = klass.name.split(/::/).reduce(Module) { |mod,part|
+              mod.const_get(part)
+            }
+            contained_value[:value] = new_klass
+          end
         end
       end
     end

@@ -47,14 +47,19 @@ module MKBrut
         case segment
         when "heroku"
           @segments << MKBrut::Segments::Heroku.new(
-            app_options:,
-            current_dir:,
+            project_root: @base.project_root,
+            templates_dir:
+          )
+        when "sidekiq"
+          @segments << MKBrut::Segments::Sidekiq.new(
+            project_root: @base.project_root,
             templates_dir:
           )
         else
           raise "Segment #{segment} is not supported"
         end
       end
+      @segments.sort!
     end
 
     def create!
