@@ -5,10 +5,10 @@ call a 1.0 release.  Here are some ideas of what I think is needed:
 
 ## Better Dev Experience
 
+* The CLI apps are all shimmed in a wierd way, expecially `mkbrut`. They should be part of the gem.
 * The output of `bin/dev` isn't great.
 * otel-desktop-viewer is cool, but not the easiest to figure out issues as compred to good 'ole logging.
 * Error pages in the app are *really* bad.
-* CLI apps are OK, but could be fancier.
 
 ## More Tests
 
@@ -21,7 +21,7 @@ call a 1.0 release.  Here are some ideas of what I think is needed:
 
 ## More Complete Web Features
 
-* Content security policy doens't allow for hashes, which can be limiting in some situations. I want everyone to be running with a CSP, so it has to be configurable to some degree.
+* Content security policy is all or nothing. You can bring stuff in via CDN without disabling the feature entirely.  I want everyone using CSP, but it needs to be more configurable.
 * Websockets, server-push, etc. should be possible or at least have a recipe.
 * Learn more about importmaps.
 
@@ -50,8 +50,3 @@ Out of the box support for more deployment mechanism, at least:
 * A unified look and feel across the board
 * Get rid of VitePress for something less client-heavy, but still great
 * Dash-accessible API docs
-
-## Misc
-
-* More direct Sidekiq support
-
