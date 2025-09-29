@@ -17,6 +17,9 @@
 
 # This could contain actual secrets and should not be checked in
 /.env.development.local
+# This could also contain actual secrets and should not be checked in - it's configuration
+# per developer, not per app
+/dx/bash_customizations.local
 
 # These are generated artifacts
 /deploy/Dockerfile.*

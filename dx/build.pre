@@ -1,0 +1,15 @@
+#!/bin/bash
+
+set -e
+
+SCRIPT_DIR=$( cd -- "$( dirname -- "${0}" )" > /dev/null 2>&1 && pwd )
+
+if [ ! -f "${SCRIPT_DIR}"/bash_customizations.local ]; then
+  echo "[ $0 ] Creating bash_customizations.local file - you may edit this later to customize your bash experience."
+  echo "# Insert developer-specifilc Bash customizations here." > "${SCRIPT_DIR}"/bash_customizations.local
+  echo "# This file is not checked into version control" >> "${SCRIPT_DIR}"/bash_customizations.local
+
+  echo "# Sets up a multi-line prompt since the working directory" >> "${SCRIPT_DIR}"/bash_customizations.local
+  echo "# may be very deep.  Customize or change at your leisure." >> "${SCRIPT_DIR}"/bash_customizations.local
+  echo "PS1='\[\e[35m\]docker-container\[\e[0m\] - \[\e[37m\]\w\n\[\e[0m\]> '" >> "${SCRIPT_DIR}"/bash_customizations.local
+fi
