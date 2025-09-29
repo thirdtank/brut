@@ -98,7 +98,8 @@ Manages a deploy process based on using Heroku's Container Registry. See
       out.puts "  - release will run bin/release in production"
 
       local_repo_checks.check!
-require_heroku_login!(options)
+      require_heroku_login!(options)
+      login_to_heroku_container_registry!(options)
 
       FileUtils.chdir Brut.container.project_root do
 
@@ -171,24 +172,49 @@ require_heroku_login!(options)
         end
       end
     end
+
   private
+
     def require_heroku_login!(options)
-      if system("heroku whoami")
-        out.puts "You are logged in to Heroku"
-      else
+      logged_into_heroku = system("heroku whoami > /dev/null 2>&1")
+
+      if !logged_into_heroku
         out.puts "You are not logged into Heroku."
-        out.puts "Please run the following:"
-        out.puts ""
-        out.puts "heroku auth:login"
-        out.puts "heroku container:login"
-        out.puts ""
-        out.puts "Then, re-run this"
-        if options.dry_run?
-          out.puts "Dry run - ignoring"
-          return
-        end
+        out.puts
+        out.puts "There are two ways to do this:"
+        out.puts
+        out.puts "1 - Set HEROKU_API_KEY in your environment. You can get a"
+        out.puts "    value in a lot of ways, but a comand-line based one is"
+        out.puts
+        out.puts "    heroku authorizations:create -d 'container pushes' --expires-in 31536000"
+        out.puts
+        out.puts "    This reuqires logging into the CLI via heroku auth:login, but using the"
+        out.puts "    key will prevent you from having to login every day."
+        out.puts
+        out.puts "    See Brut's documentation for how to persist this value between rebuilds"
+        out.puts "    of your dev environment."
+        out.puts
+        out.puts "2 - heroku auth:login"
+        out.puts
+        out.puts "    This is simpler, however you will need to do this every day."
+        out.puts
         exit 1
       end
+      out.puts "You are logged into Heroku"
+    end
+
+    def login_to_heroku_container_registry!(options)
+      if !system("heroku container:login")
+        out.puts "Failed to login to Heroku Container Registry"
+        out.puts
+        out.puts "Since you are logged into Heroku, this should've passed, so there"
+        out.puts "may be something else wrong.  The command used was"
+        out.puts
+        out.puts "    heroku container:login"
+        out.puts
+        exit 1
+      end
+      out.puts "Logged into Heroku Container Registry"
     end
   end
 end

@@ -37,7 +37,8 @@ WORKDIR /brut-app
 # - lsb-release is used to generically access information for this OS's version
 # - wget allows us to copy/paste commands from vendors about how to install
 #   software even though it does the same thing as curl
-RUN apt-get update --quiet --yes && \
+RUN --mount=type=cache,target=/var/cache/apt \
+    apt-get update --quiet --yes && \
     apt-get install --no-install-recommends --quiet --yes \
       ca-certificates \
       curl \
@@ -62,8 +63,7 @@ RUN /usr/share/postgresql-common/pgdg/apt.postgresql.org.sh -y && \
 ENV RACK_ENV="production" \
     BUNDLE_DEPLOYMENT="1" \
     BUNDLE_PATH="/usr/local/bundle" \
-    BUNDLE_WITHOUT="development" \
-    APP_GIT_SHA1="${app_git_sha1}"
+    BUNDLE_WITHOUT="development"
 
 # This makes a new image that we'll throw away after building
 # needed artifacts.
@@ -74,30 +74,29 @@ FROM base AS build
 # - libpq-dev is needed by postgres
 # - pkg-config is, I guess, not considered "essential" (as in build-essential),
 #   but still needed to install downstream stuff
-RUN apt-get update --quiet --yes && \
+RUN --mount=type=cache,target=/var/cache/apt \
+    apt-get update --quiet --yes && \
     apt-get install --no-install-recommends --quiet --yes \
 			build-essential \
 			git \
       libpq-dev \
 			pkg-config
 
-# Install NodeJS, per https://nodejs.org/en/download
-RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.3/install.sh | bash && \
-    \. "$HOME/.nvm/nvm.sh" && \
-    nvm install 22 && \
-    node -v && nvm current && npm -v
+# Install NodeJS from their Docker image
+COPY --from=node:22-slim /usr/local /usr/local
 
-# Copy the app into the file, excluding the contents of .dockerignore
-COPY . .
+COPY Gemfile Gemfile.lock .
 
 # Install RubyGems from app's Gemfile
-RUN bundle install --verbose && \
+RUN --mount=type=cache,target=${BUNDLE_PATH}/cache \
+    bundle install --verbose && \
     rm -rf ~/.bundle/ "${BUNDLE_PATH}"/ruby/*/cache "${BUNDLE_PATH}"/ruby/*/bundler/gems/*/.git
 
+COPY package.json package-lock.json ./
 # Install Node Modules from package.json
-RUN \. "$HOME/.nvm/nvm.sh" && \
-    nvm use default && \
-    npm clean-install --no-audit --no-fund --verbose
+RUN npm clean-install --no-audit --no-fund --verbose
+
+COPY . .
 
 # Build all assets
 RUN \. "$HOME/.nvm/nvm.sh" && \
@@ -118,6 +117,7 @@ RUN groupadd --system --gid 1000 brut && \
     chown -R brut:brut logs tmp
 USER 1000:1000
 
+ENV APP_GIT_SHA1="${app_git_sha1}"
 # This is used to execute other commands.  When the app is run in production,
 # this script is used to run it.
 ENTRYPOINT ["/brut-app/deploy/docker-entrypoint"]
