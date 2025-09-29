@@ -13,12 +13,12 @@ class HerokuConfig
   #   }
   # }
   #
-  # For example, if you have the Sidekiq segment installed, `bin/run-sidekiq`
+  # For example, if you have the Sidekiq segment installed, `bin/run sidekiq`
   # runs Sidekiq, so you would return this hash:
   #
   # {
   #   "sidekiq" => {
-  #     cmd: "bin/run-sidekiq",
+  #     cmd: "bin/run sidekiq",
   #   }
   # }
   #
