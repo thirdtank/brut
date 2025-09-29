@@ -1,10 +1,11 @@
 #!/usr/bin/env ruby
 
-
 require "fileutils"
 require "open3"
 require "optparse"
 require "pathname"
+require "bundler"
+require "json"
 
 # This is intended to run inside the Workspace (i.e. Docker container) to
 # set up the Foundation, thus enabling development.  This script should:
@@ -21,6 +22,7 @@ require "pathname"
 #       Take care to only add code and not change what is here.
 
 def setup(update_gems:,update_node:)
+  ensure_versions_are_consistent!
   if update_gems
     log "Updating gems"
     system! "bundle update"
@@ -80,6 +82,35 @@ def setup(update_gems:,update_node:)
 
   log "All set up."
   help
+end
+
+def ensure_versions_are_consistent!
+  gemfile      = Bundler::Definition.build(ROOT_DIR / "Gemfile", ROOT_DIR / "Gemfile.lock", nil)
+  package_json = JSON.parse(File.read(ROOT_DIR / "package.json"))
+
+  playwright_version = nil
+  gemfile.dependencies.each do |dep|
+    if dep.name == "playwright-ruby-client"
+      if !dep.specific?
+        puts "You must specify an exact/specific version of 'playwright-ruby-client' in your Gemfile"
+        exit 1
+      end
+      playwright_version = dep.requirement.requirements.first[1]
+    end
+  end
+
+  if playwright_version
+    playwright_version_in_package_json = package_json.dig("devDependencies","playwright")
+    if !playwright_version_in_package_json
+      puts "You must have 'playwright' in the devDependencies section of your package.json"
+      exit 1
+    end
+    if playwright_version != playwright_version_in_package_json
+      puts "The version of 'playwright' in package.json (#{playwright_version_in_package_json}) does not match the version of 'playwright-ruby-client' in the Gemfile (#{playwright_version})"
+      puts "They must be exactly the same, or your end-to-end tests may behave strangely"
+      exit 1
+    end
+  end
 end
 
 def setup_dot_env_local
