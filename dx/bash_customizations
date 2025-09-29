@@ -1,7 +1,6 @@
 if [ ! -n "$PROJECT_ROOT" ]; then
-  echo "[ bash_customizations ] WARNING: PROJECT_ROOT is not set - this will break RubyGems"
+  echo "[ bash_customizations ] WARNING: PROJECT_ROOT is not set - this will break RubyGems and NPM"
 fi
 export GEM_HOME=${PROJECT_ROOT}/local-gems/gem-home
-export PATH=${PATH}:${GEM_HOME}/bin
-. ~/.nvm/nvm.sh
-nvm use default
+export NPM_CONFIG_PREFIX=${PROJECT_ROOT}/.npm-global
+export PATH=${PATH}:${GEM_HOME}/bin:${NPM_CONFIG_PREFIX}/bin

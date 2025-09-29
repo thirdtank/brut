@@ -37,6 +37,9 @@ ENV EDITOR=vim
 RUN apt-get install -y vim && \
     echo "set -o vi" >> /root/.bashrc
 
+# Install NodeJS
+COPY --from=node:22-slim /usr/local /usr/local
+
 
 # Setup a non-root user
 
@@ -69,12 +72,6 @@ COPY --chown=appuser:${user_gid} dx/bash_customizations.local /home/appuser/.bas
 # NOT including the group here as that will place the user's environment
 # ONLY in that group and not in all the groups in which they are a part.
 USER appuser
-
-# Install NodeJS, per https://nodejs.org/en/download
-RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.3/install.sh | bash && \
-    \. "$HOME/.nvm/nvm.sh" && \
-    nvm install 22 && \
-    node -v && nvm current && npm -v
 
 # Node's colors are hand-crafted to always look bad and render at least some text unreadable 
 # no matter what your setup. Cool.

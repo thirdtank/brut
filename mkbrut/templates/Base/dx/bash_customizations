@@ -6,7 +6,3 @@ if [ ! -n "$PROJECT_ROOT" ]; then
 fi
 export GEM_HOME=${PROJECT_ROOT}/local-gems/gem-home
 export PATH=${PATH}:${GEM_HOME}/bin
-# This sets up the Node version so we don't have to do it before every. single.
-# shell. invocation.
-. ~/.nvm/nvm.sh
-nvm use default
