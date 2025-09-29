@@ -1,5 +1,10 @@
 # Brut CHANGELOG
 
+## v0.16.0.pre - Sep 29, 2025
+
+* Sidekiq support - this may have some churn in various config files that only reveal themselves on deploy so this
+  is a pre-release. Do not use this version.
+
 ## v0.15.0 - Sep 16, 2025
 
 * Added `<brut-toast>` to help with toast notifications.  They rely on CSS for showing, hiding, and animations, all your

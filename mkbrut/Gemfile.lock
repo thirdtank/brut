@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    mkbrut (0.15.0)
+    mkbrut (0.16.0.pre)
 
 GEM
   remote: https://rubygems.org/
@@ -16,4 +16,4 @@ DEPENDENCIES
   rake
 
 BUNDLED WITH
-   2.7.1
+   2.7.2
