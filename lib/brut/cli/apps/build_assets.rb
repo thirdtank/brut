@@ -33,7 +33,7 @@ This is to ensure that any images your code references will end up in the public
       src_dir  = Brut.container.images_src_dir
       dest_dir = Brut.container.images_root_dir
 
-      command = "rsync --archive --delete --verbose #{src_dir}/ #{dest_dir}"
+      command = "rsync --archive --delete --verbose \"#{src_dir}/\" \"#{dest_dir}\""
       system! command
     end
   end
