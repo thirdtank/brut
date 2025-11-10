@@ -53,3 +53,9 @@
 
 # tmp is nice to have, but not nice to check in.
 /tmp
+
+# Local script 
+bin/dev-sync
+
+# Weird file I use for local dev
+.ghostty.config
