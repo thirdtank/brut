@@ -56,3 +56,6 @@
 
 # Local script 
 bin/dev-sync
+
+# Weird file I use for local dev
+.ghostty.config
