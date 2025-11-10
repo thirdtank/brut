@@ -53,3 +53,6 @@
 
 # tmp is nice to have, but not nice to check in.
 /tmp
+
+# Local script 
+bin/dev-sync
