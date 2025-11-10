@@ -175,28 +175,30 @@ class Brut::CLI::Apps::Test < Brut::CLI::App
             hash[:type] = :infrastructure
             hash[:test_expected] = false
           else
-            hash[:type] = type.to_sym
+            hash[:type] = pathname.relative_path_from(Brut.container.back_end_src_dir).dirname
           end
         else
           hash[:type] = :other
           hash[:test_expected] = false
         end
         hash
-      }.compact
+      }.compact.sort_by { it[:type].to_s + it[:source_file].to_s }
 
       files_missing = []
       printed_header = false
       audit.each do |file_audit|
         if !file_audit[:test_file].exist?
-          if options.audit_type.nil? || file_audit[:type] == options.audit_type
+          if options.type.nil? || file_audit[:type] == options.type.to_sym
             if file_audit[:test_expected]
               files_missing << file_audit[:source_file]
               if !printed_header
                 out.puts "These files are missing tests:"
                 out.puts ""
+                out.printf "%-25s   %s\n","Type", "Path"
+                out.puts "-------------------------------------------"
                 printed_header = true
               end
-              out.puts "#{file_audit[:type].to_s.ljust(15)} - #{file_audit[:source_file]}"
+              out.puts "#{file_audit[:type].to_s.ljust(25)} - #{file_audit[:source_file]}"
             end
           end
         end
