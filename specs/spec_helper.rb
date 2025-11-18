@@ -1,7 +1,11 @@
 require "brut"
+require "confidence_check/for_rspec"
+
 require_relative "support"
 
 RSpec.configure do |config|
+  config.include ConfidenceCheck::ForRSpec
+
   config.expect_with :rspec do |expectations|
     expectations.include_chain_clauses_in_custom_matcher_descriptions = true
   end

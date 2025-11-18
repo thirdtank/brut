@@ -55,9 +55,11 @@ Gem::Specification.new do |spec|
   spec.add_dependency "zeitwerk"
   spec.add_dependency "opentelemetry-sdk"
   spec.add_dependency "opentelemetry-exporter-otlp"
+  spec.add_dependency "unicode-display_width"
 
   spec.add_development_dependency "activesupport"
   spec.add_development_dependency "bundler"
+  spec.add_development_dependency "confidence-check"
   spec.add_development_dependency "dotenv"
   spec.add_development_dependency "factory_bot"
   spec.add_development_dependency "faker"

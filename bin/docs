@@ -17,6 +17,9 @@ OptionParser.new do |opts|
     puts
     exit
   end
+  opts.on("--rdoc", "If set, only generate the RDoc") do
+    options[:rdoc_only] = true
+  end
   opts.on("--[no-]dotcom", "Deploy (or not), brutrb.com to the docs/ directory (default #{options[:dotcom]})") do |value|
     options[:dotcom] = value
   end
@@ -54,6 +57,10 @@ log "Hacking CSS"
     end
     f.puts "code { font-family: 'Courier New', monospace; font-weight: 600; }"
   end
+end
+
+if options[:rdoc_only]
+  exit 0
 end
 
 log "Generating brut-js docs"
