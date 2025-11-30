@@ -16,5 +16,6 @@ module Brut
   autoload(:Instrumentation,"brut/instrumentation")
   autoload(:SinatraHelpers, "brut/sinatra_helpers")
   # DO NOT autoload(:CLI) - that is intended to be require-able on its own
+  # DO NOT autoload(:TUI) - that is intended to be require-able on its own
 end
 require "sequel/plugins"
