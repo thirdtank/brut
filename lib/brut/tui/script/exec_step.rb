@@ -17,13 +17,20 @@ require "open3"
 class Brut::TUI::Script::ExecStep < Brut::TUI::Script::Step
 
   attr_reader :command
-  def initialize(event_loop, description, command:)
+  def initialize(event_loop, description, command:, stdout: false, stderr: false)
     super(event_loop, description)
     @command = command
+    @stdout  = stdout
+    @stderr  = stderr
   end
 
   def deconstruct_keys(keys=nil)
-    super.deconstruct_keys(keys).merge({ command: @command, strip_ansi: false })
+    super.deconstruct_keys(keys).merge({
+      command: @command,
+      strip_ansi: false,
+      stdout: @stdout,
+      stderr: @stderr
+    })
   end
   def run!
     event_loop << Events::StepStarted.new(step: self)
@@ -35,13 +42,13 @@ class Brut::TUI::Script::ExecStep < Brut::TUI::Script::Step
       while o || e
         if o
           if o != :wait_readable
-            event_loop << Events::CommandStdOut.new(step: self, output: o)
+            event_loop << Events::CommandStdOut.new(step: self, output: o, show: @stdout)
           end
           o = stdout.read_nonblock(10, exception: false)
         end
         if e
           if e != :wait_readable
-            event_loop << Events::CommandStdErr.new(step: self, output: e)
+            event_loop << Events::CommandStdErr.new(step: self, output: e, show: @stderr)
           end
           e = stderr.read_nonblock(10, exception: false)
         end

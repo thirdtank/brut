@@ -20,6 +20,8 @@ class Brut::TUI::MarkupString
     "~" => :strike,
   }.freeze
 
+  def to_s = @string
+
   # Parse the string for known markup, yielding at key parsing events.
   #
   # @yield [directive, value] called for each parsing event, where value depends on directive.  The block

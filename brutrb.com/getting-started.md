@@ -1,11 +1,12 @@
 # Getting Started
 
-Brut is developed alongside a separate gem called `mkbrut`, which allows you to
-create a new Brut app. It will set up your dev environment as well.
+Brut includes a command line app called `brut` that you can use to create a new Brut-powered app via `brut-new`.
 
-## Get `mkbrut`
+There are two ways to do this: a Docker image, or via Rubygems.
 
-The simplest way to use `mkbrut` is to use an existing [Docker image](https://hub.docker.com/repository/docker/thirdtank/mkbrut/general).  You don't have to install or configure Ruby:
+## Get `brut`
+
+The simplest way to run `brut new` is to use an existing [Docker image](https://hub.docker.com/repository/docker/thirdtank/brut/general).  You don't have to install or configure Ruby:
 
 ```
 docker run \
@@ -14,21 +15,20 @@ docker run \
        -w "$PWD" \
        -u $(id -u):$(id -g) \
        -it \
-       thirdtank/mkbrut \
-       mkbrut my-new-app
+       thirdtank/brut \
+       brut new my-new-app
 ```
 
-If you already have Ruby 3.4 installed, you can install `mkbrut` directly:
+If you already have Ruby 3.4 installed, you can install `brut` directly:
 
 ```
-> gem install mkbrut
-> mkbrut my-new-app
+> gem install brut
+> brut new my-new-app
 ```
 
 ## Init Your App
 
 A Brut app just needs a name, which will be used to derive a few more useful values.
-For now:
 
 ::: code-group
 
@@ -39,12 +39,12 @@ docker run \
        -w "$PWD" \
        -u $(id -u):$(id -g) \
        -it \
-       thirdtank/mkbrut \
-       mkbrut my-new-app
+       thirdtank/brut \
+       brut new my-new-app
 ```
 
 ``` [RubyGems-based]
-mkbrut my-new-app
+brut new my-new-app
 ```
 
 :::
@@ -62,12 +62,12 @@ docker run \
        -w "$PWD" \
        -u $(id -u):$(id -g) \
        -it \
-       thirdtank/mkbrut \
-       mkbrut my-new-app --no-demo
+       thirdtank/brut \
+       brut new my-new-app --no-demo
 ```
 
 ``` [RubyGems-based]
-mkbrut my-new-app --no-demo
+brut new my-new-app --no-demo
 ```
 
 :::

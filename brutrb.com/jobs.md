@@ -11,18 +11,11 @@ Sidekiq segment you can use to get an initial working setup of Sidekiq in your B
 ### Adding the Segment
 
 1. Ensure your project files are all committed. This is so you can easily see (and, if needed, undo) the
-   changes `mkbrut` will make.
-2. Use `mkbrut` to add the segment:
+   changes `brut` will make.
+2. Use `brut` to add the segment:
 
    ```
-   docker run \
-          --pull always \
-          -v "$PWD":"$PWD" \
-          -w "$PWD" \
-          -u $(id -u):$(id -g) \
-          -it \
-          thirdtank/mkbrut \
-          mkbrut add-segment -r /path/to/your/project sidekiq
+   brut new segment --dir=/path/to/your/project sidekiq
    ```
 3. This will modify and create various files in your project. Check them out if you like:
 
@@ -46,7 +39,7 @@ Sidekiq segment you can use to get an initial working setup of Sidekiq in your B
    against the actual Valkey database that was installed:
 
    ```
-   devcontainer> bin/test e2e specs/integration/sidekiq_works.spec.rb
+   devcontainer> brut test e2e specs/integration/sidekiq_works.spec.rb
    ```
 
 If this test passes, you are ready to go.

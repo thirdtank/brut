@@ -88,9 +88,9 @@ you full documentation about what the command and subcommands do.
 
 | App             | Subcommand            | Descriptions                                                                              |
 |-----------------|-----------------------|-------------------------------------------------------------------------------------------|
-| <code style="white-space: nowrap">bin/ci</code>        | None                  | Runs all tests and security checks                                                        |
-| <code style="white-space: nowrap">bin/console</code>   | None                  | Starts up a local IRB session with your app loaded                                        |
-| <code style="white-space: nowrap">bin/db</code>        |                       | Tools for managing the database                                                           |           |
+| <code style="white-space: nowrap">brutci</code>        | None                  | Runs all tests and security checks                                                        |
+| <code style="white-space: nowrap">brutconsole</code>   | None                  | Starts up a local IRB session with your app loaded                                        |
+| <code style="white-space: nowrap">brutdb</code>        |                       | Tools for managing the database                                                           |           |
 |                 | `create`              | Create the database if it does not exist                                                  |
 |                 | `drop`                | Drop the database if it exists                                                            |
 |                 | `migrate`             | Apply any outstanding migrations to the database                                          |
@@ -98,10 +98,10 @@ you full documentation about what the command and subcommands do.
 |                 | `rebuild`             | Drop, re-create, and run migrations, effectively rebuilding the entire database           |
 |                 | `seed`                | Load seed data into the database                                                          |
 |                 | `status`              | Check the status of the database and migrations                                           |
-| <code style="white-space: nowrap">bin/dbconsole</code> | None                  | Starts up a `psql` session to your database                                               |
-| <code style="white-space: nowrap">bin/dev</code>       | None                  | Starts the app in dev mode, rebuilding assets and reload as needed                        |
-| <code style="white-space: nowrap">bin/setup</code>     | None                  | Install and setup all third party libraries and other configuration needed to use the app |
-| <code style="white-space: nowrap">bin/scaffold</code>  |                       | Generate Brut classes or files like database migrations or page classes                   |
+| <code style="white-space: nowrap">brutdbconsole</code> | None                  | Starts up a `psql` session to your database                                               |
+| <code style="white-space: nowrap">brutdev</code>       | None                  | Starts the app in dev mode, rebuilding assets and reload as needed                        |
+| <code style="white-space: nowrap">brutsetup</code>     | None                  | Install and setup all third party libraries and other configuration needed to use the app |
+| <code style="white-space: nowrap">brutscaffold</code>  |                       | Generate Brut classes or files like database migrations or page classes                   |
 |                 | `action`              | Create a handler for an action                                                            |
 |                 | `component`           | Create a new component and associated test                                                |
 |                 | `custom_element_test` | Create a test for a custom element in your app                                            |
@@ -110,7 +110,7 @@ you full documentation about what the command and subcommands do.
 |                 | `db_model`            | Create one or more database models, specs, and factories, plus a migration to create the tables for those models |
 |                 | `test`                | Create the shell of a unit test based on an existing source file                          |
 |                 | `test:e2e`            | Create the shell of an end-to-end test                                                    |
-| <code style="white-space: nowrap">bin/test</code>      |                       | Run tests |
+| <code style="white-space: nowrap">bruttest</code>      |                       | Run tests |
 |                 | `audit`               | Audits all of the app's classes to see if test files exist                                |
 |                 | `e2e`                 | Run e2e tests                                                                             |
 |                 | `js`                  | Run JavaScript unit tests                                                                 |
@@ -123,11 +123,11 @@ The workflow for your Workspace is shown in this diagram
 
 In words:
 
-1. You'll run `bin/setup` to get everything set up for working.
-2. You'll start your dev server with `bin/dev`.
-3. You'll write code, using tools like `bin/db` and `bin/scaffold` to assist.
-4. Using `bin/test`, you can test any code you've written a test for.
-5. When you are at a stopping point, use `bin/ci` to test the entire app.
+1. You'll run `brutsetup` to get everything set up for working.
+2. You'll start your dev server with `brutdev`.
+3. You'll write code, using tools like `brutdb` and `brutscaffold` to assist.
+4. Using `bruttest`, you can test any code you've written a test for.
+5. When you are at a stopping point, use `brutci` to test the entire app.
 
 ### Extending and Enhancing
 
@@ -153,7 +153,7 @@ Keep in mind a few things when adding your own automation:
 * The *Foundational Core* is bootstrapped in a degenerate environment without reliable tools beyond Bash.
 This is why it's almost entirely written in Bash, since it's available everywhere and relatively stable.
 * The *Workspace* **can and should** rely on the languages and third party modules that are part of your
-app. The only exception is `bin/setup`, since it installs third party modules.  As such, it should work entirely based on Ruby and its standard library.
+app. The only exception is `brutsetup`, since it installs third party modules.  As such, it should work entirely based on Ruby and its standard library.
 
 ## Technical Notes
 
@@ -163,8 +163,8 @@ app. The only exception is `bin/setup`, since it installs third party modules.  
 
 _Last Updated June 12, 2025_
 
-Everything in `bin/` is intended to be a short shim that calls into classes managed either by Brut or by
-your app. For example, here is `bin/db`:
+Everything in `brut` is intended to be a short shim that calls into classes managed either by Brut or by
+your app. For example, here is `brutdb`:
 
 ```ruby
 #!/usr/bin/env ruby

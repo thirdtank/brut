@@ -4,6 +4,12 @@ class Brut::CLI::Apps::HerokuContainerBasedDeploy < Brut::CLI::Apps::DeployBase
   default_command :deploy
   configure_only!
 
+  # Better way:
+  #
+  # brut deploy check  - do basic checks that a deploy should happen
+  # brut deploy build  - build artifacts for deploy e.g. Docker image
+  # brut deploy deploy - do the actual deployment (does a check, then build first)
+  # brut deploy        - defaults to brut deploy deploy
   class Deploy < Brut::CLI::Command
     description "Build images, push them to Heroku, and deploy them"
 

@@ -91,12 +91,12 @@ Inside `app/src/front_end`
 |Directory       | Purpose |
 |----------------|---------|
 | `components/`  | Component classes |
-| `css/`         | CSS, managed by esbuild and `bin/build-assets` |
-| `fonts/`       | Custom fonts, managed by esbuild and `bin/build-assets` |
+| `css/`         | CSS, managed by esbuild and `brut build-assets` |
+| `fonts/`       | Custom fonts, managed by esbuild and `brut build-assets` |
 | `forms/`       | Form classes |
 | `handlers/`    | Handler classes |
-| `images/`      | Images, copied to `app/public` by `bin/build-assets` |
-| `js/`          | JavaScript, managed by esbuild and `bin/build-assets` |
+| `images/`      | Images, copied to `app/public` by `brut build-assets` |
+| `js/`          | JavaScript, managed by esbuild and `brut build-assets` |
 | `layouts/`     | Layout classes |
 | `middlewares/` | Rack Middleware, if any |
 | `pages/`       | Page classes |

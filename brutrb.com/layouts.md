@@ -121,7 +121,7 @@ end
 
 ### Alternate Layouts
 
-If you used `mkbrut`, you should have access to a `BlankLayout` that is useful for allowing a page to respond to Ajax requests:
+If you used `brut new`, you should have access to a `BlankLayout` that is useful for allowing a page to respond to Ajax requests:
 
 ```ruby
 class SomePage < AppPage

@@ -14,5 +14,9 @@ OptionParser.new do |opts|
 end.parse!
 
 log "Running BrutRB tests"
-system!("bin/rspec -I specs --require spec_helper -P \"specs/**/*.spec.rb\"")
+args = ARGV.any? ? ARGV.join(" ") : "specs/**/*.spec.rb"
+if args =~ /\*/ 
+  args = "-P \"#{args}\""
+end
+system!("bin/rspec -I specs --require spec_helper #{args}")
 

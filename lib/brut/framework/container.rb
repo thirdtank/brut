@@ -1,4 +1,4 @@
-require "fileutils"
+autoload :FileUtils, "fileutils"
 
 module Brut
   # Provides access to the singelton container that contains all of Brut's current configuration.

@@ -11,8 +11,10 @@ class Brut::Framework::ProjectEnvironment
     when "development" then "development"
     when "test"        then "test"
     when "production"  then "production"
-    else
+    when String
       raise ArgumentError.new("'#{string_value}' is not a valid project environment")
+    else
+      raise ArgumentError.new("'#{string_value.class}' cannot be used as a project environment")
     end
   end
 

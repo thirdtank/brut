@@ -43,9 +43,9 @@ means you can access it and modify it in your test as needed.  It
 will be recreated new for each test, so you are safe making
 changes to it.
 
-### `bin/test audit` and Managing Tests
+### `brut test audit` and Managing Tests
 
-`bin/test audit` will fail if any file in `app/src` does not have
+`brut test audit` will fail if any file in `app/src` does not have
 a corresponding test.  This is handy when you are moving fast to
 make sure you don't forget to add test coverage.
 

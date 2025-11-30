@@ -16,10 +16,10 @@ Components in Brut are Phlex Components: a class that can hold data and use that
 For example, suppose you want a re-usable button that can be gray, green, or red, and have an optional `formaction`.
 
 
-You can create a component with `bin/scaffold component`:
+You can create a component with `brut scaffold component`:
 
 ```
-bin/scaffold component button
+brut scaffold component button
 # => app/src/front_end/components/button_component.rb
 # => specs/front_end/components/button_component.spec.rb
 ```
@@ -180,10 +180,10 @@ Often, components are helpful to simplifying a page's template or managing re-us
 
 Brut provides a way to create a *page private* component that exists as an inner class of a page.  It's not truly private, since it's still a Ruby class anyone can use, but it's form and source location communicate intent.
 
-They can be created with `bin/scaffold`:
+They can be created with `brut scaffold`:
 
 ```
-bin/scaffold component --page HomePage Widget
+brut scaffold component --page HomePage Widget
 # => app/src/front_end/page/home_page/widget_component.rb
 # => specs/front_end/page/home_page/widget_component.spec.rb
 ```

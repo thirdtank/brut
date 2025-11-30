@@ -21,9 +21,9 @@ class Brut::TUI::TerminalTheme
 
   def self.based_on_background(terminal)
     if dark_background?(terminal)
-      Brut::TUI::Themes::Dark.new(terminal)
+      Brut::TUI::Themes::Dark.new
     else
-      Brut::TUI::Themes::Light.new(terminal)
+      Brut::TUI::Themes::Light.new
     end
   end
 
@@ -32,10 +32,6 @@ class Brut::TUI::TerminalTheme
     luminance = (0.21 * r) + (0.72 * g) + (0.07 * b)
 
     return luminance < 0.5  
-  end
-
-  def initialize(terminal)
-    @terminal = terminal
   end
 
   # Returns a string with its markup turned into escape codes.
@@ -48,7 +44,12 @@ class Brut::TUI::TerminalTheme
   # not look like the text before it.
   def with_markup(string, text: :normal, reset: true)
     result = +""
-    result << send(text)
+    regular_text_code = if self.respond_to?(text)
+                          send(text)
+                        else
+                          self.normal
+                        end
+    result << regular_text_code
     Brut::TUI::MarkupString.from_string(string).parse do |directive, value|
       case directive
       in :start
@@ -65,13 +66,16 @@ class Brut::TUI::TerminalTheme
       in :stop
         case value
         in :bold
-          result << bold_off << send(text)
+          result << bold_off
         in :strike
-          result << strike_off << send(text)
+          result << strike_off
         in :code
-          result << code_off << send(text)
+          result << code_off
         in :weak
-          result << weak_off << send(text)
+          result << weak_off
+        end
+        if regular_text_code != normal
+          result << regular_text_code
         end
       in :text
         result << value

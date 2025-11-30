@@ -1,0 +1,34 @@
+#!/usr/bin/env ruby
+
+require "fileutils"
+require "brut"
+require "brut/cli/apps/build_assets"
+require "brut/cli/apps/db"
+require "brut/cli/apps/scaffold"
+require "brut/cli/apps/test"
+require "brut/cli/apps/deploy"
+require "brut/cli/apps/new"
+
+class Brut::CLI::Apps::Brut < Brut::CLI::Commands::BaseCommand
+  def description = "Brut CLI - interact with Brut and your app"
+
+  def commands
+    [
+      Brut::CLI::Apps::BuildAssets.new,
+      Brut::CLI::Apps::DB.new,
+      Brut::CLI::Apps::Scaffold.new,
+      Brut::CLI::Apps::Test.new,
+      Brut::CLI::Apps::Deploy.new,
+      Brut::CLI::Apps::New::App.new,
+    ]
+  end
+end
+
+runner = Brut::CLI::Runner.new(
+  Brut::CLI::Apps::Brut.new,
+  stdout: $stdout,
+  stderr: $stderr,
+  stdin: $stdin,
+  project_root: Pathname(FileUtils.pwd),
+)
+exit runner.run!(ARGV,ENV)

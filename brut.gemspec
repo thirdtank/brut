@@ -25,15 +25,21 @@ Gem::Specification.new do |spec|
     spec.metadata["documentation_uri"] = "https://brutrb.com/"
     spec.metadata["rubygems_mfa_required"] = "true"
   else
-    raise "RubyGems 2.0 or newer is required to protect against " \
-      "public gem pushes."
+    raise "RubyGems 2.0 or newer is required to protect against public gem pushes."
   end
 
-  # Specify which files should be added to the gem when it is released.
-  # The `git ls-files -z` loads the files in the RubyGem that have been added into git.
-  spec.files         = Dir.chdir(File.expand_path('..', __FILE__)) do
-    `git ls-files -z`.split("\x0").reject { |f| f.match(%r{^(test|spec|features)/}) }
-  end
+  spec.files = Dir.glob("lib/**/*.rb") +   # Gem source code
+               Dir.glob(                   # Templates used to create a new Brut app
+                 "templates/**/*",
+                 flags: File::FNM_DOTMATCH
+               ).reject {
+                 it =~ /\/\.{1,2}$/ # Pesky dotfile
+               }.reject {
+                 it =~ /\.DS_Store$/ # FML
+               } +                          
+               [
+                 "exe/brut",             # executable
+               ]
   spec.bindir        = "exe"
   spec.executables   = spec.files.grep(%r{^exe/}) { |f| File.basename(f) }
   spec.require_paths = ["lib"]
@@ -63,11 +69,13 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "dotenv"
   spec.add_development_dependency "factory_bot"
   spec.add_development_dependency "faker"
+  spec.add_development_dependency "pg"
   spec.add_development_dependency "rake"
   spec.add_development_dependency "rdiscount"
   spec.add_development_dependency "rdoc"
   spec.add_development_dependency "rubocop"
   spec.add_development_dependency "rubocop-disable_syntax"
   spec.add_development_dependency "rspec", "~> 3.0"
+  spec.add_development_dependency "with_clues"
   spec.add_development_dependency "yard"
 end

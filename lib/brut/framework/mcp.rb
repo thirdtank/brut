@@ -1,24 +1,57 @@
-require_relative "container"
-require_relative "config"
-require_relative "../junk_drawer"
-require_relative "app"
+def time_it(label,&block)
+  start_time = Time.now
+  result = block.call
+  end_time = Time.now
+  duration = end_time - start_time
+  #printf "%30s - %.4f\n",label,duration
+  result
+end
 
-require "sequel"
+time_it "container" do
+  require_relative "container"
+end
+time_it "config" do
+  require_relative "config"
+end
+time_it "../junk_drawer" do
+  require_relative "../junk_drawer"
+end
+time_it "app" do
+  require_relative "app"
+end
 
-require "semantic_logger"
-require_relative "patch_semantic_logger"
+time_it "sequel" do
+  autoload :Sequel, "sequel"
+end
 
-require "i18n"
-require "zeitwerk"
-require "opentelemetry/sdk"
-require "opentelemetry/exporter/otlp"
+time_it "semantic_logger" do
+  autoload :SemanticLogger, "semantic_logger"
+end
+
+time_it "i18n" do
+  autoload :I18n, "i18n"
+end
+time_it "zeitwerk" do
+  require "zeitwerk"
+end
+time_it "opentelemetry/sdk" do
+  require "opentelemetry/sdk"
+end
+time_it "opentelemetry/exporter/otlp" do
+  require "opentelemetry/exporter/otlp"
+end
+time_it "concurrent-ruby" do
+  require "concurrent"
+end
 
 # The Master Control Program of Brut.  This handles all the bootstrapping and setup of your app. You are not
 # intended to use or interact with this class at all. End of line.
 class Brut::Framework::MCP
 
-  @otel_shutdown = Concurrent::AtomicBoolean.new(false)
-  def self.otel_shutdown = @otel_shutdown
+  @otel_shutdown = nil
+  def self.otel_shutdown 
+    @otel_shutdown ||= Concurrent::AtomicBoolean.new(false)
+  end
 
   # Create and configure the MCP.  The app will not work until {#boot!} has been called, however most of the core configuration
   # will be available via `Brut.container`.
@@ -63,6 +96,18 @@ class Brut::Framework::MCP
       "String",
       "Prefix for all OTel attributes set by the app",
       otel_prefix
+    )
+    Brut.container.store(
+      "app_id",
+      "String",
+      "Identifier for this app, useful in external contexts like deployment",
+      @app.id
+    )
+    Brut.container.store(
+      "app_organization",
+      "String",
+      "Organization identifier for this app, useful in external contexts like deployment",
+      @app.organization
     )
   end
 
@@ -301,6 +346,7 @@ class Brut::Framework::MCP
 private
 
   def setup_logging
+    require_relative "patch_semantic_logger"
     SemanticLogger.default_level = Brut.container.log_level
     semantic_logger_appenders = Brut.container.semantic_logger_appenders
     if semantic_logger_appenders.kind_of?(Hash)

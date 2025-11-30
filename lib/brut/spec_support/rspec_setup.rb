@@ -21,7 +21,6 @@
 # the thread local storage.  This allows any component that is injected with data from the `RequestContext` to access it as it would
 # normally.  You can also seed this with data that a component may need.
 # * Handles all infrastructure for end-to-end tests:
-#   - starting a test server using {Brut::SpecSupport::E2ETestServer}
 #   - launching Chromium via Playwright
 # * If using Sidekiq:
 #   - Jobs are cleared before each test
@@ -86,6 +85,7 @@ class Brut::SpecSupport::RSpecSetup
       end
     end
     @config.include Brut::SpecSupport::GeneralSupport
+    @config.include Brut::SpecSupport::CLICommandSupport, cli_command: true
     @config.include Brut::SpecSupport::ComponentSupport, component: true
     @config.include Brut::SpecSupport::HandlerSupport, handler: true
     @config.include Brut::SpecSupport::E2eSupport, e2e: true
@@ -127,7 +127,6 @@ class Brut::SpecSupport::RSpecSetup
       if example.metadata[:e2e]
         e2e_timeout = (ENV["E2E_TIMEOUT_MS"] || example.metadata[:e2e_timeout] || 5_000).to_i
         optional_sidekiq_support.disable_sidekiq_testing do
-          Brut::SpecSupport::E2ETestServer.instance.start
           Playwright.create(playwright_cli_executable_path: "./node_modules/.bin/playwright") do |playwright|
             launch_args = {
               headless: true,
@@ -159,9 +158,6 @@ class Brut::SpecSupport::RSpecSetup
           raise Sequel::Rollback
         end
       end
-    end
-    @config.after(:suite) do
-      Brut::SpecSupport::E2ETestServer.instance.stop
     end
     if @monkey_patch_summary_notification
       monkey_patch_summary_notification!

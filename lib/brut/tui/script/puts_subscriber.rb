@@ -54,8 +54,8 @@ class Brut::TUI::Script::PutsSubscriber
     println @theme.error + "Exception: #{exception.class}: #{exception.message}\n    #{exception.backtrace.join("\n    ")}"
   end
 
-  def on_command_std_out(output:, command:)
-    if @stdout
+  def on_command_std_out(output:, command:, show:)
+    if @stdout || show
       @prefix_recent = false
       $stdout.print @theme.normal + @theme.weak + output + @theme.reset
       $stdout.flush
@@ -64,8 +64,8 @@ class Brut::TUI::Script::PutsSubscriber
     end
   end
 
-  def on_command_std_err(output:, command:)
-    if @stderr
+  def on_command_std_err(output:, command:, show:)
+    if @stderr || show
       @prefix_recent = false
       $stdout.print @theme.warning + output + @theme.reset
       $stdout.flush

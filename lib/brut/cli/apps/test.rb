@@ -1,23 +1,27 @@
 require "shellwords"
 require "brut/cli"
 
-class Brut::CLI::Apps::Test < Brut::CLI::App
-  description "Run and audit tests of the app"
-  default_command :run
+class Brut::CLI::Apps::Test < Brut::CLI::Commands::BaseCommand
+  def description = "Run and audit tests of the app"
 
-  def before_execute
-    ENV["RACK_ENV"] = "test"
-  end
+  def default_rack_env = "development"
+  def default_command_class = Run
 
-  class Run < Brut::CLI::Command
-    description "Run non-e2e tests"
-    opts.on("--[no-]rebuild", "If true, test database is rebuilt before tests are run (default false)")
-    opts.on("--[no-]rebuild-after", "If true, test database is rebuilt after tests are run (default false)")
-    opts.on("--seed SEED", "Set the random seed to allow duplicating a test run")
-    args "specs_to_run..."
-    env_var("LOGGER_LEVEL_FOR_TESTS",purpose: "Can be set to debug, info, warn, error, or fatal to control logging during tests. Defaults to 'warn' to avoid verbose test output")
-    env_var("RSPEC_WARNINGS", purpose: "If set to 'true', configures RSpec warnings for the test run. NOTE: this is used in the app's spec_helper.rb so could've been removed")
-    env_var("RSPEC_PROFILE_EXAMPLES", purpose: "If set to any value, it is converted to an int and set as RSpec's number of examples to profile. NOTE: this is used in the app's spec_helper.rb so could've been removed")
+  class Run < Brut::CLI::Commands::BaseCommand
+    def default_rack_env = "development"
+    def description = "Run non-e2e tests"
+    def opts = [
+      [ "--[no-]rebuild", "If true, test database is rebuilt before tests are run (default false)" ],
+      [ "--[no-]rebuild-after", "If true, test database is rebuilt after tests are run (default false)" ],
+      [ "--seed SEED", "Set the random seed to allow duplicating a test run" ],
+    ]
+    def args_description = "specs_to_run..."
+
+    def env_vars = [
+      [ "LOGGER_LEVEL_FOR_TESTS","Can be set to debug, info, warn, error, or fatal to control logging during tests. Defaults to 'warn' to avoid verbose test output" ],
+      [ "RSPEC_WARNINGS", "If set to 'true', configures RSpec warnings for the test run. NOTE: this is used in the app's spec_helper.rb so could've been removed" ],
+      [ "RSPEC_PROFILE_EXAMPLES", "If set to any value, it is converted to an int and set as RSpec's number of examples to profile. NOTE: this is used in the app's spec_helper.rb so could've been removed" ],
+    ]
 
 
     def rspec_command
@@ -25,9 +29,9 @@ class Brut::CLI::Apps::Test < Brut::CLI::App
         "bin/rspec",
         "-I", Brut.container.app_specs_dir,
         "-I", Brut.container.app_src_dir,
-        "-I lib/", # not needed when Brut is gemified
+        #"-I lib/", # not needed when Brut is gemified
         rspec_cli_args,
-        "-P \"**/*.spec.rb\"",
+        "-P '**/*.spec.rb'",
       ]
       if options.seed
         parts << "--seed #{options.seed}"
@@ -40,72 +44,92 @@ class Brut::CLI::Apps::Test < Brut::CLI::App
     def rebuild_by_default?       = false
     def rebuild_after_by_default? = false
 
-    def execute
-      Brut.container.sequel_db_handle.disconnect
+    def run
       if options.rebuild?(default: rebuild_by_default?)
-        Brut.container.instrumentation.span("schema.rebuild.before") do
-          out.puts "Rebuilding test database schema"
-          system! "bin/db rebuild --env=test"
+        stdout.puts "Rebuilding test database schema"
+        Bundler.with_unbundled_env do
+          system! "brut db rebuild --env=test"
         end
       end
-      Brut.container.instrumentation.span("tests.run") do |span|
-        if args.empty?
-          span.add_prefixed_attributes("brut.cli.test", tests: :all)
-          out.puts "Running all tests"
-          system! "#{rspec_command} #{Brut.container.app_specs_dir}/"
-        else
-          span.add_prefixed_attributes("brut.cli.test", tests: args.length)
-          test_args = args.map { |_|
-            '"' + Shellwords.escape(_) + '"'
-          }.join(" ")
-          system! "#{rspec_command} #{test_args}"
-        end
-      end
+      run_tests
       if options.rebuild_after?(default: rebuild_after_by_default?)
-        Brut.container.instrumentation.span("schema.rebuild.after") do
-          out.puts "Re-Rebuilding test database schema"
-          system! "bin/db rebuild --env=test"
+        stdout.puts "Re-Rebuilding test database schema"
+        Bundler.with_unbundled_env do
+          system! "brut db rebuild --env=test"
         end
       end
       0
     end
+
+  private
+
+    def run_tests
+      command = if argv.empty?
+                  stdout.puts "Running all tests"
+                  "#{rspec_command} #{Brut.container.app_specs_dir}/"
+                else
+                  stdout.puts "Running only #{argv.join(", ")}"
+                  test_args = argv.map { |_|
+                    '"' + Shellwords.escape(_) + '"'
+                  }.join(" ")
+                  "#{rspec_command} #{test_args}"
+                end
+      Bundler.with_unbundled_env do
+        system! command
+      end
+    end
   end
   class E2e < Run
-    description "Run e2e tests"
-    opts.on("--[no-]rebuild", "If true, test database is rebuilt before tests are run (default true)")
-    opts.on("--[no-]rebuild-after", "If true, test database is rebuilt after tests are run (default true)")
-    opts.on("--seed SEED", "Set the random seed to allow duplicating a test run")
-    args "specs_to_run..."
-    env_var("E2E_RECORD_VIDEOS",purpose: "If set to 'true', videos of each test run are saved in `./tmp/e2e-videos`")
-    env_var("E2E_SLOW_MO",purpose: "If set to, will attempt to slow operations down by this many milliseconds")
-    env_var("E2E_TIMEOUT_MS",purpose: "ms to wait for any browser activity before failing the test. And here you didn't think you'd get away without using sleep in browse-based tests?")
-    env_var("LOGGER_LEVEL_FOR_TESTS",purpose: "Can be set to debug, info, warn, error, or fatal to control logging during tests. Defaults to 'warn' to avoid verbose test output")
-    env_var("RSPEC_WARNINGS", purpose: "If set to 'true', configures RSpec warnings for the test run. NOTE: this is used in the app's spec_helper.rb so could've been removed")
-    env_var("RSPEC_PROFILE_EXAMPLES", purpose: "If set to any value, it is converted to an int and set as RSpec's number of examples to profile. NOTE: this is used in the app's spec_helper.rb so could've been removed")
+    def description = "Run end-to-end (browser) tests"
+    def env_vars = super + [
+      [ "E2E_RECORD_VIDEOS","If set to 'true', videos of each test run are saved in `./tmp/e2e-videos`" ],
+      [ "E2E_SLOW_MO","If set to, will attempt to slow operations down by this many milliseconds" ],
+      [ "E2E_TIMEOUT_MS","ms to wait for any browser activity before failing the test. And here you didn't think you'd get away without using sleep in browse-based tests?" ],
+    ]
 
     def rspec_cli_args = "--tag e2e"
     def rebuild_by_default?       = true
     def rebuild_after_by_default? = true
+
+  private
+
+    def run_tests
+      require "brut/spec_support/e2e_test_server"
+      Brut::SpecSupport::E2ETestServer.instance.start
+      super
+    ensure
+      Brut::SpecSupport::E2ETestServer.instance.stop
+    end
   end
-  class Js < Brut::CLI::Command
-    description "Run JavaScript unit tests"
-    opts.on("--[no-]build-assets","Build all assets before running the tests")
-    def execute
+  class Js < Brut::CLI::Commands::BaseCommand
+    def default_rack_env = "development"
+    def description = "Run JavaScript unit tests"
+    def opts = [
+      [ "--[no-]build-assets","Build all assets before running the tests" ],
+    ]
+
+    def run
+      options.set_default(:"build-assets", true)
       if options.build_assets?
-        system!({ "RACK_ENV" => "test" }, "bin/build-assets")
+        Bundler.with_unbundled_env do
+          system!({ "RACK_ENV" => "test" }, "brut build-assets all")
+        end
       end
       system!({ "NODE_DISABLE_COLORS" => "1" },"npx mocha #{Brut.container.js_specs_dir} --no-color --extension 'spec.js' --recursive")
       0
     end
   end
-  class Audit < Brut::CLI::Command
-    description "Audits all of the app's classes to see if test files exist"
+  class Audit < Brut::CLI::Commands::BaseCommand
+    def default_rack_env = "development"
+    def description = "Audits all of the app's classes to see if test files exist"
 
-    opts.on("--ignore PATH[,PATH]","Ignore any files in these paths, relative to app root",Array)
-    opts.on("--type TYPE","Only audit this type of file")
-    opts.on("--show-scaffold","If set, shows the command to scaffold the missing tests")
+    def opts = [
+      [ "--ignore PATH[,PATH]","Ignore any files in these paths, relative to app root",Array ],
+      [ "--type TYPE","Only audit this type of file" ],
+      [ "--show-scaffold","If set, shows the command to scaffold the missing tests" ],
+    ]
 
-    def execute
+    def run
       app_files = Dir["#{Brut.container.app_src_dir}/**/*"].select { |file|
         if file.start_with?(Brut.container.app_specs_dir.to_s)
           false
@@ -192,28 +216,28 @@ class Brut::CLI::Apps::Test < Brut::CLI::App
             if file_audit[:test_expected]
               files_missing << file_audit[:source_file]
               if !printed_header
-                out.puts "These files are missing tests:"
-                out.puts ""
-                out.printf "%-25s   %s\n","Type", "Path"
-                out.puts "-------------------------------------------"
+                stdout.puts "These files are missing tests:"
+                stdout.puts ""
+                stdout.printf "%-25s   %s\n","Type", "Path"
+                stdout.puts "-------------------------------------------"
                 printed_header = true
               end
-              out.puts "#{file_audit[:type].to_s.ljust(25)} - #{file_audit[:source_file]}"
+              stdout.puts "#{file_audit[:type].to_s.ljust(25)} - #{file_audit[:source_file]}"
             end
           end
         end
       end
       if files_missing.empty?
-        out.puts "All tests exists!"
+        stdout.puts "All tests exists!"
         0
       else
         if options.show_scaffold?
-          out.puts
+          stdout.puts
           files_missing_args = files_missing.map { |file|
             '             "' + Shellwords.escape(file.to_s) + '"'
           }.join(" \\\n")
 
-          out.puts "Run this command to generate empty tests:\n\nbin/scaffold test \\\n#{files_missing_args}"
+          stdout.puts "Run this command to generate empty tests:\n\nbin/scaffold test \\\n#{files_missing_args}"
         end
         1
       end
