@@ -17,7 +17,7 @@ class Brut::TUI::MarkupString
     "*" => :bold,
     "_" => :weak,
     "`" => :code,
-    "~" => :strike
+    "~" => :strike,
   }.freeze
 
   # Parse the string for known markup, yielding at key parsing events.

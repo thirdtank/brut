@@ -29,7 +29,7 @@ class Brut::TUI::TerminalTheme
 
   def self.dark_background?(terminal)
     r, g, b = terminal.background_color.map { it / 255.0 }
-    luminance = 0.2126 * r + 0.7152 * g + 0.0722 * b
+    luminance = (0.21 * r) + (0.72 * g) + (0.07 * b)
 
     return luminance < 0.5  
   end
