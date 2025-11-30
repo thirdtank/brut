@@ -1,0 +1,1403 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>
+  Class: Brut::TUI::TerminalTheme
+  
+    &mdash; Documentation by YARD 0.9.37
+  
+</title>
+
+  <link rel="stylesheet" href="../../css/style.css" type="text/css" />
+
+  <link rel="stylesheet" href="../../css/common.css" type="text/css" />
+
+<script type="text/javascript">
+  pathId = "Brut::TUI::TerminalTheme";
+  relpath = '../../';
+</script>
+
+
+  <script type="text/javascript" charset="utf-8" src="../../js/jquery.js"></script>
+
+  <script type="text/javascript" charset="utf-8" src="../../js/app.js"></script>
+
+
+  </head>
+  <body>
+    <div class="nav_wrap">
+      <iframe id="nav" src="../../class_list.html?1"></iframe>
+      <div id="resizer"></div>
+    </div>
+
+    <div id="main" tabindex="-1">
+      <div id="header">
+        <div id="menu">
+  
+    <a href="../../_index.html">Index (T)</a> &raquo;
+    <span class='title'><span class='object_link'><a href="../../Brut.html" title="Brut (module)">Brut</a></span></span> &raquo; <span class='title'><span class='object_link'><a href="../TUI.html" title="Brut::TUI (module)">TUI</a></span></span>
+     &raquo; 
+    <span class="title">TerminalTheme</span>
+  
+</div>
+
+        <div id="search">
+  
+    <a class="full_list_link" id="class_list_link"
+        href="../../class_list.html">
+
+        <svg width="24" height="24">
+          <rect x="0" y="4" width="24" height="4" rx="1" ry="1"></rect>
+          <rect x="0" y="12" width="24" height="4" rx="1" ry="1"></rect>
+          <rect x="0" y="20" width="24" height="4" rx="1" ry="1"></rect>
+        </svg>
+    </a>
+  
+</div>
+        <div class="clear"></div>
+      </div>
+
+      <div id="content"><h1>Class: Brut::TUI::TerminalTheme
+  
+  
+  
+</h1>
+<div class="box_info">
+  
+  <dl>
+    <dt>Inherits:</dt>
+    <dd>
+      <span class="inheritName">Object</span>
+      
+        <ul class="fullTree">
+          <li>Object</li>
+          
+            <li class="next">Brut::TUI::TerminalTheme</li>
+          
+        </ul>
+        <a href="#" class="inheritanceTree">show all</a>
+      
+    </dd>
+  </dl>
+  
+
+  
+  
+  
+  
+  
+
+  
+
+  
+  <dl>
+    <dt>Defined in:</dt>
+    <dd>lib/brut/tui/terminal_theme.rb</dd>
+  </dl>
+  
+</div>
+
+<h2>Overview</h2><div class="docstring">
+  <div class="discussion">
+    <p>For subclass implementors, there are various private
+methods that do encapsulate the ANSI escape codes, and these
+can be used or overridden.</p>
+
+<p>This particular implementation avoids the use of black or white, and uses
+the normal ANSI colors.  This should, in theory, work with any terminal
+theme where all colors are legible on the chosen background.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><div id="subclasses">
+  <h2>Direct Known Subclasses</h2>
+  <p class="children"><span class='object_link'><a href="Themes/Dark.html" title="Brut::TUI::Themes::Dark (class)">Brut::TUI::Themes::Dark</a></span>, <span class='object_link'><a href="Themes/Light.html" title="Brut::TUI::Themes::Light (class)">Brut::TUI::Themes::Light</a></span>, <span class='object_link'><a href="Themes/None.html" title="Brut::TUI::Themes::None (class)">Brut::TUI::Themes::None</a></span></p>
+</div>
+
+
+
+
+
+
+
+  
+    <h2>
+      Class Method Summary
+      <small><a href="#" class="summary_toggle">collapse</a></small>
+    </h2>
+
+    <ul class="summary">
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#based_on_background-class_method" title="based_on_background (class method)">.<strong>based_on_background</strong>(terminal)  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#dark_background%3F-class_method" title="dark_background? (class method)">.<strong>dark_background?</strong>(terminal)  &#x21d2; Boolean </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+</div></span>
+  
+</li>
+
+      
+    </ul>
+  
+    <h2>
+      Instance Method Summary
+      <small><a href="#" class="summary_toggle">collapse</a></small>
+    </h2>
+
+    <ul class="summary">
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#bold-instance_method" title="#bold (instance method)">#<strong>bold</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#bold_off-instance_method" title="#bold_off (instance method)">#<strong>bold_off</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#bright-instance_method" title="#bright (instance method)">#<strong>bright</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#bright_off-instance_method" title="#bright_off (instance method)">#<strong>bright_off</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#code-instance_method" title="#code (instance method)">#<strong>code</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#code_off-instance_method" title="#code_off (instance method)">#<strong>code_off</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#error-instance_method" title="#error (instance method)">#<strong>error</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#heading-instance_method" title="#heading (instance method)">#<strong>heading</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#initialize-instance_method" title="#initialize (instance method)">#<strong>initialize</strong>(terminal)  &#x21d2; TerminalTheme </a>
+    
+
+    
+  </span>
+  
+  
+    <span class="note title constructor">constructor</span>
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>A new instance of TerminalTheme.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#italic-instance_method" title="#italic (instance method)">#<strong>italic</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#italic_off-instance_method" title="#italic_off (instance method)">#<strong>italic_off</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#normal-instance_method" title="#normal (instance method)">#<strong>normal</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#reset-instance_method" title="#reset (instance method)">#<strong>reset</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#strike-instance_method" title="#strike (instance method)">#<strong>strike</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#strike_off-instance_method" title="#strike_off (instance method)">#<strong>strike_off</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#success-instance_method" title="#success (instance method)">#<strong>success</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#warning-instance_method" title="#warning (instance method)">#<strong>warning</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#weak-instance_method" title="#weak (instance method)">#<strong>weak</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#weak_off-instance_method" title="#weak_off (instance method)">#<strong>weak_off</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#with_markup-instance_method" title="#with_markup (instance method)">#<strong>with_markup</strong>(string, text: :normal, reset: true)  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>Returns a string with its markup turned into escape codes.</p>
+</div></span>
+  
+</li>
+
+      
+    </ul>
+  
+
+<div id="constructor_details" class="method_details_list">
+  <h2>Constructor Details</h2>
+  
+    <div class="method_details first">
+  <h3 class="signature first" id="initialize-instance_method">
+  
+    #<strong>initialize</strong>(terminal)  &#x21d2; <tt><span class='object_link'><a href="" title="Brut::TUI::TerminalTheme (class)">TerminalTheme</a></span></tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>Returns a new instance of TerminalTheme.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+37
+38
+39</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/brut/tui/terminal_theme.rb', line 37</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_initialize'>initialize</span><span class='lparen'>(</span><span class='id identifier rubyid_terminal'>terminal</span><span class='rparen'>)</span>
+  <span class='ivar'>@terminal</span> <span class='op'>=</span> <span class='id identifier rubyid_terminal'>terminal</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+  
+</div>
+
+
+  <div id="class_method_details" class="method_details_list">
+    <h2>Class Method Details</h2>
+
+    
+      <div class="method_details first">
+  <h3 class="signature first" id="based_on_background-class_method">
+  
+    .<strong>based_on_background</strong>(terminal)  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+22
+23
+24
+25
+26
+27
+28</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/brut/tui/terminal_theme.rb', line 22</span>
+
+<span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_based_on_background'>based_on_background</span><span class='lparen'>(</span><span class='id identifier rubyid_terminal'>terminal</span><span class='rparen'>)</span>
+  <span class='kw'>if</span> <span class='id identifier rubyid_dark_background?'>dark_background?</span><span class='lparen'>(</span><span class='id identifier rubyid_terminal'>terminal</span><span class='rparen'>)</span>
+    <span class='const'><span class='object_link'><a href="../../Brut.html" title="Brut (module)">Brut</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../TUI.html" title="Brut::TUI (module)">TUI</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Themes.html" title="Brut::TUI::Themes (module)">Themes</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Themes/Dark.html" title="Brut::TUI::Themes::Dark (class)">Dark</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="#initialize-instance_method" title="Brut::TUI::TerminalTheme#initialize (method)">new</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_terminal'>terminal</span><span class='rparen'>)</span>
+  <span class='kw'>else</span>
+    <span class='const'><span class='object_link'><a href="../../Brut.html" title="Brut (module)">Brut</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../TUI.html" title="Brut::TUI (module)">TUI</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Themes.html" title="Brut::TUI::Themes (module)">Themes</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Themes/Light.html" title="Brut::TUI::Themes::Light (class)">Light</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="#initialize-instance_method" title="Brut::TUI::TerminalTheme#initialize (method)">new</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_terminal'>terminal</span><span class='rparen'>)</span>
+  <span class='kw'>end</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="dark_background?-class_method">
+  
+    .<strong>dark_background?</strong>(terminal)  &#x21d2; <tt>Boolean</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Boolean</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+30
+31
+32
+33
+34
+35</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/brut/tui/terminal_theme.rb', line 30</span>
+
+<span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_dark_background?'>dark_background?</span><span class='lparen'>(</span><span class='id identifier rubyid_terminal'>terminal</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_r'>r</span><span class='comma'>,</span> <span class='id identifier rubyid_g'>g</span><span class='comma'>,</span> <span class='id identifier rubyid_b'>b</span> <span class='op'>=</span> <span class='id identifier rubyid_terminal'>terminal</span><span class='period'>.</span><span class='id identifier rubyid_background_color'>background_color</span><span class='period'>.</span><span class='id identifier rubyid_map'>map</span> <span class='lbrace'>{</span> <span class='id identifier rubyid_it'>it</span> <span class='op'>/</span> <span class='float'>255.0</span> <span class='rbrace'>}</span>
+  <span class='id identifier rubyid_luminance'>luminance</span> <span class='op'>=</span> <span class='lparen'>(</span><span class='float'>0.21</span> <span class='op'>*</span> <span class='id identifier rubyid_r'>r</span><span class='rparen'>)</span> <span class='op'>+</span> <span class='lparen'>(</span><span class='float'>0.72</span> <span class='op'>*</span> <span class='id identifier rubyid_g'>g</span><span class='rparen'>)</span> <span class='op'>+</span> <span class='lparen'>(</span><span class='float'>0.07</span> <span class='op'>*</span> <span class='id identifier rubyid_b'>b</span><span class='rparen'>)</span>
+
+  <span class='kw'>return</span> <span class='id identifier rubyid_luminance'>luminance</span> <span class='op'>&lt;</span> <span class='float'>0.5</span>  
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+  </div>
+
+  <div id="instance_method_details" class="method_details_list">
+    <h2>Instance Method Details</h2>
+
+    
+      <div class="method_details first">
+  <h3 class="signature first" id="bold-instance_method">
+  
+    #<strong>bold</strong>  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+90</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/brut/tui/terminal_theme.rb', line 90</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_bold'>bold</span>     <span class='op'>=</span> <span class='id identifier rubyid_esc'>esc</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>1</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="bold_off-instance_method">
+  
+    #<strong>bold_off</strong>  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+91</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/brut/tui/terminal_theme.rb', line 91</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_bold_off'>bold_off</span> <span class='op'>=</span> <span class='id identifier rubyid_normal'>normal</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="bright-instance_method">
+  
+    #<strong>bright</strong>  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+93</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/brut/tui/terminal_theme.rb', line 93</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_bright'>bright</span>     <span class='op'>=</span> <span class='id identifier rubyid_esc'>esc</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>1</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="bright_off-instance_method">
+  
+    #<strong>bright_off</strong>  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+94</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/brut/tui/terminal_theme.rb', line 94</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_bright_off'>bright_off</span> <span class='op'>=</span> <span class='id identifier rubyid_normal'>normal</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="code-instance_method">
+  
+    #<strong>code</strong>  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+105</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/brut/tui/terminal_theme.rb', line 105</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_code'>code</span>     <span class='op'>=</span> <span class='id identifier rubyid_underline'>underline</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="code_off-instance_method">
+  
+    #<strong>code_off</strong>  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+106</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/brut/tui/terminal_theme.rb', line 106</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_code_off'>code_off</span> <span class='op'>=</span> <span class='id identifier rubyid_underline_off'>underline_off</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="error-instance_method">
+  
+    #<strong>error</strong>  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+87</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/brut/tui/terminal_theme.rb', line 87</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_error'>error</span>   <span class='op'>=</span> <span class='id identifier rubyid_bold'>bold</span> <span class='op'>+</span> <span class='id identifier rubyid_bright_red'>bright_red</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="heading-instance_method">
+  
+    #<strong>heading</strong>  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+112</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/brut/tui/terminal_theme.rb', line 112</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_heading'>heading</span> <span class='op'>=</span> <span class='id identifier rubyid_bold'>bold</span> <span class='op'>+</span> <span class='id identifier rubyid_underline'>underline</span> <span class='op'>+</span> <span class='id identifier rubyid_bright_blue'>bright_blue</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="italic-instance_method">
+  
+    #<strong>italic</strong>  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+96</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/brut/tui/terminal_theme.rb', line 96</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_italic'>italic</span>     <span class='op'>=</span> <span class='id identifier rubyid_esc'>esc</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>3</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="italic_off-instance_method">
+  
+    #<strong>italic_off</strong>  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+97</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/brut/tui/terminal_theme.rb', line 97</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_italic_off'>italic_off</span> <span class='op'>=</span> <span class='id identifier rubyid_esc'>esc</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>23</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="normal-instance_method">
+  
+    #<strong>normal</strong>  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+108</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/brut/tui/terminal_theme.rb', line 108</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_normal'>normal</span> <span class='op'>=</span> <span class='id identifier rubyid_esc'>esc</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>22</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="reset-instance_method">
+  
+    #<strong>reset</strong>  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+110</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/brut/tui/terminal_theme.rb', line 110</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_reset'>reset</span> <span class='op'>=</span> <span class='id identifier rubyid_esc'>esc</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>0</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="strike-instance_method">
+  
+    #<strong>strike</strong>  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+99</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/brut/tui/terminal_theme.rb', line 99</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_strike'>strike</span>     <span class='op'>=</span> <span class='id identifier rubyid_esc'>esc</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>9</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="strike_off-instance_method">
+  
+    #<strong>strike_off</strong>  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+100</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/brut/tui/terminal_theme.rb', line 100</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_strike_off'>strike_off</span> <span class='op'>=</span> <span class='id identifier rubyid_esc'>esc</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>29</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="success-instance_method">
+  
+    #<strong>success</strong>  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+86</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/brut/tui/terminal_theme.rb', line 86</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_success'>success</span> <span class='op'>=</span> <span class='id identifier rubyid_bold'>bold</span> <span class='op'>+</span> <span class='id identifier rubyid_bright_green'>bright_green</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="warning-instance_method">
+  
+    #<strong>warning</strong>  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+88</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/brut/tui/terminal_theme.rb', line 88</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_warning'>warning</span> <span class='op'>=</span> <span class='id identifier rubyid_bold'>bold</span> <span class='op'>+</span> <span class='id identifier rubyid_yellow'>yellow</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="weak-instance_method">
+  
+    #<strong>weak</strong>  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+102</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/brut/tui/terminal_theme.rb', line 102</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_weak'>weak</span>     <span class='op'>=</span> <span class='id identifier rubyid_esc'>esc</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>2</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="weak_off-instance_method">
+  
+    #<strong>weak_off</strong>  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+103</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/brut/tui/terminal_theme.rb', line 103</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_weak_off'>weak_off</span> <span class='op'>=</span> <span class='id identifier rubyid_normal'>normal</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="with_markup-instance_method">
+  
+    #<strong>with_markup</strong>(string, text: :normal, reset: true)  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>Returns a string with its markup turned into escape codes.
+Note that due to the way ANSI escape codes work, the state
+of the terminal may not be in the same state you found it.</p>
+
+<p>This method tries to turn features on and off (e.g. after a bold
+string, the codes to turn off bold are applied), but if a subclass
+mixes colors and styles, any text output after this one may
+not look like the text before it.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/brut/tui/terminal_theme.rb', line 49</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_with_markup'>with_markup</span><span class='lparen'>(</span><span class='id identifier rubyid_string'>string</span><span class='comma'>,</span> <span class='label'>text:</span> <span class='symbol'>:normal</span><span class='comma'>,</span> <span class='label'>reset:</span> <span class='kw'>true</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_result'>result</span> <span class='op'>=</span> <span class='op'>+</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_end'>&quot;</span></span>
+  <span class='id identifier rubyid_result'>result</span> <span class='op'>&lt;&lt;</span> <span class='id identifier rubyid_send'>send</span><span class='lparen'>(</span><span class='id identifier rubyid_text'>text</span><span class='rparen'>)</span>
+  <span class='const'><span class='object_link'><a href="../../Brut.html" title="Brut (module)">Brut</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../TUI.html" title="Brut::TUI (module)">TUI</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="MarkupString.html" title="Brut::TUI::MarkupString (class)">MarkupString</a></span></span><span class='period'>.</span><span class='id identifier rubyid_from_string'><span class='object_link'><a href="MarkupString.html#from_string-class_method" title="Brut::TUI::MarkupString.from_string (method)">from_string</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_string'>string</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_parse'><span class='object_link'><a href="MarkupString.html#parse-instance_method" title="Brut::TUI::MarkupString#parse (method)">parse</a></span></span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_directive'>directive</span><span class='comma'>,</span> <span class='id identifier rubyid_value'>value</span><span class='op'>|</span>
+    <span class='kw'>case</span> <span class='id identifier rubyid_directive'>directive</span>
+    <span class='kw'>in</span> <span class='symbol'>:start</span>
+      <span class='kw'>case</span> <span class='id identifier rubyid_value'>value</span>
+      <span class='kw'>in</span> <span class='symbol'>:bold</span>
+        <span class='id identifier rubyid_result'>result</span> <span class='op'>&lt;&lt;</span> <span class='id identifier rubyid_bold'>bold</span>
+      <span class='kw'>in</span> <span class='symbol'>:strike</span>
+        <span class='id identifier rubyid_result'>result</span> <span class='op'>&lt;&lt;</span> <span class='id identifier rubyid_strike'>strike</span>
+      <span class='kw'>in</span> <span class='symbol'>:code</span>
+        <span class='id identifier rubyid_result'>result</span> <span class='op'>&lt;&lt;</span> <span class='id identifier rubyid_code'>code</span>
+      <span class='kw'>in</span> <span class='symbol'>:weak</span>
+        <span class='id identifier rubyid_result'>result</span> <span class='op'>&lt;&lt;</span> <span class='id identifier rubyid_weak'>weak</span>
+      <span class='kw'>end</span>
+    <span class='kw'>in</span> <span class='symbol'>:stop</span>
+      <span class='kw'>case</span> <span class='id identifier rubyid_value'>value</span>
+      <span class='kw'>in</span> <span class='symbol'>:bold</span>
+        <span class='id identifier rubyid_result'>result</span> <span class='op'>&lt;&lt;</span> <span class='id identifier rubyid_bold_off'>bold_off</span> <span class='op'>&lt;&lt;</span> <span class='id identifier rubyid_send'>send</span><span class='lparen'>(</span><span class='id identifier rubyid_text'>text</span><span class='rparen'>)</span>
+      <span class='kw'>in</span> <span class='symbol'>:strike</span>
+        <span class='id identifier rubyid_result'>result</span> <span class='op'>&lt;&lt;</span> <span class='id identifier rubyid_strike_off'>strike_off</span> <span class='op'>&lt;&lt;</span> <span class='id identifier rubyid_send'>send</span><span class='lparen'>(</span><span class='id identifier rubyid_text'>text</span><span class='rparen'>)</span>
+      <span class='kw'>in</span> <span class='symbol'>:code</span>
+        <span class='id identifier rubyid_result'>result</span> <span class='op'>&lt;&lt;</span> <span class='id identifier rubyid_code_off'>code_off</span> <span class='op'>&lt;&lt;</span> <span class='id identifier rubyid_send'>send</span><span class='lparen'>(</span><span class='id identifier rubyid_text'>text</span><span class='rparen'>)</span>
+      <span class='kw'>in</span> <span class='symbol'>:weak</span>
+        <span class='id identifier rubyid_result'>result</span> <span class='op'>&lt;&lt;</span> <span class='id identifier rubyid_weak_off'>weak_off</span> <span class='op'>&lt;&lt;</span> <span class='id identifier rubyid_send'>send</span><span class='lparen'>(</span><span class='id identifier rubyid_text'>text</span><span class='rparen'>)</span>
+      <span class='kw'>end</span>
+    <span class='kw'>in</span> <span class='symbol'>:text</span>
+      <span class='id identifier rubyid_result'>result</span> <span class='op'>&lt;&lt;</span> <span class='id identifier rubyid_value'>value</span>
+    <span class='kw'>end</span>
+  <span class='kw'>end</span>
+  <span class='kw'>if</span> <span class='id identifier rubyid_reset'>reset</span>
+    <span class='id identifier rubyid_result'>result</span> <span class='op'>&lt;&lt;</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_reset'>reset</span>
+  <span class='kw'>end</span>
+  <span class='id identifier rubyid_result'>result</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+  </div>
+
+</div>
+
+      <div id="footer">
+  Generated on Sun Nov 30 20:50:12 2025 by
+  <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
+  0.9.37 (ruby-3.4.6).
+</div>
+
+    </div>
+  </body>
+</html>
