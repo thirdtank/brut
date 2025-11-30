@@ -1,39 +1,39 @@
-#!/usr/bin/env bash
+#!/usr/bin/env ruby
 
-set -e
+require "optparse"
+require "pathname"
 
-usage() {
-  echo "Usage: $0"
-  echo
-  echo "    Run all tests and quality checks, as if on a CI server"
-  echo
-}
+require "brut/tui"
 
-for arg in "$@"; do
-  if [ "${arg}" = "-h" ] || [ "${arg}" = "--help" ] || [ "${arg}" = "help" ]; then
-    usage
-    exit 0
-  fi
-done
+ROOT_DIR = ((Pathname(__dir__) / ".." ).expand_path)
 
+class CIScript < Brut::TUI::Script
+  def execute
+    phase "Preparing environment" do
+      step "Building Assets",
+           exec: "bin/build-assets"
+    end
 
-echo "[ bin/ci ] Building Assets"
-bin/build-assets
+    phase "Running tests" do
+      step "Running non E2E tests",
+           exec: "bin/test run --rebuild"
 
-echo "[ bin/ci ] Running non E2E tests"
-bin/test run --rebuild
+      step "Running JS tests",
+           exec: "bin/test js"
 
-echo "[ bin/ci ] Running JS tests"
-bin/test js
+      step "Running E2E tests",
+           exec: "bin/test e2e --rebuild --rebuild-after"
+    end
 
-echo "[ bin/ci ] Running E2E tests"
-bin/test e2e --rebuild --rebuild-after
+    phase "Performing code and security audits" do
+      step "Analyzing Ruby gems for security vulnerabilities",
+           exec: "bundle exec bundle audit check --update"
 
-echo "[ bin/ci ] Analyzing Ruby gems for"
-echo "[ bin/ci ] security vulnerabilities"
-bundle exec bundle audit check --update
+      step "Checking to see that all classes have tests",
+           exec: "bin/test audit "
+    end
+    done "All quality and auditing checks complete"
+  end
+end
 
-echo "[ bin/ci ] Checking to see that all classes have tests"
-bin/test audit --ignore app/src/front_end/components/custom_element_registration.rb 
-
-echo "[ bin/ci ] Done"
+exit CIScript.new(root_dir: ROOT_DIR).run!
