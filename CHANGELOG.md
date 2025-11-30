@@ -1,5 +1,10 @@
 # Brut CHANGELOG
 
+## v0.17.0 - Nov 30, 2025
+
+* Start of TUI support.  This lays the groundwork to move the CLIs into the gem.
+* Fixed a few bugs with Heroku deploys
+
 ## v0.16.0 - Sep 29, 2025
 
 * Sidekiq support via a *segment*.  This is a thing that can be installed by `mkbrut` after you create your app.
