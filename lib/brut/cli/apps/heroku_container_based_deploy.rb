@@ -161,7 +161,7 @@ Manages a deploy process based on using Heroku's Container Registry. See
         end
 
         names = images.map(&:first).join(" ")
-        deploy_command = "heroku container:release #{names}"
+        deploy_command = "heroku container:release #{names} -a #{heroku_app_name}"
         if options.deploy?
           out.puts "Deploying images to Heroku"
           system!(deploy_command)
