@@ -660,9 +660,9 @@ describe("#{description}", () => {
 
         end
         @stdout.puts "Would create a migration file"
-        @stdout.puts "  via:   bin/db new_migration #{migration_name}"
+        @stdout.puts "  via:   brut db new_migration #{migration_name}"
       else
-        system!("bin/db new_migration #{migration_name}")
+        system!("brut db new_migration #{migration_name}")
         actions.each do |action|
           FileUtils.mkdir_p action[:path].dirname
           @stdout.puts "Creating #{action[:class_name]} in #{action[:path].relative_path_from(Brut.container.project_root)}"

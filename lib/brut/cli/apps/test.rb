@@ -237,7 +237,7 @@ class Brut::CLI::Apps::Test < Brut::CLI::Commands::BaseCommand
             '             "' + Shellwords.escape(file.to_s) + '"'
           }.join(" \\\n")
 
-          stdout.puts "Run this command to generate empty tests:\n\nbin/scaffold test \\\n#{files_missing_args}"
+          stdout.puts "Run this command to generate empty tests:\n\nbrut scaffold test \\\n#{files_missing_args}"
         end
         1
       end

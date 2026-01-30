@@ -17,9 +17,9 @@ done
 
 echo "[ bin/release ] started"
 echo "[ bin/release ] Creating DB if needed"
-BRUT_CLI_RAISE_ON_ERROR=true bundle exec ./bin/db create --env=production
+BRUT_CLI_RAISE_ON_ERROR=true bundle exec brut db create --env=production
 echo "[ bin/release ] Migrating DB if needed"
-BRUT_CLI_RAISE_ON_ERROR=true bundle exec ./bin/db migrate --env=production
+BRUT_CLI_RAISE_ON_ERROR=true bundle exec burt db migrate --env=production
 
 # Add additional commands here as needed
 

@@ -44,7 +44,7 @@ class Brut::SpecSupport::RSpecSetup
   # @param [RSpec::Core::Configuration] rspec_config yielded from `RSpec.configure`
   # @param [boolean] monkey_patch_summary_notification if true (the default),
   # RSpec's Notifications::SumaryNotification will be monkey-patched to show
-  # `bin/test` in the summary instead of `./rspec`, as that is how you would
+  # `brut test` in the summary instead of `./rspec`, as that is how you would
   # re-run a test.  But, it's still monkey-patching.
   def initialize(rspec_config:,
                  monkey_patch_summary_notification: true)
@@ -196,13 +196,13 @@ private
     if !klass.instance_variable_get("@_brut_has_monkeypatched")
       klass.class_eval do
         # Slightly reformatted, but the only line that's different
-        # is the one that said to use './rspec'. Now it says 'bin/test run'
+        # is the one that said to use './rspec'. Now it says 'brut test run'
         def colorized_rerun_commands(colorizer=::RSpec::Core::Formatters::ConsoleCodes)
           "\nFailed examples:\n\n" +
             failed_examples.map do |example|
               rerun_argument = rerun_argument_for(example)
               colorizer.wrap(
-                "bin/test run #{rerun_argument}", # <--- this is the only difference
+                "brut test run #{rerun_argument}", # <--- this is the only difference
                 RSpec.configuration.failure_color
               )   + 
               " " +

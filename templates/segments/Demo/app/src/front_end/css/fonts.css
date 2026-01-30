@@ -1,7 +1,7 @@
 /* Example of font-management. */
 @font-face {
   font-family: "Monaspace Xenon";
-  /** url is relative to this file. When bin/build-assets runs,
+  /** url is relative to this file. When brut build-assets runs,
    * esbuild will see this and modify it to work with the bundle
    * that is ultimately produced */
   src: url("../fonts/monaspace-xenon.ttf") format("truetype");

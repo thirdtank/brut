@@ -31,7 +31,7 @@ done
 
 asset_type=$1
 watch_dir="app/src/front_end/${asset_type}/**/*"
-build_command="bin/build-assets ${asset_type}"
+build_command="brut build-assets ${asset_type}"
 
 export SHELL # chokidar needs this for reasons unknown to me
 exec npx chokidar --initial --polling --command "${build_command}" "${watch_dir}"

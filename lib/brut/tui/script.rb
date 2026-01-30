@@ -21,7 +21,7 @@ require "fileutils"
 #     def execute
 #       phase "Set up test data" do
 #         step "Initializing database",
-#              exec: "bin/db rebuild -e test"
+#              exec: "brut db rebuild -e test"
 #         step "Loading data" do
 #           MyData.each do |data|
 #             notify "Inserting #{data}"

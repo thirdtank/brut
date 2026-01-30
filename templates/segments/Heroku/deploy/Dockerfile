@@ -14,7 +14,7 @@
 #     the app work or to pre-generate assets is set up here as well.
 #     You are advised to make that setup identical.
 #
-# You can test this locally but using the `--plaform` flag to `bin/deploy deploy`
+# You can test this locally but using the `--platform` flag to `brut deploy deploy`
 # and running a container locally.  You'll need all infrastructure available
 # but it can be done to test things before you deploy. If you need to.
 
@@ -103,7 +103,7 @@ RUN npm clean-install --no-audit --no-fund --verbose
 COPY . .
 
 # Build all assets
-RUN bin/build-assets && \
+RUN brut build-assets && \
     rm -rf node_modules
 
 # We are now switching back to building the image that will be deployed.

@@ -18,7 +18,7 @@ module Brut::SpecSupport::GeneralSupport
         expect(Time.now < check_again_at).to eq(true),"It's after #{check_again_at}. Implementation is needed"
       end
     end
-    # To pass bin/test audit with a class whose implementation is trivial, call this inside the RSpec `describe` block. This is better
+    # To pass brut test audit with a class whose implementation is trivial, call this inside the RSpec `describe` block. This is better
     # than an empty test as it makes it more explicit that you believe the implementation is trivial enough to not require a test. You
     # can also set an expiration for this thinking.
     #
