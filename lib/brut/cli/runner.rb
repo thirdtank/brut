@@ -4,12 +4,12 @@ class Brut::CLI::Runner
 
   # Create the runner, which can be used to run `app_command` with whatever command line was provided.
   #
-  # @param [Brut::CLI::Commands::BaseCommand] The app that is being executed, in which all command line arguments
+  # @param [Brut::CLI::Commands::BaseCommand] app_command The app that is being executed, in which all command line arguments
   #        should be interpreted.
   # @param [IO] stdout the standard output, which will receive all output that isn't related to error messages.
   # @param [IO] stderr the standard error, which will receive error messages
   # @param [IO] stdin the standard input
-  # @param [Pathname] project_root The root of the Brut project (i.e. where `Gemfile`, `app` et. al. are located)
+  # @param [Pathname] project_root root of the Brut project (i.e. where `Gemfile`, `app` et. al. are located)
   def initialize(app_command, stdout:, stderr:,stdin:, project_root:)
     prefix = if $0 =~ /\/brut$/
                "brut"

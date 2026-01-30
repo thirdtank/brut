@@ -58,27 +58,26 @@ class Brut::CLI::Commands::BaseCommand
   # to allow simpler conversions without a proc.
   #
   # @example
-  #
-  # class Type
-  #   def initialize(value)
-  #     value = value.to_s
-  #     if ["new", "old", "promoted" ].include?(value)
-  #       @value = value
-  #     else
-  #       raise ArgumentError, "'#{value}' is not a valid Type"
+  #   class Type
+  #     def initialize(value)
+  #       value = value.to_s
+  #       if ["new", "old", "promoted" ].include?(value)
+  #         @value = value
+  #       else
+  #         raise ArgumentError, "'#{value}' is not a valid Type"
+  #       end
   #     end
   #   end
-  # end
-  # def opts = [
-  #   [ "--type=TYPE", "The type of thing", Type ]
-  # ]
-  # def accepts = [
-  #   Type,
-  # ]
-  # # or
-  # def accepts = [
-  #   [ Type, ->(val) { Type.new(val) },
-  # ]
+  #   def opts = [
+  #     [ "--type=TYPE", "The type of thing", Type ]
+  #   ]
+  #   def accepts = [
+  #     Type,
+  #   ]
+  #   # or
+  #   def accepts = [
+  #     [ Type, ->(val) { Type.new(val) },
+  #   ]
   #
   # @return [Array<Array>|Array<Class>] Must be an array.  Any element that is a class will be used to convert any options
   #         of that type when the type is used in `opts`.  If the element is a class, it is assumed that values can be converted
