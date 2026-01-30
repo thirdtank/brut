@@ -6,7 +6,7 @@
 <title>
   Class: Brut::TUI::Script::PutsSubscriber
   
-    &mdash; Documentation by YARD 0.9.37
+    &mdash; Documentation by YARD 0.9.38
   
 </title>
 
@@ -201,7 +201,7 @@ output) to the <span class='object_link'><a href="LoggingSubscriber.html" title=
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#on_command_std_err-instance_method" title="#on_command_std_err (instance method)">#<strong>on_command_std_err</strong>(output:, command:)  &#x21d2; Object </a>
+      <a href="#on_command_std_err-instance_method" title="#on_command_std_err (instance method)">#<strong>on_command_std_err</strong>(output:, command:, show:)  &#x21d2; Object </a>
     
 
     
@@ -224,7 +224,7 @@ output) to the <span class='object_link'><a href="LoggingSubscriber.html" title=
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#on_command_std_out-instance_method" title="#on_command_std_out (instance method)">#<strong>on_command_std_out</strong>(output:, command:)  &#x21d2; Object </a>
+      <a href="#on_command_std_out-instance_method" title="#on_command_std_out (instance method)">#<strong>on_command_std_out</strong>(output:, command:, show:)  &#x21d2; Object </a>
     
 
     
@@ -509,7 +509,7 @@ output) to the <span class='object_link'><a href="LoggingSubscriber.html" title=
       <div class="method_details ">
   <h3 class="signature " id="on_command_std_err-instance_method">
   
-    #<strong>on_command_std_err</strong>(output:, command:)  &#x21d2; <tt>Object</tt> 
+    #<strong>on_command_std_err</strong>(output:, command:, show:)  &#x21d2; <tt>Object</tt> 
   
 
   
@@ -534,8 +534,8 @@ output) to the <span class='object_link'><a href="LoggingSubscriber.html" title=
     <td>
       <pre class="code"><span class="info file"># File 'lib/brut/tui/script/puts_subscriber.rb', line 67</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_on_command_std_err'>on_command_std_err</span><span class='lparen'>(</span><span class='label'>output:</span><span class='comma'>,</span> <span class='label'>command:</span><span class='rparen'>)</span>
-  <span class='kw'>if</span> <span class='ivar'>@stderr</span>
+<span class='kw'>def</span> <span class='id identifier rubyid_on_command_std_err'>on_command_std_err</span><span class='lparen'>(</span><span class='label'>output:</span><span class='comma'>,</span> <span class='label'>command:</span><span class='comma'>,</span> <span class='label'>show:</span><span class='rparen'>)</span>
+  <span class='kw'>if</span> <span class='ivar'>@stderr</span> <span class='op'>||</span> <span class='id identifier rubyid_show'>show</span>
     <span class='ivar'>@prefix_recent</span> <span class='op'>=</span> <span class='kw'>false</span>
     <span class='gvar'>$stdout</span><span class='period'>.</span><span class='id identifier rubyid_print'>print</span> <span class='ivar'>@theme</span><span class='period'>.</span><span class='id identifier rubyid_warning'>warning</span> <span class='op'>+</span> <span class='id identifier rubyid_output'>output</span> <span class='op'>+</span> <span class='ivar'>@theme</span><span class='period'>.</span><span class='id identifier rubyid_reset'>reset</span>
     <span class='gvar'>$stdout</span><span class='period'>.</span><span class='id identifier rubyid_flush'>flush</span>
@@ -551,7 +551,7 @@ output) to the <span class='object_link'><a href="LoggingSubscriber.html" title=
       <div class="method_details ">
   <h3 class="signature " id="on_command_std_out-instance_method">
   
-    #<strong>on_command_std_out</strong>(output:, command:)  &#x21d2; <tt>Object</tt> 
+    #<strong>on_command_std_out</strong>(output:, command:, show:)  &#x21d2; <tt>Object</tt> 
   
 
   
@@ -576,8 +576,8 @@ output) to the <span class='object_link'><a href="LoggingSubscriber.html" title=
     <td>
       <pre class="code"><span class="info file"># File 'lib/brut/tui/script/puts_subscriber.rb', line 57</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_on_command_std_out'>on_command_std_out</span><span class='lparen'>(</span><span class='label'>output:</span><span class='comma'>,</span> <span class='label'>command:</span><span class='rparen'>)</span>
-  <span class='kw'>if</span> <span class='ivar'>@stdout</span>
+<span class='kw'>def</span> <span class='id identifier rubyid_on_command_std_out'>on_command_std_out</span><span class='lparen'>(</span><span class='label'>output:</span><span class='comma'>,</span> <span class='label'>command:</span><span class='comma'>,</span> <span class='label'>show:</span><span class='rparen'>)</span>
+  <span class='kw'>if</span> <span class='ivar'>@stdout</span> <span class='op'>||</span> <span class='id identifier rubyid_show'>show</span>
     <span class='ivar'>@prefix_recent</span> <span class='op'>=</span> <span class='kw'>false</span>
     <span class='gvar'>$stdout</span><span class='period'>.</span><span class='id identifier rubyid_print'>print</span> <span class='ivar'>@theme</span><span class='period'>.</span><span class='id identifier rubyid_normal'>normal</span> <span class='op'>+</span> <span class='ivar'>@theme</span><span class='period'>.</span><span class='id identifier rubyid_weak'>weak</span> <span class='op'>+</span> <span class='id identifier rubyid_output'>output</span> <span class='op'>+</span> <span class='ivar'>@theme</span><span class='period'>.</span><span class='id identifier rubyid_reset'>reset</span>
     <span class='gvar'>$stdout</span><span class='period'>.</span><span class='id identifier rubyid_flush'>flush</span>
@@ -773,9 +773,9 @@ output) to the <span class='object_link'><a href="LoggingSubscriber.html" title=
 </div>
 
       <div id="footer">
-  Generated on Sun Nov 30 20:50:12 2025 by
+  Generated on Fri Jan 30 20:39:53 2026 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.37 (ruby-3.4.6).
+  0.9.38 (ruby-3.4.6).
 </div>
 
     </div>

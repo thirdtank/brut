@@ -6,7 +6,7 @@
 <title>
   File: README
   
-    &mdash; Documentation by YARD 0.9.37
+    &mdash; Documentation by YARD 0.9.38
   
 </title>
 
@@ -83,20 +83,21 @@
 
 <h2>Getting Started</h2>
 
-<p><a href="https://brutrb.com">Please note there is extensive documentation</a>, however to get started, you can use <a href="https://github.com/thirdtank/mkrbut">mkbrut</a>:</p>
+<p><a href="https://brutrb.com">Please note there is extensive documentation</a>, however to get started, you can use the [brut] command line app via
+Docker:</p>
 
 <pre class="code ruby"><code class="ruby">docker run --pull always \
            -v &quot;$PWD&quot;:&quot;$PWD&quot; \
            -w &quot;$PWD&quot; 
            -it \
-           thirdtank/mkbrut \
-           mkbrut your-new-app
+           thirdtank/brut \
+           brut new your-new-app
 </code></pre>
 
 <p>If you have Ruby 3.4 installed somewhere, you can use this via RubyGems as well:</p>
 
-<pre class="code ruby"><code class="ruby">&gt; gem install mkbrut
-&gt; mkbrut your-new-app
+<pre class="code ruby"><code class="ruby">&gt; gem install brut
+&gt; brut your-new-app
 </code></pre>
 
 <h2>Developing</h2>
@@ -136,13 +137,12 @@ with your editor, but all commands are run inside Docker, which should be more c
 
 <h3>Conventions in MonoRepo</h3>
 
-<p>This repo contains all five main parts of Brut:</p>
+<p>This repo contains all four main parts of Brut:</p>
 
 <ul>
 <li>BrutRB, the Ruby web framework (in this directory, code in <code>lib</code>)</li>
 <li>BrutJS, the JS library with custom elements (in <code>brut-js/</code>)</li>
 <li>BrutCSS, the CSS library (in <code>brut-css/</code>)</li>
-<li><code>mkbrut</code>, the CLI to create new Brut apps (in <code>mkbrut/</code>)</li>
 <li><code>brutrb.com</code>, the website, powered by VitePress (in <code>brutrb.com</code>)</li>
 </ul>
 
@@ -162,9 +162,9 @@ actions as well.</p>
 </div></div>
 
       <div id="footer">
-  Generated on Sun Nov 30 20:50:11 2025 by
+  Generated on Fri Jan 30 20:39:51 2026 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.37 (ruby-3.4.6).
+  0.9.38 (ruby-3.4.6).
 </div>
 
     </div>

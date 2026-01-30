@@ -6,7 +6,7 @@
 <title>
   Class: Brut::FrontEnd::Handlers::InstrumentationHandler
   
-    &mdash; Documentation by YARD 0.9.37
+    &mdash; Documentation by YARD 0.9.38
   
 </title>
 
@@ -107,74 +107,10 @@
     
   
     
-      <strong class="classes">Classes:</strong> <span class='object_link'><a href="InstrumentationHandler/TraceParent.html" title="Brut::FrontEnd::Handlers::InstrumentationHandler::TraceParent (class)">TraceParent</a></span>
+      <strong class="classes">Classes:</strong> <span class='object_link'><a href="InstrumentationHandler/Event.html" title="Brut::FrontEnd::Handlers::InstrumentationHandler::Event (class)">Event</a></span>, <span class='object_link'><a href="InstrumentationHandler/Span.html" title="Brut::FrontEnd::Handlers::InstrumentationHandler::Span (class)">Span</a></span>, <span class='object_link'><a href="InstrumentationHandler/TraceParent.html" title="Brut::FrontEnd::Handlers::InstrumentationHandler::TraceParent (class)">TraceParent</a></span>
     
   
 </p>
-
-  
-    <h2>
-      Constant Summary
-      <small><a href="#" class="constants_summary_toggle">collapse</a></small>
-    </h2>
-
-    <dl class="constants">
-      
-        <dt id="Event-constant" class="">Event =
-          
-        </dt>
-        <dd><pre class="code"><span class='const'>Data</span><span class='period'>.</span><span class='id identifier rubyid_define'>define</span><span class='lparen'>(</span><span class='symbol'>:name</span><span class='comma'>,</span> <span class='symbol'>:timestamp</span><span class='comma'>,</span> <span class='symbol'>:attributes</span><span class='rparen'>)</span> <span class='kw'>do</span>
-  <span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_from_json'>from_json</span><span class='lparen'>(</span><span class='id identifier rubyid_json'>json</span><span class='rparen'>)</span>
-    <span class='id identifier rubyid_name'>name</span>       <span class='op'>=</span> <span class='id identifier rubyid_json'>json</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>name</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span>
-    <span class='id identifier rubyid_timestamp'>timestamp</span>  <span class='op'>=</span> <span class='const'>Time</span><span class='period'>.</span><span class='id identifier rubyid_at'>at</span><span class='lparen'>(</span><span class='id identifier rubyid_json'>json</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>timestamp</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_to_i'>to_i</span> <span class='op'>/</span> <span class='float'>1000.0</span><span class='rparen'>)</span>
-    <span class='id identifier rubyid_attributes'>attributes</span> <span class='op'>=</span> <span class='id identifier rubyid_json'>json</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>attributes</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span> <span class='op'>||</span> <span class='lbrace'>{</span><span class='rbrace'>}</span>
-    <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='label'>name:</span><span class='comma'>,</span><span class='label'>timestamp:</span><span class='comma'>,</span><span class='label'>attributes:</span><span class='rparen'>)</span>
-  <span class='kw'>end</span>
-<span class='kw'>end</span></pre></dd>
-      
-        <dt id="Span-constant" class="">Span =
-          
-        </dt>
-        <dd><pre class="code"><span class='const'>Data</span><span class='period'>.</span><span class='id identifier rubyid_define'>define</span><span class='lparen'>(</span><span class='symbol'>:name</span><span class='comma'>,</span><span class='symbol'>:start_timestamp</span><span class='comma'>,</span><span class='symbol'>:end_timestamp</span><span class='comma'>,</span><span class='symbol'>:attributes</span><span class='comma'>,</span><span class='symbol'>:events</span><span class='comma'>,</span><span class='symbol'>:spans</span><span class='rparen'>)</span> <span class='kw'>do</span>
-  <span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_from_json'>from_json</span><span class='lparen'>(</span><span class='id identifier rubyid_json'>json</span><span class='rparen'>)</span>
-    <span class='id identifier rubyid_name'>name</span>            <span class='op'>=</span> <span class='id identifier rubyid_json'>json</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>name</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span>
-    <span class='id identifier rubyid_start_timestamp'>start_timestamp</span> <span class='op'>=</span> <span class='const'>Time</span><span class='period'>.</span><span class='id identifier rubyid_at'>at</span><span class='lparen'>(</span><span class='id identifier rubyid_json'>json</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>start_timestamp</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_to_i'>to_i</span> <span class='op'>/</span> <span class='float'>1000.0</span><span class='rparen'>)</span>
-    <span class='id identifier rubyid_end_timestamp'>end_timestamp</span>   <span class='op'>=</span> <span class='const'>Time</span><span class='period'>.</span><span class='id identifier rubyid_at'>at</span><span class='lparen'>(</span><span class='id identifier rubyid_json'>json</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>end_timestamp</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_to_i'>to_i</span> <span class='op'>/</span> <span class='float'>1000.0</span><span class='rparen'>)</span>
-    <span class='id identifier rubyid_attributes'>attributes</span>      <span class='op'>=</span> <span class='id identifier rubyid_json'>json</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>attributes</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span> <span class='op'>||</span> <span class='lbrace'>{</span><span class='rbrace'>}</span>
-    <span class='id identifier rubyid_events'>events</span>          <span class='op'>=</span> <span class='lparen'>(</span><span class='id identifier rubyid_json'>json</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>events</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span> <span class='op'>||</span> <span class='lbracket'>[</span><span class='rbracket'>]</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_map'>map</span> <span class='lbrace'>{</span> <span class='const'><span class='object_link'><a href="#Event-constant" title="Brut::FrontEnd::Handlers::InstrumentationHandler::Event (constant)">Event</a></span></span><span class='period'>.</span><span class='id identifier rubyid_from_json'>from_json</span><span class='lparen'>(</span><span class='id identifier rubyid_it'>it</span><span class='rparen'>)</span> <span class='rbrace'>}</span>
-    <span class='id identifier rubyid_spans'>spans</span>           <span class='op'>=</span> <span class='lparen'>(</span><span class='id identifier rubyid_json'>json</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>spans</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span> <span class='op'>||</span> <span class='lbracket'>[</span><span class='rbracket'>]</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_map'>map</span> <span class='lbrace'>{</span> <span class='const'><span class='object_link'><a href="#Span-constant" title="Brut::FrontEnd::Handlers::InstrumentationHandler::Span (constant)">Span</a></span></span><span class='period'>.</span><span class='id identifier rubyid_from_json'>from_json</span><span class='lparen'>(</span><span class='id identifier rubyid_it'>it</span><span class='rparen'>)</span> <span class='rbrace'>}</span>
-    <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='label'>name:</span><span class='comma'>,</span><span class='label'>start_timestamp:</span><span class='comma'>,</span><span class='label'>end_timestamp:</span><span class='comma'>,</span><span class='label'>attributes:</span><span class='comma'>,</span><span class='label'>events:</span><span class='comma'>,</span><span class='label'>spans:</span><span class='rparen'>)</span>
-  <span class='kw'>end</span>
-
-  <span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_from_header'>from_header</span><span class='lparen'>(</span><span class='id identifier rubyid_header_value'>header_value</span><span class='rparen'>)</span>
-    <span class='kw'>if</span> <span class='id identifier rubyid_header_value'>header_value</span><span class='period'>.</span><span class='id identifier rubyid_nil?'>nil?</span>
-      <span class='kw'>return</span> <span class='kw'>nil</span>
-    <span class='kw'>end</span>
-    <span class='kw'>if</span> <span class='id identifier rubyid_header_value'>header_value</span><span class='period'>.</span><span class='id identifier rubyid_kind_of?'>kind_of?</span><span class='lparen'>(</span><span class='kw'>self</span><span class='rparen'>)</span>
-      <span class='kw'>return</span> <span class='id identifier rubyid_header_value'>header_value</span>
-    <span class='kw'>end</span>
-
-    <span class='comment'># This header can have info for several vendors, delimited by commas. We pick
-</span>    <span class='comment'># out ours, which has a vendor name &#39;brut&#39;
-</span>    <span class='id identifier rubyid_brut_state'>brut_state</span> <span class='op'>=</span> <span class='id identifier rubyid_header_value'>header_value</span><span class='period'>.</span><span class='id identifier rubyid_split'>split</span><span class='lparen'>(</span><span class='tstring'><span class='regexp_beg'>/</span><span class='tstring_content'>\s*,\s*</span><span class='regexp_end'>/</span></span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_map'>map</span> <span class='lbrace'>{</span> <span class='id identifier rubyid_it'>it</span><span class='period'>.</span><span class='id identifier rubyid_split'>split</span><span class='lparen'>(</span><span class='tstring'><span class='regexp_beg'>/</span><span class='tstring_content'>\s*=\s*</span><span class='regexp_end'>/</span></span><span class='rparen'>)</span> <span class='rbrace'>}</span><span class='period'>.</span><span class='id identifier rubyid_detect'>detect</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_vendor'>vendor</span><span class='comma'>,</span><span class='id identifier rubyid__'>_</span><span class='op'>|</span>
-      <span class='id identifier rubyid_vendor'>vendor</span> <span class='op'>==</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>brut</span><span class='tstring_end'>&quot;</span></span>
-    <span class='rbrace'>}</span><span class='lbracket'>[</span><span class='int'>1</span><span class='rbracket'>]</span>
-
-    <span class='comment'># Our state is a base-64 encoded JSON blob
-</span>    <span class='comment'># each key/value separated by a colon.
-</span>    <span class='id identifier rubyid_json'>json</span> <span class='op'>=</span> <span class='const'>Base64</span><span class='period'>.</span><span class='id identifier rubyid_decode64'>decode64</span><span class='lparen'>(</span><span class='id identifier rubyid_brut_state'>brut_state</span><span class='rparen'>)</span>
-
-    <span class='id identifier rubyid_hash'>hash</span> <span class='op'>=</span> <span class='const'>JSON</span><span class='period'>.</span><span class='id identifier rubyid_parse'>parse</span><span class='lparen'>(</span><span class='id identifier rubyid_json'>json</span><span class='rparen'>)</span>
-    <span class='kw'>if</span> <span class='op'>!</span><span class='id identifier rubyid_hash'>hash</span><span class='period'>.</span><span class='id identifier rubyid_kind_of?'>kind_of?</span><span class='lparen'>(</span><span class='const'>Hash</span><span class='rparen'>)</span>
-      <span class='const'>SemanticLogger</span><span class='lbracket'>[</span><span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_class'>class</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_info'>info</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Got a </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_hash'>hash</span><span class='period'>.</span><span class='id identifier rubyid_class'>class</span><span class='embexpr_end'>}</span><span class='tstring_content'> and not a Hash</span><span class='tstring_end'>&quot;</span></span>
-      <span class='kw'>return</span> <span class='kw'>nil</span>
-    <span class='kw'>end</span>
-    <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_from_json'>from_json</span><span class='lparen'>(</span><span class='id identifier rubyid_hash'>hash</span><span class='rparen'>)</span>
-  <span class='kw'>end</span>
-<span class='kw'>end</span></pre></dd>
-      
-    </dl>
-  
 
 
 
@@ -364,7 +300,7 @@
 
 <span class='kw'>def</span> <span class='id identifier rubyid_handle'>handle</span>
   <span class='id identifier rubyid_traceparent'>traceparent</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="InstrumentationHandler/TraceParent.html" title="Brut::FrontEnd::Handlers::InstrumentationHandler::TraceParent (class)">TraceParent</a></span></span><span class='period'>.</span><span class='id identifier rubyid_from_header'><span class='object_link'><a href="InstrumentationHandler/TraceParent.html#from_header-class_method" title="Brut::FrontEnd::Handlers::InstrumentationHandler::TraceParent.from_header (method)">from_header</a></span></span><span class='lparen'>(</span><span class='ivar'>@http_traceparent</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_span'>span</span>        <span class='op'>=</span> <span class='const'><span class='object_link'><a href="#Span-constant" title="Brut::FrontEnd::Handlers::InstrumentationHandler::Span (constant)">Span</a></span></span><span class='period'>.</span><span class='id identifier rubyid_from_header'>from_header</span><span class='lparen'>(</span><span class='ivar'>@http_tracestate</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_span'>span</span>        <span class='op'>=</span> <span class='const'><span class='object_link'><a href="InstrumentationHandler/Span.html" title="Brut::FrontEnd::Handlers::InstrumentationHandler::Span (class)">Span</a></span></span><span class='period'>.</span><span class='id identifier rubyid_from_header'><span class='object_link'><a href="InstrumentationHandler/Span.html#from_header-class_method" title="Brut::FrontEnd::Handlers::InstrumentationHandler::Span.from_header (method)">from_header</a></span></span><span class='lparen'>(</span><span class='ivar'>@http_tracestate</span><span class='rparen'>)</span>
 
   <span class='kw'>if</span> <span class='id identifier rubyid_span'>span</span><span class='period'>.</span><span class='id identifier rubyid_nil?'>nil?</span> <span class='op'>||</span> <span class='id identifier rubyid_traceparent'>traceparent</span><span class='period'>.</span><span class='id identifier rubyid_nil?'>nil?</span>
     <span class='const'>SemanticLogger</span><span class='lbracket'>[</span><span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_class'>class</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_info'>info</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Missing traceparent or span: </span><span class='embexpr_beg'>#{</span><span class='ivar'>@http_tracestate</span><span class='embexpr_end'>}</span><span class='tstring_content'>, </span><span class='embexpr_beg'>#{</span><span class='ivar'>@http_traceparent</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span>
@@ -389,9 +325,9 @@
 </div>
 
       <div id="footer">
-  Generated on Sun Nov 30 20:50:12 2025 by
+  Generated on Fri Jan 30 20:39:54 2026 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.37 (ruby-3.4.6).
+  0.9.38 (ruby-3.4.6).
 </div>
 
     </div>

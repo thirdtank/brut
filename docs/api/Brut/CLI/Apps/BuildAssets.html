@@ -6,7 +6,7 @@
 <title>
   Class: Brut::CLI::Apps::BuildAssets
   
-    &mdash; Documentation by YARD 0.9.37
+    &mdash; Documentation by YARD 0.9.38
   
 </title>
 
@@ -69,12 +69,12 @@
   <dl>
     <dt>Inherits:</dt>
     <dd>
-      <span class="inheritName"><span class='object_link'><a href="../App.html" title="Brut::CLI::App (class)">Brut::CLI::App</a></span></span>
+      <span class="inheritName"><span class='object_link'><a href="../Commands/BaseCommand.html" title="Brut::CLI::Commands::BaseCommand (class)">Commands::BaseCommand</a></span></span>
       
         <ul class="fullTree">
           <li>Object</li>
           
-            <li class="next"><span class='object_link'><a href="../App.html" title="Brut::CLI::App (class)">Brut::CLI::App</a></span></li>
+            <li class="next"><span class='object_link'><a href="../Commands/BaseCommand.html" title="Brut::CLI::Commands::BaseCommand (class)">Commands::BaseCommand</a></span></li>
           
             <li class="next">Brut::CLI::Apps::BuildAssets</li>
           
@@ -117,6 +117,137 @@
 
 
 
+  <h2>Instance Attribute Summary</h2>
+  
+  <h3 class="inherited">Attributes inherited from <span class='object_link'><a href="../Commands/BaseCommand.html" title="Brut::CLI::Commands::BaseCommand (class)">Commands::BaseCommand</a></span></h3>
+  <p class="inherited"><span class='object_link'><a href="../Commands/BaseCommand.html#parent_command-instance_method" title="Brut::CLI::Commands::BaseCommand#parent_command (method)">#parent_command</a></span></p>
+
+
+  
+    <h2>
+      Instance Method Summary
+      <small><a href="#" class="summary_toggle">collapse</a></small>
+    </h2>
+
+    <ul class="summary">
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#bootstrap%3F-instance_method" title="#bootstrap? (instance method)">#<strong>bootstrap?</strong>  &#x21d2; Boolean </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#default_command_class-instance_method" title="#default_command_class (instance method)">#<strong>default_command_class</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#description-instance_method" title="#description (instance method)">#<strong>description</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#name-instance_method" title="#name (instance method)">#<strong>name</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#opts-instance_method" title="#opts (instance method)">#<strong>opts</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+</div></span>
+  
+</li>
+
+      
+    </ul>
+  
 
 
   
@@ -125,57 +256,187 @@
   
   
   
-  <h2>Method Summary</h2>
   
-  <h3 class="inherited">Methods inherited from <span class='object_link'><a href="../App.html" title="Brut::CLI::App (class)">Brut::CLI::App</a></span></h3>
-  <p class="inherited"><span class='object_link'><a href="../App.html#after_bootstrap-instance_method" title="Brut::CLI::App#after_bootstrap (method)">#after_bootstrap</a></span>, <span class='object_link'><a href="../App.html#before_execute-instance_method" title="Brut::CLI::App#before_execute (method)">#before_execute</a></span>, <span class='object_link'><a href="../App.html#commands-class_method" title="Brut::CLI::App.commands (method)">commands</a></span>, <span class='object_link'><a href="../App.html#configure_only!-class_method" title="Brut::CLI::App.configure_only! (method)">configure_only!</a></span>, <span class='object_link'><a href="../App.html#configure_only%3F-class_method" title="Brut::CLI::App.configure_only? (method)">configure_only?</a></span>, <span class='object_link'><a href="../App.html#default_command-class_method" title="Brut::CLI::App.default_command (method)">default_command</a></span>, <span class='object_link'><a href="../App.html#default_env-class_method" title="Brut::CLI::App.default_env (method)">default_env</a></span>, <span class='object_link'><a href="../App.html#description-class_method" title="Brut::CLI::App.description (method)">description</a></span>, <span class='object_link'><a href="../App.html#env_var-class_method" title="Brut::CLI::App.env_var (method)">env_var</a></span>, <span class='object_link'><a href="../App.html#execute!-instance_method" title="Brut::CLI::App#execute! (method)">#execute!</a></span>, <span class='object_link'><a href="../App.html#initialize-instance_method" title="Brut::CLI::App#initialize (method)">#initialize</a></span>, <span class='object_link'><a href="../App.html#option_parser-class_method" title="Brut::CLI::App.option_parser (method)">option_parser</a></span>, <span class='object_link'><a href="../App.html#opts-class_method" title="Brut::CLI::App.opts (method)">opts</a></span>, <span class='object_link'><a href="../App.html#requires_project_env-class_method" title="Brut::CLI::App.requires_project_env (method)">requires_project_env</a></span>, <span class='object_link'><a href="../App.html#requires_project_env%3F-class_method" title="Brut::CLI::App.requires_project_env? (method)">requires_project_env?</a></span></p>
+  
+  <h3 class="inherited">Methods inherited from <span class='object_link'><a href="../Commands/BaseCommand.html" title="Brut::CLI::Commands::BaseCommand (class)">Commands::BaseCommand</a></span></h3>
+  <p class="inherited"><span class='object_link'><a href="../Commands/BaseCommand.html#accepts-instance_method" title="Brut::CLI::Commands::BaseCommand#accepts (method)">#accepts</a></span>, <span class='object_link'><a href="../Commands/BaseCommand.html#args_description-instance_method" title="Brut::CLI::Commands::BaseCommand#args_description (method)">#args_description</a></span>, <span class='object_link'><a href="../Commands/BaseCommand.html#argv-instance_method" title="Brut::CLI::Commands::BaseCommand#argv (method)">#argv</a></span>, <span class='object_link'><a href="../Commands/BaseCommand.html#commands-instance_method" title="Brut::CLI::Commands::BaseCommand#commands (method)">#commands</a></span>, <span class='object_link'><a href="../Commands/BaseCommand.html#default_command-instance_method" title="Brut::CLI::Commands::BaseCommand#default_command (method)">#default_command</a></span>, <span class='object_link'><a href="../Commands/BaseCommand.html#default_rack_env-instance_method" title="Brut::CLI::Commands::BaseCommand#default_rack_env (method)">#default_rack_env</a></span>, <span class='object_link'><a href="../Commands/BaseCommand.html#env-instance_method" title="Brut::CLI::Commands::BaseCommand#env (method)">#env</a></span>, <span class='object_link'><a href="../Commands/BaseCommand.html#env_vars-instance_method" title="Brut::CLI::Commands::BaseCommand#env_vars (method)">#env_vars</a></span>, <span class='object_link'><a href="../Commands/BaseCommand.html#execute-instance_method" title="Brut::CLI::Commands::BaseCommand#execute (method)">#execute</a></span>, <span class='object_link'><a href="../Commands/BaseCommand.html#options-instance_method" title="Brut::CLI::Commands::BaseCommand#options (method)">#options</a></span>, <span class='object_link'><a href="../Commands/BaseCommand.html#puts-instance_method" title="Brut::CLI::Commands::BaseCommand#puts (method)">#puts</a></span>, <span class='object_link'><a href="../Commands/BaseCommand.html#run-instance_method" title="Brut::CLI::Commands::BaseCommand#run (method)">#run</a></span>, <span class='object_link'><a href="../Commands/BaseCommand.html#stderr-instance_method" title="Brut::CLI::Commands::BaseCommand#stderr (method)">#stderr</a></span>, <span class='object_link'><a href="../Commands/BaseCommand.html#stdin-instance_method" title="Brut::CLI::Commands::BaseCommand#stdin (method)">#stdin</a></span>, <span class='object_link'><a href="../Commands/BaseCommand.html#stdout-instance_method" title="Brut::CLI::Commands::BaseCommand#stdout (method)">#stdout</a></span>, <span class='object_link'><a href="../Commands/BaseCommand.html#system!-instance_method" title="Brut::CLI::Commands::BaseCommand#system! (method)">#system!</a></span></p>
+
+
+  <div id="instance_method_details" class="method_details_list">
+    <h2>Instance Method Details</h2>
+
+    
+      <div class="method_details first">
+  <h3 class="signature first" id="bootstrap?-instance_method">
+  
+    #<strong>bootstrap?</strong>  &#x21d2; <tt>Boolean</tt> 
+  
 
   
-  
-  
-  
-  
-  
-  
-  
-  <h3 class="inherited">Methods included from <span class='object_link'><a href="../../I18n/ForCLI.html" title="Brut::I18n::ForCLI (module)">I18n::ForCLI</a></span></h3>
-  <p class="inherited"><span class='object_link'><a href="../../I18n/ForCLI.html#capture-instance_method" title="Brut::I18n::ForCLI#capture (method)">#capture</a></span>, <span class='object_link'><a href="../../I18n/ForCLI.html#html_escape-instance_method" title="Brut::I18n::ForCLI#html_escape (method)">#html_escape</a></span>, <span class='object_link'><a href="../../I18n/ForCLI.html#safe-instance_method" title="Brut::I18n::ForCLI#safe (method)">#safe</a></span></p>
 
   
-  
-  
-  
-  
-  
-  
-  
-  <h3 class="inherited">Methods included from <span class='object_link'><a href="../../I18n/BaseMethods.html" title="Brut::I18n::BaseMethods (module)">I18n::BaseMethods</a></span></h3>
-  <p class="inherited"><span class='object_link'><a href="../../I18n/BaseMethods.html#l-instance_method" title="Brut::I18n::BaseMethods#l (method)">#l</a></span>, <span class='object_link'><a href="../../I18n/BaseMethods.html#t-instance_method" title="Brut::I18n::BaseMethods#t (method)">#t</a></span>, <span class='object_link'><a href="../../I18n/BaseMethods.html#t_direct-instance_method" title="Brut::I18n::BaseMethods#t_direct (method)">#t_direct</a></span>, <span class='object_link'><a href="../../I18n/BaseMethods.html#this_field_value-instance_method" title="Brut::I18n::BaseMethods#this_field_value (method)">#this_field_value</a></span></p>
+</h3><div class="docstring">
+  <div class="discussion">
+    
 
-  
-  
-  
-  
-  
-  
-  
-  
-  <h3 class="inherited">Methods included from <span class='object_link'><a href="../ExecutionResults.html" title="Brut::CLI::ExecutionResults (module)">ExecutionResults</a></span></h3>
-  <p class="inherited"><span class='object_link'><a href="../ExecutionResults.html#abort_execution-instance_method" title="Brut::CLI::ExecutionResults#abort_execution (method)">#abort_execution</a></span>, <span class='object_link'><a href="../ExecutionResults.html#as_execution_result-instance_method" title="Brut::CLI::ExecutionResults#as_execution_result (method)">#as_execution_result</a></span>, <span class='object_link'><a href="../ExecutionResults.html#cli_usage_error-instance_method" title="Brut::CLI::ExecutionResults#cli_usage_error (method)">#cli_usage_error</a></span>, <span class='object_link'><a href="../ExecutionResults.html#continue_execution-instance_method" title="Brut::CLI::ExecutionResults#continue_execution (method)">#continue_execution</a></span>, <span class='object_link'><a href="../ExecutionResults.html#show_cli_usage-instance_method" title="Brut::CLI::ExecutionResults#show_cli_usage (method)">#show_cli_usage</a></span>, <span class='object_link'><a href="../ExecutionResults.html#stop_execution-instance_method" title="Brut::CLI::ExecutionResults#stop_execution (method)">#stop_execution</a></span></p>
-<div id="constructor_details" class="method_details_list">
-  <h2>Constructor Details</h2>
-  
-    <p class="notice">This class inherits a constructor from <span class='object_link'><a href="../App.html#initialize-instance_method" title="Brut::CLI::App#initialize (method)">Brut::CLI::App</a></span></p>
-  
+
+  </div>
 </div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Boolean</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
 
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+19</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/brut/cli/apps/build_assets.rb', line 19</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_bootstrap?'>bootstrap?</span> <span class='op'>=</span> <span class='id identifier rubyid_default_command'>default_command</span><span class='period'>.</span><span class='id identifier rubyid_bootstrap?'>bootstrap?</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="default_command_class-instance_method">
+  
+    #<strong>default_command_class</strong>  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+18</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/brut/cli/apps/build_assets.rb', line 18</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_default_command_class'>default_command_class</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="BuildAssets/All.html" title="Brut::CLI::Apps::BuildAssets::All (class)">All</a></span></span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="description-instance_method">
+  
+    #<strong>description</strong>  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+7</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/brut/cli/apps/build_assets.rb', line 7</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_description'>description</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Build and manage code and assets destined for the browser, such as CSS, JS, or images</span><span class='tstring_end'>&quot;</span></span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="name-instance_method">
+  
+    #<strong>name</strong>  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+16</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/brut/cli/apps/build_assets.rb', line 16</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_name'>name</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>build-assets</span><span class='tstring_end'>&quot;</span></span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="opts-instance_method">
+  
+    #<strong>opts</strong>  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+9
+10
+11
+12
+13
+14</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/brut/cli/apps/build_assets.rb', line 9</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_opts'>opts</span> <span class='op'>=</span> <span class='lbracket'>[</span>
+  <span class='lbracket'>[</span>
+    <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>--[no-]clean</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+    <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>If set, any old files from previous runs are deleted. If omitted, is false in production and true otherwise</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+  <span class='rbracket'>]</span><span class='comma'>,</span>
+<span class='rbracket'>]</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+  </div>
 
 </div>
 
       <div id="footer">
-  Generated on Sun Nov 30 20:50:12 2025 by
+  Generated on Fri Jan 30 20:39:53 2026 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.37 (ruby-3.4.6).
+  0.9.38 (ruby-3.4.6).
 </div>
 
     </div>

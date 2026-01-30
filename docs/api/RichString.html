@@ -6,7 +6,7 @@
 <title>
   Class: RichString
   
-    &mdash; Documentation by YARD 0.9.37
+    &mdash; Documentation by YARD 0.9.38
   
 </title>
 
@@ -344,6 +344,29 @@
 </li>
 
       
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#to_sym-instance_method" title="#to_sym (instance method)">#<strong>to_sym</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+</div></span>
+  
+</li>
+
+      
     </ul>
   
 
@@ -395,12 +418,12 @@ that's what you want.</p>
       <pre class="lines">
 
 
-77
 78
-79</pre>
+79
+80</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/brut/junk_drawer.rb', line 77</span>
+      <pre class="code"><span class="info file"># File 'lib/brut/junk_drawer.rb', line 78</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_initialize'>initialize</span><span class='lparen'>(</span><span class='id identifier rubyid_string'>string</span><span class='rparen'>)</span>
   <span class='ivar'>@string</span> <span class='op'>=</span> <span class='id identifier rubyid_string'>string</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span>
@@ -497,7 +520,6 @@ string is blank or nil, accounting for <code>blank_is_nil:</code></p>
       <pre class="lines">
 
 
-63
 64
 65
 66
@@ -505,10 +527,11 @@ string is blank or nil, accounting for <code>blank_is_nil:</code></p>
 68
 69
 70
-71</pre>
+71
+72</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/brut/junk_drawer.rb', line 63</span>
+      <pre class="code"><span class="info file"># File 'lib/brut/junk_drawer.rb', line 64</span>
 
 <span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_from_string'>from_string</span><span class='lparen'>(</span><span class='id identifier rubyid_string'>string</span><span class='comma'>,</span><span class='label'>blank_is_nil:</span><span class='kw'>true</span><span class='rparen'>)</span>
   <span class='kw'>if</span> <span class='id identifier rubyid_string'>string</span><span class='period'>.</span><span class='id identifier rubyid_nil?'>nil?</span>
@@ -545,18 +568,18 @@ string is blank or nil, accounting for <code>blank_is_nil:</code></p>
       <pre class="lines">
 
 
-168
-169
 170
 171
 172
 173
 174
 175
-176</pre>
+176
+177
+178</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/brut/junk_drawer.rb', line 168</span>
+      <pre class="code"><span class="info file"># File 'lib/brut/junk_drawer.rb', line 170</span>
 
 <span class='kw'>def</span> <span class='op'>+</span><span class='lparen'>(</span><span class='id identifier rubyid_other'>other</span><span class='rparen'>)</span>
   <span class='kw'>if</span> <span class='id identifier rubyid_other'>other</span><span class='period'>.</span><span class='id identifier rubyid_kind_of?'>kind_of?</span><span class='lparen'>(</span><span class='const'><span class='object_link'><a href="" title="RichString (class)">RichString</a></span></span><span class='rparen'>)</span>
@@ -587,18 +610,18 @@ string is blank or nil, accounting for <code>blank_is_nil:</code></p>
       <pre class="lines">
 
 
-158
-159
 160
 161
 162
 163
 164
 165
-166</pre>
+166
+167
+168</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/brut/junk_drawer.rb', line 158</span>
+      <pre class="code"><span class="info file"># File 'lib/brut/junk_drawer.rb', line 160</span>
 
 <span class='kw'>def</span> <span class='op'>&lt;=&gt;</span><span class='lparen'>(</span><span class='id identifier rubyid_other'>other</span><span class='rparen'>)</span>
   <span class='kw'>if</span> <span class='id identifier rubyid_other'>other</span><span class='period'>.</span><span class='id identifier rubyid_kind_of?'>kind_of?</span><span class='lparen'>(</span><span class='const'><span class='object_link'><a href="" title="RichString (class)">RichString</a></span></span><span class='rparen'>)</span>
@@ -629,18 +652,18 @@ string is blank or nil, accounting for <code>blank_is_nil:</code></p>
       <pre class="lines">
 
 
-148
-149
 150
 151
 152
 153
 154
 155
-156</pre>
+156
+157
+158</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/brut/junk_drawer.rb', line 148</span>
+      <pre class="code"><span class="info file"># File 'lib/brut/junk_drawer.rb', line 150</span>
 
 <span class='kw'>def</span> <span class='op'>==</span><span class='lparen'>(</span><span class='id identifier rubyid_other'>other</span><span class='rparen'>)</span>
   <span class='kw'>if</span> <span class='id identifier rubyid_other'>other</span><span class='period'>.</span><span class='id identifier rubyid_kind_of?'>kind_of?</span><span class='lparen'>(</span><span class='const'><span class='object_link'><a href="" title="RichString (class)">RichString</a></span></span><span class='rparen'>)</span>
@@ -671,10 +694,10 @@ string is blank or nil, accounting for <code>blank_is_nil:</code></p>
       <pre class="lines">
 
 
-144</pre>
+145</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/brut/junk_drawer.rb', line 144</span>
+      <pre class="code"><span class="info file"># File 'lib/brut/junk_drawer.rb', line 145</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_length'>length</span> <span class='op'>=</span> <span class='id identifier rubyid_to_s'>to_s</span><span class='period'>.</span><span class='id identifier rubyid_length'>length</span></pre>
     </td>
@@ -697,10 +720,10 @@ string is blank or nil, accounting for <code>blank_is_nil:</code></p>
       <pre class="lines">
 
 
-142</pre>
+143</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/brut/junk_drawer.rb', line 142</span>
+      <pre class="code"><span class="info file"># File 'lib/brut/junk_drawer.rb', line 143</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_to_s'>to_s</span> <span class='op'>=</span> <span class='ivar'>@string</span></pre>
     </td>
@@ -723,10 +746,10 @@ string is blank or nil, accounting for <code>blank_is_nil:</code></p>
       <pre class="lines">
 
 
-146</pre>
+148</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/brut/junk_drawer.rb', line 146</span>
+      <pre class="code"><span class="info file"># File 'lib/brut/junk_drawer.rb', line 148</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_to_s_or_nil'>to_s_or_nil</span> <span class='op'>=</span> <span class='ivar'>@string</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span><span class='period'>.</span><span class='id identifier rubyid_strip'>strip</span><span class='period'>.</span><span class='id identifier rubyid_empty?'>empty?</span> <span class='op'>?</span> <span class='kw'>nil</span> <span class='op'>:</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span></pre>
     </td>
@@ -749,12 +772,38 @@ string is blank or nil, accounting for <code>blank_is_nil:</code></p>
       <pre class="lines">
 
 
-143</pre>
+144</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/brut/junk_drawer.rb', line 143</span>
+      <pre class="code"><span class="info file"># File 'lib/brut/junk_drawer.rb', line 144</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_to_str'>to_str</span> <span class='op'>=</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="to_sym-instance_method">
+  
+    #<strong>to_sym</strong>  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+146</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/brut/junk_drawer.rb', line 146</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_to_sym'>to_sym</span> <span class='op'>=</span> <span class='id identifier rubyid_to_s'>to_s</span><span class='period'>.</span><span class='id identifier rubyid_to_sym'>to_sym</span></pre>
     </td>
   </tr>
 </table>
@@ -765,9 +814,9 @@ string is blank or nil, accounting for <code>blank_is_nil:</code></p>
 </div>
 
       <div id="footer">
-  Generated on Sun Nov 30 20:50:11 2025 by
+  Generated on Fri Jan 30 20:39:52 2026 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.37 (ruby-3.4.6).
+  0.9.38 (ruby-3.4.6).
 </div>
 
     </div>

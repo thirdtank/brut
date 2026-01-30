@@ -6,7 +6,7 @@
 <title>
   Class: Brut::TUI::MarkupString
   
-    &mdash; Documentation by YARD 0.9.37
+    &mdash; Documentation by YARD 0.9.38
   
 </title>
 
@@ -220,6 +220,29 @@
 
   
     <span class="summary_desc"><div class='inline'><p>Parse the string for known markup, yielding at key parsing events.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#to_s-instance_method" title="#to_s (instance method)">#<strong>to_s</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
 </div></span>
   
 </li>
@@ -441,8 +464,6 @@ is the type of markup encountered, one of <code>:bold</code>, <code>:weak</code>
       <pre class="lines">
 
 
-32
-33
 34
 35
 36
@@ -476,10 +497,12 @@ is the type of markup encountered, one of <code>:bold</code>, <code>:weak</code>
 64
 65
 66
-67</pre>
+67
+68
+69</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/brut/tui/markup_string.rb', line 32</span>
+      <pre class="code"><span class="info file"># File 'lib/brut/tui/markup_string.rb', line 34</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_parse'>parse</span><span class='lparen'>(</span><span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_in_delimiter'>in_delimiter</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="#DELIMITERS-constant" title="Brut::TUI::MarkupString::DELIMITERS (constant)">DELIMITERS</a></span></span><span class='period'>.</span><span class='id identifier rubyid_keys'>keys</span><span class='period'>.</span><span class='id identifier rubyid_map'>map</span> <span class='lbrace'>{</span> <span class='lbracket'>[</span> <span class='id identifier rubyid_it'>it</span><span class='comma'>,</span> <span class='kw'>false</span> <span class='rbracket'>]</span> <span class='rbrace'>}</span><span class='period'>.</span><span class='id identifier rubyid_to_h'>to_h</span>
@@ -522,14 +545,40 @@ is the type of markup encountered, one of <code>:bold</code>, <code>:weak</code>
 </table>
 </div>
     
+      <div class="method_details ">
+  <h3 class="signature " id="to_s-instance_method">
+  
+    #<strong>to_s</strong>  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+23</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/brut/tui/markup_string.rb', line 23</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_to_s'>to_s</span> <span class='op'>=</span> <span class='ivar'>@string</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
   </div>
 
 </div>
 
       <div id="footer">
-  Generated on Sun Nov 30 20:50:12 2025 by
+  Generated on Fri Jan 30 20:39:53 2026 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.37 (ruby-3.4.6).
+  0.9.38 (ruby-3.4.6).
 </div>
 
     </div>

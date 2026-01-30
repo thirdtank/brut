@@ -6,7 +6,7 @@
 <title>
   Class: Brut::CLI::Output
   
-    &mdash; Documentation by YARD 0.9.37
+    &mdash; Documentation by YARD 0.9.38
   
 </title>
 
@@ -126,9 +126,102 @@ debugging or just understanding what is going on.</p>
 
 
 
+  <h2>Instance Attribute Summary <small><a href="#" class="summary_toggle">collapse</a></small></h2>
+  <ul class="summary">
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#io-instance_method" title="#io (instance method)">#<strong>io</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+    
+      <span class="note title readonly">readonly</span>
+    
+    
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>Returns the value of attribute io.</p>
+</div></span>
+  
+</li>
+
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#prefix-instance_method" title="#prefix (instance method)">#<strong>prefix</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+    
+      <span class="note title readonly">readonly</span>
+    
+    
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>Returns the value of attribute prefix.</p>
+</div></span>
+  
+</li>
+
+    
+  </ul>
 
 
 
+
+  
+    <h2>
+      Class Method Summary
+      <small><a href="#" class="summary_toggle">collapse</a></small>
+    </h2>
+
+    <ul class="summary">
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#from_io-class_method" title="from_io (class method)">.<strong>from_io</strong>(io_or_output)  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+</div></span>
+  
+</li>
+
+      
+    </ul>
   
     <h2>
       Instance Method Summary
@@ -365,14 +458,14 @@ debugging or just understanding what is going on.</p>
       <pre class="lines">
 
 
-21
-22
-23
-24
-25</pre>
+34
+35
+36
+37
+38</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/brut/cli/output.rb', line 21</span>
+      <pre class="code"><span class="info file"># File 'lib/brut/cli/output.rb', line 34</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_initialize'>initialize</span><span class='lparen'>(</span><span class='label'>io:</span><span class='comma'>,</span> <span class='label'>prefix:</span><span class='rparen'>)</span>
   <span class='ivar'>@io</span>          <span class='op'>=</span> <span class='id identifier rubyid_io'>io</span>
@@ -386,6 +479,141 @@ debugging or just understanding what is going on.</p>
   
 </div>
 
+  <div id="instance_attr_details" class="attr_details">
+    <h2>Instance Attribute Details</h2>
+    
+      
+      <span id=""></span>
+      <div class="method_details first">
+  <h3 class="signature first" id="io-instance_method">
+  
+    #<strong>io</strong>  &#x21d2; <tt>Object</tt>  <span class="extras">(readonly)</span>
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>Returns the value of attribute io.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+27
+28
+29</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/brut/cli/output.rb', line 27</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_io'>io</span>
+  <span class='ivar'>@io</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      
+      <span id=""></span>
+      <div class="method_details ">
+  <h3 class="signature " id="prefix-instance_method">
+  
+    #<strong>prefix</strong>  &#x21d2; <tt>Object</tt>  <span class="extras">(readonly)</span>
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>Returns the value of attribute prefix.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+28
+29
+30</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/brut/cli/output.rb', line 28</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_prefix'>prefix</span>
+  <span class='ivar'>@prefix</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+  </div>
+
+
+  <div id="class_method_details" class="method_details_list">
+    <h2>Class Method Details</h2>
+
+    
+      <div class="method_details first">
+  <h3 class="signature first" id="from_io-class_method">
+  
+    .<strong>from_io</strong>(io_or_output)  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+18
+19
+20
+21
+22
+23
+24
+25</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/brut/cli/output.rb', line 18</span>
+
+<span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_from_io'>from_io</span><span class='lparen'>(</span><span class='id identifier rubyid_io_or_output'>io_or_output</span><span class='rparen'>)</span>
+  <span class='kw'>case</span> <span class='id identifier rubyid_io_or_output'>io_or_output</span>
+  <span class='kw'>in</span> <span class='const'><span class='object_link'><a href="../../Brut.html" title="Brut (module)">Brut</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../CLI.html" title="Brut::CLI (module)">CLI</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="" title="Brut::CLI::Output (class)">Output</a></span></span>
+    <span class='id identifier rubyid_io_or_output'>io_or_output</span>
+  <span class='kw'>else</span>
+    <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='label'>io:</span> <span class='id identifier rubyid_io_or_output'>io_or_output</span><span class='comma'>,</span> <span class='label'>prefix:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+  <span class='kw'>end</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+  </div>
 
   <div id="instance_method_details" class="method_details_list">
     <h2>Instance Method Details</h2>
@@ -416,13 +644,13 @@ debugging or just understanding what is going on.</p>
       <pre class="lines">
 
 
-73
-74
-75
-76</pre>
+86
+87
+88
+89</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/brut/cli/output.rb', line 73</span>
+      <pre class="code"><span class="info file"># File 'lib/brut/cli/output.rb', line 86</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_flush'>flush</span>
   <span class='ivar'>@io</span><span class='period'>.</span><span class='id identifier rubyid_flush'>flush</span>
@@ -466,12 +694,12 @@ expose said <code>IO</code></p>
       <pre class="lines">
 
 
-53
-54
-55</pre>
+66
+67
+68</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/brut/cli/output.rb', line 53</span>
+      <pre class="code"><span class="info file"># File 'lib/brut/cli/output.rb', line 66</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_print'>print</span><span class='lparen'>(</span><span class='op'>*</span><span class='id identifier rubyid_objects'>objects</span><span class='rparen'>)</span>
   <span class='ivar'>@io</span><span class='period'>.</span><span class='id identifier rubyid_print'>print</span><span class='lparen'>(</span><span class='op'>*</span><span class='id identifier rubyid_objects'>objects</span><span class='rparen'>)</span>
@@ -514,12 +742,12 @@ formatting than is afforded by <span class='object_link'><a href="#puts-instance
       <pre class="lines">
 
 
-61
-62
-63</pre>
+74
+75
+76</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/brut/cli/output.rb', line 61</span>
+      <pre class="code"><span class="info file"># File 'lib/brut/cli/output.rb', line 74</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_printf'>printf</span><span class='lparen'>(</span><span class='id identifier rubyid_format_string'>format_string</span><span class='comma'>,</span><span class='op'>*</span><span class='id identifier rubyid_objects'>objects</span><span class='rparen'>)</span>
   <span class='ivar'>@io</span><span class='period'>.</span><span class='id identifier rubyid_printf'>printf</span><span class='lparen'>(</span><span class='ivar'>@prefix</span> <span class='op'>+</span> <span class='id identifier rubyid_format_string'>format_string</span><span class='comma'>,</span><span class='op'>*</span><span class='id identifier rubyid_objects'>objects</span><span class='rparen'>)</span>
@@ -561,12 +789,12 @@ formatting than is afforded by <span class='object_link'><a href="#puts-instance
       <pre class="lines">
 
 
-68
-69
-70</pre>
+81
+82
+83</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/brut/cli/output.rb', line 68</span>
+      <pre class="code"><span class="info file"># File 'lib/brut/cli/output.rb', line 81</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_printf_no_prefix'>printf_no_prefix</span><span class='lparen'>(</span><span class='id identifier rubyid_format_string'>format_string</span><span class='comma'>,</span><span class='op'>*</span><span class='id identifier rubyid_objects'>objects</span><span class='rparen'>)</span>
   <span class='ivar'>@io</span><span class='period'>.</span><span class='id identifier rubyid_printf'>printf</span><span class='lparen'>(</span><span class='id identifier rubyid_format_string'>format_string</span><span class='comma'>,</span><span class='op'>*</span><span class='id identifier rubyid_objects'>objects</span><span class='rparen'>)</span>
@@ -609,18 +837,18 @@ read.</p>
       <pre class="lines">
 
 
-39
-40
-41
-42
-43
-44
-45
-46
-47</pre>
+52
+53
+54
+55
+56
+57
+58
+59
+60</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/brut/cli/output.rb', line 39</span>
+      <pre class="code"><span class="info file"># File 'lib/brut/cli/output.rb', line 52</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_puts'>puts</span><span class='lparen'>(</span><span class='op'>*</span><span class='id identifier rubyid_objects'>objects</span><span class='rparen'>)</span>
   <span class='kw'>if</span> <span class='id identifier rubyid_objects'>objects</span><span class='period'>.</span><span class='id identifier rubyid_empty?'>empty?</span>
@@ -669,12 +897,12 @@ it's intended to be piped into another app.</p>
       <pre class="lines">
 
 
-31
-32
-33</pre>
+44
+45
+46</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/brut/cli/output.rb', line 31</span>
+      <pre class="code"><span class="info file"># File 'lib/brut/cli/output.rb', line 44</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_puts_no_prefix'>puts_no_prefix</span><span class='lparen'>(</span><span class='op'>*</span><span class='id identifier rubyid_objects'>objects</span><span class='rparen'>)</span>
   <span class='ivar'>@io</span><span class='period'>.</span><span class='id identifier rubyid_puts'>puts</span><span class='lparen'>(</span><span class='op'>*</span><span class='id identifier rubyid_objects'>objects</span><span class='rparen'>)</span>
@@ -689,9 +917,9 @@ it's intended to be piped into another app.</p>
 </div>
 
       <div id="footer">
-  Generated on Sun Nov 30 20:50:11 2025 by
+  Generated on Fri Jan 30 20:39:52 2026 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.37 (ruby-3.4.6).
+  0.9.38 (ruby-3.4.6).
 </div>
 
     </div>

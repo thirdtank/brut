@@ -6,7 +6,7 @@
 <title>
   Class: Brut::TUI::Script::ExecStep
   
-    &mdash; Documentation by YARD 0.9.37
+    &mdash; Documentation by YARD 0.9.38
   
 </title>
 
@@ -209,7 +209,7 @@ Either way, <span class='object_link'><a href="Events/StepCompleted.html" title=
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#initialize-instance_method" title="#initialize (instance method)">#<strong>initialize</strong>(event_loop, description, command:)  &#x21d2; ExecStep </a>
+      <a href="#initialize-instance_method" title="#initialize (instance method)">#<strong>initialize</strong>(event_loop, description, command:, stdout: false, stderr: false)  &#x21d2; ExecStep </a>
     
 
     
@@ -269,7 +269,7 @@ Either way, <span class='object_link'><a href="Events/StepCompleted.html" title=
     <div class="method_details first">
   <h3 class="signature first" id="initialize-instance_method">
   
-    #<strong>initialize</strong>(event_loop, description, command:)  &#x21d2; <tt><span class='object_link'><a href="" title="Brut::TUI::Script::ExecStep (class)">ExecStep</a></span></tt> 
+    #<strong>initialize</strong>(event_loop, description, command:, stdout: false, stderr: false)  &#x21d2; <tt><span class='object_link'><a href="" title="Brut::TUI::Script::ExecStep (class)">ExecStep</a></span></tt> 
   
 
   
@@ -294,14 +294,18 @@ Either way, <span class='object_link'><a href="Events/StepCompleted.html" title=
 20
 21
 22
-23</pre>
+23
+24
+25</pre>
     </td>
     <td>
       <pre class="code"><span class="info file"># File 'lib/brut/tui/script/exec_step.rb', line 20</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_initialize'>initialize</span><span class='lparen'>(</span><span class='id identifier rubyid_event_loop'>event_loop</span><span class='comma'>,</span> <span class='id identifier rubyid_description'>description</span><span class='comma'>,</span> <span class='label'>command:</span><span class='rparen'>)</span>
+<span class='kw'>def</span> <span class='id identifier rubyid_initialize'>initialize</span><span class='lparen'>(</span><span class='id identifier rubyid_event_loop'>event_loop</span><span class='comma'>,</span> <span class='id identifier rubyid_description'>description</span><span class='comma'>,</span> <span class='label'>command:</span><span class='comma'>,</span> <span class='label'>stdout:</span> <span class='kw'>false</span><span class='comma'>,</span> <span class='label'>stderr:</span> <span class='kw'>false</span><span class='rparen'>)</span>
   <span class='kw'>super</span><span class='lparen'>(</span><span class='id identifier rubyid_event_loop'>event_loop</span><span class='comma'>,</span> <span class='id identifier rubyid_description'>description</span><span class='rparen'>)</span>
   <span class='ivar'>@command</span> <span class='op'>=</span> <span class='id identifier rubyid_command'>command</span>
+  <span class='ivar'>@stdout</span>  <span class='op'>=</span> <span class='id identifier rubyid_stdout'>stdout</span>
+  <span class='ivar'>@stderr</span>  <span class='op'>=</span> <span class='id identifier rubyid_stderr'>stderr</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -377,15 +381,25 @@ Either way, <span class='object_link'><a href="Events/StepCompleted.html" title=
       <pre class="lines">
 
 
-25
-26
-27</pre>
+27
+28
+29
+30
+31
+32
+33
+34</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/brut/tui/script/exec_step.rb', line 25</span>
+      <pre class="code"><span class="info file"># File 'lib/brut/tui/script/exec_step.rb', line 27</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_deconstruct_keys'>deconstruct_keys</span><span class='lparen'>(</span><span class='id identifier rubyid_keys'>keys</span><span class='op'>=</span><span class='kw'>nil</span><span class='rparen'>)</span>
-  <span class='kw'>super</span><span class='period'>.</span><span class='id identifier rubyid_deconstruct_keys'>deconstruct_keys</span><span class='lparen'>(</span><span class='id identifier rubyid_keys'>keys</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_merge'>merge</span><span class='lparen'>(</span><span class='lbrace'>{</span> <span class='label'>command:</span> <span class='ivar'>@command</span><span class='comma'>,</span> <span class='label'>strip_ansi:</span> <span class='kw'>false</span> <span class='rbrace'>}</span><span class='rparen'>)</span>
+  <span class='kw'>super</span><span class='period'>.</span><span class='id identifier rubyid_deconstruct_keys'>deconstruct_keys</span><span class='lparen'>(</span><span class='id identifier rubyid_keys'>keys</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_merge'>merge</span><span class='lparen'>(</span><span class='lbrace'>{</span>
+    <span class='label'>command:</span> <span class='ivar'>@command</span><span class='comma'>,</span>
+    <span class='label'>strip_ansi:</span> <span class='kw'>false</span><span class='comma'>,</span>
+    <span class='label'>stdout:</span> <span class='ivar'>@stdout</span><span class='comma'>,</span>
+    <span class='label'>stderr:</span> <span class='ivar'>@stderr</span>
+  <span class='rbrace'>}</span><span class='rparen'>)</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -407,13 +421,6 @@ Either way, <span class='object_link'><a href="Events/StepCompleted.html" title=
       <pre class="lines">
 
 
-28
-29
-30
-31
-32
-33
-34
 35
 36
 37
@@ -437,10 +444,17 @@ Either way, <span class='object_link'><a href="Events/StepCompleted.html" title=
 55
 56
 57
-58</pre>
+58
+59
+60
+61
+62
+63
+64
+65</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/brut/tui/script/exec_step.rb', line 28</span>
+      <pre class="code"><span class="info file"># File 'lib/brut/tui/script/exec_step.rb', line 35</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_run!'>run!</span>
   <span class='id identifier rubyid_event_loop'>event_loop</span> <span class='op'>&lt;&lt;</span> <span class='const'><span class='object_link'><a href="Step.html#Events-constant" title="Brut::TUI::Script::Step::Events (constant)">Events</a></span></span><span class='op'>::</span><span class='const'>StepStarted</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='label'>step:</span> <span class='kw'>self</span><span class='rparen'>)</span>
@@ -452,13 +466,13 @@ Either way, <span class='object_link'><a href="Events/StepCompleted.html" title=
     <span class='kw'>while</span> <span class='id identifier rubyid_o'>o</span> <span class='op'>||</span> <span class='id identifier rubyid_e'>e</span>
       <span class='kw'>if</span> <span class='id identifier rubyid_o'>o</span>
         <span class='kw'>if</span> <span class='id identifier rubyid_o'>o</span> <span class='op'>!=</span> <span class='symbol'>:wait_readable</span>
-          <span class='id identifier rubyid_event_loop'>event_loop</span> <span class='op'>&lt;&lt;</span> <span class='const'><span class='object_link'><a href="Step.html#Events-constant" title="Brut::TUI::Script::Step::Events (constant)">Events</a></span></span><span class='op'>::</span><span class='const'>CommandStdOut</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='label'>step:</span> <span class='kw'>self</span><span class='comma'>,</span> <span class='label'>output:</span> <span class='id identifier rubyid_o'>o</span><span class='rparen'>)</span>
+          <span class='id identifier rubyid_event_loop'>event_loop</span> <span class='op'>&lt;&lt;</span> <span class='const'><span class='object_link'><a href="Step.html#Events-constant" title="Brut::TUI::Script::Step::Events (constant)">Events</a></span></span><span class='op'>::</span><span class='const'>CommandStdOut</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='label'>step:</span> <span class='kw'>self</span><span class='comma'>,</span> <span class='label'>output:</span> <span class='id identifier rubyid_o'>o</span><span class='comma'>,</span> <span class='label'>show:</span> <span class='ivar'>@stdout</span><span class='rparen'>)</span>
         <span class='kw'>end</span>
         <span class='id identifier rubyid_o'>o</span> <span class='op'>=</span> <span class='id identifier rubyid_stdout'>stdout</span><span class='period'>.</span><span class='id identifier rubyid_read_nonblock'>read_nonblock</span><span class='lparen'>(</span><span class='int'>10</span><span class='comma'>,</span> <span class='label'>exception:</span> <span class='kw'>false</span><span class='rparen'>)</span>
       <span class='kw'>end</span>
       <span class='kw'>if</span> <span class='id identifier rubyid_e'>e</span>
         <span class='kw'>if</span> <span class='id identifier rubyid_e'>e</span> <span class='op'>!=</span> <span class='symbol'>:wait_readable</span>
-          <span class='id identifier rubyid_event_loop'>event_loop</span> <span class='op'>&lt;&lt;</span> <span class='const'><span class='object_link'><a href="Step.html#Events-constant" title="Brut::TUI::Script::Step::Events (constant)">Events</a></span></span><span class='op'>::</span><span class='const'>CommandStdErr</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='label'>step:</span> <span class='kw'>self</span><span class='comma'>,</span> <span class='label'>output:</span> <span class='id identifier rubyid_e'>e</span><span class='rparen'>)</span>
+          <span class='id identifier rubyid_event_loop'>event_loop</span> <span class='op'>&lt;&lt;</span> <span class='const'><span class='object_link'><a href="Step.html#Events-constant" title="Brut::TUI::Script::Step::Events (constant)">Events</a></span></span><span class='op'>::</span><span class='const'>CommandStdErr</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='label'>step:</span> <span class='kw'>self</span><span class='comma'>,</span> <span class='label'>output:</span> <span class='id identifier rubyid_e'>e</span><span class='comma'>,</span> <span class='label'>show:</span> <span class='ivar'>@stderr</span><span class='rparen'>)</span>
         <span class='kw'>end</span>
         <span class='id identifier rubyid_e'>e</span> <span class='op'>=</span> <span class='id identifier rubyid_stderr'>stderr</span><span class='period'>.</span><span class='id identifier rubyid_read_nonblock'>read_nonblock</span><span class='lparen'>(</span><span class='int'>10</span><span class='comma'>,</span> <span class='label'>exception:</span> <span class='kw'>false</span><span class='rparen'>)</span>
       <span class='kw'>end</span>
@@ -483,9 +497,9 @@ Either way, <span class='object_link'><a href="Events/StepCompleted.html" title=
 </div>
 
       <div id="footer">
-  Generated on Sun Nov 30 20:50:12 2025 by
+  Generated on Fri Jan 30 20:39:53 2026 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.37 (ruby-3.4.6).
+  0.9.38 (ruby-3.4.6).
 </div>
 
     </div>

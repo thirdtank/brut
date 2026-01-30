@@ -6,7 +6,7 @@
 <title>
   Top Level Namespace
   
-    &mdash; Documentation by YARD 0.9.37
+    &mdash; Documentation by YARD 0.9.38
   
 </title>
 
@@ -86,7 +86,7 @@
     
   
     
-      <strong class="classes">Classes:</strong> <span class='object_link'><a href="Clock.html" title="Clock (class)">Clock</a></span>, <span class='object_link'><a href="ModuleName.html" title="ModuleName (class)">ModuleName</a></span>, <span class='object_link'><a href="RichString.html" title="RichString (class)">RichString</a></span>
+      <strong class="classes">Classes:</strong> <span class='object_link'><a href="Clock.html" title="Clock (class)">Clock</a></span>, <span class='object_link'><a href="ModuleName.html" title="ModuleName (class)">ModuleName</a></span>, <span class='object_link'><a href="PrefixedIO.html" title="PrefixedIO (class)">PrefixedIO</a></span>, <span class='object_link'><a href="RichString.html" title="RichString (class)">RichString</a></span>
     
   
 </p>
@@ -97,14 +97,94 @@
 
 
 
+  
+    <h2>
+      Instance Method Summary
+      <small><a href="#" class="summary_toggle">collapse</a></small>
+    </h2>
 
+    <ul class="summary">
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="top-level-namespace.html#time_it-instance_method" title="#time_it (instance method)">#<strong>time_it</strong>(label, &amp;block)  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+</div></span>
+  
+</li>
+
+      
+    </ul>
+  
+
+
+
+  <div id="instance_method_details" class="method_details_list">
+    <h2>Instance Method Details</h2>
+
+    
+      <div class="method_details first">
+  <h3 class="signature first" id="time_it-instance_method">
+  
+    #<strong>time_it</strong>(label, &amp;block)  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+1
+2
+3
+4
+5
+6
+7
+8</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/brut/framework/mcp.rb', line 1</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_time_it'>time_it</span><span class='lparen'>(</span><span class='id identifier rubyid_label'>label</span><span class='comma'>,</span><span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_start_time'>start_time</span> <span class='op'>=</span> <span class='const'>Time</span><span class='period'>.</span><span class='id identifier rubyid_now'>now</span>
+  <span class='id identifier rubyid_result'>result</span> <span class='op'>=</span> <span class='id identifier rubyid_block'>block</span><span class='period'>.</span><span class='id identifier rubyid_call'>call</span>
+  <span class='id identifier rubyid_end_time'>end_time</span> <span class='op'>=</span> <span class='const'>Time</span><span class='period'>.</span><span class='id identifier rubyid_now'>now</span>
+  <span class='id identifier rubyid_duration'>duration</span> <span class='op'>=</span> <span class='id identifier rubyid_end_time'>end_time</span> <span class='op'>-</span> <span class='id identifier rubyid_start_time'>start_time</span>
+  <span class='comment'>#printf &quot;%30s - %.4f\n&quot;,label,duration
+</span>  <span class='id identifier rubyid_result'>result</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+  </div>
 
 </div>
 
       <div id="footer">
-  Generated on Sun Nov 30 20:50:11 2025 by
+  Generated on Fri Jan 30 20:39:51 2026 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.37 (ruby-3.4.6).
+  0.9.38 (ruby-3.4.6).
 </div>
 
     </div>

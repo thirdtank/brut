@@ -6,7 +6,7 @@
 <title>
   Class: Brut::TUI::Script
   
-    &mdash; Documentation by YARD 0.9.37
+    &mdash; Documentation by YARD 0.9.38
   
 </title>
 
@@ -107,7 +107,7 @@ to an external command or execute Ruby code.</p>
 
 <p>You are intended to subclass this class and implement <code>#execute</code>, which can use
 the various methods described here to describe the script.  In the context of a
-Brut CLI, your subclass would be used inside the <span class='object_link'><a href="../CLI/Command.html#execute-instance_method" title="Brut::CLI::Command#execute (method)">CLI::Command#execute</a></span> method, where
+Brut CLI, your subclass would be used inside the CLI::Command#execute method, where
 it would call <code>#run!</code> (not <code>#execute</code>).</p>
 
 <p>Inside <code>#execute</code> you should call <code>#phase</code> for each logical phase/grouping of steps. There must be at least
@@ -129,7 +129,7 @@ communicate will work.</p>
       <pre class="example code"><code><span class='kw'>def</span> <span class='id identifier rubyid_execute'>execute</span>
   <span class='id identifier rubyid_phase'>phase</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Set up test data</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>do</span>
     <span class='id identifier rubyid_step'>step</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Initializing database</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
-         <span class='label'>exec:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>bin/db rebuild -e test</span><span class='tstring_end'>&quot;</span></span>
+         <span class='label'>exec:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>brut db rebuild -e test</span><span class='tstring_end'>&quot;</span></span>
     <span class='id identifier rubyid_step'>step</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Loading data</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>do</span>
       <span class='const'>MyData</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_data'>data</span><span class='op'>|</span>
         <span class='id identifier rubyid_notify'>notify</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Inserting </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_data'>data</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span>
@@ -393,7 +393,7 @@ communicate will work.</p>
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#step-instance_method" title="#step (instance method)">#<strong>step</strong>(description, exec: nil) { ... } &#x21d2; Object </a>
+      <a href="#step-instance_method" title="#step (instance method)">#<strong>step</strong>(description, exec: nil, stdout: false, stderr: false) { ... } &#x21d2; Object </a>
     
 
     
@@ -575,7 +575,7 @@ ANSI escape codes to format the output. If false, it won't.</p>
   <span class='id identifier rubyid_theme'>theme</span> <span class='op'>=</span> <span class='kw'>if</span> <span class='id identifier rubyid_ansi'>ansi</span>
              <span class='const'><span class='object_link'><a href="../../Brut.html" title="Brut (module)">Brut</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../TUI.html" title="Brut::TUI (module)">TUI</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="TerminalTheme.html" title="Brut::TUI::TerminalTheme (class)">TerminalTheme</a></span></span><span class='period'>.</span><span class='id identifier rubyid_based_on_background'><span class='object_link'><a href="TerminalTheme.html#based_on_background-class_method" title="Brut::TUI::TerminalTheme.based_on_background (method)">based_on_background</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_terminal'>terminal</span><span class='rparen'>)</span>
            <span class='kw'>else</span>
-             <span class='const'><span class='object_link'><a href="../../Brut.html" title="Brut (module)">Brut</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../TUI.html" title="Brut::TUI (module)">TUI</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Themes.html" title="Brut::TUI::Themes (module)">Themes</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Themes/None.html" title="Brut::TUI::Themes::None (class)">None</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="TerminalTheme.html#initialize-instance_method" title="Brut::TUI::TerminalTheme#initialize (method)">new</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_terminal'>terminal</span><span class='rparen'>)</span>
+             <span class='const'><span class='object_link'><a href="../../Brut.html" title="Brut (module)">Brut</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../TUI.html" title="Brut::TUI (module)">TUI</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Themes.html" title="Brut::TUI::Themes (module)">Themes</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Themes/None.html" title="Brut::TUI::Themes::None (class)">None</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='id identifier rubyid_terminal'>terminal</span><span class='rparen'>)</span>
            <span class='kw'>end</span>
   <span class='id identifier rubyid_puts_subscriber'>puts_subscriber</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../../Brut.html" title="Brut (module)">Brut</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../TUI.html" title="Brut::TUI (module)">TUI</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="" title="Brut::TUI::Script (class)">Script</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Script/PutsSubscriber.html" title="Brut::TUI::Script::PutsSubscriber (class)">PutsSubscriber</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="Script/PutsSubscriber.html#initialize-instance_method" title="Brut::TUI::Script::PutsSubscriber#initialize (method)">new</a></span></span><span class='lparen'>(</span><span class='gvar'>$0</span><span class='comma'>,</span> <span class='label'>terminal:</span><span class='comma'>,</span> <span class='label'>theme:</span><span class='rparen'>)</span>
 
@@ -691,12 +691,12 @@ and not inside a phase or step.</p>
       <pre class="lines">
 
 
-190
-191
-192</pre>
+194
+195
+196</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/brut/tui/script.rb', line 190</span>
+      <pre class="code"><span class="info file"># File 'lib/brut/tui/script.rb', line 194</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_done'>done</span><span class='lparen'>(</span><span class='id identifier rubyid_message'>message</span><span class='rparen'>)</span>
   <span class='ivar'>@done_message</span> <span class='op'>=</span> <span class='id identifier rubyid_message'>message</span>
@@ -751,12 +751,12 @@ the script.  Raise an exception to do that.</p>
       <pre class="lines">
 
 
-198
-199
-200</pre>
+202
+203
+204</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/brut/tui/script.rb', line 198</span>
+      <pre class="code"><span class="info file"># File 'lib/brut/tui/script.rb', line 202</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_error'>error</span><span class='lparen'>(</span><span class='id identifier rubyid_message'>message</span><span class='rparen'>)</span>
   <span class='ivar'>@event_loop</span> <span class='op'>&lt;&lt;</span> <span class='const'><span class='object_link'><a href="Script/Events.html" title="Brut::TUI::Script::Events (module)">Events</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Script/Events/Message.html" title="Brut::TUI::Script::Events::Message (class)">Message</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="Script/Events/Message.html#initialize-instance_method" title="Brut::TUI::Script::Events::Message#initialize (method)">new</a></span></span><span class='lparen'>(</span><span class='label'>message:</span><span class='comma'>,</span> <span class='label'>type:</span> <span class='symbol'>:error</span><span class='rparen'>)</span>
@@ -812,13 +812,13 @@ long expanded path.</p>
       <pre class="lines">
 
 
-207
-208
-209
-210</pre>
+211
+212
+213
+214</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/brut/tui/script.rb', line 207</span>
+      <pre class="code"><span class="info file"># File 'lib/brut/tui/script.rb', line 211</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_filename'>filename</span><span class='lparen'>(</span><span class='id identifier rubyid_path'>path</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_path'>path</span> <span class='op'>=</span> <span class='const'>Pathname</span><span class='lparen'>(</span><span class='id identifier rubyid_path'>path</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_expand_path'>expand_path</span>
@@ -873,12 +873,12 @@ long expanded path.</p>
       <pre class="lines">
 
 
-168
-169
-170</pre>
+172
+173
+174</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/brut/tui/script.rb', line 168</span>
+      <pre class="code"><span class="info file"># File 'lib/brut/tui/script.rb', line 172</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_notify'>notify</span><span class='lparen'>(</span><span class='id identifier rubyid_message'>message</span><span class='rparen'>)</span>
   <span class='ivar'>@event_loop</span> <span class='op'>&lt;&lt;</span> <span class='const'><span class='object_link'><a href="Script/Events.html" title="Brut::TUI::Script::Events (module)">Events</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Script/Events/Message.html" title="Brut::TUI::Script::Events::Message (class)">Message</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="Script/Events/Message.html#initialize-instance_method" title="Brut::TUI::Script::Events::Message#initialize (method)">new</a></span></span><span class='lparen'>(</span><span class='label'>message:</span><span class='comma'>,</span> <span class='label'>type:</span> <span class='symbol'>:notification</span><span class='rparen'>)</span>
@@ -1015,7 +1015,7 @@ data from one phase to another.</p>
       <div class="method_details ">
   <h3 class="signature " id="step-instance_method">
   
-    #<strong>step</strong>(description, exec: nil) { ... } &#x21d2; <tt>Object</tt> 
+    #<strong>step</strong>(description, exec: nil, stdout: false, stderr: false) { ... } &#x21d2; <tt>Object</tt> 
   
 
   
@@ -1066,6 +1066,42 @@ If <code>nil</code>, a block should be given that contains the step's code.</p>
       
     </li>
   
+    <li>
+      
+        <span class='name'>stdout</span>
+      
+      
+        <span class='type'>(<tt>true|false</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>false</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'><p>if <code>exec</code> is set, and this is true, it means this command's stdout
+is relevant to the script and should be shown if possible.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>stderr</span>
+      
+      
+        <span class='type'>(<tt>true|false</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>false</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'><p>if <code>exec</code> is set, and this is true, it means this command's stderr
+is relevant to the script and should be shown if possible.</p>
+</div>
+      
+    </li>
+  
 </ul>
 
 <p class="tag_title">Yields:</p>
@@ -1092,23 +1128,23 @@ If <code>nil</code>, a block should be given that contains the step's code.</p>
       <pre class="lines">
 
 
-156
-157
-158
-159
 160
 161
 162
-163</pre>
+163
+164
+165
+166
+167</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/brut/tui/script.rb', line 156</span>
+      <pre class="code"><span class="info file"># File 'lib/brut/tui/script.rb', line 160</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_step'>step</span><span class='lparen'>(</span><span class='id identifier rubyid_description'>description</span><span class='comma'>,</span> <span class='label'>exec:</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span><span class='rparen'>)</span>
+<span class='kw'>def</span> <span class='id identifier rubyid_step'>step</span><span class='lparen'>(</span><span class='id identifier rubyid_description'>description</span><span class='comma'>,</span> <span class='label'>exec:</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='label'>stdout:</span> <span class='kw'>false</span><span class='comma'>,</span> <span class='label'>stderr:</span> <span class='kw'>false</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_step'>step</span> <span class='op'>=</span> <span class='kw'>if</span> <span class='id identifier rubyid_exec'>exec</span><span class='period'>.</span><span class='id identifier rubyid_nil?'>nil?</span>
            <span class='const'><span class='object_link'><a href="Script/BlockStep.html" title="Brut::TUI::Script::BlockStep (class)">BlockStep</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="Script/BlockStep.html#initialize-instance_method" title="Brut::TUI::Script::BlockStep#initialize (method)">new</a></span></span><span class='lparen'>(</span><span class='ivar'>@event_loop</span><span class='comma'>,</span> <span class='id identifier rubyid_description'>description</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span><span class='rparen'>)</span>
          <span class='kw'>else</span>
-           <span class='const'><span class='object_link'><a href="Script/ExecStep.html" title="Brut::TUI::Script::ExecStep (class)">ExecStep</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="Script/ExecStep.html#initialize-instance_method" title="Brut::TUI::Script::ExecStep#initialize (method)">new</a></span></span><span class='lparen'>(</span><span class='ivar'>@event_loop</span><span class='comma'>,</span> <span class='id identifier rubyid_description'>description</span><span class='comma'>,</span> <span class='label'>command:</span> <span class='id identifier rubyid_exec'>exec</span><span class='rparen'>)</span>
+           <span class='const'><span class='object_link'><a href="Script/ExecStep.html" title="Brut::TUI::Script::ExecStep (class)">ExecStep</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="Script/ExecStep.html#initialize-instance_method" title="Brut::TUI::Script::ExecStep#initialize (method)">new</a></span></span><span class='lparen'>(</span><span class='ivar'>@event_loop</span><span class='comma'>,</span> <span class='id identifier rubyid_description'>description</span><span class='comma'>,</span> <span class='label'>command:</span> <span class='id identifier rubyid_exec'>exec</span><span class='comma'>,</span> <span class='label'>stdout:</span><span class='comma'>,</span> <span class='label'>stderr:</span><span class='rparen'>)</span>
          <span class='kw'>end</span>
   <span class='id identifier rubyid_step'>step</span><span class='period'>.</span><span class='id identifier rubyid_run!'>run!</span>
 <span class='kw'>end</span></pre>
@@ -1161,12 +1197,12 @@ If <code>nil</code>, a block should be given that contains the step's code.</p>
       <pre class="lines">
 
 
-182
-183
-184</pre>
+186
+187
+188</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/brut/tui/script.rb', line 182</span>
+      <pre class="code"><span class="info file"># File 'lib/brut/tui/script.rb', line 186</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_success'>success</span><span class='lparen'>(</span><span class='id identifier rubyid_message'>message</span><span class='rparen'>)</span>
   <span class='ivar'>@event_loop</span> <span class='op'>&lt;&lt;</span> <span class='const'><span class='object_link'><a href="Script/Events.html" title="Brut::TUI::Script::Events (module)">Events</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Script/Events/Message.html" title="Brut::TUI::Script::Events::Message (class)">Message</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="Script/Events/Message.html#initialize-instance_method" title="Brut::TUI::Script::Events::Message#initialize (method)">new</a></span></span><span class='lparen'>(</span><span class='label'>message:</span><span class='comma'>,</span> <span class='label'>type:</span> <span class='symbol'>:success</span><span class='rparen'>)</span>
@@ -1220,12 +1256,12 @@ If <code>nil</code>, a block should be given that contains the step's code.</p>
       <pre class="lines">
 
 
-175
-176
-177</pre>
+179
+180
+181</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/brut/tui/script.rb', line 175</span>
+      <pre class="code"><span class="info file"># File 'lib/brut/tui/script.rb', line 179</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_warning'>warning</span><span class='lparen'>(</span><span class='id identifier rubyid_message'>message</span><span class='rparen'>)</span>
   <span class='ivar'>@event_loop</span> <span class='op'>&lt;&lt;</span> <span class='const'><span class='object_link'><a href="Script/Events.html" title="Brut::TUI::Script::Events (module)">Events</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Script/Events/Message.html" title="Brut::TUI::Script::Events::Message (class)">Message</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="Script/Events/Message.html#initialize-instance_method" title="Brut::TUI::Script::Events::Message#initialize (method)">new</a></span></span><span class='lparen'>(</span><span class='label'>message:</span><span class='comma'>,</span> <span class='label'>type:</span> <span class='symbol'>:warning</span><span class='rparen'>)</span>
@@ -1240,9 +1276,9 @@ If <code>nil</code>, a block should be given that contains the step's code.</p>
 </div>
 
       <div id="footer">
-  Generated on Sun Nov 30 20:50:11 2025 by
+  Generated on Fri Jan 30 20:39:52 2026 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.37 (ruby-3.4.6).
+  0.9.38 (ruby-3.4.6).
 </div>
 
     </div>

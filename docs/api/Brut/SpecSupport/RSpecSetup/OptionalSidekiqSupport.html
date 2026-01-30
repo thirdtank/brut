@@ -6,7 +6,7 @@
 <title>
   Class: Brut::SpecSupport::RSpecSetup::OptionalSidekiqSupport
   
-    &mdash; Documentation by YARD 0.9.37
+    &mdash; Documentation by YARD 0.9.38
   
 </title>
 
@@ -216,12 +216,12 @@
       <pre class="lines">
 
 
-172
-173
-174</pre>
+168
+169
+170</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/brut/spec_support/rspec_setup.rb', line 172</span>
+      <pre class="code"><span class="info file"># File 'lib/brut/spec_support/rspec_setup.rb', line 168</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_initialize'>initialize</span>
   <span class='ivar'>@sidekiq_in_use</span> <span class='op'>=</span> <span class='kw'>defined?</span><span class='lparen'>(</span><span class='const'>Sidekiq</span><span class='rparen'>)</span>
@@ -253,14 +253,14 @@
       <pre class="lines">
 
 
-188
-189
-190
-191
-192</pre>
+184
+185
+186
+187
+188</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/brut/spec_support/rspec_setup.rb', line 188</span>
+      <pre class="code"><span class="info file"># File 'lib/brut/spec_support/rspec_setup.rb', line 184</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_clear_background_jobs'>clear_background_jobs</span>
   <span class='kw'>if</span> <span class='ivar'>@sidekiq_in_use</span>
@@ -287,6 +287,10 @@
       <pre class="lines">
 
 
+172
+173
+174
+175
 176
 177
 178
@@ -294,14 +298,10 @@
 180
 181
 182
-183
-184
-185
-186
-187</pre>
+183</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/brut/spec_support/rspec_setup.rb', line 176</span>
+      <pre class="code"><span class="info file"># File 'lib/brut/spec_support/rspec_setup.rb', line 172</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_disable_sidekiq_testing'>disable_sidekiq_testing</span><span class='lparen'>(</span><span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span><span class='rparen'>)</span>
   <span class='kw'>if</span> <span class='ivar'>@sidekiq_in_use</span>
@@ -325,9 +325,9 @@
 </div>
 
       <div id="footer">
-  Generated on Sun Nov 30 20:50:12 2025 by
+  Generated on Fri Jan 30 20:39:53 2026 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.37 (ruby-3.4.6).
+  0.9.38 (ruby-3.4.6).
 </div>
 
     </div>

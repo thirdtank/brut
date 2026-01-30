@@ -6,7 +6,7 @@
 <title>
   Class: Brut::CLI::Apps::DB::NewMigration
   
-    &mdash; Documentation by YARD 0.9.37
+    &mdash; Documentation by YARD 0.9.38
   
 </title>
 
@@ -69,12 +69,12 @@
   <dl>
     <dt>Inherits:</dt>
     <dd>
-      <span class="inheritName"><span class='object_link'><a href="../../Command.html" title="Brut::CLI::Command (class)">Command</a></span></span>
+      <span class="inheritName"><span class='object_link'><a href="../../Commands/BaseCommand.html" title="Brut::CLI::Commands::BaseCommand (class)">Commands::BaseCommand</a></span></span>
       
         <ul class="fullTree">
           <li>Object</li>
           
-            <li class="next"><span class='object_link'><a href="../../Command.html" title="Brut::CLI::Command (class)">Command</a></span></li>
+            <li class="next"><span class='object_link'><a href="../../Commands/BaseCommand.html" title="Brut::CLI::Commands::BaseCommand (class)">Commands::BaseCommand</a></span></li>
           
             <li class="next">Brut::CLI::Apps::DB::NewMigration</li>
           
@@ -107,6 +107,11 @@
 
 
 
+  <h2>Instance Attribute Summary</h2>
+  
+  <h3 class="inherited">Attributes inherited from <span class='object_link'><a href="../../Commands/BaseCommand.html" title="Brut::CLI::Commands::BaseCommand (class)">Commands::BaseCommand</a></span></h3>
+  <p class="inherited"><span class='object_link'><a href="../../Commands/BaseCommand.html#parent_command-instance_method" title="Brut::CLI::Commands::BaseCommand#parent_command (method)">#parent_command</a></span></p>
+
 
   
     <h2>
@@ -115,6 +120,29 @@
     </h2>
 
     <ul class="summary">
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#args_description-instance_method" title="#args_description (instance method)">#<strong>args_description</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+</div></span>
+  
+</li>
+
       
         <li class="public ">
   <span class="summary_signature">
@@ -142,7 +170,53 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#execute-instance_method" title="#execute (instance method)">#<strong>execute</strong>  &#x21d2; Object </a>
+      <a href="#bootstrap%3F-instance_method" title="#bootstrap? (instance method)">#<strong>bootstrap?</strong>  &#x21d2; Boolean </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#description-instance_method" title="#description (instance method)">#<strong>description</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#run-instance_method" title="#run (instance method)">#<strong>run</strong>  &#x21d2; Object </a>
     
 
     
@@ -174,58 +248,8 @@
   
   
   
-  <h3 class="inherited">Methods inherited from <span class='object_link'><a href="../../Command.html" title="Brut::CLI::Command (class)">Command</a></span></h3>
-  <p class="inherited"><span class='object_link'><a href="../../Command.html#after_bootstrap-instance_method" title="Brut::CLI::Command#after_bootstrap (method)">#after_bootstrap</a></span>, <span class='object_link'><a href="../../Command.html#args-class_method" title="Brut::CLI::Command.args (method)">args</a></span>, <span class='object_link'><a href="../../Command.html#args-instance_method" title="Brut::CLI::Command#args (method)">#args</a></span>, <span class='object_link'><a href="../../Command.html#command_name-class_method" title="Brut::CLI::Command.command_name (method)">command_name</a></span>, <span class='object_link'><a href="../../Command.html#default_env-class_method" title="Brut::CLI::Command.default_env (method)">default_env</a></span>, <span class='object_link'><a href="../../Command.html#delegate_to_commands-instance_method" title="Brut::CLI::Command#delegate_to_commands (method)">#delegate_to_commands</a></span>, <span class='object_link'><a href="../../Command.html#description-class_method" title="Brut::CLI::Command.description (method)">description</a></span>, <span class='object_link'><a href="../../Command.html#detailed_description-class_method" title="Brut::CLI::Command.detailed_description (method)">detailed_description</a></span>, <span class='object_link'><a href="../../Command.html#env_var-class_method" title="Brut::CLI::Command.env_var (method)">env_var</a></span>, <span class='object_link'><a href="../../Command.html#err-instance_method" title="Brut::CLI::Command#err (method)">#err</a></span>, <span class='object_link'><a href="../../Command.html#global_options-instance_method" title="Brut::CLI::Command#global_options (method)">#global_options</a></span>, <span class='object_link'><a href="../../Command.html#handle_bootstrap_exception-instance_method" title="Brut::CLI::Command#handle_bootstrap_exception (method)">#handle_bootstrap_exception</a></span>, <span class='object_link'><a href="../../Command.html#initialize-instance_method" title="Brut::CLI::Command#initialize (method)">#initialize</a></span>, <span class='object_link'><a href="../../Command.html#name_matches%3F-class_method" title="Brut::CLI::Command.name_matches? (method)">name_matches?</a></span>, <span class='object_link'><a href="../../Command.html#option_parser-class_method" title="Brut::CLI::Command.option_parser (method)">option_parser</a></span>, <span class='object_link'><a href="../../Command.html#options-instance_method" title="Brut::CLI::Command#options (method)">#options</a></span>, <span class='object_link'><a href="../../Command.html#opts-class_method" title="Brut::CLI::Command.opts (method)">opts</a></span>, <span class='object_link'><a href="../../Command.html#out-instance_method" title="Brut::CLI::Command#out (method)">#out</a></span>, <span class='object_link'><a href="../../Command.html#requires_project_env-class_method" title="Brut::CLI::Command.requires_project_env (method)">requires_project_env</a></span>, <span class='object_link'><a href="../../Command.html#requires_project_env%3F-class_method" title="Brut::CLI::Command.requires_project_env? (method)">requires_project_env?</a></span>, <span class='object_link'><a href="../../Command.html#system!-instance_method" title="Brut::CLI::Command#system! (method)">#system!</a></span></p>
-
-  
-  
-  
-  
-  
-  
-  
-  
-  <h3 class="inherited">Methods included from <span class='object_link'><a href="../../../Framework/Errors.html" title="Brut::Framework::Errors (module)">Framework::Errors</a></span></h3>
-  <p class="inherited"><span class='object_link'><a href="../../../Framework/Errors.html#abstract_method!-instance_method" title="Brut::Framework::Errors#abstract_method! (method)">#abstract_method!</a></span>, <span class='object_link'><a href="../../../Framework/Errors.html#bug!-instance_method" title="Brut::Framework::Errors#bug! (method)">#bug!</a></span></p>
-
-  
-  
-  
-  
-  
-  
-  
-  
-  <h3 class="inherited">Methods included from <span class='object_link'><a href="../../../I18n/ForCLI.html" title="Brut::I18n::ForCLI (module)">I18n::ForCLI</a></span></h3>
-  <p class="inherited"><span class='object_link'><a href="../../../I18n/ForCLI.html#capture-instance_method" title="Brut::I18n::ForCLI#capture (method)">#capture</a></span>, <span class='object_link'><a href="../../../I18n/ForCLI.html#html_escape-instance_method" title="Brut::I18n::ForCLI#html_escape (method)">#html_escape</a></span>, <span class='object_link'><a href="../../../I18n/ForCLI.html#safe-instance_method" title="Brut::I18n::ForCLI#safe (method)">#safe</a></span></p>
-
-  
-  
-  
-  
-  
-  
-  
-  
-  <h3 class="inherited">Methods included from <span class='object_link'><a href="../../../I18n/BaseMethods.html" title="Brut::I18n::BaseMethods (module)">I18n::BaseMethods</a></span></h3>
-  <p class="inherited"><span class='object_link'><a href="../../../I18n/BaseMethods.html#l-instance_method" title="Brut::I18n::BaseMethods#l (method)">#l</a></span>, <span class='object_link'><a href="../../../I18n/BaseMethods.html#t-instance_method" title="Brut::I18n::BaseMethods#t (method)">#t</a></span>, <span class='object_link'><a href="../../../I18n/BaseMethods.html#t_direct-instance_method" title="Brut::I18n::BaseMethods#t_direct (method)">#t_direct</a></span>, <span class='object_link'><a href="../../../I18n/BaseMethods.html#this_field_value-instance_method" title="Brut::I18n::BaseMethods#this_field_value (method)">#this_field_value</a></span></p>
-
-  
-  
-  
-  
-  
-  
-  
-  
-  <h3 class="inherited">Methods included from <span class='object_link'><a href="../../ExecutionResults.html" title="Brut::CLI::ExecutionResults (module)">ExecutionResults</a></span></h3>
-  <p class="inherited"><span class='object_link'><a href="../../ExecutionResults.html#abort_execution-instance_method" title="Brut::CLI::ExecutionResults#abort_execution (method)">#abort_execution</a></span>, <span class='object_link'><a href="../../ExecutionResults.html#as_execution_result-instance_method" title="Brut::CLI::ExecutionResults#as_execution_result (method)">#as_execution_result</a></span>, <span class='object_link'><a href="../../ExecutionResults.html#cli_usage_error-instance_method" title="Brut::CLI::ExecutionResults#cli_usage_error (method)">#cli_usage_error</a></span>, <span class='object_link'><a href="../../ExecutionResults.html#continue_execution-instance_method" title="Brut::CLI::ExecutionResults#continue_execution (method)">#continue_execution</a></span>, <span class='object_link'><a href="../../ExecutionResults.html#show_cli_usage-instance_method" title="Brut::CLI::ExecutionResults#show_cli_usage (method)">#show_cli_usage</a></span>, <span class='object_link'><a href="../../ExecutionResults.html#stop_execution-instance_method" title="Brut::CLI::ExecutionResults#stop_execution (method)">#stop_execution</a></span></p>
-<div id="constructor_details" class="method_details_list">
-  <h2>Constructor Details</h2>
-  
-    <p class="notice">This class inherits a constructor from <span class='object_link'><a href="../../Command.html#initialize-instance_method" title="Brut::CLI::Command#initialize (method)">Brut::CLI::Command</a></span></p>
-  
-</div>
+  <h3 class="inherited">Methods inherited from <span class='object_link'><a href="../../Commands/BaseCommand.html" title="Brut::CLI::Commands::BaseCommand (class)">Commands::BaseCommand</a></span></h3>
+  <p class="inherited"><span class='object_link'><a href="../../Commands/BaseCommand.html#accepts-instance_method" title="Brut::CLI::Commands::BaseCommand#accepts (method)">#accepts</a></span>, <span class='object_link'><a href="../../Commands/BaseCommand.html#argv-instance_method" title="Brut::CLI::Commands::BaseCommand#argv (method)">#argv</a></span>, <span class='object_link'><a href="../../Commands/BaseCommand.html#commands-instance_method" title="Brut::CLI::Commands::BaseCommand#commands (method)">#commands</a></span>, <span class='object_link'><a href="../../Commands/BaseCommand.html#default_command-instance_method" title="Brut::CLI::Commands::BaseCommand#default_command (method)">#default_command</a></span>, <span class='object_link'><a href="../../Commands/BaseCommand.html#default_command_class-instance_method" title="Brut::CLI::Commands::BaseCommand#default_command_class (method)">#default_command_class</a></span>, <span class='object_link'><a href="../../Commands/BaseCommand.html#default_rack_env-instance_method" title="Brut::CLI::Commands::BaseCommand#default_rack_env (method)">#default_rack_env</a></span>, <span class='object_link'><a href="../../Commands/BaseCommand.html#env-instance_method" title="Brut::CLI::Commands::BaseCommand#env (method)">#env</a></span>, <span class='object_link'><a href="../../Commands/BaseCommand.html#env_vars-instance_method" title="Brut::CLI::Commands::BaseCommand#env_vars (method)">#env_vars</a></span>, <span class='object_link'><a href="../../Commands/BaseCommand.html#execute-instance_method" title="Brut::CLI::Commands::BaseCommand#execute (method)">#execute</a></span>, <span class='object_link'><a href="../../Commands/BaseCommand.html#name-instance_method" title="Brut::CLI::Commands::BaseCommand#name (method)">#name</a></span>, <span class='object_link'><a href="../../Commands/BaseCommand.html#options-instance_method" title="Brut::CLI::Commands::BaseCommand#options (method)">#options</a></span>, <span class='object_link'><a href="../../Commands/BaseCommand.html#opts-instance_method" title="Brut::CLI::Commands::BaseCommand#opts (method)">#opts</a></span>, <span class='object_link'><a href="../../Commands/BaseCommand.html#puts-instance_method" title="Brut::CLI::Commands::BaseCommand#puts (method)">#puts</a></span>, <span class='object_link'><a href="../../Commands/BaseCommand.html#stderr-instance_method" title="Brut::CLI::Commands::BaseCommand#stderr (method)">#stderr</a></span>, <span class='object_link'><a href="../../Commands/BaseCommand.html#stdin-instance_method" title="Brut::CLI::Commands::BaseCommand#stdin (method)">#stdin</a></span>, <span class='object_link'><a href="../../Commands/BaseCommand.html#stdout-instance_method" title="Brut::CLI::Commands::BaseCommand#stdout (method)">#stdout</a></span>, <span class='object_link'><a href="../../Commands/BaseCommand.html#system!-instance_method" title="Brut::CLI::Commands::BaseCommand#system! (method)">#system!</a></span></p>
 
 
   <div id="instance_method_details" class="method_details_list">
@@ -233,7 +257,33 @@
 
     
       <div class="method_details first">
-  <h3 class="signature first" id="before_execute-instance_method">
+  <h3 class="signature first" id="args_description-instance_method">
+  
+    #<strong>args_description</strong>  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+211</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/brut/cli/apps/db.rb', line 211</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_args_description'>args_description</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>migration_name</span><span class='tstring_end'>&quot;</span></span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="before_execute-instance_method">
   
     #<strong>before_execute</strong>  &#x21d2; <tt>Object</tt> 
   
@@ -247,12 +297,12 @@
       <pre class="lines">
 
 
-204
-205
-206</pre>
+214
+215
+216</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/brut/cli/apps/db.rb', line 204</span>
+      <pre class="code"><span class="info file"># File 'lib/brut/cli/apps/db.rb', line 214</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_before_execute'>before_execute</span>
   <span class='const'>ENV</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>RACK_ENV</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>development</span><span class='tstring_end'>&quot;</span></span>
@@ -263,9 +313,58 @@
 </div>
     
       <div class="method_details ">
-  <h3 class="signature " id="execute-instance_method">
+  <h3 class="signature " id="bootstrap?-instance_method">
   
-    #<strong>execute</strong>  &#x21d2; <tt>Object</tt> 
+    #<strong>bootstrap?</strong>  &#x21d2; <tt>Boolean</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Boolean</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+212</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/brut/cli/apps/db.rb', line 212</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_bootstrap?'>bootstrap?</span> <span class='op'>=</span> <span class='kw'>false</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="description-instance_method">
+  
+    #<strong>description</strong>  &#x21d2; <tt>Object</tt> 
   
 
   
@@ -277,16 +376,32 @@
       <pre class="lines">
 
 
-208
-209
-210
-211
-212
-213
-214
-215
-216
-217
+210</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/brut/cli/apps/db.rb', line 210</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_description'>description</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Create a new migration file</span><span class='tstring_end'>&quot;</span></span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="run-instance_method">
+  
+    #<strong>run</strong>  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
 218
 219
 220
@@ -295,17 +410,38 @@
 223
 224
 225
-226</pre>
+226
+227
+228
+229
+230
+231
+232
+233
+234
+235
+236
+237
+238
+239
+240
+241
+242</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/brut/cli/apps/db.rb', line 208</span>
+      <pre class="code"><span class="info file"># File 'lib/brut/cli/apps/db.rb', line 218</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_execute'>execute</span>
-  <span class='kw'>if</span> <span class='ivar'>@args</span><span class='period'>.</span><span class='id identifier rubyid_length'>length</span> <span class='op'>==</span> <span class='int'>0</span>
-    <span class='kw'>return</span> <span class='id identifier rubyid_abort_execution'>abort_execution</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>You must provide a name for the migration</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+<span class='kw'>def</span> <span class='id identifier rubyid_run'>run</span>
+  <span class='kw'>if</span> <span class='id identifier rubyid_argv'>argv</span><span class='period'>.</span><span class='id identifier rubyid_length'>length</span> <span class='op'>==</span> <span class='int'>0</span>
+    <span class='id identifier rubyid_stderr'>stderr</span><span class='period'>.</span><span class='id identifier rubyid_puts'>puts</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>You must provide a name for the migration</span><span class='tstring_end'>&quot;</span></span>
+    <span class='kw'>return</span> <span class='int'>1</span>
+  <span class='kw'>end</span>
+  <span class='kw'>if</span> <span class='id identifier rubyid_env'>env</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>RACK_ENV</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span> <span class='op'>!=</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>development</span><span class='tstring_end'>&quot;</span></span>
+    <span class='id identifier rubyid_stderr'>stderr</span><span class='period'>.</span><span class='id identifier rubyid_puts'>puts</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>This only works in the development environment, not </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_env'>env</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>RACK_ENV</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span>
+    <span class='kw'>return</span> <span class='int'>1</span>
   <span class='kw'>end</span>
   <span class='id identifier rubyid_migrations_dir'>migrations_dir</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../../../../Brut.html" title="Brut (module)">Brut</a></span></span><span class='period'>.</span><span class='id identifier rubyid_container'><span class='object_link'><a href="../../../../Brut.html#container-class_method" title="Brut.container (method)">container</a></span></span><span class='period'>.</span><span class='id identifier rubyid_migrations_dir'>migrations_dir</span>
-  <span class='id identifier rubyid_name'>name</span> <span class='op'>=</span> <span class='ivar'>@args</span><span class='period'>.</span><span class='id identifier rubyid_join'>join</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'> </span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_gsub'>gsub</span><span class='lparen'>(</span><span class='tstring'><span class='regexp_beg'>/</span><span class='tstring_content'>[^\w\d\-]</span><span class='regexp_end'>/</span></span><span class='comma'>,</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>-</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_name'>name</span> <span class='op'>=</span> <span class='id identifier rubyid_argv'>argv</span><span class='period'>.</span><span class='id identifier rubyid_join'>join</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'> </span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_gsub'>gsub</span><span class='lparen'>(</span><span class='tstring'><span class='regexp_beg'>/</span><span class='tstring_content'>[^\w\d\-]</span><span class='regexp_end'>/</span></span><span class='comma'>,</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>-</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
   <span class='id identifier rubyid_date'>date</span> <span class='op'>=</span> <span class='const'>DateTime</span><span class='period'>.</span><span class='id identifier rubyid_now'>now</span><span class='period'>.</span><span class='id identifier rubyid_strftime'>strftime</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>%Y%m%d%H%M%S</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
   <span class='id identifier rubyid_file_name'>file_name</span> <span class='op'>=</span> <span class='id identifier rubyid_migrations_dir'>migrations_dir</span> <span class='op'>/</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_date'>date</span><span class='embexpr_end'>}</span><span class='tstring_content'>_</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_name'>name</span><span class='embexpr_end'>}</span><span class='tstring_content'>.rb</span><span class='tstring_end'>&quot;</span></span>
   <span class='const'>File</span><span class='period'>.</span><span class='id identifier rubyid_open'>open</span><span class='lparen'>(</span><span class='id identifier rubyid_file_name'>file_name</span><span class='comma'>,</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>w</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_file'>file</span><span class='op'>|</span>
@@ -317,7 +453,8 @@
     <span class='id identifier rubyid_file'>file</span><span class='period'>.</span><span class='id identifier rubyid_puts'>puts</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>end</span><span class='tstring_end'>&quot;</span></span>
   <span class='kw'>end</span>
   <span class='id identifier rubyid_relative_path'>relative_path</span> <span class='op'>=</span> <span class='id identifier rubyid_file_name'>file_name</span><span class='period'>.</span><span class='id identifier rubyid_relative_path_from'>relative_path_from</span><span class='lparen'>(</span><span class='const'><span class='object_link'><a href="../../../../Brut.html" title="Brut (module)">Brut</a></span></span><span class='period'>.</span><span class='id identifier rubyid_container'><span class='object_link'><a href="../../../../Brut.html#container-class_method" title="Brut.container (method)">container</a></span></span><span class='period'>.</span><span class='id identifier rubyid_project_root'>project_root</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_out'>out</span><span class='period'>.</span><span class='id identifier rubyid_puts'>puts</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Migration created:\n    </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_relative_path'>relative_path</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span>
+  <span class='id identifier rubyid_stdout'>stdout</span><span class='period'>.</span><span class='id identifier rubyid_puts'>puts</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Migration created:\n    </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_relative_path'>relative_path</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span>
+  <span class='int'>0</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -329,9 +466,9 @@
 </div>
 
       <div id="footer">
-  Generated on Sun Nov 30 20:50:11 2025 by
+  Generated on Fri Jan 30 20:39:52 2026 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.37 (ruby-3.4.6).
+  0.9.38 (ruby-3.4.6).
 </div>
 
     </div>

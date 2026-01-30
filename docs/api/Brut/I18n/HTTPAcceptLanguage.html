@@ -6,7 +6,7 @@
 <title>
   Class: Brut::I18n::HTTPAcceptLanguage
   
-    &mdash; Documentation by YARD 0.9.37
+    &mdash; Documentation by YARD 0.9.38
   
 </title>
 
@@ -122,53 +122,10 @@ by Brut to make a guess as to which Locale a browser is reporting.</p>
     
   
     
-      <strong class="classes">Classes:</strong> <span class='object_link'><a href="HTTPAcceptLanguage/AlwaysEnglish.html" title="Brut::I18n::HTTPAcceptLanguage::AlwaysEnglish (class)">AlwaysEnglish</a></span>
+      <strong class="classes">Classes:</strong> <span class='object_link'><a href="HTTPAcceptLanguage/AlwaysEnglish.html" title="Brut::I18n::HTTPAcceptLanguage::AlwaysEnglish (class)">AlwaysEnglish</a></span>, <span class='object_link'><a href="HTTPAcceptLanguage/WeightedLocale.html" title="Brut::I18n::HTTPAcceptLanguage::WeightedLocale (class)">WeightedLocale</a></span>
     
   
 </p>
-
-  
-    <h2>
-      Constant Summary
-      <small><a href="#" class="constants_summary_toggle">collapse</a></small>
-    </h2>
-
-    <dl class="constants">
-      
-        <dt id="WeightedLocale-constant" class="">WeightedLocale =
-          <div class="docstring">
-  <div class="discussion">
-    <p>A locale with the weight (value for q=) it was given in the Accept-Language header</p>
-
-
-  </div>
-</div>
-<div class="tags">
-  
-
-</div>
-        </dt>
-        <dd><pre class="code"><span class='const'>Data</span><span class='period'>.</span><span class='id identifier rubyid_define'>define</span><span class='lparen'>(</span><span class='symbol'>:locale</span><span class='comma'>,</span> <span class='symbol'>:q</span><span class='rparen'>)</span> <span class='kw'>do</span>
-  <span class='comment'># Returns the primary locale for whatever locale
-</span>  <span class='comment'># this is holding.  For example, the primary locale 
-</span>  <span class='comment'># of &quot;en-US&quot; is &quot;en&quot;.
-</span>  <span class='kw'>def</span> <span class='id identifier rubyid_primary_locale'>primary_locale</span> <span class='op'>=</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_locale'>locale</span><span class='period'>.</span><span class='id identifier rubyid_gsub'>gsub</span><span class='lparen'>(</span><span class='tstring'><span class='regexp_beg'>/</span><span class='tstring_content'>\-.*$</span><span class='regexp_end'>/</span></span><span class='comma'>,</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
-
-  <span class='comment'># True if this locale is a primary locale
-</span>  <span class='kw'>def</span> <span class='id identifier rubyid_primary?'>primary?</span> <span class='op'>=</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_primary_locale'>primary_locale</span> <span class='op'>==</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_locale'>locale</span>
-
-  <span class='comment'># Return a new WeightedLocale that is the primary locale.
-</span>  <span class='kw'>def</span> <span class='id identifier rubyid_primary_only'>primary_only</span>
-    <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_class'>class</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='label'>locale:</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_primary_locale'>primary_locale</span><span class='comma'>,</span> <span class='label'>q:</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_q'>q</span><span class='rparen'>)</span>
-  <span class='kw'>end</span>
-
-  <span class='kw'>def</span> <span class='op'>==</span><span class='lparen'>(</span><span class='id identifier rubyid_other'>other</span><span class='rparen'>)</span>
-    <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_locale'>locale</span> <span class='op'>==</span> <span class='id identifier rubyid_other'>other</span><span class='period'>.</span><span class='id identifier rubyid_locale'>locale</span>
-  <span class='kw'>end</span>
-<span class='kw'>end</span></pre></dd>
-      
-    </dl>
-  
 
 
 
@@ -420,7 +377,7 @@ by Brut to make a guess as to which Locale a browser is reporting.</p>
         <span class='name'>weighted_locales</span>
       
       
-        <span class='type'>(<tt>Array&lt;<span class='object_link'><a href="#WeightedLocale-constant" title="Brut::I18n::HTTPAcceptLanguage::WeightedLocale (constant)">Brut::I18n::HTTPAcceptLanguage::WeightedLocale</a></span>&gt;</tt>)</span>
+        <span class='type'>(<tt>Array&lt;<span class='object_link'><a href="HTTPAcceptLanguage/WeightedLocale.html" title="Brut::I18n::HTTPAcceptLanguage::WeightedLocale (class)">Brut::I18n::HTTPAcceptLanguage::WeightedLocale</a></span>&gt;</tt>)</span>
       
       
       
@@ -595,7 +552,7 @@ is blank, #<span class='object_link'><a href="HTTPAcceptLanguage/AlwaysEnglish.h
   <span class='kw'>if</span> <span class='id identifier rubyid_value'>value</span> <span class='op'>==</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_end'>&quot;</span></span>
     <span class='const'><span class='object_link'><a href="HTTPAcceptLanguage/AlwaysEnglish.html" title="Brut::I18n::HTTPAcceptLanguage::AlwaysEnglish (class)">AlwaysEnglish</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="HTTPAcceptLanguage/AlwaysEnglish.html#initialize-instance_method" title="Brut::I18n::HTTPAcceptLanguage::AlwaysEnglish#initialize (method)">new</a></span></span>
   <span class='kw'>else</span>
-    <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='lbracket'>[</span> <span class='const'><span class='object_link'><a href="#WeightedLocale-constant" title="Brut::I18n::HTTPAcceptLanguage::WeightedLocale (constant)">WeightedLocale</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="#initialize-instance_method" title="Brut::I18n::HTTPAcceptLanguage#initialize (method)">new</a></span></span><span class='lparen'>(</span><span class='label'>locale:</span> <span class='id identifier rubyid_value'>value</span><span class='comma'>,</span> <span class='label'>q:</span> <span class='int'>1</span><span class='rparen'>)</span> <span class='rbracket'>]</span><span class='rparen'>)</span>
+    <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='lbracket'>[</span> <span class='const'><span class='object_link'><a href="HTTPAcceptLanguage/WeightedLocale.html" title="Brut::I18n::HTTPAcceptLanguage::WeightedLocale (class)">WeightedLocale</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="#initialize-instance_method" title="Brut::I18n::HTTPAcceptLanguage#initialize (method)">new</a></span></span><span class='lparen'>(</span><span class='label'>locale:</span> <span class='id identifier rubyid_value'>value</span><span class='comma'>,</span> <span class='label'>q:</span> <span class='int'>1</span><span class='rparen'>)</span> <span class='rbracket'>]</span><span class='rparen'>)</span>
   <span class='kw'>end</span>
 <span class='kw'>end</span></pre>
     </td>
@@ -673,7 +630,7 @@ is blank, #<span class='object_link'><a href="HTTPAcceptLanguage/AlwaysEnglish.h
   <span class='kw'>else</span>
     <span class='id identifier rubyid_values'>values</span> <span class='op'>=</span> <span class='id identifier rubyid_header_value'>header_value</span><span class='period'>.</span><span class='id identifier rubyid_split'>split</span><span class='lparen'>(</span><span class='tstring'><span class='regexp_beg'>/</span><span class='tstring_content'>,</span><span class='regexp_end'>/</span></span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_map'>map</span><span class='lparen'>(</span><span class='op'>&amp;</span><span class='symbol'>:strip</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_map'>map</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_language'>language</span><span class='op'>|</span>
       <span class='id identifier rubyid_locale'>locale</span><span class='comma'>,</span><span class='id identifier rubyid_q'>q</span> <span class='op'>=</span> <span class='id identifier rubyid_language'>language</span><span class='period'>.</span><span class='id identifier rubyid_split'>split</span><span class='lparen'>(</span><span class='tstring'><span class='regexp_beg'>/</span><span class='tstring_content'>;\s*q\s*=\s*</span><span class='regexp_end'>/</span></span><span class='comma'>,</span><span class='int'>2</span><span class='rparen'>)</span>
-      <span class='const'><span class='object_link'><a href="#WeightedLocale-constant" title="Brut::I18n::HTTPAcceptLanguage::WeightedLocale (constant)">WeightedLocale</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="#initialize-instance_method" title="Brut::I18n::HTTPAcceptLanguage#initialize (method)">new</a></span></span><span class='lparen'>(</span><span class='label'>locale:</span> <span class='id identifier rubyid_locale'>locale</span><span class='comma'>,</span><span class='label'>q:</span> <span class='id identifier rubyid_q'>q</span><span class='period'>.</span><span class='id identifier rubyid_nil?'>nil?</span> <span class='op'>?</span> <span class='int'>1</span> <span class='op'>:</span> <span class='id identifier rubyid_q'>q</span><span class='period'>.</span><span class='id identifier rubyid_to_f'>to_f</span><span class='rparen'>)</span>
+      <span class='const'><span class='object_link'><a href="HTTPAcceptLanguage/WeightedLocale.html" title="Brut::I18n::HTTPAcceptLanguage::WeightedLocale (class)">WeightedLocale</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="#initialize-instance_method" title="Brut::I18n::HTTPAcceptLanguage#initialize (method)">new</a></span></span><span class='lparen'>(</span><span class='label'>locale:</span> <span class='id identifier rubyid_locale'>locale</span><span class='comma'>,</span><span class='label'>q:</span> <span class='id identifier rubyid_q'>q</span><span class='period'>.</span><span class='id identifier rubyid_nil?'>nil?</span> <span class='op'>?</span> <span class='int'>1</span> <span class='op'>:</span> <span class='id identifier rubyid_q'>q</span><span class='period'>.</span><span class='id identifier rubyid_to_f'>to_f</span><span class='rparen'>)</span>
     <span class='rbrace'>}</span>
     <span class='kw'>if</span> <span class='id identifier rubyid_values'>values</span><span class='period'>.</span><span class='id identifier rubyid_any?'>any?</span>
       <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='id identifier rubyid_values'>values</span><span class='rparen'>)</span>
@@ -767,7 +724,7 @@ is blank, #<span class='object_link'><a href="HTTPAcceptLanguage/AlwaysEnglish.h
 <span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_from_session'>from_session</span><span class='lparen'>(</span><span class='id identifier rubyid_session_value'>session_value</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_values'>values</span> <span class='op'>=</span> <span class='id identifier rubyid_session_value'>session_value</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span><span class='period'>.</span><span class='id identifier rubyid_split'>split</span><span class='lparen'>(</span><span class='tstring'><span class='regexp_beg'>/</span><span class='tstring_content'>,</span><span class='regexp_end'>/</span></span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_map'>map</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_value'>value</span><span class='op'>|</span>
     <span class='id identifier rubyid_locale'>locale</span><span class='comma'>,</span><span class='id identifier rubyid_q'>q</span> <span class='op'>=</span> <span class='id identifier rubyid_value'>value</span><span class='period'>.</span><span class='id identifier rubyid_split'>split</span><span class='lparen'>(</span><span class='tstring'><span class='regexp_beg'>/</span><span class='tstring_content'>;</span><span class='regexp_end'>/</span></span><span class='rparen'>)</span>
-    <span class='const'><span class='object_link'><a href="#WeightedLocale-constant" title="Brut::I18n::HTTPAcceptLanguage::WeightedLocale (constant)">WeightedLocale</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="#initialize-instance_method" title="Brut::I18n::HTTPAcceptLanguage#initialize (method)">new</a></span></span><span class='lparen'>(</span><span class='label'>locale:</span><span class='comma'>,</span><span class='label'>q:</span><span class='rparen'>)</span>
+    <span class='const'><span class='object_link'><a href="HTTPAcceptLanguage/WeightedLocale.html" title="Brut::I18n::HTTPAcceptLanguage::WeightedLocale (class)">WeightedLocale</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="#initialize-instance_method" title="Brut::I18n::HTTPAcceptLanguage#initialize (method)">new</a></span></span><span class='lparen'>(</span><span class='label'>locale:</span><span class='comma'>,</span><span class='label'>q:</span><span class='rparen'>)</span>
   <span class='rbrace'>}</span>
   <span class='kw'>if</span> <span class='id identifier rubyid_values'>values</span><span class='period'>.</span><span class='id identifier rubyid_any?'>any?</span>
     <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='id identifier rubyid_values'>values</span><span class='rparen'>)</span>
@@ -920,9 +877,9 @@ In general, this returns true if the values came from the Accept-Language header
 </div>
 
       <div id="footer">
-  Generated on Sun Nov 30 20:50:12 2025 by
+  Generated on Fri Jan 30 20:39:53 2026 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.37 (ruby-3.4.6).
+  0.9.38 (ruby-3.4.6).
 </div>
 
     </div>

@@ -6,7 +6,7 @@
 <title>
   Class: Clock
   
-    &mdash; Documentation by YARD 0.9.37
+    &mdash; Documentation by YARD 0.9.38
   
 </title>
 
@@ -321,7 +321,6 @@ now.  Don't do this unless you are testing.</p>
       <pre class="lines">
 
 
-12
 13
 14
 15
@@ -336,10 +335,11 @@ now.  Don't do this unless you are testing.</p>
 24
 25
 26
-27</pre>
+27
+28</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/brut/junk_drawer.rb', line 12</span>
+      <pre class="code"><span class="info file"># File 'lib/brut/junk_drawer.rb', line 13</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_initialize'>initialize</span><span class='lparen'>(</span><span class='id identifier rubyid_tzinfo_timezone'>tzinfo_timezone</span><span class='comma'>,</span> <span class='label'>now:</span> <span class='kw'>nil</span><span class='rparen'>)</span>
   <span class='kw'>if</span> <span class='id identifier rubyid_tzinfo_timezone'>tzinfo_timezone</span>
@@ -394,12 +394,12 @@ now.  Don't do this unless you are testing.</p>
       <pre class="lines">
 
 
-4
 5
-6</pre>
+6
+7</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/brut/junk_drawer.rb', line 4</span>
+      <pre class="code"><span class="info file"># File 'lib/brut/junk_drawer.rb', line 5</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_timezone'>timezone</span>
   <span class='ivar'>@timezone</span>
@@ -477,12 +477,12 @@ now.  Don't do this unless you are testing.</p>
       <pre class="lines">
 
 
-48
 49
-50</pre>
+50
+51</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/brut/junk_drawer.rb', line 48</span>
+      <pre class="code"><span class="info file"># File 'lib/brut/junk_drawer.rb', line 49</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_in_time_zone'>in_time_zone</span><span class='lparen'>(</span><span class='id identifier rubyid_time'>time</span><span class='rparen'>)</span>
   <span class='ivar'>@timezone</span><span class='period'>.</span><span class='id identifier rubyid_to_local'>to_local</span><span class='lparen'>(</span><span class='id identifier rubyid_time'>time</span><span class='rparen'>)</span>
@@ -535,16 +535,16 @@ returned in the configured time zone.</p>
       <pre class="lines">
 
 
-33
 34
 35
 36
 37
 38
-39</pre>
+39
+40</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/brut/junk_drawer.rb', line 33</span>
+      <pre class="code"><span class="info file"># File 'lib/brut/junk_drawer.rb', line 34</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_now'>now</span>
   <span class='kw'>if</span> <span class='ivar'>@now</span>
@@ -573,12 +573,12 @@ returned in the configured time zone.</p>
       <pre class="lines">
 
 
-41
 42
-43</pre>
+43
+44</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/brut/junk_drawer.rb', line 41</span>
+      <pre class="code"><span class="info file"># File 'lib/brut/junk_drawer.rb', line 42</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_today'>today</span>
   <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_now'>now</span><span class='period'>.</span><span class='id identifier rubyid_to_date'>to_date</span>
@@ -593,9 +593,9 @@ returned in the configured time zone.</p>
 </div>
 
       <div id="footer">
-  Generated on Sun Nov 30 20:50:11 2025 by
+  Generated on Fri Jan 30 20:39:52 2026 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.37 (ruby-3.4.6).
+  0.9.38 (ruby-3.4.6).
 </div>
 
     </div>
