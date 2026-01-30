@@ -152,12 +152,16 @@ class Brut::TUI::Script
   # @param description [String] Message to show the user about this step.
   # @param exec [String|nil] if non-nil, this step will execute this as a command.  A block given is ignored.
   #        If `nil`, a block should be given that contains the step's code.
+  # @param stdout [true|false] if `exec` is set, and this is true, it means this command's stdout
+  #        is relevant to the script and should be shown if possible.
+  # @param stderr [true|false] if `exec` is set, and this is true, it means this command's stderr
+  #        is relevant to the script and should be shown if possible.
   # @yield if `exec` is `nil`, this block will be executed for the step
-  def step(description, exec: nil, &block)
+  def step(description, exec: nil, stdout: false, stderr: false, &block)
     step = if exec.nil?
              BlockStep.new(@event_loop, description, &block)
            else
-             ExecStep.new(@event_loop, description, command: exec)
+             ExecStep.new(@event_loop, description, command: exec, stdout:, stderr:)
            end
     step.run!
   end

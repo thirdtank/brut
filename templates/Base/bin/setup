@@ -1,0 +1,174 @@
+#!/usr/bin/env ruby
+
+require "optparse"
+require "pathname"
+
+begin
+  require "brut"
+  require "brut/tui"
+rescue LoadError
+  if ARGV.include?("--no-bundle-install")
+    raise
+  end
+  puts "Brut is not yet installed - Running `bundle install` to install it"
+  if system "bundle install --no-color"
+    puts "Bundle installed, re-running"
+    args = ARGV.dup
+    args << "--no-bundle-install"
+    exec $0, *args
+  else
+    $stderr.puts "bundle install failed - something is more deeply wrong."
+    $stderr.puts "try running `bundle install` from the command line and re-run this if it works."
+    exit 1
+  end
+end
+
+ROOT_DIR = ((Pathname(__dir__) / ".." ).expand_path)
+
+class SetupScript < Brut::TUI::Script
+  def execute
+    phase "Installing dependencies" do
+      step "Installing gems", exec: "bundle check --no-color || bundle install --no-color --quiet"
+
+      step "Installing puma binstubs",    exec: "bundle binstub puma"
+      step "Installing rspec binstubs",   exec: "bundle binstub rspec-core"
+
+      # https://github.com/ddollar/foreman/wiki/Don't-Bundle-Foreman
+      step "Installing foreman", exec: "gem install foreman"
+
+      step "Installing Ruby LSP", exec: "gem install ruby-lsp"
+
+      step "Installing Node Modules", exec: "npm install"
+
+      step "Re-installing playwright/chromium _if needed_", exec: "node_modules/.bin/playwright install chromium"
+    end
+
+    phase "Setting up local development configuration" do
+
+      dot_env = ROOT_DIR / ".env.development"
+      if !File.exist?(dot_env)
+        raise "Problem: '#{dot_env}' does not exist"
+      end
+
+      dot_env_need_local = {}
+      step "Parsing #{filename(dot_env)} for required local overrides" do
+        previous_comment = ""
+        File.read(dot_env).split(/\n/).each do |line|
+          if line =~ /^#(.*)$/
+            previous_comment << line
+          elsif line =~ /^LOCAL:([^=]+)$/
+            dot_env_need_local[$1] = previous_comment
+            previous_comment = ""
+          elsif line =~ /^([^=])+/
+            previous_comment = ""
+          end
+        end
+      end
+      dot_env_local = ROOT_DIR / ".env.development.local"
+      local_contents = step "Ensuring #{filename(dot_env_local)} exists" do
+        if !File.exist?(dot_env_local)
+          notify "Creating #{filename(dot_env_local)}"
+          FileUtils.touch dot_env_local
+        end
+        local_contents = File.read(dot_env_local).split(/\n/).map { |line|
+          if line =~ /^([^=]+)=(.*)$/
+            var = $1
+            val = $2
+            if dot_env_need_local[var] && val.to_s != ""
+              notify "Value for '#{var}' is good"
+              dot_env_need_local.delete(var)
+            end
+          end
+          line
+        }.compact
+      end
+
+      if dot_env_need_local.any?
+        step "Need local values" do
+          dot_env_need_local.each do |var,comment|
+            notify "A value is needed locally for '#{var}'"
+            notify ""
+            notify comment
+            notify ""
+            notify "Enter the value below and hit Return"
+            value = gets
+            local_contents << "#{var}=#{value}"
+            notify "Got it, thanks"
+          end
+        end
+      end
+
+      step "Updating #{filename(dot_env_local)}" do
+        File.open(dot_env_local,"w") do |file|
+          local_contents.each do |line|
+            file.puts line
+          end
+        end
+      end
+
+
+      step "Checking that #{filename(dot_env_local)} is being ignored" do
+        gitignore = ROOT_DIR / ".gitignore"
+        if File.exist?(gitignore)
+          lines = File.read(gitignore).split(/\n/)
+          if lines.include?("/#{dot_env_local.basename}")
+            success "#{filename(dot_env_local)} is properly being ignored"
+          else
+            notify "Adding #{filename(dot_env_local)} to .gitignore"
+            lines << ""
+            lines << "# This contains actual secrets and should not be checked in"
+            lines << "/#{dot_env_local.basename}"
+            File.open(gitignore,"w") do |file|
+              lines.each do |line|
+                file.puts line
+              end
+            end
+          end
+        else
+          warning "No #{gitignore}, so make sure you DO NOT CHECK #{filename(dot_env_local)} IN!!!"
+        end
+      end
+    end
+    phase "Setting up databases" do
+
+      step "Re-creating development database", exec: "bin/db rebuild --env=development"
+      step "Re-creating test database",        exec: "bin/db rebuild --env=test"
+
+      step "Loading seed data into the development database",
+        exec: "bin/db seed --env=development"
+    end
+    done "Setup complete - Run `bin/setup help` to see useful commands"
+  end
+end
+
+def show_help
+  puts "Useful commands:"
+  puts ""
+  puts "  bin/run"
+  puts "     # run app locally"
+  puts ""
+  puts "  bin/ci"
+  puts "     # runs all tests and checks as CI would"
+  puts ""
+  puts "  bin/setup help"
+  puts "     # show this help"
+  puts ""
+end
+
+OptionParser.new do |opts|
+  opts.banner = "Usage: bin/setup [help]"
+  opts.on("--no-bundle-install", "Do not attempt to run bundle install if Brut is missing") do
+  end
+  opts.on("-h", "--help", "Show help") do
+    puts opts
+    puts
+    show_help
+    exit
+  end
+end.parse!
+
+if ARGV[0] == "help"
+  show_help
+else
+  exit SetupScript.new(root_dir: ROOT_DIR, ansi: (ENV["NO_COLOR"] || "").empty? ).run!
+end

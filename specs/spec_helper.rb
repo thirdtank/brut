@@ -1,10 +1,14 @@
 require "brut"
+require "brut/spec_support"
 require "confidence_check/for_rspec"
+require "with_clues"
 
 require_relative "support"
 
 RSpec.configure do |config|
   config.include ConfidenceCheck::ForRSpec
+  config.include WithClues::Method
+  config.include Brut::SpecSupport::CLICommandSupport, cli_command: true
 
   config.expect_with :rspec do |expectations|
     expectations.include_chain_clauses_in_custom_matcher_descriptions = true

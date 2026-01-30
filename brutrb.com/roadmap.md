@@ -5,7 +5,6 @@ call a 1.0 release.  Here are some ideas of what I think is needed:
 
 ## Better Dev Experience
 
-* The CLI apps are all shimmed in a wierd way, expecially `mkbrut`. They should be part of the gem.
 * The output of `bin/dev` isn't great.
 * otel-desktop-viewer is cool, but not the easiest to figure out issues as compred to good 'ole logging.
 * Error pages in the app are *really* bad.
@@ -13,7 +12,7 @@ call a 1.0 release.  Here are some ideas of what I think is needed:
 ## More Tests
 
 * Unit tests for all/most classes are needed. There's only a few now.
-* Integration test of `mkbrut`, all automated.
+* Integration test of `brut new`, all automated.
 * Web component/custom element tests need to be re-thought.
 * Test output is a wall of text stack trace and this sucks.
 * Improvements in access to Playwright features.

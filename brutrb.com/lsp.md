@@ -5,7 +5,7 @@ computer, getting LSP servers running takes a few more steps.
 
 ## Overview
 
-When you created your app with `mkbrut`, the following LSP-related modules are set
+When you created your app with `brut new`, the following LSP-related modules are set
 up and/or installed:
 
 * Shopify's Ruby LSP server (installed from `bin/setup`)

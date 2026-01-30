@@ -10,10 +10,10 @@ To create a web page, you'll need:
 * A class in `app/src/front_end/pages/` that extends `Brut::FrontEnd::Page`, named [conventionally](/routes#class-naming-conventions) (though in reality, your page willextend `AppPage` in `app/src/front_end/pages/app_page.rb`, which extends `Brut::FrontEnd::Page`).
 * [Optional, but recommended] A test in `specs/front_end/pages`.
 
-You can create all this with `bin/scaffold`, which accepts the route you want:
+You can create all this with `brut scaffold`, which accepts the route you want:
 
 ```shell
-> bin/scaffold page /new_widgets
+> brut scaffold page /new_widgets
 # => app/src/front_end/pages/new_widgets_page.rb
 # => specs/front_end/pages/new_widgets_page.spec.rb
 # => add `page "/new_widgets"` to app/src/app.rb
@@ -22,7 +22,7 @@ You can create all this with `bin/scaffold`, which accepts the route you want:
 or
 
 ```shell
-> bin/scaffold page /widget/:id
+> brut scaffold page /widget/:id
 # => app/src/front_end/pages/widget_by_id_page.rb
 # => specs/front_end/pages/widget_by_id_page.spec.rb
 # => add `page "/widget/:id"` to app/src/app.rb

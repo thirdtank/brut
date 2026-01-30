@@ -48,13 +48,13 @@ Now, let's create the app by first initializing it.
 
 ## Initialize Your App
 
-`mkbrut` is a command line app that will initialize your new app. It's available as a RubyGem or a Docker image.  We'll use the Docker image since that doesn't require installing anything.
+`brut` is a command line app that will initialize your new app. It's available as a RubyGem or a Docker image.  We'll use the Docker image since that doesn't require installing anything.
 
-We'll call the blog simply "blog". `mkbrut` will insert some demo features in new apps to show you have to use Brut.  Since you're following this tutorial, you don't need that, so we'll use the `--no-demo` flag.
+We'll call the blog simply "blog". `brut new` will insert some demo features in new apps to show you have to use Brut.  Since you're following this tutorial, you don't need that, so we'll use the `--no-demo` flag.
 
-`cd` to a folder where you'd like to work. `mkbrut` will create a folder called `blog` in there and in *that* folder, your app will be initialized.
+`cd` to a folder where you'd like to work. `brut new` will create a folder called `blog` in there and in *that* folder, your app will be initialized.
 
-The command to do this is pretty long, because it downloads `mkbrut` and then runs it inside a Docker container, meaning you don't have to install anything new.  Here it is:
+The command to do this is pretty long, because it downloads `brut new` and then runs it inside a Docker container, meaning you don't have to install anything new.  Here it is:
 
 ```
 docker run \
@@ -63,33 +63,33 @@ docker run \
        -w "$PWD" \
        -u $(id -u):$(id -g) \
        -it \
-       thirdtank/mkbrut \
-       mkbrut --no-demo blog
+       thirdtank/brut \
+       brut new --no-demo blog
 ```
 
 You should see this output:
 
 ```
 # OUTPUT
-[ mkbrut ] Creating app with these options:
-[ mkbrut ] App name:      blog
-[ mkbrut ] App ID:        blog
-[ mkbrut ] Prefix:        bl
-[ mkbrut ] Organization:  blog
-[ mkbrut ] Include demo?  false
-[ mkbrut ] Creating Base app
-[ mkbrut ] Creating segment: Bare bones framing
-[ mkbrut ] blog was created
+[ brut ] Creating app with these options:
+[ brut ] App name:      blog
+[ brut ] App ID:        blog
+[ brut ] Prefix:        bl
+[ brut ] Organization:  blog
+[ brut ] Include demo?  false
+[ brut ] Creating Base app
+[ brut ] Creating segment: Bare bones framing
+[ brut ] blog was created
 
-[ mkbrut ] Time to get building:
-[ mkbrut ] 1. cd blog
-[ mkbrut ] 2. dx/build
-[ mkbrut ] 3. dx/start
-[ mkbrut ] 4. [ in another terminal ] dx/exec bash
-[ mkbrut ] 5. [ inside the Docker container ] bin/setup
-[ mkbrut ] 6. [ inside the Docker container ] bin/dev
-[ mkbrut ] 7. Visit http://localhost:6502 in your browser
-[ mkbrut ] 8. [ inside the Docker container ] bin/setup help # to see more commands
+[ brut ] Time to get building:
+[ brut ] 1. cd blog
+[ brut ] 2. dx/build
+[ brut ] 3. dx/start
+[ brut ] 4. [ in another terminal ] dx/exec bash
+[ brut ] 5. [ inside the Docker container ] bin/setup
+[ brut ] 6. [ inside the Docker container ] bin/dev
+[ brut ] 7. Visit http://localhost:6502 in your browser
+[ brut ] 8. [ inside the Docker container ] bin/setup help # to see more commands
 ```
 
 Before we follow the instructions in the output, `cd` to `blog` and check it out.
@@ -207,7 +207,7 @@ This is because the folder on your computer is synced to the one inside the cont
 
 ## Set Up the App Itself
 
-`mkbrut` created a lot of files for you, as well as command line apps to manage your app.  We're going to perform app setup via `bin/setup`. This completely automates the following tasks:
+`brut new` created a lot of files for you, as well as command line apps to manage your app.  We're going to perform app setup via `bin/setup`. This completely automates the following tasks:
 
 * Installing RubyGems
 * Installing Node Modules
@@ -319,7 +319,7 @@ Let's start not from the database, but from the user experience.
 
 The home page of a Brut app is served, naturally, on `/` and is implemented by the class `HomePage`, located in `app/src/front_end/pages/home_page.rb`.
 
-A *page* in Brut is a Phlex component that is rendered inside a layout. A layout is common markup that all pages should have, such as the `<head>` section and perhaps a `<body>` or other tags.  `mkbrut` provided a default layout that's good for now, so we just have to worry about the HTML that is specific to a page.
+A *page* in Brut is a Phlex component that is rendered inside a layout. A layout is common markup that all pages should have, such as the `<head>` section and perhaps a `<body>` or other tags.  `brut new` provided a default layout that's good for now, so we just have to worry about the HTML that is specific to a page.
 
 Open up `app/src/front_end/pages/home_page.rb` in your editor.  You should see something like this:
 
@@ -1305,7 +1305,7 @@ Unlike our handler, which accepts arguments and returns a result, pages generate
 
 Brut provides the method `generate_and_parse` to generate a page's HTML, then use [Nokogiri](https://nokogiri.org/) to parse it. We can use CSS selectors on the result to assert things about the HTML.
 
-`mkbrut` created `specs/front_end/pages/home_page.spec.rb`, so let's open that up on your editor.
+`brut new` created `specs/front_end/pages/home_page.spec.rb`, so let's open that up on your editor.
 
 The way we'll write this test is to generate four random blog posts using our factory, request the page, then assert that each blog post is on the page.
 

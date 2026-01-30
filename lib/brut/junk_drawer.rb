@@ -1,4 +1,5 @@
-require "tzinfo"
+autoload :TZInfo, "tzinfo"
+#require "tzinfo"
 # Models a clock, which is a time in the context of a time zone.  This theoretically makes it easier to get the time and date at the time zone of the user.
 class Clock
   attr_reader :timezone
@@ -142,6 +143,7 @@ class RichString
   def to_s = @string
   def to_str = self.to_s
   def length = to_s.length
+  def to_sym = to_s.to_sym
 
   def to_s_or_nil = @string.to_s.strip.empty? ? nil : self.to_s
 

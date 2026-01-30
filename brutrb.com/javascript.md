@@ -75,7 +75,7 @@ class Status {
 export default Status
 ```
 
-When `bin/build-assets` runs, esbuild will use `app/src/front_end/js/index.js` as its *entry point*, and will
+When `brut build-assets` runs, esbuild will use `app/src/front_end/js/index.js` as its *entry point*, and will
 bundle both `Widget.js` and the "foobar" library.  When it bundles `Widget.js`, it will see that it imports
 `extra/Status.js` and bundle that, too.
 

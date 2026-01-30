@@ -111,8 +111,8 @@ they will be served up directly.
 
 _Last Updated May 7, 2025_
 
-`bin/build-assets` manages all of the behavior described on this page.  `bin/build-assets css` and
-`bin/build-assets js` modify the file `app/config/asset_metadata.json`, which stores the mappings between logic
+`brut build-assets` manages all of the behavior described on this page.  `brut build-assets css` and
+`brut build-assets js` modify the file `app/config/asset_metadata.json`, which stores the mappings between logic
 paths and hashed paths:
 
 ```json

@@ -7,7 +7,7 @@ production data and is not used for tests.
 
 Seed data lives in `app/src/back_end/data_models/seed`.  You can create as many files in here as you like. Each
 should contain a class that extends `Brut::BackEnd::SeedData` and implements `seed!`.  By doing this, the class
-is regsitered with Brut and when you run `bin/db seed` all the classes are created and `seed!` is called.
+is regsitered with Brut and when you run `brut db seed` all the classes are created and `seed!` is called.
 
 FactoryBot will be set up for you, so you can call `FactoryBot.create` to create the data.
 
@@ -59,5 +59,5 @@ written.
 
 Seed data also is not assumed to be idempotent. If you run it twice, you will likely get an error.  Because 
 [your dev database is ephemeral](/database-schema#ephemeral-dev-database), you can always recreate your dev
-database via `bin/db rebuild && bin/db seed`.
+database via `brut db rebuild && brut db seed`.
 

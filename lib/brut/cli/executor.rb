@@ -50,7 +50,13 @@ class Brut::CLI::Executor
   # @param [String|Array] args Whatever you would give to `Kernel#system` or `Open3.popen3`.
   # @raise Brut::CLI::Error::SystemExecError if the spawed command exits nonzero
   # @return [int] Always returns 0
-  def system!(*args)
+  def system!(*args,&block)
+
+    block ||= ->(output) {
+      @out.print output
+      @out.flush
+    }
+
     @out.puts "Executing #{args}"
     wait_thread = Open3.popen3(*args) do |_stdin,stdout,stderr,wait_thread|
       o = stdout.read_nonblock(10, exception: false)
@@ -58,8 +64,7 @@ class Brut::CLI::Executor
       while o || e
         if o
           if o != :wait_readable
-            @out.print o
-            @out.flush
+            block.(o)
           end
           o = stdout.read_nonblock(10, exception: false)
         end
@@ -74,7 +79,7 @@ class Brut::CLI::Executor
       wait_thread
     end
     if wait_thread.value.success?
-      @out.puts "#{args} succeeded"
+      @out.puts "#{args.length == 1 ? args[0] : args} succeeded"
     else
       raise Brut::CLI::SystemExecError.new(args,wait_thread.value.exitstatus)
     end

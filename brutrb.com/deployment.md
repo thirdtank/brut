@@ -3,6 +3,9 @@
 Brut apps are Rack apps, so they can be deployed in conventional
 ways.
 
+> [!WARNING]
+> The deploy command line has been rewritten - this documentation is wrong, but will be updated soon
+
 ## Overview
 
 There are just too many ways to deploy.  Brut attempts to address this by adhering to [12-factor principles](https://12factor.net).  Brut also tries not to create artifacts like `Procfile` or `Dockerfile` that would conflict with the artifacts you'd need to manage deployment.
@@ -11,11 +14,11 @@ That said, Brut includes first-class support for deploying to Heroku using conta
 
 ### Heroku Container-based Deployment
 
-When creating your Brut app with `mkbrut`, the Heroku segment can be used to create files and scripts for a [Heroku container-based deployment](https://devcenter.heroku.com/articles/container-registry-and-runtime).
+When creating your Brut app with `brut new`, the Heroku segment can be used to create files and scripts for a [Heroku container-based deployment](https://devcenter.heroku.com/articles/container-registry-and-runtime).
 
 | File | Purpose | Notes |
 |------|---------|-------|
-| `bin/deploy` | Script to use to perform the deployment | This wraps `HerokuContainerBasedDeploy` in `Brut::CLI::Apps` |
+| `brut deploy` | Script to use to perform the deployment | This wraps `HerokuContainerBasedDeploy` in `Brut::CLI::Apps` |
 | `deploy/Dockerfile` | Template `Dockerfile` used to create a `Dockerfile` for each process type | Heroku requires each process (web, worker, release, etc.) to have its own `Dockerfile` and own image |
 | `deploy/heroku_config.rb` | Class that exports optional processes | By default, your app has a web and release process. `HerokuConfig` can export others, like Sidekiq |
 | `deploy/docker-entrypoint` | The [`ENTRYPOINT`](https://docs.docker.com/reference/dockerfile/#entrypoint) for production Docker images, which is set up to use jemalloc | You can modify or remove this as needed |
@@ -53,18 +56,18 @@ How to deploy:
    > heroku create --stack container -a «your heroku app name»
    ```
 5. Ensure your app's source code is all checked in, there are no uncommitted or unadded files, and you have pushed to the `main` branch of your remote Git repository.
-6. `bin/deploy`
+6. `brut deploy`
 
    This will generate a `Dockerfile` for each process (by default, `Dockerfile.web` and `Dockerfile.release`), build images, push those images to Heroku, and ask Heroku to release them.
 
 Debugging Tips:
 
 * Keep in mind it's hard to make general deployment tools. You are expected to understand your deployment and be capable of deploying an arbitrary Rack app manually.  Brut's tooling automates what you need to do based on what you already need to know.
-* `bin/deploy` runs the `deploy` subcommand, so `bin/deploy help deploy` can provide some options for debugging issues:
+* `brut deploy` runs the `deploy` subcommand, so `brut deploy help deploy` can provide some options for debugging issues:
 
   ```
-  devcontainer> bin/deploy help deploy
-  Usage: bin/deploy [global options] deploy [command options] 
+  devcontainer> brut deploy help deploy
+  Usage: brut deploy [global options] deploy [command options] 
 
       Build images, push them to Heroku, and deploy them
 
@@ -109,11 +112,11 @@ Debugging Tips:
                                to Heroku's registry. If false,
                                implies --no-deploy
   ```
-* Try building images first: `bin/deploy deploy --no-push --skip-checks`
+* Try building images first: `brut deploy deploy --no-push --skip-checks`
 * It's possible to run the images locally.  If you are on Apple Silicon, you'll
   need to set --platform:
 
-  * `bin/deploy deploy --no-push --skip-checks --platform linux/arm64`
+  * `brut deploy deploy --no-push --skip-checks --platform linux/arm64`
   * Create `docker-compose.yml` for your image and any other services e.g. databases
   * Set required environment variables in `docker-compose.yml`
   * Start up Docker compose and poke around
@@ -126,11 +129,11 @@ Debugging Tips:
 As a Rack app, other deployments should be possible.  To make the app work, you'll need to make sure a few things are dealt with:
 
 * `RACK_ENV` **must** be `"production"`
-* `bin/build-assets` will build all assets by default.  This must either be done on production servers or done ahead of time and the results packaged with the app.
-* `bin/build-assets` outputs files in `app/public` and `app/config`.  Those files are used at runtime.  Brut **will not** initiate the build of any assets.
+* `brut build-assets` will build all assets by default.  This must either be done on production servers or done ahead of time and the results packaged with the app.
+* `brut build-assets` outputs files in `app/public` and `app/config`.  Those files are used at runtime.  Brut **will not** initiate the build of any assets.
 * If you are going to build assets on production servers, you *must* included developer tooling. This means NodeJS, all modules in `package.json` and all RubyGems in `Gemfile`.
 
-The `deploy/Dockerfile` created by `mkbrut --segment-heroku` is not very Heroku-specific and could serve as a reference.
+The `deploy/Dockerfile` created by `brut new --segment-heroku` is not very Heroku-specific and could serve as a reference.
 
 ## Testing
 

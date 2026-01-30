@@ -13,7 +13,7 @@ Brut uses [Playwright](https://playwright.dev/) and the
 [playwright-ruby-client](https://playwright-ruby-client.vercel.app/) to allow you to write end-to-end
 tests that use a web browser.  Brut sets up headless Chromium to do this.
 
-You can run End-to-End (e2e) tests with `bin/test e2e`.  You must use this to run individual tests as
+You can run End-to-End (e2e) tests with `brut test e2e`.  You must use this to run individual tests as
 well, since this will ensure proper set up for the tests, which is more than is needed for a normal unit
 test.
 
@@ -171,6 +171,6 @@ make sure it's still needed.
 > Technical Notes are for deeper understanding and debugging. While we will try to keep them up-to-date with changes to Brut's
 > internals, the source code is always more correct.
 
-_Last Updated June 13, 2025_
+_Last Updated Jan 30, 2026_
 
-The test server is run via `bin/test-server`.
+The test server is run inside `brut test e2e` (it no longer uses `bin/test-server`)

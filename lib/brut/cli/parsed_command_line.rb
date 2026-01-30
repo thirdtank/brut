@@ -1,0 +1,143 @@
+require "optparse"
+require "brut/framework/project_environment"
+
+# Parses the command line and makes everything parsed available as attributes.
+class Brut::CLI::ParsedCommandLine
+
+  # The command that should be executed based on what was parsed from the command line
+  #
+  # @return [Brut::CLI::Commands::BaseCommand]
+  attr_reader :command
+
+  # The remaining unparsed command line arguments.
+  #
+  # @return [Array<String>]
+  attr_reader :argv
+
+  # The parsed command line switches and flags.
+  #
+  # @return [Brut::CLI::Options]
+  attr_reader :options
+
+  # The project enviornment, if specified
+  # @return [Brut::Framework::ProjectEnvironment]
+  attr_reader :project_environment
+
+  # Create the ParsedCommandLine based on a base command (which provides the initial set of 
+  # command line options), the ARGV and the ENV when the command was invoked.
+  #
+  # This should always succeed, however depending on the contents of the parameters, the value
+  # for `#command` may be a command that outputs an error.
+  def initialize(app_command:, argv:, env:)
+    brut_provided_help_requested = false
+    app_option_parser = new_option_parser do |opts|
+      opts.banner = app_command.description
+      app_command.accepts.each_with_index { |class_or_class_and_proc,index| accept(opts,class_or_class_and_proc,index) }
+      app_command.opts.each do |option|
+        opts.on(*option)
+      end
+      opts.on("--help", "-h", "Show help") do
+        brut_provided_help_requested = true
+      end
+    end
+
+    options = {
+      'log-level': "error",
+    }
+    remaining_argv = app_option_parser.order!(argv,into: options)
+
+    if remaining_argv[0] == "help"
+      brut_provided_help_requested = true
+      remaining_argv.shift
+    end
+
+    help_command = if brut_provided_help_requested
+                     Brut::CLI::Commands::Help.new(app_command,app_option_parser)
+                   end
+
+    command = app_command
+    loop do
+      arg = remaining_argv.shift
+      command_found = command.commands.detect { it.name == arg }
+      if command_found
+        command_found.parent_command = command
+        command = command_found
+      else
+        if arg
+          remaining_argv.unshift(arg)
+        end
+        break
+      end
+    end
+
+
+    if command != app_command
+      command_option_parser = new_option_parser do |opts|
+        opts.banner = command.description
+        app_command.accepts.each_with_index { |class_or_class_and_proc,index| accept(opts,class_or_class_and_proc,index) }
+        command.accepts.each_with_index { |class_or_class_and_proc,index| accept(opts,class_or_class_and_proc,index) }
+        opts.on("--help", "-h", "Show help") do
+          brut_provided_help_requested = true
+        end
+        app_command.opts.each { opts.on(*it) }
+        command.opts.each { opts.on(*it) }
+      end
+      remaining_argv = command_option_parser.parse!(remaining_argv, into: options)
+      if brut_provided_help_requested
+        help_command = Brut::CLI::Commands::Help.new(command,command_option_parser)
+      elsif help_command
+        help_command.option_parser = command_option_parser
+      end
+    end
+
+    if help_command
+      command = help_command
+    else
+      if remaining_argv.empty? && command.default_command
+        command = command.default_command
+      end
+    end
+
+    if options[:env]
+      @project_environment = options.delete(:env)
+    end
+
+    @command = command
+    @argv    = remaining_argv
+    @options = Brut::CLI::Options.new(options)
+  rescue => ex
+    @command = if env["BRUT_DEBUG"] == "true"
+      Brut::CLI::Commands::RaiseError.new(ex)
+    else
+      Brut::CLI::Commands::OutputError.new(ex)
+    end
+    @argv = argv
+    @options = Brut::CLI::Options.new({})
+  end
+
+private
+
+  def new_option_parser(&block)
+    OptionParser.new do |opts|
+      opts.accept(Brut::Framework::ProjectEnvironment) do |value|
+        Brut::Framework::ProjectEnvironment.new(value)
+      end
+      opts.on("--env=ENVIRONMENT", Brut::Framework::ProjectEnvironment,
+              "Project environment, e.g. test, development, production. Default depends on the command")
+      opts.on("--log-level=LOG_LEVEL", [ "debug", "info", "warn", "error", "fatal" ],
+              "Log level, which should be debug, info, warn, error, or fatal. Defaults to error")
+      block.(opts)
+    end
+  end
+
+  def accept(opts,class_or_class_and_proc,index)
+    klass,conversion_proc = if class_or_class_and_proc.kind_of?(Class)
+                              [ class_or_class_and_proc, ->(arg) { class_or_class_and_proc.new(arg) } ]
+                            elsif class_or_class_and_proc.kind_of?(Array) && class_or_class_and_proc.size == 2
+                              class_or_class_and_proc
+                            else
+                              raise "def accepts must return an array whose elements are either a class or a 2-element array of a class and a conversion proc.  Index #{index} had a #{class_or_class_and_proc.class}"
+                            end
+    opts.accept(klass,&conversion_proc)
+  end
+end

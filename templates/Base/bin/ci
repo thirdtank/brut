@@ -1,0 +1,42 @@
+#!/usr/bin/env ruby
+
+require "optparse"
+require "pathname"
+
+require "brut/tui"
+
+ROOT_DIR = ((Pathname(__dir__) / ".." ).expand_path)
+
+class CIScript < Brut::TUI::Script
+  def execute
+    phase "Preparing environment" do
+      step "Building Assets",
+           exec: "bin/build-assets"
+    end
+
+    phase "Running tests" do
+      step "Running non E2E tests",
+           exec: "bin/test run --rebuild",
+           stdout: true
+
+      step "Running JS tests",
+           exec: "bin/test js",
+           stdout: true
+
+      step "Running E2E tests",
+           exec: "bin/test e2e --rebuild --rebuild-after",
+           stdout: true
+    end
+
+    phase "Performing code and security audits" do
+      step "Analyzing Ruby gems for security vulnerabilities",
+           exec: "bundle exec bundle audit check --update"
+
+      step "Checking to see that all classes have tests",
+           exec: "bin/test audit "
+    end
+    done "All quality and auditing checks complete"
+  end
+end
+
+exit CIScript.new(root_dir: ROOT_DIR).run!
