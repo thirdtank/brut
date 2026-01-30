@@ -179,7 +179,7 @@ error.
 
 ### Create Seed Data
 
-Now, we'll set up seed data.  `mkbrut` should've created
+Now, we'll set up seed data.  `brut new` should've created
 `app/src/back_end/data_models/seed/seed_data.rb`, so we'll use that.
 
 ```ruby

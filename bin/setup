@@ -190,12 +190,12 @@ def setup(update_gems:,setup_credentials:)
     }.to_h
     changed = false
     if !existing_file.key?("DOCKERHUB_USERNAME")
-      log "What is the username for DockerHub you will use to push mkbrut images?"
+      log "What is the username for DockerHub you will use to push brut images?"
       existing_file["DOCKERHUB_USERNAME"] = gets.chomp
       changed = true
     end
     if !existing_file.key?("DOCKERHUB_PAT")
-      log "What is the Personal Access Token (PAT) for DockerHub you will use to push mkbrut images?"
+      log "What is the Personal Access Token (PAT) for DockerHub you will use to push brut images?"
       existing_file["DOCKERHUB_PAT"] = gets.chomp
       changed = true
     end
@@ -217,11 +217,6 @@ def setup(update_gems:,setup_credentials:)
 
     log "Setting up BrutCSS"
     FileUtils.chdir project_root / "brut-css" do
-      system! "bin/setup"
-    end
-
-    log "Setting up mkbrut"
-    FileUtils.chdir project_root / "mkbrut" do
       system! "bin/setup"
     end
 

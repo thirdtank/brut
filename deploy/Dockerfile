@@ -10,7 +10,7 @@ RUN echo "gem: --no-document" >> ~/.gemrc && \
     gem update --system
 
 ARG brut_version
-RUN gem install --version ${brut_version} mkbrut
+RUN gem install --version ${brut_version} brut
 
 ARG user_uid=10001
 ARG user_gid=10002

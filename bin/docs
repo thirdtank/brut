@@ -30,7 +30,6 @@ public_dir  = (dotcom_dir / "public" ).expand_path
 docs_dir    =  public_dir / "api"
 brutjs_dir  = (Pathname(__FILE__).dirname / ".." / "brut-js" ).expand_path.to_s
 brutcss_dir = (Pathname(__FILE__).dirname / ".." / "brut-css" ).expand_path.to_s
-mkbrut_dir  = (Pathname(__FILE__).dirname / ".." / "mkbrut" ).expand_path.to_s
 
 system!(
   "bundle exec yard doc -o '#{docs_dir}' --no-progress -m markdown -M rdiscount --backtrace",
@@ -69,10 +68,6 @@ FileUtils.chdir brutjs_dir do
 end
 log "Generating brut-css docs"
 FileUtils.chdir brutcss_dir do
-  system!("bin/docs")
-end
-log "Generating mkbrut docs"
-FileUtils.chdir mkbrut_dir do
   system!("bin/docs")
 end
 

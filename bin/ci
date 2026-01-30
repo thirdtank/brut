@@ -17,15 +17,9 @@ end.parse!
 
 brutjs_dir  = (Pathname(__FILE__).dirname / ".." / "brut-js" ).expand_path.to_s
 brutcss_dir = (Pathname(__FILE__).dirname / ".." / "brut-css" ).expand_path.to_s
-mkbrut_dir  = (Pathname(__FILE__).dirname / ".." / "mkbrut" ).expand_path.to_s
 
 log "Running BrutRB tests"
 system!("bin/test")
-
-log "Running mkbrut tests"
-FileUtils.chdir mkbrut_dir do
-  system!("bin/ci")
-end
 
 log "Running Rubcop"
 system!("bin/generate-and-run-rubocop")

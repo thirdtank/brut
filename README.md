@@ -23,22 +23,23 @@ Or install it yourself as:
 
 ## Getting Started
 
-[Please note there is extensive documentation](https://brutrb.com), however to get started, you can use [mkbrut](https://github.com/thirdtank/mkrbut):
+[Please note there is extensive documentation](https://brutrb.com), however to get started, you can use the [brut] command line app via
+Docker:
 
 ```
 docker run --pull always \
            -v "$PWD":"$PWD" \
            -w "$PWD" 
            -it \
-           thirdtank/mkbrut \
-           mkbrut your-new-app
+           thirdtank/brut \
+           brut new your-new-app
 ```
 
 If you have Ruby 3.4 installed somewhere, you can use this via RubyGems as well:
 
 ```
-> gem install mkbrut
-> mkbrut your-new-app
+> gem install brut
+> brut your-new-app
 ```
 
 ## Developing
@@ -71,12 +72,11 @@ with your editor, but all commands are run inside Docker, which should be more c
 
 ### Conventions in MonoRepo
 
-This repo contains all five main parts of Brut:
+This repo contains all four main parts of Brut:
 
 * BrutRB, the Ruby web framework (in this directory, code in `lib`)
 * BrutJS, the JS library with custom elements (in `brut-js/`)
 * BrutCSS, the CSS library (in `brut-css/`)
-* `mkbrut`, the CLI to create new Brut apps (in `mkbrut/`)
 * `brutrb.com`, the website, powered by VitePress (in `brutrb.com`)
 
 Each repo must conform to the *Workspace Protocol*, which are scripts in `bin/` that perform certain tasks:

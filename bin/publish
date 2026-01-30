@@ -13,7 +13,6 @@ def main
 
   brutjs_dir  = (Pathname(__FILE__).dirname / ".." / "brut-js" ).expand_path.to_s
   brutcss_dir = (Pathname(__FILE__).dirname / ".." / "brut-css" ).expand_path.to_s
-  mkbrut_dir  = (Pathname(__FILE__).dirname / ".." / "mkbrut" ).expand_path.to_s
 
   log "Pushing brut"
   system!("bin/rake release")
@@ -28,10 +27,6 @@ def main
     system!("bin/publish")
   end
 
-  log "Building mkbrut"
-  FileUtils.chdir mkbrut_dir do
-    system!("bin/publish")
-  end
 end
 
 options = {

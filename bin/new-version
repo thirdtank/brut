@@ -5,4 +5,4 @@ if [ -f /.dockerenv ]; then
   VIM=vim
 fi
 
-$VIM -o lib/brut/version.rb mkbrut/lib/mkbrut/version.rb brut-js/package.json brut-css/package.json CHANGELOG.md
+$VIM -o lib/brut/version.rb brut-js/package.json brut-css/package.json CHANGELOG.md
