@@ -14,8 +14,10 @@ main() {
 
   detect_docker_platform
 
-  release_gem
+  log "Releasing Gem"
+  rake release
   release_node_packages
+  wait_for_rubygems
   build_and_maybe_push
 }
 
@@ -41,18 +43,14 @@ release_node_packages() {
   cd ..
 }
 
-release_gem() {
-  log "Releasing Gem"
-  rake release
-  wait_for_rubygems
-}
 
 wait_for_rubygems() {
-  timeout=30
+  timeout=60
   interval=2
   elapsed=0
 
   log "Waiting ${timeout} seconds for brut $GEM_VERSION to be available on RubyGems"
+  log "This is because the Docker image requires installing the gem"
   while (( elapsed < timeout )); do
     if gem list -r "brut" -a | grep -q "$GEM_VERSION"; then
       log "brut $GEM_VERSION is available on RubyGems"
@@ -64,9 +62,8 @@ wait_for_rubygems() {
 
   log "brut $GEM_VERSION is not available on RubyGems after $timeout seconds"
   log "Something may have gone wrong. Or, it could just be taking a while"
-  log "You can re-run this with -G to bypassing pushing to RubyGems"
-  echo 
-  log "    bin/deploy -G"
+  log "Either way, the Docker image cannot be build and you will have to manually"
+  log "re-run various parts of this script. Sorry."
   exit 1
 }
 

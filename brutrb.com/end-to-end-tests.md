@@ -171,6 +171,6 @@ make sure it's still needed.
 > Technical Notes are for deeper understanding and debugging. While we will try to keep them up-to-date with changes to Brut's
 > internals, the source code is always more correct.
 
-_Last Updated Jan 30, 2026_
+_Last Updated Feb 1, 2026_
 
-The test server is run inside `brut test e2e` (it no longer uses `bin/test-server`)
+The test server is run inside `brut test e2e` (was previously run from RSpec configuration).

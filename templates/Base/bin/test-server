@@ -7,7 +7,8 @@ ROOT_DIR="${SCRIPT_DIR}/.."
 usage() {
   echo "Usage: $0"
   echo
-  echo "    Run the app for local development, with asset and code reloading"
+  echo "    Run the app in the test environment, suitable for end-to-end tests"
+  echo "    This will build all assets first, but not rebuild or reload after that"
   echo
 }
 
@@ -18,8 +19,11 @@ for arg in "$@"; do
   fi
 done
 
-RACK_ENV="development"
+RACK_ENV="test"
 export RACK_ENV
+echo "[ bin/test-server ] Building assets"
 brut build-assets
-foreman start --procfile "${ROOT_DIR}/Procfile.${RACK_ENV}" --root "${ROOT_DIR}"
 
+echo "[ bin/test-server ] Starting server"
+PORT=6503 bin/run &
+wait
