@@ -1,5 +1,9 @@
 # Brut CHANGELOG
 
+## v0.18.1 - Feb 1, 2026
+
+* Fix issue in making a new app
+
 ## v0.18.0 - Feb 1, 2026
 
 ### **Major CLI Overhaul**
@@ -17,7 +21,7 @@ Various `bin/` scripts have been replaced by a unified `brut` CLI:
 
 This process is not automated since Brut has very little adoption and is still pre-release.  If this is causing a problem, reach out via GitHub and I will help.
 
-**Also also note** that deployment likely won't work.  It's not easy to test in dev without a real app, so I expect to release 0.18.1 as soon as possible that includes Heroku Container-based deployment.
+**Also also note** that deployment likely won't work.  It's not easy to test in dev without a real app, so I expect to release a new version as soon as possible that includes Heroku Container-based deployment.
 
 ### `mkbrut` replaced by `brut new`
 
