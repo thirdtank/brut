@@ -1,5 +1,10 @@
 # Brut CHANGELOG
 
+## v0.18.2 - Feb 1, 2026
+
+* Restore `bin/test-server` for new apps as that is needed actually
+* Replace use of `bin/build-assets` with `brut build-assets`
+
 ## v0.18.1 - Feb 1, 2026
 
 * Fix issue in making a new app
