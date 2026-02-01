@@ -1,5 +1,29 @@
 # Brut CHANGELOG
 
+## v0.18.0 - Feb 1, 2026
+
+### **Major CLI Overhaul**
+
+Various `bin/` scripts have been replaced by a unified `brut` CLI:
+
+| <= 0.17.0          | 0.18.0 (new)        |
+| ------------------ | ------------------- |
+| `bin/test`         | `brut test`         |
+| `bin/db`           | `brut db`           |
+| `bin/scaffold`     | `brut scaffold`     |
+| `bin/build-assets` | `brut build-assets` |
+
+**Also note** that `bin/ci` and `bin/setup` will need to be updated to use these new commands.
+
+This process is not automated since Brut has very little adoption and is still pre-release.  If this is causing a problem, reach out via GitHub and I will help.
+
+**Also also note** that deployment likely won't work.  It's not easy to test in dev without a real app, so I expect to release 0.18.1 as soon as possible that includes Heroku Container-based deployment.
+
+### `mkbrut` replaced by `brut new`
+
+`mkbrut` and the associated Docker image are no longer supported. To create new Brut apps, you can `gem install brut` and use `brut new` or
+use a new Docker image called `thirdtank/brut` that works just like `mkbrut` did.
+
 ## v0.17.0 - Nov 30, 2025
 
 * Start of TUI support.  This lays the groundwork to move the CLIs into the gem.
