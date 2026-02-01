@@ -45,9 +45,6 @@ def main
   end
 end
 
-options = {
-  repo_check: true,
-}
 OptionParser.new do |opts|
   opts.banner = "Usage: build [options]\n\n    Builds deployable artifacts\n\nOPTIONS"
 
@@ -55,23 +52,7 @@ OptionParser.new do |opts|
     puts opts
     exit
   end
-  opts.on("--skip-repo-check", "If set, allows you to proceed without a clean Git repo. Note that this may cause gems not to build properly") do
-    options[:repo_check] = false
-  end
 end.parse!
 
-def require_clean_repo!
-  out, err = capture!("git status --porcelain")
-  if out.to_s.strip != ""
-    log out
-    log err
-    log "Your git repository is not clean. Please commit or stash your changes before running this script."
-    exit 1
-  end
-end
-
-if options[:repo_check]
-  require_clean_repo!
-end
 main
 
