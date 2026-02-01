@@ -1,56 +1,169 @@
-#!/usr/bin/env ruby
+#!/usr/bin/env bash
 
-require "optparse"
-require "pathname"
-require "fileutils"
-require "json"
-require_relative "bin_kit"
+set -e
+SCRIPT_DIR=$( cd -- "$( dirname -- "${0}" )" > /dev/null 2>&1 && pwd )
+ROOT_DIR=$(realpath "$SCRIPT_DIR/..")
 
-def main
+main() {
 
-  log "Building artifacts"
-  system!("bin/build")
+  require_git_clean
+  detect_gem_version
+  require_versions_match
+  log "Building all artifcats and docs"
+  bin/build
 
-  brutjs_dir  = (Pathname(__FILE__).dirname / ".." / "brut-js" ).expand_path.to_s
-  brutcss_dir = (Pathname(__FILE__).dirname / ".." / "brut-css" ).expand_path.to_s
+  detect_docker_platform
 
-  log "Pushing brut"
-  system!("bin/rake release")
-
-  log "Pushing brujt-js"
-  FileUtils.chdir brutjs_dir do
-    system!("bin/publish")
-  end
-
-  log "Pushing brut-css"
-  FileUtils.chdir brutcss_dir do
-    system!("bin/publish")
-  end
-
-end
-
-options = {
-  repo_check: true,
+  release_gem
+  release_node_packages
+  build_and_maybe_push
 }
-OptionParser.new do |opts|
-  opts.banner = "Usage: publish [options]\n\n    Builds and publishes all artifacts\n\nOPTIONS"
 
-  opts.on("-h", "--help", "Display this help message") do
-    puts opts
-    exit
-  end
-end.parse!
+log() {
+  echo "[ bin/publish ] ${*}"
+}
 
-def require_clean_repo!
-  out, err = capture!("git status --porcelain")
-  if out.to_s.strip != ""
-    log out
-    log err
-    log "Your git repository is not clean. Please commit or stash your changes before running this script."
+usage() {
+  echo "Usage: $0"
+  echo
+  echo "    Publish Ruby Gem, Node modules, and Docker image"
+  echo
+}
+
+release_node_packages() {
+  cd brut-js
+  log "Releasing brut-js NPM package"
+  bin/publish
+  cd ../brut-css
+  log "Releasing brut-css NPM package"
+  bin/publish
+  log "Finished releasing NPM packages"
+}
+
+release_gem() {
+  log "Releasing Gem"
+  rake release
+  wait_for_rubygems
+}
+
+wait_for_rubygems() {
+  timeout=30
+  interval=2
+  elapsed=0
+
+  log "Waiting ${timeout} seconds for brut $GEM_VERSION to be available on RubyGems"
+  while (( elapsed < timeout )); do
+    if gem list -r "brut" -a | grep -q "$GEM_VERSION"; then
+      log "brut $GEM_VERSION is available on RubyGems"
+      return 0
+    fi
+    sleep $interval
+    (( elapsed += interval ))
+  done
+
+  log "brut $GEM_VERSION is not available on RubyGems after $timeout seconds"
+  log "Something may have gone wrong. Or, it could just be taking a while"
+  log "You can re-run this with -G to bypassing pushing to RubyGems"
+  echo 
+  log "    bin/deploy -G"
+  exit 1
+}
+
+setup_docker_buildx() {
+  local builder_name=brut-builder
+
+  if ! docker buildx ls | grep -q "^$builder_name"; then
+    log "Creating Docker buildx builder: $builder_name"
+    docker buildx create --name "$builder_name" --use
+    docker buildx inspect "$builder_name" --bootstrap
+  else
+    log "Docker buildx builder $builder_name already exists"
+    docker buildx use "$builder_name"
+  fi
+}
+
+require_git_clean() {
+  git diff --quiet --exit-code HEAD --
+  if git diff --quiet --exit-code HEAD --; then
+    log "Git working directory is clean"
+  else
+    log "Git working directory is not clean. Please commit or stash your changes before publishing."
     exit 1
-  end
-end
+  fi
+}
 
-require_clean_repo!
+detect_gem_version() {
+
+  GEM_VERSION=$( rake -T | grep "rake install " | sed 's/^.*brut-//g' | sed 's/\.gem.*$//g')
+  if [[ "$GEM_VERSION" =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
+    log "Releasing version ${GEM_VERSION}"
+  else
+    log "Version '${GEM_VERSION}' does not look like a version: X.Y.Z"
+    exit 1
+  fi
+}
+
+require_versions_match() {
+  local brutjs_version=$(ruby -rjson -e "puts JSON.parse(File.read('brut-js/package.json')).fetch('version')")
+  local brutcss_version=$(ruby -rjson -e "puts JSON.parse(File.read('brut-css/package.json')).fetch('version')")
+  if [ $GEM_VERSION != $brutjs_version ] || [ $GEM_VERSION != $brutcss_version ]; then
+    log "Version mismatch detected:"
+    log "  brut gem version              : $GEM_VERSION"
+    log "  brut-js package.json version  : $brutjs_version"
+    log "  brut-css package.json version : $brutcss_version"
+    log "Please ensure all versions match before publishing."
+    exit 1
+  fi
+}
+
+detect_docker_platform() {
+
+  KERNEL_NAME_FOR_ARCHITECTURE=$(docker info --format '{{.Architecture}}')
+  OSTYPE=$(docker info --format '{{.OSType}}')
+
+  case "$KERNEL_NAME_FOR_ARCHITECTURE" in
+    "aarch64")
+      DOCKER_NAME_FOR_ARCHITECTURE="arm64"
+      ;;
+    "x86_64")
+      DOCKER_NAME_FOR_ARCHITECTURE="amd64"
+      ;;
+    *)
+      log "Docker reported architecture is $KERNEL_NAME_FOR_ARCHITECTURE - hoping this works"
+      ;;
+  esac
+  HOST_PLATFORM=${OSTYPE}/${DOCKER_NAME_FOR_ARCHITECTURE}
+}
+
+build_and_maybe_push() {
+
+  local docker_credentials_source="${SCRIPT_DIR}/../dx/credentials/dockerhub.credentials"
+  setup_docker_buildx
+
+  . "${docker_credentials_source}"
+  log "Logging into DockerHub with credentials from ${docker_credentials_source}"
+  docker login --username "${DOCKERHUB_USERNAME}" --password "${DOCKERHUB_PAT}"
+
+  DOCKER_BUILD_PUSH_OR_LOAD=--push
+  DOCKER_PLATFORMS="linux/amd64,linux/arm64"
+
+  log "Building Docker image and pushing to DockerHub"
+
+  docker buildx build \
+    --platform ${DOCKER_PLATFORMS} \
+    ${DOCKER_BUILD_PUSH_OR_LOAD} \
+    --no-cache \
+    --build-arg brut_version="${GEM_VERSION}" \
+    --tag thirdtank/brut:"${GEM_VERSION}" \
+    --tag thirdtank/brut:latest \
+    deploy
+}
+
+for arg in "${@}"; do
+  if [ "${arg}" = "-h" ] || [ "${arg}" = "--help" ] || [ "${arg}" = "help" ]; then
+    usage
+    exit 0
+  fi
+done
+
 main
-
