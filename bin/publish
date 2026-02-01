@@ -38,6 +38,7 @@ release_node_packages() {
   log "Releasing brut-css NPM package"
   bin/publish
   log "Finished releasing NPM packages"
+  cd ..
 }
 
 release_gem() {

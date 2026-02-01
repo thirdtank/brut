@@ -1,6 +1,6 @@
 require "pathname"
 require "json"
-require_relative "version"
+require "brut/version"
 
 class Brut::CLI::Apps::New::Versions
   def initialize
