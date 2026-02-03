@@ -1,4 +1,5 @@
 require "optparse"
+require "pathname"
 require "brut/framework/project_environment"
 
 # Parses the command line and makes everything parsed available as attributes.
@@ -30,7 +31,7 @@ class Brut::CLI::ParsedCommandLine
   # for `#command` may be a command that outputs an error.
   def initialize(app_command:, argv:, env:)
     brut_provided_help_requested = false
-    app_option_parser = new_option_parser do |opts|
+    app_option_parser = new_option_parser(app_command.name) do |opts|
       opts.banner = app_command.description
       app_command.accepts.each_with_index { |class_or_class_and_proc,index| accept(opts,class_or_class_and_proc,index) }
       app_command.opts.each do |option|
@@ -41,9 +42,7 @@ class Brut::CLI::ParsedCommandLine
       end
     end
 
-    options = {
-      'log-level': "error",
-    }
+    options = {}
     remaining_argv = app_option_parser.order!(argv,into: options)
 
     if remaining_argv[0] == "help"
@@ -72,7 +71,7 @@ class Brut::CLI::ParsedCommandLine
 
 
     if command != app_command
-      command_option_parser = new_option_parser do |opts|
+      command_option_parser = new_option_parser(app_command.name) do |opts|
         opts.banner = command.description
         app_command.accepts.each_with_index { |class_or_class_and_proc,index| accept(opts,class_or_class_and_proc,index) }
         command.accepts.each_with_index { |class_or_class_and_proc,index| accept(opts,class_or_class_and_proc,index) }
@@ -101,6 +100,28 @@ class Brut::CLI::ParsedCommandLine
     @command = command
     @argv    = remaining_argv
     @options = Brut::CLI::Options.new(options)
+    if !@options.log_level?
+      if @options.verbose? || @options.debug?
+        @options[:'log-level'] = "debug"
+      elsif @options.quiet?
+        @options[:'log-level'] = "error"
+      else
+        @options[:'log-level'] = "warn"
+      end
+    end
+    if !@options[:'log-file']
+      log_file_path = if env["XDG_STATE_HOME"]
+                        Pathname(env["XDG_STATE_HOME"]) / "brut"
+                      elsif env["HOME"]
+                        Pathname("#{env['HOME']}/.local/state/") / "brut"
+                      else
+                        Pathname("/tmp/") / "brut"
+                      end
+      @options[:'log-file'] = log_file_path / (app_command.name + ".log")
+    end
+    if @options[:'log-stdout'].nil?
+      @options[:'log-stdout'] = @options.verbose? || @options.debug?
+    end
   rescue => ex
     @command = if env["BRUT_DEBUG"] == "true"
       Brut::CLI::Commands::RaiseError.new(ex)
@@ -113,7 +134,7 @@ class Brut::CLI::ParsedCommandLine
 
 private
 
-  def new_option_parser(&block)
+  def new_option_parser(app_name, &block)
     OptionParser.new do |opts|
       opts.accept(Brut::Framework::ProjectEnvironment) do |value|
         Brut::Framework::ProjectEnvironment.new(value)
@@ -122,6 +143,12 @@ private
               "Project environment, e.g. test, development, production. Default depends on the command")
       opts.on("--log-level=LOG_LEVEL", [ "debug", "info", "warn", "error", "fatal" ],
               "Log level, which should be debug, info, warn, error, or fatal. Defaults to error")
+      opts.on("--verbose", "Set log level to debug, and show log messages on stdout")
+      opts.on("--debug", "Set log level to debug, and show log messages on stdout")
+      opts.on("--quiet", "Set log level to error")
+      opts.on("--log-file=FILE",
+              "Path to a file where log messages are written. Defaults to $XDG_CACHE_HOME/brut/logs/#{app_name}.log")
+      opts.on("--[no-]log-stdout", "Log messages to stdout in addition to the log file")
       block.(opts)
     end
   end

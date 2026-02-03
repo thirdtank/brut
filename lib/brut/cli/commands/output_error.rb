@@ -4,7 +4,7 @@ class Brut::CLI::Commands::OutputError < Brut::CLI::Commands::BaseCommand
     @exception = exception
   end
   def run
-    stderr.puts @exception.message
+    error(@exception.message)
     65
   end
 

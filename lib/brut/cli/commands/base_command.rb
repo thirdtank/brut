@@ -33,7 +33,7 @@ class Brut::CLI::Commands::BaseCommand
     end
     if execute_result.failed?
       return execute_result.exit_status do |error_message|
-        @stderr.puts error_message
+        puts theme.error.render(error_message)
       end
     else
       0
@@ -60,6 +60,8 @@ class Brut::CLI::Commands::BaseCommand
 
   # @return [String] description of this command for use in help output
   def description = ""
+
+  def detailed_description = nil
 
   # @return [String] description of the arguments this command accepts. Used for documentation only.
   def args_description = nil
@@ -135,25 +137,47 @@ private
   # Convienience methods to defer to `Brut::CLI::Commands::ExecutionContext`'s `Brut::CLI::Executor#system!`.
   # @!visibility public
   def system!(*args,&block)
-    self.execution_context.executor.system!(*args,&block)
+    output = ""
+    block ||= ->(output_chunk) {
+      output << output_chunk
+    }
+    self.execution_context.executor.system!(*args,&block).tap {
+      if output.length > 0
+        info output
+      end
+    }
   end
 
   # Convienience methods to defer to `Brut::CLI::Commands::ExecutionContext#stdout`'s  `puts`.
   # @!visibility public
   def puts(*args)
-    self.execution_context.stdout.puts(*args)
+    if !options.quiet?
+      self.execution_context.stdout.puts(*args)
+    end
+  end
+  def print(*args)
+    if !options.quiet?
+      self.execution_context.stdout.print(*args)
+    end
   end
 
-  # Convienience methods to defer to `Brut::CLI::Commands::ExecutionContext#stderr`. You should use this over `STDERR` or `$stderr`.
-  # @!visibility public
-  def stderr  = self.execution_context.stderr
+  def debug(message) = self.execution_context.logger.debug(message)
+  def info(message)  = self.execution_context.logger.info(message)
+  def warn(message)  = self.execution_context.logger.warn(message)
+  def error(message) = self.execution_context.logger.error(message)
+  def fatal(message) = self.execution_context.logger.fatal(message)
+
+  def theme
+    @theme = Brut::CLI::TerminalTheme.new(terminal:)
+  end
+
+  def terminal
+    @terminal ||= Brut::CLI::Terminal.new
+  end
+
   # Convienience methods to defer to `Brut::CLI::Commands::ExecutionContext#stdin`. You should use this over `STDIN` of `$stdin`.
   # @!visibility public
   def stdin   = self.execution_context.stdin
-  # Convienience methods to defer to `Brut::CLI::Commands::ExecutionContext#stdout`. You should use this over `STDOUT` of `$stdout`. Note
-  # that if you just want to output a string, use `puts`.
-  # @!visibility public
-  def stdout  = self.execution_context.stdout
   # Convienience methods to defer to `Brut::CLI::Commands::ExecutionContext#options`.
   # @!visibility public
   def options = self.execution_context.options
@@ -177,12 +201,11 @@ private
   # @!visibility public
   def run
     if argv[0]
-      stderr.puts "No such command '#{argv[0]}'"
+      puts theme.error.render("No such command '#{argv[0]}'")
       return 1
     end
 
-
-    stderr.puts "Command is required"
+    puts theme.error.render("Command is required")
     1
   end
 end

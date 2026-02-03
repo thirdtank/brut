@@ -11,17 +11,18 @@ class Brut::CLI::Runner
   # @param [IO] stdin the standard input
   # @param [Pathname] project_root root of the Brut project (i.e. where `Gemfile`, `app` et. al. are located)
   def initialize(app_command, stdout:, stderr:,stdin:, project_root:)
-    prefix = if $0 =~ /\/brut$/
-               "brut"
-             else
-               $0
-             end
+    @app_name = if $0 =~ /\/brut$/
+                  "brut #{app_command.name}"
+                else
+                  $0
+                end
     @app_command  = app_command
-    @stdout       = Brut::CLI::Output.new(io: stdout, prefix: "[ #{prefix} ] ")
-    @stderr       = Brut::CLI::Output.new(io: stderr, prefix: "[ #{prefix} ] ")
+    @stdout       = stdout
+    @stderr       = stderr
     @stdin        = stdin
     @project_root = project_root
   end
+
 
   # Run the commmand or subcommand based on the `app_command` given to the constructor and the command line
   # provided in `argv`.
@@ -35,6 +36,12 @@ class Brut::CLI::Runner
 
     parsed_command_line = Brut::CLI::ParsedCommandLine.new(app_command: @app_command, argv:, env:)
 
+    logger = Brut::CLI::Logger.new(
+      app_name: @app_command.name,
+      stdout: @stdout,
+      stderr: @stderr
+    )
+
     load_unix_environment!(env, parsed_command_line)
     setup_log_level(env, parsed_command_line)
     bootstrap!(env, parsed_command_line)
@@ -46,7 +53,8 @@ class Brut::CLI::Runner
         env:,
         stdout: @stdout,
         stderr: @stderr,
-        stdin: @stdin
+        stdin: @stdin,
+        logger:
       )
       parsed_command_line.command.execute(execution_context)
     end

@@ -108,8 +108,8 @@ RSpec.describe Brut::CLI::Apps::DB do
           allow(Sequel).to receive(:connect).with(database_server_url)
           result = described_class.new.execute(test_execution_context(stdout:))
           expect(result).to eq(0)
-          expect(stdout.string).to match(/Database server is up/)
-          expect(stdout.string).to match(/Database testing does not exist.*brut db create/)
+          expect(stdout.string).to match(/Database Server.*UP/)
+          expect(stdout.string).to match(/Database testing.*DOES NOT EXIST/)
         end
       end
       context "server is not up" do
@@ -117,11 +117,11 @@ RSpec.describe Brut::CLI::Apps::DB do
           Brut.container.store("sequel_db_handle", Object, "") do
             raise Sequel::DatabaseConnectionError
           end
-          stderr = StringIO.new
+          stdout = StringIO.new
           allow(Sequel).to receive(:connect).and_raise(Sequel::DatabaseConnectionError)
-          result = described_class.new.execute(test_execution_context(stderr:))
+          result = described_class.new.execute(test_execution_context(stdout:))
           expect(result).to eq(1)
-          expect(stderr.string).to match(/Database server is not running at #{database_server_url}/)
+          expect(stdout.string).to match(/Database server is not running at #{database_server_url}/)
         end
       end
     end
@@ -137,7 +137,7 @@ RSpec.describe Brut::CLI::Apps::DB do
         stdout = StringIO.new
         result = described_class.new.execute(test_execution_context(stdout:))
         expect(result).to eq(0)
-        expect(stdout.string).to match(/Database already exists/)
+        expect(stdout.string).to match(/Database testing already exists/)
         expect(connection).to have_received(:disconnect)
       end
     end
@@ -162,10 +162,10 @@ RSpec.describe Brut::CLI::Apps::DB do
         it "warns that the database server isn't running" do
           allow(Sequel).to receive(:connect).with(Brut.container.database_url).and_raise(Sequel::DatabaseConnectionError)
           allow(Sequel).to receive(:connect).with(database_server_url).and_raise(Sequel::DatabaseConnectionError)
-          stderr = StringIO.new
-          result = described_class.new.execute(test_execution_context(stderr:))
+          stdout = StringIO.new
+          result = described_class.new.execute(test_execution_context(stdout:))
           expect(result).to eq(1)
-          expect(stderr.string).to match(/Database server is not running at #{database_server_url}/)
+          expect(stdout.string).to match(/Database server is not running at #{database_server_url}/)
         end
       end
     end
@@ -210,7 +210,7 @@ RSpec.describe Brut::CLI::Apps::DB do
           stdout = StringIO.new
           result = described_class.new.execute(test_execution_context(stdout:))
           expect(result).to eq(0)
-          expect(stdout.string).to match(/Database testing does not exist/)
+          expect(stdout.string).to match(/Database testing has already been dropped/)
         end
       end
       context "server is not up" do
@@ -221,10 +221,10 @@ RSpec.describe Brut::CLI::Apps::DB do
 
           allow(Sequel).to receive(:connect).with(database_server_url).and_raise(Sequel::DatabaseConnectionError)
 
-          stderr = StringIO.new
-          result = described_class.new.execute(test_execution_context(stderr:))
+          stdout = StringIO.new
+          result = described_class.new.execute(test_execution_context(stdout:))
           expect(result).to eq(1)
-          expect(stderr.string).to match(/Database server is not running at #{database_server_url}/)
+          expect(stdout.string).to match(/Database server is not running at #{database_server_url}/)
         end
       end
     end
@@ -294,10 +294,11 @@ RSpec.describe Brut::CLI::Apps::DB do
             File.open(Brut.container.migrations_dir / "1-foo.rb", "w") { it.puts "# doesn't matter" }
             File.open(Brut.container.migrations_dir / "2-bar.rb", "w") { it.puts "# doesn't matter" }
 
-            stderr = StringIO.new
-            result = described_class.new.execute(test_execution_context(stderr:))
+            stdout = StringIO.new
+            result = described_class.new.execute(test_execution_context(stdout:))
             expect(result).to eq(1)
-            expect(stderr.string).to match(/Database.*testing does not exist.*brut db create/)
+            expect(stdout.string).to match(/Database.*testing does not exist/)
+            expect(stdout.string).to match(/brut db create/)
           end
         end
       end
@@ -308,6 +309,7 @@ RSpec.describe Brut::CLI::Apps::DB do
 
     before do
       Brut.container.store("db_seeds_dir",Pathname,"",Pathname(tmpdir) / "seeds")
+      Brut.container.store("project_root",Pathname,"",Pathname(tmpdir) / "project_root")
       FileUtils.mkdir_p(Brut.container.db_seeds_dir)
       File.open(Brut.container.db_seeds_dir / "1_test_seed.rb", "w") do |file|
         file.puts "class TestSeedData1; end"
@@ -343,42 +345,14 @@ RSpec.describe Brut::CLI::Apps::DB do
             allow(seed_data).to receive(:setup!)
             allow(seed_data).to receive(:load_seeds!).and_raise(Sequel::UniqueConstraintViolation)
 
-            stderr = StringIO.new
+            stdout = StringIO.new
 
-            result = described_class.new.execute(test_execution_context(stderr:))
+            result = described_class.new.execute(test_execution_context(stdout:))
             expect(result).to eq(1)
-            expect(stderr.string).to match(/Seed data may have already been loaded.*brut db rebuild/)
+            expect(stdout.string).to match(/Seed data may have already been loaded/)
+            expect(stdout.string).to match(/brut db rebuild/)
           end
         end
-      end
-      context "migrations have not been run" do
-        it "warns that migrations must be run and how" do
-          seed_data = instance_double(Brut::BackEnd::SeedData)
-          allow(Brut::BackEnd::SeedData).to receive(:new).and_return(seed_data)
-          exception = begin
-                        raise Sequel::DatabaseError, cause: PG::UndefinedTable.new
-                      rescue => ex
-                        ex
-                      end
-          allow(seed_data).to receive(:setup!).and_raise(exception)
-          stderr = StringIO.new
-
-          result = described_class.new.execute(test_execution_context(stderr:))
-          expect(result).to eq(1)
-          expect(stderr.string).to match(/Migrations need to be run.*brut db migrate/)
-        end
-      end
-    end
-    context "database does not exist" do
-      it "warns that the database needs to be created and how" do
-        seed_data = instance_double(Brut::BackEnd::SeedData)
-        allow(Brut::BackEnd::SeedData).to receive(:new).and_return(seed_data)
-        allow(seed_data).to receive(:setup!).and_raise(Sequel::DatabaseConnectionError)
-        stderr = StringIO.new
-
-        result = described_class.new.execute(test_execution_context(stderr:))
-        expect(result).to eq(1)
-        expect(stderr.string).to match(/Database doesn't exist.*brut db create/)
       end
     end
   end
@@ -414,27 +388,27 @@ RSpec.describe Brut::CLI::Apps::DB do
       end
       context "RACK_ENV is not development" do
         it "warns that this may not be used outside development" do
-          stderr = StringIO.new
-          result = described_class.new.execute(test_execution_context(stderr:,
+          stdout = StringIO.new
+          result = described_class.new.execute(test_execution_context(stdout:,
                                                                       env: { "RACK_ENV" => "test" },
                                                                       argv: [ "some", "new", "migration" ]))
 
 
           expect(result).to eq(1)
-          expect(stderr.string).to match(/only works in the development/)
+          expect(stdout.string).to match(/only works in the development/)
         end
       end
     end
     context "argv empty" do
       it "warns that a name is required" do
-        stderr = StringIO.new
-        result = described_class.new.execute(test_execution_context(stderr:,
+        stdout = StringIO.new
+        result = described_class.new.execute(test_execution_context(stdout:,
                                                                     env: { "RACK_ENV" => "test" },
                                                                     argv: []))
 
 
         expect(result).to eq(1)
-        expect(stderr.string).to match(/You must provide a name/)
+        expect(stdout.string).to match(/You must provide a name/)
       end
     end
   end

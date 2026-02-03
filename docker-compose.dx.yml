@@ -18,6 +18,7 @@ services:
     command: /home/appuser/show-help-in-app-container-then-wait.sh
     working_dir: ${PWD}
     environment:
+      TERM: ${TERM}
       PROJECT_ROOT: ${PWD}
     ports:
       - "8086:8086"

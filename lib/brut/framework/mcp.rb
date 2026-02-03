@@ -358,7 +358,7 @@ private
     semantic_logger_appenders.each do |appender|
       SemanticLogger.add_appender(**appender)
     end
-    SemanticLogger["Brut"].info("Logging set up")
+    SemanticLogger[self.class].debug("Logging set up")
   end
 
   def setup_i18n
@@ -394,10 +394,10 @@ private
       "db" => "DB"
     )
     if Brut.container.auto_reload_classes?
-      SemanticLogger["Brut"].info("Auto-reloaded configured")
+      SemanticLogger[self.class].debug("Auto-reloaded configured")
       @loader.enable_reloading
     else
-      SemanticLogger["Brut"].info("Classes will not be auto-reloaded")
+      SemanticLogger[self.class].info("Classes will not be auto-reloaded")
     end
 
     @loader.setup
@@ -424,6 +424,7 @@ private
 
   def boot_otel!
     OpenTelemetry::SDK.configure do |c|
+      c.logger = SemanticLogger["OpenTelemetry"]
       c.service_name = @app.id
       if ENV["OTEL_TRACES_EXPORTER"]
         SemanticLogger[self.class].info "OTEL_TRACES_EXPORTER was set (to '#{ENV['OTEL_TRACES_EXPORTER']}'), so Brut's OTel logging is disabled"

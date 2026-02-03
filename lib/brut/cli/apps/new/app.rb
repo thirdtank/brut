@@ -1,11 +1,41 @@
 require "fileutils"
 require "erb"
 require "ostruct"
+require "lipgloss"
 
 class Brut::CLI::Apps::New::App < Brut::CLI::Commands::BaseCommand
   def name = "new"
   def description = "Create a Brut App or modify an existing one with new segments"
   def args_description = "app_name"
+
+  LOGO_WIDE = %{
+#################                                     ####      #################      ################
+##################                                    ####      ##################     #################
+#####        #####                                    ####      #####        ######    #####       #####
+#####        #####    ####  ####  ####       ####  ##########   #####         #####    #####       #####
+#####      ######     ##########  ####       ####  ##########   #####        #####     #####     ######
+################      ######      ####       ####     ####      #################      ################
+#####       ######    #####       ####       ####     ####      #################      #####      ######
+#####         #####   ####        ####       ####     ####      #####        #####     #####        #####
+#####         #####   ####        ####       ####     ####      #####        #####     #####        #####
+#####        ######   ####        #####     #####     ####      #####         ####     #####       ######
+##################    ####         ##############     #######   #####         ####     #################
+###############       ####          #######  ####      ######   #####         #####    ##############
+  }.strip
+  LOGO_NARROW = %{
+#################                                     ####
+##################                                    ####
+#####        #####                                    ####
+#####        #####    ####  ####  ####       ####  ##########
+#####      ######     ##########  ####       ####  ##########
+################      ######      ####       ####     ####
+#####       ######    #####       ####       ####     ####
+#####         #####   ####        ####       ####     ####
+#####         #####   ####        ####       ####     ####
+#####        ######   ####        #####     #####     ####
+##################    ####         ##############     #######
+###############       ####          #######  ####      ######
+  }.strip
 
   def accepts = [
     Brut::CLI::Apps::New::Prefix,
@@ -26,15 +56,14 @@ class Brut::CLI::Apps::New::App < Brut::CLI::Commands::BaseCommand
       "App identifier, which must be able to be used as a hostname or other Internet identifier. Derived from your app name, if omitted"
     ],
     [
-      "--[no-]interactive",
-      "Don't ask for user input, just assume default answers",
-    ],
-    [
       "--organization=ORG",
       Brut::CLI::Apps::New::Organization,
       "Organization name, e.g. what you'd use for GitHub. Defaults to the app-id value"
     ],
-
+    [
+      "--[no-]interactive",
+      "Set if you want to be prompted before the app is actually created",
+    ],
     [
       "--prefix=PREFIX",
       Brut::CLI::Apps::New::Prefix,
@@ -60,16 +89,30 @@ class Brut::CLI::Apps::New::App < Brut::CLI::Commands::BaseCommand
     app_name = argv[0]
 
     if !app_name
-      stderr.puts "app_name is required"
+      error "app_name is required"
       return 1
     end
+
+    if terminal.cols >= LOGO_WIDE.lines[0].length
+      puts theme.title.render("WELCOME TO")
+      puts
+      puts theme.title.render(LOGO_WIDE)
+    elsif terminal.cols >= LOGO_NARROW.lines[0].length
+      puts theme.title.render("WELCOME TO")
+      puts
+      puts theme.title.render(LOGO_NARROW)
+    else
+      puts theme.title.render("WELCOME TO BRUT")
+    end
+
+
 
     options.set_default(:app_id, Brut::CLI::Apps::New::AppId.from_app_name(app_name))
     options.set_default(:prefix, Brut::CLI::Apps::New::Prefix.from_app_id(options.app_id))
     options.set_default(:organization, Brut::CLI::Apps::New::Prefix.from_app_id(options.app_id))
     options.set_default(:demo, true)
-    options.set_default(:interactive, true)
     options.set_default(:dir,Pathname.pwd)
+    options.set_default(:interactive, true)
 
     segment_names = Set.new(options.segments)
     if options.demo?
@@ -128,45 +171,90 @@ class Brut::CLI::Apps::New::App < Brut::CLI::Commands::BaseCommand
     end
     segments.sort!
 
-    stdout.puts "Creating a new Brut app with these options:\n"
-    stdout.puts "App Name        : #{app_name}"
-    stdout.puts "Path to New App : #{current_dir / app_name}"
-    stdout.puts "App Id          : #{options.app_id}"
-    stdout.puts "Prefix          : #{options.prefix}"
-    stdout.puts "Organization    : #{options.organization}"
-    stdout.puts "Segments        : #{segments.map(&:class).map(&:segment_name).join(", ")}"
-    stdout.puts
-
-    if options.dry_run?
-      stdout.puts "Dry Run only"
-      Brut::CLI::Apps::New::Ops::BaseOp.dry_run = true
+    info "Creating a new Brut app with these options:"
+    rows = [
+      ["App Name",  app_name],
+      ["Path to New App", current_dir / app_name],
+      ["App Id", options.app_id ],
+      ["Prefix", options.prefix ],
+      ["Organization", options.organization ],
+      ["Segments", segments.map(&:class).map(&:segment_name).join(", ") ],
+    ]
+    rows.each do |(attr,val)|
+      info "  #{attr}: #{val}"
     end
-
     if options.interactive?
-      stdout.puts "Proceed? (Y/N)"
-      answer = stdin.gets
-      if answer.downcase.strip.chomp != "y"
-        stdout.puts "Aborting...."
-        exit
+      puts
+      puts theme.subheader.render("Options for your new app:")
+      table = Lipgloss::Table.new.headers(["Attribute", "Value"]).
+        rows(rows).
+        border(:rounded).
+        style_func(rows: rows.size, columns: 2) do |row,column|
+          if row == Lipgloss::Table::HEADER_ROW
+            if column == 0
+              Lipgloss::Style.new.inherit(theme.header).align_horizontal(:right).padding_right(1).padding_left(1)
+            else
+              Lipgloss::Style.new.inherit(theme.header).align_horizontal(:left).padding_right(1).padding_left(1)
+            end
+          elsif column == 0
+            Lipgloss::Style.new.inherit(theme.subheader).align_horizontal(:right).padding_right(1).padding_left(1)
+          else
+            Lipgloss::Style.new.inherit(theme.none).align_horizontal(:left).padding_right(1).padding_left(1)
+          end
+        end
+
+      puts table.render
+
+      puts "Proceed? (y/n): "
+      answer = stdin.gets.strip.downcase
+      if answer != "y"
+        puts theme.warning.render("Aborting app creation")
+        return 0
       end
     end
 
-    stdout.puts "Creating Base app"
+    if options.dry_run?
+      info "Dry Run only"
+      Brut::CLI::Apps::New::Ops::BaseOp.dry_run = true
+    end
+
+    info "Creating Base app"
     base.create!
     segments.each do |segment|
-      stdout.puts "Creating segment: #{segment.class.friendly_name}"
+      info "Creating segment: #{segment.class.friendly_name}"
       segment.add!
     end
-    stdout.puts "#{options.app_name} was created\n\n"
-    stdout.puts "Time to get building:"
-    stdout.puts "1. cd #{current_dir / app_name}"
-    stdout.puts "2. dx/build"
-    stdout.puts "3. dx/start"
-    stdout.puts "4. [ in another terminal ] dx/exec bash"
-    stdout.puts "5. [ inside the Docker container ] bin/setup"
-    stdout.puts "6. [ inside the Docker container ] bin/dev"
-    stdout.puts "7. Visit http://localhost:6502 in your browser"
-    stdout.puts "8. [ inside the Docker container ] bin/setup help # to see more commands"
+
+    puts
+    print theme.header.render("Your app ")
+    print theme.subheader.render(app_name)
+    print theme.header.render(" was created - time to get building!")
+    puts
+    puts
+
+    in_computer = Lipgloss::List.new.items(
+      [
+        theme.code.render("cd #{current_dir / app_name}"),
+        theme.code.render("dx/build"),
+        theme.code.render("dx/start"),
+        "#{theme.weak.render("(in another terminal)")} #{theme.code.render('dx/exec bash')}",
+      ]
+    ).enumerator(:arabic).enumerator_style(theme.bullet(1))
+    in_docker = Lipgloss::List.new.items(
+      [
+        theme.code.render("bin/setup"),
+        theme.code.render("bin/dev"),
+      ]
+    ).enumerator(:arabic).enumerator_style(theme.bullet(1))
+    list = Lipgloss::List.new.items([
+      "On your computer:\n#{in_computer.render}",
+      "Inside the Docker container:\n#{in_docker.render}",
+      "Navigate to #{theme.url.render('http://localhost:6502')} to see your app",
+      "Inside the Docker container, try #{theme.code.render('bin/setup')} help to find more commands",
+    ]).enumerator(:arabic).
+    enumerator_style(theme.bullet(0))
+    puts list.render
+    puts
   end
 
   class Segment < Brut::CLI::Commands::BaseCommand
@@ -195,7 +283,7 @@ class Brut::CLI::Apps::New::App < Brut::CLI::Commands::BaseCommand
 
       segment_name = argv[0]
       if !segment_name
-        stderr.puts "segment_name is required"
+        error "segment_name is required"
         return 1
       end
       if options.demo?
@@ -207,7 +295,7 @@ class Brut::CLI::Apps::New::App < Brut::CLI::Commands::BaseCommand
 
 
       if options.dry_run?
-        stdout.puts "Dry Run"
+        puts "Dry Run"
         Brut::CLI::Apps::New::Ops::BaseOp.dry_run = true
       end
 
@@ -227,11 +315,11 @@ class Brut::CLI::Apps::New::App < Brut::CLI::Commands::BaseCommand
                    )
                  end
       if !segment
-        stderr.puts "'#{segment_name}' is not a segment. Allowed values: sidekiq, heroku"
+        error "'#{segment_name}' is not a segment. Allowed values: sidekiq, heroku"
         return 1
       end
 
-      stdout.puts "Adding #{segment_name} to this app"
+      puts "Adding #{segment_name} to this app"
       segment.add!
       segment.output_post_add_messaging(stdout:)
       0

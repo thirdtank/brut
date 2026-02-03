@@ -30,16 +30,22 @@ module Brut::SpecSupport::CLICommandSupport
     stdin: StringIO.new,
     stdout: StringIO.new,
     stderr: StringIO.new,
-    executor: :default
+    executor: :default,
+    logger: :default
   )
+    logger = if logger == :default
+               Brut::CLI::Logger.new(app_name: $0, stdout:, stderr:)
+             else
+               logger
+             end
     Brut::CLI::Commands::ExecutionContext.new(
       argv:,
       options: Brut::CLI::Options.new({ "log-level": "error" }.merge(options)),
-      env:,
+      env: { "NO_COLOR" => "1" }.merge(env),
       stdin:,
       stdout:,
       stderr:,
-      executor: executor == :default ? CapturingExecutor.new(out: stdout, err: stderr) : executor,
+      executor: executor == :default ? CapturingExecutor.new(out: stdout, err: stderr, logger:) : executor,
     )
   end
 end

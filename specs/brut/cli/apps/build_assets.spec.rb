@@ -10,6 +10,7 @@ RSpec.describe Brut::CLI::Apps::BuildAssets, cli_command: true do
 
   before do
     allow(Brut).to receive(:container).and_return(test_container)
+    Brut.container.store("project_root",Pathname,"",Pathname(tmpdir) / "project_root")
   end
 
   after do
@@ -90,7 +91,17 @@ RSpec.describe Brut::CLI::Apps::BuildAssets, cli_command: true do
       result = described_class.new.execute(execution_context)
       expect(result).to eq(nil)
       expect(execution_context).to have_executed([
-        "rsync --archive --delete --verbose \"/images/src/\" \"/images/root\""
+        "rsync --archive --verbose --delete \"/images/src/\" \"/images/root\""
+      ])
+    end
+    it "does not --delete when --no-clean is used" do
+      Brut.container.store(:images_src_dir, String,"Images source dir", "/images/src")
+      Brut.container.store(:images_root_dir,String,"Images root dir",   "/images/root")
+      execution_context = test_execution_context(options: { clean: false })
+      result = described_class.new.execute(execution_context)
+      expect(result).to eq(nil)
+      expect(execution_context).to have_executed([
+        "rsync --archive --verbose \"/images/src/\" \"/images/root\""
       ])
     end
   end

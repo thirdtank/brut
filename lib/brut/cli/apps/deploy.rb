@@ -20,7 +20,7 @@ class Brut::CLI::Apps::Deploy < Brut::CLI::Commands::BaseCommand
 
     def run
       if delegate_to_command(Deploy::Build.new) != 0
-        stderr.puts "<== Build failed."
+        error "<== Build failed."
         return 1
       end
       options.set_default(:deploy, true)
@@ -31,7 +31,7 @@ class Brut::CLI::Apps::Deploy < Brut::CLI::Commands::BaseCommand
       end
       version.strip!.chomp!
       if version == ""
-        stderr.puts "Attempt to use git via command '#{git_guess}' to figure out the version failed"
+        error "Attempt to use git via command '#{git_guess}' to figure out the version failed"
         return 1
       end
       short_version = version[0..7]
@@ -60,10 +60,10 @@ class Brut::CLI::Apps::Deploy < Brut::CLI::Commands::BaseCommand
           command = %{docker push #{docker_quiet_option} #{heroku_image_name}}
           system!(command)
         rescue Brut::CLI::SystemExecError => ex
-          stderr.puts "Failed to push image '#{heroku_image_name}' to Heroku"
+          error "Failed to push image '#{heroku_image_name}' to Heroku"
           if options.log_level != "debug"
-            stderr.puts "Could be you must re-authenticate to Heroku."
-            stderr.puts "Try re-running with --log-level=debug to see more details"
+            error "Could be you must re-authenticate to Heroku."
+            error "Try re-running with --log-level=debug to see more details"
           end
           return 1
         end
@@ -71,12 +71,12 @@ class Brut::CLI::Apps::Deploy < Brut::CLI::Commands::BaseCommand
       end
       deploy_command = "heroku container:release #{names.join(' ')} -a #{Brut.container.app_id}"
       if options.deploy?
-        stdout.puts "Deploying images to Heroku"
+        puts "Deploying images to Heroku"
         system!(deploy_command)
       else
-        stdout.puts "Not deploying.  To deploy the images just pushed:"
-        stdout.puts ""
-        stdout.puts "  #{deploy_command}"
+        puts "Not deploying.  To deploy the images just pushed:"
+        puts ""
+        puts "  #{deploy_command}"
       end
     end
   end
@@ -157,8 +157,8 @@ class Brut::CLI::Apps::Deploy < Brut::CLI::Commands::BaseCommand
       def run
         if !options.skip_checks?
           if delegate_to_command(Deploy::Check.new) != 0
-            stderr.puts "<== Pre-build checks failed."
-            stderr.puts "!!! Fix these issues or re-run with --skip-checks to proceed anyway."
+            error "<== Pre-build checks failed."
+            error "!!! Fix these issues or re-run with --skip-checks to proceed anyway."
             return 1
           end
         end
@@ -170,7 +170,7 @@ class Brut::CLI::Apps::Deploy < Brut::CLI::Commands::BaseCommand
         end
         version.strip!.chomp!
         if version == ""
-          stderr.puts "Attempt to use git via command '#{git_guess}' to figure out the version failed"
+          error "Attempt to use git via command '#{git_guess}' to figure out the version failed"
           return 1
         end
         short_version = version[0..7]
@@ -185,10 +185,10 @@ class Brut::CLI::Apps::Deploy < Brut::CLI::Commands::BaseCommand
 
         FileUtils.chdir Brut.container.project_root do
 
-          stdout.puts "Generating Dockerfiles"
+          puts "Generating Dockerfiles"
           app_docker_files.each do |name:, cmd:, dockerfile:|
 
-            stdout.puts "Creating '#{dockerfile}' for '#{name}' that will use command '#{cmd}'"
+            puts "Creating '#{dockerfile}' for '#{name}' that will use command '#{cmd}'"
 
             if !options.dry_run?
               File.open(dockerfile,"w") do |file|
@@ -202,17 +202,17 @@ class Brut::CLI::Apps::Deploy < Brut::CLI::Commands::BaseCommand
             end
           end
 
-          stdout.puts "Building images"
+          puts "Building images"
           docker_quiet_option = if options.log_level == "debug"
                                   ""
                                 else
                                   "--quiet"
                                 end
           app_docker_files.each do |image_name:, dockerfile:|
-            stdout.puts "Creating docker image with name '#{image_name}' and platform '#{options.platform}'"
+            puts "Creating docker image with name '#{image_name}' and platform '#{options.platform}'"
             command = %{docker build #{docker_quiet_option} --build-arg app_git_sha1=#{version} --file #{Brut.container.project_root}/#{dockerfile} --platform #{options.platform} --tag #{image_name} .}
             if options.dry_run?
-              stdout.puts "Would run '#{command}'"
+              puts "Would run '#{command}'"
             else
               system!(command)
             end
@@ -252,13 +252,13 @@ class Brut::CLI::Apps::Deploy < Brut::CLI::Commands::BaseCommand
         end
         branch = branch.strip.chomp
         if branch != "main"
-          stderr.puts "<== You are not on the 'main' branch, but on '#{branch}'"
+          error "<== You are not on the 'main' branch, but on '#{branch}'"
           if options.check_branch?
-            stderr.puts "!!! You may only deploy from main"
+            error "!!! You may only deploy from main"
             return 1
           else
             checks_ignored += 1
-            stderr.puts "~~  Ignoring..."
+            error "~~  Ignoring..."
           end
         end
 
@@ -270,19 +270,19 @@ class Brut::CLI::Apps::Deploy < Brut::CLI::Commands::BaseCommand
           local_changes << output
         end
         if local_changes.strip != ""
-          stderr.puts "<== You have un-committed changes:"
-          stderr.puts
+          error "<== You have un-committed changes:"
+          error
           local_changes.split(/\n/).each do |change|
             checks_ignored += 1
-            stderr.puts "  #{change}"
+            error "  #{change}"
           end
-          stderr.puts
+          error
           if options.check_changes?
-            stderr.puts "!!! Commit or revert these, then push to origin"
+            error "!!! Commit or revert these, then push to origin"
             return 1
           else
             checks_ignored += 1
-            stderr.puts "~~  Ignoring..."
+            error "~~  Ignoring..."
           end
         end
 
@@ -292,30 +292,30 @@ class Brut::CLI::Apps::Deploy < Brut::CLI::Commands::BaseCommand
         end
         remote_ahead, local_ahead = rev_list.strip.chomp.split(/\t/,2).map(&:to_i)
         if remote_ahead != 0
-          stderr.puts "<== There are commits in origin you don't have."
+          error "<== There are commits in origin you don't have."
           if options.check_push?
-            stderr.puts "!!! Pull those in, re-run bin/ci, THEN deploy"
+            error "!!! Pull those in, re-run bin/ci, THEN deploy"
             return 1
           else
             checks_ignored += 1
-            stderr.puts "~~  Ignoring..."
+            error "~~  Ignoring..."
           end
         end
 
         if local_ahead != 0
-          stderr.puts "<== You have not pushed to origin."
+          error "<== You have not pushed to origin."
           if options.check_push?
-            stderr.puts "!!! Push to origin before deploying"
+            error "!!! Push to origin before deploying"
             return 1
           else
             checks_ignored += 1
-            stderr.puts "~~  Ignoring..."
+            error "~~  Ignoring..."
           end
         end
         if checks_ignored == 0
-          stdout.puts "<== All checks passed"
+          puts "<== All checks passed"
         else
-          stdout.puts "~~  #{checks_ignored} checks failed, but ignored"
+          puts "~~  #{checks_ignored} checks failed, but ignored"
         end
 
         0

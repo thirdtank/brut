@@ -17,7 +17,7 @@ RSpec.describe Brut::CLI::Commands::OutputError do
 
     exit_code = command.execute(Brut::CLI::Commands::ExecutionContext.new(stderr:))
     expect(exit_code).to eq(65)
-    expect(stderr.string).to eq("OH NOES!\n")
+    expect(stderr.string).to eq("[ bin/rspec ] OH NOES!\n")
   end
 
   it "does not want bootsrapping" do

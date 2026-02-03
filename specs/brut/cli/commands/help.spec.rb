@@ -9,47 +9,62 @@ RSpec.describe Brut::CLI::Commands::Help do
   let(:stderr) { StringIO.new }
   let(:stdin)  { StringIO.new }
 
-  it "super awesomely formats the option parser"
-
-  it "prints an the option parser to stdout" do
-    option_parser = OptionParser.new do |opts|
-      opts.banner = "Test app"
+  let(:command) {
+    command_class = Class.new(Brut::CLI::Commands::BaseCommand) do
+      def description = "A Test Command"
+      def name = "some_command"
+      def opts = [
+        [ "--foo BAR", "A test option with an argument" ],
+        [ "--[no-]crud", "A test option without an argument" ],
+      ]
+      def run
+        raise "OH NOES"
+      end
     end
-    command = described_class.new(instance_double(Brut::CLI::Commands::BaseCommand, commands: []),option_parser)
+    command_class.new
+  }
+  let(:app) { 
+    sub_commands = [
+      command,
+    ]
+    app_command_class = Class.new(Brut::CLI::Commands::BaseCommand) do
+      attr_accessor :commands
+      def description = "App Command"
+      def name = "test_cli_app"
+      def opts
+        [
+          [ "--verbose" ]
+        ]
+      end
+    end
+    app_command_class.new.tap { |app|
+      app.commands = sub_commands
+    }
+  }
 
-    exit_code = command.execute(Brut::CLI::Commands::ExecutionContext.new(stdout:stdout))
+  it "prints help on the command its given" do
+    option_parser = OptionParser.new
+    app.opts.each { |opt| option_parser.on(*opt) }
+    help_command = described_class.new(app,option_parser)
+
+    exit_code = help_command.execute(Brut::CLI::Commands::ExecutionContext.new(stdout:stdout))
     expect(exit_code).to eq(0)
-    expect(stdout.string).to eq(option_parser.to_s)
+    expect(stdout.string).to include("App Command")
+    expect(stdout.string).to include("--verbose")
+    expect(stdout.string).to include("some_command")
   end
 
-  it "allows changing the OptionParser" do
-    option_parser1 = OptionParser.new do |opts|
-      opts.banner = "Test app"
-    end
-    option_parser2 = OptionParser.new do |opts|
-      opts.banner = "Test command"
-    end
-    command = described_class.new(instance_double(Brut::CLI::Commands::BaseCommand, commands: []),option_parser1)
-    command.option_parser = option_parser2
+  it "omits headings for stuff that's not there" do
+    option_parser = OptionParser.new
+    command.opts.each { |opt| option_parser.on(*opt) }
+    help_command = described_class.new(command,option_parser)
 
-    exit_code = command.execute(Brut::CLI::Commands::ExecutionContext.new(stdout:stdout))
+    exit_code = help_command.execute(Brut::CLI::Commands::ExecutionContext.new(stdout:stdout))
     expect(exit_code).to eq(0)
-    expect(stdout.string).to eq(option_parser2.to_s)
-  end
-
-  it "does not want bootsrapping" do
-    command = described_class.new(instance_double(Brut::CLI::Commands::BaseCommand),StandardError.new)
-    expect(command.bootstrap?).to eq(false)
-  end
-
-  it "has no subcommands" do
-    command = described_class.new(instance_double(Brut::CLI::Commands::BaseCommand),OptionParser.new)
-    expect(command.commands).to eq([])
-  end
-
-  it "does not set a project environment" do
-    command = described_class.new(instance_double(Brut::CLI::Commands::BaseCommand),OptionParser.new)
-    expect(command.default_rack_env).to eq(nil)
+    expect(stdout.string).not_to include("App Command")
+    expect(stdout.string).not_to include("--verbose")
+    expect(stdout.string).to include("some_command")
+    expect(stdout.string).not_to include("COMMANDS")
   end
 
 end

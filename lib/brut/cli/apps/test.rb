@@ -48,14 +48,14 @@ class Brut::CLI::Apps::Test < Brut::CLI::Commands::BaseCommand
 
     def run
       if options.rebuild?(default: rebuild_by_default?)
-        stdout.puts "Rebuilding test database schema"
+        puts "Rebuilding test database schema"
         Bundler.with_unbundled_env do
           system! "brut db rebuild --env=test"
         end
       end
       run_tests
       if options.rebuild_after?(default: rebuild_after_by_default?)
-        stdout.puts "Re-Rebuilding test database schema"
+        puts "Re-Rebuilding test database schema"
         Bundler.with_unbundled_env do
           system! "brut db rebuild --env=test"
         end
@@ -67,10 +67,10 @@ class Brut::CLI::Apps::Test < Brut::CLI::Commands::BaseCommand
 
     def run_tests
       command = if argv.empty?
-                  stdout.puts "Running all tests"
+                  puts "Running all tests"
                   "#{rspec_command} #{Brut.container.app_specs_dir}/"
                 else
-                  stdout.puts "Running only #{argv.join(", ")}"
+                  puts "Running only #{argv.join(", ")}"
                   test_args = argv.map { |_|
                     '"' + Shellwords.escape(_) + '"'
                   }.join(" ")
@@ -210,36 +210,44 @@ class Brut::CLI::Apps::Test < Brut::CLI::Commands::BaseCommand
         hash
       }.compact.sort_by { it[:type].to_s + it[:source_file].to_s }
 
-      files_missing = []
-      printed_header = false
+      rows = []
       audit.each do |file_audit|
         if !file_audit[:test_file].exist?
           if options.type.nil? || file_audit[:type] == options.type.to_sym
             if file_audit[:test_expected]
-              files_missing << file_audit[:source_file]
-              if !printed_header
-                stdout.puts "These files are missing tests:"
-                stdout.puts ""
-                stdout.printf "%-25s   %s\n","Type", "Path"
-                stdout.puts "-------------------------------------------"
-                printed_header = true
-              end
-              stdout.puts "#{file_audit[:type].to_s.ljust(25)} - #{file_audit[:source_file]}"
+              rows << [ file_audit[:type].to_s, file_audit[:source_file].to_s ]
             end
           end
         end
       end
-      if files_missing.empty?
-        stdout.puts "All tests exists!"
+      if rows.empty?
+        puts theme.success.render("All tests exists!")
         0
       else
+        puts
+        puts theme.warning.render("The following source files are missing tests:")
+        puts
+        table = Lipgloss::Table.new.
+          headers(["Type", "Path"]).
+          rows(rows).
+          style_func(rows: rows.length, columns: 2) { |row,column|
+            if row == Lipgloss::Table::HEADER_ROW
+              Lipgloss::Style.new.inherit(theme.header).padding_left(1).padding_right(1)
+            else
+              Lipgloss::Style.new.inherit(theme.none).padding_left(1).padding_right(1)
+            end
+          }
+        puts table.render
         if options.show_scaffold?
-          stdout.puts
-          files_missing_args = files_missing.map { |file|
-            '             "' + Shellwords.escape(file.to_s) + '"'
+          puts
+          files_missing_args = rows.map { |(_,file)|
+            '                "' + Shellwords.escape(file.to_s) + '"'
           }.join(" \\\n")
 
-          stdout.puts "Run this command to generate empty tests:\n\nbrut scaffold test \\\n#{files_missing_args}"
+          puts theme.subheader.render("Run this command to generate empty tests")
+          puts
+          puts theme.code.render("  brut scaffold test \\\n#{files_missing_args}")
+          puts
         end
         1
       end
