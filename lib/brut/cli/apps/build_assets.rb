@@ -15,8 +15,14 @@ class Brut::CLI::Apps::BuildAssets < Brut::CLI::Commands::BaseCommand
 
   def name = "build-assets" 
 
-  def default_command_class = All
+  def default_command
+    @default_command ||= All.new
+  end
   def bootstrap? = default_command.bootstrap?
+
+  def run
+    delegate_to_command(default_command)
+  end
 
   class All < Brut::CLI::Commands::CompoundCommand
     def default_rack_env = "development"

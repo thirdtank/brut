@@ -2,7 +2,7 @@ require "logger"
 require "fileutils"
 
 # A TUI script is a set of steps that are executed in order.  Steps
-# can be grouped int phases, and each step can either shell out
+# can be grouped into phases, and each step can either shell out
 # to an external command or execute Ruby code.
 #
 # You are intended to subclass this class and implement `#execute`, which can use

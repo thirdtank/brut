@@ -5,7 +5,11 @@ class Brut::CLI::Apps::Test < Brut::CLI::Commands::BaseCommand
   def description = "Run and audit tests of the app"
 
   def default_rack_env = "development"
-  def default_command_class = Run
+  def default_command = Run.new
+  def opts = default_command.opts
+  def run
+    delegate_to_command(default_command)
+  end
 
   class Run < Brut::CLI::Commands::BaseCommand
     def default_rack_env = "development"
@@ -23,13 +27,11 @@ class Brut::CLI::Apps::Test < Brut::CLI::Commands::BaseCommand
       [ "RSPEC_PROFILE_EXAMPLES", "If set to any value, it is converted to an int and set as RSpec's number of examples to profile. NOTE: this is used in the app's spec_helper.rb so could've been removed" ],
     ]
 
-
     def rspec_command
       parts = [
         "bin/rspec",
         "-I", Brut.container.app_specs_dir,
         "-I", Brut.container.app_src_dir,
-        #"-I lib/", # not needed when Brut is gemified
         rspec_cli_args,
         "-P '**/*.spec.rb'",
       ]

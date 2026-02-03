@@ -35,8 +35,6 @@ class TestCLIAppWithDefault < Brut::CLI::Commands::BaseCommand
     @options = options
   end
 
-  def default_command_class = TestSubCommand
-
   def commands
     @commands ||= [
       TestSubCommand.new
@@ -67,8 +65,6 @@ class TestSubCommand < Brut::CLI::Commands::BaseCommand
       TestSubSubCommand.new
     ]
   end
-
-  def default_command_class = TestSubSubCommand
 
 end
 
@@ -126,22 +122,6 @@ RSpec.describe Brut::CLI::ParsedCommandLine do
             argv = ["--verbose" ]
             parsed_command_line = described_class.new(app_command:, argv:, env: {})
             expect(parsed_command_line.command).to eq(app_command)
-            expect(parsed_command_line.argv).to eq([])
-            expect(parsed_command_line.options.verbose?).to eq(true)
-          end
-        end
-        context "app_command has a default command" do
-          it "command is the default command" do
-            argv = ["--verbose" ]
-            parsed_command_line = described_class.new(app_command: TestCLIAppWithDefault.new, argv:, env: {})
-            expect(parsed_command_line.command.class).to eq(TestSubCommand)
-            expect(parsed_command_line.argv).to eq([])
-            expect(parsed_command_line.options.verbose?).to eq(true)
-          end
-          it "subcommand is the default command when an explicit command is invoked" do
-            argv = ["--verbose", "test_sub_command" ]
-            parsed_command_line = described_class.new(app_command: TestCLIAppWithDefault.new, argv:, env: {})
-            expect(parsed_command_line.command.class).to eq(TestSubSubCommand)
             expect(parsed_command_line.argv).to eq([])
             expect(parsed_command_line.options.verbose?).to eq(true)
           end

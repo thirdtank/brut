@@ -77,10 +77,12 @@ private
     end
     require "bundler"
     if rack_env == "production"
+      Bundler.setup(:default)
       Bundler.require(:default)
       return
     end
 
+    Bundler.setup(:default, rack_env.to_sym)
     Bundler.require(:default, rack_env.to_sym)
 
     require "dotenv"

@@ -92,10 +92,6 @@ class Brut::CLI::ParsedCommandLine
 
     if help_command
       command = help_command
-    else
-      if remaining_argv.empty? && command.default_command
-        command = command.default_command
-      end
     end
 
     if options[:env]

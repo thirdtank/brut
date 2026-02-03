@@ -15,14 +15,7 @@ class Brut::CLI::Commands::CompoundCommand < Brut::CLI::Commands::BaseCommand
   # since they assume an ivar named `@execution_context` has been set.
   def execute(execution_context)
     @commands.each do |command|
-      execute_result = Brut::CLI::ExecuteResult.new do
-        command.execute(execution_context)
-      end
-      if execute_result.failed?
-        return execute_result.exit_status do |error_message|
-          @stderr.puts error_message
-        end
-      end
+      delegate_to_command(command,execution_context)
     end
     0
   end

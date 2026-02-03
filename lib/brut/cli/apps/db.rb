@@ -7,8 +7,6 @@ class Brut::CLI::Apps::DB < Brut::CLI::Commands::BaseCommand
   def description = "Manage your database in development, test, and production"
   def name = "db"
 
-  def default_command_class = Status
-
   class Status < Brut::CLI::Commands::BaseCommand
     def description = "Check the status of the database and migrations"
     def default_rack_env = "development"

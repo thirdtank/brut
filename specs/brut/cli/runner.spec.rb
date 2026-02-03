@@ -306,14 +306,5 @@ RSpec.describe Brut::CLI::Runner do
         }.to raise_error(/OH NOES/)
       end
     end
-    describe "default command and options" do
-      it "allows the default command options to be used when default command is invoked implicitly" do
-        result = runner.run!(["--verbose"], {})
-        expect(result).to eq(10) # sub command was called
-
-        execution_context = sub_command_returns_10.send(:execution_context)
-        expect(execution_context.options.verbose?).to eq(true)
-      end
-    end
   end
 end

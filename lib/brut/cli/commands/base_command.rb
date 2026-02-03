@@ -19,15 +19,36 @@ class Brut::CLI::Commands::BaseCommand
     self.run
   end
 
+  def delegate_to_command(command,execution_context=:use_ivar)
+    execution_context = if execution_context == :use_ivar
+                          @execution_context
+                        else
+                          execution_context
+                        end
+    if execution_context.nil?
+      raise ArgumentError, "No execution context provided and none set on this command"
+    end
+    execute_result = Brut::CLI::ExecuteResult.new do
+      command.execute(execution_context)
+    end
+    if execute_result.failed?
+      return execute_result.exit_status do |error_message|
+        @stderr.puts error_message
+      end
+    else
+      0
+    end
+  end
+
   # True if the command requires Brut to fully bootstrap and start itself up.  Bootstrapping isn't running a web server but it will
   # do everything else, including connecting too all databases.  Your command should return true for this if it needs to access a database
   # or make API calls outside `Brut::CLI`. If this returns false, Brut's configuration options will still be available.
   #
-  # By default, this returns the value for `bootstrap?` of the `default_command`. If there is no `default_command`, this returns false.
+  # By default, this returns false
   #
   # @return [true|false] True if Brut should be fully bootstrap and connect to all database servers (e.g.). False if Brut should only
   #                      set up its configuration options.
-  def bootstrap? = default_command&.bootstrap? || false
+  def bootstrap? = false
 
   # The default `RACK_ENV` to use for this command.  This value is used when no `RACK_ENV` is present in the UNIX environment
   # and when `--env` has not been used on the command line. Do note that setting this in an app or parent command does
@@ -35,7 +56,7 @@ class Brut::CLI::Commands::BaseCommand
   #
   # @return [String|nil] If nil, Brut configuration will not be loaded and the command will run more or less as if it were a plain
   #         Ruby script.  If a `String`, this value will be set as the `RACK_ENV` if it's not been otherwise specified.
-  def default_rack_env = default_command&.default_rack_env
+  def default_rack_env = nil
 
   # @return [String] description of this command for use in help output
   def description = ""
@@ -84,13 +105,6 @@ class Brut::CLI::Commands::BaseCommand
   #         via `.new`.  If the class does not support `.new` as a conversion method, the element should be a two-element array
   #         where index 0 is the class and index 1 is a proc to convert the command line argument to the class's type.
   def accepts = []
-
-  # Command to run if none provided on the command line.
-  # @return [Brut::CLI::Commands::BaseCommand|nil] if `nil`, it is an error to run this command without a subcommand. If not-`nil`,
-  #         the returned command will be executed.
-  def default_command = self.commands.detect { it.class == default_command_class }
-
-  def default_command_class = nil
 
   # Returns a list of commands that represent the subcommands available to this command. By default, this
   # will return all commands that are inner classes of this command.
