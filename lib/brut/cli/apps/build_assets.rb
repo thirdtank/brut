@@ -43,7 +43,7 @@ class Brut::CLI::Apps::BuildAssets < Brut::CLI::Commands::BaseCommand
   class All < Brut::CLI::Commands::CompoundCommand
     def default_rack_env = "development"
     def description = "Build all assets"
-    def bootstrap? = true
+    def bootstrap? = false
 
     def initialize
       super([
