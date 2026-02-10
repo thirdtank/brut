@@ -1,5 +1,10 @@
 # Brut CHANGELOG
 
+## v0.19.1 - Feb 10, 2026
+
+* Fix issue where `brut build-assets all` would require bootstrapping the DB (which it should not have)
+* Formatting issue on table in `brut deploy`
+
 ## v0.19.0 - Feb 10, 2026
 
 * Added more formatting to CLI output
