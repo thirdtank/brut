@@ -80,6 +80,7 @@ class Brut::CLI::Executor
     if wait_thread.value.success?
       @logger.info "#{args.length == 1 ? args[0] : args} succeeded"
     else
+      @logger.info "'#{args.length == 1 ? args[0] : args}' failed with exit status #{wait_thread.value.exitstatus}"
       raise Brut::CLI::SystemExecError.new(args,wait_thread.value.exitstatus)
     end
     0

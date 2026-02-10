@@ -20,6 +20,9 @@ class Brut::CLI::Apps::Test < Brut::CLI::Commands::BaseCommand
       [ "--seed SEED", "Set the random seed to allow duplicating a test run" ],
     ]
     def args_description = "specs_to_run..."
+    def detailed_description = %{
+Runs all non end-to-end tests for the app, or runs a subset of non-end-to-end tests using RSpec-style syntax. Do note that you cannot use this command to run an end-to-end test, since those require the test server to be running.
+    }
 
     def env_vars = [
       [ "LOGGER_LEVEL_FOR_TESTS","Can be set to debug, info, warn, error, or fatal to control logging during tests. Defaults to 'warn' to avoid verbose test output" ],
@@ -67,7 +70,7 @@ class Brut::CLI::Apps::Test < Brut::CLI::Commands::BaseCommand
 
     def run_tests
       command = if argv.empty?
-                  puts "Running all tests"
+                  puts "Running all unit tests"
                   "#{rspec_command} #{Brut.container.app_specs_dir}/"
                 else
                   puts "Running only #{argv.join(", ")}"
@@ -77,7 +80,7 @@ class Brut::CLI::Apps::Test < Brut::CLI::Commands::BaseCommand
                   "#{rspec_command} #{test_args}"
                 end
       Bundler.with_unbundled_env do
-        system! command
+        execution_context.executor.system! command
       end
     end
   end
@@ -92,6 +95,9 @@ class Brut::CLI::Apps::Test < Brut::CLI::Commands::BaseCommand
     def rspec_cli_args = "--tag e2e"
     def rebuild_by_default?       = true
     def rebuild_after_by_default? = true
+    def detailed_description = %{
+Runs all end-to-end tests for the app, or runs a subset of end-to-end tests using RSpec-style syntax. This will run bin/test-server first, so if that fails for some reason, no tests are run.
+    }
 
   private
 
@@ -109,6 +115,9 @@ class Brut::CLI::Apps::Test < Brut::CLI::Commands::BaseCommand
     def opts = [
       [ "--[no-]build-assets","Build all assets before running the tests" ],
     ]
+    def detailed_description = %{
+       Runs all JavaScript unit tests for the app.  This does not support running individual tests.
+    }
 
     def run
       options.set_default(:"build-assets", true)
@@ -117,7 +126,7 @@ class Brut::CLI::Apps::Test < Brut::CLI::Commands::BaseCommand
           system!({ "RACK_ENV" => "test" }, "brut build-assets all")
         end
       end
-      system!({ "NODE_DISABLE_COLORS" => "1" },"npx mocha #{Brut.container.js_specs_dir} --no-color --extension 'spec.js' --recursive")
+      execution_context.executor.system!({ "NODE_DISABLE_COLORS" => "1" },"npx mocha #{Brut.container.js_specs_dir} --no-color --extension 'spec.js' --recursive")
       0
     end
   end

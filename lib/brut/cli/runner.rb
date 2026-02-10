@@ -39,7 +39,8 @@ class Brut::CLI::Runner
     logger = Brut::CLI::Logger.new(
       app_name: @app_command.name,
       stdout: @stdout,
-      stderr: @stderr
+      stderr: @stderr,
+      theme: parsed_command_line.command.theme,
     )
 
     load_unix_environment!(env, parsed_command_line)
@@ -59,7 +60,17 @@ class Brut::CLI::Runner
       parsed_command_line.command.execute(execution_context)
     end
     execute_result.exit_status do |error_message|
+      logger.fatal(error_message)
       @stderr.puts error_message
+      if parsed_command_line.options.log_file && !parsed_command_line.options.log_stdout?
+        @stderr.puts
+        @stderr.puts "More details may be available from the log file:"
+        @stderr.puts
+        @stderr.puts "    " + parsed_command_line.options.log_file.to_s
+        @stderr.puts
+        @stderr.puts "You can also use --log-stdout to see these log messages in the terminal"
+      end
+
     end
   end
 
@@ -122,6 +133,12 @@ private
 
   def bootstrap!(env, parsed_command_line)
     if env["RACK_ENV"]
+      log_level = env["LOG_LEVEL"]
+
+      if !parsed_command_line.options.verbose? && !parsed_command_line.options.debug?
+        env["LOG_LEVEL"] = "warn"
+      end
+
       require "#{@project_root}/app/bootstrap"
       bootstrap = Bootstrap.new
       if parsed_command_line.command.bootstrap?
@@ -129,6 +146,8 @@ private
       else
         bootstrap.configure_only!
       end
+
+      env["LOG_LEVEL"] = log_level
     end
   end
 end

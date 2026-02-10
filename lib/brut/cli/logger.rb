@@ -3,18 +3,36 @@ require "fileutils"
 require "delegate"
 
 class Brut::CLI::Logger < SimpleDelegator
-  def initialize(app_name:, stdout:, stderr:)
+  def initialize(app_name:, stdout:, stderr:, theme:)
     @app_name = app_name
     @stdout   = stdout
     @logger   = ::Logger.new("/dev/null")
 
     super(@logger)
 
-    @simple_formatter =  ->(_severity, _time, progname, msg) {
-      "[ #{progname} ] #{msg}\n"
+    @simple_formatter =  ->(severity, _time, progname, msg) {
+      formatted_severity = case severity
+                           when "DEBUG"
+                             theme.weak.render("DEBUG")
+                           when "INFO"
+                             theme.header.render("INFO")
+                           when "WARN"
+                             theme.warning.render("WARN")
+                           when "ERROR"
+                             theme.error.render("ERROR")
+                           when "FATAL"
+                             theme.error.render("FATAL")
+                           else
+                             severity
+                           end
+      [
+        theme.weak.render("[ #{progname} ]"),
+        "{#{formatted_severity}}",
+        msg,
+      ].join(" ") + "\n"
     }
-    @file_formatter =  ->(severity, time, _progname, msg) {
-      "#{time} - [#{severity}] #{msg}\n"
+    @file_formatter =  ->(severity, time, progname, msg) {
+      "#{time} - [ #{progname} ]{#{severity}} #{msg}\n"
     }
 
     @stdout_logger = ::Logger.new("/dev/null")
@@ -80,6 +98,14 @@ class Brut::CLI::Logger < SimpleDelegator
     @logger.fatal(message,&block)
     @stdout_logger.fatal(message,&block)
     @stderr_logger.fatal(message,&block)
+  end
+
+  def add(severity, message=nil, progname=nil, &block)
+    @logger.add(severity, message, progname, &block)
+    @stdout_logger.add(severity, message, progname, &block)
+    if severity >= ::Logger::WARN
+      @stderr_logger.add(severity, message, progname, &block)
+    end
   end
 
   def without_stderr

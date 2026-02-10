@@ -106,7 +106,7 @@ class Brut::CLI::ParsedCommandLine
       elsif @options.quiet?
         @options[:'log-level'] = "error"
       else
-        @options[:'log-level'] = "warn"
+        @options[:'log-level'] = "info"
       end
     end
     if !@options[:'log-file']

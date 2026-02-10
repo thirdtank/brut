@@ -28,16 +28,7 @@ class Brut::CLI::Commands::BaseCommand
     if execution_context.nil?
       raise ArgumentError, "No execution context provided and none set on this command"
     end
-    execute_result = Brut::CLI::ExecuteResult.new do
-      command.execute(execution_context)
-    end
-    if execute_result.failed?
-      return execute_result.exit_status do |error_message|
-        puts theme.error.render(error_message)
-      end
-    else
-      0
-    end
+    command.execute(execution_context)
   end
 
   # True if the command requires Brut to fully bootstrap and start itself up.  Bootstrapping isn't running a web server but it will
@@ -61,6 +52,8 @@ class Brut::CLI::Commands::BaseCommand
   # @return [String] description of this command for use in help output
   def description = ""
 
+  # Returns a more detaile description of the command. This can includes paragraphs which will be maintained, however
+  # any additional formatting is not rendered or used.
   def detailed_description = nil
 
   # @return [String] description of the arguments this command accepts. Used for documentation only.
@@ -120,6 +113,11 @@ class Brut::CLI::Commands::BaseCommand
     }.map(&:new)
   end
 
+  def theme
+    @theme = Brut::CLI::TerminalTheme.new(terminal:)
+  end
+
+
 private
 
   # Provides access the `Brut::CLI::Commands::ExecutionContext` used the last time `#execute` was called.
@@ -141,11 +139,16 @@ private
     block ||= ->(output_chunk) {
       output << output_chunk
     }
-    self.execution_context.executor.system!(*args,&block).tap {
+    begin
+      self.execution_context.executor.system!(*args,&block)
+    ensure
       if output.length > 0
-        info output
+        progname = args.detect { it.kind_of?(String) }.split(" ")
+        output.lines.each do |line|
+          self.execution_context.logger.add(Logger::INFO, line.chomp, progname)
+        end
       end
-    }
+    end
   end
 
   # Convienience methods to defer to `Brut::CLI::Commands::ExecutionContext#stdout`'s  `puts`.
@@ -166,10 +169,6 @@ private
   def warn(message)  = self.execution_context.logger.warn(message)
   def error(message) = self.execution_context.logger.error(message)
   def fatal(message) = self.execution_context.logger.fatal(message)
-
-  def theme
-    @theme = Brut::CLI::TerminalTheme.new(terminal:)
-  end
 
   def terminal
     @terminal ||= Brut::CLI::Terminal.new

@@ -8,7 +8,7 @@ class Brut::CLI::TerminalTheme
     @title ||= Lipgloss::Style.new.bold(true).foreground(white_strong)
   end
   def header
-    @header ||= Lipgloss::Style.new.foreground(blue_strong)
+    @header ||= Lipgloss::Style.new.foreground(blue_strong).bold(true)
   end
   def subheader
     @subheader ||= Lipgloss::Style.new.foreground(cyan_strong).italic(true)
@@ -52,9 +52,9 @@ class Brut::CLI::TerminalTheme
     @warning ||= Lipgloss::Style.new.foreground(yellow_strong).bold(true)
   end
 
-  def wrap(text, indent:, max_width: nil)
+  def wrap(text, first_indent: true, indent:, max_width: nil, newline: "\n")
     max_width ||= @terminal.cols
-    text_width = [ max_width, @terminal.cols ].min
+    text_width = [ max_width, @terminal.cols ].min - newline.length
     lines = []
     text.split(/\s+/).each do |word|
       current_line = lines.last
@@ -69,9 +69,13 @@ class Brut::CLI::TerminalTheme
       end
     end
     prefix = " " * indent
-    lines.map { |line|
-      prefix + line.join(" ")
-    }.join("\n")
+    lines.map.with_index { |line,index|
+      if index == 0 && !first_indent
+        line.join(" ")
+      else
+        prefix + line.join(" ")
+      end
+    }.join(newline)
   end
 
 private

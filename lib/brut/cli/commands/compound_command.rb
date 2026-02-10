@@ -15,7 +15,12 @@ class Brut::CLI::Commands::CompoundCommand < Brut::CLI::Commands::BaseCommand
   # since they assume an ivar named `@execution_context` has been set.
   def execute(execution_context)
     @commands.each do |command|
-      delegate_to_command(command,execution_context)
+      execute_result = Brut::CLI::ExecuteResult.new do
+        delegate_to_command(command,execution_context)
+      end
+      if execute_result.failed?
+        return execute_result.actual_result
+      end
     end
     0
   end

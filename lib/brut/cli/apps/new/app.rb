@@ -105,8 +105,6 @@ class Brut::CLI::Apps::New::App < Brut::CLI::Commands::BaseCommand
       puts theme.title.render("WELCOME TO BRUT")
     end
 
-
-
     options.set_default(:app_id, Brut::CLI::Apps::New::AppId.from_app_name(app_name))
     options.set_default(:prefix, Brut::CLI::Apps::New::Prefix.from_app_id(options.app_id))
     options.set_default(:organization, Brut::CLI::Apps::New::Prefix.from_app_id(options.app_id))
