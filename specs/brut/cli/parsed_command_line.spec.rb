@@ -188,9 +188,9 @@ RSpec.describe Brut::CLI::ParsedCommandLine do
           end
         end
         describe "log level" do
-          it "defaults to warn" do
+          it "defaults to info" do
             parsed_command_line = described_class.new(app_command:, argv: [], env: {})
-            expect(parsed_command_line.options.log_level).to eq("warn")
+            expect(parsed_command_line.options.log_level).to eq("info")
           end
           it "--quiet sets log level to error" do
             parsed_command_line = described_class.new(app_command:, argv: ["--quiet"], env: {})

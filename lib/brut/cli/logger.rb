@@ -3,7 +3,7 @@ require "fileutils"
 require "delegate"
 
 class Brut::CLI::Logger < SimpleDelegator
-  def initialize(app_name:, stdout:, stderr:, theme:)
+  def initialize(app_name:, stdout:, stderr:, theme: nil)
     @app_name = app_name
     @stdout   = stdout
     @logger   = ::Logger.new("/dev/null")
@@ -11,22 +11,26 @@ class Brut::CLI::Logger < SimpleDelegator
     super(@logger)
 
     @simple_formatter =  ->(severity, _time, progname, msg) {
-      formatted_severity = case severity
-                           when "DEBUG"
-                             theme.weak.render("DEBUG")
-                           when "INFO"
-                             theme.header.render("INFO")
-                           when "WARN"
-                             theme.warning.render("WARN")
-                           when "ERROR"
-                             theme.error.render("ERROR")
-                           when "FATAL"
-                             theme.error.render("FATAL")
+      formatted_severity = if theme
+                               case severity
+                               when "DEBUG"
+                                 theme.weak.render("DEBUG")
+                               when "INFO"
+                                 theme.header.render("INFO")
+                               when "WARN"
+                                 theme.warning.render("WARN")
+                               when "ERROR"
+                                 theme.error.render("ERROR")
+                               when "FATAL"
+                                 theme.error.render("FATAL")
+                               else
+                                 severity
+                               end
                            else
                              severity
                            end
       [
-        theme.weak.render("[ #{progname} ]"),
+        theme ? theme.weak.render("[ #{progname} ]") : "[ #{progname} ]",
         "{#{formatted_severity}}",
         msg,
       ].join(" ") + "\n"
