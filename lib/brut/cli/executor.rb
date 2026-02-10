@@ -9,11 +9,10 @@ require "open3"
 class Brut::CLI::Executor
   # Create the executor
   #
-  # @param [Brut::CLI::Output] out an IO used to send messages to the standard output
-  # @param [Brut::CLI::Output] err an IO used to send messages to the standard error
-  def initialize(out:,err:)
-    @out = out
-    @err = err
+  def initialize(out:,err:,logger:)
+    @out    = out
+    @err    = err
+    @logger = logger
   end
 
   # Execute a command, logging it to the standard output and outputing the 
@@ -57,7 +56,7 @@ class Brut::CLI::Executor
       @out.flush
     }
 
-    @out.puts "Executing #{args}"
+    @logger.info "Executing #{args}"
     wait_thread = Open3.popen3(*args) do |_stdin,stdout,stderr,wait_thread|
       o = stdout.read_nonblock(10, exception: false)
       e = stderr.read_nonblock(10, exception: false)
@@ -79,8 +78,9 @@ class Brut::CLI::Executor
       wait_thread
     end
     if wait_thread.value.success?
-      @out.puts "#{args.length == 1 ? args[0] : args} succeeded"
+      @logger.info "#{args.length == 1 ? args[0] : args} succeeded"
     else
+      @logger.info "'#{args.length == 1 ? args[0] : args}' failed with exit status #{wait_thread.value.exitstatus}"
       raise Brut::CLI::SystemExecError.new(args,wait_thread.value.exitstatus)
     end
     0

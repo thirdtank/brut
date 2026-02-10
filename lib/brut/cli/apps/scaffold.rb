@@ -3,19 +3,22 @@ require "brut/cli"
 
 class Brut::CLI::Apps::Scaffold < Brut::CLI::Commands::BaseCommand
   def description = "Create scaffolds of various files to help develop more quckly"
-  def opts = [
-    [ "--overwrite", "If set, any files that exists already will be overwritten by new scaffolds" ],
-    [ "--dry-run", "If set, no files are changed. You will see output of what would happen without this flag"],
-  ]
 
-  def default_rack_env = "development"
+  class BaseCommand < Brut::CLI::Commands::BaseCommand
+    def bootstrap? = false
+    def default_rack_env = "development"
+    def opts = [
+      [ "--overwrite", "If set, any files that exists already will be overwritten by new scaffolds" ],
+      [ "--dry-run", "If set, no files are changed. You will see output of what would happen without this flag"],
+    ]
+  end
 
-  class Test < Brut::CLI::Commands::BaseCommand
+  class Test < BaseCommand
     def description = "Create the shell of a unit test based on an existing source file"
     def args_description = "source_file_paths..."
     def run
       if argv.empty?
-        stderr.puts "'test' requires one or more files to scaffold a test for"
+        error "'test' requires one or more files to scaffold a test for"
         return 1
       end
       files_to_test_files = argv.map { |arg|
@@ -31,18 +34,18 @@ class Brut::CLI::Apps::Scaffold < Brut::CLI::Commands::BaseCommand
 
       if non_existent_sources.any?
         relative_paths = non_existent_sources.map { |pathname| pathname.relative_path_from(Brut.container.project_root) }
-        stderr.puts "Not all input files exist:"
+        error "Not all input files exist:"
         relative_paths.each do |file|
-          stderr.puts file
+          error file
         end
         return 1
       end
 
-      if existent_destinations.any? && !global_options.overwrite?
+      if existent_destinations.any? && !options.overwrite?
         relative_paths = existent_destinations.map { |pathname| pathname.relative_path_from(Brut.container.project_root) }
-        stderr.puts "Some files to be generated already exist. Set --overwrite to overwrite them:"
+        error "Some files to be generated already exist. Set --overwrite to overwrite them:"
         relative_paths.each do |file|
-          stderr.puts file
+          error file
         end
         return 1
       end
@@ -57,7 +60,7 @@ class Brut::CLI::Apps::Scaffold < Brut::CLI::Commands::BaseCommand
         }
 
 
-        stdout.puts "#{destination} will contain tests for:\n#{classes.join("\n")}\n\n"
+        puts "#{destination} will contain tests for:\n#{classes.join("\n")}\n\n"
 
         code = ["require \"spec_helper\"\n"] + classes.map { |class_name|
           %{RSpec.describe #{class_name} do
@@ -67,8 +70,8 @@ class Brut::CLI::Apps::Scaffold < Brut::CLI::Commands::BaseCommand
 end}
         }
 
-        if global_options.dry_run?
-          stdout.puts code
+        if options.dry_run?
+          puts code
         else
           FileUtils.mkdir_p destination.dirname
           File.open(destination,"w") do |file|
@@ -103,10 +106,10 @@ end}
     end
   end
 
-  class E2ETest < Brut::CLI::Commands::BaseCommand
+  class E2ETest < BaseCommand
     def description = "Create the shell of an end-to-end test"
     def args_description = "test_name"
-    def self.command_name = "test:e2e"
+    def name = "e2e_test"
 
     def opts = [
       ["--path PATH","Path within the e2e tests to create the file"],
@@ -114,7 +117,7 @@ end}
 
     def run
       if argv.empty?
-        stderr.puts "'#{self.class.command_name}' requires a name"
+        error "'#{self.class.command_name}' requires a name"
         return 1
       end
       test_name = argv.join(" ").gsub(/\"/,"'")
@@ -130,11 +133,11 @@ end}
       dry_run_verb = "create"
 
       if path_to_test_file.exist?
-        if global_options.overwrite?
+        if options.overwrite?
           verb         = "Overwrote"
           dry_run_verb = "overwrite"
         else
-          stderr.puts "#{path_to_test_file.relative_path_from(Brut.container.project_root)} exists. Use --overwrite to replace it"
+          error "#{path_to_test_file.relative_path_from(Brut.container.project_root)} exists. Use --overwrite to replace it"
           return 1
         end
       end
@@ -148,16 +151,16 @@ RSpec.describe "#{test_name}" do
     expect(page).to be_page_for(page_class_here)
   end
 end}
-      if global_options.dry_run?
-        stdout.puts "Will #{dry_run_verb} #{path_to_test_file.relative_path_from(Brut.container.project_root)} with this code:"
-        stdout.puts_no_prefix
-        stdout.puts_no_prefix code
+      if options.dry_run?
+        puts "Will #{dry_run_verb} #{path_to_test_file.relative_path_from(Brut.container.project_root)} with this code:"
+        puts
+        puts code
       else
         FileUtils.mkdir_p test_file_dir
         File.open(path_to_test_file,"w") do |file|
           file.puts code
         end
-        stdout.puts "#{verb} #{path_to_test_file.relative_path_from(Brut.container.project_root)}"
+        puts "#{verb} #{path_to_test_file.relative_path_from(Brut.container.project_root)}"
       end
       0
     end
@@ -185,7 +188,7 @@ end}
     end
   end
 
-  class Component < Brut::CLI::Commands::BaseCommand
+  class Component < BaseCommand
     def description = "Create a new component and associated test"
     def args_description = "ComponentName"
     def detailed_description = "New components go in the `components/` folder of your app, however using --page will create a 'page private' component.  To do that, the component name must be an inner class of an existing page, for example HomePage::Welcome. This component goes in a sub-folder inside the `pages/` area of your app"
@@ -230,17 +233,17 @@ end}
         spec_path,
       ].select(&:exist?)
 
-      if exists.any? && !global_options.overwrite?
+      if exists.any? && !options.overwrite?
         exists.each do |path|
-          stderr.puts "'#{path.relative_path_from(Brut.container.project_root)}' exists already"
+          error "'#{path.relative_path_from(Brut.container.project_root)}' exists already"
         end
-        stderr.puts "Re-run with --overwrite to overwrite these files"
+        error "Re-run with --overwrite to overwrite these files"
         return 1
       end
 
-      if global_options.dry_run?
-        stdout.puts "FileUtils.mkdir_p #{source_path.dirname}"
-        stdout.puts "FileUtils.mkdir_p #{spec_path.dirname}"
+      if options.dry_run?
+        puts "FileUtils.mkdir_p #{source_path.dirname}"
+        puts "FileUtils.mkdir_p #{spec_path.dirname}"
       else
         FileUtils.mkdir_p source_path.dirname
         FileUtils.mkdir_p spec_path.dirname
@@ -265,12 +268,12 @@ RSpec.describe #{class_name} do
 end}
         end
       end
-      stdout.puts "Component source is in #{source_path.relative_path_from(Brut.container.project_root)}"
-      stdout.puts "Component test is in   #{spec_path.relative_path_from(Brut.container.project_root)}"
+      puts "Component source is in #{source_path.relative_path_from(Brut.container.project_root)}"
+      puts "Component test is in   #{spec_path.relative_path_from(Brut.container.project_root)}"
       0
     end
   end
-  class Page < Brut::CLI::Commands::BaseCommand
+  class Page < BaseCommand
     class Route < Brut::FrontEnd::Routing::PageRoute
       def initialize(path_template)
         path_template = "/#{path_template}".gsub(/\/\//,"/")
@@ -310,16 +313,16 @@ end}
         page_spec_path,
       ].select(&:exist?)
 
-      if exists.any? && !global_options.overwrite?
+      if exists.any? && !options.overwrite?
         exists.each do |path|
-          stderr.puts "'#{path.relative_path_from(Brut.container.project_root)}' exists already"
+          error "'#{path.relative_path_from(Brut.container.project_root)}' exists already"
         end
-        stderr.puts "Re-run with --overwrite to overwrite these files"
+        error "Re-run with --overwrite to overwrite these files"
         return 1
       end
 
-      FileUtils.mkdir_p page_source_path.dirname,     noop: global_options.dry_run?
-      FileUtils.mkdir_p page_spec_path.dirname,       noop: global_options.dry_run?
+      FileUtils.mkdir_p page_source_path.dirname,     noop: options.dry_run?
+      FileUtils.mkdir_p page_spec_path.dirname,       noop: options.dry_run?
 
       route_code = "page \"#{route.path_template}\""
 
@@ -349,15 +352,15 @@ end}
       title = RichString.new(page_class_name).underscorized.humanized.to_s.capitalize
       translations_code = "       \"#{page_class_name}\": {\n         title: \"#{title}\",\n       \},"
 
-      if global_options.dry_run?
-        stdout.puts app_path.relative_path_from(Brut.container.project_root)
-        stdout.puts "will contain:\n\n#{route_code}\n\n"
-        stdout.puts page_source_path.relative_path_from(Brut.container.project_root)
-        stdout.puts "will contain:\n\n#{page_class_code}\n\n"
-        stdout.puts page_spec_path.relative_path_from(Brut.container.project_root)
-        stdout.puts "will contain:\n\n#{page_spec_code}\n\n"
-        stdout.puts app_translations.relative_path_from(Brut.container.project_root)
-        stdout.puts "will contain:\n\n#{translations_code}\n\n"
+      if options.dry_run?
+        puts app_path.relative_path_from(Brut.container.project_root)
+        puts "will contain:\n\n#{route_code}\n\n"
+        puts page_source_path.relative_path_from(Brut.container.project_root)
+        puts "will contain:\n\n#{page_class_code}\n\n"
+        puts page_spec_path.relative_path_from(Brut.container.project_root)
+        puts "will contain:\n\n#{page_spec_code}\n\n"
+        puts app_translations.relative_path_from(Brut.container.project_root)
+        puts "will contain:\n\n#{translations_code}\n\n"
       else
 
         File.open(page_source_path,"w")     { it.puts page_class_code }
@@ -377,29 +380,29 @@ end}
           end
         end
         if !inserted_translation
-          stderr.puts "WARNING: Could not find a place to insert the translation for this page's title"
-          stderr.puts "         The page may not render properly the first time you load it"
+          error "WARNING: Could not find a place to insert the translation for this page's title"
+          error "         The page may not render properly the first time you load it"
         end
 
         routes_editor = RoutesEditor.new(app_path:,out:)
         routes_editor.add_route!(route_code:)
 
         if !routes_editor.found_routes?
-          stdout.puts "Could not find routes declaration in #{app_path.relative_path_from(Brut.container.project_root)}"
-          stdout.puts "Please add this to wherever you have defined your routes:\n\n#{route_code}\n\n"
+          puts "Could not find routes declaration in #{app_path.relative_path_from(Brut.container.project_root)}"
+          puts "Please add this to wherever you have defined your routes:\n\n#{route_code}\n\n"
         elsif routes_editor.routes_existed?
-          stdout.puts "Routes declaration in #{app_path.relative_path_from(Brut.container.project_root)} contained the route defition already"
-          stdout.puts "Please make sure everything is correct.  Here is the defintion that was not inserted:\n\n#{route_code}"
+          puts "Routes declaration in #{app_path.relative_path_from(Brut.container.project_root)} contained the route defition already"
+          puts "Please make sure everything is correct.  Here is the defintion that was not inserted:\n\n#{route_code}"
         end
       end
-      stdout.puts "Page source is in #{page_source_path.relative_path_from(Brut.container.project_root)}"
-      stdout.puts "Page test is in   #{page_spec_path.relative_path_from(Brut.container.project_root)}"
-      stdout.puts "Added title to    #{app_translations.relative_path_from(Brut.container.project_root)}"
-      stdout.puts "Added route to    #{app_path.relative_path_from(Brut.container.project_root)}"
+      puts "Page source is in #{page_source_path.relative_path_from(Brut.container.project_root)}"
+      puts "Page test is in   #{page_spec_path.relative_path_from(Brut.container.project_root)}"
+      puts "Added title to    #{app_translations.relative_path_from(Brut.container.project_root)}"
+      puts "Added route to    #{app_path.relative_path_from(Brut.container.project_root)}"
       0
     end
   end
-  class Action < Brut::CLI::Commands::BaseCommand
+  class Action < BaseCommand
     class Route < Brut::FrontEnd::Routing::FormRoute
       def initialize(path_template)
         path_template = "/#{path_template}".gsub(/\/\//,"/")
@@ -451,19 +454,19 @@ end}
 
       exists = paths_to_check.select(&:exist?)
 
-      if exists.any? && !global_options.overwrite?
+      if exists.any? && !options.overwrite?
         exists.each do |path|
-          stderr.puts "'#{path.relative_path_from(Brut.container.project_root)}' exists already"
+          error "'#{path.relative_path_from(Brut.container.project_root)}' exists already"
         end
-        stderr.puts "Re-run with global option --overwrite to overwrite these files"
+        error "Re-run with global option --overwrite to overwrite these files"
         return 1
       end
 
       if form
-        FileUtils.mkdir_p form_source_path.dirname, noop: global_options.dry_run?
+        FileUtils.mkdir_p form_source_path.dirname, noop: options.dry_run?
       end
-      FileUtils.mkdir_p handler_source_path.dirname, noop: global_options.dry_run?
-      FileUtils.mkdir_p handler_spec_path.dirname,   noop: global_options.dry_run?
+      FileUtils.mkdir_p handler_source_path.dirname, noop: options.dry_run?
+      FileUtils.mkdir_p handler_spec_path.dirname,   noop: options.dry_run?
 
       form_code = %{class #{form_class_name} < AppForm
   input :some_field, minlength: 3
@@ -504,26 +507,26 @@ end}
                      "path \"#{route.path_template}\", method: :#{options.http_method.downcase}"
                    end
 
-      if global_options.dry_run?
-        stdout.puts app_path.relative_path_from(Brut.container.project_root)
-        stdout.puts "will contain:\n\n#{route_code}\n\n"
+      if options.dry_run?
+        puts app_path.relative_path_from(Brut.container.project_root)
+        puts "will contain:\n\n#{route_code}\n\n"
         if form
-          stdout.puts form_source_path.relative_path_from(Brut.container.project_root)
-          stdout.puts "will contain:\n\n#{form_code}\n\n"
+          puts form_source_path.relative_path_from(Brut.container.project_root)
+          puts "will contain:\n\n#{form_code}\n\n"
         end
-        stdout.puts handler_source_path.relative_path_from(Brut.container.project_root)
-        stdout.puts "will contain:\n\n#{handler_code}\n\n"
-        stdout.puts handler_spec_path.relative_path_from(Brut.container.project_root)
-        stdout.puts "will contain:\n\n#{spec_code}\n\n"
+        puts handler_source_path.relative_path_from(Brut.container.project_root)
+        puts "will contain:\n\n#{handler_code}\n\n"
+        puts handler_spec_path.relative_path_from(Brut.container.project_root)
+        puts "will contain:\n\n#{spec_code}\n\n"
       else
         class_name_length = [ form_class_name.length, handler_class_name.length, "Spec".length ].max
         printf_string = "%-#{class_name_length}s in %s\n"
-        stdout.puts "\n\n"
+        puts "\n\n"
         if form
-          stdout.printf printf_string,form_class_name,form_source_path.relative_path_from(Brut.container.project_root)
+          execution_context.stdout.printf printf_string,form_class_name,form_source_path.relative_path_from(Brut.container.project_root)
         end
-        stdout.printf printf_string,handler_class_name, handler_source_path.relative_path_from(Brut.container.project_root)
-        stdout.printf printf_string,"Spec", handler_spec_path.relative_path_from(Brut.container.project_root)
+        execution_context.stdout.printf printf_string,handler_class_name, handler_source_path.relative_path_from(Brut.container.project_root)
+        execution_context.stdout.printf printf_string,"Spec", handler_spec_path.relative_path_from(Brut.container.project_root)
 
         routes_editor = RoutesEditor.new(app_path:,out:)
         routes_editor.add_route!(route_code:)
@@ -534,11 +537,11 @@ end}
         File.open(handler_source_path,"w") { it.puts handler_code }
         File.open(handler_spec_path,"w") { it.puts spec_code }
         if !routes_editor.found_routes?
-          stdout.puts "Could not find routes declaration in #{app_path.relative_path_from(Brut.container.project_root)}"
-          stdout.puts "Please add this to wherever you have defined your routes:\n\n#{route_code}\n\n"
+          puts "Could not find routes declaration in #{app_path.relative_path_from(Brut.container.project_root)}"
+          puts "Please add this to wherever you have defined your routes:\n\n#{route_code}\n\n"
         elsif routes_editor.routes_existed?
-          stdout.puts "Routes declaration in #{app_path.relative_path_from(Brut.container.project_root)} contained the route defition already"
-          stdout.puts "Please make sure everything is correct.  Here is the defintion that was not inserted:\n\n#{route_code}"
+          puts "Routes declaration in #{app_path.relative_path_from(Brut.container.project_root)} contained the route defition already"
+          puts "Please make sure everything is correct.  Here is the defintion that was not inserted:\n\n#{route_code}"
         end
       end
       0
@@ -554,17 +557,17 @@ end}
     end
   end
 
-  class CustomElementTest < Brut::CLI::Commands::BaseCommand
+  class CustomElementTest < BaseCommand
     def description = "Create a test for a custom element in your app"
     def args_description = "path_to_js_files..."
     def run
       if argv.empty?
-        stderr.puts "'custom-element-test' requires one or more files to scaffold a test for"
+        error "'custom-element-test' requires one or more files to scaffold a test for"
         return 1
       end
 
       if argv.any? { |file| Pathname(file).extname != ".js" }
-        stderr.puts "'custom-element-test' must be given only .js files"
+        error "'custom-element-test' must be given only .js files"
         return 1
       end
 
@@ -580,11 +583,11 @@ end}
         spec.exist?
       }
 
-      if existing_files.any? && !global_options.overwrite?
+      if existing_files.any? && !options.overwrite?
         relative_paths = existing_files.map { |_,pathname| pathname.relative_path_from(Brut.container.project_root) }
-        stderr.puts "Some files to be generated already exist. Set global option --overwrite to overwrite them:"
+        error "Some files to be generated already exist. Set global option --overwrite to overwrite them:"
         relative_paths.each do |file|
-          stderr.puts file
+          error file
         end
         return 1
       end
@@ -609,8 +612,8 @@ describe("#{description}", () => {
     assert.fail("test goes here")
   })
 })}
-        if global_options.dry_run?
-          stdout.puts "Would generate this code:\n\n#{code}"
+        if options.dry_run?
+          puts "Would generate this code:\n\n#{code}"
         else
           File.open(spec_file, "w") do |file|
             file.puts code
@@ -622,7 +625,7 @@ describe("#{description}", () => {
     end
   end
 
-  class DbModel < Brut::CLI::Commands::BaseCommand
+  class DbModel < BaseCommand
     def description = "Creates a DB models, factories, and a single placeholder migration"
     def args_description = "model_name..."
 
@@ -648,31 +651,31 @@ describe("#{description}", () => {
         }
       end
       migration_name = "create_" + argv.join("_").gsub(/[^\w]/,"_").gsub(/__/,"_")
-      if global_options.dry_run?
-        @stdout.puts "Would create the following DB models:"
+      if options.dry_run?
+        puts "Would create the following DB models:"
         actions.each do |action|
-          @stdout.puts "#{action[:class_name]}"
-          @stdout.puts "  prefix:  #{action[:prefix]}"
-          @stdout.puts "  in:      #{action[:path]}"
-          @stdout.puts "  spec:    #{action[:spec_path]}"
-          @stdout.puts "  factory: #{action[:factory_path]}"
-          @stdout.puts "     name: #{action[:factory_name]}"
+          puts "#{action[:class_name]}"
+          puts "  prefix:  #{action[:prefix]}"
+          puts "  in:      #{action[:path]}"
+          puts "  spec:    #{action[:spec_path]}"
+          puts "  factory: #{action[:factory_path]}"
+          puts "     name: #{action[:factory_name]}"
 
         end
-        @stdout.puts "Would create a migration file"
-        @stdout.puts "  via:   brut db new_migration #{migration_name}"
+        puts "Would create a migration file"
+        puts "  via:   brut db new_migration #{migration_name}"
       else
         system!("brut db new_migration #{migration_name}")
         actions.each do |action|
           FileUtils.mkdir_p action[:path].dirname
-          @stdout.puts "Creating #{action[:class_name]} in #{action[:path].relative_path_from(Brut.container.project_root)}"
+          puts "Creating #{action[:class_name]} in #{action[:path].relative_path_from(Brut.container.project_root)}"
           File.open(action[:path].to_s,"w") do |file|
             file.puts %{class #{action[:class_name]} < AppDataModel
   has_external_id :#{action[:prefix]} # !IMPORTANT: Make sure this is unique amongst your DB models
 end}
           end
           FileUtils.mkdir_p action[:spec_path].dirname
-          @stdout.puts "Creating spec for #{action[:class_name]} in #{action[:spec_path].relative_path_from(Brut.container.project_root)}"
+          puts "Creating spec for #{action[:class_name]} in #{action[:spec_path].relative_path_from(Brut.container.project_root)}"
           File.open(action[:spec_path].to_s,"w") do |file|
             file.puts %{require "spec_helper"
 RSpec.describe #{action[:class_name]} do
@@ -682,7 +685,7 @@ RSpec.describe #{action[:class_name]} do
 end}
           end
           FileUtils.mkdir_p action[:factory_path].dirname
-          @stdout.puts "Creating factory for #{action[:class_name]} in #{action[:factory_path].relative_path_from(Brut.container.project_root)}"
+          puts "Creating factory for #{action[:class_name]} in #{action[:factory_path].relative_path_from(Brut.container.project_root)}"
           File.open(action[:factory_path].to_s,"w") do |file|
             file.puts %{FactoryBot.define do
   factory :#{action[:factory_name]}, class: "#{action[:class_name]}" do

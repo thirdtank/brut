@@ -18,5 +18,5 @@ args = ARGV.any? ? ARGV.join(" ") : "specs/**/*.spec.rb"
 if args =~ /\*/ 
   args = "-P \"#{args}\""
 end
-system!("bin/rspec -I specs --require spec_helper #{args}")
+system!({ "NO_COLOR" => "1" },"bin/rspec -I specs --require spec_helper #{args}")
 

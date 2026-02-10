@@ -11,17 +11,18 @@ class Brut::CLI::Runner
   # @param [IO] stdin the standard input
   # @param [Pathname] project_root root of the Brut project (i.e. where `Gemfile`, `app` et. al. are located)
   def initialize(app_command, stdout:, stderr:,stdin:, project_root:)
-    prefix = if $0 =~ /\/brut$/
-               "brut"
-             else
-               $0
-             end
+    @app_name = if $0 =~ /\/brut$/
+                  "brut #{app_command.name}"
+                else
+                  $0
+                end
     @app_command  = app_command
-    @stdout       = Brut::CLI::Output.new(io: stdout, prefix: "[ #{prefix} ] ")
-    @stderr       = Brut::CLI::Output.new(io: stderr, prefix: "[ #{prefix} ] ")
+    @stdout       = stdout
+    @stderr       = stderr
     @stdin        = stdin
     @project_root = project_root
   end
+
 
   # Run the commmand or subcommand based on the `app_command` given to the constructor and the command line
   # provided in `argv`.
@@ -35,6 +36,13 @@ class Brut::CLI::Runner
 
     parsed_command_line = Brut::CLI::ParsedCommandLine.new(app_command: @app_command, argv:, env:)
 
+    logger = Brut::CLI::Logger.new(
+      app_name: @app_command.name,
+      stdout: @stdout,
+      stderr: @stderr,
+      theme: parsed_command_line.command.theme,
+    )
+
     load_unix_environment!(env, parsed_command_line)
     setup_log_level(env, parsed_command_line)
     bootstrap!(env, parsed_command_line)
@@ -46,12 +54,23 @@ class Brut::CLI::Runner
         env:,
         stdout: @stdout,
         stderr: @stderr,
-        stdin: @stdin
+        stdin: @stdin,
+        logger:
       )
       parsed_command_line.command.execute(execution_context)
     end
     execute_result.exit_status do |error_message|
+      logger.fatal(error_message)
       @stderr.puts error_message
+      if parsed_command_line.options.log_file && !parsed_command_line.options.log_stdout?
+        @stderr.puts
+        @stderr.puts "More details may be available from the log file:"
+        @stderr.puts
+        @stderr.puts "    " + parsed_command_line.options.log_file.to_s
+        @stderr.puts
+        @stderr.puts "You can also use --log-stdout to see these log messages in the terminal"
+      end
+
     end
   end
 
@@ -77,10 +96,12 @@ private
     end
     require "bundler"
     if rack_env == "production"
+      Bundler.setup(:default)
       Bundler.require(:default)
       return
     end
 
+    Bundler.setup(:default, rack_env.to_sym)
     Bundler.require(:default, rack_env.to_sym)
 
     require "dotenv"
@@ -112,6 +133,12 @@ private
 
   def bootstrap!(env, parsed_command_line)
     if env["RACK_ENV"]
+      log_level = env["LOG_LEVEL"]
+
+      if !parsed_command_line.options.verbose? && !parsed_command_line.options.debug?
+        env["LOG_LEVEL"] = "warn"
+      end
+
       require "#{@project_root}/app/bootstrap"
       bootstrap = Bootstrap.new
       if parsed_command_line.command.bootstrap?
@@ -119,6 +146,8 @@ private
       else
         bootstrap.configure_only!
       end
+
+      env["LOG_LEVEL"] = log_level
     end
   end
 end

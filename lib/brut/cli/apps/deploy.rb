@@ -1,13 +1,29 @@
 require "brut/cli"
+require "fileutils"
+require "pathname"
 
 class Brut::CLI::Apps::Deploy < Brut::CLI::Commands::BaseCommand
+  def name = "deploy"
+
   def description = "Deploy your Brut-powered app to production"
 
   def default_rack_env = nil
 
   class Heroku < Brut::CLI::Commands::BaseCommand
     def description = "Deploy to Heroku using container-based deployment"
+    def opts = [
+      [ "--[no-]deploy", "If true, actually deploy the pushed images (default true)" ],
+      [ "--skip-checks", "If true, skip pre-build checks" ],
+    ]
+
+    def default_rack_env = "development"
+
     def run
+      if delegate_to_command(Brut::CLI::Apps::Deploy::Build.new) != 0
+        error "<== Build failed."
+        return 1
+      end
+      options.set_default(:deploy, true)
       version = ""
       git_guess = %{git rev-parse HEAD}
       system!(git_guess) do |output|
@@ -15,57 +31,53 @@ class Brut::CLI::Apps::Deploy < Brut::CLI::Commands::BaseCommand
       end
       version.strip!.chomp!
       if version == ""
-        stderr.puts "Attempt to use git via command '#{git_guess}' to figure out the version failed"
+        error "Attempt to use git via command '#{git_guess}' to figure out the version failed"
         return 1
       end
       short_version = version[0..7]
       app_docker_files = AppDockerImages.new(
         project_root: Brut.container.project_root,
-        organization: Brut.container.organization,
+        organization: Brut.container.app_organization,
         app_id: Brut.container.app_id,
         short_version:
       )
-      #add  heroku_image_name: "registry.heroku.com/#{heroku_app_name}/web",
-      #stdout.puts "Taggging images for Heroku"
-      #images.each do |name,metadata|
-      #  image_name        = metadata.fetch(:image_name)
-      #  heroku_image_name = metadata.fetch(:heroku_image_name)
-#
-#        stdout.puts "Tagging '#{image_name}' with '#{heroku_image_name}' for Heroku"
-#        command = %{docker tag #{image_name} #{heroku_image_name}}
-#        system!(command)
-#      end
-#
-#      if options.push?
-#        stdout.puts "Pushing to Heroku Registry"
-#        images.each do |name,metadata|
-#          heroku_image_name = metadata.fetch(:heroku_image_name)
-#
-#          stdout.puts "Pushing '#{heroku_image_name}'"
-#
-#          command = %{docker push #{docker_quiet_option} #{heroku_image_name}}
-#          system!(command)
-#        end
-#      else
-#        stdout.puts "Not pushing images"
-#      end
-#
-#      names = images.map(&:first).join(" ")
-#      deploy_command = "heroku container:release #{names} -a #{heroku_app_name}"
-#      if options.deploy?
-#        stdout.puts "Deploying images to Heroku"
-#        system!(deploy_command)
-#      else
-#        stdout.puts "Not deploying.  To deploy the images just pushed:"
-#        stdout.puts ""
-#        stdout.puts "  #{deploy_command}"
-#      end
-#    end
+      names = []
+      puts "Logging in to Heroku Container Registry"
+      command = %{heroku container:login}
+      system!(command)
+      app_docker_files.each do |name:, image_name:|
+        heroku_image_name = "registry.heroku.com/#{Brut.container.app_id}/#{name}"
+        puts "Tagging '#{image_name}' with '#{heroku_image_name}' for Heroku"
+        command = %{docker tag #{image_name} #{heroku_image_name}}
+        system!(command)
+        begin
+          puts "Pushing '#{heroku_image_name}'"
+          command = %{docker push #{heroku_image_name}}
+          system!(command)
+        rescue Brut::CLI::SystemExecError => ex
+          error "Failed to push image '#{heroku_image_name}' to Heroku"
+          if options.log_level != "debug"
+            error "Could be you must re-authenticate to Heroku."
+            error "Try re-running with --log-level=debug to see more details"
+          end
+          return 1
+        end
+        names << name
+      end
+      deploy_command = "heroku container:release #{names.join(' ')} -a #{Brut.container.app_id}"
+      if options.deploy?
+        puts "Deploying images to Heroku"
+        system!(deploy_command)
+      else
+        puts "Not deploying.  To deploy the images just pushed:"
+        puts ""
+        puts "  #{deploy_command}"
+      end
     end
   end
 
   class AppDockerImages
-    attr_reader :docker_config_filename
+    attr_reader :docker_config_filename, :platform
     def initialize(organization:, app_id:, project_root:, short_version:)
       @docker_config_filename = project_root / "deploy" / "docker_config"
       require_relative @docker_config_filename
@@ -74,10 +86,11 @@ class Brut::CLI::Apps::Deploy < Brut::CLI::Commands::BaseCommand
       end
 
       docker_config = DockerConfig.new
+      @platform = docker_config.platform
 
-      additional_images = (docker_confir.additional_images || {}).map { |name,config|
+      additional_images = (docker_config.additional_images || {}).map { |name,config|
         cmd = config.fetch(:cmd)
-        image_name = %{#{app_organization}/#{app_id}:#{short_version}-#{name}}
+        image_name = %{#{Brut.container.app_organization}/#{Brut.container.app_id}:#{short_version}-#{name}}
         [
           name,
           {
@@ -91,12 +104,12 @@ class Brut::CLI::Apps::Deploy < Brut::CLI::Commands::BaseCommand
       @images = {
         "web" => {
           cmd: "bin/run",
-          image_name: %{#{app_organization}/#{app_id}:#{short_version}-web},
+          image_name: %{#{Brut.container.app_organization}/#{app_id}:#{short_version}-web},
           dockerfile: "deploy/Dockerfile.web",
         },
         "release" => {
-          cmd: "bin/run",
-          image_name: %{#{app_organization}/#{app_id}:#{short_version}-web},
+          cmd: "bin/release",
+          image_name: %{#{Brut.container.app_organization}/#{app_id}:#{short_version}-release},
           dockerfile: "deploy/Dockerfile.release",
         },
       }.merge(additional_images)
@@ -108,7 +121,7 @@ class Brut::CLI::Apps::Deploy < Brut::CLI::Commands::BaseCommand
       end
       @images.each do |name,metadata|
         args = {}
-        block.params.each do |(_,param)|
+        block.parameters.each do |(_,param)|
           if param == :name
             args[:name] = name
           else
@@ -121,16 +134,29 @@ class Brut::CLI::Apps::Deploy < Brut::CLI::Commands::BaseCommand
   end
 
   class Build < Brut::CLI::Commands::BaseCommand
-    def description = "Build artifacts for deployment"
+    def description      = Docker.new.description
+    def opts             = Docker.new.opts
+    def default_rack_env = Docker.new.default_rack_env
+    def run              = delegate_to_command(Docker.new)
+
+    def commands = []
 
     class Docker < Brut::CLI::Commands::BaseCommand
       def description = "Build a series of Docker images from a template Dockerfile"
       def opts = [
         [ "--platform=PLATFORM","Override default platform. Can be any Docker platform." ],
         [ "--dry-run", "Only show what would happen, don't actually do anything" ],
+        [ "--skip-checks", "If true, skip pre-build checks (default )" ],
       ]
+      def default_rack_env = "development"
 
       def run
+        if !options.skip_checks?
+          if delegate_to_command(Brut::CLI::Apps::Deploy::Check.new) != 0
+            puts theme.error.render("Pre-build checks failed.")
+            return 1
+          end
+        end
         version = ""
         git_guess = %{git rev-parse HEAD}
         system!(git_guess) do |output|
@@ -138,24 +164,29 @@ class Brut::CLI::Apps::Deploy < Brut::CLI::Commands::BaseCommand
         end
         version.strip!.chomp!
         if version == ""
-          stderr.puts "Attempt to use git via command '#{git_guess}' to figure out the version failed"
+          error "Attempt to use git via command '#{git_guess}' to figure out the version failed"
           return 1
         end
         short_version = version[0..7]
 
-        app_docker_images = AppDockerImages.new(
+        short_version = version[0..7]
+        app_docker_files = AppDockerImages.new(
           project_root: Brut.container.project_root,
-          organization: Brut.container.organization,
+          organization: Brut.container.app_organization,
           app_id: Brut.container.app_id,
           short_version:
         )
+        options.set_default(:platform, app_docker_files.platform || "linux/amd64")
 
         FileUtils.chdir Brut.container.project_root do
 
-          stdout.puts "Generating Dockerfiles"
-          images.each do |name:, cmd:, dockerfile:|
+          puts
+          puts theme.header.render("Generating Dockerfiles")
+          puts
+          rows = []
+          app_docker_files.each do |name:, cmd:, dockerfile:|
 
-            stdout.puts "Creating '#{dockerfile}' for '#{name}' that will use command '#{cmd}'"
+            rows << [theme.subheader.render(name), theme.code.render(dockerfile), theme.code.render(cmd) ]
 
             if !options.dry_run?
               File.open(dockerfile,"w") do |file|
@@ -168,119 +199,164 @@ class Brut::CLI::Apps::Deploy < Brut::CLI::Commands::BaseCommand
               end
             end
           end
+          table = Lipgloss::Table.new.headers(["Name", "Dockerfile", "CMD"]).
+            rows(rows).
+            style_func(rows: rows.length, columns: 3) { Lipgloss::Style.new.padding_right(1).padding_left(1) }
+          puts table.render
 
-          stdout.puts "Building images"
-          docker_quiet_option = if global_options.log_level != "debug"
-                                  "--quiet"
-                                else
-                                  ""
-                                end
-          images.each do |image_name:, dockerfile:|
-            stdout.puts "Creating docker image with name '#{image_name}' and platform '#{platform}'"
-            command = %{docker build #{docker_quiet_option} --build-arg app_git_sha1=#{version} --file #{Brut.container.project_root}/#{dockerfile} --platform #{platform} --tag #{image_name} .}
-            if options.dry_run?
-              stdout.puts "Would run '#{command}'"
-            else
+          puts
+          puts theme.header.render("Images")
+          puts
+          rows = []
+          items = []
+          app_docker_files.each do |name:, image_name:, dockerfile:|
+            rows << [ name, theme.code.render(image_name) ]
+            command = %{docker build --build-arg app_git_sha1=#{version} --file #{Brut.container.project_root}/#{dockerfile} --platform #{options.platform} --tag #{image_name} . 2>&1}
+            items << theme.code.render(theme.wrap(command, first_indent: false, indent: 7, newline: " \\\n"))
+            if !options.dry_run?
+              puts theme.subheader.render("Building '#{name}' image")
               system!(command)
             end
+          end
+          if options.dry_run?
+            table = Lipgloss::Table.new.headers(["Name", "Image Name" ]).
+              rows(rows).
+              style_func(rows: rows.length, columns: 3) { Lipgloss::Style.new.padding_right(1).padding_left(1) }
+            puts table.render
+            puts
+            puts theme.subheader.render("Commands:")
+            puts
+            puts Lipgloss::List.new.items(items).item_style(theme.code).render
           end
         end
       end
     end
   end
 
-  class Check < Brut::CLI::Commands::BaseCommand
+    class Check < Brut::CLI::Commands::BaseCommand
 
-    def description = "Check that a deploy can be reasonably expected to succeed"
-    def default_command_class = Git
-    def opts = [
-      [ "--[no-]check-branch", "If true, requires that you are on 'main' (default true)" ],
-      [ "--[no-]check-changes", "If true, requires that you have committed all local changes (default true)" ],
-      [ "--[no-]check-push", "If true, requires that you are in sync with origin/main (default true)" ],
-    ]
+      def description = "Check that a deploy can be reasonably expected to succeed"
 
-    class Git < Brut::CLI::Commands::BaseCommand
-      def description = "Perform the check assuming Git is the version-control system"
-      def opts = self.parent_command.opts
+      def opts = Git.new.opts
+      def run = delegate_to_command(Git.new)
+      def commands = []
 
-      def run
+      class Git < Brut::CLI::Commands::BaseCommand
+        def description = "Perform the check assuming Git is the version-control system"
+        def opts = [
+          [ "--[no-]check-branch", "If true, requires that you are on 'main' (default true)" ],
+          [ "--[no-]check-changes", "If true, requires that you have committed all local changes (default true)" ],
+          [ "--[no-]check-push", "If true, requires that you are in sync with origin/main (default true)" ],
+        ]
 
-        checks_ignored = 0
+        def run
+          puts theme.header.render("Checking Git repo to see if changes have all been pushed to main")
+          puts
 
-        options.set_default(:check_branch,  true)
-        options.set_default(:check_changes, true)
-        options.set_default(:check_push,    true)
+          options.set_default(:check_branch,  true)
+          options.set_default(:check_changes, true)
+          options.set_default(:check_push,    true)
 
-        branch = ""
-        system!("git branch --show-current") do |output|
-          branch << output
-        end
-        branch = branch.strip.chomp
-        if branch != "main"
-          stderr.puts "You are not on the 'main' branch, but on '#{branch}'"
-          if options.check_branch?
-            stderr.puts "You may only deploy from main"
+          checks = []
+
+          branch = ""
+          system!("git branch --show-current") do |output|
+            branch << output
+          end
+          branch = branch.strip.chomp
+          checks << [
+            "Deploy from main",
+          ]
+          if branch != "main"
+            checks.last << "Currently on #{theme.code.render(branch)}"
+            checks.last << options.check_branch?
+          end
+
+          system!("git status") do |*| # reset local caches to account for Docker/host wierdness
+            # ignore
+          end
+          local_changes = ""
+          system!("git diff-index --name-only HEAD --") do |output|
+            local_changes << output
+          end
+          checks << [
+            "No un-committed changes",
+          ]
+          if local_changes.strip != ""
+            items = local_changes.split(/\n/)
+            list = Lipgloss::List.new.items(items).item_style(theme.error)
+            checks.last << "Files not committed:\n#{list.render.strip}\n"
+            checks.last << options.check_changes?
+          end
+
+          rev_list = ""
+          system!("git rev-list --left-right --count origin/main...main") do |output|
+            rev_list << output
+          end
+          remote_ahead, local_ahead = rev_list.strip.chomp.split(/\t/,2).map(&:to_i)
+          checks << [
+            "Pulled from origin",
+          ]
+          if remote_ahead != 0
+            if remote_ahead == 1
+              checks.last << "There is 1 commit in origin you don't have"
+            else
+              checks.last << "There are #{remote_ahead} commits in origin you don't have"
+            end
+            checks.last << options.check_push?
+          end
+          checks << [
+            "Pushed to origin",
+          ]
+
+          if local_ahead != 0
+            if local_ahead == 1
+              checks.last << "There is 1 commit not pushed to origin"
+            else
+              checks.last << "There are #{local_ahead} commits not pushed to origin"
+            end
+            checks.last << options.check_push?
+          end
+
+          rows = []
+          checks.each do |(check,status,error)|
+            row = [ check ]
+            if status
+              if error
+                row << theme.error.render("FAILED")
+              else
+                row << theme.warning.render("Ignored")
+              end
+              row << theme.error.render(status)
+            else
+              row << theme.success.render("OK")
+            end
+            rows << row
+          end
+          table = Lipgloss::Table.new.
+            headers(["Check", "Result", "Details"]).
+            rows(rows).
+            style_func(rows: rows.length, columns: 3) { |row,column|
+            if row == Lipgloss::Table::HEADER_ROW
+              Lipgloss::Style.new.inherit(theme.header).padding_left(1).padding_right(1)
+            elsif column == 0
+              Lipgloss::Style.new.inherit(theme.subheader).padding_left(1).padding_right(1).padding_bottom(1)
+            else
+              Lipgloss::Style.new.inherit(theme.none).padding_left(1).padding_right(1).padding_bottom(1)
+            end
+          }
+        puts table.render
+        checks_failed = checks.count { |(_,status,_)| status }
+        checks_failed_not_ignored = checks.count { |(_,status,error)| status && error }
+        if checks_failed > 0
+          if checks_failed_not_ignored > 0
+            puts theme.error.render("#{checks_failed} checks failed - aborting")
             return 1
           else
-            checks_ignored += 1
-            stderr.puts "Ignoring..."
+            puts theme.warning.render("#{checks_failed} checks failed but ignored")
           end
-        end
-
-        system!("git status") do |*| # reset local caches to account for Docker/host wierdness
-          # ignore
-        end
-        local_changes = ""
-        system!("git diff-index --name-only HEAD --") do |output|
-          local_changes << output
-        end
-        if local_changes.strip != ""
-          stderr.puts "You have un-committed changes:"
-          stderr.puts
-          local_changes.split(/\n/).each do |change|
-            checks_ignored += 1
-            stderr.puts "  #{change}"
-          end
-          stderr.puts
-          if options.check_changes?
-            stderr.puts "Commit or revert these, then push to origin"
-            return 1
-          else
-            checks_ignored += 1
-            stderr.puts "Ignoring..."
-          end
-        end
-
-        rev_list = ""
-        system!("git rev-list --left-right --count origin/main...main") do |output|
-          rev_list << output
-        end
-        remote_ahead, local_ahead = rev_list.strip.chomp.split(/\t/,2).map(&:to_i)
-        if remote_ahead != 0
-          stderr.puts "There are commits in origin you don't have."
-          if options.check_push?
-            stderr.puts "Pull those in, re-run bin/ci, THEN deploy"
-            return 1
-          else
-            checks_ignored += 1
-            stderr.puts "Ignoring..."
-          end
-        end
-
-        if local_ahead != 0
-          stderr.puts "You have not pushed to origin."
-          if options.check_push?
-            stderr.puts "Push to origin before deploying"
-            return 1
-          else
-            checks_ignored += 1
-            stderr.puts "Ignoring..."
-          end
-        end
-        if checks_ignored == 0
-          stdout.puts "All checks passed"
         else
-          stdout.puts "#{checks_ignored} checks failed, but ignored"
+          puts theme.success.render("All checks passed")
         end
 
         0
@@ -288,4 +364,3 @@ class Brut::CLI::Apps::Deploy < Brut::CLI::Commands::BaseCommand
     end
   end
 end
-

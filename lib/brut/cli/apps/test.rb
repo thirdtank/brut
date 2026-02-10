@@ -5,7 +5,11 @@ class Brut::CLI::Apps::Test < Brut::CLI::Commands::BaseCommand
   def description = "Run and audit tests of the app"
 
   def default_rack_env = "development"
-  def default_command_class = Run
+  def default_command = Run.new
+  def opts = default_command.opts
+  def run
+    delegate_to_command(default_command)
+  end
 
   class Run < Brut::CLI::Commands::BaseCommand
     def default_rack_env = "development"
@@ -16,6 +20,9 @@ class Brut::CLI::Apps::Test < Brut::CLI::Commands::BaseCommand
       [ "--seed SEED", "Set the random seed to allow duplicating a test run" ],
     ]
     def args_description = "specs_to_run..."
+    def detailed_description = %{
+Runs all non end-to-end tests for the app, or runs a subset of non-end-to-end tests using RSpec-style syntax. Do note that you cannot use this command to run an end-to-end test, since those require the test server to be running.
+    }
 
     def env_vars = [
       [ "LOGGER_LEVEL_FOR_TESTS","Can be set to debug, info, warn, error, or fatal to control logging during tests. Defaults to 'warn' to avoid verbose test output" ],
@@ -23,13 +30,11 @@ class Brut::CLI::Apps::Test < Brut::CLI::Commands::BaseCommand
       [ "RSPEC_PROFILE_EXAMPLES", "If set to any value, it is converted to an int and set as RSpec's number of examples to profile. NOTE: this is used in the app's spec_helper.rb so could've been removed" ],
     ]
 
-
     def rspec_command
       parts = [
         "bin/rspec",
         "-I", Brut.container.app_specs_dir,
         "-I", Brut.container.app_src_dir,
-        #"-I lib/", # not needed when Brut is gemified
         rspec_cli_args,
         "-P '**/*.spec.rb'",
       ]
@@ -46,14 +51,14 @@ class Brut::CLI::Apps::Test < Brut::CLI::Commands::BaseCommand
 
     def run
       if options.rebuild?(default: rebuild_by_default?)
-        stdout.puts "Rebuilding test database schema"
+        puts "Rebuilding test database schema"
         Bundler.with_unbundled_env do
           system! "brut db rebuild --env=test"
         end
       end
       run_tests
       if options.rebuild_after?(default: rebuild_after_by_default?)
-        stdout.puts "Re-Rebuilding test database schema"
+        puts "Re-Rebuilding test database schema"
         Bundler.with_unbundled_env do
           system! "brut db rebuild --env=test"
         end
@@ -65,17 +70,17 @@ class Brut::CLI::Apps::Test < Brut::CLI::Commands::BaseCommand
 
     def run_tests
       command = if argv.empty?
-                  stdout.puts "Running all tests"
+                  puts "Running all unit tests"
                   "#{rspec_command} #{Brut.container.app_specs_dir}/"
                 else
-                  stdout.puts "Running only #{argv.join(", ")}"
+                  puts "Running only #{argv.join(", ")}"
                   test_args = argv.map { |_|
                     '"' + Shellwords.escape(_) + '"'
                   }.join(" ")
                   "#{rspec_command} #{test_args}"
                 end
       Bundler.with_unbundled_env do
-        system! command
+        execution_context.executor.system! command
       end
     end
   end
@@ -90,6 +95,9 @@ class Brut::CLI::Apps::Test < Brut::CLI::Commands::BaseCommand
     def rspec_cli_args = "--tag e2e"
     def rebuild_by_default?       = true
     def rebuild_after_by_default? = true
+    def detailed_description = %{
+Runs all end-to-end tests for the app, or runs a subset of end-to-end tests using RSpec-style syntax. This will run bin/test-server first, so if that fails for some reason, no tests are run.
+    }
 
   private
 
@@ -107,6 +115,9 @@ class Brut::CLI::Apps::Test < Brut::CLI::Commands::BaseCommand
     def opts = [
       [ "--[no-]build-assets","Build all assets before running the tests" ],
     ]
+    def detailed_description = %{
+       Runs all JavaScript unit tests for the app.  This does not support running individual tests.
+    }
 
     def run
       options.set_default(:"build-assets", true)
@@ -115,7 +126,7 @@ class Brut::CLI::Apps::Test < Brut::CLI::Commands::BaseCommand
           system!({ "RACK_ENV" => "test" }, "brut build-assets all")
         end
       end
-      system!({ "NODE_DISABLE_COLORS" => "1" },"npx mocha #{Brut.container.js_specs_dir} --no-color --extension 'spec.js' --recursive")
+      execution_context.executor.system!({ "NODE_DISABLE_COLORS" => "1" },"npx mocha #{Brut.container.js_specs_dir} --no-color --extension 'spec.js' --recursive")
       0
     end
   end
@@ -208,36 +219,44 @@ class Brut::CLI::Apps::Test < Brut::CLI::Commands::BaseCommand
         hash
       }.compact.sort_by { it[:type].to_s + it[:source_file].to_s }
 
-      files_missing = []
-      printed_header = false
+      rows = []
       audit.each do |file_audit|
         if !file_audit[:test_file].exist?
           if options.type.nil? || file_audit[:type] == options.type.to_sym
             if file_audit[:test_expected]
-              files_missing << file_audit[:source_file]
-              if !printed_header
-                stdout.puts "These files are missing tests:"
-                stdout.puts ""
-                stdout.printf "%-25s   %s\n","Type", "Path"
-                stdout.puts "-------------------------------------------"
-                printed_header = true
-              end
-              stdout.puts "#{file_audit[:type].to_s.ljust(25)} - #{file_audit[:source_file]}"
+              rows << [ file_audit[:type].to_s, file_audit[:source_file].to_s ]
             end
           end
         end
       end
-      if files_missing.empty?
-        stdout.puts "All tests exists!"
+      if rows.empty?
+        puts theme.success.render("All tests exists!")
         0
       else
+        puts
+        puts theme.warning.render("The following source files are missing tests:")
+        puts
+        table = Lipgloss::Table.new.
+          headers(["Type", "Path"]).
+          rows(rows).
+          style_func(rows: rows.length, columns: 2) { |row,column|
+            if row == Lipgloss::Table::HEADER_ROW
+              Lipgloss::Style.new.inherit(theme.header).padding_left(1).padding_right(1)
+            else
+              Lipgloss::Style.new.inherit(theme.none).padding_left(1).padding_right(1)
+            end
+          }
+        puts table.render
         if options.show_scaffold?
-          stdout.puts
-          files_missing_args = files_missing.map { |file|
-            '             "' + Shellwords.escape(file.to_s) + '"'
+          puts
+          files_missing_args = rows.map { |(_,file)|
+            '                "' + Shellwords.escape(file.to_s) + '"'
           }.join(" \\\n")
 
-          stdout.puts "Run this command to generate empty tests:\n\nbrut scaffold test \\\n#{files_missing_args}"
+          puts theme.subheader.render("Run this command to generate empty tests")
+          puts
+          puts theme.code.render("  brut scaffold test \\\n#{files_missing_args}")
+          puts
         end
         1
       end

@@ -5,20 +5,24 @@ class Brut::FrontEnd::AssetMetadata
 
   # @param [String] asset_metadata_file to the asset metadata file
   # @param [IO] out IO on which to write messaging
-  def initialize(asset_metadata_file:,out:$stdout)
+  def initialize(asset_metadata_file:,logger: :use_default)
     @asset_metadata_file = asset_metadata_file
-    @out = out
+    @logger = if logger == :use_default
+                SemanticLogger[self.class]
+              else
+                logger
+              end
     @asset_metadata = nil
   end
 
   def merge!(extension:,esbuild_metafile:)
-    @out.puts "Parsing metafile '#{esbuild_metafile}'"
+    @logger.debug "Parsing metafile '#{esbuild_metafile}'"
     esbuild_metafile = ESBuildMetafile.new(metafile:esbuild_metafile)
     metadata = esbuild_metafile.parse(extension:)
     begin
       self.load!
     rescue Errno::ENOENT
-      @out.puts "'#{@asset_metadata_file}' does not exist - creating it"
+      @logger.debug "'#{@asset_metadata_file}' does not exist - creating it"
       @asset_metadata = {}
     end
     existing_metadata = @asset_metadata[extension] || {}
@@ -48,7 +52,7 @@ class Brut::FrontEnd::AssetMetadata
   end
 
   def save!
-    @out.puts "Writing updated asset metadata file '#{@asset_metadata_file}'"
+    @logger.info "Writing updated asset metadata file '#{@asset_metadata_file}'"
     File.open(@asset_metadata_file,"w") do |file|
       file.puts({ "asset_metadata" => @asset_metadata }.to_json)
     end

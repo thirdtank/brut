@@ -48,6 +48,7 @@ Gem::Specification.new do |spec|
   spec.add_dependency "ostruct" # squelch some warning - this is not used
   spec.add_dependency "concurrent-ruby"
   spec.add_dependency "i18n"
+  spec.add_dependency "lipgloss"
   spec.add_dependency "nokogiri"
   spec.add_dependency "phlex"
   spec.add_dependency "prism"

@@ -1,3 +1,4 @@
+require "tmpdir"
 require "brut"
 require "brut/spec_support"
 require "confidence_check/for_rspec"
@@ -29,6 +30,24 @@ RSpec.configure do |config|
   end
 
   config.profile_examples = (ENV["RSPEC_PROFILE_EXAMPLES"] || "0").to_i
+
+  config.around do |example|
+    xdg_state_home = Dir.mktmpdir
+    home = Dir.mktmpdir
+
+    old_xdg_state_home = ENV["XDG_STATE_HOME"]
+    old_home           = ENV["HOME"]
+    old_no_colors      = ENV["NO_COLOR"]
+
+    ENV["XDG_STATE_HOME"] = xdg_state_home
+    ENV["HOME"]           = home
+
+    example.run
+
+  ensure
+    ENV["XDG_STATE_HOME"] = old_xdg_state_home
+    ENV["HOME"]           = old_home
+  end
 
   config.order = :random
   Kernel.srand config.seed

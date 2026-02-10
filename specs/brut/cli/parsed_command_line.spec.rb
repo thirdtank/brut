@@ -5,6 +5,7 @@ require "brut/cli"
 
 class TestCLIApp < Brut::CLI::Commands::BaseCommand
   def description = "some description"
+  def name = "test_cli_app"
   def opts = [
     [ "--verbose", "be verbose" ],
   ]
@@ -34,8 +35,6 @@ class TestCLIAppWithDefault < Brut::CLI::Commands::BaseCommand
     @argv = argv
     @options = options
   end
-
-  def default_command_class = TestSubCommand
 
   def commands
     @commands ||= [
@@ -67,8 +66,6 @@ class TestSubCommand < Brut::CLI::Commands::BaseCommand
       TestSubSubCommand.new
     ]
   end
-
-  def default_command_class = TestSubSubCommand
 
 end
 
@@ -130,22 +127,6 @@ RSpec.describe Brut::CLI::ParsedCommandLine do
             expect(parsed_command_line.options.verbose?).to eq(true)
           end
         end
-        context "app_command has a default command" do
-          it "command is the default command" do
-            argv = ["--verbose" ]
-            parsed_command_line = described_class.new(app_command: TestCLIAppWithDefault.new, argv:, env: {})
-            expect(parsed_command_line.command.class).to eq(TestSubCommand)
-            expect(parsed_command_line.argv).to eq([])
-            expect(parsed_command_line.options.verbose?).to eq(true)
-          end
-          it "subcommand is the default command when an explicit command is invoked" do
-            argv = ["--verbose", "test_sub_command" ]
-            parsed_command_line = described_class.new(app_command: TestCLIAppWithDefault.new, argv:, env: {})
-            expect(parsed_command_line.command.class).to eq(TestSubSubCommand)
-            expect(parsed_command_line.argv).to eq([])
-            expect(parsed_command_line.options.verbose?).to eq(true)
-          end
-        end
         describe "project_environment" do
           it "returns a ProjectEnvironment if specified on command line" do
             argv = ["--env", "development" ]
@@ -166,15 +147,84 @@ RSpec.describe Brut::CLI::ParsedCommandLine do
             expect(parsed_command_line.project_environment).to eq(nil)
           end
         end
-        describe "log level" do
-          it "defaults to error" do
+        describe "logging to standard output" do
+          it "defaults to false" do
             parsed_command_line = described_class.new(app_command:, argv: [], env: {})
+            expect(parsed_command_line.options.log_stdout?).to eq(false)
+          end
+          it "is true if --log-stdout is specified" do
+            parsed_command_line = described_class.new(app_command:, argv: ["--log-stdout"], env: {})
+            expect(parsed_command_line.options.log_stdout?).to eq(true)
+          end
+          it "is true if --verbose is specified" do
+            parsed_command_line = described_class.new(app_command:, argv: ["--verbose"], env: {})
+            expect(parsed_command_line.options.log_stdout?).to eq(true)
+          end
+          it "is true if --debug is specified" do
+            parsed_command_line = described_class.new(app_command:, argv: ["--debug"], env: {})
+            expect(parsed_command_line.options.log_stdout?).to eq(true)
+          end
+          it "is false if --verbose is specified, but --no-log-stdout is set" do
+            parsed_command_line = described_class.new(app_command:, argv: ["--no-log-stdout", "--verbose"], env: {})
+            expect(parsed_command_line.options.log_stdout?).to eq(false)
+          end
+          it "is false if --debug is specified, but --no-log-stdout is set" do
+            parsed_command_line = described_class.new(app_command:, argv: ["--no-log-stdout", "--debug"], env: {})
+            expect(parsed_command_line.options.log_stdout?).to eq(false)
+          end
+        end
+        describe "log file" do
+          it "defaults to ~/.local/state/brut/«app_name».log" do
+            parsed_command_line = described_class.new(app_command:, argv: [], env: { "HOME" => "/home/appuser"})
+            expect(parsed_command_line.options.log_file.to_s).to eq("/home/appuser/.local/state/brut/test_cli_app.log")
+          end
+          it "uses $XDG_STATE_HOME/brut/«app_name».log if XDG_STATE_HOME is set" do
+            parsed_command_line = described_class.new(app_command:, argv: [], env: { "XDG_STATE_HOME" => "/tmp/blah"})
+            expect(parsed_command_line.options.log_file.to_s).to eq("/tmp/blah/brut/test_cli_app.log")
+          end
+          it "uses --log-file's value if set" do
+            parsed_command_line = described_class.new(app_command:, argv: ["--log-file","/tmp/blah/crud.log"], env: {})
+            expect(parsed_command_line.options.log_file.to_s).to eq("/tmp/blah/crud.log")
+          end
+        end
+        describe "log level" do
+          it "defaults to warn" do
+            parsed_command_line = described_class.new(app_command:, argv: [], env: {})
+            expect(parsed_command_line.options.log_level).to eq("warn")
+          end
+          it "--quiet sets log level to error" do
+            parsed_command_line = described_class.new(app_command:, argv: ["--quiet"], env: {})
             expect(parsed_command_line.options.log_level).to eq("error")
           end
-          it "sets the log level if specified on command line" do
-            argv = ["--log-level", "info" ]
-            parsed_command_line = described_class.new(app_command:, argv:, env: {})
-            expect(parsed_command_line.options.log_level).to eq("info")
+          it "--debug sets log level to debug" do
+            parsed_command_line = described_class.new(app_command:, argv: ["--debug"], env: {})
+            expect(parsed_command_line.options.log_level).to eq("debug")
+          end
+          it "--verbose sets log level to debug" do
+            parsed_command_line = described_class.new(app_command:, argv: ["--verbose"], env: {})
+            expect(parsed_command_line.options.log_level).to eq("debug")
+          end
+          context "using --log-level" do
+            it "sets the log level if specified on command line" do
+              argv = ["--log-level", "info" ]
+              parsed_command_line = described_class.new(app_command:, argv:, env: {})
+              expect(parsed_command_line.options.log_level).to eq("info")
+            end
+            it "supercedes --verbose" do
+              argv = ["--log-level", "info", "--verbose" ]
+              parsed_command_line = described_class.new(app_command:, argv:, env: {})
+              expect(parsed_command_line.options.log_level).to eq("info")
+            end
+            it "supercedes --debug" do
+              argv = ["--log-level", "info", "--debug" ]
+              parsed_command_line = described_class.new(app_command:, argv:, env: {})
+              expect(parsed_command_line.options.log_level).to eq("info")
+            end
+            it "supercedes --quiet" do
+              argv = ["--log-level", "info", "--quiet" ]
+              parsed_command_line = described_class.new(app_command:, argv:, env: {})
+              expect(parsed_command_line.options.log_level).to eq("info")
+            end
           end
           it "outputs an error if the value is not a valid log level" do
             argv = ["--log-level", "foobar" ]
@@ -335,7 +385,7 @@ RSpec.describe Brut::CLI::ParsedCommandLine do
 
             parsed_command_line = described_class.new(app_command:, argv:, env: {})
 
-            expect(parsed_command_line.command.class).to eq(Brut::CLI::Commands::Help)
+            expect(parsed_command_line.command.class).to eq(Brut::CLI::Commands::Help),parsed_command_line.command.inspect
             help_text = parsed_command_line.command.option_parser.to_s
 
             expect(help_text).to include(expected_command.description)

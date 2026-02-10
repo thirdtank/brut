@@ -19,15 +19,27 @@ class Brut::CLI::Commands::BaseCommand
     self.run
   end
 
+  def delegate_to_command(command,execution_context=:use_ivar)
+    execution_context = if execution_context == :use_ivar
+                          @execution_context
+                        else
+                          execution_context
+                        end
+    if execution_context.nil?
+      raise ArgumentError, "No execution context provided and none set on this command"
+    end
+    command.execute(execution_context)
+  end
+
   # True if the command requires Brut to fully bootstrap and start itself up.  Bootstrapping isn't running a web server but it will
   # do everything else, including connecting too all databases.  Your command should return true for this if it needs to access a database
   # or make API calls outside `Brut::CLI`. If this returns false, Brut's configuration options will still be available.
   #
-  # By default, this returns the value for `bootstrap?` of the `default_command`. If there is no `default_command`, this returns false.
+  # By default, this returns false
   #
   # @return [true|false] True if Brut should be fully bootstrap and connect to all database servers (e.g.). False if Brut should only
   #                      set up its configuration options.
-  def bootstrap? = default_command&.bootstrap? || false
+  def bootstrap? = false
 
   # The default `RACK_ENV` to use for this command.  This value is used when no `RACK_ENV` is present in the UNIX environment
   # and when `--env` has not been used on the command line. Do note that setting this in an app or parent command does
@@ -35,10 +47,14 @@ class Brut::CLI::Commands::BaseCommand
   #
   # @return [String|nil] If nil, Brut configuration will not be loaded and the command will run more or less as if it were a plain
   #         Ruby script.  If a `String`, this value will be set as the `RACK_ENV` if it's not been otherwise specified.
-  def default_rack_env = default_command&.default_rack_env
+  def default_rack_env = nil
 
   # @return [String] description of this command for use in help output
   def description = ""
+
+  # Returns a more detaile description of the command. This can includes paragraphs which will be maintained, however
+  # any additional formatting is not rendered or used.
+  def detailed_description = nil
 
   # @return [String] description of the arguments this command accepts. Used for documentation only.
   def args_description = nil
@@ -85,13 +101,6 @@ class Brut::CLI::Commands::BaseCommand
   #         where index 0 is the class and index 1 is a proc to convert the command line argument to the class's type.
   def accepts = []
 
-  # Command to run if none provided on the command line.
-  # @return [Brut::CLI::Commands::BaseCommand|nil] if `nil`, it is an error to run this command without a subcommand. If not-`nil`,
-  #         the returned command will be executed.
-  def default_command = self.commands.detect { it.class == default_command_class }
-
-  def default_command_class = nil
-
   # Returns a list of commands that represent the subcommands available to this command. By default, this
   # will return all commands that are inner classes of this command.
   #
@@ -103,6 +112,11 @@ class Brut::CLI::Commands::BaseCommand
       constant.kind_of?(Class) && constant.ancestors.include?(Brut::CLI::Commands::BaseCommand)
     }.map(&:new)
   end
+
+  def theme
+    @theme = Brut::CLI::TerminalTheme.new(terminal:)
+  end
+
 
 private
 
@@ -121,25 +135,48 @@ private
   # Convienience methods to defer to `Brut::CLI::Commands::ExecutionContext`'s `Brut::CLI::Executor#system!`.
   # @!visibility public
   def system!(*args,&block)
-    self.execution_context.executor.system!(*args,&block)
+    output = ""
+    block ||= ->(output_chunk) {
+      output << output_chunk
+    }
+    begin
+      self.execution_context.executor.system!(*args,&block)
+    ensure
+      if output.length > 0
+        progname = args.detect { it.kind_of?(String) }.split(" ")
+        output.lines.each do |line|
+          self.execution_context.logger.add(Logger::INFO, line.chomp, progname)
+        end
+      end
+    end
   end
 
   # Convienience methods to defer to `Brut::CLI::Commands::ExecutionContext#stdout`'s  `puts`.
   # @!visibility public
   def puts(*args)
-    self.execution_context.stdout.puts(*args)
+    if !options.quiet?
+      self.execution_context.stdout.puts(*args)
+    end
+  end
+  def print(*args)
+    if !options.quiet?
+      self.execution_context.stdout.print(*args)
+    end
   end
 
-  # Convienience methods to defer to `Brut::CLI::Commands::ExecutionContext#stderr`. You should use this over `STDERR` or `$stderr`.
-  # @!visibility public
-  def stderr  = self.execution_context.stderr
+  def debug(message) = self.execution_context.logger.debug(message)
+  def info(message)  = self.execution_context.logger.info(message)
+  def warn(message)  = self.execution_context.logger.warn(message)
+  def error(message) = self.execution_context.logger.error(message)
+  def fatal(message) = self.execution_context.logger.fatal(message)
+
+  def terminal
+    @terminal ||= Brut::CLI::Terminal.new
+  end
+
   # Convienience methods to defer to `Brut::CLI::Commands::ExecutionContext#stdin`. You should use this over `STDIN` of `$stdin`.
   # @!visibility public
   def stdin   = self.execution_context.stdin
-  # Convienience methods to defer to `Brut::CLI::Commands::ExecutionContext#stdout`. You should use this over `STDOUT` of `$stdout`. Note
-  # that if you just want to output a string, use `puts`.
-  # @!visibility public
-  def stdout  = self.execution_context.stdout
   # Convienience methods to defer to `Brut::CLI::Commands::ExecutionContext#options`.
   # @!visibility public
   def options = self.execution_context.options
@@ -163,12 +200,11 @@ private
   # @!visibility public
   def run
     if argv[0]
-      stderr.puts "No such command '#{argv[0]}'"
+      puts theme.error.render("No such command '#{argv[0]}'")
       return 1
     end
 
-
-    stderr.puts "Command is required"
+    puts theme.error.render("Command is required")
     1
   end
 end

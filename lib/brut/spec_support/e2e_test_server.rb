@@ -26,8 +26,8 @@ class Brut::SpecSupport::E2ETestServer
       logger.warn "Server is already running on pid '#{@pid}'"
       return
     end
+    command = "#{@bin_dir}/test-server"
     Bundler.with_unbundled_env do
-      command = "#{@bin_dir}/test-server"
       logger.info "Starting test server via '#{command}'"
       @pid = Process.spawn(
         command,
@@ -39,7 +39,7 @@ class Brut::SpecSupport::E2ETestServer
     if is_port_open?("0.0.0.0",6503)
       logger.info "Server is listening for requests on port 6503"
     else
-      raise "Problem: server never started"
+      raise "Problem: test server never started - noting listening on port 6503 after starting with pid '#{@pid}'"
     end
   end
 
@@ -79,8 +79,8 @@ private
             sleep(0.1)
           end
         end
-      rescue Timeout::Error
       end
+    rescue Timeout::Error
       false
     end
   end

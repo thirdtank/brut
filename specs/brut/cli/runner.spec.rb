@@ -88,6 +88,7 @@ RSpec.describe Brut::CLI::Runner do
     app_command_class = Class.new(Brut::CLI::Commands::BaseCommand) do
       attr_accessor :commands, :default_command
       def description = "App Command"
+      def name = "test_cli_app"
       def opts
         [
           [ "--verbose" ]
@@ -129,8 +130,8 @@ RSpec.describe Brut::CLI::Runner do
 
       aggregate_failures do
         execution_context = sub_command_returns_10.send(:execution_context)
-        expect(execution_context.stdout.io).to        eq(stdout)
-        expect(execution_context.stderr.io).to        eq(stderr)
+        expect(execution_context.stdout).to           eq(stdout)
+        expect(execution_context.stderr).to           eq(stderr)
         expect(execution_context.stdin).to            eq(stdin)
         expect(execution_context.options.verbose?).to eq(true)
         expect(execution_context.options.blah).to     eq("arg1")
@@ -207,7 +208,7 @@ RSpec.describe Brut::CLI::Runner do
           allow(Bootstrap).to receive(:new).and_return(bootstrap)
           allow(bootstrap).to receive(:bootstrap!).and_return(bootstrap)
 
-          result = runner.run!(["sub_num"],{})
+          result = runner.run!(["sub_num"],{"BRUT_DEBUG" => "true"})
 
           confidence_check { expect(result).to eq(10) }
           expect(Bootstrap).not_to have_received(:new)
@@ -304,15 +305,6 @@ RSpec.describe Brut::CLI::Runner do
         expect {
           runner.run!(["sub_raise"], {})
         }.to raise_error(/OH NOES/)
-      end
-    end
-    describe "default command and options" do
-      it "allows the default command options to be used when default command is invoked implicitly" do
-        result = runner.run!(["--verbose"], {})
-        expect(result).to eq(10) # sub command was called
-
-        execution_context = sub_command_returns_10.send(:execution_context)
-        expect(execution_context.options.verbose?).to eq(true)
       end
     end
   end

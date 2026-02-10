@@ -1,11 +1,15 @@
 # Wraps the result of calling `Brut::CLI::Commands::BaseCommand#execute` and 
 # interpreting it as an exit code
 class Brut::CLI::ExecuteResult
+  attr_reader :actual_result
   def initialize(&block)
     @actual_result = begin
                        block.()
                      rescue Brut::CLI::Error => ex
                        ex
+                     rescue => ex2
+                       raise
+
                      end
   end
 

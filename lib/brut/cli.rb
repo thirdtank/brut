@@ -16,14 +16,18 @@ module Brut
     autoload(:ParsedCommandLine, "brut/cli/parsed_command_line")
     autoload(:Runner, "brut/cli/runner")
     autoload(:SystemExecError, "brut/cli/error")
+    autoload(:Terminal, "brut/cli/terminal")
+    autoload(:TerminalTheme, "brut/cli/terminal_theme")
+    autoload(:Logger, "brut/cli/logger")
 
     # Holds Brut-provided CLI apps that are set up in your project.
     module Apps
-      autoload(:DB,"brut/cli/apps/db")
-      autoload(:Test,"brut/cli/apps/test")
       autoload(:BuildAssets,"brut/cli/apps/build_assets")
+      autoload(:DB,"brut/cli/apps/db")
+      autoload(:Deploy,"brut/cli/apps/deploy")
+      autoload(:New,"brut/cli/apps/new")
       autoload(:Scaffold,"brut/cli/apps/scaffold")
-      autoload(:DeployBase,"brut/cli/apps/deploy_base")
+      autoload(:Test,"brut/cli/apps/test")
     end
   end
 end
