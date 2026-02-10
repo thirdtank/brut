@@ -1,5 +1,9 @@
 # Brut CHANGELOG
 
+## v0.19.2 - Feb 10, 2026
+
+* Fix issue with deploy command and its use of `delegate_to_command`
+
 ## v0.19.1 - Feb 10, 2026
 
 * Fix issue where `brut build-assets all` would require bootstrapping the DB (which it should not have)
