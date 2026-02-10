@@ -1,5 +1,11 @@
 # Brut CHANGELOG
 
+## v0.19.0 - Feb 10, 2026
+
+* Added more formatting to CLI output
+* Improved CLI help output
+* Improved deploy command
+
 ## v0.18.2 - Feb 1, 2026
 
 * Restore `bin/test-server` for new apps as that is needed actually
