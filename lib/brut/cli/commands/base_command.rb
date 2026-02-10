@@ -19,6 +19,10 @@ class Brut::CLI::Commands::BaseCommand
     self.run
   end
 
+  # Delegates control to another command. This is most useful for aliasing one command
+  # to another.  If you want to run another command as part of yoru command, you can use
+  # this, however you must use `Brut::CLI::ExecuteResult` to examine the return value, so you know if 
+  # the command succeeded or not.
   def delegate_to_command(command,execution_context=:use_ivar)
     execution_context = if execution_context == :use_ivar
                           @execution_context

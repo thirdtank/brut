@@ -19,9 +19,14 @@ class Brut::CLI::Apps::Deploy < Brut::CLI::Commands::BaseCommand
     def default_rack_env = "development"
 
     def run
-      if delegate_to_command(Brut::CLI::Apps::Deploy::Build.new) != 0
-        error "<== Build failed."
-        return 1
+      execute_result = Brut::CLI::ExecuteResult.new do
+        delegate_to_command(Brut::CLI::Apps::Deploy::Build.new)
+      end
+      if execute_result.failed?
+        puts theme.error.render("Build failed.")
+        return execute_result.exit_status do |error_message|
+          puts theme.error.render("Error message from build: #{error_message}")
+        end
       end
       options.set_default(:deploy, true)
       version = ""
@@ -152,9 +157,14 @@ class Brut::CLI::Apps::Deploy < Brut::CLI::Commands::BaseCommand
 
       def run
         if !options.skip_checks?
-          if delegate_to_command(Brut::CLI::Apps::Deploy::Check.new) != 0
+          execute_result = Brut::CLI::ExecuteResult.new do
+            delegate_to_command(Brut::CLI::Apps::Deploy::Check.new)
+          end
+          if execute_result.failed?
             puts theme.error.render("Pre-build checks failed.")
-            return 1
+            return execute_result.exit_status do |error_message|
+              puts theme.error.render("Error message from checks: #{error_message}")
+            end
           end
         end
         version = ""
