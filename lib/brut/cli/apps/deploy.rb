@@ -330,6 +330,7 @@ class Brut::CLI::Apps::Deploy < Brut::CLI::Commands::BaseCommand
               row << theme.error.render(status)
             else
               row << theme.success.render("OK")
+              row << ""
             end
             rows << row
           end
