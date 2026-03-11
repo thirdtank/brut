@@ -51,20 +51,20 @@ class Brut::CLI::Apps::DB < Brut::CLI::Commands::BaseCommand
       rows = [
         [
           "Database Server",
-          server_up ? theme.success.render("✅ UP") : theme.error.render("❌ DOWN")
+          server_up ? theme.success.render("✅ UP") : theme.error.render("❌ DOWN"),
         ],
       ]
       if server_up
         rows << [
           "Database #{theme.code.render(database_name)}",
-          database_exists ? theme.success.render("✅ Exists") : theme.error.render("❌ DOES NOT EXIST")
+          database_exists ? theme.success.render("✅ Exists") : theme.error.render("❌ DOES NOT EXIST"),
         ]
       end
       if database_exists
         if migration_files.empty? && migrations_run.empty?
           rows << [
             "Migrations",
-            "✅ NO MIGRATION FILES TO RUN"
+            "✅ NO MIGRATION FILES TO RUN",
           ]
         else
           migration_files.each do |filename|

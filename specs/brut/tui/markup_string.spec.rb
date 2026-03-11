@@ -35,7 +35,7 @@ RSpec.describe Brut::TUI::MarkupString do
         [:start, :strike], [:text, "s"], [:text, "t"], [:text, "r"], [:text, "i"], [:text, "k"], [:text, "e"], [:stop, :strike],
         [:text, " "], [:text, "a"], [:text, "n"], [:text, "d"], [:text, " "],
         [:start, :code], [:text, "c"], [:text, "o"], [:text, "d"], [:text, "e"], [:stop, :code],
-        [:text, "."]
+        [:text, "."],
       ]
       expect(events).to eq(expected_events)
     end
@@ -56,7 +56,7 @@ RSpec.describe Brut::TUI::MarkupString do
         [:text, "t"], [:text, "h"], [:text, "i"], [:text, "s"], [:text, " "],
         [:text, "i"], [:text, "s"], [:text, " "],
         [:start, :bold], [:text, "b"], [:text, "o"], [:text, "l"], [:text, "d"], [:stop, :bold],
-        [:text, "."]
+        [:text, "."],
       ]
       expect(events).to eq(expected_events)
     end

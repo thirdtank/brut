@@ -16,7 +16,7 @@ RSpec.describe Brut::CLI::Runner do
       def name = "sub_num"
       def opts
         [
-          [ "--blah=VALUE" ]
+          [ "--blah=VALUE" ],
         ]
       end
       def run
@@ -34,7 +34,7 @@ RSpec.describe Brut::CLI::Runner do
       def default_rack_env = "test"
       def opts
         [
-          [ "--crud=VALUE" ]
+          [ "--crud=VALUE" ],
         ]
       end
       def run
@@ -91,7 +91,7 @@ RSpec.describe Brut::CLI::Runner do
       def name = "test_cli_app"
       def opts
         [
-          [ "--verbose" ]
+          [ "--verbose" ],
         ]
       end
     end

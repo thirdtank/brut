@@ -17,7 +17,7 @@ class TestCLIApp < Brut::CLI::Commands::BaseCommand
 
   def commands
     @commands ||= [
-      TestSubCommand.new
+      TestSubCommand.new,
     ]
   end
 
@@ -38,7 +38,7 @@ class TestCLIAppWithDefault < Brut::CLI::Commands::BaseCommand
 
   def commands
     @commands ||= [
-      TestSubCommand.new
+      TestSubCommand.new,
     ]
   end
 
@@ -63,7 +63,7 @@ class TestSubCommand < Brut::CLI::Commands::BaseCommand
 
   def commands
     @commands ||= [
-      TestSubSubCommand.new
+      TestSubSubCommand.new,
     ]
   end
 

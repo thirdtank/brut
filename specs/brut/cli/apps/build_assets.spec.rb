@@ -25,7 +25,7 @@ RSpec.describe Brut::CLI::Apps::BuildAssets, cli_command: true do
           "asset_metadata" => {
             ".js"  => {},
             ".css" => {},
-          }
+          },
         }))
       end
     end
@@ -91,7 +91,7 @@ RSpec.describe Brut::CLI::Apps::BuildAssets, cli_command: true do
       result = described_class.new.execute(execution_context)
       expect(result).to eq(nil)
       expect(execution_context).to have_executed([
-        "rsync --archive --verbose --delete \"/images/src/\" \"/images/root\""
+        "rsync --archive --verbose --delete \"/images/src/\" \"/images/root\"",
       ])
     end
     it "does not --delete when --no-clean is used" do
@@ -101,7 +101,7 @@ RSpec.describe Brut::CLI::Apps::BuildAssets, cli_command: true do
       result = described_class.new.execute(execution_context)
       expect(result).to eq(nil)
       expect(execution_context).to have_executed([
-        "rsync --archive --verbose \"/images/src/\" \"/images/root\""
+        "rsync --archive --verbose \"/images/src/\" \"/images/root\"",
       ])
     end
   end
@@ -146,8 +146,8 @@ RSpec.describe Brut::CLI::Apps::BuildAssets, cli_command: true do
                   "exports" => [],
                   "inputs" => [],
                   "bytes" => 1337,
-                }
-              }
+                },
+              },
             }))
           end
           execution_context = test_execution_context(stderr:, options: { clean: false })
@@ -183,8 +183,8 @@ RSpec.describe Brut::CLI::Apps::BuildAssets, cli_command: true do
                 "exports" => [],
                 "inputs" => [],
                 "bytes" => 1337,
-              }
-            }
+              },
+            },
           }))
         end
         execution_context = test_execution_context(stderr:, options: { clean: true })
@@ -215,7 +215,7 @@ RSpec.describe Brut::CLI::Apps::BuildAssets, cli_command: true do
           result = described_class.new.execute(execution_context)
           expect(result).to eq(1)
           expect(execution_context).to have_executed([
-            %r{^npx esbuild .*front-end-src/js/index.js.*js-bundle-output/app.js}
+            %r{^npx esbuild .*front-end-src/js/index.js.*js-bundle-output/app.js},
           ])
           expect(stderr.string).to match(%r{tmp/build-js-meta.json.*was not generated})
         end
@@ -240,15 +240,15 @@ RSpec.describe Brut::CLI::Apps::BuildAssets, cli_command: true do
                   "exports" => [],
                   "inputs" => [],
                   "bytes" => 1337,
-                }
-              }
+                },
+              },
             }))
           end
           execution_context = test_execution_context(stderr:, options: { clean: false })
           result = described_class.new.execute(execution_context)
           expect(result).to eq(0)
           expect(execution_context).to have_executed([
-            %r{^npx esbuild .*front-end-src/js/index.js.*js-bundle-output/app.js}
+            %r{^npx esbuild .*front-end-src/js/index.js.*js-bundle-output/app.js},
           ])
           metadata = JSON.parse(File.read(Brut.container.asset_metadata_file))
           expect(metadata.dig("asset_metadata",".js")).to eq({ "/some-path/app.js" => "/some-path/app-SOMEHASH.js" })
@@ -274,15 +274,15 @@ RSpec.describe Brut::CLI::Apps::BuildAssets, cli_command: true do
                     "exports" => [],
                     "inputs" => [],
                     "bytes" => 1337,
-                  }
-                }
+                  },
+                },
               }))
             end
           execution_context = test_execution_context(stderr:, options: { clean: false, output_file: "blah.js", source_file: "other-source.js" })
           result = described_class.new.execute(execution_context)
             expect(result).to eq(0)
             expect(execution_context).to have_executed([
-              %r{^npx esbuild .*front-end-src/js/other-source.js.*js-bundle-output/blah.js}
+              %r{^npx esbuild .*front-end-src/js/other-source.js.*js-bundle-output/blah.js},
             ])
             metadata = JSON.parse(File.read(Brut.container.asset_metadata_file))
             expect(metadata.dig("asset_metadata",".js")).to eq({ "/some-path/blah.js" => "/some-path/blah-SOMEHASH.js" })
@@ -312,15 +312,15 @@ RSpec.describe Brut::CLI::Apps::BuildAssets, cli_command: true do
                 "exports" => [],
                 "inputs" => [],
                 "bytes" => 1337,
-              }
-            }
+              },
+            },
           }))
         end
         execution_context = test_execution_context(stderr:, options: { clean: true })
         result = described_class.new.execute(execution_context)
         expect(result).to eq(0)
         expect(execution_context).to have_executed([
-          %r{^npx esbuild .*front-end-src/js/index.js.*js-bundle-output/app.js}
+          %r{^npx esbuild .*front-end-src/js/index.js.*js-bundle-output/app.js},
         ])
         metadata = JSON.parse(File.read(Brut.container.asset_metadata_file))
         expect(metadata.dig("asset_metadata",".js")).to eq({ "/some-path/app.js" => "/some-path/app-SOMEHASH.js" })

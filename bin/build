@@ -20,7 +20,7 @@ def main
   brut_js_version  = brut_js_package_json["version"].strip
   brut_css_version = brut_css_package_json["version"].strip
 
-  if [ brut_version, brut_js_version, brut_css_version, ].uniq.size != 1
+  if [ brut_version, brut_js_version, brut_css_version ].uniq.size != 1
     log "Some versions are mismatched!  All versions should be the same to build and release"
     puts
     log sprintf("BrutRb:  %10s from lib/brut/version.rb", brut_version)

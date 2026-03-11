@@ -53,12 +53,12 @@ class Brut::CLI::Apps::New::App < Brut::CLI::Commands::BaseCommand
     [ 
       "--app-id=ID",
       Brut::CLI::Apps::New::AppId,
-      "App identifier, which must be able to be used as a hostname or other Internet identifier. Derived from your app name, if omitted"
+      "App identifier, which must be able to be used as a hostname or other Internet identifier. Derived from your app name, if omitted",
     ],
     [
       "--organization=ORG",
       Brut::CLI::Apps::New::Organization,
-      "Organization name, e.g. what you'd use for GitHub. Defaults to the app-id value"
+      "Organization name, e.g. what you'd use for GitHub. Defaults to the app-id value",
     ],
     [
       "--[no-]interactive",
@@ -67,7 +67,7 @@ class Brut::CLI::Apps::New::App < Brut::CLI::Commands::BaseCommand
     [
       "--prefix=PREFIX",
       Brut::CLI::Apps::New::Prefix,
-      "Two-character prefix for external IDs and autonomous custom elements. Derived from your app-id, if omitted."
+      "Two-character prefix for external IDs and autonomous custom elements. Derived from your app-id, if omitted.",
     ],
     [ 
       "--segments=SEGMENTS",
@@ -76,11 +76,11 @@ class Brut::CLI::Apps::New::App < Brut::CLI::Commands::BaseCommand
     ],
     [ 
       "--dry-run",
-      "Only show what would happen, don't actually do anything"
+      "Only show what would happen, don't actually do anything",
     ],
     [
       "--[no-]demo",
-      "Include, or not, additional files that demonstrate Brut's features (default is true for now)"
+      "Include, or not, additional files that demonstrate Brut's features (default is true for now)",
     ],
   ]
 
@@ -272,7 +272,7 @@ class Brut::CLI::Apps::New::App < Brut::CLI::Commands::BaseCommand
       ],
       [ 
         "--dry-run",
-        "Only show what would happen, don't actually do anything"
+        "Only show what would happen, don't actually do anything",
       ],
     ]
 

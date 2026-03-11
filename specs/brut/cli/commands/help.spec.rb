@@ -33,7 +33,7 @@ RSpec.describe Brut::CLI::Commands::Help do
       def name = "test_cli_app"
       def opts
         [
-          [ "--verbose" ]
+          [ "--verbose" ],
         ]
       end
     end

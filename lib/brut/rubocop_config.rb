@@ -46,9 +46,9 @@ module Brut
         "member?" => "include?",
       },
     },
-    "Style/EndlessMethod" => {
-      "EnforcedStyle" =>  "allow_single_line",
-    },
+    #"Style/EndlessMethod" => {
+    #  "EnforcedStyle" =>  "allow_single_line",
+    #},
     "Style/For" => {
       "EnforcedStyle" =>  "each",
     },

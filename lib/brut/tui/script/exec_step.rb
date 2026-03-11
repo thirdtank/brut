@@ -29,7 +29,7 @@ class Brut::TUI::Script::ExecStep < Brut::TUI::Script::Step
       command: @command,
       strip_ansi: false,
       stdout: @stdout,
-      stderr: @stderr
+      stderr: @stderr,
     })
   end
   def run!

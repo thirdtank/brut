@@ -141,8 +141,8 @@ RSpec.describe Brut::CLI::Apps::Test do
         result = described_class.new.execute(execution_context)
         expect(result).to eq(0)
         expect(execution_context).to have_executed([
-          [ { "RACK_ENV" => "test" }, "brut build-assets all", ],
-          [ { "NODE_DISABLE_COLORS" => "1" },"npx mocha /fake/brut-app/specs/js --no-color --extension 'spec.js' --recursive", ],
+          [ { "RACK_ENV" => "test" }, "brut build-assets all" ],
+          [ { "NODE_DISABLE_COLORS" => "1" },"npx mocha /fake/brut-app/specs/js --no-color --extension 'spec.js' --recursive" ],
         ])
       end
     end
@@ -152,7 +152,7 @@ RSpec.describe Brut::CLI::Apps::Test do
         result = described_class.new.execute(execution_context)
         expect(result).to eq(0)
         expect(execution_context).to have_executed([
-          [ { "NODE_DISABLE_COLORS" => "1" },"npx mocha /fake/brut-app/specs/js --no-color --extension 'spec.js' --recursive", ],
+          [ { "NODE_DISABLE_COLORS" => "1" },"npx mocha /fake/brut-app/specs/js --no-color --extension 'spec.js' --recursive" ],
         ])
       end
     end
