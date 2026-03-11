@@ -115,9 +115,13 @@ class Brut::CLI::ParsedCommandLine
                       elsif env["HOME"]
                         Pathname("#{env['HOME']}/.local/state/") / "brut"
                       else
-                        Pathname("/tmp/") / "brut"
+                        nil
                       end
-      @options[:'log-file'] = log_file_path / (app_command.name + ".log")
+      if log_file_path
+        @options[:'log-file'] = log_file_path / (app_command.name + ".log")
+      end
+    else
+      @options[:'log-file'] = Pathname(@options[:'log-file'])
     end
     if @options[:'log-stdout'].nil?
       @options[:'log-stdout'] = @options.verbose? || @options.debug?

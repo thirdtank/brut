@@ -1,5 +1,6 @@
 require "logger"
 require "fileutils"
+require "pathname"
 require "delegate"
 
 class Brut::CLI::Logger < SimpleDelegator
@@ -58,9 +59,9 @@ class Brut::CLI::Logger < SimpleDelegator
   end
 
   def log_file=(log_file)
-    @log_file = log_file
     if log_file
-      log_dir = log_file.dirname
+      @log_file = Pathname(log_file)
+      log_dir = @log_file.dirname
       if !log_dir.exist?
         FileUtils.mkdir_p(log_dir)
       end
@@ -69,6 +70,8 @@ class Brut::CLI::Logger < SimpleDelegator
       if @logger.level == ::Logger::DEBUG
         @stdout.puts "Logging to file #{@log_file}"
       end
+    else
+      @log_file = nil
     end
   end
 

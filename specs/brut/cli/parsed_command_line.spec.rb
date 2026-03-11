@@ -174,18 +174,36 @@ RSpec.describe Brut::CLI::ParsedCommandLine do
           end
         end
         describe "log file" do
-          it "defaults to ~/.local/state/brut/«app_name».log" do
-            parsed_command_line = described_class.new(app_command:, argv: [], env: { "HOME" => "/home/appuser"})
-            expect(parsed_command_line.options.log_file.to_s).to eq("/home/appuser/.local/state/brut/test_cli_app.log")
+          context "--log-file is set" do
+            it "uses that value if set" do
+              parsed_command_line = described_class.new(app_command:, argv: ["--log-file","/tmp/blah/crud.log"], env: {})
+              expect(parsed_command_line.options.log_file.class).to eq(Pathname)
+              expect(parsed_command_line.options.log_file.to_s).to eq("/tmp/blah/crud.log")
+            end
           end
-          it "uses $XDG_STATE_HOME/brut/«app_name».log if XDG_STATE_HOME is set" do
-            parsed_command_line = described_class.new(app_command:, argv: [], env: { "XDG_STATE_HOME" => "/tmp/blah"})
-            expect(parsed_command_line.options.log_file.to_s).to eq("/tmp/blah/brut/test_cli_app.log")
-          end
-          it "uses --log-file's value if set" do
-            parsed_command_line = described_class.new(app_command:, argv: ["--log-file","/tmp/blah/crud.log"], env: {})
-            expect(parsed_command_line.options.log_file.to_s).to eq("/tmp/blah/crud.log")
-          end
+          context "--log-file is omitted" do
+            context "XDG_STATE_HOME is set" do
+              it "uses $XDG_STATE_HOME/brut/«app_name».log if XDG_STATE_HOME is set" do
+                parsed_command_line = described_class.new(app_command:, argv: [], env: { "XDG_STATE_HOME" => "/tmp/blah"})
+                expect(parsed_command_line.options.log_file.class).to eq(Pathname)
+                expect(parsed_command_line.options.log_file.to_s).to eq("/tmp/blah/brut/test_cli_app.log")
+              end
+            end
+            context "XDG_STATE_HOME is not set" do
+              context "HOME is set" do
+                it "defaults to ~/.local/state/brut/«app_name».log" do
+                  parsed_command_line = described_class.new(app_command:, argv: [], env: { "HOME" => "/home/appuser"})
+                  expect(parsed_command_line.options.log_file.to_s).to eq("/home/appuser/.local/state/brut/test_cli_app.log")
+                end
+              end
+              context "HOME is not set" do
+                it "does not log to a file" do
+                  parsed_command_line = described_class.new(app_command:, argv: [], env: {})
+                  expect(parsed_command_line.options.log_file).to eq(nil)
+                end
+              end
+            end
+          end 
         end
         describe "log level" do
           it "defaults to info" do
