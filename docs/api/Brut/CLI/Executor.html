@@ -134,7 +134,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#initialize-instance_method" title="#initialize (instance method)">#<strong>initialize</strong>(out:, err:)  &#x21d2; Executor </a>
+      <a href="#initialize-instance_method" title="#initialize (instance method)">#<strong>initialize</strong>(out:, err:, logger:)  &#x21d2; Executor </a>
     
 
     
@@ -211,7 +211,7 @@
     <div class="method_details first">
   <h3 class="signature first" id="initialize-instance_method">
   
-    #<strong>initialize</strong>(out:, err:)  &#x21d2; <tt><span class='object_link'><a href="" title="Brut::CLI::Executor (class)">Executor</a></span></tt> 
+    #<strong>initialize</strong>(out:, err:, logger:)  &#x21d2; <tt><span class='object_link'><a href="" title="Brut::CLI::Executor (class)">Executor</a></span></tt> 
   
 
   
@@ -225,41 +225,7 @@
   </div>
 </div>
 <div class="tags">
-  <p class="tag_title">Parameters:</p>
-<ul class="param">
   
-    <li>
-      
-        <span class='name'>out</span>
-      
-      
-        <span class='type'>(<tt><span class='object_link'><a href="Output.html" title="Brut::CLI::Output (class)">Brut::CLI::Output</a></span></tt>)</span>
-      
-      
-      
-        &mdash;
-        <div class='inline'><p>an IO used to send messages to the standard output</p>
-</div>
-      
-    </li>
-  
-    <li>
-      
-        <span class='name'>err</span>
-      
-      
-        <span class='type'>(<tt><span class='object_link'><a href="Output.html" title="Brut::CLI::Output (class)">Brut::CLI::Output</a></span></tt>)</span>
-      
-      
-      
-        &mdash;
-        <div class='inline'><p>an IO used to send messages to the standard error</p>
-</div>
-      
-    </li>
-  
-</ul>
-
 
 </div><table class="source_code">
   <tr>
@@ -267,17 +233,19 @@
       <pre class="lines">
 
 
+12
+13
 14
 15
-16
-17</pre>
+16</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/brut/cli/executor.rb', line 14</span>
+      <pre class="code"><span class="info file"># File 'lib/brut/cli/executor.rb', line 12</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_initialize'>initialize</span><span class='lparen'>(</span><span class='label'>out:</span><span class='comma'>,</span><span class='label'>err:</span><span class='rparen'>)</span>
-  <span class='ivar'>@out</span> <span class='op'>=</span> <span class='id identifier rubyid_out'>out</span>
-  <span class='ivar'>@err</span> <span class='op'>=</span> <span class='id identifier rubyid_err'>err</span>
+<span class='kw'>def</span> <span class='id identifier rubyid_initialize'>initialize</span><span class='lparen'>(</span><span class='label'>out:</span><span class='comma'>,</span><span class='label'>err:</span><span class='comma'>,</span><span class='label'>logger:</span><span class='rparen'>)</span>
+  <span class='ivar'>@out</span>    <span class='op'>=</span> <span class='id identifier rubyid_out'>out</span>
+  <span class='ivar'>@err</span>    <span class='op'>=</span> <span class='id identifier rubyid_err'>err</span>
+  <span class='ivar'>@logger</span> <span class='op'>=</span> <span class='id identifier rubyid_logger'>logger</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -367,15 +335,15 @@ to do special error-handling when the underlying command fails.</p>
       <pre class="lines">
 
 
+31
 32
 33
 34
 35
-36
-37</pre>
+36</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/brut/cli/executor.rb', line 32</span>
+      <pre class="code"><span class="info file"># File 'lib/brut/cli/executor.rb', line 31</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_system'>system</span><span class='lparen'>(</span><span class='op'>*</span><span class='id identifier rubyid_args'>args</span><span class='rparen'>)</span>
   <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_system!'>system!</span><span class='lparen'>(</span><span class='op'>*</span><span class='id identifier rubyid_args'>args</span><span class='rparen'>)</span>
@@ -481,6 +449,7 @@ instead, as it will not raise an exception.</p>
       <pre class="lines">
 
 
+52
 53
 54
 55
@@ -518,7 +487,7 @@ instead, as it will not raise an exception.</p>
 87</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/brut/cli/executor.rb', line 53</span>
+      <pre class="code"><span class="info file"># File 'lib/brut/cli/executor.rb', line 52</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_system!'>system!</span><span class='lparen'>(</span><span class='op'>*</span><span class='id identifier rubyid_args'>args</span><span class='comma'>,</span><span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span><span class='rparen'>)</span>
 
@@ -527,7 +496,7 @@ instead, as it will not raise an exception.</p>
     <span class='ivar'>@out</span><span class='period'>.</span><span class='id identifier rubyid_flush'>flush</span>
   <span class='rbrace'>}</span>
 
-  <span class='ivar'>@out</span><span class='period'>.</span><span class='id identifier rubyid_puts'>puts</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Executing </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_args'>args</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span>
+  <span class='ivar'>@logger</span><span class='period'>.</span><span class='id identifier rubyid_info'>info</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Executing </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_args'>args</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span>
   <span class='id identifier rubyid_wait_thread'>wait_thread</span> <span class='op'>=</span> <span class='const'>Open3</span><span class='period'>.</span><span class='id identifier rubyid_popen3'>popen3</span><span class='lparen'>(</span><span class='op'>*</span><span class='id identifier rubyid_args'>args</span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid__stdin'>_stdin</span><span class='comma'>,</span><span class='id identifier rubyid_stdout'>stdout</span><span class='comma'>,</span><span class='id identifier rubyid_stderr'>stderr</span><span class='comma'>,</span><span class='id identifier rubyid_wait_thread'>wait_thread</span><span class='op'>|</span>
     <span class='id identifier rubyid_o'>o</span> <span class='op'>=</span> <span class='id identifier rubyid_stdout'>stdout</span><span class='period'>.</span><span class='id identifier rubyid_read_nonblock'>read_nonblock</span><span class='lparen'>(</span><span class='int'>10</span><span class='comma'>,</span> <span class='label'>exception:</span> <span class='kw'>false</span><span class='rparen'>)</span>
     <span class='id identifier rubyid_e'>e</span> <span class='op'>=</span> <span class='id identifier rubyid_stderr'>stderr</span><span class='period'>.</span><span class='id identifier rubyid_read_nonblock'>read_nonblock</span><span class='lparen'>(</span><span class='int'>10</span><span class='comma'>,</span> <span class='label'>exception:</span> <span class='kw'>false</span><span class='rparen'>)</span>
@@ -549,8 +518,9 @@ instead, as it will not raise an exception.</p>
     <span class='id identifier rubyid_wait_thread'>wait_thread</span>
   <span class='kw'>end</span>
   <span class='kw'>if</span> <span class='id identifier rubyid_wait_thread'>wait_thread</span><span class='period'>.</span><span class='id identifier rubyid_value'>value</span><span class='period'>.</span><span class='id identifier rubyid_success?'>success?</span>
-    <span class='ivar'>@out</span><span class='period'>.</span><span class='id identifier rubyid_puts'>puts</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_args'>args</span><span class='period'>.</span><span class='id identifier rubyid_length'>length</span> <span class='op'>==</span> <span class='int'>1</span> <span class='op'>?</span> <span class='id identifier rubyid_args'>args</span><span class='lbracket'>[</span><span class='int'>0</span><span class='rbracket'>]</span> <span class='op'>:</span> <span class='id identifier rubyid_args'>args</span><span class='embexpr_end'>}</span><span class='tstring_content'> succeeded</span><span class='tstring_end'>&quot;</span></span>
+    <span class='ivar'>@logger</span><span class='period'>.</span><span class='id identifier rubyid_info'>info</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_args'>args</span><span class='period'>.</span><span class='id identifier rubyid_length'>length</span> <span class='op'>==</span> <span class='int'>1</span> <span class='op'>?</span> <span class='id identifier rubyid_args'>args</span><span class='lbracket'>[</span><span class='int'>0</span><span class='rbracket'>]</span> <span class='op'>:</span> <span class='id identifier rubyid_args'>args</span><span class='embexpr_end'>}</span><span class='tstring_content'> succeeded</span><span class='tstring_end'>&quot;</span></span>
   <span class='kw'>else</span>
+    <span class='ivar'>@logger</span><span class='period'>.</span><span class='id identifier rubyid_info'>info</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>&#39;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_args'>args</span><span class='period'>.</span><span class='id identifier rubyid_length'>length</span> <span class='op'>==</span> <span class='int'>1</span> <span class='op'>?</span> <span class='id identifier rubyid_args'>args</span><span class='lbracket'>[</span><span class='int'>0</span><span class='rbracket'>]</span> <span class='op'>:</span> <span class='id identifier rubyid_args'>args</span><span class='embexpr_end'>}</span><span class='tstring_content'>&#39; failed with exit status </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_wait_thread'>wait_thread</span><span class='period'>.</span><span class='id identifier rubyid_value'>value</span><span class='period'>.</span><span class='id identifier rubyid_exitstatus'>exitstatus</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span>
     <span class='id identifier rubyid_raise'>raise</span> <span class='const'><span class='object_link'><a href="../../Brut.html" title="Brut (module)">Brut</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../CLI.html" title="Brut::CLI (module)">CLI</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="SystemExecError.html" title="Brut::CLI::SystemExecError (class)">SystemExecError</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="SystemExecError.html#initialize-instance_method" title="Brut::CLI::SystemExecError#initialize (method)">new</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_args'>args</span><span class='comma'>,</span><span class='id identifier rubyid_wait_thread'>wait_thread</span><span class='period'>.</span><span class='id identifier rubyid_value'>value</span><span class='period'>.</span><span class='id identifier rubyid_exitstatus'>exitstatus</span><span class='rparen'>)</span>
   <span class='kw'>end</span>
   <span class='int'>0</span>
@@ -565,9 +535,9 @@ instead, as it will not raise an exception.</p>
 </div>
 
       <div id="footer">
-  Generated on Fri Jan 30 20:39:52 2026 by
+  Generated on Sat Mar 14 21:52:57 2026 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.38 (ruby-3.4.6).
+  0.9.38 (ruby-3.4.8).
 </div>
 
     </div>

@@ -169,7 +169,7 @@ share cross-cutting logic.</p>
   
 
   
-    <span class="summary_desc"><div class='inline'><p>Override this to performa any checks before <span class='object_link'><a href="#handle-instance_method" title="Brut::FrontEnd::Handler#handle (method)">#handle</a></span> is called.</p>
+    <span class="summary_desc"><div class='inline'><p>Override this to perform any checks before <span class='object_link'><a href="#handle-instance_method" title="Brut::FrontEnd::Handler#handle (method)">#handle</a></span> is called.</p>
 </div></span>
   
 </li>
@@ -192,7 +192,7 @@ share cross-cutting logic.</p>
   
 
   
-    <span class="summary_desc"><div class='inline'><p>You must implement this to accept whatever parameters you need.</p>
+    <span class="summary_desc"><div class='inline'><p>You must implement this to perform whatever action your handler must perform.</p>
 </div></span>
   
 </li>
@@ -263,7 +263,7 @@ share cross-cutting logic.</p>
   
 </h3><div class="docstring">
   <div class="discussion">
-    <p>Override this to performa any checks before <span class='object_link'><a href="#handle-instance_method" title="Brut::FrontEnd::Handler#handle (method)">#handle</a></span> is called.  This should
+    <p>Override this to perform any checks before <span class='object_link'><a href="#handle-instance_method" title="Brut::FrontEnd::Handler#handle (method)">#handle</a></span> is called.  This should
 return <code>nil</code> if <span class='object_link'><a href="#handle-instance_method" title="Brut::FrontEnd::Handler#handle (method)">#handle</a></span> should proceed to be called. Generally, you don't need to override
 this as <span class='object_link'><a href="#handle-instance_method" title="Brut::FrontEnd::Handler#handle (method)">#handle</a></span> can include the logic.  Where this is useful is to share cross-cutting logic
 across other handlers.</p>
@@ -298,10 +298,10 @@ across other handlers.</p>
       <pre class="lines">
 
 
-49</pre>
+50</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/brut/front_end/handler.rb', line 49</span>
+      <pre class="code"><span class="info file"># File 'lib/brut/front_end/handler.rb', line 50</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_before_handle'>before_handle</span> <span class='op'>=</span> <span class='kw'>nil</span></pre>
     </td>
@@ -320,8 +320,9 @@ across other handlers.</p>
   
 </h3><div class="docstring">
   <div class="discussion">
-    <p>You must implement this to accept whatever parameters you need. See <span class='object_link'><a href="RequestContext.html" title="Brut::FrontEnd::RequestContext (class)">RequestContext</a></span> for how that works.
-The type of the return value determines what will happen:</p>
+    <p>You must implement this to perform whatever action your handler must perform.  Any information from the request would've been given to your initializer. See <span class='object_link'><a href="RequestContext.html" title="Brut::FrontEnd::RequestContext (class)">RequestContext</a></span> for how that works.</p>
+
+<p>The type of the return value determines what will happen:</p>
 
 <ul>
 <li>Instance of <code>URI</code> - browser will redirect to this URI. Typically, you would do this by calling <span class='object_link'><a href="HandlingResults.html#redirect_to-instance_method" title="Brut::FrontEnd::HandlingResults#redirect_to (method)">Brut::FrontEnd::HandlingResults#redirect_to</a></span>.</li>
@@ -359,12 +360,12 @@ you cannot use one of the other options</li>
       <pre class="lines">
 
 
-38
 39
-40</pre>
+40
+41</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/brut/front_end/handler.rb', line 38</span>
+      <pre class="code"><span class="info file"># File 'lib/brut/front_end/handler.rb', line 39</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_handle'>handle</span><span class='lparen'>(</span><span class='op'>**</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_abstract_method!'>abstract_method!</span>
@@ -385,8 +386,7 @@ you cannot use one of the other options</li>
   
 </h3><div class="docstring">
   <div class="discussion">
-    <p>Called by Brut to handle the request. Do not override this. If your handler responds to <code>before_handle</code> that is called with the
-same args as you have defined for <span class='object_link'><a href="#handle-instance_method" title="Brut::FrontEnd::Handler#handle (method)">#handle</a></span>. If <code>before_handle</code> returns anything other than <code>nil</code>, that value is returned and
+    <p>Called by Brut to handle the request. Do not override this. If <code>before_handle</code> returns anything other than <code>nil</code>, that value is returned and
 should be one of the values documented in <span class='object_link'><a href="#handle-instance_method" title="Brut::FrontEnd::Handler#handle (method)">#handle</a></span>.  If <code>before_handle</code> returns <code>nil</code>, <span class='object_link'><a href="#handle-instance_method" title="Brut::FrontEnd::Handler#handle (method)">#handle</a></span> is called and whatever it
 returns is returned here.</p>
 
@@ -432,9 +432,9 @@ returns is returned here.</p>
 </div>
 
       <div id="footer">
-  Generated on Fri Jan 30 20:39:53 2026 by
+  Generated on Sat Mar 14 21:52:58 2026 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.38 (ruby-3.4.6).
+  0.9.38 (ruby-3.4.8).
 </div>
 
     </div>

@@ -1,0 +1,1 @@
+import{_ as i,c as a,o as n,ag as t}from"./chunks/framework.C4nOkCZI.js";const c=JSON.parse('{"title":"CLI and Tasks","description":"","frontmatter":{},"headers":[],"relativePath":"cli.md","filePath":"cli.md"}'),e={name:"cli.md"};function l(h,s,p,k,d,r){return n(),a("div",null,[...s[0]||(s[0]=[t("",53)])])}const g=i(e,[["render",l]]);export{c as __pageData,g as default};

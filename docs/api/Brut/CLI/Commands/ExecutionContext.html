@@ -103,7 +103,7 @@
   <div class="discussion">
     <p>The context in which a command's execution is run.  This holds essentially all values that are input to
 the command, including parsed command line options, unparsed arguments, the UNIX environment, and
-the three s/O streams (stderr, stdout, stdin).</p>
+the three I/O streams (stderr, stdout, stdin).</p>
 
 
   </div>
@@ -197,6 +197,34 @@ the three s/O streams (stderr, stdout, stdin).</p>
 
   
     <span class="summary_desc"><div class='inline'><p>Returns the value of attribute executor.</p>
+</div></span>
+  
+</li>
+
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#logger-instance_method" title="#logger (instance method)">#<strong>logger</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+    
+      <span class="note title readonly">readonly</span>
+    
+    
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>Returns the value of attribute logger.</p>
 </div></span>
   
 </li>
@@ -330,7 +358,7 @@ the three s/O streams (stderr, stdout, stdin).</p>
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#initialize-instance_method" title="#initialize (instance method)">#<strong>initialize</strong>(argv: :default, options: :default, env: :default, stdout: :default, stderr: :default, stdin: :default, executor: :default)  &#x21d2; ExecutionContext </a>
+      <a href="#initialize-instance_method" title="#initialize (instance method)">#<strong>initialize</strong>(argv: :default, options: :default, env: :default, stdout: :default, stderr: :default, stdin: :default, executor: :default, logger: :default)  &#x21d2; ExecutionContext </a>
     
 
     
@@ -361,7 +389,7 @@ the three s/O streams (stderr, stdout, stdin).</p>
     <div class="method_details first">
   <h3 class="signature first" id="initialize-instance_method">
   
-    #<strong>initialize</strong>(argv: :default, options: :default, env: :default, stdout: :default, stderr: :default, stdin: :default, executor: :default)  &#x21d2; <tt><span class='object_link'><a href="" title="Brut::CLI::Commands::ExecutionContext (class)">ExecutionContext</a></span></tt> 
+    #<strong>initialize</strong>(argv: :default, options: :default, env: :default, stdout: :default, stderr: :default, stdin: :default, executor: :default, logger: :default)  &#x21d2; <tt><span class='object_link'><a href="" title="Brut::CLI::Commands::ExecutionContext (class)">ExecutionContext</a></span></tt> 
   
 
   
@@ -399,7 +427,13 @@ the three s/O streams (stderr, stdout, stdin).</p>
 19
 20
 21
-22</pre>
+22
+23
+24
+25
+26
+27
+28</pre>
     </td>
     <td>
       <pre class="code"><span class="info file"># File 'lib/brut/cli/commands/execution_context.rb', line 6</span>
@@ -411,15 +445,21 @@ the three s/O streams (stderr, stdout, stdin).</p>
   <span class='label'>stdout:</span> <span class='symbol'>:default</span><span class='comma'>,</span>
   <span class='label'>stderr:</span> <span class='symbol'>:default</span><span class='comma'>,</span>
   <span class='label'>stdin:</span> <span class='symbol'>:default</span><span class='comma'>,</span>
-  <span class='label'>executor:</span> <span class='symbol'>:default</span>
+  <span class='label'>executor:</span> <span class='symbol'>:default</span><span class='comma'>,</span>
+  <span class='label'>logger:</span> <span class='symbol'>:default</span>
 <span class='rparen'>)</span>
-  <span class='ivar'>@argv</span>     <span class='op'>=</span>                             <span class='id identifier rubyid_argv'>argv</span> <span class='op'>==</span> <span class='symbol'>:default</span> <span class='op'>?</span> <span class='lbracket'>[</span><span class='rbracket'>]</span>                                                          <span class='op'>:</span> <span class='id identifier rubyid_argv'>argv</span>
-  <span class='ivar'>@options</span>  <span class='op'>=</span>                          <span class='id identifier rubyid_options'>options</span> <span class='op'>==</span> <span class='symbol'>:default</span> <span class='op'>?</span> <span class='const'><span class='object_link'><a href="../../../Brut.html" title="Brut (module)">Brut</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../../CLI.html" title="Brut::CLI (module)">CLI</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../Options.html" title="Brut::CLI::Options (class)">Options</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="../Options.html#initialize-instance_method" title="Brut::CLI::Options#initialize (method)">new</a></span></span><span class='lparen'>(</span><span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>                                  <span class='op'>:</span> <span class='id identifier rubyid_options'>options</span>
-  <span class='ivar'>@env</span>      <span class='op'>=</span>                              <span class='id identifier rubyid_env'>env</span> <span class='op'>==</span> <span class='symbol'>:default</span> <span class='op'>?</span> <span class='lbrace'>{</span><span class='rbrace'>}</span>                                                          <span class='op'>:</span> <span class='id identifier rubyid_env'>env</span>
-  <span class='ivar'>@stdout</span>   <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../../../Brut.html" title="Brut (module)">Brut</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../../CLI.html" title="Brut::CLI (module)">CLI</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../Output.html" title="Brut::CLI::Output (class)">Output</a></span></span><span class='period'>.</span><span class='id identifier rubyid_from_io'><span class='object_link'><a href="../Output.html#from_io-class_method" title="Brut::CLI::Output.from_io (method)">from_io</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_stdout'>stdout</span> <span class='op'>==</span> <span class='symbol'>:default</span> <span class='op'>?</span> <span class='gvar'>$stdout</span>                                                     <span class='op'>:</span> <span class='id identifier rubyid_stdout'>stdout</span><span class='rparen'>)</span>
-  <span class='ivar'>@stderr</span>   <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../../../Brut.html" title="Brut (module)">Brut</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../../CLI.html" title="Brut::CLI (module)">CLI</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../Output.html" title="Brut::CLI::Output (class)">Output</a></span></span><span class='period'>.</span><span class='id identifier rubyid_from_io'><span class='object_link'><a href="../Output.html#from_io-class_method" title="Brut::CLI::Output.from_io (method)">from_io</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_stderr'>stderr</span> <span class='op'>==</span> <span class='symbol'>:default</span> <span class='op'>?</span> <span class='gvar'>$stderr</span>                                                     <span class='op'>:</span> <span class='id identifier rubyid_stderr'>stderr</span><span class='rparen'>)</span>
-  <span class='ivar'>@stdin</span>    <span class='op'>=</span>                            <span class='id identifier rubyid_stdin'>stdin</span> <span class='op'>==</span> <span class='symbol'>:default</span> <span class='op'>?</span> <span class='gvar'>$stdin</span>                                                      <span class='op'>:</span> <span class='id identifier rubyid_stdin'>stdin</span>
-  <span class='ivar'>@executor</span> <span class='op'>=</span>                         <span class='id identifier rubyid_executor'>executor</span> <span class='op'>==</span> <span class='symbol'>:default</span> <span class='op'>?</span> <span class='const'><span class='object_link'><a href="../../../Brut.html" title="Brut (module)">Brut</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../../CLI.html" title="Brut::CLI (module)">CLI</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../Executor.html" title="Brut::CLI::Executor (class)">Executor</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="../Executor.html#initialize-instance_method" title="Brut::CLI::Executor#initialize (method)">new</a></span></span><span class='lparen'>(</span><span class='label'>out:</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_stdout'>stdout</span><span class='comma'>,</span> <span class='label'>err:</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_stderr'>stderr</span><span class='rparen'>)</span> <span class='op'>:</span> <span class='id identifier rubyid_executor'>executor</span>
+  <span class='ivar'>@argv</span>       <span class='op'>=</span>    <span class='id identifier rubyid_argv'>argv</span> <span class='op'>==</span> <span class='symbol'>:default</span> <span class='op'>?</span> <span class='lbracket'>[</span><span class='rbracket'>]</span>                                                          <span class='op'>:</span> <span class='id identifier rubyid_argv'>argv</span>
+  <span class='ivar'>@options</span>  <span class='op'>=</span>   <span class='id identifier rubyid_options'>options</span> <span class='op'>==</span> <span class='symbol'>:default</span> <span class='op'>?</span> <span class='const'><span class='object_link'><a href="../../../Brut.html" title="Brut (module)">Brut</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../../CLI.html" title="Brut::CLI (module)">CLI</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../Options.html" title="Brut::CLI::Options (class)">Options</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="../Options.html#initialize-instance_method" title="Brut::CLI::Options#initialize (method)">new</a></span></span><span class='lparen'>(</span><span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>                                  <span class='op'>:</span> <span class='id identifier rubyid_options'>options</span>
+  <span class='ivar'>@env</span>      <span class='op'>=</span>       <span class='id identifier rubyid_env'>env</span> <span class='op'>==</span> <span class='symbol'>:default</span> <span class='op'>?</span> <span class='lbrace'>{</span><span class='rbrace'>}</span>                                                          <span class='op'>:</span> <span class='id identifier rubyid_env'>env</span>
+  <span class='ivar'>@stdout</span>   <span class='op'>=</span>    <span class='id identifier rubyid_stdout'>stdout</span> <span class='op'>==</span> <span class='symbol'>:default</span> <span class='op'>?</span> <span class='gvar'>$stdout</span>                                                     <span class='op'>:</span> <span class='id identifier rubyid_stdout'>stdout</span>
+  <span class='ivar'>@stderr</span>   <span class='op'>=</span>    <span class='id identifier rubyid_stderr'>stderr</span> <span class='op'>==</span> <span class='symbol'>:default</span> <span class='op'>?</span> <span class='gvar'>$stderr</span>                                                     <span class='op'>:</span> <span class='id identifier rubyid_stderr'>stderr</span>
+  <span class='ivar'>@stdin</span>    <span class='op'>=</span>     <span class='id identifier rubyid_stdin'>stdin</span> <span class='op'>==</span> <span class='symbol'>:default</span> <span class='op'>?</span> <span class='gvar'>$stdin</span>                                                      <span class='op'>:</span> <span class='id identifier rubyid_stdin'>stdin</span>
+  <span class='ivar'>@logger</span>   <span class='op'>=</span>    <span class='id identifier rubyid_logger'>logger</span> <span class='op'>==</span> <span class='symbol'>:default</span> <span class='op'>?</span> <span class='const'><span class='object_link'><a href="../../../Brut.html" title="Brut (module)">Brut</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../../CLI.html" title="Brut::CLI (module)">CLI</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../Logger.html" title="Brut::CLI::Logger (class)">Logger</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="../Logger.html#initialize-instance_method" title="Brut::CLI::Logger#initialize (method)">new</a></span></span><span class='lparen'>(</span><span class='label'>app_name:</span> <span class='gvar'>$0</span><span class='comma'>,</span> <span class='label'>stdout:</span> <span class='ivar'>@stdout</span><span class='comma'>,</span> <span class='label'>stderr:</span> <span class='ivar'>@stderr</span><span class='rparen'>)</span> <span class='op'>:</span> <span class='id identifier rubyid_logger'>logger</span>
+  <span class='ivar'>@executor</span> <span class='op'>=</span>  <span class='id identifier rubyid_executor'>executor</span> <span class='op'>==</span> <span class='symbol'>:default</span> <span class='op'>?</span> <span class='const'><span class='object_link'><a href="../../../Brut.html" title="Brut (module)">Brut</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../../CLI.html" title="Brut::CLI (module)">CLI</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../Executor.html" title="Brut::CLI::Executor (class)">Executor</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="../Executor.html#initialize-instance_method" title="Brut::CLI::Executor#initialize (method)">new</a></span></span><span class='lparen'>(</span><span class='label'>logger:</span> <span class='ivar'>@logger</span><span class='comma'>,</span> <span class='label'>out:</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_stdout'>stdout</span><span class='comma'>,</span> <span class='label'>err:</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_stderr'>stderr</span><span class='rparen'>)</span> <span class='op'>:</span> <span class='id identifier rubyid_executor'>executor</span>
+
+  <span class='ivar'>@logger</span><span class='period'>.</span><span class='id identifier rubyid_level'>level</span>         <span class='op'>=</span> <span class='ivar'>@options</span><span class='period'>.</span><span class='id identifier rubyid_log_level'>log_level</span>
+  <span class='ivar'>@logger</span><span class='period'>.</span><span class='id identifier rubyid_log_file'>log_file</span>      <span class='op'>=</span> <span class='ivar'>@options</span><span class='period'>.</span><span class='id identifier rubyid_log_file'>log_file</span>
+  <span class='ivar'>@logger</span><span class='period'>.</span><span class='id identifier rubyid_log_to_stdout'>log_to_stdout</span> <span class='op'>=</span> <span class='ivar'>@options</span><span class='period'>.</span><span class='id identifier rubyid_log_stdout?'>log_stdout?</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -458,12 +498,12 @@ the three s/O streams (stderr, stdout, stdin).</p>
       <pre class="lines">
 
 
-24
-25
-26</pre>
+30
+31
+32</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/brut/cli/commands/execution_context.rb', line 24</span>
+      <pre class="code"><span class="info file"># File 'lib/brut/cli/commands/execution_context.rb', line 30</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_argv'>argv</span>
   <span class='ivar'>@argv</span>
@@ -500,12 +540,12 @@ the three s/O streams (stderr, stdout, stdin).</p>
       <pre class="lines">
 
 
-24
-25
-26</pre>
+30
+31
+32</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/brut/cli/commands/execution_context.rb', line 24</span>
+      <pre class="code"><span class="info file"># File 'lib/brut/cli/commands/execution_context.rb', line 30</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_env'>env</span>
   <span class='ivar'>@env</span>
@@ -542,15 +582,57 @@ the three s/O streams (stderr, stdout, stdin).</p>
       <pre class="lines">
 
 
-24
-25
-26</pre>
+30
+31
+32</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/brut/cli/commands/execution_context.rb', line 24</span>
+      <pre class="code"><span class="info file"># File 'lib/brut/cli/commands/execution_context.rb', line 30</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_executor'>executor</span>
   <span class='ivar'>@executor</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      
+      <span id=""></span>
+      <div class="method_details ">
+  <h3 class="signature " id="logger-instance_method">
+  
+    #<strong>logger</strong>  &#x21d2; <tt>Object</tt>  <span class="extras">(readonly)</span>
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>Returns the value of attribute logger.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+30
+31
+32</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/brut/cli/commands/execution_context.rb', line 30</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_logger'>logger</span>
+  <span class='ivar'>@logger</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -584,12 +666,12 @@ the three s/O streams (stderr, stdout, stdin).</p>
       <pre class="lines">
 
 
-24
-25
-26</pre>
+30
+31
+32</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/brut/cli/commands/execution_context.rb', line 24</span>
+      <pre class="code"><span class="info file"># File 'lib/brut/cli/commands/execution_context.rb', line 30</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_options'>options</span>
   <span class='ivar'>@options</span>
@@ -626,12 +708,12 @@ the three s/O streams (stderr, stdout, stdin).</p>
       <pre class="lines">
 
 
-24
-25
-26</pre>
+30
+31
+32</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/brut/cli/commands/execution_context.rb', line 24</span>
+      <pre class="code"><span class="info file"># File 'lib/brut/cli/commands/execution_context.rb', line 30</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_stderr'>stderr</span>
   <span class='ivar'>@stderr</span>
@@ -668,12 +750,12 @@ the three s/O streams (stderr, stdout, stdin).</p>
       <pre class="lines">
 
 
-24
-25
-26</pre>
+30
+31
+32</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/brut/cli/commands/execution_context.rb', line 24</span>
+      <pre class="code"><span class="info file"># File 'lib/brut/cli/commands/execution_context.rb', line 30</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_stdin'>stdin</span>
   <span class='ivar'>@stdin</span>
@@ -710,12 +792,12 @@ the three s/O streams (stderr, stdout, stdin).</p>
       <pre class="lines">
 
 
-24
-25
-26</pre>
+30
+31
+32</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/brut/cli/commands/execution_context.rb', line 24</span>
+      <pre class="code"><span class="info file"># File 'lib/brut/cli/commands/execution_context.rb', line 30</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_stdout'>stdout</span>
   <span class='ivar'>@stdout</span>
@@ -731,9 +813,9 @@ the three s/O streams (stderr, stdout, stdin).</p>
 </div>
 
       <div id="footer">
-  Generated on Fri Jan 30 20:39:54 2026 by
+  Generated on Sat Mar 14 21:52:59 2026 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.38 (ruby-3.4.6).
+  0.9.38 (ruby-3.4.8).
 </div>
 
     </div>

@@ -163,7 +163,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#initialize-instance_method" title="#initialize (instance method)">#<strong>initialize</strong>(app_path:, out:)  &#x21d2; RoutesEditor </a>
+      <a href="#initialize-instance_method" title="#initialize (instance method)">#<strong>initialize</strong>(app_path:, stdout:)  &#x21d2; RoutesEditor </a>
     
 
     
@@ -217,7 +217,7 @@
     <div class="method_details first">
   <h3 class="signature first" id="initialize-instance_method">
   
-    #<strong>initialize</strong>(app_path:, out:)  &#x21d2; <tt><span class='object_link'><a href="" title="Brut::CLI::Apps::Scaffold::RoutesEditor (class)">RoutesEditor</a></span></tt> 
+    #<strong>initialize</strong>(app_path:, stdout:)  &#x21d2; <tt><span class='object_link'><a href="" title="Brut::CLI::Apps::Scaffold::RoutesEditor (class)">RoutesEditor</a></span></tt> 
   
 
   
@@ -239,19 +239,19 @@
       <pre class="lines">
 
 
-703
-704
-705
-706
-707
-708</pre>
+710
+711
+712
+713
+714
+715</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/brut/cli/apps/scaffold.rb', line 703</span>
+      <pre class="code"><span class="info file"># File 'lib/brut/cli/apps/scaffold.rb', line 710</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_initialize'>initialize</span><span class='lparen'>(</span><span class='label'>app_path:</span><span class='comma'>,</span><span class='label'>out:</span><span class='rparen'>)</span>
+<span class='kw'>def</span> <span class='id identifier rubyid_initialize'>initialize</span><span class='lparen'>(</span><span class='label'>app_path:</span><span class='comma'>,</span><span class='label'>stdout:</span><span class='rparen'>)</span>
   <span class='ivar'>@app_path</span>       <span class='op'>=</span> <span class='id identifier rubyid_app_path'>app_path</span>
-  <span class='ivar'>@out</span>            <span class='op'>=</span> <span class='id identifier rubyid_out'>out</span>
+  <span class='ivar'>@stdout</span>         <span class='op'>=</span> <span class='id identifier rubyid_stdout'>stdout</span>
   <span class='ivar'>@found_routes</span>   <span class='op'>=</span> <span class='kw'>false</span>
   <span class='ivar'>@routes_existed</span> <span class='op'>=</span> <span class='kw'>false</span>
 <span class='kw'>end</span></pre>
@@ -282,13 +282,6 @@
       <pre class="lines">
 
 
-713
-714
-715
-716
-717
-718
-719
 720
 721
 722
@@ -304,10 +297,17 @@
 732
 733
 734
-735</pre>
+735
+736
+737
+738
+739
+740
+741
+742</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/brut/cli/apps/scaffold.rb', line 713</span>
+      <pre class="code"><span class="info file"># File 'lib/brut/cli/apps/scaffold.rb', line 720</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_add_route!'>add_route!</span><span class='lparen'>(</span><span class='label'>route_code:</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_app_contents'>app_contents</span> <span class='op'>=</span> <span class='const'>File</span><span class='period'>.</span><span class='id identifier rubyid_read'>read</span><span class='lparen'>(</span><span class='ivar'>@app_path</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_split'>split</span><span class='lparen'>(</span><span class='tstring'><span class='regexp_beg'>/</span><span class='tstring_content'>\n</span><span class='regexp_end'>/</span></span><span class='rparen'>)</span>
@@ -322,7 +322,7 @@
       <span class='kw'>end</span>
       <span class='kw'>if</span> <span class='id identifier rubyid_in_routes'>in_routes</span> <span class='op'>&amp;&amp;</span> <span class='id identifier rubyid_line'>line</span> <span class='op'>=~</span> <span class='tstring'><span class='regexp_beg'>/</span><span class='tstring_content'>^  end\s*$</span><span class='regexp_end'>/</span></span>
         <span class='kw'>if</span> <span class='op'>!</span><span class='ivar'>@routes_existed</span>
-          <span class='ivar'>@out</span><span class='period'>.</span><span class='id identifier rubyid_puts'>puts</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Inserted route into </span><span class='embexpr_beg'>#{</span><span class='ivar'>@app_path</span><span class='period'>.</span><span class='id identifier rubyid_relative_path_from'>relative_path_from</span><span class='lparen'>(</span><span class='const'><span class='object_link'><a href="../../../../Brut.html" title="Brut (module)">Brut</a></span></span><span class='period'>.</span><span class='id identifier rubyid_container'><span class='object_link'><a href="../../../../Brut.html#container-class_method" title="Brut.container (method)">container</a></span></span><span class='period'>.</span><span class='id identifier rubyid_project_root'>project_root</span><span class='rparen'>)</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span>
+          <span class='ivar'>@stdout</span><span class='period'>.</span><span class='id identifier rubyid_puts'>puts</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Inserted route into </span><span class='embexpr_beg'>#{</span><span class='ivar'>@app_path</span><span class='period'>.</span><span class='id identifier rubyid_relative_path_from'>relative_path_from</span><span class='lparen'>(</span><span class='const'><span class='object_link'><a href="../../../../Brut.html" title="Brut (module)">Brut</a></span></span><span class='period'>.</span><span class='id identifier rubyid_container'><span class='object_link'><a href="../../../../Brut.html#container-class_method" title="Brut.container (method)">container</a></span></span><span class='period'>.</span><span class='id identifier rubyid_project_root'>project_root</span><span class='rparen'>)</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span>
           <span class='id identifier rubyid_file'>file</span><span class='period'>.</span><span class='id identifier rubyid_puts'>puts</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>    </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_route_code'>route_code</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span>
         <span class='kw'>end</span>
         <span class='ivar'>@found_routes</span> <span class='op'>=</span> <span class='kw'>true</span>
@@ -375,10 +375,10 @@
       <pre class="lines">
 
 
-710</pre>
+717</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/brut/cli/apps/scaffold.rb', line 710</span>
+      <pre class="code"><span class="info file"># File 'lib/brut/cli/apps/scaffold.rb', line 717</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_found_routes?'>found_routes?</span>   <span class='op'>=</span> <span class='ivar'>@found_routes</span></pre>
     </td>
@@ -424,10 +424,10 @@
       <pre class="lines">
 
 
-711</pre>
+718</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/brut/cli/apps/scaffold.rb', line 711</span>
+      <pre class="code"><span class="info file"># File 'lib/brut/cli/apps/scaffold.rb', line 718</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_routes_existed?'>routes_existed?</span> <span class='op'>=</span> <span class='ivar'>@routes_existed</span></pre>
     </td>
@@ -440,9 +440,9 @@
 </div>
 
       <div id="footer">
-  Generated on Fri Jan 30 20:39:52 2026 by
+  Generated on Sat Mar 14 21:52:58 2026 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.38 (ruby-3.4.6).
+  0.9.38 (ruby-3.4.8).
 </div>
 
     </div>

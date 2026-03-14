@@ -134,6 +134,34 @@
 </li>
 
     
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#platform-instance_method" title="#platform (instance method)">#<strong>platform</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+    
+      <span class="note title readonly">readonly</span>
+    
+    
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>Returns the value of attribute platform.</p>
+</div></span>
+  
+</li>
+
+    
   </ul>
 
 
@@ -226,6 +254,11 @@
       <pre class="lines">
 
 
+64
+65
+66
+67
+68
 69
 70
 71
@@ -256,14 +289,10 @@
 96
 97
 98
-99
-100
-101
-102
-103</pre>
+99</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/brut/cli/apps/deploy.rb', line 69</span>
+      <pre class="code"><span class="info file"># File 'lib/brut/cli/apps/deploy.rb', line 64</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_initialize'>initialize</span><span class='lparen'>(</span><span class='label'>organization:</span><span class='comma'>,</span> <span class='label'>app_id:</span><span class='comma'>,</span> <span class='label'>project_root:</span><span class='comma'>,</span> <span class='label'>short_version:</span><span class='rparen'>)</span>
   <span class='ivar'>@docker_config_filename</span> <span class='op'>=</span> <span class='id identifier rubyid_project_root'>project_root</span> <span class='op'>/</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>deploy</span><span class='tstring_end'>&quot;</span></span> <span class='op'>/</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>docker_config</span><span class='tstring_end'>&quot;</span></span>
@@ -273,10 +302,11 @@
   <span class='kw'>end</span>
 
   <span class='id identifier rubyid_docker_config'>docker_config</span> <span class='op'>=</span> <span class='const'>DockerConfig</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span>
+  <span class='ivar'>@platform</span> <span class='op'>=</span> <span class='id identifier rubyid_docker_config'>docker_config</span><span class='period'>.</span><span class='id identifier rubyid_platform'>platform</span>
 
-  <span class='id identifier rubyid_additional_images'>additional_images</span> <span class='op'>=</span> <span class='lparen'>(</span><span class='id identifier rubyid_docker_confir'>docker_confir</span><span class='period'>.</span><span class='id identifier rubyid_additional_images'>additional_images</span> <span class='op'>||</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_map'>map</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_name'>name</span><span class='comma'>,</span><span class='id identifier rubyid_config'>config</span><span class='op'>|</span>
+  <span class='id identifier rubyid_additional_images'>additional_images</span> <span class='op'>=</span> <span class='lparen'>(</span><span class='id identifier rubyid_docker_config'>docker_config</span><span class='period'>.</span><span class='id identifier rubyid_additional_images'>additional_images</span> <span class='op'>||</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_map'>map</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_name'>name</span><span class='comma'>,</span><span class='id identifier rubyid_config'>config</span><span class='op'>|</span>
     <span class='id identifier rubyid_cmd'>cmd</span> <span class='op'>=</span> <span class='id identifier rubyid_config'>config</span><span class='period'>.</span><span class='id identifier rubyid_fetch'>fetch</span><span class='lparen'>(</span><span class='symbol'>:cmd</span><span class='rparen'>)</span>
-    <span class='id identifier rubyid_image_name'>image_name</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>%{</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_app_organization'>app_organization</span><span class='embexpr_end'>}</span><span class='tstring_content'>/</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_app_id'>app_id</span><span class='embexpr_end'>}</span><span class='tstring_content'>:</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_short_version'>short_version</span><span class='embexpr_end'>}</span><span class='tstring_content'>-</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_name'>name</span><span class='embexpr_end'>}</span><span class='tstring_end'>}</span></span>
+    <span class='id identifier rubyid_image_name'>image_name</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>%{</span><span class='embexpr_beg'>#{</span><span class='const'><span class='object_link'><a href="../../../../Brut.html" title="Brut (module)">Brut</a></span></span><span class='period'>.</span><span class='id identifier rubyid_container'><span class='object_link'><a href="../../../../Brut.html#container-class_method" title="Brut.container (method)">container</a></span></span><span class='period'>.</span><span class='id identifier rubyid_app_organization'>app_organization</span><span class='embexpr_end'>}</span><span class='tstring_content'>/</span><span class='embexpr_beg'>#{</span><span class='const'><span class='object_link'><a href="../../../../Brut.html" title="Brut (module)">Brut</a></span></span><span class='period'>.</span><span class='id identifier rubyid_container'><span class='object_link'><a href="../../../../Brut.html#container-class_method" title="Brut.container (method)">container</a></span></span><span class='period'>.</span><span class='id identifier rubyid_app_id'>app_id</span><span class='embexpr_end'>}</span><span class='tstring_content'>:</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_short_version'>short_version</span><span class='embexpr_end'>}</span><span class='tstring_content'>-</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_name'>name</span><span class='embexpr_end'>}</span><span class='tstring_end'>}</span></span>
     <span class='lbracket'>[</span>
       <span class='id identifier rubyid_name'>name</span><span class='comma'>,</span>
       <span class='lbrace'>{</span>
@@ -290,12 +320,12 @@
   <span class='ivar'>@images</span> <span class='op'>=</span> <span class='lbrace'>{</span>
     <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>web</span><span class='tstring_end'>&quot;</span></span> <span class='op'>=&gt;</span> <span class='lbrace'>{</span>
       <span class='label'>cmd:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>bin/run</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
-      <span class='label'>image_name:</span> <span class='tstring'><span class='tstring_beg'>%{</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_app_organization'>app_organization</span><span class='embexpr_end'>}</span><span class='tstring_content'>/</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_app_id'>app_id</span><span class='embexpr_end'>}</span><span class='tstring_content'>:</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_short_version'>short_version</span><span class='embexpr_end'>}</span><span class='tstring_content'>-web</span><span class='tstring_end'>}</span></span><span class='comma'>,</span>
+      <span class='label'>image_name:</span> <span class='tstring'><span class='tstring_beg'>%{</span><span class='embexpr_beg'>#{</span><span class='const'><span class='object_link'><a href="../../../../Brut.html" title="Brut (module)">Brut</a></span></span><span class='period'>.</span><span class='id identifier rubyid_container'><span class='object_link'><a href="../../../../Brut.html#container-class_method" title="Brut.container (method)">container</a></span></span><span class='period'>.</span><span class='id identifier rubyid_app_organization'>app_organization</span><span class='embexpr_end'>}</span><span class='tstring_content'>/</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_app_id'>app_id</span><span class='embexpr_end'>}</span><span class='tstring_content'>:</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_short_version'>short_version</span><span class='embexpr_end'>}</span><span class='tstring_content'>-web</span><span class='tstring_end'>}</span></span><span class='comma'>,</span>
       <span class='label'>dockerfile:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>deploy/Dockerfile.web</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
     <span class='rbrace'>}</span><span class='comma'>,</span>
     <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>release</span><span class='tstring_end'>&quot;</span></span> <span class='op'>=&gt;</span> <span class='lbrace'>{</span>
-      <span class='label'>cmd:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>bin/run</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
-      <span class='label'>image_name:</span> <span class='tstring'><span class='tstring_beg'>%{</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_app_organization'>app_organization</span><span class='embexpr_end'>}</span><span class='tstring_content'>/</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_app_id'>app_id</span><span class='embexpr_end'>}</span><span class='tstring_content'>:</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_short_version'>short_version</span><span class='embexpr_end'>}</span><span class='tstring_content'>-web</span><span class='tstring_end'>}</span></span><span class='comma'>,</span>
+      <span class='label'>cmd:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>bin/release</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+      <span class='label'>image_name:</span> <span class='tstring'><span class='tstring_beg'>%{</span><span class='embexpr_beg'>#{</span><span class='const'><span class='object_link'><a href="../../../../Brut.html" title="Brut (module)">Brut</a></span></span><span class='period'>.</span><span class='id identifier rubyid_container'><span class='object_link'><a href="../../../../Brut.html#container-class_method" title="Brut.container (method)">container</a></span></span><span class='period'>.</span><span class='id identifier rubyid_app_organization'>app_organization</span><span class='embexpr_end'>}</span><span class='tstring_content'>/</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_app_id'>app_id</span><span class='embexpr_end'>}</span><span class='tstring_content'>:</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_short_version'>short_version</span><span class='embexpr_end'>}</span><span class='tstring_content'>-release</span><span class='tstring_end'>}</span></span><span class='comma'>,</span>
       <span class='label'>dockerfile:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>deploy/Dockerfile.release</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
     <span class='rbrace'>}</span><span class='comma'>,</span>
   <span class='rbrace'>}</span><span class='period'>.</span><span class='id identifier rubyid_merge'>merge</span><span class='lparen'>(</span><span class='id identifier rubyid_additional_images'>additional_images</span><span class='rparen'>)</span>
@@ -337,15 +367,57 @@
       <pre class="lines">
 
 
-68
-69
-70</pre>
+63
+64
+65</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/brut/cli/apps/deploy.rb', line 68</span>
+      <pre class="code"><span class="info file"># File 'lib/brut/cli/apps/deploy.rb', line 63</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_docker_config_filename'>docker_config_filename</span>
   <span class='ivar'>@docker_config_filename</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      
+      <span id=""></span>
+      <div class="method_details ">
+  <h3 class="signature " id="platform-instance_method">
+  
+    #<strong>platform</strong>  &#x21d2; <tt>Object</tt>  <span class="extras">(readonly)</span>
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>Returns the value of attribute platform.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+63
+64
+65</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/brut/cli/apps/deploy.rb', line 63</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_platform'>platform</span>
+  <span class='ivar'>@platform</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -374,6 +446,10 @@
       <pre class="lines">
 
 
+101
+102
+103
+104
 105
 106
 107
@@ -385,14 +461,10 @@
 113
 114
 115
-116
-117
-118
-119
-120</pre>
+116</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/brut/cli/apps/deploy.rb', line 105</span>
+      <pre class="code"><span class="info file"># File 'lib/brut/cli/apps/deploy.rb', line 101</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_each'>each</span><span class='lparen'>(</span><span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span><span class='rparen'>)</span>
   <span class='kw'>if</span> <span class='id identifier rubyid_block'>block</span><span class='period'>.</span><span class='id identifier rubyid_parameters'>parameters</span><span class='period'>.</span><span class='id identifier rubyid_any?'>any?</span> <span class='lbrace'>{</span> <span class='id identifier rubyid_it'>it</span><span class='lbracket'>[</span><span class='int'>0</span><span class='rbracket'>]</span> <span class='op'>!=</span> <span class='symbol'>:keyreq</span> <span class='rbrace'>}</span>
@@ -400,7 +472,7 @@
   <span class='kw'>end</span>
   <span class='ivar'>@images</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_name'>name</span><span class='comma'>,</span><span class='id identifier rubyid_metadata'>metadata</span><span class='op'>|</span>
     <span class='id identifier rubyid_args'>args</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span>
-    <span class='id identifier rubyid_block'>block</span><span class='period'>.</span><span class='id identifier rubyid_params'>params</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='lparen'>(</span><span class='id identifier rubyid__'>_</span><span class='comma'>,</span><span class='id identifier rubyid_param'>param</span><span class='rparen'>)</span><span class='op'>|</span>
+    <span class='id identifier rubyid_block'>block</span><span class='period'>.</span><span class='id identifier rubyid_parameters'>parameters</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='lparen'>(</span><span class='id identifier rubyid__'>_</span><span class='comma'>,</span><span class='id identifier rubyid_param'>param</span><span class='rparen'>)</span><span class='op'>|</span>
       <span class='kw'>if</span> <span class='id identifier rubyid_param'>param</span> <span class='op'>==</span> <span class='symbol'>:name</span>
         <span class='id identifier rubyid_args'>args</span><span class='lbracket'>[</span><span class='symbol'>:name</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='id identifier rubyid_name'>name</span>
       <span class='kw'>else</span>
@@ -420,9 +492,9 @@
 </div>
 
       <div id="footer">
-  Generated on Fri Jan 30 20:39:52 2026 by
+  Generated on Sat Mar 14 21:52:57 2026 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.38 (ruby-3.4.6).
+  0.9.38 (ruby-3.4.8).
 </div>
 
     </div>
