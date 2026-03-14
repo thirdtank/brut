@@ -4,6 +4,10 @@ require "brut/cli"
 class Brut::CLI::Apps::Scaffold < Brut::CLI::Commands::BaseCommand
   def description = "Create scaffolds of various files to help develop more quckly"
 
+  def commands
+    super - [ Brut::CLI::Apps::Scaffold::BaseCommand ]
+  end
+
   class BaseCommand < Brut::CLI::Commands::BaseCommand
     def bootstrap? = false
     def default_rack_env = "development"
@@ -111,7 +115,7 @@ end}
     def args_description = "test_name"
     def name = "e2e_test"
 
-    def opts = [
+    def opts = super + [
       ["--path PATH","Path within the e2e tests to create the file"],
     ]
 
@@ -193,7 +197,7 @@ end}
     def args_description = "ComponentName"
     def detailed_description = "New components go in the `components/` folder of your app, however using --page will create a 'page private' component.  To do that, the component name must be an inner class of an existing page, for example HomePage::Welcome. This component goes in a sub-folder inside the `pages/` area of your app"
 
-    def opts = [
+    def opts = super + [
       [ "--page","If set, this component is for a specific page and won't go with the other components"],
     ]
 
@@ -384,7 +388,7 @@ end}
           error "         The page may not render properly the first time you load it"
         end
 
-        routes_editor = RoutesEditor.new(app_path:,out:)
+        routes_editor = RoutesEditor.new(app_path:,stdout: execution_context.stdout)
         routes_editor.add_route!(route_code:)
 
         if !routes_editor.found_routes?
@@ -419,7 +423,7 @@ end}
     end
     def description = "Create a handler for an action"
     def args_description = "action_route"
-    def opts = [
+    def opts = super + [
       [ "--http-method=METHOD", "If present, the action will be a path available on the given route and this HTTP method. If omitted, this will create an action available via POST" ],
     ]
 
@@ -528,7 +532,7 @@ end}
         execution_context.stdout.printf printf_string,handler_class_name, handler_source_path.relative_path_from(Brut.container.project_root)
         execution_context.stdout.printf printf_string,"Spec", handler_spec_path.relative_path_from(Brut.container.project_root)
 
-        routes_editor = RoutesEditor.new(app_path:,out:)
+        routes_editor = RoutesEditor.new(app_path:,stdout: execution_context.stdout)
         routes_editor.add_route!(route_code:)
 
         if form
@@ -703,9 +707,9 @@ end
   end
 
   class RoutesEditor
-    def initialize(app_path:,out:)
+    def initialize(app_path:,stdout:)
       @app_path       = app_path
-      @out            = out
+      @stdout         = stdout
       @found_routes   = false
       @routes_existed = false
     end
@@ -726,7 +730,7 @@ end
           end
           if in_routes && line =~ /^  end\s*$/
             if !@routes_existed
-              @out.puts "Inserted route into #{@app_path.relative_path_from(Brut.container.project_root)}"
+              @stdout.puts "Inserted route into #{@app_path.relative_path_from(Brut.container.project_root)}"
               file.puts "    #{route_code}"
             end
             @found_routes = true
