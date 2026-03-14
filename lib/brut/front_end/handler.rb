@@ -23,7 +23,8 @@ module Brut::FrontEnd
     include Brut::FrontEnd::HandlingResults
     include Brut::Framework::Errors
 
-    # You must implement this to accept whatever parameters you need. See {Brut::FrontEnd::RequestContext} for how that works.
+    # You must implement this to perform whatever action your handler must perform.  Any information from the request would've been given to your initializer. See {Brut::FrontEnd::RequestContext} for how that works.
+    #
     # The type of the return value determines what will happen:
     #
     # * Instance of `URI` - browser will redirect to this URI. Typically, you would do this by calling {Brut::FrontEnd::HandlingResults#redirect_to}.
@@ -39,7 +40,7 @@ module Brut::FrontEnd
       abstract_method!
     end
 
-    # Override this to performa any checks before {#handle} is called.  This should
+    # Override this to perform any checks before {#handle} is called.  This should
     # return `nil` if {#handle} should proceed to be called. Generally, you don't need to override
     # this as {#handle} can include the logic.  Where this is useful is to share cross-cutting logic
     # across other handlers.
@@ -48,8 +49,7 @@ module Brut::FrontEnd
     #         {#handle} for what each return value means.
     def before_handle = nil
 
-    # Called by Brut to handle the request. Do not override this. If your handler responds to `before_handle` that is called with the
-    # same args as you have defined for {#handle}. If `before_handle` returns anything other than `nil`, that value is returned and
+    # Called by Brut to handle the request. Do not override this. If `before_handle` returns anything other than `nil`, that value is returned and
     # should be one of the values documented in {#handle}.  If `before_handle` returns `nil`, {#handle} is called and whatever it
     # returns is returned here.
     def handle!(**args)
