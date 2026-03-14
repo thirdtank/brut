@@ -77,13 +77,13 @@ The classes that do this are in `Brut::FrontEnd::Components`
 | Class | Purpose |
 |---|---|
 |`Brut::FrontEnd::Components::FormTag` | Creates a `<form>` tag that submits to the form's configured route and includes [CSRF protection](/security). |
-|`Brut::FrontEnd::Components::InputTag` | Creates an `<input>` tag |
-|`Brut::FrontEnd::Components::RadioButton` | Creates an `<input type="radio">` tag
+|`Brut::FrontEnd::Components::Inputs::InputTag` | Creates an `<input>` tag |
+|`Brut::FrontEnd::Components::Inputs::RadioButton` | Creates an `<input type="radio">` tag
 for use in a radio button group. |
-|`Brut::FrontEnd::Components::SelectTagWithOptions` | Creates a `<select>` tag with
+|`Brut::FrontEnd::Components::Inputs::SelectTagWithOptions` | Creates a `<select>` tag with
 `<option>` tags inside. |
-|`Brut::FrontEnd::Components::TextareaTag` | Creates a `<textarea>` tag. |
-|`Brut::FrontEnd::Components::ButtonTag` | Creates a `<button>` tag to submit the form. |
+|`Brut::FrontEnd::Components::Inputs::TextareaTag` | Creates a `<textarea>` tag. |
+|`Brut::FrontEnd::Components::Inputs::ButtonTag` | Creates a `<button>` tag to submit the form. |
 
 All of these classes have an initializer that accepts:
 
@@ -108,9 +108,9 @@ class NewWidgetPage < AppPage
 
   def page_template
     FormTag(for: form) do
-      Components::InputTag(form:,    input_name: :name)
-      Components::InputTag(form:,    input_name: :quantity)
-      Components::TextareaTag(form:, input_name: :description)
+      Inputs::InputTag(form:,    input_name: :name)
+      Inputs::InputTag(form:,    input_name: :quantity)
+      Inputs::TextareaTag(form:, input_name: :description)
     end
   end
 end

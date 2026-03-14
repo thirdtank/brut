@@ -61,14 +61,14 @@ class NewWidgetPage < AppPage
 
   def page_template
     FormTag(for: form) do
-      Components::InputTag(form:, input_name: :name)
-      Components::ConstraintViolations(form: input_name: :name)
+      Inputs::InputTag(form:, input_name: :name)
+      ConstraintViolations(form: input_name: :name)
 
-      Components::InputTag(form:, input_name: :quantity)
-      Components::ConstraintViolations(form: input_name: :quantity)
+      Inputs::InputTag(form:, input_name: :quantity)
+      ConstraintViolations(form: input_name: :quantity)
 
-      Components::TextareaTag(form:, input_name: :description)
-      Components::ConstraintViolations(form: input_name: :description)
+      Inputs::TextareaTag(form:, input_name: :description)
+      ConstraintViolations(form: input_name: :description)
     end
   end
 end
@@ -99,14 +99,14 @@ To make `<brut-cv-messages>` work with client-side constraint violations, the
 def page_template
   brut_form do
     FormTag(for: form) do
-      Components::InputTag(form:, input_name: :name)
-      Components::ConstraintViolations(form: input_name: :name)
+      Inputs::InputTag(form:, input_name: :name)
+      ConstraintViolations(form: input_name: :name)
 
-      Components::InputTag(form:, input_name: :quantity)
-      Components::ConstraintViolations(form: input_name: :quantity)
+      Inputs::InputTag(form:, input_name: :quantity)
+      ConstraintViolations(form: input_name: :quantity)
 
-      Components::TextareaTag(form:, input_name: :description)
-      Components::ConstraintViolations(form: input_name: :description)
+      Inputs::TextareaTag(form:, input_name: :description)
+      ConstraintViolations(form: input_name: :description)
     end
   end
 end

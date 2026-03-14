@@ -1,6 +1,6 @@
 # Creating your Own Text Field Component
 
-Brut's `Brut::FrontEnd::Components::Input::InputTag` creates only the `<input>` HTML
+Brut's `Brut::FrontEnd::Components::Inputs::InputTag` creates only the `<input>` HTML
 element.  You will likely want something more sophsticated. You can achieve this by
 creating your own component.
 
