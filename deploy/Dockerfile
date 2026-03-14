@@ -10,7 +10,13 @@ RUN echo "gem: --no-document" >> ~/.gemrc && \
     gem update --system
 
 ARG brut_version
-RUN gem install --version ${brut_version} brut
+
+COPY . /build/
+RUN if [ "$brut_version" = "local" ]; then \
+      gem install /build/brut-*.gem; \
+    else \
+      gem install --version ${brut_version} brut; \
+    fi
 
 ARG user_uid=10001
 ARG user_gid=10002

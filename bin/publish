@@ -9,16 +9,14 @@ main() {
   require_git_clean
   detect_gem_version
   require_versions_match
-  log "Building all artifcats and docs"
+  log "Building all artifacts and docs"
   bin/build
-
-  detect_docker_platform
 
   log "Releasing Gem"
   rake release
   release_node_packages
   wait_for_rubygems
-  build_and_maybe_push
+  bin/build-docker-image -g "${GEM_VERSION}" -p
 }
 
 log() {
@@ -67,18 +65,6 @@ wait_for_rubygems() {
   exit 1
 }
 
-setup_docker_buildx() {
-  local builder_name=brut-builder
-
-  if ! docker buildx ls | grep -q "^$builder_name"; then
-    log "Creating Docker buildx builder: $builder_name"
-    docker buildx create --name "$builder_name" --use
-    docker buildx inspect "$builder_name" --bootstrap
-  else
-    log "Docker buildx builder $builder_name already exists"
-    docker buildx use "$builder_name"
-  fi
-}
 
 require_git_clean() {
   git diff --quiet --exit-code HEAD --
@@ -112,49 +98,6 @@ require_versions_match() {
     log "Please ensure all versions match before publishing."
     exit 1
   fi
-}
-
-detect_docker_platform() {
-
-  KERNEL_NAME_FOR_ARCHITECTURE=$(docker info --format '{{.Architecture}}')
-  OSTYPE=$(docker info --format '{{.OSType}}')
-
-  case "$KERNEL_NAME_FOR_ARCHITECTURE" in
-    "aarch64")
-      DOCKER_NAME_FOR_ARCHITECTURE="arm64"
-      ;;
-    "x86_64")
-      DOCKER_NAME_FOR_ARCHITECTURE="amd64"
-      ;;
-    *)
-      log "Docker reported architecture is $KERNEL_NAME_FOR_ARCHITECTURE - hoping this works"
-      ;;
-  esac
-  HOST_PLATFORM=${OSTYPE}/${DOCKER_NAME_FOR_ARCHITECTURE}
-}
-
-build_and_maybe_push() {
-
-  local docker_credentials_source="${SCRIPT_DIR}/../dx/credentials/dockerhub.credentials"
-  setup_docker_buildx
-
-  . "${docker_credentials_source}"
-  log "Logging into DockerHub with credentials from ${docker_credentials_source}"
-  docker login --username "${DOCKERHUB_USERNAME}" --password "${DOCKERHUB_PAT}"
-
-  DOCKER_BUILD_PUSH_OR_LOAD=--push
-  DOCKER_PLATFORMS="linux/amd64,linux/arm64"
-
-  log "Building Docker image and pushing to DockerHub"
-
-  docker buildx build \
-    --platform ${DOCKER_PLATFORMS} \
-    ${DOCKER_BUILD_PUSH_OR_LOAD} \
-    --no-cache \
-    --build-arg brut_version="${GEM_VERSION}" \
-    --tag thirdtank/brut:"${GEM_VERSION}" \
-    --tag thirdtank/brut:latest \
-    deploy
 }
 
 for arg in "${@}"; do

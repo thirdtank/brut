@@ -1,0 +1,135 @@
+#!/usr/bin/env bash
+
+set -e
+
+SCRIPT_DIR=$( cd -- "$( dirname -- "${0}" )" > /dev/null 2>&1 && pwd )
+ROOT_DIR=$(realpath "$SCRIPT_DIR/..")
+
+main() {
+  local push=$1
+  local gem_version=$2
+  local push_or_load=load
+  if [ $push == "true" ]; then
+    login_to_dockerhub
+    push_or_load=push
+  fi
+  build_and_push_or_load $push_or_load $gem_version
+}
+
+login_to_dockerhub() {
+
+  local docker_credentials_source="${SCRIPT_DIR}/../dx/credentials/dockerhub.credentials"
+
+  . "${docker_credentials_source}"
+  log "Logging into DockerHub with credentials from ${docker_credentials_source}"
+  docker login --username "${DOCKERHUB_USERNAME}" --password "${DOCKERHUB_PAT}"
+}
+
+build_and_push_or_load() {
+  local push_or_load="--${1:-push}"
+  local gem_version="${2}"
+  local docker_platforms="linux/amd64,linux/arm64"
+
+  setup_docker_buildx
+
+  if [ "${push_or_load}" == "--push" ]; then
+    message="and pushing to DockerHub"
+  else
+    message="for host platform only and loading to local repository"
+    docker_platforms=$(host_platform)
+  fi
+
+  if [ "${gem_version}" == "local" ]; then
+    local gems=$( ls -1 pkg/brut-*.gem 2>/dev/null | wc -l || 0 )
+    if [ "${gems}" -ne 1 ]; then
+      echo "For local build, there should be exactly on brut-*.gem in pkg/"
+      exit 1
+    fi
+    if [ "${push_or_load}" == "--push" ]; then
+      echo "You may not push a local build of Brut"
+      exit 1
+    fi
+    rm deploy/*.gem
+    cp pkg/brut-*.gem deploy/
+  fi
+
+  log "Building Docker image ${message}"
+
+  docker buildx build \
+    --platform ${docker_platforms} \
+    ${push_or_load} \
+    --no-cache \
+    --build-arg brut_version="${gem_version}" \
+    --tag thirdtank/brut:"${gem_version}" \
+    --tag thirdtank/brut:latest \
+    deploy
+}
+
+log() {
+  echo "[ bin/build-docker-image ] ${*}"
+}
+
+setup_docker_buildx() {
+  local builder_name=brut-builder
+
+  if ! docker buildx ls | grep -q "^$builder_name"; then
+    log "Creating Docker buildx builder: $builder_name"
+    docker buildx create --name "$builder_name" --use
+    docker buildx inspect "$builder_name" --bootstrap
+  else
+    log "Docker buildx builder $builder_name already exists"
+    docker buildx use "$builder_name"
+  fi
+}
+
+host_platform() {
+
+  local KERNEL_NAME_FOR_ARCHITECTURE=$(docker info --format '{{.Architecture}}')
+  local OSTYPE=$(docker info --format '{{.OSType}}')
+
+  case "$KERNEL_NAME_FOR_ARCHITECTURE" in
+    "aarch64")
+      DOCKER_NAME_FOR_ARCHITECTURE="arm64"
+      ;;
+    "x86_64")
+      DOCKER_NAME_FOR_ARCHITECTURE="amd64"
+      ;;
+    *)
+      log "Docker reported architecture is $KERNEL_NAME_FOR_ARCHITECTURE - hoping this works"
+      ;;
+  esac
+  echo ${OSTYPE}/${DOCKER_NAME_FOR_ARCHITECTURE}
+}
+
+PUSH=false
+usage() {
+  echo "usage: $0 [-p] [-g GEM_VERSION]"
+  echo
+  echo "       -p - pushes to DockerHub. If omitted, installs to local repo only"
+  echo "       -g GEM_VERSION - Brut gem version or 'local'. Required"
+}
+while getopts "g:p" opt "${@}"; do
+  case ${opt} in
+    g )
+      GEM_VERSION="${OPTARG}"
+      ;;
+    p )
+      PUSH=true
+      ;;
+    \? )
+      log "🛑" "Unknown option: ${opt}"
+      usage
+      ;;
+    : )
+      log "🛑" "Invalid option: ${opt} requires an argument"
+      usage
+      ;;
+  esac
+done
+shift $((OPTIND -1))
+if [ -z "${GEM_VERSION}" ]; then
+  echo "-g GEM_VERSION is required"
+  exit 1
+fi
+
+main $PUSH $GEM_VERSION
