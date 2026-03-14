@@ -1,5 +1,11 @@
 # Brut CHANGELOG
 
+## v0.20.0 - Mar 14, 2026
+
+* Updated Docs
+* Fixed bugs with Heroku deploy
+* Fixed issues with new app creation
+
 ## v0.19.2 - Feb 10, 2026
 
 * Fix issue with deploy command and its use of `delegate_to_command`
