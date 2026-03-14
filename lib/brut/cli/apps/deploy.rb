@@ -19,8 +19,16 @@ class Brut::CLI::Apps::Deploy < Brut::CLI::Commands::BaseCommand
     def default_rack_env = "development"
 
     def run
+      options.set_default(:deploy, true)
+      puts "Logging in to Heroku Container Registry"
+      command = %{heroku container:login}
+      system!(command)
       execute_result = Brut::CLI::ExecuteResult.new do
-        delegate_to_command(Brut::CLI::Apps::Deploy::Build.new)
+        delegate_to_command(
+          Brut::CLI::Apps::Deploy::Build.new(
+            push: options.deploy? ? "registry.heroku.com/#{Brut.container.app_id}/%{name}": false
+          )
+        )
       end
       if execute_result.failed?
         puts theme.error.render("Build failed.")
@@ -28,47 +36,17 @@ class Brut::CLI::Apps::Deploy < Brut::CLI::Commands::BaseCommand
           puts theme.error.render("Error message from build: #{error_message}")
         end
       end
-      options.set_default(:deploy, true)
-      version = ""
-      git_guess = %{git rev-parse HEAD}
-      system!(git_guess) do |output|
-        version << output
-      end
-      version.strip!.chomp!
-      if version == ""
-        error "Attempt to use git via command '#{git_guess}' to figure out the version failed"
-        return 1
-      end
-      short_version = version[0..7]
+      names = []
       app_docker_files = AppDockerImages.new(
         project_root: Brut.container.project_root,
         organization: Brut.container.app_organization,
         app_id: Brut.container.app_id,
-        short_version:
+        short_version: "NA"
       )
-      names = []
-      puts "Logging in to Heroku Container Registry"
-      command = %{heroku container:login}
-      system!(command)
-      app_docker_files.each do |name:, image_name:|
-        heroku_image_name = "registry.heroku.com/#{Brut.container.app_id}/#{name}"
-        puts "Tagging '#{image_name}' with '#{heroku_image_name}' for Heroku"
-        command = %{docker tag #{image_name} #{heroku_image_name}}
-        system!(command)
-        begin
-          puts "Pushing '#{heroku_image_name}'"
-          command = %{docker push #{heroku_image_name}}
-          system!(command)
-        rescue Brut::CLI::SystemExecError => ex
-          error "Failed to push image '#{heroku_image_name}' to Heroku"
-          if options.log_level != "debug"
-            error "Could be you must re-authenticate to Heroku."
-            error "Try re-running with --log-level=debug to see more details"
-          end
-          return 1
-        end
+      app_docker_files.each do |name:, cmd:, dockerfile:|
         names << name
       end
+
       deploy_command = "heroku container:release #{names.join(' ')} -a #{Brut.container.app_id}"
       if options.deploy?
         puts "Deploying images to Heroku"
@@ -142,7 +120,13 @@ class Brut::CLI::Apps::Deploy < Brut::CLI::Commands::BaseCommand
     def description      = Docker.new.description
     def opts             = Docker.new.opts
     def default_rack_env = Docker.new.default_rack_env
-    def run              = delegate_to_command(Docker.new)
+
+    def initialize(push: false)
+      @push = push
+    end
+    def run
+      delegate_to_command(Docker.new(push: @push))
+    end
 
     def commands = []
 
@@ -154,6 +138,10 @@ class Brut::CLI::Apps::Deploy < Brut::CLI::Commands::BaseCommand
         [ "--skip-checks", "If true, skip pre-build checks (default )" ],
       ]
       def default_rack_env = "development"
+
+      def initialize(push: false)
+        @push = push
+      end
 
       def run
         if !options.skip_checks?
@@ -177,8 +165,6 @@ class Brut::CLI::Apps::Deploy < Brut::CLI::Commands::BaseCommand
           error "Attempt to use git via command '#{git_guess}' to figure out the version failed"
           return 1
         end
-        short_version = version[0..7]
-
         short_version = version[0..7]
         app_docker_files = AppDockerImages.new(
           project_root: Brut.container.project_root,
@@ -219,12 +205,16 @@ class Brut::CLI::Apps::Deploy < Brut::CLI::Commands::BaseCommand
           puts
           rows = []
           items = []
+          push_or_load = @push ? "--push" : "--load"
           app_docker_files.each do |name:, image_name:, dockerfile:|
+            if @push && @push.kind_of?(String)
+              image_name = @push % { name: name }
+            end
             rows << [ name, theme.code.render(image_name) ]
-            command = %{docker build --build-arg app_git_sha1=#{version} --file #{Brut.container.project_root}/#{dockerfile} --platform #{options.platform} --tag #{image_name} . 2>&1}
+            command = %{docker buildx build --provenance=false --build-arg app_git_sha1=#{version} --file #{Brut.container.project_root}/#{dockerfile} --platform #{options.platform} #{push_or_load} --tag #{image_name} . 2>&1}
             items << theme.code.render(theme.wrap(command, first_indent: false, indent: 7, newline: " \\\n"))
             if !options.dry_run?
-              puts theme.subheader.render("Building '#{name}' image")
+              puts theme.subheader.render("Building #{@push ? 'and pushing' : '' } '#{name}' image")
               system!(command)
             end
           end
