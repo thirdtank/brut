@@ -191,9 +191,17 @@ RSpec.describe Brut::CLI::ParsedCommandLine do
             end
             context "XDG_STATE_HOME is not set" do
               context "HOME is set" do
-                it "defaults to ~/.local/state/brut/«app_name».log" do
-                  parsed_command_line = described_class.new(app_command:, argv: [], env: { "HOME" => "/home/appuser"})
-                  expect(parsed_command_line.options.log_file.to_s).to eq("/home/appuser/.local/state/brut/test_cli_app.log")
+                context "HOME is writable" do
+                  it "defaults to ~/.local/state/brut/«app_name».log" do
+                    parsed_command_line = described_class.new(app_command:, argv: [], env: { "HOME" => "/home/appuser"})
+                    expect(parsed_command_line.options.log_file.to_s).to eq("/home/appuser/.local/state/brut/test_cli_app.log")
+                  end
+                end
+                context "HOME is not writable" do
+                  it "does not log to a file" do
+                    parsed_command_line = described_class.new(app_command:, argv: [], env:  { "HOME" => "/" })
+                    expect(parsed_command_line.options.log_file).to eq(nil)
+                  end
                 end
               end
               context "HOME is not set" do

@@ -112,7 +112,7 @@ class Brut::CLI::ParsedCommandLine
     if !@options[:'log-file']
       log_file_path = if env["XDG_STATE_HOME"]
                         Pathname(env["XDG_STATE_HOME"]) / "brut"
-                      elsif env["HOME"]
+                      elsif env["HOME"] && File.writable?(env["HOME"])
                         Pathname("#{env['HOME']}/.local/state/") / "brut"
                       else
                         nil
