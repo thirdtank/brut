@@ -47,6 +47,9 @@ class Brut::SpecSupport::Matchers::HaveConstraintViolation
     if !form.kind_of?(Brut::FrontEnd::Form)
       raise "#{self.class} only works with forms, not #{form.class}"
     end
+    if field.to_s == ""
+      raise "field is required"
+    end
     @form  = form
     @field = field.to_s
     @key   = key.to_s
