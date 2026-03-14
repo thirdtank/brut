@@ -4,7 +4,6 @@
 class Brut::FrontEnd::AssetMetadata
 
   # @param [String] asset_metadata_file to the asset metadata file
-  # @param [IO] out IO on which to write messaging
   def initialize(asset_metadata_file:,logger: :use_default)
     @asset_metadata_file = asset_metadata_file
     @logger = if logger == :use_default
