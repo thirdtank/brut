@@ -78,5 +78,5 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "rubocop-disable_syntax"
   spec.add_development_dependency "rspec", "~> 3.0"
   spec.add_development_dependency "with_clues"
-  spec.add_development_dependency "yard"
+  spec.add_development_dependency "yard", "=0.9.37"
 end
