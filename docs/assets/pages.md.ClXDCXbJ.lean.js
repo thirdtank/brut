@@ -1,0 +1,1 @@
+import{_ as a,o as s,c as t,ag as i}from"./chunks/framework.BPmc_f4o.js";const k=JSON.parse('{"title":"Pages","description":"","frontmatter":{},"headers":[],"relativePath":"pages.md","filePath":"pages.md"}'),n={name:"pages.md"};function o(l,e,r,h,d,p){return s(),t("div",null,[...e[0]||(e[0]=[i("",77)])])}const u=a(n,[["render",o]]);export{k as __pageData,u as default};

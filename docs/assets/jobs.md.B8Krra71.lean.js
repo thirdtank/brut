@@ -1,0 +1,1 @@
+import{_ as e,o as i,c as a,ag as t}from"./chunks/framework.BPmc_f4o.js";const k=JSON.parse('{"title":"Background Jobs","description":"","frontmatter":{},"headers":[],"relativePath":"jobs.md","filePath":"jobs.md"}'),n={name:"jobs.md"};function o(d,s,l,p,h,r){return i(),a("div",null,[...s[0]||(s[0]=[t("",21)])])}const u=e(n,[["render",o]]);export{k as __pageData,u as default};

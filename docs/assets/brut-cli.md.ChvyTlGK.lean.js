@@ -1,0 +1,1 @@
+import{_ as a,o,c as t,ag as d}from"./chunks/framework.BPmc_f4o.js";const m=JSON.parse('{"title":"brut","description":"","frontmatter":{},"headers":[],"relativePath":"brut-cli.md","filePath":"brut-cli.md"}'),l={name:"brut-cli.md"};function r(s,e,i,c,n,u){return o(),t("div",null,[...e[0]||(e[0]=[d("",19)])])}const b=a(l,[["render",r]]);export{m as __pageData,b as default};

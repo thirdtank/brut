@@ -1,0 +1,1 @@
+import{_ as t,o,c as a,ag as i}from"./chunks/framework.BPmc_f4o.js";const b=JSON.parse('{"title":"AI Declaration and Notes","description":"","frontmatter":{},"headers":[],"relativePath":"ai.md","filePath":"ai.md"}'),s={name:"ai.md"};function r(n,e,l,d,h,c){return o(),a("div",null,[...e[0]||(e[0]=[i("",26)])])}const p=t(s,[["render",r]]);export{b as __pageData,p as default};

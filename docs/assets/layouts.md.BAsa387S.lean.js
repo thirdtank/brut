@@ -1,0 +1,1 @@
+import{_ as i,o as a,c as t,ag as n}from"./chunks/framework.BPmc_f4o.js";const y=JSON.parse('{"title":"Layouts","description":"","frontmatter":{},"headers":[],"relativePath":"layouts.md","filePath":"layouts.md"}'),e={name:"layouts.md"};function l(h,s,p,k,r,d){return a(),t("div",null,[...s[0]||(s[0]=[n("",31)])])}const c=i(e,[["render",l]]);export{y as __pageData,c as default};

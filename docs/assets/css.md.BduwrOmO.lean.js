@@ -1,0 +1,1 @@
+import{_ as i,o as a,c as e,ag as t}from"./chunks/framework.BPmc_f4o.js";const u=JSON.parse('{"title":"CSS","description":"","frontmatter":{},"headers":[],"relativePath":"css.md","filePath":"css.md"}'),n={name:"css.md"};function o(l,s,p,r,d,h){return a(),e("div",null,[...s[0]||(s[0]=[t("",31)])])}const k=i(n,[["render",o]]);export{u as __pageData,k as default};
