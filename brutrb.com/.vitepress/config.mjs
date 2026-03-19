@@ -65,6 +65,22 @@ export default defineConfig({
         ]
       },
       {
+        text: "HOWTOs",
+        collapsed: false,
+        items: [
+          { text: "Create a New App", link: "/howto/new-app" },
+          { text: "Add a new Page", link: "/howto/new-page" },
+          { text: "Test a Page", link: "/howto/test-page" },
+          { text: "Create a Form and Handle its Submission", link: "/howto/form-basic" },
+          { text: "Form Validation", link: "/howto/form-validation" },
+          { text: "Test a Handler", link: "/howto/test-handler" },
+          { text: "Create a Data Model/DB Table", link: "/howto/db-model" },
+          { text: "Testing Database Constraints", link: "/howto/test-db-constraints" },
+          { text: "End-to-End Test", link: "/howto/e2e-test" },
+          { text: "Manage Business Logic", link: "/howto/bizlogic" },
+        ],
+      },
+      {
         text: "Front-End",
         collapsed: false,
         items: [
