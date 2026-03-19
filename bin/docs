@@ -5,6 +5,47 @@ require "pathname"
 require "fileutils"
 require_relative "bin_kit"
 
+def generate_cli_docs
+  generate_command(
+    subcommand: "",
+    root_path: Pathname("brutrb.com"),
+    file_name: "brut-cli.md",
+    subcommand_path: "brut-cli-commands"
+  )
+end
+
+def generate_command(subcommand:, root_path:, file_name:, subcommand_path:)
+  cli = "bundle exec brut help #{subcommand}"
+  markdown,err,status = capture!(
+    {
+      "BRUT_HELP_IN_MARKDOWN" => "true",
+      "BRUT_HELP_IN_MARKDOWN_COMMAND_PATH" => subcommand_path,
+    },
+    cli
+  )
+  path_to_markdown = root_path / file_name
+  File.open(path_to_markdown.to_s, "w") do |file|
+    file.puts markdown
+  end
+  subcommands,err,status = capture!(
+    {
+      "BRUT_HELP_IN_MARKDOWN" => "true",
+      "BRUT_HELP_IN_MARKDOWN_COMMANDS_ONLY" => "true",
+    },
+    cli
+  )
+  subcommands = subcommands.split(/\n/)
+  subcommand_root_path = root_path / subcommand_path
+  FileUtils.mkdir_p subcommand_root_path
+  subcommands.each do |command|
+    generate_command(subcommand: "#{subcommand} #{command}",
+                     root_path: subcommand_root_path,
+                     file_name: "#{command}.md",
+                     subcommand_path: "commands")
+  end
+
+end
+
 options = {
   dotcom: true,
 }
@@ -72,6 +113,9 @@ FileUtils.chdir brutcss_dir do
 end
 
 if options[:dotcom]
+  log "Generating CLI docs for website"
+  generate_cli_docs
+
   log "Deploying brutrb.com to docs/"
   FileUtils.chdir dotcom_dir do
     system!("bin/deploy")

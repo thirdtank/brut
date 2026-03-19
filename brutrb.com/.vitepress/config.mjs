@@ -103,6 +103,7 @@ export default defineConfig({
           { text: "I18n", link: "/i18n" },
           { text: "CLI / Tasks", link: "/cli" },
           { text: "Deployment", link: "/deployment" },
+          { text: "Brut CLI Reference", link: "/brut-cli" },
         ]
       },
       {

@@ -30,6 +30,11 @@ class Brut::CLI::ParsedCommandLine
   # This should always succeed, however depending on the contents of the parameters, the value
   # for `#command` may be a command that outputs an error.
   def initialize(app_command:, argv:, env:)
+    help_command_class = if env["BRUT_HELP_IN_MARKDOWN"] == "true"
+                           Brut::CLI::Commands::HelpInMarkdown
+                         else
+                           Brut::CLI::Commands::Help
+                         end
     brut_provided_help_requested = false
     app_option_parser = new_option_parser(app_command.name) do |opts|
       opts.banner = app_command.description
@@ -51,7 +56,7 @@ class Brut::CLI::ParsedCommandLine
     end
 
     help_command = if brut_provided_help_requested
-                     Brut::CLI::Commands::Help.new(app_command,app_option_parser)
+                     help_command_class.new(app_command,app_option_parser)
                    end
 
     command = app_command
@@ -83,7 +88,7 @@ class Brut::CLI::ParsedCommandLine
       end
       remaining_argv = command_option_parser.parse!(remaining_argv, into: options)
       if brut_provided_help_requested
-        help_command = Brut::CLI::Commands::Help.new(command,command_option_parser)
+        help_command = help_command_class.new(command,command_option_parser)
       elsif help_command
         help_command.option_parser = command_option_parser
       end
@@ -147,8 +152,7 @@ private
               "Project environment, e.g. test, development, production. Default depends on the command")
       opts.on("--log-level=LOG_LEVEL", [ "debug", "info", "warn", "error", "fatal" ],
               "Log level, which should be debug, info, warn, error, or fatal. Defaults to error")
-      opts.on("--verbose", "Set log level to debug, and show log messages on stdout")
-      opts.on("--debug", "Set log level to debug, and show log messages on stdout")
+      opts.on("--debug", "--verbose", "Set log level to debug, and show log messages on stdout")
       opts.on("--quiet", "Set log level to error")
       opts.on("--log-file=FILE",
               "Path to a file where log messages are written. Defaults to $XDG_CACHE_HOME/brut/logs/#{app_name}.log")

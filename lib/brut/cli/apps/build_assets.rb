@@ -91,9 +91,9 @@ This is to ensure that any images your code references will end up in the public
     def description = "Builds a single CSS file suitable for sending to the browser"
 
     def detailed_description = %{
-      This produces a hashed file in every environment, in order to keep environments consistent and reduce differences.  If your CSS file references images, fonts, or other assets via url() or other CSS functions, those files will be hashed and copied into the output directory where CSS is served.
+      This produces a hashed file in every environment, in order to keep environments consistent and reduce differences.  If your CSS file references images, fonts, or other assets via `url()` or other CSS functions, those files will be hashed and copied into the output directory where CSS is served.
 
-      To ensure this happens correctly, your url() or other function must reference the file as a relative file from where your actual source CSS file is located. For example, a font named some-font.ttf would be in app/src/front_end/fonts and to reference this from app/src/front_end/css/index.css you'd use the url "../fonts/some-font.ttf"
+      To ensure this happens correctly, your `url()` or other function must reference the file as a relative file from where your actual source CSS file is located. For example, a font named `some-font.ttf` would be in `app/src/front_end/fonts`. To reference this from `app/src/front_end/css/index.css` you'd use `url("../fonts/some-font.ttf")`
     }
 
     def run
