@@ -16,9 +16,6 @@ class Brut::CLI::Apps::New::Segments::Heroku < Brut::CLI::Apps::New::Base
     end
   end
 
-  def output_post_add_messaging(stdout:)
-  end
-
   def <=>(other)
     if self.class == other.class
       0
