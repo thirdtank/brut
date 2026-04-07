@@ -142,10 +142,9 @@ SIDEKIQ_BASIC_AUTH_PASSWORD=password
         code: "@sidekiq_segment.boot!"
       ),
       Brut::CLI::Apps::New::Ops::InsertCodeInMethod.new(
-        file: project_root / "deploy" / "heroku_config.rb",
+        file: project_root / "deploy" / "docker_config.rb",
         class_name: "HerokuConfig",
         method_name: "additional_images",
-        class_method: true,
         ignore_if_file_not_found: true,
         code: %{
 {
