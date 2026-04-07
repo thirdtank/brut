@@ -1,4 +1,16 @@
-# Extended by {Brut::FrontEnd::Form} to allow declaring inputs. Do not use this module directly. Instead, call {#input} or {#select}
+# Extended by {Brut::FrontEnd::Form} to allow declaring inputs. This module creates methods per input on the form passed to your handlers. For example, if you have an `input :book_title`, then `form.book_title` will be available to access the value of the "book_title" input.
+#
+# There are two methods that could be created, per input. Examples below use
+# `book_title` as the attribute name
+#
+# * `#book_title` - returns {Brut::FrontEnd::Forms::Input#value}, which is always a string.
+# * `#book_title_coerced` - returns {Brut::FrontEnd::Forms::Input#typed_value}, which is always the correct type for the input **or `nil` if type coercion failed**. Only call this once you have checked for constraint violations
+#
+# For indexed parameters, the above methods require the index to be passed,
+# e.g. `form.book_title_coerced(4)`.  For non-indexed parameters, the index may
+# not be passed.
+#
+# Do not use this module directly. Instead, call {#input} or {#select}
 # from within your form's class definition.
 module Brut::FrontEnd::Forms::InputDeclarations
   # Declares an input for this form, to be modeled via an HTML `<INPUT>` tag.
@@ -59,9 +71,20 @@ module Brut::FrontEnd::Forms::InputDeclarations
         end
         self.input(input_definition.name, index:).value
       end
+      define_method "#{input_definition.name}_coerced" do |index=nil|
+        if index.nil?
+          raise ArgumentError,"#{input_definition.name} is an array - you must provide an index to access one of its values"
+        end
+        self.input(input_definition.name, index:).typed_value
+      end
       define_method "#{input_definition.name}_each" do |&block|
         self.inputs(input_definition.name).each_with_index do |input,i|
           block.(input.value,i)
+        end
+      end
+      define_method "#{input_definition.name}_each_coerced" do |&block|
+        self.inputs(input_definition.name).each_with_index do |input,i|
+          block.(input.typed_value,i)
         end
       end
     else
@@ -70,6 +93,12 @@ module Brut::FrontEnd::Forms::InputDeclarations
           raise ArgumentError,"#{input_definition.name} is not an array - do not provide an index when accessing its value"
         end
         self.input(input_definition.name, index: 0).value
+      end
+      define_method "#{input_definition.name}_coerced" do |index_that_should_be_omitted=nil|
+        if !index_that_should_be_omitted.nil?
+          raise ArgumentError,"#{input_definition.name} is not an array - do not provide an index when accessing its value"
+        end
+        self.input(input_definition.name, index: 0).typed_value
       end
     end
   end
