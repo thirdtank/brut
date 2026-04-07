@@ -90,7 +90,22 @@
 
 <h2>Overview</h2><div class="docstring">
   <div class="discussion">
-    <p>Extended by <span class='object_link'><a href="../Form.html" title="Brut::FrontEnd::Form (class)">Brut::FrontEnd::Form</a></span> to allow declaring inputs. Do not use this module directly. Instead, call <span class='object_link'><a href="#input-instance_method" title="Brut::FrontEnd::Forms::InputDeclarations#input (method)">#input</a></span> or <span class='object_link'><a href="#select-instance_method" title="Brut::FrontEnd::Forms::InputDeclarations#select (method)">#select</a></span>
+    <p>Extended by <span class='object_link'><a href="../Form.html" title="Brut::FrontEnd::Form (class)">Brut::FrontEnd::Form</a></span> to allow declaring inputs. This module creates methods per input on the form passed to your handlers. For example, if you have an <code>input :book_title</code>, then <code>form.book_title</code> will be available to access the value of the "book_title" input.</p>
+
+<p>There are two methods that could be created, per input. Examples below use
+<code>book_title</code> as the attribute name</p>
+
+<ul>
+<li><code>#book_title</code> - returns <span class='object_link'><a href="Input.html#value-instance_method" title="Brut::FrontEnd::Forms::Input#value (method)">Brut::FrontEnd::Forms::Input#value</a></span>, which is always a string.</li>
+<li><code>#book_title_coerced</code> - returns <span class='object_link'><a href="Input.html#typed_value-instance_method" title="Brut::FrontEnd::Forms::Input#typed_value (method)">Brut::FrontEnd::Forms::Input#typed_value</a></span>, which is always the correct type for the input <strong>or <code>nil</code> if type coercion failed</strong>. Only call this once you have checked for constraint violations</li>
+</ul>
+
+
+<p>For indexed parameters, the above methods require the index to be passed,
+e.g. <code>form.book_title_coerced(4)</code>.  For non-indexed parameters, the index may
+not be passed.</p>
+
+<p>Do not use this module directly. Instead, call <span class='object_link'><a href="#input-instance_method" title="Brut::FrontEnd::Forms::InputDeclarations#input (method)">#input</a></span> or <span class='object_link'><a href="#select-instance_method" title="Brut::FrontEnd::Forms::InputDeclarations#select (method)">#select</a></span>
 from within your form's class definition.</p>
 
 
@@ -284,14 +299,14 @@ be used instead.</p>
       <pre class="lines">
 
 
-18
-19
-20
-21
-22</pre>
+30
+31
+32
+33
+34</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/brut/front_end/forms/input_declarations.rb', line 18</span>
+      <pre class="code"><span class="info file"># File 'lib/brut/front_end/forms/input_declarations.rb', line 30</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_button'>button</span><span class='lparen'>(</span><span class='id identifier rubyid_name'>name</span><span class='rparen'>)</span>
   <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_add_input_definition'>add_input_definition</span><span class='lparen'>(</span>
@@ -364,14 +379,14 @@ be used instead.</p>
       <pre class="lines">
 
 
-8
-9
-10
-11
-12</pre>
+20
+21
+22
+23
+24</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/brut/front_end/forms/input_declarations.rb', line 8</span>
+      <pre class="code"><span class="info file"># File 'lib/brut/front_end/forms/input_declarations.rb', line 20</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_input'>input</span><span class='lparen'>(</span><span class='id identifier rubyid_name'>name</span><span class='comma'>,</span><span class='id identifier rubyid_attributes'>attributes</span><span class='op'>=</span><span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
   <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_add_input_definition'>add_input_definition</span><span class='lparen'>(</span>
@@ -428,17 +443,17 @@ few of its own.</p>
       <pre class="lines">
 
 
-81
-82
-83
-84
-85
-86
-87
-88</pre>
+110
+111
+112
+113
+114
+115
+116
+117</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/brut/front_end/forms/input_declarations.rb', line 81</span>
+      <pre class="code"><span class="info file"># File 'lib/brut/front_end/forms/input_declarations.rb', line 110</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_inputs_from'>inputs_from</span><span class='lparen'>(</span><span class='id identifier rubyid_other_class'>other_class</span><span class='rparen'>)</span>
   <span class='kw'>if</span> <span class='op'>!</span><span class='id identifier rubyid_other_class'>other_class</span><span class='period'>.</span><span class='id identifier rubyid_respond_to?'>respond_to?</span><span class='lparen'>(</span><span class='symbol'>:input_definitions</span><span class='rparen'>)</span>
@@ -519,14 +534,14 @@ input tags.</p>
       <pre class="lines">
 
 
-45
-46
-47
-48
-49</pre>
+57
+58
+59
+60
+61</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/brut/front_end/forms/input_declarations.rb', line 45</span>
+      <pre class="code"><span class="info file"># File 'lib/brut/front_end/forms/input_declarations.rb', line 57</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_radio_button_group'>radio_button_group</span><span class='lparen'>(</span><span class='id identifier rubyid_name'>name</span><span class='comma'>,</span><span class='id identifier rubyid_attributes'>attributes</span><span class='op'>=</span><span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
   <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_add_input_definition'>add_input_definition</span><span class='lparen'>(</span>
@@ -601,14 +616,14 @@ Components::Inputs::Select</p>
       <pre class="lines">
 
 
-30
-31
-32
-33
-34</pre>
+42
+43
+44
+45
+46</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/brut/front_end/forms/input_declarations.rb', line 30</span>
+      <pre class="code"><span class="info file"># File 'lib/brut/front_end/forms/input_declarations.rb', line 42</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_select'>select</span><span class='lparen'>(</span><span class='id identifier rubyid_name'>name</span><span class='comma'>,</span><span class='id identifier rubyid_attributes'>attributes</span><span class='op'>=</span><span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
   <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_add_input_definition'>add_input_definition</span><span class='lparen'>(</span>
@@ -625,7 +640,7 @@ Components::Inputs::Select</p>
 </div>
 
       <div id="footer">
-  Generated on Thu Mar 19 17:42:45 2026 by
+  Generated on Tue Apr  7 18:48:58 2026 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.37 (ruby-3.4.8).
 </div>

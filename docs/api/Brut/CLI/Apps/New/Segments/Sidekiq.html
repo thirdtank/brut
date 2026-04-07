@@ -638,8 +638,7 @@
 156
 157
 158
-159
-160</pre>
+159</pre>
     </td>
     <td>
       <pre class="code"><span class="info file"># File 'lib/brut/cli/apps/new/segments/sidekiq.rb', line 55</span>
@@ -702,7 +701,7 @@ SIDEKIQ_BASIC_AUTH_PASSWORD=password
     <span class='const'><span class='object_link'><a href="../../../../../Brut.html" title="Brut (module)">Brut</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../../../../CLI.html" title="Brut::CLI (module)">CLI</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../../../Apps.html" title="Brut::CLI::Apps (module)">Apps</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../../New.html" title="Brut::CLI::Apps::New (module)">New</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../Ops.html" title="Brut::CLI::Apps::New::Ops (module)">Ops</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../Ops/InsertIntoFile.html" title="Brut::CLI::Apps::New::Ops::InsertIntoFile (class)">InsertIntoFile</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="../Ops/InsertIntoFile.html#initialize-instance_method" title="Brut::CLI::Apps::New::Ops::InsertIntoFile#initialize (method)">new</a></span></span><span class='lparen'>(</span>
       <span class='label'>file:</span> <span class='ivar'>@project_root</span> <span class='op'>/</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>specs</span><span class='tstring_end'>&quot;</span></span> <span class='op'>/</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>spec_helper.rb</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
       <span class='label'>before_line:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>require \&quot;brut/spec_support\&quot;</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
-      <span class='label'>content:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>require \&quot;sidekiq/testing\&quot;</span><span class='tstring_end'>&quot;</span></span>
+      <span class='label'>content:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Sidekiq.testing!(:fake)</span><span class='tstring_end'>&quot;</span></span>
     <span class='rparen'>)</span><span class='comma'>,</span>
     <span class='const'><span class='object_link'><a href="../../../../../Brut.html" title="Brut (module)">Brut</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../../../../CLI.html" title="Brut::CLI (module)">CLI</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../../../Apps.html" title="Brut::CLI::Apps (module)">Apps</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../../New.html" title="Brut::CLI::Apps::New (module)">New</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../Ops.html" title="Brut::CLI::Apps::New::Ops (module)">Ops</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../Ops/InsertIntoFile.html" title="Brut::CLI::Apps::New::Ops::InsertIntoFile (class)">InsertIntoFile</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="../Ops/InsertIntoFile.html#initialize-instance_method" title="Brut::CLI::Apps::New::Ops::InsertIntoFile#initialize (method)">new</a></span></span><span class='lparen'>(</span>
       <span class='label'>file:</span> <span class='ivar'>@project_root</span> <span class='op'>/</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>config.ru</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
@@ -734,10 +733,9 @@ end
       <span class='label'>code:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>@sidekiq_segment.boot!</span><span class='tstring_end'>&quot;</span></span>
     <span class='rparen'>)</span><span class='comma'>,</span>
     <span class='const'><span class='object_link'><a href="../../../../../Brut.html" title="Brut (module)">Brut</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../../../../CLI.html" title="Brut::CLI (module)">CLI</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../../../Apps.html" title="Brut::CLI::Apps (module)">Apps</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../../New.html" title="Brut::CLI::Apps::New (module)">New</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../Ops.html" title="Brut::CLI::Apps::New::Ops (module)">Ops</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../Ops/InsertCodeInMethod.html" title="Brut::CLI::Apps::New::Ops::InsertCodeInMethod (class)">InsertCodeInMethod</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="../Ops/InsertCodeInMethod.html#initialize-instance_method" title="Brut::CLI::Apps::New::Ops::InsertCodeInMethod#initialize (method)">new</a></span></span><span class='lparen'>(</span>
-      <span class='label'>file:</span> <span class='id identifier rubyid_project_root'>project_root</span> <span class='op'>/</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>deploy</span><span class='tstring_end'>&quot;</span></span> <span class='op'>/</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>heroku_config.rb</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+      <span class='label'>file:</span> <span class='id identifier rubyid_project_root'>project_root</span> <span class='op'>/</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>deploy</span><span class='tstring_end'>&quot;</span></span> <span class='op'>/</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>docker_config.rb</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
       <span class='label'>class_name:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>HerokuConfig</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
       <span class='label'>method_name:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>additional_images</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
-      <span class='label'>class_method:</span> <span class='kw'>true</span><span class='comma'>,</span>
       <span class='label'>ignore_if_file_not_found:</span> <span class='kw'>true</span><span class='comma'>,</span>
       <span class='label'>code:</span> <span class='tstring'><span class='tstring_beg'>%{</span><span class='tstring_content'>
 {
@@ -826,7 +824,7 @@ end
 </div>
 
       <div id="footer">
-  Generated on Thu Mar 19 17:42:47 2026 by
+  Generated on Tue Apr  7 18:49:01 2026 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.37 (ruby-3.4.8).
 </div>

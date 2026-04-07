@@ -406,14 +406,16 @@
 702
 703
 704
-705</pre>
+705
+706</pre>
     </td>
     <td>
       <pre class="code"><span class="info file"># File 'lib/brut/cli/apps/scaffold.rb', line 638</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_run'>run</span>
   <span class='kw'>if</span> <span class='id identifier rubyid_argv'>argv</span><span class='period'>.</span><span class='id identifier rubyid_length'>length</span> <span class='op'>==</span> <span class='int'>0</span>
-    <span class='kw'>return</span> <span class='id identifier rubyid_abort_execution'>abort_execution</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>You must provide a model name</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+    <span class='id identifier rubyid_puts'>puts</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>You must provide one or more model names</span><span class='tstring_end'>&quot;</span></span>
+    <span class='kw'>return</span> <span class='int'>1</span>
   <span class='kw'>end</span>
   <span class='id identifier rubyid_db_module'>db_module</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../../../../ModuleName.html" title="ModuleName (class)">ModuleName</a></span></span><span class='period'>.</span><span class='id identifier rubyid_from_string'><span class='object_link'><a href="../../../../ModuleName.html#from_string-class_method" title="ModuleName.from_string (method)">from_string</a></span></span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>DB</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
   <span class='id identifier rubyid_actions'>actions</span> <span class='op'>=</span> <span class='id identifier rubyid_argv'>argv</span><span class='period'>.</span><span class='id identifier rubyid_map'>map</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_arg'>arg</span><span class='op'>|</span>
@@ -489,7 +491,7 @@ end
 </div>
 
       <div id="footer">
-  Generated on Thu Mar 19 17:42:46 2026 by
+  Generated on Tue Apr  7 18:49:00 2026 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.37 (ruby-3.4.8).
 </div>
