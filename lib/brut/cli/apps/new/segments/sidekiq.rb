@@ -110,7 +110,7 @@ SIDEKIQ_BASIC_AUTH_PASSWORD=password
       Brut::CLI::Apps::New::Ops::InsertIntoFile.new(
         file: @project_root / "specs" / "spec_helper.rb",
         before_line: "require \"brut/spec_support\"",
-        content: "require \"sidekiq/testing\""
+        content: "Sidekiq.testing!(:fake)"
       ),
       Brut::CLI::Apps::New::Ops::InsertIntoFile.new(
         file: @project_root / "config.ru",
