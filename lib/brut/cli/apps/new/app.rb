@@ -319,7 +319,7 @@ class Brut::CLI::Apps::New::App < Brut::CLI::Commands::BaseCommand
 
       puts "Adding #{segment_name} to this app"
       segment.add!
-      segment.output_post_add_messaging(stdout:)
+      segment.output_post_add_messaging(stdout: execution_context.stdout)
       0
     end
   end

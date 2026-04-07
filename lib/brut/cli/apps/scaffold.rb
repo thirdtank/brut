@@ -637,7 +637,8 @@ describe("#{description}", () => {
 
     def run
       if argv.length == 0
-        return abort_execution("You must provide a model name")
+        puts "You must provide one or more model names"
+        return 1
       end
       db_module = ModuleName.from_string("DB")
       actions = argv.map { |arg|
