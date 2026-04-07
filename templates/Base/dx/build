@@ -48,7 +48,7 @@ setup_playright_build_args() {
   require_command "grep"
   require_command "sed"
 
-  if [ ! -e "${SCRIPT_DIR}"/Gemfile.lock ]; then
+  if [ ! -e "${SCRIPT_DIR}"/../Gemfile.lock ]; then
     log "Could not find Gemfile.lock, which is needed to determine the playwright-ruby-client version"
     log "Assuming your app is brand-new, this should be OK"
     echo "# When this file was created, there was no Gemfile.lock, so"               >> "${SCRIPT_DIR}"/build.args
@@ -57,7 +57,7 @@ setup_playright_build_args() {
     echo "# encouraged to re-run \`dx/build\` to address this issue."                >> "${SCRIPT_DIR}"/build.args
     echo PLAYWRIGHT_VERSION=latest                                                   >> "${SCRIPT_DIR}"/build.args
   else
-    PLAYWRIGHT_VERSION=$(grep playwright-ruby-client Gemfile.lock  | grep '(' | sed 's/^.*(//' | sed 's/).*$//' | grep -v ^=)
+    PLAYWRIGHT_VERSION=$(grep playwright-ruby-client $SCRIPT_DIR/../Gemfile.lock  | grep '(' | sed 's/^.*(//' | sed 's/).*$//' | grep -v ^=)
     if [ -z "${PLAYWRIGHT_VERSION}" ]; then
       log "Could not find precise version of playwright-ruby-client from Gemfile.lock"
       log "This means that your playwright-ruby-client version and playwright NPM modules may be out of sync and may not work"
