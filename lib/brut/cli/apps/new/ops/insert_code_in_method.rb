@@ -19,6 +19,11 @@ class Brut::CLI::Apps::New::Ops::InsertCodeInMethod < Brut::CLI::Apps::New::Ops:
     if !@file.exist? && @ignore_if_file_not_found
       return
     end
+    if dry_run?
+      op = @class_method ? "::" : "#"
+      puts "Would add this code to #{@class_name}#{op}#{@method_name} in #{@file}:\n\n#{@code}\n\n"
+      return
+    end
     method_node = find_method(class_name: @class_name, method_name: @method_name, class_method: @class_method)
 
     insertion_point = if @where == :start
