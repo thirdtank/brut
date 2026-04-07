@@ -78,6 +78,8 @@ export default defineConfig({
           { text: "Testing Database Constraints", link: "/howto/test-db-constraints" },
           { text: "End-to-End Test", link: "/howto/e2e-test" },
           { text: "Manage Business Logic", link: "/howto/bizlogic" },
+          { text: "Use ngrok", link: "/howto/ngrok" },
+          { text: "Customize CSRF Behavior", link: "/howto/csrf" },
         ],
       },
       {
@@ -169,7 +171,8 @@ export default defineConfig({
     ],
 
     socialLinks: [
-      { icon: 'github', link: 'https://github.com/thirdtank/brut' }
+      { icon: 'github', link: 'https://github.com/thirdtank/brut' },
+      { icon: 'discourse', link: 'https://www.rubyforum.org/tag/brut/62' },
     ]
   },
   markdown: {
