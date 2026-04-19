@@ -90,6 +90,7 @@ Runs all non end-to-end tests for the app, or runs a subset of non-end-to-end te
       [ "E2E_RECORD_VIDEOS","If set to 'true', videos of each test run are saved in `./tmp/e2e-videos`" ],
       [ "E2E_SLOW_MO","If set to, will attempt to slow operations down by this many milliseconds" ],
       [ "E2E_TIMEOUT_MS","ms to wait for any browser activity before failing the test. And here you didn't think you'd get away without using sleep in browse-based tests?" ],
+      [ "E2E_STARTUP_TIMEOUT_SEC","seconds to wait for the test server to start before assuming something went wrong" ],
     ]
 
     def rspec_cli_args = "--tag e2e"
@@ -102,11 +103,18 @@ Runs all end-to-end tests for the app, or runs a subset of end-to-end tests usin
   private
 
     def run_tests
-      require "brut/spec_support/e2e_test_server"
-      Brut::SpecSupport::E2ETestServer.instance.start
-      super
-    ensure
-      Brut::SpecSupport::E2ETestServer.instance.stop
+      test_server = Brut::SpecSupport::E2ETestServer.new(
+        bin_dir: Brut.container.project_root / "bin",
+        start_timeout_seconds: ENV["E2E_STARTUP_TIMEOUT_SEC"]
+      )
+      begin
+        require "brut/spec_support/e2e_test_server"
+        test_server.start
+        super
+      ensure
+        test_server.stop
+        Brut::SpecSupport::E2ETestServer.instance.stop
+      end
     end
   end
   class Js < Brut::CLI::Commands::BaseCommand

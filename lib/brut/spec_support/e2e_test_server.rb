@@ -15,9 +15,10 @@ class Brut::SpecSupport::E2ETestServer
   # from the given bin dir
   #
   # @param [Pathname] bin_dir path to where the app's Brut-provide CLI apps are installed
-  def initialize(bin_dir:)
-    @bin_dir = bin_dir
-    @pid     = nil
+  def initialize(bin_dir:, start_timeout_seconds: nil)
+    @bin_dir               = bin_dir
+    @pid                   = nil
+    @start_timeout_seconds = start_timeout_seconds || 5
   end
 
   # Starts the server. Returns when the server has started
@@ -66,7 +67,7 @@ private
 
   def is_port_open?(ip, port)
     begin
-      Timeout::timeout(5) do
+      Timeout::timeout(@start_timeout_seconds) do
         loop do
           begin
             logger.debug "Attemping to conenct to '#{ip}' on port '#{port}'"
