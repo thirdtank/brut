@@ -112,7 +112,11 @@ private
       errors.each do
         $stderr.puts("FATAL Exception: #{it.exception.class}: #{it.exception.message}\n    #{it.exception.backtrace.join("\n    ")}")
       end
-      exit 1
+      if errors.any?
+        exit 1
+      else
+        exit 0
+      end
     else
       errors.each { @queue.unshift(Brut::TUI::Events::Exception.new(it)) }
     end
