@@ -16,7 +16,7 @@ if ARGV[0] == "help"
   exit
 end
 
-ENV["RACK_ENV"] = "development"
+ENV["RACK_ENV"] ||= "development"
 if ENV["LOG_LEVEL"].to_s == ""
   ENV["LOG_LEVEL"] = "warn"
 end
