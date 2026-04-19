@@ -76,6 +76,10 @@ class Brut::CLI::Apps::New::Segments::Sidekiq < Brut::CLI::Apps::New::Base
         content: "# Sidekiq is used for background jobs\ngem \"sidekiq\"\n"
       ),
       Brut::CLI::Apps::New::Ops::AppendToFile.new(
+        file: @project_root / "Gemfile",
+        content: "# Sets up OTel middelware for Sidekiq \ngem \"opentelemetry-instrumentation-sidekiq\"\n"
+      ),
+      Brut::CLI::Apps::New::Ops::AppendToFile.new(
         file: @project_root / ".env.development",
         content: %{
 # URL of the Redis/ValKey to use for Sidekiq

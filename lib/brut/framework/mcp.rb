@@ -439,6 +439,7 @@ private
       if defined?(OpenTelemetry::Instrumentation::Sidekiq)
         c.use 'OpenTelemetry::Instrumentation::Sidekiq', {
           span_naming: :job_class,
+          propagation_style: :child, # XXX: Configurable?
         }
       else
         SemanticLogger[self.class].info "OpenTelemetry::Instrumentation::Sidekiq is not loaded, so Sidekiq traces will not be captured"
