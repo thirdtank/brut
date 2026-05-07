@@ -49,7 +49,7 @@ build_and_push_or_load() {
       echo "You may not push a local build of Brut"
       exit 1
     fi
-    rm deploy/*.gem
+    rm -f deploy/*.gem
     cp pkg/brut-*.gem deploy/
   fi
 
@@ -108,13 +108,16 @@ usage() {
   echo "       -p - pushes to DockerHub. If omitted, installs to local repo only"
   echo "       -g GEM_VERSION - Brut gem version or 'local'. Required"
 }
-while getopts "g:p" opt "${@}"; do
+while getopts "g:ph" opt "${@}"; do
   case ${opt} in
     g )
       GEM_VERSION="${OPTARG}"
       ;;
     p )
       PUSH=true
+      ;;
+    h )
+      usage
       ;;
     \? )
       log "🛑" "Unknown option: ${opt}"

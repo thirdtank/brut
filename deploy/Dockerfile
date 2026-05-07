@@ -2,14 +2,7 @@ FROM ruby:3.4
 
 SHELL [ "/bin/bash", "-o", "pipefail", "-c" ]
 
-ENV DEBIAN_FRONTEND=noninteractive
-RUN apt-get -y update
-
-# Update RubyGems and Bundler
-RUN echo "gem: --no-document" >> ~/.gemrc && \
-    gem update --system
-
-ARG brut_version
+ARG brut_version=invalid
 
 COPY . /build/
 RUN if [ "$brut_version" = "local" ]; then \
@@ -28,4 +21,5 @@ RUN useradd --uid ${user_uid} --gid ${user_gid} --create-home --home-dir /home/a
 # NOT including the group here as that will place the user's environment
 # ONLY in that group and not in all the groups in which they are a part.
 USER appuser
+WORKDIR /home/appuser
 
