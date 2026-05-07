@@ -638,7 +638,11 @@
 156
 157
 158
-159</pre>
+159
+160
+161
+162
+163</pre>
     </td>
     <td>
       <pre class="code"><span class="info file"># File 'lib/brut/cli/apps/new/segments/sidekiq.rb', line 55</span>
@@ -665,6 +669,10 @@ redis:
     <span class='const'><span class='object_link'><a href="../../../../../Brut.html" title="Brut (module)">Brut</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../../../../CLI.html" title="Brut::CLI (module)">CLI</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../../../Apps.html" title="Brut::CLI::Apps (module)">Apps</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../../New.html" title="Brut::CLI::Apps::New (module)">New</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../Ops.html" title="Brut::CLI::Apps::New::Ops (module)">Ops</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../Ops/AppendToFile.html" title="Brut::CLI::Apps::New::Ops::AppendToFile (class)">AppendToFile</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="../Ops/AppendToFile.html#initialize-instance_method" title="Brut::CLI::Apps::New::Ops::AppendToFile#initialize (method)">new</a></span></span><span class='lparen'>(</span>
       <span class='label'>file:</span> <span class='ivar'>@project_root</span> <span class='op'>/</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Gemfile</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
       <span class='label'>content:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'># Sidekiq is used for background jobs\ngem \&quot;sidekiq\&quot;\n</span><span class='tstring_end'>&quot;</span></span>
+    <span class='rparen'>)</span><span class='comma'>,</span>
+    <span class='const'><span class='object_link'><a href="../../../../../Brut.html" title="Brut (module)">Brut</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../../../../CLI.html" title="Brut::CLI (module)">CLI</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../../../Apps.html" title="Brut::CLI::Apps (module)">Apps</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../../New.html" title="Brut::CLI::Apps::New (module)">New</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../Ops.html" title="Brut::CLI::Apps::New::Ops (module)">Ops</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../Ops/AppendToFile.html" title="Brut::CLI::Apps::New::Ops::AppendToFile (class)">AppendToFile</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="../Ops/AppendToFile.html#initialize-instance_method" title="Brut::CLI::Apps::New::Ops::AppendToFile#initialize (method)">new</a></span></span><span class='lparen'>(</span>
+      <span class='label'>file:</span> <span class='ivar'>@project_root</span> <span class='op'>/</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Gemfile</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+      <span class='label'>content:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'># Sets up OTel middelware for Sidekiq \ngem \&quot;opentelemetry-instrumentation-sidekiq\&quot;\n</span><span class='tstring_end'>&quot;</span></span>
     <span class='rparen'>)</span><span class='comma'>,</span>
     <span class='const'><span class='object_link'><a href="../../../../../Brut.html" title="Brut (module)">Brut</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../../../../CLI.html" title="Brut::CLI (module)">CLI</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../../../Apps.html" title="Brut::CLI::Apps (module)">Apps</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../../New.html" title="Brut::CLI::Apps::New (module)">New</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../Ops.html" title="Brut::CLI::Apps::New::Ops (module)">Ops</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../Ops/AppendToFile.html" title="Brut::CLI::Apps::New::Ops::AppendToFile (class)">AppendToFile</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="../Ops/AppendToFile.html#initialize-instance_method" title="Brut::CLI::Apps::New::Ops::AppendToFile#initialize (method)">new</a></span></span><span class='lparen'>(</span>
       <span class='label'>file:</span> <span class='ivar'>@project_root</span> <span class='op'>/</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>.env.development</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
@@ -824,7 +832,7 @@ end
 </div>
 
       <div id="footer">
-  Generated on Tue Apr  7 18:49:01 2026 by
+  Generated on Thu May  7 20:30:57 2026 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.37 (ruby-3.4.8).
 </div>

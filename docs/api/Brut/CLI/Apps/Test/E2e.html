@@ -333,12 +333,12 @@
       <pre class="lines">
 
 
-98
 99
-100</pre>
+100
+101</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/brut/cli/apps/test.rb', line 98</span>
+      <pre class="code"><span class="info file"># File 'lib/brut/cli/apps/test.rb', line 99</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_detailed_description'>detailed_description</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>%{</span><span class='tstring_content'>
 Runs all end-to-end tests for the app, or runs a subset of end-to-end tests using RSpec-style syntax. This will run bin/test-server first, so if that fails for some reason, no tests are run.
@@ -367,7 +367,8 @@ Runs all end-to-end tests for the app, or runs a subset of end-to-end tests usin
 90
 91
 92
-93</pre>
+93
+94</pre>
     </td>
     <td>
       <pre class="code"><span class="info file"># File 'lib/brut/cli/apps/test.rb', line 89</span>
@@ -376,6 +377,7 @@ Runs all end-to-end tests for the app, or runs a subset of end-to-end tests usin
   <span class='lbracket'>[</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>E2E_RECORD_VIDEOS</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>If set to &#39;true&#39;, videos of each test run are saved in `./tmp/e2e-videos`</span><span class='tstring_end'>&quot;</span></span> <span class='rbracket'>]</span><span class='comma'>,</span>
   <span class='lbracket'>[</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>E2E_SLOW_MO</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>If set to, will attempt to slow operations down by this many milliseconds</span><span class='tstring_end'>&quot;</span></span> <span class='rbracket'>]</span><span class='comma'>,</span>
   <span class='lbracket'>[</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>E2E_TIMEOUT_MS</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>ms to wait for any browser activity before failing the test. And here you didn&#39;t think you&#39;d get away without using sleep in browse-based tests?</span><span class='tstring_end'>&quot;</span></span> <span class='rbracket'>]</span><span class='comma'>,</span>
+  <span class='lbracket'>[</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>E2E_STARTUP_TIMEOUT_SEC</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>seconds to wait for the test server to start before assuming something went wrong</span><span class='tstring_end'>&quot;</span></span> <span class='rbracket'>]</span><span class='comma'>,</span>
 <span class='rbracket'>]</span></pre>
     </td>
   </tr>
@@ -420,10 +422,10 @@ Runs all end-to-end tests for the app, or runs a subset of end-to-end tests usin
       <pre class="lines">
 
 
-97</pre>
+98</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/brut/cli/apps/test.rb', line 97</span>
+      <pre class="code"><span class="info file"># File 'lib/brut/cli/apps/test.rb', line 98</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_rebuild_after_by_default?'>rebuild_after_by_default?</span> <span class='op'>=</span> <span class='kw'>true</span></pre>
     </td>
@@ -469,10 +471,10 @@ Runs all end-to-end tests for the app, or runs a subset of end-to-end tests usin
       <pre class="lines">
 
 
-96</pre>
+97</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/brut/cli/apps/test.rb', line 96</span>
+      <pre class="code"><span class="info file"># File 'lib/brut/cli/apps/test.rb', line 97</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_rebuild_by_default?'>rebuild_by_default?</span>       <span class='op'>=</span> <span class='kw'>true</span></pre>
     </td>
@@ -495,10 +497,10 @@ Runs all end-to-end tests for the app, or runs a subset of end-to-end tests usin
       <pre class="lines">
 
 
-95</pre>
+96</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/brut/cli/apps/test.rb', line 95</span>
+      <pre class="code"><span class="info file"># File 'lib/brut/cli/apps/test.rb', line 96</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_rspec_cli_args'>rspec_cli_args</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>--tag e2e</span><span class='tstring_end'>&quot;</span></span></pre>
     </td>
@@ -511,7 +513,7 @@ Runs all end-to-end tests for the app, or runs a subset of end-to-end tests usin
 </div>
 
       <div id="footer">
-  Generated on Tue Apr  7 18:48:59 2026 by
+  Generated on Thu May  7 20:30:55 2026 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.37 (ruby-3.4.8).
 </div>

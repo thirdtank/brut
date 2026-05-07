@@ -164,7 +164,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#initialize-instance_method" title="#initialize (instance method)">#<strong>initialize</strong>(bin_dir:)  &#x21d2; E2ETestServer </a>
+      <a href="#initialize-instance_method" title="#initialize (instance method)">#<strong>initialize</strong>(bin_dir:, start_timeout_seconds: nil)  &#x21d2; E2ETestServer </a>
     
 
     
@@ -242,7 +242,7 @@
     <div class="method_details first">
   <h3 class="signature first" id="initialize-instance_method">
   
-    #<strong>initialize</strong>(bin_dir:)  &#x21d2; <tt><span class='object_link'><a href="" title="Brut::SpecSupport::E2ETestServer (class)">E2ETestServer</a></span></tt> 
+    #<strong>initialize</strong>(bin_dir:, start_timeout_seconds: nil)  &#x21d2; <tt><span class='object_link'><a href="" title="Brut::SpecSupport::E2ETestServer (class)">E2ETestServer</a></span></tt> 
   
 
   
@@ -287,14 +287,16 @@ from the given bin dir</p>
 18
 19
 20
-21</pre>
+21
+22</pre>
     </td>
     <td>
       <pre class="code"><span class="info file"># File 'lib/brut/spec_support/e2e_test_server.rb', line 18</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_initialize'>initialize</span><span class='lparen'>(</span><span class='label'>bin_dir:</span><span class='rparen'>)</span>
-  <span class='ivar'>@bin_dir</span> <span class='op'>=</span> <span class='id identifier rubyid_bin_dir'>bin_dir</span>
-  <span class='ivar'>@pid</span>     <span class='op'>=</span> <span class='kw'>nil</span>
+<span class='kw'>def</span> <span class='id identifier rubyid_initialize'>initialize</span><span class='lparen'>(</span><span class='label'>bin_dir:</span><span class='comma'>,</span> <span class='label'>start_timeout_seconds:</span> <span class='kw'>nil</span><span class='rparen'>)</span>
+  <span class='ivar'>@bin_dir</span>               <span class='op'>=</span> <span class='id identifier rubyid_bin_dir'>bin_dir</span>
+  <span class='ivar'>@pid</span>                   <span class='op'>=</span> <span class='kw'>nil</span>
+  <span class='ivar'>@start_timeout_seconds</span> <span class='op'>=</span> <span class='id identifier rubyid_start_timeout_seconds'>start_timeout_seconds</span> <span class='op'>||</span> <span class='int'>5</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -369,7 +371,6 @@ from the given bin dir</p>
       <pre class="lines">
 
 
-24
 25
 26
 27
@@ -389,10 +390,11 @@ from the given bin dir</p>
 41
 42
 43
-44</pre>
+44
+45</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/brut/spec_support/e2e_test_server.rb', line 24</span>
+      <pre class="code"><span class="info file"># File 'lib/brut/spec_support/e2e_test_server.rb', line 25</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_start'>start</span>
   <span class='kw'>if</span> <span class='op'>!</span><span class='ivar'>@pid</span><span class='period'>.</span><span class='id identifier rubyid_nil?'>nil?</span>
@@ -445,7 +447,6 @@ from the given bin dir</p>
       <pre class="lines">
 
 
-47
 48
 49
 50
@@ -461,10 +462,11 @@ from the given bin dir</p>
 60
 61
 62
-63</pre>
+63
+64</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/brut/spec_support/e2e_test_server.rb', line 47</span>
+      <pre class="code"><span class="info file"># File 'lib/brut/spec_support/e2e_test_server.rb', line 48</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_stop'>stop</span>
   <span class='kw'>if</span> <span class='ivar'>@pid</span><span class='period'>.</span><span class='id identifier rubyid_nil?'>nil?</span>
@@ -493,7 +495,7 @@ from the given bin dir</p>
 </div>
 
       <div id="footer">
-  Generated on Tue Apr  7 18:49:01 2026 by
+  Generated on Thu May  7 20:30:56 2026 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.37 (ruby-3.4.8).
 </div>
