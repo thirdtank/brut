@@ -103,12 +103,12 @@ Runs all end-to-end tests for the app, or runs a subset of end-to-end tests usin
   private
 
     def run_tests
+      require "brut/spec_support/e2e_test_server"
       test_server = Brut::SpecSupport::E2ETestServer.new(
         bin_dir: Brut.container.project_root / "bin",
         start_timeout_seconds: ENV["E2E_STARTUP_TIMEOUT_SEC"]
       )
       begin
-        require "brut/spec_support/e2e_test_server"
         test_server.start
         super
       ensure
