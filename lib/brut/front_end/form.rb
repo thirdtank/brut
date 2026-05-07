@@ -24,7 +24,7 @@ class Brut::FrontEnd::Form
 
   # @!visibility private
   def self.routing(*)
-    raise ArgumentError,"You called .routing on a form, but that form hasn't been configured with a route. You must do so in your route_config.rb file via the `form` method"
+    raise ArgumentError,"You called .routing on a form (or used a #{self.class} in a form tag), but that form hasn't been configured with a route. You must do so in your app.rb file via the `form` method"
   end
 
   # Create an instance of this form, optionally initialized with
