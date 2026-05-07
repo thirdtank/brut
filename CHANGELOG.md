@@ -1,5 +1,11 @@
 # Brut CHANGELOG
 
+## v0.20.1 - May 6, 2026
+
+* Doc fixes
+* Very minor bug fixes
+* Improvements to local brut dev
+
 ## v0.20.0 - Mar 14, 2026
 
 * Updated Docs
