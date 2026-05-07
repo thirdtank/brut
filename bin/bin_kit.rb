@@ -14,31 +14,40 @@ def capture!(*args)
     abort
   end
 end
-# We don't want the setup method to have to do all this error
-# checking, and we also want to explicitly log what we are
-# executing. Thus, we use this method instead of Kernel#system
-def system!(*args)
+
+def _system(*args)
   if ENV["BRUT_BIN_KIT_DEBUG"] == "true"
     log "Executing #{args}"
     out,err,status = Open3.capture3(*args)
     if status.success?
       log "#{args} succeeded"
+      true
     else
       log "#{args} failed"
       log "STDOUT:"
       $stdout.puts out
       log "STDERR:"
       $stderr.puts err
-      abort
+      false
     end
   else
     log "Executing #{args}"
     if system(*args)
       log "#{args} succeeded"
+      true
     else
       log "#{args} failed"
-      abort
+      false
     end
+  end
+end
+
+# We don't want the setup method to have to do all this error
+# checking, and we also want to explicitly log what we are
+# executing. Thus, we use this method instead of Kernel#system
+def system!(*args)
+  if !_system(*args)
+    abort
   end
 end
 
