@@ -18,7 +18,7 @@ digraph G {
   Test[label=<
     <FONT face="avenir">Test</FONT>
     <br/>
-    <FONT face="Courier New">bin/test</FONT>
+    <FONT face="Courier New">brut test</FONT>
   >]
   CI[label=<
     <FONT face="avenir">Test</FONT>
@@ -30,9 +30,9 @@ digraph G {
     <br/>
     <FONT face="Baskerville">Write Code</FONT>
     <br/>
-    <FONT face="Courier New">bin/db</FONT>
+    <FONT face="Courier New">brut db</FONT>
     <br/>
-    <FONT face="Courier New">bin/scaffold</FONT>
+    <FONT face="Courier New">brut scaffold</FONT>
   >]
   Setup -> Run
   Setup -> Code

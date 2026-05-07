@@ -15,16 +15,16 @@ We'll create the migration, create data models, create and lint factories, then 
 
 ### Create the Migration
 
-Create the migration file with `bin/db new_migration`:
+Create the migration file with `brut db new_migration`:
 
 ```
-> bin/db new_migration Accounts and Blog Posts
-[ bin/db ] Migration created:
+> brut db new_migration Accounts and Blog Posts
+[ brut db ] Migration created:
    app/src/back_end/data_models/migrations/20250711215310_Accounts-and-Blog-Posts.rb
 ```
 
 > [!NOTE]
-> Your filename will be different, since it embeds a timestamp for when `bin/db new_migration` was run.
+> Your filename will be different, since it embeds a timestamp for when `brut db new_migration` was run.
 
 Now, use Sequel's migrations API, keeping in mind [Brut's augmentations](/database-schema), to create our tables.
 
@@ -57,26 +57,26 @@ Sequel.migration do
 end
 ```
 
-You can apply this migration with `bin/db migrate`:
+You can apply this migration with `brut db migrate`:
 
 ```
-bin/db migrate
+brut db migrate
 ```
 
 > [!IMPORTANT]
 > This only applied migrations to the dev database.  `bin/ci` and `bin/test e2e`
 > will apply them to the test database, but you may need to do it yourself via
-> `bin/db migrate -e test`
+> `brut db migrate -e test`
 
 > [!NOTE]
 > There is no down migration. If you need to change and re-apply this before
-> you have promoted it to production, rebuild your dev database with `bin/db
+> you have promoted it to production, rebuild your dev database with `brut db
 > rebuild`.  It will apply all migrations from a fresh, empty database.
 
-You can examine the tables with `psql`, via `bin/dbconsole`:
+You can examine the tables with `psql`, via `brut dbconsole`:
 
 ```
-> bin/dbconsole
+> brut dbconsole
 development=# \d accounts
                                        Table "public.accounts"
      Column     |           Type           | Collation | Nullable |             Default              
@@ -198,13 +198,13 @@ class SeedData < Brut::BackEnd::SeedData
 end
 ```
 
-We can apply this with `bin/db seed`:
+We can apply this with `brut db seed`:
 
 ```
-bin/db seed
+brut db seed
 ```
 
 > [!IMPORTANT]
-> `bin/db rebuild` will *not* apply seed data, however `bin/setup` should.
-> For now, if you want to totally reset your database, you will need to do `bin/db
-> rebuild && bin/db seed && bin/db rebuild -e test`
+> `brut db rebuild` will *not* apply seed data, however `bin/setup` should.
+> For now, if you want to totally reset your database, you will need to do `brut db
+> rebuild && brut db seed && brut db rebuild -e test`

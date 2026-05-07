@@ -239,13 +239,13 @@ USEFUL COMMANDS
   bin/console
      # get an IRB console with the app loaded
 
-  bin/db
+  brut db
      # interact with the DB for migrations, information, etc
 
-  bin/dbconsole
+  brut dbconsole
      # get a PSQL session to the database
 
-  bin/scaffold
+  brut scaffold
      # Create various structures in your app, like pages or forms
 
   bin/setup help
@@ -423,21 +423,21 @@ To create blog posts, we need three things:
 
 ### Creating a New Page
 
-To make a new page in Brut, we'll need to declare a route, and Brut will choose the class name.  We'll use `/blog_post_editor`, meaning Brut will expect `BlogPostEditorPage` to exist.  We can do all this at once with `bin/scaffold page`.  `bin/scaffold page` accepts the URL of the page we want to build.  Brut will use that URL to figure out the page class' name and generate it, along with a failing test. It will also insert the route into `app.rb`.  Run it now, like so:
+To make a new page in Brut, we'll need to declare a route, and Brut will choose the class name.  We'll use `/blog_post_editor`, meaning Brut will expect `BlogPostEditorPage` to exist.  We can do all this at once with `brut scaffold page`.  `brut scaffold page` accepts the URL of the page we want to build.  Brut will use that URL to figure out the page class' name and generate it, along with a failing test. It will also insert the route into `app.rb`.  Run it now, like so:
 
 ```bash
-bin/scaffold page /blog_post_editor
+brut scaffold page /blog_post_editor
 ```
 
 Your output should look like so:
 
 ```
 # OUTPUT
-[ bin/scaffold ] Inserted route into app/src/app.rb
-[ bin/scaffold ] Page source is in app/src/front_end/pages/blog_post_editor_page.rb
-[ bin/scaffold ] Page test is in   specs/front_end/pages/blog_post_editor_page.spec.rb
-[ bin/scaffold ] Added title to    app/config/i18n/en/2_app.rb
-[ bin/scaffold ] Added route to    app/src/app.rb
+[ brut scaffold ] Inserted route into app/src/app.rb
+[ brut scaffold ] Page source is in app/src/front_end/pages/blog_post_editor_page.rb
+[ brut scaffold ] Page test is in   specs/front_end/pages/blog_post_editor_page.spec.rb
+[ brut scaffold ] Added title to    app/config/i18n/en/2_app.rb
+[ brut scaffold ] Added route to    app/src/app.rb
 ```
 
 Restart your server (Brut currently cannot auto-reload new routes).
@@ -465,20 +465,20 @@ Most of the `BlogPostEditorPage`'s HTML will be a form to submit a new blog post
 
 ### Create a Form and Handler
 
-A form gets submitted to a URL, and Brut routes that submission to a handler.  To create both a form class and a handler, we'll use `bin/scaffold form`, giving it the URL to respond on.
+A form gets submitted to a URL, and Brut routes that submission to a handler.  To create both a form class and a handler, we'll use `brut scaffold form`, giving it the URL to respond on.
 
 In this case, we'll use the URL `/new_blog_post`.  Stop your server and run this command:
 
 ```bash
-bin/scaffold form /new_blog_post
+brut scaffold form /new_blog_post
 ```
 
 ```
 # OUTPUT
-[ bin/scaffold ] NewBlogPostForm    in app/src/front_end/forms/new_blog_post_form.rb
-[ bin/scaffold ] NewBlogPostHandler in app/src/front_end/handlers/new_blog_post_handler.rb
-[ bin/scaffold ] Spec               in specs/front_end/handlers/new_blog_post_handler.spec.rb
-[ bin/scaffold ] Inserted route into app/src/app.rb
+[ brut scaffold ] NewBlogPostForm    in app/src/front_end/forms/new_blog_post_form.rb
+[ brut scaffold ] NewBlogPostHandler in app/src/front_end/handlers/new_blog_post_handler.rb
+[ brut scaffold ] Spec               in specs/front_end/handlers/new_blog_post_handler.spec.rb
+[ brut scaffold ] Inserted route into app/src/app.rb
 ```
 
 When creating a new form, the first thing we have to do is edit the form class (in this case, 
@@ -763,7 +763,7 @@ If you fill out the fields correctly, you should see an error that you need to i
 
 ## Handling Form Submissions
 
-When you ran `bin/scaffold form` earlier, it created `NewBlogPostHandler`.  It's located in `app/src/front_end/handlers/new_blog_post_handler.rb`, which should look like so:
+When you ran `brut scaffold form` earlier, it created `NewBlogPostHandler`.  It's located in `app/src/front_end/handlers/new_blog_post_handler.rb`, which should look like so:
 
 ```ruby
 class NewBlogPostHandler < AppHandler
@@ -865,25 +865,25 @@ The steps to take when creating a new table you want to access are:
 3. Create a FactoryBot factory that can create sample instances of rows in the table, useful for testing and development
 4. Modify seed data to create sample data for development.
 
-Most of this can be done via `bin/scaffold db_model`.
+Most of this can be done via `brut scaffold db_model`.
 
 ### Creating a New Database Table
 
-Stop your server and run `bin/scaffold` like so:
+Stop your server and run `brut scaffold` like so:
 
 ```bash
-bin/scaffold db_model blog_post
+brut scaffold db_model blog_post
 ```
 
 ```
 # OUTPUT
-[ bin/scaffold ] Executing ["bin/db new_migration create_blog_post"]
-[ bin/db ] Migration created:
+[ brut scaffold ] Executing ["brut db new_migration create_blog_post"]
+[ brut db ] Migration created:
     app/src/back_end/data_models/migrations/20250811213758_create_blog_post.rb
-[ bin/scaffold ] ["bin/db new_migration create_blog_post"] succeeded
-[ bin/scaffold ] Creating DB::BlogPost in app/src/back_end/data_models/db/blog_post.rb
-[ bin/scaffold ] Creating spec for DB::BlogPost in specs/back_end/data_models/db/blog_post.spec.rb
-[ bin/scaffold ] Creating factory for DB::BlogPost in specs/factories/db/blog_post.factory.rb
+[ brut scaffold ] ["brut db new_migration create_blog_post"] succeeded
+[ brut scaffold ] Creating DB::BlogPost in app/src/back_end/data_models/db/blog_post.rb
+[ brut scaffold ] Creating spec for DB::BlogPost in specs/back_end/data_models/db/blog_post.spec.rb
+[ brut scaffold ] Creating factory for DB::BlogPost in specs/factories/db/blog_post.factory.rb
 ```
 
 Your migration file name will be different than ours, since it has a timestamp embedded into it.
@@ -914,34 +914,34 @@ Sequel.migration do
 end
 ```
 
-If you've used migrations before, you may know that `down` can be used to specify a way to undo the migration, or that a method like `change` can be used to automatically do both.  Brut recommends only using forward migrations inside `up`.  If you need to undo and redo your changes, you can use `bin/db rebuild` to rebuild your database from scratch.
+If you've used migrations before, you may know that `down` can be used to specify a way to undo the migration, or that a method like `change` can be used to automatically do both.  Brut recommends only using forward migrations inside `up`.  If you need to undo and redo your changes, you can use `brut db rebuild` to rebuild your database from scratch.
 
 Save this file, then apply this migration to your development database:
 
 ```bash
-bin/db migrate
+brut db migrate
 ```
 
 ```
 # OUTPUT
-[ bin/db ] Migrations applied
+[ brut db ] Migrations applied
 ```
 
 Now, apply it to your test database:
 
 ```bash
-bin/db migrate -e test
+brut db migrate -e test
 ```
 
 ```
 # OUTPUT
-[ bin/db ] Migrations applied
+[ brut db ] Migrations applied
 ```
 
-You can examine the table that was created by running `bin/dbconsole`:
+You can examine the table that was created by running `brut dbconsole`:
 
 ```bash
-bin/dbconsole
+brut dbconsole
 ```
 
 ```
@@ -972,7 +972,7 @@ Indexes:
     "blog_posts_external_id_key" UNIQUE CONSTRAINT, btree (external_id)
 ```
 
-`bin/scaffold` created the database model for you in `app/src/back_end/data_models/db/blog_post.rb`:
+`brut scaffold` created the database model for you in `app/src/back_end/data_models/db/blog_post.rb`:
 
 ```ruby
 class DB::BlogPost < AppDataModel
@@ -1024,12 +1024,12 @@ Brut includes a test to make sure your factories are valid and will work.  It's 
 > *must* re-run `bin/setup`, since the disk inside your dev environment is ephemeral.
 
 ```bash
-bin/test run specs/lint_factories.spec.rb
+brut test run specs/lint_factories.spec.rb
 ```
 
 ```
 # OUTPUT
-[ bin/test ] Executing ["bin/rspec -I /Users/davec/Projects/ThirdTank/brutcasts/01-make-a-blog/blog/specs -I /Users/davec/Projects/ThirdTank/brutcasts/01-make-a-blog/blog/app/src -I lib/ --tag ~e2e -P \"**/*.spec.rb\" \"specs/lint_factories.spec.rb\""]
+[ brut test ] Executing ["bin/rspec -I /Users/davec/Projects/ThirdTank/brutcasts/01-make-a-blog/blog/specs -I /Users/davec/Projects/ThirdTank/brutcasts/01-make-a-blog/blog/app/src -I lib/ --tag ~e2e -P \"**/*.spec.rb\" \"specs/lint_factories.spec.rb\""]
 Run options: exclude {e2e: true}
 
 Randomized with seed 29315
@@ -1042,7 +1042,7 @@ Finished in 0.59465 seconds (files took 0.7718 seconds to load)
 
 Randomized with seed 29315
 
-[ bin/test ] ["bin/rspec -I /Users/davec/Projects/ThirdTank/brutcasts/01-make-a-blog/blog/specs -I /Users/davec/Projects/ThirdTank/brutcasts/01-make-a-blog/blog/app/src -I lib/ --tag ~e2e -P \"**/*.spec.rb\" \"specs/lint_factories.spec.rb\""] succeeded
+[ brut test ] ["bin/rspec -I /Users/davec/Projects/ThirdTank/brutcasts/01-make-a-blog/blog/specs -I /Users/davec/Projects/ThirdTank/brutcasts/01-make-a-blog/blog/app/src -I lib/ --tag ~e2e -P \"**/*.spec.rb\" \"specs/lint_factories.spec.rb\""] succeeded
 ```
 
 We can use this factory for seed data to provide realistic data for development. Edit `app/src/back_end/data_models/seed/seed_data.rb`, and make it look like so, which will create 10 blog posts:
@@ -1061,10 +1061,10 @@ end
 
 `create` is a method provided by Factory Bot that is brought in via `FactoryBot::Syntax::Methods`.
 
-Now, load the seed data into the development database with `bin/db seed`:
+Now, load the seed data into the development database with `brut db seed`:
 
 ```bash
-bin/db seed
+brut db seed
 ```
 
 We can now show this data on the home page.
@@ -1261,19 +1261,19 @@ end
 
 This is using RSpec's `expect { ... }.to change { ... }.by(N)` to make sure that our handler created a row in the database.  We then use the matcher `have_redirected_to` to assert that `result` is a URI to `HomePage`. We also check that the blog post we created in the database is correct.
 
-Let's run the test with `bin/test run`
+Let's run the test with `brut test run`
 
 > [!TIP]
 > If you stopped your entire dev environment (`dx/start`), when you restart it, you
 > *must* re-run `bin/setup`, since the disk inside your dev environment is ephemeral.
 
 ```bash
-bin/test run specs/front_end/handlers/new_blog_post_handler.spec.rb
+brut test run specs/front_end/handlers/new_blog_post_handler.spec.rb
 ```
 
 ```
 # OUTPUT
-[ bin/test ] Executing ["bin/rspec -I /Users/davec/Projects/ThirdTank/brutcasts/01-make-a-blog/blog/specs -I /Users/davec/Projects/ThirdTank/brutcasts/01-make-a-blog/blog/app/src -I lib/ --tag ~e2e -P \"**/*.spec.rb\" \"specs/front_end/handlers/new_blog_post_handler.spec.rb\""]
+[ brut test ] Executing ["bin/rspec -I /Users/davec/Projects/ThirdTank/brutcasts/01-make-a-blog/blog/specs -I /Users/davec/Projects/ThirdTank/brutcasts/01-make-a-blog/blog/app/src -I lib/ --tag ~e2e -P \"**/*.spec.rb\" \"specs/front_end/handlers/new_blog_post_handler.spec.rb\""]
 Run options: exclude {e2e: true}
 
 Randomized with seed 61034
@@ -1292,7 +1292,7 @@ Finished in 0.0138 seconds (files took 0.73976 seconds to load)
 
 Randomized with seed 61034
 
-[ bin/test ] ["bin/rspec -I /Users/davec/Projects/ThirdTank/brutcasts/01-make-a-blog/blog/specs -I /Users/davec/Projects/ThirdTank/brutcasts/01-make-a-blog/blog/app/src -I lib/ --tag ~e2e -P \"**/*.spec.rb\" \"specs/front_end/handlers/new_blog_post_handler.spec.rb\""] succeeded
+[ brut test ] ["bin/rspec -I /Users/davec/Projects/ThirdTank/brutcasts/01-make-a-blog/blog/specs -I /Users/davec/Projects/ThirdTank/brutcasts/01-make-a-blog/blog/app/src -I lib/ --tag ~e2e -P \"**/*.spec.rb\" \"specs/front_end/handlers/new_blog_post_handler.spec.rb\""] succeeded
 ```
 
 It passes!
@@ -1347,12 +1347,12 @@ Let's run the test, which should fail:
 > *must* re-run `bin/setup`, since the disk inside your dev environment is ephemeral.
 
 ```bash
-bin/test run specs/front_end/pages/home_page.spec.rb
+brut test run specs/front_end/pages/home_page.spec.rb
 ```
 
 ```
 # OUTPUT
-[ bin/test ] Executing ["bin/rspec -I /Users/davec/Projects/ThirdTank/brutcasts/01-make-a-blog/blog/specs -I /Users/davec/Projects/ThirdTank/brutcasts/01-make-a-blog/blog/app/src -I lib/ --tag ~e2e -P \"**/*.spec.rb\" \"specs/front_end/pages/home_page.spec.rb\""]
+[ brut test ] Executing ["bin/rspec -I /Users/davec/Projects/ThirdTank/brutcasts/01-make-a-blog/blog/specs -I /Users/davec/Projects/ThirdTank/brutcasts/01-make-a-blog/blog/app/src -I lib/ --tag ~e2e -P \"**/*.spec.rb\" \"specs/front_end/pages/home_page.spec.rb\""]
 Run options: exclude {e2e: true}
 
 Randomized with seed 44491
@@ -1386,11 +1386,11 @@ Finished in 0.54876 seconds (files took 0.73025 seconds to load)
 
 Failed examples:
 
-bin/test run ./specs/front_end/pages/home_page.spec.rb:4 # HomePage should show the blog posts
+brut test run ./specs/front_end/pages/home_page.spec.rb:4 # HomePage should show the blog posts
 
 Randomized with seed 44491
 
-[ bin/test ] error: ["bin/rspec -I /Users/davec/Projects/ThirdTank/brutcasts/01-make-a-blog/blog/specs -I /Users/davec/Projects/ThirdTank/brutcasts/01-make-a-blog/blog/app/src -I lib/ --tag ~e2e -P \"**/*.spec.rb\" \"specs/front_end/pages/home_page.spec.rb\""] failed - exited 1
+[ brut test ] error: ["bin/rspec -I /Users/davec/Projects/ThirdTank/brutcasts/01-make-a-blog/blog/specs -I /Users/davec/Projects/ThirdTank/brutcasts/01-make-a-blog/blog/app/src -I lib/ --tag ~e2e -P \"**/*.spec.rb\" \"specs/front_end/pages/home_page.spec.rb\""] failed - exited 1
 ```
 
 Brut obviously errs on the side of being verbose. But, you can see that the problem is that it cannot find an `<article>` with the `id=` of `blbl_6f04feaefb9520d86b19c3ac4ad22c4f`, the `external_id` of the first blog post.
@@ -1412,15 +1412,15 @@ Now, the test should pass:
 
 > [!TIP]
 > If you stopped your entire dev environment (`dx/start`), when you restart it, you
-> *must* re-run `bin/setup`, since the disk inside your dev environment is ephemeral.
+> *must* re-run `brut setup`, since the disk inside your dev environment is ephemeral.
 
 ```bash
-bin/test run specs/front_end/pages/home_page.spec.rb
+brut test run specs/front_end/pages/home_page.spec.rb
 ```
 
 ```
 # OUTPUT
-[ bin/test ] Executing ["bin/rspec -I /Users/davec/Projects/ThirdTank/brutcasts/01-make-a-blog/blog/specs -I /Users/davec/Projects/ThirdTank/brutcasts/01-make-a-blog/blog/app/src -I lib/ --tag ~e2e -P \"**/*.spec.rb\" \"specs/front_end/pages/home_page.spec.rb\""]
+[ brut test ] Executing ["bin/rspec -I /Users/davec/Projects/ThirdTank/brutcasts/01-make-a-blog/blog/specs -I /Users/davec/Projects/ThirdTank/brutcasts/01-make-a-blog/blog/app/src -I lib/ --tag ~e2e -P \"**/*.spec.rb\" \"specs/front_end/pages/home_page.spec.rb\""]
 Run options: exclude {e2e: true}
 
 Randomized with seed 56951
@@ -1433,7 +1433,7 @@ Finished in 0.53858 seconds (files took 0.69257 seconds to load)
 
 Randomized with seed 56951
 
-[ bin/test ] ["bin/rspec -I /Users/davec/Projects/ThirdTank/brutcasts/01-make-a-blog/blog/specs -I /Users/davec/Projects/ThirdTank/brutcasts/01-make-a-blog/blog/app/src -I lib/ --tag ~e2e -P \"**/*.spec.rb\" \"specs/front_end/pages/home_page.spec.rb\""] succeeded
+[ brut test ] ["bin/rspec -I /Users/davec/Projects/ThirdTank/brutcasts/01-make-a-blog/blog/specs -I /Users/davec/Projects/ThirdTank/brutcasts/01-make-a-blog/blog/app/src -I lib/ --tag ~e2e -P \"**/*.spec.rb\" \"specs/front_end/pages/home_page.spec.rb\""] succeeded
 ```
 
 For `BlogPostEditorPage`, there really isn't anything to test - it's static HTML at this point.  Even still, it's good to record a decision about testing code or not, so it's clear we didn't just forget.  Brut provides the method `implementation_is_covered_by_other_tests` to do just that. It accepts a string where we can describe where the coverage for this class is.
@@ -1450,20 +1450,20 @@ RSpec.describe BlogPostEditorPage do
 end
 ```
 
-Now, all unit tests should pass, which we can check via `bin/test run`:
+Now, all unit tests should pass, which we can check via `brut test run`:
 
 > [!TIP]
 > If you stopped your entire dev environment (`dx/start`), when you restart it, you
 > *must* re-run `bin/setup`, since the disk inside your dev environment is ephemeral.
 
 ```bash
-bin/test run
+brut test run
 ```
 
 ```
 # OUTPUT
-[ bin/test ] Running all tests
-[ bin/test ] Executing ["bin/rspec -I /Users/davec/Projects/ThirdTank/brutcasts/01-make-a-blog/blog/specs -I /Users/davec/Projects/ThirdTank/brutcasts/01-make-a-blog/blog/app/src -I lib/ --tag ~e2e -P \"**/*.spec.rb\" /Users/davec/Projects/ThirdTank/brutcasts/01-make-a-blog/blog/specs/"]
+[ brut test ] Running all tests
+[ brut test ] Executing ["bin/rspec -I /Users/davec/Projects/ThirdTank/brutcasts/01-make-a-blog/blog/specs -I /Users/davec/Projects/ThirdTank/brutcasts/01-make-a-blog/blog/app/src -I lib/ --tag ~e2e -P \"**/*.spec.rb\" /Users/davec/Projects/ThirdTank/brutcasts/01-make-a-blog/blog/specs/"]
 Run options: exclude {e2e: true}
 
 Randomized with seed 63173
@@ -1474,7 +1474,7 @@ Finished in 0.53248 seconds (files took 0.7012 seconds to load)
 
 Randomized with seed 63173
 
-[ bin/test ] ["bin/rspec -I /Users/davec/Projects/ThirdTank/brutcasts/01-make-a-blog/blog/specs -I /Users/davec/Projects/ThirdTank/brutcasts/01-make-a-blog/blog/app/src -I lib/ --tag ~e2e -P \"**/*.spec.rb\" /Users/davec/Projects/ThirdTank/brutcasts/01-make-a-blog/blog/specs/"] succeeded
+[ brut test ] ["bin/rspec -I /Users/davec/Projects/ThirdTank/brutcasts/01-make-a-blog/blog/specs -I /Users/davec/Projects/ThirdTank/brutcasts/01-make-a-blog/blog/app/src -I lib/ --tag ~e2e -P \"**/*.spec.rb\" /Users/davec/Projects/ThirdTank/brutcasts/01-make-a-blog/blog/specs/"] succeeded
 ```
 
 As our last test, we'll write an end-to-end that uses a browser.
@@ -1560,34 +1560,34 @@ RSpec.describe "Posting blog posts" do
 end
 ```
 
-Run it now with `bin/test e2e`:
+Run it now with `brut test e2e`:
 
 > [!TIP]
 > If you stopped your entire dev environment (`dx/start`), when you restart it, you
 > *must* re-run `bin/setup`, since the disk inside your dev environment is ephemeral.
 
 ```bash
-bin/test e2e
+brut test e2e
 ```
 
 It should pass:
 
 ```
 # OUTPUT
-[ bin/test ] Rebuilding test database schema
-[ bin/test ] Executing ["bin/db rebuild --env=test"]
-[ bin/db ] Database exists. Dropping...
-[ bin/db ] blog_test does not exit. Creating...
-[ bin/db ] Migrations applied
-[ bin/test ] ["bin/db rebuild --env=test"] succeeded
-[ bin/test ] Running all tests
-[ bin/test ] Executing ["bin/rspec -I /Users/davec/Projects/ThirdTank/brutcasts/01-make-a-blog/blog/specs -I /Users/davec/Projects/ThirdTank/brutcasts/01-make-a-blog/blog/app/src -I lib/ --tag e2e -P \"**/*.spec.rb\" /Users/davec/Projects/ThirdTank/brutcasts/01-make-a-blog/blog/specs/"]
+[ brut test ] Rebuilding test database schema
+[ brut test ] Executing ["brut db rebuild --env=test"]
+[ brut db ] Database exists. Dropping...
+[ brut db ] blog_test does not exit. Creating...
+[ brut db ] Migrations applied
+[ brut test ] ["brut db rebuild --env=test"] succeeded
+[ brut test ] Running all tests
+[ brut test ] Executing ["bin/rspec -I /Users/davec/Projects/ThirdTank/brutcasts/01-make-a-blog/blog/specs -I /Users/davec/Projects/ThirdTank/brutcasts/01-make-a-blog/blog/app/src -I lib/ --tag e2e -P \"**/*.spec.rb\" /Users/davec/Projects/ThirdTank/brutcasts/01-make-a-blog/blog/specs/"]
 Run options: include {e2e: true}
 
 Randomized with seed 27681
-[ bin/test-server ] Building assets
+[ brut test-server ] Building assets
 «TONS OF OUTPUT»
-[ bin/test-server ] Starting server
+[ brut test-server ] Starting server
 [ bin/run ] No pidfile-Starting up
 [3352] Configuration:
 «TONS OF OUTPUT»
@@ -1604,13 +1604,13 @@ Finished in 3.45 seconds (files took 0.69401 seconds to load)
 
 Randomized with seed 27681
 
-[ bin/test ] ["bin/rspec -I /Users/davec/Projects/ThirdTank/brutcasts/01-make-a-blog/blog/specs -I /Users/davec/Projects/ThirdTank/brutcasts/01-make-a-blog/blog/app/src -I lib/ --tag e2e -P \"**/*.spec.rb\" /Users/davec/Projects/ThirdTank/brutcasts/01-make-a-blog/blog/specs/"] succeeded
-[ bin/test ] Re-Rebuilding test database schema
-[ bin/test ] Executing ["bin/db rebuild --env=test"]
-[ bin/db ] Database exists. Dropping...
-[ bin/db ] blog_test does not exit. Creating...
-[ bin/db ] Migrations applied
-[ bin/test ] ["bin/db rebuild --env=test"] succeeded
+[ brut test ] ["bin/rspec -I /Users/davec/Projects/ThirdTank/brutcasts/01-make-a-blog/blog/specs -I /Users/davec/Projects/ThirdTank/brutcasts/01-make-a-blog/blog/app/src -I lib/ --tag e2e -P \"**/*.spec.rb\" /Users/davec/Projects/ThirdTank/brutcasts/01-make-a-blog/blog/specs/"] succeeded
+[ brut test ] Re-Rebuilding test database schema
+[ brut test ] Executing ["brut db rebuild --env=test"]
+[ brut db ] Database exists. Dropping...
+[ brut db ] blog_test does not exit. Creating...
+[ brut db ] Migrations applied
+[ brut test ] ["brut db rebuild --env=test"] succeeded
 ```
 
 With that test done, `bin/ci`, which we ran at the start, should run all tests, plus check for CVEs in our installed gems.
@@ -1637,7 +1637,7 @@ ruby-advisory-db:
   commit:	43149b540b701c9683e402fcd7fa4e5b6e5b60e9
 No vulnerabilities found
 [ bin/ci ] Checking to see that all classes have tests
-[ bin/test ] All tests exists!
+[ brut test ] All tests exists!
 [ bin/ci ] Done
 ```
 

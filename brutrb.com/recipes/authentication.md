@@ -21,7 +21,7 @@ First, we'll make a database table called `accounts` that will have an email fie
 and a password hash field.
 
 ```
-bin/db new-migration accounts
+brut db new-migration accounts
 ```
 
 This will create a file in `app/src/back_end/data_models/migrations`.  We'll edit it
@@ -76,9 +76,9 @@ end
 Now, let's apply this to the database and load the seed data:
 
 ```
-> bin/db migrate
-> bin/db migrate -e test
-> bin/db seed
+> brut db migrate
+> brut db migrate -e test
+> brut db seed
 ```
 
 ### Create a Login Page
@@ -86,14 +86,14 @@ Now, let's apply this to the database and load the seed data:
 To make this UI work, we'll need a login page and a dashboard page.
 
 ```
-> bin/scaffold page /login
-> bin/scaffold page /dashboard
+> brut scaffold page /login
+> brut scaffold page /dashboard
 ```
 
 We'll also need a login form:
 
 ```
-> bin/scaffold form /login
+> brut scaffold form /login
 ```
 
 We'll add a link on the HomePage to log in:

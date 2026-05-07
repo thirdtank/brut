@@ -150,20 +150,20 @@ Even though we are going to build our own dialog, let's keep our end-to-end test
 Let's start by seeing how the test fails:
 
 ```bash
-bin/test e2e
+brut test e2e
 ```
 
 ```txt {20-21,33}
 # OUTPUT
-> bin/test e2e
-[ bin/test ] Rebuilding test database schema
-[ bin/test ] Executing ["bin/db rebuild --env=test"]
-[ bin/db ] Database exists. Dropping...
-[ bin/db ] blog_test does not exit. Creating...
-[ bin/db ] Migrations applied
-[ bin/test ] ["bin/db rebuild --env=test"] succeeded
-[ bin/test ] Running all tests
-[ bin/test ] Executing ["bin/rspec -I /Users/davec/Projects/ThirdTank/blog-demo/specs -I /Users/davec/Projects/ThirdTank/blog-demo/app/src -I lib/ --tag e2e -P \"**/*.spec.rb\" /Users/davec/Projects/ThirdTank/blog-demo/specs/"]
+> brut test e2e
+[ brut test ] Rebuilding test database schema
+[ brut test ] Executing ["brut db rebuild --env=test"]
+[ brut db ] Database exists. Dropping...
+[ brut db ] blog_test does not exit. Creating...
+[ brut db ] Migrations applied
+[ brut test ] ["brut db rebuild --env=test"] succeeded
+[ brut test ] Running all tests
+[ brut test ] Executing ["bin/rspec -I /Users/davec/Projects/ThirdTank/blog-demo/specs -I /Users/davec/Projects/ThirdTank/blog-demo/app/src -I lib/ --tag e2e -P \"**/*.spec.rb\" /Users/davec/Projects/ThirdTank/blog-demo/specs/"]
 
 «TONS OF OUTPUT»
 
@@ -197,11 +197,11 @@ Finished in 7.6 seconds (files took 0.7169 seconds to load)
 
 Failed examples:
 
-bin/test run ./specs/e2e/home_page.spec.rb:4 # We can post a new blog post allows posting a post
+brut test run ./specs/e2e/home_page.spec.rb:4 # We can post a new blog post allows posting a post
 
 Randomized with seed 25427
 
-[ bin/test ] error: ["bin/rspec -I /Users/davec/Projects/ThirdTank/blog-demo/specs -I /Users/davec/Projects/ThirdTank/blog-demo/app/src -I lib/ --tag e2e -P \"**/*.spec.rb\" /Users/davec/Projects/ThirdTank/blog-demo/specs/"] failed - exited 1
+[ brut test ] error: ["bin/rspec -I /Users/davec/Projects/ThirdTank/blog-demo/specs -I /Users/davec/Projects/ThirdTank/blog-demo/app/src -I lib/ --tag e2e -P \"**/*.spec.rb\" /Users/davec/Projects/ThirdTank/blog-demo/specs/"] failed - exited 1
 ```
 
 I've highlighted the relevant parts.  Playwright loves stack traces and obtuse errors.
@@ -254,22 +254,22 @@ Here's the change. Note the line numbers for reference in the file. You want to 
 Note that this configuration will stay in effect for the rest of the test. That means when we later save
 the blog post, it will accept the dialog.
 
-Now, `bin/test e2e` should pass:
+Now, `brut test e2e` should pass:
 
 ```bash
-bin/test e2e
+brut test e2e
 ```
 
 ```txt {14}
 #OUTPUT
-[ bin/test ] Rebuilding test database schema
-[ bin/test ] Executing ["bin/db rebuild --env=test"]
-[ bin/db ] Database exists. Dropping...
-[ bin/db ] blog_test does not exit. Creating...
-[ bin/db ] Migrations applied
-[ bin/test ] ["bin/db rebuild --env=test"] succeeded
-[ bin/test ] Running all tests
-[ bin/test ] Executing ["bin/rspec -I /Users/davec/Projects/ThirdTank/blog-demo/specs -I /Users/davec/Projects/ThirdTank/blog-demo/app/src -I lib/ --tag e2e -P \"**/*.spec.rb\" /Users/davec/Projects/ThirdTank/blog-demo/specs/"]
+[ brut test ] Rebuilding test database schema
+[ brut test ] Executing ["brut db rebuild --env=test"]
+[ brut db ] Database exists. Dropping...
+[ brut db ] blog_test does not exit. Creating...
+[ brut db ] Migrations applied
+[ brut test ] ["brut db rebuild --env=test"] succeeded
+[ brut test ] Running all tests
+[ brut test ] Executing ["bin/rspec -I /Users/davec/Projects/ThirdTank/blog-demo/specs -I /Users/davec/Projects/ThirdTank/blog-demo/app/src -I lib/ --tag e2e -P \"**/*.spec.rb\" /Users/davec/Projects/ThirdTank/blog-demo/specs/"]
 
 «TONS OF OUTPUT»
 
@@ -278,13 +278,13 @@ Finished in 3.57 seconds (files took 0.7341 seconds to load)
 
 Randomized with seed 1445
 
-[ bin/test ] ["bin/rspec -I /Users/davec/Projects/ThirdTank/blog-demo/specs -I /Users/davec/Projects/ThirdTank/blog-demo/app/src -I lib/ --tag e2e -P \"**/*.spec.rb\" /Users/davec/Projects/ThirdTank/blog-demo/specs/"] succeeded
-[ bin/test ] Re-Rebuilding test database schema
-[ bin/test ] Executing ["bin/db rebuild --env=test"]
-[ bin/db ] Database exists. Dropping...
-[ bin/db ] blog_test does not exit. Creating...
-[ bin/db ] Migrations applied
-[ bin/test ] ["bin/db rebuild --env=test"] succeeded
+[ brut test ] ["bin/rspec -I /Users/davec/Projects/ThirdTank/blog-demo/specs -I /Users/davec/Projects/ThirdTank/blog-demo/app/src -I lib/ --tag e2e -P \"**/*.spec.rb\" /Users/davec/Projects/ThirdTank/blog-demo/specs/"] succeeded
+[ brut test ] Re-Rebuilding test database schema
+[ brut test ] Executing ["brut db rebuild --env=test"]
+[ brut db ] Database exists. Dropping...
+[ brut db ] blog_test does not exit. Creating...
+[ brut db ] Migrations applied
+[ brut test ] ["brut db rebuild --env=test"] succeeded
 ```
 
 `window.confirm` is great in a pinch, but we'd like to use our own styled dialog if possible.
@@ -423,20 +423,20 @@ Let's look back at our tests.
 Run our end-to-end test:
 
 ```bash
-bin/test e2e
+brut test e2e
 ```
 
 It should fail:
 
 ```txt {18,19,33}
 #OUTPUT
-> bin/test e2e
-[ bin/test ] Rebuilding test database schema
-[ bin/test ] Executing ["bin/db rebuild --env=test"]
-[ bin/db ] Database exists. Dropping...
-[ bin/db ] blog_test does not exit. Creating...
-[ bin/db ] Migrations applied
-[ bin/test ] ["bin/db rebuild --env=test"] succeeded
+> brut test e2e
+[ brut test ] Rebuilding test database schema
+[ brut test ] Executing ["brut db rebuild --env=test"]
+[ brut db ] Database exists. Dropping...
+[ brut db ] blog_test does not exit. Creating...
+[ brut db ] Migrations applied
+[ brut test ] ["brut db rebuild --env=test"] succeeded
 
 «TONS OF OUTPUT»
 
@@ -472,11 +472,11 @@ Finished in 8.31 seconds (files took 0.66944 seconds to load)
 
 Failed examples:
 
-bin/test run ./specs/e2e/home_page.spec.rb:4 # We can post a new blog post allows posting a post
+brut test run ./specs/e2e/home_page.spec.rb:4 # We can post a new blog post allows posting a post
 
 Randomized with seed 29349
 
-[ bin/test ] error: ["bin/rspec -I /Users/davec/Projects/ThirdTank/blog-demo/specs -I /Users/davec/Projects/ThirdTank/blog-demo/app/src -I lib/ --tag e2e -P \"**/*.spec.rb\" /Users/davec/Projects/ThirdTank/blog-demo/specs/"] failed - exited 1
+[ brut test ] error: ["bin/rspec -I /Users/davec/Projects/ThirdTank/blog-demo/specs -I /Users/davec/Projects/ThirdTank/blog-demo/app/src -I lib/ --tag e2e -P \"**/*.spec.rb\" /Users/davec/Projects/ThirdTank/blog-demo/specs/"] failed - exited 1
 ```
 
 Line 39 is the same line that failed when we first added the confirmation.  Since Playwright interacts
@@ -531,17 +531,17 @@ new_post = DB::BlogPost.order(Sequel.desc(:created_at)).first
 The test should now pass:
 
 ```bash
-bin/test e2e
+brut test e2e
 ```
 
 ```txt {15}
 #OUTPUT
-[ bin/test ] Rebuilding test database schema
-[ bin/test ] Executing ["bin/db rebuild --env=test"]
-[ bin/db ] Database exists. Dropping...
-[ bin/db ] blog_test does not exit. Creating...
-[ bin/db ] Migrations applied
-[ bin/test ] ["bin/db rebuild --env=test"] succeeded
+[ brut test ] Rebuilding test database schema
+[ brut test ] Executing ["brut db rebuild --env=test"]
+[ brut db ] Database exists. Dropping...
+[ brut db ] blog_test does not exit. Creating...
+[ brut db ] Migrations applied
+[ brut test ] ["brut db rebuild --env=test"] succeeded
 
 «TONS OF OUTPUT»
 
@@ -553,13 +553,13 @@ Finished in 3.45 seconds (files took 0.71481 seconds to load)
 
 Randomized with seed 30988
 
-[ bin/test ] ["bin/rspec -I /Users/davec/Projects/ThirdTank/blog-demo/specs -I /Users/davec/Projects/ThirdTank/blog-demo/app/src -I lib/ --tag e2e -P \"**/*.spec.rb\" /Users/davec/Projects/ThirdTank/blog-demo/specs/"] succeeded
-[ bin/test ] Re-Rebuilding test database schema
-[ bin/test ] Executing ["bin/db rebuild --env=test"]
-[ bin/db ] Database exists. Dropping...
-[ bin/db ] blog_test does not exit. Creating...
-[ bin/db ] Migrations applied
-[ bin/test ] ["bin/db rebuild --env=test"] succeeded
+[ brut test ] ["bin/rspec -I /Users/davec/Projects/ThirdTank/blog-demo/specs -I /Users/davec/Projects/ThirdTank/blog-demo/app/src -I lib/ --tag e2e -P \"**/*.spec.rb\" /Users/davec/Projects/ThirdTank/blog-demo/specs/"] succeeded
+[ brut test ] Re-Rebuilding test database schema
+[ brut test ] Executing ["brut db rebuild --env=test"]
+[ brut db ] Database exists. Dropping...
+[ brut db ] blog_test does not exit. Creating...
+[ brut db ] Migrations applied
+[ brut test ] ["brut db rebuild --env=test"] succeeded
 ```
 
 ## Areas for Self-Exploration
