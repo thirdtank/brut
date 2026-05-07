@@ -113,7 +113,6 @@ Runs all end-to-end tests for the app, or runs a subset of end-to-end tests usin
         super
       ensure
         test_server.stop
-        Brut::SpecSupport::E2ETestServer.instance.stop
       end
     end
   end

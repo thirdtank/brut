@@ -5,14 +5,16 @@ require "brut/cli"
 require "brut/spec_support/e2e_test_server"
 
 RSpec.describe Brut::CLI::Apps::Test do
-  let(:test_container) { Brut::Framework::Container.new }
-  let(:app_specs_dir)  { "/fake/brut-app/specs" }
-  let(:app_src_dir)    { "/fake/brut-app/app" }
+  let(:test_container)   { Brut::Framework::Container.new }
+  let(:project_root_dir) { Pathname("/fake/brut-app/") }
+  let(:app_specs_dir)    { project_root_dir / "specs" }
+  let(:app_src_dir)      { project_root_dir / "app" }
 
   before do
     allow(Brut).to receive(:container).and_return(test_container)
-    test_container.store("app_specs_dir", Pathname, "", Pathname(app_specs_dir))
-    test_container.store("app_src_dir", Pathname, "", Pathname(app_src_dir))
+    test_container.store("app_specs_dir", Pathname, "", app_specs_dir)
+    test_container.store("app_src_dir", Pathname, "", app_src_dir)
+    test_container.store("project_root", Pathname, "", project_root_dir)
   end
 
   describe described_class::Run, cli_command: true do
@@ -67,7 +69,7 @@ RSpec.describe Brut::CLI::Apps::Test do
 
     let(:test_server) { instance_double(Brut::SpecSupport::E2ETestServer) }
     before do
-      allow(Brut::SpecSupport::E2ETestServer).to receive(:instance).and_return(test_server)
+      allow(Brut::SpecSupport::E2ETestServer).to receive(:new).and_return(test_server)
       allow(test_server).to receive(:start)
       allow(test_server).to receive(:stop)
     end
