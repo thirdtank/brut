@@ -30,6 +30,7 @@ Runs all end-to-end tests for the app, or runs a subset of end-to-end tests usin
 
 * `E2E_RECORD_VIDEOS` -  If set to 'true', videos of each test run are saved in `./tmp/e2e-videos`
 * `E2E_SLOW_MO` -  If set to, will attempt to slow operations down by this many milliseconds
+* `E2E_STARTUP_TIMEOUT_SEC` -  seconds to wait for the test server to start before assuming something went wrong
 * `E2E_TIMEOUT_MS` -  ms to wait for any browser activity before failing the test. And here you didn't think you'd get away without using sleep in browse-based tests?
 * `LOGGER_LEVEL_FOR_TESTS` -  Can be set to debug, info, warn, error, or fatal to control logging during tests. Defaults to 'warn' to avoid verbose test output
 * `RSPEC_PROFILE_EXAMPLES` -  If set to any value, it is converted to an int and set as RSpec's number of examples to profile. NOTE: this is used in the app's spec_helper.rb so could've been removed

@@ -1,5 +1,10 @@
 # Brut CHANGELOG
 
+## v0.20.2 - May 7, 2026
+
+* Fixed bug in `brut test e2e` that prevented test server from starting
+* Improved error message when using a form object that has no route
+
 ## v0.20.1 - May 6, 2026
 
 * Doc fixes
