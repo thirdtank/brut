@@ -86,7 +86,7 @@ class SetupScript < Brut::TUI::Script
       if dot_env_need_local.any?
         step "Need local values" do
           dot_env_need_local.each do |var,comment|
-            notify "A value is needed locally for '#{var}'"
+            notify "A value is needed locally for `#{var}`, documented as:"
             notify ""
             notify comment
             notify ""
