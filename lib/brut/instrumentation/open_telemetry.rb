@@ -89,6 +89,11 @@ class Brut::Instrumentation::OpenTelemetry
     )
   end
 
+  # Returns a trace ID for the current request/span.  This is useful if you 
+  # need to connect the current OTel request/trace with another system, such
+  # as error reporting.
+  def current_trace_id = OpenTelemetry::Trace.current_span.context.hex_trace_id
+
 private
 
   class NormalizedAttributes
