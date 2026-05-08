@@ -16,6 +16,7 @@ four methods:
 | `form «route»`                   | POST        | Declare a form to be submitted to a handler                                                   |
 | `action «route»`                 | POST        | Declare an element-less form to be submitted to a handler (akin to Rails' `button_to` helper) |
 | `path «route», method: «method»` | `«method»`  | Declare an arbitrary path to a handler                                                        |
+| `webhook «route»                 | POST        | Declare a webhook, which will live, by default, under `/webhooks`                             |
 
 The value for `«route»`, along with the method called, is used to determine what
 class(es) will be used to handle the route.
@@ -41,6 +42,20 @@ Some examples:
 "/"
 ```
 
+#### Webhooks
+
+When you use `webhook` the route generated is under `/webhooks`. For example, `webhook "sendgrid"` would respond to the route `/webhooks/sendgrid`.  This behavior is mostly a way to suggest a convention, but it will also opt out your webhooks from CSRF protection.
+
+You may change this namespace by overriding `webhook_url_path_prefix` in your
+`app.rb`:
+
+```ruby
+Brut.container.override("webhook_url_path_prefix", "/hooks")
+```
+
+Note that by changing this, you change the expected class names for your
+handlers.
+
 ### Class Naming Conventions
 
 Brut is convention-based, so you are not able to specify the name of the classes
@@ -56,6 +71,7 @@ Some examples:
 | `form "/login"`                               | `LoginForm` and `LoginHandler`     |
 | `action "/delete_widget/:id"`                 | `DeleteWidgetWithIdHandler`        |
 | `path "/tokens/personal/:token, method :put"` | `Tokens::PersonalWithTokenHandler` |
+| `webhook "/sendgrid"`                         | `Webhooks::SendgridHandler` (note, path would be `/webhooks/sendgrid`) |
 
 Specifically, the name of the class(es) is/are determined as follows:
 
@@ -77,6 +93,7 @@ Note that deeply nested routes that contain several placeholders will work, and 
 page "/company/:company_id/location/:location_id"
 # => CompanyByCompanyId::LocationByLocationIdPage
 ```
+
 
 > [!NOTE]
 > All routes can receive query string parameters. These are not factored

@@ -232,10 +232,7 @@ class Brut::Framework::MCP
         [
           {
             allow_if: ->(env) { 
-              brut_owned_path = env["brut.owned_path"] 
-              app_allowed = Brut.container.csrf_protector.allowed?(env)
-
-              brut_owned_path || app_allowed
+              Brut.container.csrf_protector.allowed?(env)
             },
             message: message,
           },

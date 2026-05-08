@@ -126,7 +126,7 @@ module Brut::SinatraHelpers
     #
     def form(path)
       route = Brut.container.routing.register_form(path)
-      self.define_handled_route(route, type: :form)
+      self.define_handled_route(route)
     end
 
     # Declare a form action that has no associated form elements.  This is used when you need to use a button to submit to the
@@ -137,7 +137,7 @@ module Brut::SinatraHelpers
     # to make sure there is no form defined.
     def action(path)
       route = Brut.container.routing.register_handler_only(path)
-      self.define_handled_route(route, type: :action)
+      self.define_handled_route(route)
     end
 
     # When you need to respond to a given path/method, but it's not a page nor a form.  For example, webhooks often
@@ -146,12 +146,24 @@ module Brut::SinatraHelpers
     # This will locate a handler class based on the same naming convention as for forms.
     def path(path, method:)
       route = Brut.container.routing.register_path(path, method: Brut::FrontEnd::HttpMethod.new(method))
-      self.define_handled_route(route,type: :generic)
+      self.define_handled_route(route)
+    end
+
+    # Define a webhook, where another server will post data to your app.
+    # This method services two purposes beyond using `path` or `action`:
+    #
+    # 1. It nests `relative_path` under `/webhooks` as a convention for
+    #    where all webhooks should go.
+    # 2. That convention will be used to skip CSRF protection for a POST
+    #    made to this endpoint, since you would not want that for a webhook.
+    def webhook(relative_path, method: :post)
+      route = Brut.container.routing.register_webhook(relative_path, method: Brut::FrontEnd::HttpMethod.new(method))
+      self.define_handled_route(route)
     end
 
   private
 
-    def define_handled_route(original_brut_route,type:)
+    def define_handled_route(original_brut_route)
 
       method = original_brut_route.http_method.to_s.upcase
       path   = original_brut_route.path_template

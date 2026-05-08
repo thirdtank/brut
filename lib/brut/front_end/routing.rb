@@ -97,6 +97,28 @@ class Brut::FrontEnd::Routing
     route
   end
 
+  def register_webhook(path, method:)
+    path = path.gsub(/^\//,"")
+    full_path = "#{Brut.container.webhook_url_path_prefix}/#{path}"
+
+    if full_path =~ /^#{Regexp.escape(Brut.container.webhook_url_path_prefix)}#{Regexp.escape(Brut.container.webhook_url_path_prefix)}/
+      raise ArgumentError, "webhook '#{path}' should not start with #{Brut.container.webhook_url_path_prefix} - Brut will add that for you"
+    end
+
+    route = begin
+              Route.new(method, full_path)
+            rescue Brut::Framework::Errors::NoClassForPath => ex
+              if Brut.container.project_env.development?
+                MissingPath.new(method,full_path,ex)
+              else
+                raise ex
+              end
+            end
+    @routes << route
+    add_routing_method(route)
+    route
+  end
+
   def route(handler_class)
     route = @routes.detect { |route|
       handler_class_match = route.handler_class.name == handler_class.name

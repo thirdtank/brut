@@ -9,6 +9,8 @@ class Brut::FrontEnd::Middlewares::AnnotateBrutOwnedPaths < Brut::FrontEnd::Midd
     if env["PATH_INFO"] =~ /^\/__brut\//
       Brut.container.instrumentation.add_attributes(prefix: "brut", owned_path: true)
       env["brut.owned_path"] = true
+    elsif env["PATH_INFO"] =~ /^#{Regexp.escape(Brut.container.webhook_url_path_prefix)}\//
+      env["brut.webhook"] = true
     end
     @app.call(env)
   end

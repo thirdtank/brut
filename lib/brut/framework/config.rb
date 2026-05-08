@@ -438,6 +438,15 @@ class Brut::Framework::Config
         end
       end
 
+      c.store(
+        "webhook_url_path_prefix",
+        String,
+        "The root url path under which Webhooks are placed.",
+        allow_app_override: true
+      ) do
+        "/webhooks"
+      end
+
     end
   end
 end
