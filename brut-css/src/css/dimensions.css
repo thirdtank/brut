@@ -228,6 +228,9 @@
 /* Numeric/fixed minimum widths
  * @scale min-width
  */
+.minw-0 {
+  min-width: 0;
+}
 .minw-1 {
   min-width: var(--wh-1);
 }

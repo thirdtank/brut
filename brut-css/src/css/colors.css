@@ -2287,7 +2287,12 @@
    background-color: var(--white-ish);
  }
 
-        
+       
+ /* Transparent.
+  */
+ .bg-transparent {
+   background-color: transparent;
+ }
 
 /* Border colors.  For red, orange, yellow, green, blue, purple, and gray, there are 
  * nine steps in the scale, from 100 being darkest to 900 being lightest.  Black and white have only
@@ -3499,4 +3504,9 @@
    border-color: var(--white-ish);
  }
 
+ /* Transparent.
+  */
+ .bc-transparent {
+   border-color: transparent;
+ }
         
