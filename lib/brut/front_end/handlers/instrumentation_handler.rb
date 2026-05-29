@@ -75,7 +75,7 @@ class Brut::FrontEnd::Handlers::InstrumentationHandler < Brut::FrontEnd::Handler
 
     if span.nil? || traceparent.nil?
       SemanticLogger[self.class].info "Missing traceparent or span: #{@http_tracestate}, #{@http_traceparent}"
-      return http_status(400)
+      return http_status(200)
     end
 
     carrier = traceparent.as_carrier
