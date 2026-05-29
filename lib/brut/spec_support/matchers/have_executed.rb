@@ -1,5 +1,6 @@
 RSpec::Matchers.define :have_executed do |commands|
   match do |execution_context|
+    commands = Array(commands)
     commands.all? { |command|
       if command.kind_of?(Regexp)
         execution_context.executor.commands_executed.any? { it.kind_of?(String) && it.match(command) }
@@ -10,6 +11,7 @@ RSpec::Matchers.define :have_executed do |commands|
   end
 
   failure_message do |execution_context|
+    commands = Array(commands)
     not_executed  = commands.reject { |command|
       if command.kind_of?(Regexp)
         execution_context.executor.commands_executed.any? { it.kind_of?(String) && it.match(command) }

@@ -47,6 +47,10 @@ class Brut::CLI::Apps::New::Segments::Sidekiq < Brut::CLI::Apps::New::Base
       # If both herkou and sidekiq segments are activated, we want to do heroku first,
       # since Sidekiq will need to modify it.
       1
+    elsif other.class == Brut::CLI::Apps::New::Segments::DockerDeploy
+      # If both herkou and sidekiq segments are activated, we want to do heroku first,
+      # since Sidekiq will need to modify it.
+      1
     else
       -1
     end
@@ -146,16 +150,12 @@ SIDEKIQ_BASIC_AUTH_PASSWORD=password
         code: "@sidekiq_segment.boot!"
       ),
       Brut::CLI::Apps::New::Ops::InsertCodeInMethod.new(
-        file: project_root / "deploy" / "docker_config.rb",
-        class_name: "HerokuConfig",
-        method_name: "additional_images",
+        file: project_root / "deploy" / "deploy_config.rb",
+        class_name: "AppDeployConfig",
+        method_name: "additional_processes",
         ignore_if_file_not_found: true,
         code: %{
-{
-  "sidekiq" => {
-    cmd: "bin/run sidekiq",
-  }
-}
+          process_description("worker", [ "bundle", "exec", "bin/run sidekiq" ])
         },
         where: :end
       ),

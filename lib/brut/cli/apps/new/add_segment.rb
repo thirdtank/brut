@@ -28,6 +28,11 @@ class Brut::CLI::Apps::New
                      project_root: add_segment_options.project_root,
                      templates_dir:
                    )
+                 elsif @add_segment_options.segment_name == "docker-deploy"
+                   Brut::CLI::Apps::New::Segments::DockerDeploy.new(
+                     project_root: add_segment_options.project_root,
+                     templates_dir:
+                   )
                  end
     end
 

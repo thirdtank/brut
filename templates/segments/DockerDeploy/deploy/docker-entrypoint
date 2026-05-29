@@ -1,0 +1,15 @@
+#!/bin/bash -e
+
+# This is the Docker entrypoint, mean this script is used to execute
+# the command given to the RUN directive.
+#
+# The reason this exists is to load jemalloc. If you don't want to use
+# jemalloc, you can delete this script, as well as the ENTRYPOINT directive
+# in deploy/Dockerfile.
+
+# Enable jemalloc for reduced memory usage and latency.
+if [ -z "${LD_PRELOAD+x}" ] && [ -f /usr/lib/*/libjemalloc.so.2 ]; then
+  export LD_PRELOAD="$(echo /usr/lib/*/libjemalloc.so.2)"
+fi
+
+exec "${@}"
