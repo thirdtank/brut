@@ -75,7 +75,10 @@ class Brut::Framework::Config
         Object,
         "Handle to the database",
       ) do |database_url|
-        Sequel.connect(database_url)
+        Sequel.connect(
+          database_url,
+          test: true, #XXX
+        )
       end
 
       c.store_ensured_path(
