@@ -47,12 +47,13 @@ class Brut::Framework::App
   # Note that Brut will record the exception via OpenTelemetry so you should not do this in your handlers.  It
   # would be preferable to instead record an event if you want to have observability from your error handlers.
   #
-  # @param [Class|Integer|Range<Integer>] condition if given this specifies the conditions under which the given
+  # @param [Class|Integer|Range<Integer>|Symbol] condition if given this specifies the conditions under which the given
   #        block will handle the error.  If omitted, this block will handle any error that doesn't have a more
   #        specific handler configured.  Meaning of values:
   #        * A class - this is an exception class that, if caught, triggers the handler
   #        * An integer - this is an HTTP status code that, if returned, triggers the handler
   #        * A range of integers - this is a range of HTTP status codes that, if returned, triggers the handler
+  #        * If the symbol is `:catch_all`, this will be used to handle any error not handled by a more specific handler.
   # @yield [Exception] the block is given two named parameters: `exception:` and `http_status_code:`. Your block
   #        can declare both, either, or none.  Any that are declared will be given values.  At least one
   #        will be non-`nil`, however are encouraged to code defensively inside this block.

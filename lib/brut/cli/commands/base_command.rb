@@ -155,13 +155,16 @@ private
     end
   end
 
-  # Convienience methods to defer to `Brut::CLI::Commands::ExecutionContext#stdout`'s  `puts`.
+  # Convienience method to defer to `Brut::CLI::Commands::ExecutionContext#stdout`'s  `puts`.
   # @!visibility public
   def puts(*args)
     if !options.quiet?
       self.execution_context.stdout.puts(*args)
     end
   end
+
+  # Convienience method to defer to `Brut::CLI::Commands::ExecutionContext#stdout`'s  `print`.
+  # @!visibility public
   def print(*args)
     if !options.quiet?
       self.execution_context.stdout.print(*args)
@@ -190,7 +193,8 @@ private
 
 
   # Runs whatever logic this command exists to execute.  This is the method you must implement, however `#execute` is the public
-  # API and what you should call if you want to programmatically execute a command.
+  # API and what you should call if you want to programmatically execute a command. In other words, **do not
+  # call this method in a test, call `execute` instead**.
   #
   # The default implementation will generate an error, which is suitable for an app or namespace command that require a subcommand.
   #
