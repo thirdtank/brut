@@ -247,34 +247,6 @@ RSpec.describe Brut::CLI::Apps::Deploy, cli_command: true do
     end
   end
 
-  # new approach to deploy: one subcommand for each supported deploy type, with the default
-  # determined by some sort of configuration option:
-  #
-  # brut deploy heroku
-  # brut deploy docker-compose
-  # brut deploy # => whatever some default is
-  #
-  # # Heroku (currently implemented)
-  #
-  # -> check that everything is committed and pushed
-  # -> Read deploy config, validate it's for Heroku
-  # -> Generate Dockerfiles for each process type
-  # -> Build all docker images
-  # -> Push them to Heroku
-  # -> Call Heroku deploy commands
-  #
-  # # Docker Compose
-  #
-  # Just pushes to DockerHub, does not actually deploy the pushed image
-  #
-  # -> check that everything is committed and pushed
-  # -> Read deploy config, validate it's for DockerHub
-  # -> Validate that docker-compose.yml is correct
-  #    -> if not, offer to generate, but everything must start over
-  # -> Build docker image
-  # -> Push them to DockerHub
-  # -> Output that 
-  #
   describe described_class::Docker do
     subject(:command) { described_class.new }
 
@@ -472,6 +444,218 @@ RSpec.describe Brut::CLI::Apps::Deploy, cli_command: true do
         exit_status = command.execute(execution_context)
         expect(exit_status).not_to eq(0)
         expect(execution_context.stderr.string).to match(/\/deploy\/deploy_config.rb/)
+      end
+    end
+  end
+  describe described_class::DockerCompose::Check do
+    subject(:command) { described_class.new }
+    context "there is a docker-compose file" do
+      context "there is a deploy_config.rb file" do
+        context "docker-compose contents look good" do
+          it "outputs success" do
+            deploy_config_path = Brut.container.project_root / "deploy" / "deploy_config.rb"
+            FileUtils.mkdir_p deploy_config_path.dirname
+            File.open(deploy_config_path.to_s, "w") do |file|
+              file.puts "class AppDeployConfig < Brut::CLI::Apps::Deploy::DeployConfig"
+              file.puts "  def additional_processes = ["
+              file.puts "    process_description('sidekiq', [ 'bundle', 'exec', 'bin/run sidekiq' ]),"
+              file.puts "  ]"
+              file.puts "end"
+            end
+
+            docker_compose_path = Brut.container.project_root / "deploy" / "docker-compose.yml"
+            FileUtils.mkdir_p docker_compose_path.dirname
+            File.open(docker_compose_path.to_s, "w") do |file|
+              file.puts "services:"
+              file.puts "  web:"
+              file.puts "    image: #{Brut.container.app_organization}/#{Brut.container.app_id}:${DOCKER_IMAGE_TAG}"
+              file.puts "    command: [ 'bundle', 'exec', 'bin/run' ]"
+              file.puts "  sidekiq:"
+              file.puts "    image: #{Brut.container.app_organization}/#{Brut.container.app_id}:${DOCKER_IMAGE_TAG}"
+              file.puts "    command: [ 'bundle', 'exec', 'bin/run sidekiq' ]"
+            end
+
+            execution_context = test_execution_context
+            exit_status = command.execute(execution_context)
+            expect(exit_status).to eq(0)
+          end
+        end
+        context "docker-compose contents don't look good" do
+          it "outputs an error" do
+            deploy_config_path = Brut.container.project_root / "deploy" / "deploy_config.rb"
+            FileUtils.mkdir_p deploy_config_path.dirname
+            File.open(deploy_config_path.to_s, "w") do |file|
+              file.puts "class AppDeployConfig < Brut::CLI::Apps::Deploy::DeployConfig"
+              file.puts "  def additional_processes = ["
+              file.puts "    process_description('sidekiq', [ 'bundle', 'exec', 'bin/run sidekiq' ]),"
+              file.puts "  ]"
+              file.puts "end"
+            end
+
+            docker_compose_path = Brut.container.project_root / "deploy" / "docker-compose.yml"
+            FileUtils.mkdir_p docker_compose_path.dirname
+            File.open(docker_compose_path.to_s, "w") do |file|
+              file.puts "services:"
+              file.puts "  web:"
+              file.puts "    image: foo/bar:${DOCKER_IMAGE_TAG}"
+              file.puts "    command: [ 'blah' ]"
+              file.puts "  blah:"
+              file.puts "    image: foo/bar:${DOCKER_IMAGE_TAG}"
+              file.puts "    command: [ 'blah' ]"
+            end
+
+            execution_context = test_execution_context
+            exit_status = command.execute(execution_context)
+            expect(exit_status).not_to eq(0)
+            expect(execution_context.stderr.string).to include("service sidekiq: MISSING")
+            expect(execution_context.stderr.string).to include("service web: image incorrect")
+            expect(execution_context.stderr.string).to include("service web: command incorrect")
+            expect(execution_context.stderr.string).to include("service blah: not in deploy config")
+          end
+        end
+      end
+      context "there is not a deploy_config.rb file" do
+        it "outputs an error" do
+          docker_compose_path = Brut.container.project_root / "deploy" / "docker-compose.yml"
+          FileUtils.mkdir_p docker_compose_path.dirname
+          File.open(docker_compose_path.to_s, "w") do |file|
+            file.puts "services:"
+            file.puts "  web:"
+          end
+
+          execution_context = test_execution_context
+          exit_status = command.execute(execution_context)
+          expect(exit_status).not_to eq(0)
+          expect(execution_context.stderr.string).to match(/\/deploy\/deploy_config.rb/)
+        end
+      end
+    end
+    context "no docker-compose file" do
+      it "outputs an error" do
+        execution_context = test_execution_context
+        exit_status = command.execute(execution_context)
+        expect(exit_status).not_to eq(0)
+        expect(execution_context.stderr.string).to match(/\/deploy\/docker-compose.yml/)
+      end
+    end
+  end
+  describe described_class::DockerCompose::Generate do
+    subject(:command) { described_class.new }
+    context "there is a docker-compose file" do
+      it "removes unused services, adds new ones, and updates image/command of existing ones" do
+        deploy_config_path = Brut.container.project_root / "deploy" / "deploy_config.rb"
+        FileUtils.mkdir_p deploy_config_path.dirname
+        File.open(deploy_config_path.to_s, "w") do |file|
+          file.puts "class AppDeployConfig < Brut::CLI::Apps::Deploy::DeployConfig"
+          file.puts "  def additional_processes = ["
+          file.puts "    process_description('sidekiq', [ 'bundle', 'exec', 'bin/run sidekiq' ]),"
+          file.puts "  ]"
+          file.puts "end"
+        end
+
+        docker_compose_path = Brut.container.project_root / "deploy" / "docker-compose.yml"
+        FileUtils.mkdir_p docker_compose_path.dirname
+        docker_compose_contents = {
+          "services" => {
+            "web" => {
+              "image" => "exampleorg/exampleapp:${DOCKER_IMAGE_TAG}",
+              "command" => [ "bundle" , "exec", "bin/run web" ],
+              "env_file" => "/etc/#{Brut.container.app_id}/env",
+              "extra_hosts" => [
+                "host.docker.internal:host-gateway",
+                "host.docker.internal:host-gateway-2000",
+              ],
+              "restart" => "unless-stopped",
+            },
+            "foo" => {
+              "image" => "exampleorg/exampleapp:${DOCKER_IMAGE_TAG}",
+              "command" => [ "bundle" , "exec", "bin/run foo" ],
+              "extra_hosts" => [
+                "host.docker.internal:host-gateway",
+                "host.docker.internal:host-gateway-2000",
+              ],
+              "restart" => "unless-stopped",
+            },
+          }
+        }
+        File.open(docker_compose_path.to_s, "w") do |file|
+          file.puts YAML.dump(docker_compose_contents)
+        end
+
+        execution_context = test_execution_context
+        exit_status = command.execute(execution_context)
+        expect(exit_status).to eq(0)
+        docker_compose_path = Brut.container.project_root / "deploy" / "docker-compose.yml"
+        expect(docker_compose_path.exist?).to eq(true)
+        contents = YAML.load(File.read(docker_compose_path))
+
+        aggregate_failures do
+          expect(contents["services"]["web"]).not_to eq(nil)
+          expect(contents["services"]["sidekiq"]).not_to eq(nil)
+          expect(contents["services"]["foo"]).to eq(nil)
+        end
+        aggregate_failures do
+          web = contents["services"]["web"]
+          expect(web["image"]).to eq("#{Brut.container.app_organization}/#{Brut.container.app_id}:${DOCKER_IMAGE_TAG}")
+          expect(web["command"]).to eq([ "bundle", "exec", "bin/run"])
+          expect(web["ports"]).to eq(nil) # not inserted if not there
+          expect(web["env_file"]).to eq("/etc/#{Brut.container.app_id}/env")
+          expect(web["extra_hosts"][0]).to eq("host.docker.internal:host-gateway")
+          expect(web["extra_hosts"][1]).to eq("host.docker.internal:host-gateway-2000")
+          expect(web["restart"]).to eq("unless-stopped")
+        end
+        aggregate_failures do
+          sidekiq = contents["services"]["sidekiq"]
+          expect(sidekiq["image"]).to eq("#{Brut.container.app_organization}/#{Brut.container.app_id}:${DOCKER_IMAGE_TAG}")
+          expect(sidekiq["command"]).to eq([ "bundle", "exec", "bin/run sidekiq"])
+          expect(sidekiq["ports"]).to eq(nil)
+          expect(sidekiq["env_file"]).to eq("/etc/#{Brut.container.app_id}/env")
+          expect(sidekiq["extra_hosts"][0]).to eq("host.docker.internal:host-gateway")
+          expect(sidekiq["restart"]).to eq("unless-stopped")
+        end
+      end
+    end
+    context "no docker-compose file" do
+      it "generates a new file with services defined in AppDeployConfig" do
+        deploy_config_path = Brut.container.project_root / "deploy" / "deploy_config.rb"
+        FileUtils.mkdir_p deploy_config_path.dirname
+        File.open(deploy_config_path.to_s, "w") do |file|
+          file.puts "class AppDeployConfig < Brut::CLI::Apps::Deploy::DeployConfig"
+          file.puts "  def additional_processes = ["
+          file.puts "    process_description('sidekiq', [ 'bundle', 'exec', 'bin/run sidekiq' ]),"
+          file.puts "  ]"
+          file.puts "end"
+        end
+
+        execution_context = test_execution_context
+        exit_status = command.execute(execution_context)
+        expect(exit_status).to eq(0)
+        docker_compose_path = Brut.container.project_root / "deploy" / "docker-compose.yml"
+        expect(docker_compose_path.exist?).to eq(true)
+        contents = YAML.load(File.read(docker_compose_path))
+
+        aggregate_failures do
+          expect(contents["services"]["web"]).not_to eq(nil)
+          expect(contents["services"]["sidekiq"]).not_to eq(nil)
+        end
+        aggregate_failures do
+          web = contents["services"]["web"]
+          expect(web["image"]).to eq("#{Brut.container.app_organization}/#{Brut.container.app_id}:${DOCKER_IMAGE_TAG}")
+          expect(web["command"]).to eq([ "bundle", "exec", "bin/run"])
+          expect(web["ports"][0]).to eq("127.0.0.1:6502:6502")
+          expect(web["env_file"]).to eq("/etc/#{Brut.container.app_id}/env")
+          expect(web["extra_hosts"][0]).to eq("host.docker.internal:host-gateway")
+          expect(web["restart"]).to eq("unless-stopped")
+        end
+        aggregate_failures do
+          sidekiq = contents["services"]["sidekiq"]
+          expect(sidekiq["image"]).to eq("#{Brut.container.app_organization}/#{Brut.container.app_id}:${DOCKER_IMAGE_TAG}")
+          expect(sidekiq["command"]).to eq([ "bundle", "exec", "bin/run sidekiq"])
+          expect(sidekiq["ports"]).to eq(nil)
+          expect(sidekiq["env_file"]).to eq("/etc/#{Brut.container.app_id}/env")
+          expect(sidekiq["extra_hosts"][0]).to eq("host.docker.internal:host-gateway")
+          expect(sidekiq["restart"]).to eq("unless-stopped")
+        end
       end
     end
   end

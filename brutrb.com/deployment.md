@@ -3,25 +3,31 @@
 Brut apps are Rack apps, so they can be deployed in conventional
 ways.
 
-> [!WARNING]
-> The deploy command line has been rewritten - this documentation is wrong, but will be updated soon
-
 ## Overview
 
-There are just too many ways to deploy.  Brut attempts to address this by adhering to [12-factor principles](https://12factor.net).  Brut also tries not to create artifacts like `Procfile` or `Dockerfile` that would conflict with the artifacts you'd need to manage deployment.
+There are just too many ways to deploy.  Brut attempts to address this by adhering to [12-factor principles](https://12factor.net).  You can get your app to production and run `bin/run` and it should work.
 
-That said, Brut includes first-class support for deploying to Heroku using containers.  More options will be included as necessary, either through direct support in code/tooling, or documentation here.
+That said, Brut currently provides explicit support for two methods of deployment: Heroku (using containers) and a generalized Docker Image mechanism.
+
+### General Design of Deployment
+
+Brut attempts to consolidate all production deployment configuration in `deploy/deploy_config.rb`,
+     which is expected to define the class `AppDeployConfig`, which is expected to extend `Brut::CLI::Apps::Deploy::DeployConfig`.  Brut will create an instance of this class and use it to understand production aspects of your deployment.  No YAML.
+
+At its most basic, in production you will need to know what long-running processes to run. By default, you'd run a web process, but you may also run Sidekiq or other services that need access to your app's source code.
+
+The most full-featured method currently supported is Heroku, using containers.
+
 
 ### Heroku Container-based Deployment
 
-When creating your Brut app with `brut new`, the Heroku segment can be used to create files and scripts for a [Heroku container-based deployment](https://devcenter.heroku.com/articles/container-registry-and-runtime).
+When creating your Brut app with `brut new`, the Heroku segment can be used to create files for a [Heroku container-based deployment](https://devcenter.heroku.com/articles/container-registry-and-runtime).
 
-| File | Purpose | Notes |
-|------|---------|-------|
-| `brut deploy` | Script to use to perform the deployment | This wraps `HerokuContainerBasedDeploy` in `Brut::CLI::Apps` |
-| `deploy/Dockerfile` | Template `Dockerfile` used to create a `Dockerfile` for each process type | Heroku requires each process (web, worker, release, etc.) to have its own `Dockerfile` and own image |
-| `deploy/heroku_config.rb` | Class that exports optional processes | By default, your app has a web and release process. `HerokuConfig` can export others, like Sidekiq |
-| `deploy/docker-entrypoint` | The [`ENTRYPOINT`](https://docs.docker.com/reference/dockerfile/#entrypoint) for production Docker images, which is set up to use jemalloc | You can modify or remove this as needed |
+If you already created your app, you can add this segement via:
+
+```bash
+brut new segment heroku
+```
 
 How to deploy:
 
@@ -56,73 +62,45 @@ How to deploy:
    > heroku create --stack container -a «your heroku app name»
    ```
 5. Ensure your app's source code is all checked in, there are no uncommitted or unadded files, and you have pushed to the `main` branch of your remote Git repository.
-6. `brut deploy`
+6. `brut deploy heroku`
 
    This will generate a `Dockerfile` for each process (by default, `Dockerfile.web` and `Dockerfile.release`), build images, push those images to Heroku, and ask Heroku to release them.
 
 Debugging Tips:
 
 * Keep in mind it's hard to make general deployment tools. You are expected to understand your deployment and be capable of deploying an arbitrary Rack app manually.  Brut's tooling automates what you need to do based on what you already need to know.
-* `brut deploy` runs the `deploy` subcommand, so `brut deploy help deploy` can provide some options for debugging issues:
+* Try building images first: `brut deploy heroku --build-only`
+* It's possible to run the images locally, but you will ned to run Postgres at the very least.
 
-  ```
-  devcontainer> brut deploy help deploy
-  Usage: brut deploy [global options] deploy [command options] 
+### General Docker Image Deployment
 
-      Build images, push them to Heroku, and deploy them
+When creating your Brut app with `brut new`, the DockerDeploy segment can be used to create files for a [Heroku container-based deployment](https://devcenter.heroku.com/articles/container-registry-and-runtime).
 
-      Manages a deploy process based on using Heroku's Container Registry. See
+If you already created your app, you can add this segement via:
 
-      https://devcenter.heroku.com/articles/container-registry-and-runtime
+```bash
+brut new segment docker-deploy
+```
 
-      for details. You are assumed to understand this.
-      This command will make the process somewhat easier.
+Brut also provides a more generic method of deployment using Docker images and Docker registries. Under
+this method, you author a `Dockerfile` which is then used to build an image whose name is based on your
+app's org and id, as well as the current SHA-1 of your Git Repo.  This image is then pushed to a
+registry of your choice.  After that push, you are on your own to pull it down somewhere.
 
-      This will use deploy/Dockerfile as a template to create
-      one Dockerfile for each process you want to run in Heroku.
-      deploy/heroku_config.rb is where the processes and their
-      commands are configured.
+```bash
+brut deploy docker
+```
 
-      The release phase is included automatically, based on bin/release.
+You can do `brut deploy docker --no-push` to build only.
 
-  GLOBAL OPTIONS
+If you aren't using DockerHub, you can set your registry in `deploy/deploy_config.rb`:
 
-      -h, --help            Get help
-          --log-level=LEVEL Set log level. Allowed values: debug,
-                            info, warn, error, fatal. Default 'fatal'
-          --verbose         Set log level to 'debug', which will produce
-                            maximum output
+```ruby
+class AppDeployConfig < Brut::CLI::Apps::Deploy::DeployConfig
+  def registry_hostname = "ghcr.io"
+end
+```
 
-  ENVIRONMENT VARIABLES
-
-      BRUT_CLI_RAISE_ON_ERROR - if set, shows backtrace on errors
-      LOG_LEVEL               - log level if --log-level or --verbose is omitted
-
-
-  COMMAND OPTIONS
-
-          --platform=PLATFORM  Override default platform. Can be any Docker
-                               platform.
-          --[no-]dry-run       Print the commands that would be run and
-                               don't actually do anything. Implies --skip-checks
-          --[no-]skip-checks   Skip checks for code having been
-                               committed and pushed
-          --[no-]deploy        After images are pushed, actually deploy them
-          --[no-]push          After images are created, push them
-                               to Heroku's registry. If false,
-                               implies --no-deploy
-  ```
-* Try building images first: `brut deploy deploy --no-push --skip-checks`
-* It's possible to run the images locally.  If you are on Apple Silicon, you'll
-  need to set --platform:
-
-  * `brut deploy deploy --no-push --skip-checks --platform linux/arm64`
-  * Create `docker-compose.yml` for your image and any other services e.g. databases
-  * Set required environment variables in `docker-compose.yml`
-  * Start up Docker compose and poke around
-
-  You'll need to have a better understanding of Docker to do this, however if you
-  are deploying with Docker, this is an understanding you hopefully already have.
 
 ### Other Mechanisms for Deployment
 

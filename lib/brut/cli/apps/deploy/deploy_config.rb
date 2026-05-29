@@ -37,7 +37,7 @@ class Brut::CLI::Apps::Deploy::DeployConfig
   # web process.  Override {#additional_processes} instead.
   def processes = [
     process_description("web", ["bundle", "exec", "bin/run"])
-  ] + additional_processes
+  ] + (additional_processes || [])
 
   private def process_description(name,cmd)
     ProcessDescription.new(name:, cmd:)
@@ -47,7 +47,7 @@ class Brut::CLI::Apps::Deploy::DeployConfig
   # Describes a process you wish to run in production.
   class ProcessDescription
 
-    attr_reader :name
+    attr_reader :name, :cmd
 
     def initialize(name:, cmd:)
       @name = name

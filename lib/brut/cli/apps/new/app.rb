@@ -161,6 +161,11 @@ class Brut::CLI::Apps::New::App < Brut::CLI::Commands::BaseCommand
           project_root: base.project_root,
           templates_dir:
         )
+      when "docker-deploy"
+        segments << Brut::CLI::Apps::New::Segments::DockerDeploy.new(
+          project_root: base.project_root,
+          templates_dir:
+        )
       when "demo"
         # handled above
       else
@@ -308,6 +313,11 @@ class Brut::CLI::Apps::New::App < Brut::CLI::Commands::BaseCommand
                    )
                  elsif segment_name == "heroku"
                    Brut::CLI::Apps::New::Segments::Heroku.new(
+                     project_root:,
+                     templates_dir:
+                   )
+                 elsif segment_name == "docker-deploy"
+                   Brut::CLI::Apps::New::Segments::DockerDeploy.new(
                      project_root:,
                      templates_dir:
                    )

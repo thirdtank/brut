@@ -4,5 +4,6 @@ module Brut::CLI::Apps::New
     autoload :Demo, "brut/cli/apps/new/segments/demo"
     autoload :Sidekiq, "brut/cli/apps/new/segments/sidekiq"
     autoload :Heroku, "brut/cli/apps/new/segments/heroku"
+    autoload :DockerDeploy, "brut/cli/apps/new/segments/docker_deploy"
   end
 end
