@@ -136,19 +136,35 @@ private
   # @!visibility public
   def argv = self.execution_context.argv
 
-  # Convienience methods to defer to `Brut::CLI::Commands::ExecutionContext`'s `Brut::CLI::Executor#system!`.
-  # @!visibility public
-  def system!(*args,&block)
+  # Wraps `system!`, but captures the output and returns it
+  def capture!(*args)
     output = ""
-    block ||= ->(output_chunk) {
+    capture = ->(output_chunk) {
       output << output_chunk
     }
+    system!( *args, output: capture)
+    output
+  end
+
+  # Convienience methods to defer to `Brut::CLI::Commands::ExecutionContext`'s `Brut::CLI::Executor#system!`.
+  # @!visibility public
+  def system!(*args,output: :log)
+    command_output = ""
+    block = if output == :log
+              block ||= ->(output_chunk) {
+                command_output << output_chunk
+              }
+            elsif output.kind_of?(Proc)
+              block = output
+            else
+              nil
+            end
     begin
       self.execution_context.executor.system!(*args,&block)
     ensure
-      if output.length > 0
+      if command_output.length > 0
         progname = args.detect { it.kind_of?(String) }.split(" ")
-        output.lines.each do |line|
+        command_output.lines.each do |line|
           self.execution_context.logger.add(Logger::INFO, line.chomp, progname)
         end
       end

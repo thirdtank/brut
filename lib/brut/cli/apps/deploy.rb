@@ -47,10 +47,7 @@ class Brut::CLI::Apps::Deploy < Brut::CLI::Commands::BaseCommand
         end
         version = ""
         git_guess = %{git rev-parse HEAD}
-        system!(git_guess) do |output|
-          version << output
-        end
-        version = version.strip.chomp
+        version = capture!(git_guess).strip.chomp
         if version == ""
           fatal "Attempt to use git via command '#{git_guess}' to figure out the version failed"
           return 1
@@ -66,12 +63,12 @@ class Brut::CLI::Apps::Deploy < Brut::CLI::Commands::BaseCommand
         dockerfile = Brut.container.project_root / "deploy" / "Dockerfile"
         FileUtils.chdir Brut.container.project_root do
           command = %{docker build --build-arg app_git_sha1=#{version} --file #{dockerfile} --platform #{config.platform} --tag #{image_name} . 2>&1}
-          system!(command)
+          system!(command, output: :stream)
         end
         if options.build_only?
           puts "Not pushing image"
         else
-          system!("docker image push #{image_name}")
+          system!("docker image push #{image_name}", output: :stream)
         end
 
         0
@@ -139,10 +136,7 @@ class Brut::CLI::Apps::Deploy < Brut::CLI::Commands::BaseCommand
         config = AppDeployConfig.new
         version = ""
         git_guess = %{git rev-parse HEAD}
-        system!(git_guess) do |output|
-          version << output
-        end
-        version = version.strip.chomp
+        version = capture!(git_guess).strip.chomp
         if version == ""
           fatal "Attempt to use git via command '#{git_guess}' to figure out the version failed"
           return 1
@@ -161,14 +155,14 @@ class Brut::CLI::Apps::Deploy < Brut::CLI::Commands::BaseCommand
                            "--push"
                          end
           command = %{docker buildx build --provenance=false --build-arg app_git_sha1=#{version} --file #{process_dockerfile_path} --platform #{config.platform} #{push_or_load} --tag #{image_name} . 2>&1}
-          system!(command)
+          system!(command, output: :stream)
           names << process_description.name
         end
         deploy_command = "heroku container:release #{names.sort.join(' ')} -a #{Brut.container.app_id}"
         if options.build_only?
           puts "Not deploying"
         else
-          system!(deploy_command)
+          system!(deploy_command, output: :stream)
         end
 
         0

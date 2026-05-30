@@ -53,6 +53,8 @@ RSpec.describe Brut::CLI::Apps::Deploy, cli_command: true do
 
                 execution_context = test_execution_context do |executor|
                   executor.on_command("git rev-parse HEAD", output: git_version)
+                  executor.on_command(/^docker buildx build --provenance=false --build-arg app_git_sha1=#{git_version}/, output: "docker buildx output")
+                  executor.on_command("heroku container:release release sidekiq web -a exampleapp", output: "heroku container:release output")
                 end
                 exit_status = command.execute(execution_context)
                 expect(exit_status).to eq(0)
@@ -83,6 +85,8 @@ RSpec.describe Brut::CLI::Apps::Deploy, cli_command: true do
                 expect(execution_context).to have_executed(
                   "heroku container:release release sidekiq web -a exampleapp"
                 )
+                expect(execution_context.stdout.string).to include("docker buildx output")
+                expect(execution_context.stdout.string).to include("heroku container:release output")
               end
               it "generates Dockerfiles and builds images with a magical incantation but skips release when --build-only is used" do
                 deploy_config_path = Brut.container.project_root / "deploy" / "deploy_config.rb"

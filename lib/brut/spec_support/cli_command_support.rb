@@ -24,12 +24,19 @@ module Brut::SpecSupport::CLICommandSupport
                   args
                 end
       @commands_executed << command
-      if @on_commands[command]
-        if @on_commands[command][:raise_error]
+      on_command = @on_commands.select { |it,_|
+        it == command || it.match?(command)
+      }.map { |_,it| it }.first
+      if on_command
+        if on_command[:raise_error]
           raise Brut::CLI::SystemExecError.new(command,1)
-        elsif @on_commands[command][:output]
-          output = @on_commands[command][:output]
-          yield(output)
+        elsif on_command[:output]
+          output = on_command[:output]
+          if block_given?
+            yield(output)
+          else
+            @out.puts output
+          end
         end
       end
       nil
