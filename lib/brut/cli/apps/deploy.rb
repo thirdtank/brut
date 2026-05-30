@@ -178,9 +178,12 @@ class Brut::CLI::Apps::Deploy < Brut::CLI::Commands::BaseCommand
       end
     end
   end
-  module DockerCompose
+  class DockerCompose < Brut::CLI::Commands::BaseCommand
+    def default_rack_env = "development"
+    def description = "Manage a docker-compose.yml file to be consistent with your deploy config"
     class Check < Brut::CLI::Commands::BaseCommand
       def description = "Check if the existing docker-compose.yml is consistent with the deploy config"
+      def default_rack_env = "development"
       def run
         docker_compose_path = Brut.container.project_root / "deploy" / "docker-compose.yml"
         if !docker_compose_path.exist?
@@ -265,6 +268,7 @@ class Brut::CLI::Apps::Deploy < Brut::CLI::Commands::BaseCommand
     end
     class Generate < Brut::CLI::Commands::BaseCommand
       def description = "Generate or update the existing docker-compose.yml based on current deploy config"
+      def default_rack_env = "development"
       def run
         docker_compose_path = Brut.container.project_root / "deploy" / "docker-compose.yml"
         deploy_config_path = Brut.container.project_root / "deploy" / "deploy_config.rb"

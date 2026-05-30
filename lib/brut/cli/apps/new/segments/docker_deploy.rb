@@ -8,8 +8,7 @@ class Brut::CLI::Apps::New::Segments::DockerDeploy < Brut::CLI::Apps::New::Base
   end
 
   def add!
-    operations = copy_files(@templates_dir, @project_root) + 
-                 other_operations
+    operations = copy_files(@templates_dir, @project_root)
 
     operations.each do |operation|
       operation.call
