@@ -6,17 +6,20 @@ ROOT_DIR=$(realpath "$SCRIPT_DIR/..")
 
 main() {
 
+  log "Checking that Git is clean"
   require_git_clean
+  log "Checking that versions of all artifacts match"
   detect_gem_version
   require_versions_match
   log "Building all artifacts and docs"
-  exit
   bin/build
 
   log "Releasing Gem"
   rake release
+  log "Release Node modules"
   release_node_packages
   wait_for_rubygems
+  log "Building Docker image for brut CLI"
   bin/build-docker-image -g "${GEM_VERSION}" -p
 }
 
