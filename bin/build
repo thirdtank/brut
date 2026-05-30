@@ -3,33 +3,12 @@
 require "optparse"
 require "pathname"
 require "fileutils"
-require "json"
 require_relative "bin_kit"
 
 def main
 
   brutjs_dir  = (Pathname(__FILE__).dirname / ".." / "brut-js" ).expand_path.to_s
   brutcss_dir = (Pathname(__FILE__).dirname / ".." / "brut-css" ).expand_path.to_s
-
-  require_relative "../lib/brut/version"
-
-  brut_js_package_json  = JSON.parse(File.read("#{brutjs_dir}/package.json"))
-  brut_css_package_json = JSON.parse(File.read("#{brutcss_dir}/package.json"))
-
-  brut_version     = Brut::VERSION.strip
-  brut_js_version  = brut_js_package_json["version"].strip
-  brut_css_version = brut_css_package_json["version"].strip
-
-  if [ brut_version, brut_js_version, brut_css_version ].uniq.size != 1
-    log "Some versions are mismatched!  All versions should be the same to build and release"
-    puts
-    log sprintf("BrutRb:  %10s from lib/brut/version.rb", brut_version)
-    log sprintf("BrutJS:  %10s from brut-js/package.json", brut_js_version)
-    log sprintf("BrutCSS: %10s from brut-css/package.json", brut_css_version)
-    exit 1
-  else
-    log "Building v#{brut_version} of all artifacts"
-  end
 
   log "Building brut gem"
   system!("bin/rake build")

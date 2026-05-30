@@ -6,7 +6,9 @@ ROOT_DIR=$(realpath "$SCRIPT_DIR/..")
 
 main() {
 
+  log "Checking that Git is clean"
   require_git_clean
+  log "Checking that versions of all artifacts match"
   detect_gem_version
   require_versions_match
   log "Building all artifacts and docs"
@@ -14,8 +16,10 @@ main() {
 
   log "Releasing Gem"
   rake release
+  log "Release Node modules"
   release_node_packages
   wait_for_rubygems
+  log "Building Docker image for brut CLI"
   bin/build-docker-image -g "${GEM_VERSION}" -p
 }
 
@@ -67,7 +71,6 @@ wait_for_rubygems() {
 
 
 require_git_clean() {
-  git diff --quiet --exit-code HEAD --
   if git diff --quiet --exit-code HEAD --; then
     log "Git working directory is clean"
   else
@@ -79,18 +82,28 @@ require_git_clean() {
 detect_gem_version() {
 
   GEM_VERSION=$( rake -T | grep "rake install " | sed 's/^.*brut-//g' | sed 's/\.gem.*$//g')
+  PRE_RELEASE=false
   if [[ "$GEM_VERSION" =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
+    NPM_VERSION="${GEM_VERSION}"
     log "Releasing version ${GEM_VERSION}"
   else
-    log "Version '${GEM_VERSION}' does not look like a version: X.Y.Z"
-    exit 1
+    if [[ "$GEM_VERSION" =~ ^[0-9]+\.[0-9]+\.[0-9]+\.pre\.[0-9]+$ ]]; then
+      PRE_RELEASE=true
+    NPM_VERSION="${GEM_VERSION//.pre./-pre.}"
+      log "Releasing pre-release version ${GEM_VERSION}"
+    else
+      log "Version '${GEM_VERSION}' does not look like a version: X.Y.Z"
+      exit 1
+    fi
   fi
 }
 
 require_versions_match() {
   local brutjs_version=$(ruby -rjson -e "puts JSON.parse(File.read('brut-js/package.json')).fetch('version')")
   local brutcss_version=$(ruby -rjson -e "puts JSON.parse(File.read('brut-css/package.json')).fetch('version')")
-  if [ $GEM_VERSION != $brutjs_version ] || [ $GEM_VERSION != $brutcss_version ]; then
+  # Note that due to how NPM_VERSION is created, we implicitly know that GEM_VERSION and NPM_VERSION
+  # is consistent
+  if [ $NPM_VERSION != $brutjs_version ] || [ $NPM_VERSION != $brutcss_version ]; then
     log "Version mismatch detected:"
     log "  brut gem version              : $GEM_VERSION"
     log "  brut-js package.json version  : $brutjs_version"
