@@ -52,12 +52,14 @@ wait_for_rubygems() {
   elapsed=0
 
   log "Waiting ${timeout} seconds for brut $GEM_VERSION to be available on RubyGems"
-  log "This is because the Docker image requires installing the gem"
+  log "(This is because the Docker image requires installing the gem)"
   while (( elapsed < timeout )); do
-    if gem list -r "brut" -a | grep -q "$GEM_VERSION"; then
+    log "Running gem list to see if it's there"
+    if gem list -r "^brut$" -a --prerelease | grep -q "$GEM_VERSION"; then
       log "brut $GEM_VERSION is available on RubyGems"
       return 0
     fi
+    log "Not there yet, going to sleep for $interval seconds"
     sleep $interval
     (( elapsed += interval ))
   done
