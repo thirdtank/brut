@@ -130,7 +130,7 @@ Runs all end-to-end tests for the app, or runs a subset of end-to-end tests usin
       options.set_default(:"build-assets", true)
       if options.build_assets?
         Bundler.with_unbundled_env do
-          system!({ "RACK_ENV" => "test" }, "brut build-assets all")
+          system!("brut build-assets all --env=test")
         end
       end
       execution_context.executor.system!({ "NODE_DISABLE_COLORS" => "1" },"npx mocha #{Brut.container.js_specs_dir} --no-color --extension 'spec.js' --recursive")
