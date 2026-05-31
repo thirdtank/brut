@@ -12,7 +12,10 @@
     "url": "https://github.com/thirdtank/brut/issues",
     "email": "davec@naildrivin5.com"
   },
-  "repository": "https://github.com/thirdtank/brut",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/thirdtank/brut.git"
+  },
   "type": "module",
   "devDependencies": {
     "comment-parser": "^1.4.1",

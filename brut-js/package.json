@@ -14,7 +14,10 @@
     ".": "./src/index.js",
     "./testing": "./src/testing/index.js"
   },
-  "repository": "https://github.com/thirdtank/brut",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/thirdtank/brut.git"
+  },
   "author": {
     "name": "David Copeland",
     "email": "davec@naildrivin5.com",
