@@ -15,4 +15,3 @@ Drop, re-create, and run migrations, effecitvely rebuilding the entire database
 * `--log-file=FILE` - Path to a file where log messages are written. Defaults to $XDG_CACHE_HOME/brut/logs/brut.log
 * `--[no-]log-stdout` - Log messages to stdout in addition to the log file
 * `--help, -h` - Show help
-* `--seed` - Load seed data after rebuild
