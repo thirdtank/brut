@@ -18,7 +18,7 @@ class Brut::CLI::Commands::CompoundCommand < Brut::CLI::Commands::BaseCommand
   # methods on the passed `execution_context`.  Methods like `puts`, `system!`, and `options` **will not work** here
   # since they assume an ivar named `@execution_context` has been set.
   def execute(execution_context)
-    commands(execution_context).each do |command|
+    sub_commands(execution_context).each do |command|
       execute_result = Brut::CLI::ExecuteResult.new do
         delegate_to_command(command,execution_context)
       end
@@ -39,5 +39,5 @@ class Brut::CLI::Commands::CompoundCommand < Brut::CLI::Commands::BaseCommand
   #        to return.
   #
   # @return [Array<Brut::CLI::Commands::BaseCommand>]
-  def commands(execution_context) = @commands
+  def sub_commands(execution_context) = @commands
 end

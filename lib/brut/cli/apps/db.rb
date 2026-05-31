@@ -282,7 +282,7 @@ class Brut::CLI::Apps::DB < Brut::CLI::Commands::BaseCommand
     def opts = [
       [ "--seed", "Load seed data after rebuild" ]
     ]
-    def commands(execution_context)
+    def sub_commands(execution_context)
       default_commands = [
         Drop.new,
         Create.new,
