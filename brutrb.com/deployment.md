@@ -82,9 +82,7 @@ If you already created your app, you can add this segement via:
 brut new segment docker-deploy
 ```
 
-Brut also provides a more generic method of deployment using Docker images and Docker registries. Under
-this method, you author a `Dockerfile` which is then used to build an image whose name is based on your
-app's org and id, as well as the current SHA-1 of your Git Repo.  This image is then pushed to a
+This segment provides a more generic method of deployment using Docker images and Docker registries. Under this method, you author a `Dockerfile` which is then used to build an image whose name is based on your app's org and id (as defined in your subclass of `Brut::Framework::App`), as well as the current SHA-1 of your git repo.  This image is then pushed to a
 registry of your choice.  After that push, you are on your own to pull it down somewhere.
 
 ```bash
@@ -101,6 +99,43 @@ class AppDeployConfig < Brut::CLI::Apps::Deploy::DeployConfig
 end
 ```
 
+#### Management of a `docker-compose.yml`
+
+If you want to use Docker Compose in production, Brut can assist with managing the `docker-compose.yml`
+file.
+
+```bash
+brut deploy docker_compose generate
+```
+
+This will create a `deploy/docker-compose.yml` if one is not there.  It will have default settings that
+have worked for me, but you should review this file and make sure it's correct.
+
+If the file **is** there, Brut will make it consistent with your `deploy/deploy_config.rb` file:
+
+* Any service in `docker-compose.yml` that is not part of your config is removed
+* Any service *not* in `docker-compose.yml` will be added
+* Services in both `docker-compose.yml` and your config will be updated in `docker-compose.yml` as
+follows:
+  - `command:` will be set to the command in your config
+  - `image:` will be set to `REGISTRY/ORG/APP_ID:${DOCKER_IMAGE_TAG}`, where `REGISTRY` is the value
+  from your deploy config and `ORG` and `APP_ID` are from your `App` class.  Your production
+  environment is expected to set `DOCKER_IMAGE_TAG` in the UNIX environment.  This is because Brut's
+  `brut deploy docker` implementation does not use `latest`, since `latest` in Docker-land is
+  absolutely cursed.
+
+Instead of changing the file, you can check its consistency first:
+
+```bash
+brut deploy docker_compose check
+```
+
+This will output differences between what `generate` would do and what exists.
+
+> [!NOTE]
+> Brut assumes your `deploy/docker-compose.yml` is to be checked in, so if you use
+> `brut deploy docker_compose generate` to update it, you must commit and push
+> that change to use `brut deploy docker`.
 
 ### Other Mechanisms for Deployment
 
@@ -110,8 +145,6 @@ As a Rack app, other deployments should be possible.  To make the app work, you'
 * `brut build-assets` will build all assets by default.  This must either be done on production servers or done ahead of time and the results packaged with the app.
 * `brut build-assets` outputs files in `app/public` and `app/config`.  Those files are used at runtime.  Brut **will not** initiate the build of any assets.
 * If you are going to build assets on production servers, you *must* included developer tooling. This means NodeJS, all modules in `package.json` and all RubyGems in `Gemfile`.
-
-The `deploy/Dockerfile` created by `brut new --segment-heroku` is not very Heroku-specific and could serve as a reference.
 
 ## Testing
 

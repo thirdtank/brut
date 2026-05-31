@@ -1,11 +1,11 @@
-# `brut scaffold form`
+# `brut deploy docker_compose`
 
-Create a form and handler
+Manage a docker-compose.yml file to be consistent with your deploy config
 
 
 ## USAGE
 
-    brut scaffold form [options] form_route
+    brut deploy docker_compose [options] command
 
 
 ## OPTIONS
@@ -15,6 +15,12 @@ Create a form and handler
 * `--log-file=FILE` - Path to a file where log messages are written. Defaults to $XDG_CACHE_HOME/brut/logs/brut.log
 * `--[no-]log-stdout` - Log messages to stdout in addition to the log file
 * `--help, -h` - Show help
-* `--overwrite` - If set, any files that exists already will be overwritten by new scaffolds
-* `--dry-run` - If set, no files are changed. You will see output of what would happen without this flag
-* `--http-method=METHOD` - If present, the action will be a path available on the given route and this HTTP method. If omitted, this will create an action available via POST
+
+## COMMANDS
+
+### [`check`](./commands/check)
+
+Check if the existing docker-compose.yml is consistent with the deploy config
+### [`generate`](./commands/generate)
+
+Generate or update the existing docker-compose.yml based on current deploy config

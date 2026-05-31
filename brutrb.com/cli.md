@@ -70,9 +70,15 @@ end
 
 #### Implementing Logic
 
-Inside `run`, you can put whatever code you need to make your CLI work. Your CLI will require itself
-to be in one of roughly three states: 1) Brut not configured nor bootstrapped, 2) Brut configured, but
-not bootstrapped, 3) Brut full bootstrapped.
+Inside `run`, you can put whatever code you need to make your CLI work. Your CLI will need to be run in
+one of three possible states:
+
+1. Brut not configured nor bootstrapped
+2. Brut configured, but not bootstrapped, e.g. you could access the database URL, but the connection to
+   the database would not have been accessed and the database doesn't have to be up.
+3. Brut fully bootstrapped.
+
+Based on what you need, you will need to implement methods in your command.
 
 | Configured? | Bootstrapped? | Code | Why |
 | ---         | ---           | ---  | --- |
@@ -85,6 +91,9 @@ If your CLI is not going to access any of your business logic and isn't going to
 *must* define an environment either on the command line or by default.  If you need to access business
 logic, you will need Brut fully bootstrapped, so you must *also* defined `bootstrap?` to return true.
 
+> [!NOTE]
+> `default_rack_env`  and `bootstrap?` apply to each command separately. You cannot specify these
+> concepts for your entire CLI.
 
 ::: code-group
 
@@ -154,6 +163,26 @@ methods:
 
 You are encourged to use these and not e.g. `ENV` or `$stdin`.
 
+```ruby
+
+# WRONG
+def run
+  admin = ENV["ADMIN_EMAIL"]
+  $stdout.puts "Admin is #{admin}"
+end
+
+# CORRECT
+def run
+  admin = env["ADMIN_EMAIL"]
+  puts "Admin is #{admin}"
+end
+
+# OK, BUT TOO VERBOSE
+def run
+  admin = @execution_context.env["ADMIN_EMAIL"]
+  @execution_context.stdout.puts "Admin is #{admin}"
+end
+```
 
 ### Subcommands
 
@@ -236,6 +265,7 @@ class NotificationsCLI < Brut::CLI::Commands::BaseCommand
 
   def description = "Manages app notifications"
 
+  # Allows bin/notifications to be the same as bin/notifications email
   def run = delegate_to_command(Email.new)
 
   # bin/notifications email
@@ -322,9 +352,7 @@ Otherwise, including it in the CLI class should be fine, since it can be tested 
 
 Your CLI classes can be tested conventionally by instantiating them, however you should not call
 `run`, but instead call `execute`, which accepts a `Brut::CLI::ExecutionContext`.  If your test
-includes `Brut::SpecSupport::CLICommandSupport`, the method `test_execution_context` should be used to
-create an `ExecutionContext`.
-
+includes `cli_command: true` in its metadata, or includes `Brut::SpecSupport::CLICommandSupport`, the method `test_execution_context` should be used to create an `ExecutionContext`.
 
 By default, it will set it up with reasonable values, but you can override them as you need to.
 For example, you may want to pass a `StringIO` in for `stdout:` to examine the standard output.
@@ -335,14 +363,45 @@ external commands and simply capture them. `have_executed` is a way you can chec
 execute for real:
 
 ```ruby
-expect(execution_context).to have_executed([
-    "rsync --archive --verbose \"/images/src/\" \"/images/root\"",
-  ])
+RSpec.describe NotificationsCLI, cli_command: true do
+
+  it "should run rsync" do
+    execution_context = test_execution_context
+
+    result = described_class.new.execute(execution_context)
+
+    expect(execution_context).to have_executed([
+      "rsync --archive --verbose \"/images/src/\" \"/images/root\"",
+    ])
+  end
 end
 ```
 
 ## Technical Notes
 
-The CLI subsystem was rewritten in early 2026.
+> [!IMPORTANT]
+> Technical Notes are for deeper understanding and debugging. While we will try to keep them up-to-date with changes to Brut's
+> internals, the source code is always more correct.
 
-_Last Updated Mar 14, 2026_
+_Last Updated May 31, 2026_
+
+CLIs use the standard library's `OptionParser` internally, and much of the API mirrors that API.  
+
+Bootstrapping can be more clearly understood by examining the `Bootstrap` class `brut new` generated in
+your app.  Currently, the three stages work like so:
+
+1. **Not configured, nor bootstrapped.** Brut and Bundler have not been required, none of your app's
+   gems are available.  This stage is as if you are running a plain Ruby script.
+2. **Configured, not bootstrapped.** Brut and Bundler have been required. Your gems are available. Your
+   `App` has been required and your app's source code can be accessed. Nothing is set up beyond
+   configuration values being available.  External data stores have not been connected-to. The
+   underlying Sinatra app is not be created nor configured. Routes aren't available.  Any attempt to
+   use business logic will probably fail.
+
+   This mode is useful if you need access to configuration values to perform tasks that must work
+   without external services. For example `brut db create` requires configuration but not
+   bootstrapping, since it is going to create the database.
+3. **Configured, bootstrapped.** Everything is set up, databases have been connected-to, etc.  While
+   your app isn't running to receive HTTP requests, it's almost identical to that situation. You want
+   to be in this state if your CLI is going to invoke business logic.  This is the equivalent of a
+   Rails rake task depending on `:environment`.
