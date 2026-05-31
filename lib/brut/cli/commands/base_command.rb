@@ -46,18 +46,20 @@ class Brut::CLI::Commands::BaseCommand
   def bootstrap? = false
 
   # The default `RACK_ENV` to use for this command.  This value is used when no `RACK_ENV` is present in the UNIX environment
-  # and when `--env` has not been used on the command line. Do note that setting this in an app or parent command does
-  # not translate to the subcommands.
+  # and when `--env` has not been used on the command line. This only applies to the command where
+  # the method is defined and its subclasses. It **does not** apply to subcommands of this command.
+  #
+  # The default value is 'development', mostly because a default of `nil` produces a strange error
+  # message if your intention was to load Brut configuration.
   #
   # @return [String|nil] If nil, Brut configuration will not be loaded and the command will run more or less as if it were a plain
   #         Ruby script.  If a `String`, this value will be set as the `RACK_ENV` if it's not been otherwise specified.
-  def default_rack_env = nil
+  def default_rack_env = "development"
 
   # @return [String] description of this command for use in help output
   def description = ""
 
-  # Returns a more detaile description of the command. This can includes paragraphs which will be maintained, however
-  # any additional formatting is not rendered or used.
+  # Returns a more detaile description of the command. This can includes paragraphs (which will be maintained in the output), however any additional formatting is not rendered or used.
   def detailed_description = nil
 
   # @return [String] description of the arguments this command accepts. Used for documentation only.

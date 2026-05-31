@@ -9,10 +9,7 @@ class Brut::CLI::Apps::Deploy < Brut::CLI::Commands::BaseCommand
   autoload :GitChecks,    "brut/cli/apps/deploy/git_checks"
 
   def name = "deploy"
-
   def description = "Deploy your Brut-powered app to production"
-
-  def default_rack_env = nil
 
   class Docker < Brut::CLI::Commands::BaseCommand
     def description = "Build one docker image to use for all commands in production"
@@ -96,6 +93,7 @@ class Brut::CLI::Apps::Deploy < Brut::CLI::Commands::BaseCommand
         end
       end
     end
+    def default_rack_env = "development"
     def description = "Deploy to Heroku using container-based deployment"
     def opts = [
       [ "--build-only", "Only generate Dockerfiles and build images, do not deploy" ],

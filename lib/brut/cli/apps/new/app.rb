@@ -84,6 +84,8 @@ class Brut::CLI::Apps::New::App < Brut::CLI::Commands::BaseCommand
     ],
   ]
 
+  def default_rack_env = nil
+
   def run
 
     app_name = argv[0]
@@ -262,6 +264,7 @@ class Brut::CLI::Apps::New::App < Brut::CLI::Commands::BaseCommand
 
   class Segment < Brut::CLI::Commands::BaseCommand
     def description = "Add a segement to your app to provide additional pre-configured functionality"
+    def default_rack_env = nil
 
     def args_description = "segment_name"
     

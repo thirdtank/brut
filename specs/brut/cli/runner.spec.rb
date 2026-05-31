@@ -49,6 +49,7 @@ RSpec.describe Brut::CLI::Runner do
       def description = "Sub Command returning a system exec error"
       def name = "sub_sys"
       def opts = []
+      def default_rack_env = nil
       def run
         raise Brut::CLI::SystemExecError.new("ls -l", 20)
       end
@@ -60,6 +61,7 @@ RSpec.describe Brut::CLI::Runner do
       def description = "Sub Command returning a CLI error"
       def name = "sub_clierror"
       def opts = []
+      def default_rack_env = nil
       def run
         raise Brut::CLI::Error.new("OH NOES")
       end
@@ -71,6 +73,7 @@ RSpec.describe Brut::CLI::Runner do
       def description = "Sub Command raising an error"
       def name = "sub_raise"
       def opts = []
+      def default_rack_env = nil
       def run
         raise "OH NOES"
       end
@@ -89,6 +92,7 @@ RSpec.describe Brut::CLI::Runner do
       attr_accessor :commands, :default_command
       def description = "App Command"
       def name = "test_cli_app"
+      def default_rack_env = nil
       def opts
         [
           [ "--verbose" ],
@@ -140,11 +144,10 @@ RSpec.describe Brut::CLI::Runner do
     end
     describe "project environment" do
       context "RACK_ENV is in env" do
-        it "ignores --env and uses the value from env" do
+        it "--env overrides it" do
           env = { "RACK_ENV" => "production" }
           result = runner.run!(["--env=development", "sub_obj"], env)
-          expect(env["RACK_ENV"]).to eq("production")
-          expect(stderr.string).to include("--env ignored")
+          expect(env["RACK_ENV"]).to eq("development")
         end
       end
       context "RACK_ENV is not in env" do

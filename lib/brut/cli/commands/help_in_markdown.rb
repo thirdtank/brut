@@ -1,5 +1,6 @@
 class Brut::CLI::Commands::HelpInMarkdown < Brut::CLI::Commands::BaseCommand
   def description = "Get help for the app or a command, in Markdown"
+  def default_rack_env = "development"
   attr_accessor :option_parser
 
   def initialize(command,option_parser)

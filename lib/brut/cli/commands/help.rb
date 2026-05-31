@@ -1,5 +1,6 @@
 class Brut::CLI::Commands::Help < Brut::CLI::Commands::BaseCommand
   def description = "Get help for the app or a command"
+  def default_rack_env = nil
   attr_accessor :option_parser
 
   def initialize(command,option_parser)
