@@ -50,20 +50,26 @@ Runs all non end-to-end tests for the app, or runs a subset of non-end-to-end te
     def rebuild_after_by_default? = false
 
     def run
-      if options.rebuild?(default: rebuild_by_default?)
-        puts "Rebuilding test database schema"
-        Bundler.with_unbundled_env do
-          system! "brut db rebuild --env=test"
-        end
-      end
+      rebuild_db(before_or_after: :before)
       run_tests
-      if options.rebuild_after?(default: rebuild_after_by_default?)
-        puts "Re-Rebuilding test database schema"
+      rebuild_db(before_or_after: :after)
+      0
+    end
+
+    def rebuild_db(before_or_after:)
+      option, default, verb = if before_or_after == :before
+                          [ :rebuild?, :rebuild_by_default?, "Rebuilding" ]
+                        elsif before_or_after == :after
+                          [ :rebuild_after?, :rebuild_after_by_default?, "Re-rebuilding" ]
+                        else
+                          bug!("before_or_after must be :before or :after")
+                        end
+      if options.send(option, default: self.send(default))
+        puts "#{verb} testing datbase"
         Bundler.with_unbundled_env do
           system! "brut db rebuild --env=test"
         end
       end
-      0
     end
 
   private
@@ -100,9 +106,8 @@ Runs all non end-to-end tests for the app, or runs a subset of non-end-to-end te
 Runs all end-to-end tests for the app, or runs a subset of end-to-end tests using RSpec-style syntax. This will run bin/test-server first, so if that fails for some reason, no tests are run.
     }
 
-  private
-
-    def run_tests
+    def run
+      rebuild_db(before_or_after: :before)
       require "brut/spec_support/e2e_test_server"
       test_server = Brut::SpecSupport::E2ETestServer.new(
         bin_dir: Brut.container.project_root / "bin",
@@ -110,12 +115,15 @@ Runs all end-to-end tests for the app, or runs a subset of end-to-end tests usin
       )
       begin
         test_server.start
-        super
+        run_tests
       ensure
         test_server.stop
+        rebuild_db(before_or_after: :after)
       end
+      0
     end
   end
+
   class Js < Brut::CLI::Commands::BaseCommand
     def default_rack_env = "development"
     def description = "Run JavaScript unit tests"
