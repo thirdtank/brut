@@ -6,7 +6,7 @@ class Brut::CLI::Commands::CompoundCommand < Brut::CLI::Commands::BaseCommand
   # commands will be executed with *this* commands `Brut::CLI::Commands::ExecutionContext`, so these commands
   # should all be able to work with whatever command line arguments and `argv` would be provided.
   #
-  # @param [Array<Brut::CLI::Commands::BaseCommand>|nil] The list of commands to run when
+  # @param [Array<Brut::CLI::Commands::BaseCommand>|nil] commands The list of commands to run when
   #        this command is executed.  If nil, it is assumed you have overriden `commands` to
   #        provide the list dynamically.
   def initialize(commands=nil)
