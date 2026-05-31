@@ -10,10 +10,18 @@ RSpec.describe Brut::CLI::Apps::DB do
   let(:test_container)         { Brut::Framework::Container.new }
   let(:database_server_url)    { "postgres://1.2.3.4" }
   let(:database_name)          { "testing" }
+  let(:project_env)            { "test" }
+  let(:database_url)           { "#{database_server_url}/#{database_name}" }
 
   before do
     allow(Brut).to receive(:container).and_return(test_container)
-    Brut.container.store("database_url", String, "", "#{database_server_url}/#{database_name}")
+    Brut.container.store("database_url", String, "", database_url)
+    Brut.container.store(
+        "project_env",
+        Brut::Framework::ProjectEnvironment,
+        "",
+        Brut::Framework::ProjectEnvironment.new(project_env)
+      )
   end
 
   describe described_class::Status, cli_command: true do
@@ -276,12 +284,36 @@ RSpec.describe Brut::CLI::Apps::DB do
             result = described_class.new.execute(test_execution_context(stdout:))
 
             expect(result).to eq(0)
+            expect(stdout.string).to include(database_url)
             expect(stdout.string).to match(/All migrations have been applied/)
 
             expect(Sequel::Migrator).to have_received(:run).with(Brut.container.sequel_db_handle,
                                                                  Brut.container.migrations_dir)
             expect(sequel_database_handle).to have_received(:extension).with(:brut_migrations)
             expect(sequel_database_handle).to have_received(:extension).with(:pg_array)
+          end
+          context "when in production" do
+            let(:project_env) { "production" }
+            it "does not print the production database's URL" do
+              sequel_database_handle = double("Sequel database handle")
+              Brut.container.store("sequel_db_handle", Object, "", sequel_database_handle)
+              Sequel.extension :migration
+              allow(sequel_database_handle).to receive(:extension)
+              allow(sequel_database_handle).to receive(:logger=)
+              allow(Sequel::Migrator).to receive(:run)
+
+              File.open(Brut.container.migrations_dir / "1-foo.rb", "w") { it.puts "# doesn't matter" }
+              File.open(Brut.container.migrations_dir / "2-bar.rb", "w") { it.puts "# doesn't matter" }
+
+              stdout = StringIO.new
+              result = described_class.new.execute(test_execution_context(stdout:))
+
+              expect(result).to eq(0)
+              expect(stdout.string).not_to include(database_url)
+              expect(stdout.string).to     include("production database")
+              expect(stdout.string).to     match(/All migrations have been applied/)
+
+            end
           end
         end
         context "database cannot be connected-to" do

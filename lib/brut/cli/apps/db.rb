@@ -247,6 +247,14 @@ class Brut::CLI::Apps::DB < Brut::CLI::Commands::BaseCommand
         execution_context.logger.without_stderr,
         self
       )
+      database_description = if Brut.container.project_env.production?
+                               "production database"
+                             else
+                               Brut.container.database_url
+                             end
+      puts theme.header.render("🏗 Applying migrations to #{database_description}")
+
+
       Sequel::Migrator.run(Brut.container.sequel_db_handle,migrations_dir)
       puts theme.success.render("✅ All migrations have been applied")
       0
@@ -263,12 +271,7 @@ class Brut::CLI::Apps::DB < Brut::CLI::Commands::BaseCommand
       ].join(" ")
       1
     rescue Sequel::DatabaseError => ex
-      #if ex.cause.kind_of?(PG::UndefinedTable)
-      #  # ignoring - we are running migrations which will address this
-      #  0
-      #else
-        raise ex
-      #end
+      raise ex
     end
   end
 
@@ -319,7 +322,7 @@ class Brut::CLI::Apps::DB < Brut::CLI::Commands::BaseCommand
       puts theme.exception.render("  #{ex}".strip)
       puts [
         theme.error.render("You can re-load it using"),
-        theme.code.render("brut db rebuild && brut db seed"),
+        theme.code.render("brut db rebuild --seed"),
       ].join(" ")
       1
     end
