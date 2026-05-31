@@ -276,15 +276,24 @@ class Brut::CLI::Apps::DB < Brut::CLI::Commands::BaseCommand
     def description = "Drop, re-create, and run migrations, effecitvely rebuilding the entire database"
     def default_rack_env = "development"
     def bootstrap? = false
-    def initialize
-      super([
+    def opts = [
+      [ "--seed", "Load seed data after rebuild" ]
+    ]
+    def commands(execution_context)
+      default_commands = [
         Drop.new,
         Create.new,
         Migrate.new,
-      ])
+      ]
+      if execution_context.options.seed?
+        default_commands + [ Seed.new ]
+      else
+        default_commands
+      end
     end
   end
 
+  # XXX
 
   class Seed < Brut::CLI::Commands::BaseCommand
     def description = "Load seed data into the database"

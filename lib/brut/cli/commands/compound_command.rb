@@ -5,8 +5,12 @@ class Brut::CLI::Commands::CompoundCommand < Brut::CLI::Commands::BaseCommand
   # Create the compound command with the given list of commands.  Note that these
   # commands will be executed with *this* commands `Brut::CLI::Commands::ExecutionContext`, so these commands
   # should all be able to work with whatever command line arguments and `argv` would be provided.
-  def initialize(commands)
-    @commands = commands
+  #
+  # @param [Array<Brut::CLI::Commands::BaseCommand>|nil] The list of commands to run when
+  #        this command is executed.  If nil, it is assumed you have overriden `commands` to
+  #        provide the list dynamically.
+  def initialize(commands=nil)
+    @commands = commands || []
   end
 
   # Overrides the parent class to call each command in order. Note that if you subclass this class, **`run` is
@@ -14,7 +18,7 @@ class Brut::CLI::Commands::CompoundCommand < Brut::CLI::Commands::BaseCommand
   # methods on the passed `execution_context`.  Methods like `puts`, `system!`, and `options` **will not work** here
   # since they assume an ivar named `@execution_context` has been set.
   def execute(execution_context)
-    @commands.each do |command|
+    commands(execution_context).each do |command|
       execute_result = Brut::CLI::ExecuteResult.new do
         delegate_to_command(command,execution_context)
       end
@@ -24,4 +28,16 @@ class Brut::CLI::Commands::CompoundCommand < Brut::CLI::Commands::BaseCommand
     end
     0
   end
+
+  # Protocol for which commands to run. You can override this to dynamically set which
+  # commands are run based on the parsed command line. Note that you must call
+  # methods like `puts` or `system!` **on the passed `execution_context`**. Do not
+  # call them directly.
+  #
+  # @param [Brut::CLI::ExecutionContext] execution_context the execution context for this
+  #        command. You can use this to examine e.g. CLI options to determine which commands
+  #        to return.
+  #
+  # @return [Array<Brut::CLI::Commands::BaseCommand>]
+  def commands(execution_context) = @commands
 end
