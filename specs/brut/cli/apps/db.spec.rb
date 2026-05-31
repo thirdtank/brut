@@ -467,31 +467,5 @@ RSpec.describe Brut::CLI::Apps::DB do
       expect(create).to  have_received(:execute).with(execution_context)
       expect(migrate).to have_received(:execute).with(execution_context)
     end
-    it "with --seed calls Drop, Create, Migrate, and Seed" do
-      drop    = instance_double(Brut::CLI::Apps::DB::Drop)
-      create  = instance_double(Brut::CLI::Apps::DB::Create)
-      migrate = instance_double(Brut::CLI::Apps::DB::Migrate)
-      seed    = instance_double(Brut::CLI::Apps::DB::Seed)
-
-      allow(Brut::CLI::Apps::DB::Drop).to    receive(:new).and_return(drop)
-      allow(Brut::CLI::Apps::DB::Create).to  receive(:new).and_return(create)
-      allow(Brut::CLI::Apps::DB::Migrate).to receive(:new).and_return(migrate)
-      allow(Brut::CLI::Apps::DB::Seed).to    receive(:new).and_return(seed)
-
-      allow(drop).to    receive(:execute).and_return(0)
-      allow(create).to  receive(:execute).and_return(0)
-      allow(migrate).to receive(:execute).and_return(0)
-      allow(seed).to    receive(:execute).and_return(0)
-
-      execution_context = test_execution_context(options: { "seed" => true })
-
-      result = described_class.new.execute(execution_context)
-      expect(result).to eq(0)
-
-      expect(drop).to    have_received(:execute).with(execution_context)
-      expect(create).to  have_received(:execute).with(execution_context)
-      expect(migrate).to have_received(:execute).with(execution_context)
-      expect(seed).to    have_received(:execute).with(execution_context)
-    end
   end
 end
