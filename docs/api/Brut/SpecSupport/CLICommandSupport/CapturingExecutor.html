@@ -106,7 +106,9 @@
     <p>A subclass of <span class='object_link'><a href="../../CLI/Executor.html" title="Brut::CLI::Executor (class)">CLI::Executor</a></span> that remembers the commands it was asked to execute, instead of
 actually executing them.  This allows inspection later to see if expected commands had been run.</p>
 
-<p>This is used by the <code>have_executed</code> matcher.</p>
+<p>This is used by the <code>have_executed</code> matcher.  It also is useful when yielding a block to
+<code>test_execution_context</code> so that you can configure command line executions to raise errors or
+provide specific output.</p>
 
 
   </div>
@@ -165,6 +167,54 @@ actually executing them.  This allows inspection later to see if expected comman
         <li class="public ">
   <span class="summary_signature">
     
+      <a href="#initialize-instance_method" title="#initialize (instance method)">#<strong>initialize</strong>  &#x21d2; CapturingExecutor </a>
+    
+
+    
+  </span>
+  
+  
+    <span class="note title constructor">constructor</span>
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>A new instance of CapturingExecutor.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#on_command-instance_method" title="#on_command (instance method)">#<strong>on_command</strong>(command, raise_error: false, output: nil)  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>Configure the behavior of a specific command.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
       <a href="#system!-instance_method" title="#system! (instance method)">#<strong>system!</strong>(*args)  &#x21d2; Object </a>
     
 
@@ -198,11 +248,51 @@ actually executing them.  This allows inspection later to see if expected comman
   
   
   <h3 class="inherited">Methods inherited from <span class='object_link'><a href="../../CLI/Executor.html" title="Brut::CLI::Executor (class)">CLI::Executor</a></span></h3>
-  <p class="inherited"><span class='object_link'><a href="../../CLI/Executor.html#initialize-instance_method" title="Brut::CLI::Executor#initialize (method)">#initialize</a></span>, <span class='object_link'><a href="../../CLI/Executor.html#system-instance_method" title="Brut::CLI::Executor#system (method)">#system</a></span></p>
+  <p class="inherited"><span class='object_link'><a href="../../CLI/Executor.html#system-instance_method" title="Brut::CLI::Executor#system (method)">#system</a></span></p>
 <div id="constructor_details" class="method_details_list">
   <h2>Constructor Details</h2>
   
-    <p class="notice">This class inherits a constructor from <span class='object_link'><a href="../../CLI/Executor.html#initialize-instance_method" title="Brut::CLI::Executor#initialize (method)">Brut::CLI::Executor</a></span></p>
+    <div class="method_details first">
+  <h3 class="signature first" id="initialize-instance_method">
+  
+    #<strong>initialize</strong>  &#x21d2; <tt><span class='object_link'><a href="" title="Brut::SpecSupport::CLICommandSupport::CapturingExecutor (class)">CapturingExecutor</a></span></tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>Returns a new instance of CapturingExecutor.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+15
+16
+17
+18</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/brut/spec_support/cli_command_support.rb', line 15</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_initialize'>initialize</span><span class='lparen'>(</span><span class='op'>...</span><span class='rparen'>)</span>
+  <span class='kw'>super</span>
+  <span class='ivar'>@on_commands</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
   
 </div>
 
@@ -236,12 +326,12 @@ actually executing them.  This allows inspection later to see if expected comman
       <pre class="lines">
 
 
-12
-13
-14</pre>
+14
+15
+16</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/brut/spec_support/cli_command_support.rb', line 12</span>
+      <pre class="code"><span class="info file"># File 'lib/brut/spec_support/cli_command_support.rb', line 14</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_commands_executed'>commands_executed</span>
   <span class='ivar'>@commands_executed</span>
@@ -259,7 +349,109 @@ actually executing them.  This allows inspection later to see if expected comman
 
     
       <div class="method_details first">
-  <h3 class="signature first" id="system!-instance_method">
+  <h3 class="signature first" id="on_command-instance_method">
+  
+    #<strong>on_command</strong>(command, raise_error: false, output: nil)  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>Configure the behavior of a specific command. This must be called before any
+command line commands are invoked.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>command</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>the <em>exact</em> command line invocation you want to configure.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>raise_error</span>
+      
+      
+        <span class='type'>(<tt>false|true</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>false</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'><p>if true, an execption is raised when this command is executed.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>output</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>nil</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'><p>if not-nil, this output is produced by the command.</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+51
+52
+53
+54
+55
+56
+57</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/brut/spec_support/cli_command_support.rb', line 51</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_on_command'>on_command</span><span class='lparen'>(</span><span class='id identifier rubyid_command'>command</span><span class='comma'>,</span> <span class='label'>raise_error:</span> <span class='kw'>false</span><span class='comma'>,</span> <span class='label'>output:</span> <span class='kw'>nil</span><span class='rparen'>)</span>
+  <span class='kw'>if</span> <span class='id identifier rubyid_raise_error'>raise_error</span>
+    <span class='ivar'>@on_commands</span><span class='lbracket'>[</span><span class='id identifier rubyid_command'>command</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='lbrace'>{</span> <span class='label'>raise_error:</span> <span class='rbrace'>}</span>
+  <span class='kw'>elsif</span> <span class='id identifier rubyid_output'>output</span>
+    <span class='ivar'>@on_commands</span><span class='lbracket'>[</span><span class='id identifier rubyid_command'>command</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='lbrace'>{</span> <span class='label'>output:</span> <span class='rbrace'>}</span>
+  <span class='kw'>end</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="system!-instance_method">
   
     #<strong>system!</strong>(*args)  &#x21d2; <tt>Object</tt> 
   
@@ -273,25 +465,57 @@ actually executing them.  This allows inspection later to see if expected comman
       <pre class="lines">
 
 
-13
-14
-15
-16
-17
-18
 19
 20
-21</pre>
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/brut/spec_support/cli_command_support.rb', line 13</span>
+      <pre class="code"><span class="info file"># File 'lib/brut/spec_support/cli_command_support.rb', line 19</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_system!'>system!</span><span class='lparen'>(</span><span class='op'>*</span><span class='id identifier rubyid_args'>args</span><span class='rparen'>)</span>
   <span class='ivar'>@commands_executed</span> <span class='op'>||=</span> <span class='lbracket'>[</span><span class='rbracket'>]</span>
-  <span class='kw'>if</span> <span class='id identifier rubyid_args'>args</span><span class='period'>.</span><span class='id identifier rubyid_length'>length</span> <span class='op'>==</span> <span class='int'>1</span>
-    <span class='ivar'>@commands_executed</span> <span class='op'>&lt;&lt;</span> <span class='id identifier rubyid_args'>args</span><span class='lbracket'>[</span><span class='int'>0</span><span class='rbracket'>]</span>
-  <span class='kw'>else</span>
-    <span class='ivar'>@commands_executed</span> <span class='op'>&lt;&lt;</span> <span class='id identifier rubyid_args'>args</span>
+  <span class='id identifier rubyid_command'>command</span> <span class='op'>=</span> <span class='kw'>if</span> <span class='id identifier rubyid_args'>args</span><span class='period'>.</span><span class='id identifier rubyid_length'>length</span> <span class='op'>==</span> <span class='int'>1</span>
+              <span class='id identifier rubyid_args'>args</span><span class='lbracket'>[</span><span class='int'>0</span><span class='rbracket'>]</span>
+            <span class='kw'>else</span>
+              <span class='id identifier rubyid_args'>args</span>
+            <span class='kw'>end</span>
+  <span class='ivar'>@commands_executed</span> <span class='op'>&lt;&lt;</span> <span class='id identifier rubyid_command'>command</span>
+  <span class='id identifier rubyid_on_command'>on_command</span> <span class='op'>=</span> <span class='ivar'>@on_commands</span><span class='period'>.</span><span class='id identifier rubyid_select'>select</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_it'>it</span><span class='comma'>,</span><span class='id identifier rubyid__'>_</span><span class='op'>|</span>
+    <span class='id identifier rubyid_it'>it</span> <span class='op'>==</span> <span class='id identifier rubyid_command'>command</span> <span class='op'>||</span> <span class='id identifier rubyid_it'>it</span><span class='period'>.</span><span class='id identifier rubyid_match?'>match?</span><span class='lparen'>(</span><span class='id identifier rubyid_command'>command</span><span class='rparen'>)</span>
+  <span class='rbrace'>}</span><span class='period'>.</span><span class='id identifier rubyid_map'>map</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid__'>_</span><span class='comma'>,</span><span class='id identifier rubyid_it'>it</span><span class='op'>|</span> <span class='id identifier rubyid_it'>it</span> <span class='rbrace'>}</span><span class='period'>.</span><span class='id identifier rubyid_first'>first</span>
+  <span class='kw'>if</span> <span class='id identifier rubyid_on_command'>on_command</span>
+    <span class='kw'>if</span> <span class='id identifier rubyid_on_command'>on_command</span><span class='lbracket'>[</span><span class='symbol'>:raise_error</span><span class='rbracket'>]</span>
+      <span class='id identifier rubyid_raise'>raise</span> <span class='const'><span class='object_link'><a href="../../../Brut.html" title="Brut (module)">Brut</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../../CLI.html" title="Brut::CLI (module)">CLI</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../../CLI/SystemExecError.html" title="Brut::CLI::SystemExecError (class)">SystemExecError</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="../../CLI/SystemExecError.html#initialize-instance_method" title="Brut::CLI::SystemExecError#initialize (method)">new</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_command'>command</span><span class='comma'>,</span><span class='int'>1</span><span class='rparen'>)</span>
+    <span class='kw'>elsif</span> <span class='id identifier rubyid_on_command'>on_command</span><span class='lbracket'>[</span><span class='symbol'>:output</span><span class='rbracket'>]</span>
+      <span class='id identifier rubyid_output'>output</span> <span class='op'>=</span> <span class='id identifier rubyid_on_command'>on_command</span><span class='lbracket'>[</span><span class='symbol'>:output</span><span class='rbracket'>]</span>
+      <span class='kw'>if</span> <span class='id identifier rubyid_block_given?'>block_given?</span>
+        <span class='kw'>yield</span><span class='lparen'>(</span><span class='id identifier rubyid_output'>output</span><span class='rparen'>)</span>
+      <span class='kw'>else</span>
+        <span class='ivar'>@out</span><span class='period'>.</span><span class='id identifier rubyid_puts'>puts</span> <span class='id identifier rubyid_output'>output</span>
+      <span class='kw'>end</span>
+    <span class='kw'>end</span>
   <span class='kw'>end</span>
   <span class='kw'>nil</span>
 <span class='kw'>end</span></pre>
@@ -305,7 +529,7 @@ actually executing them.  This allows inspection later to see if expected comman
 </div>
 
       <div id="footer">
-  Generated on Thu May  7 20:30:57 2026 by
+  Generated on Sun May 31 19:55:08 2026 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.37 (ruby-3.4.8).
 </div>

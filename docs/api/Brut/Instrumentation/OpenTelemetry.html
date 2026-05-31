@@ -209,6 +209,29 @@ OpenTelemetry ruby library directly.  You probably wouldn't want to, anyway.</p>
         <li class="public ">
   <span class="summary_signature">
     
+      <a href="#current_trace_id-instance_method" title="#current_trace_id (instance method)">#<strong>current_trace_id</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>Returns a trace ID for the current request/span.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
       <a href="#record_and_reraise_exception!-instance_method" title="#record_and_reraise_exception! (instance method)">#<strong>record_and_reraise_exception!</strong>(ex, attributes = nil)  &#x21d2; Object </a>
     
 
@@ -479,6 +502,44 @@ If you need to set standard attributes, you should use <span class='object_link'
     <span class='const'><span class='object_link'><a href="OpenTelemetry/NormalizedAttributes.html" title="Brut::Instrumentation::OpenTelemetry::NormalizedAttributes (class)">NormalizedAttributes</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="OpenTelemetry/NormalizedAttributes.html#initialize-instance_method" title="Brut::Instrumentation::OpenTelemetry::NormalizedAttributes#initialize (method)">new</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_prefix'>prefix</span><span class='comma'>,</span><span class='id identifier rubyid_attributes'>attributes</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_to_h'><span class='object_link'><a href="OpenTelemetry/NormalizedAttributes.html#to_h-instance_method" title="Brut::Instrumentation::OpenTelemetry::NormalizedAttributes#to_h (method)">to_h</a></span></span>
   <span class='rparen'>)</span>
 <span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="current_trace_id-instance_method">
+  
+    #<strong>current_trace_id</strong>  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>Returns a trace ID for the current request/span.  This is useful if you
+need to connect the current OTel request/trace with another system, such
+as error reporting.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+95</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/brut/instrumentation/open_telemetry.rb', line 95</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_current_trace_id'>current_trace_id</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="" title="Brut::Instrumentation::OpenTelemetry (class)">OpenTelemetry</a></span></span><span class='op'>::</span><span class='const'>Trace</span><span class='period'>.</span><span class='id identifier rubyid_current_span'>current_span</span><span class='period'>.</span><span class='id identifier rubyid_context'>context</span><span class='period'>.</span><span class='id identifier rubyid_hex_trace_id'>hex_trace_id</span></pre>
     </td>
   </tr>
 </table>
@@ -856,7 +917,7 @@ the span so you can call further methods on it.</p>
 </div>
 
       <div id="footer">
-  Generated on Thu May  7 20:30:57 2026 by
+  Generated on Sun May 31 19:55:07 2026 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.37 (ruby-3.4.8).
 </div>

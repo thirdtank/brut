@@ -458,7 +458,11 @@
 50
 51
 52
-53</pre>
+53
+54
+55
+56
+57</pre>
     </td>
     <td>
       <pre class="code"><span class="info file"># File 'lib/brut/cli/apps/new/segments/sidekiq.rb', line 43</span>
@@ -467,6 +471,10 @@
   <span class='kw'>if</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_class'>class</span> <span class='op'>==</span> <span class='id identifier rubyid_other'>other</span><span class='period'>.</span><span class='id identifier rubyid_class'>class</span>
     <span class='int'>0</span>
   <span class='kw'>elsif</span> <span class='id identifier rubyid_other'>other</span><span class='period'>.</span><span class='id identifier rubyid_class'>class</span> <span class='op'>==</span> <span class='const'><span class='object_link'><a href="../../../../../Brut.html" title="Brut (module)">Brut</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../../../../CLI.html" title="Brut::CLI (module)">CLI</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../../../Apps.html" title="Brut::CLI::Apps (module)">Apps</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../../New.html" title="Brut::CLI::Apps::New (module)">New</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../Segments.html" title="Brut::CLI::Apps::New::Segments (module)">Segments</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Heroku.html" title="Brut::CLI::Apps::New::Segments::Heroku (class)">Heroku</a></span></span>
+    <span class='comment'># If both herkou and sidekiq segments are activated, we want to do heroku first,
+</span>    <span class='comment'># since Sidekiq will need to modify it.
+</span>    <span class='int'>1</span>
+  <span class='kw'>elsif</span> <span class='id identifier rubyid_other'>other</span><span class='period'>.</span><span class='id identifier rubyid_class'>class</span> <span class='op'>==</span> <span class='const'><span class='object_link'><a href="../../../../../Brut.html" title="Brut (module)">Brut</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../../../../CLI.html" title="Brut::CLI (module)">CLI</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../../../Apps.html" title="Brut::CLI::Apps (module)">Apps</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../../New.html" title="Brut::CLI::Apps::New (module)">New</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../Segments.html" title="Brut::CLI::Apps::New::Segments (module)">Segments</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="DockerDeploy.html" title="Brut::CLI::Apps::New::Segments::DockerDeploy (class)">DockerDeploy</a></span></span>
     <span class='comment'># If both herkou and sidekiq segments are activated, we want to do heroku first,
 </span>    <span class='comment'># since Sidekiq will need to modify it.
 </span>    <span class='int'>1</span>
@@ -534,10 +542,6 @@
       <pre class="lines">
 
 
-55
-56
-57
-58
 59
 60
 61
@@ -645,7 +649,7 @@
 163</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/brut/cli/apps/new/segments/sidekiq.rb', line 55</span>
+      <pre class="code"><span class="info file"># File 'lib/brut/cli/apps/new/segments/sidekiq.rb', line 59</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_other_operations'>other_operations</span>
   <span class='lbracket'>[</span>
@@ -741,16 +745,12 @@ end
       <span class='label'>code:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>@sidekiq_segment.boot!</span><span class='tstring_end'>&quot;</span></span>
     <span class='rparen'>)</span><span class='comma'>,</span>
     <span class='const'><span class='object_link'><a href="../../../../../Brut.html" title="Brut (module)">Brut</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../../../../CLI.html" title="Brut::CLI (module)">CLI</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../../../Apps.html" title="Brut::CLI::Apps (module)">Apps</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../../New.html" title="Brut::CLI::Apps::New (module)">New</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../Ops.html" title="Brut::CLI::Apps::New::Ops (module)">Ops</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../Ops/InsertCodeInMethod.html" title="Brut::CLI::Apps::New::Ops::InsertCodeInMethod (class)">InsertCodeInMethod</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="../Ops/InsertCodeInMethod.html#initialize-instance_method" title="Brut::CLI::Apps::New::Ops::InsertCodeInMethod#initialize (method)">new</a></span></span><span class='lparen'>(</span>
-      <span class='label'>file:</span> <span class='id identifier rubyid_project_root'>project_root</span> <span class='op'>/</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>deploy</span><span class='tstring_end'>&quot;</span></span> <span class='op'>/</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>docker_config.rb</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
-      <span class='label'>class_name:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>HerokuConfig</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
-      <span class='label'>method_name:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>additional_images</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+      <span class='label'>file:</span> <span class='id identifier rubyid_project_root'>project_root</span> <span class='op'>/</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>deploy</span><span class='tstring_end'>&quot;</span></span> <span class='op'>/</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>deploy_config.rb</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+      <span class='label'>class_name:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>AppDeployConfig</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+      <span class='label'>method_name:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>additional_processes</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
       <span class='label'>ignore_if_file_not_found:</span> <span class='kw'>true</span><span class='comma'>,</span>
       <span class='label'>code:</span> <span class='tstring'><span class='tstring_beg'>%{</span><span class='tstring_content'>
-{
-&quot;sidekiq&quot; =&gt; {
-  cmd: &quot;bin/run sidekiq&quot;,
-}
-}
+        process_description(&quot;worker&quot;, [ &quot;bundle&quot;, &quot;exec&quot;, &quot;bin/run sidekiq&quot; ])
       </span><span class='tstring_end'>}</span></span><span class='comma'>,</span>
       <span class='label'>where:</span> <span class='symbol'>:end</span>
     <span class='rparen'>)</span><span class='comma'>,</span>
@@ -832,7 +832,7 @@ end
 </div>
 
       <div id="footer">
-  Generated on Thu May  7 20:30:57 2026 by
+  Generated on Sun May 31 19:55:07 2026 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.37 (ruby-3.4.8).
 </div>

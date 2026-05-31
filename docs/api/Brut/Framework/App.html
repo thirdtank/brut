@@ -436,17 +436,17 @@ name (not the class itself) to avoid loading issues.</p>
       <pre class="lines">
 
 
-136
 137
 138
 139
 140
 141
 142
-143</pre>
+143
+144</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/brut/framework/app.rb', line 136</span>
+      <pre class="code"><span class="info file"># File 'lib/brut/framework/app.rb', line 137</span>
 
 <span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_after'>after</span><span class='lparen'>(</span><span class='id identifier rubyid_klass_name'>klass_name</span><span class='op'>=</span><span class='kw'>nil</span><span class='rparen'>)</span>
   <span class='ivar'>@after</span> <span class='op'>||=</span> <span class='lbracket'>[</span><span class='rbracket'>]</span>
@@ -525,17 +525,17 @@ name (not the class itself) to avoid loading issues.</p>
       <pre class="lines">
 
 
-121
 122
 123
 124
 125
 126
 127
-128</pre>
+128
+129</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/brut/framework/app.rb', line 121</span>
+      <pre class="code"><span class="info file"># File 'lib/brut/framework/app.rb', line 122</span>
 
 <span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_before'>before</span><span class='lparen'>(</span><span class='id identifier rubyid_klass_name'>klass_name</span><span class='op'>=</span><span class='kw'>nil</span><span class='rparen'>)</span>
   <span class='ivar'>@before</span> <span class='op'>||=</span> <span class='lbracket'>[</span><span class='rbracket'>]</span>
@@ -587,7 +587,7 @@ would be preferable to instead record an event if you want to have observability
         <span class='name'>condition</span>
       
       
-        <span class='type'>(<tt>Class|Integer|Range&lt;Integer&gt;</tt>)</span>
+        <span class='type'>(<tt>Class|Integer|Range&lt;Integer&gt;|Symbol</tt>)</span>
       
       
         <em class="default">(defaults to: <tt>:catch_all</tt>)</em>
@@ -599,7 +599,8 @@ block will handle the error.  If omitted, this block will handle any error that 
 specific handler configured.  Meaning of values:
 * A class - this is an exception class that, if caught, triggers the handler
 * An integer - this is an HTTP status code that, if returned, triggers the handler
-* A range of integers - this is a range of HTTP status codes that, if returned, triggers the handler</p>
+* A range of integers - this is a range of HTTP status codes that, if returned, triggers the handler
+* If the symbol is <code>:catch_all</code>, this will be used to handle any error not handled by a more specific handler.</p>
 </div>
       
     </li>
@@ -685,7 +686,6 @@ not <code>nil</code>, this value is highly likely to be 500.</p>
       <pre class="lines">
 
 
-64
 65
 66
 67
@@ -716,10 +716,11 @@ not <code>nil</code>, this value is highly likely to be 500.</p>
 92
 93
 94
-95</pre>
+95
+96</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/brut/framework/app.rb', line 64</span>
+      <pre class="code"><span class="info file"># File 'lib/brut/framework/app.rb', line 65</span>
 
 <span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_error'>error</span><span class='lparen'>(</span><span class='id identifier rubyid_condition'>condition</span><span class='op'>=</span><span class='symbol'>:catch_all</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span><span class='rparen'>)</span>
   <span class='ivar'>@error_blocks</span> <span class='op'>||=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span>
@@ -773,10 +774,10 @@ not <code>nil</code>, this value is highly likely to be 500.</p>
       <pre class="lines">
 
 
-97</pre>
+98</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/brut/framework/app.rb', line 97</span>
+      <pre class="code"><span class="info file"># File 'lib/brut/framework/app.rb', line 98</span>
 
 <span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_error_blocks'>error_blocks</span> <span class='op'>=</span> <span class='ivar'>@error_blocks</span> <span class='op'>||</span> <span class='lbrace'>{</span><span class='rbrace'>}</span></pre>
     </td>
@@ -877,17 +878,17 @@ not <code>nil</code>, this value is highly likely to be 500.</p>
       <pre class="lines">
 
 
-106
 107
 108
 109
 110
 111
 112
-113</pre>
+113
+114</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/brut/framework/app.rb', line 106</span>
+      <pre class="code"><span class="info file"># File 'lib/brut/framework/app.rb', line 107</span>
 
 <span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_middleware'>middleware</span><span class='lparen'>(</span><span class='id identifier rubyid_middleware'>middleware</span><span class='op'>=</span><span class='kw'>nil</span><span class='comma'>,</span><span class='op'>*</span><span class='id identifier rubyid_args'>args</span><span class='comma'>,</span><span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span><span class='rparen'>)</span>
   <span class='ivar'>@middlewares</span> <span class='op'>||=</span> <span class='lbracket'>[</span><span class='rbracket'>]</span>
@@ -991,11 +992,11 @@ your app's routes are set up.</p>
       <pre class="lines">
 
 
-150
-151</pre>
+151
+152</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/brut/framework/app.rb', line 150</span>
+      <pre class="code"><span class="info file"># File 'lib/brut/framework/app.rb', line 151</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_boot!'>boot!</span>
 <span class='kw'>end</span></pre>
@@ -1087,7 +1088,7 @@ actions where an app needs to exist inside some organizational context.</p>
 </div>
 
       <div id="footer">
-  Generated on Thu May  7 20:30:55 2026 by
+  Generated on Sun May 31 19:55:06 2026 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.37 (ruby-3.4.8).
 </div>

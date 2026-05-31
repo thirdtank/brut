@@ -312,6 +312,29 @@
         <li class="public ">
   <span class="summary_signature">
     
+      <a href="#rebuild_db-instance_method" title="#rebuild_db (instance method)">#<strong>rebuild_db</strong>(before_or_after:)  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
       <a href="#rspec_cli_args-instance_method" title="#rspec_cli_args (instance method)">#<strong>rspec_cli_args</strong>  &#x21d2; Object </a>
     
 
@@ -391,7 +414,7 @@
   
   
   <h3 class="inherited">Methods inherited from <span class='object_link'><a href="../../Commands/BaseCommand.html" title="Brut::CLI::Commands::BaseCommand (class)">Commands::BaseCommand</a></span></h3>
-  <p class="inherited"><span class='object_link'><a href="../../Commands/BaseCommand.html#accepts-instance_method" title="Brut::CLI::Commands::BaseCommand#accepts (method)">#accepts</a></span>, <span class='object_link'><a href="../../Commands/BaseCommand.html#argv-instance_method" title="Brut::CLI::Commands::BaseCommand#argv (method)">#argv</a></span>, <span class='object_link'><a href="../../Commands/BaseCommand.html#bootstrap%3F-instance_method" title="Brut::CLI::Commands::BaseCommand#bootstrap? (method)">#bootstrap?</a></span>, <span class='object_link'><a href="../../Commands/BaseCommand.html#commands-instance_method" title="Brut::CLI::Commands::BaseCommand#commands (method)">#commands</a></span>, <span class='object_link'><a href="../../Commands/BaseCommand.html#delegate_to_command-instance_method" title="Brut::CLI::Commands::BaseCommand#delegate_to_command (method)">#delegate_to_command</a></span>, <span class='object_link'><a href="../../Commands/BaseCommand.html#env-instance_method" title="Brut::CLI::Commands::BaseCommand#env (method)">#env</a></span>, <span class='object_link'><a href="../../Commands/BaseCommand.html#execute-instance_method" title="Brut::CLI::Commands::BaseCommand#execute (method)">#execute</a></span>, <span class='object_link'><a href="../../Commands/BaseCommand.html#name-instance_method" title="Brut::CLI::Commands::BaseCommand#name (method)">#name</a></span>, <span class='object_link'><a href="../../Commands/BaseCommand.html#options-instance_method" title="Brut::CLI::Commands::BaseCommand#options (method)">#options</a></span>, <span class='object_link'><a href="../../Commands/BaseCommand.html#puts-instance_method" title="Brut::CLI::Commands::BaseCommand#puts (method)">#puts</a></span>, <span class='object_link'><a href="../../Commands/BaseCommand.html#stdin-instance_method" title="Brut::CLI::Commands::BaseCommand#stdin (method)">#stdin</a></span>, <span class='object_link'><a href="../../Commands/BaseCommand.html#system!-instance_method" title="Brut::CLI::Commands::BaseCommand#system! (method)">#system!</a></span>, <span class='object_link'><a href="../../Commands/BaseCommand.html#theme-instance_method" title="Brut::CLI::Commands::BaseCommand#theme (method)">#theme</a></span></p>
+  <p class="inherited"><span class='object_link'><a href="../../Commands/BaseCommand.html#accepts-instance_method" title="Brut::CLI::Commands::BaseCommand#accepts (method)">#accepts</a></span>, <span class='object_link'><a href="../../Commands/BaseCommand.html#argv-instance_method" title="Brut::CLI::Commands::BaseCommand#argv (method)">#argv</a></span>, <span class='object_link'><a href="../../Commands/BaseCommand.html#bootstrap%3F-instance_method" title="Brut::CLI::Commands::BaseCommand#bootstrap? (method)">#bootstrap?</a></span>, <span class='object_link'><a href="../../Commands/BaseCommand.html#commands-instance_method" title="Brut::CLI::Commands::BaseCommand#commands (method)">#commands</a></span>, <span class='object_link'><a href="../../Commands/BaseCommand.html#delegate_to_command-instance_method" title="Brut::CLI::Commands::BaseCommand#delegate_to_command (method)">#delegate_to_command</a></span>, <span class='object_link'><a href="../../Commands/BaseCommand.html#env-instance_method" title="Brut::CLI::Commands::BaseCommand#env (method)">#env</a></span>, <span class='object_link'><a href="../../Commands/BaseCommand.html#execute-instance_method" title="Brut::CLI::Commands::BaseCommand#execute (method)">#execute</a></span>, <span class='object_link'><a href="../../Commands/BaseCommand.html#name-instance_method" title="Brut::CLI::Commands::BaseCommand#name (method)">#name</a></span>, <span class='object_link'><a href="../../Commands/BaseCommand.html#options-instance_method" title="Brut::CLI::Commands::BaseCommand#options (method)">#options</a></span>, <span class='object_link'><a href="../../Commands/BaseCommand.html#print-instance_method" title="Brut::CLI::Commands::BaseCommand#print (method)">#print</a></span>, <span class='object_link'><a href="../../Commands/BaseCommand.html#puts-instance_method" title="Brut::CLI::Commands::BaseCommand#puts (method)">#puts</a></span>, <span class='object_link'><a href="../../Commands/BaseCommand.html#stdin-instance_method" title="Brut::CLI::Commands::BaseCommand#stdin (method)">#stdin</a></span>, <span class='object_link'><a href="../../Commands/BaseCommand.html#system!-instance_method" title="Brut::CLI::Commands::BaseCommand#system! (method)">#system!</a></span>, <span class='object_link'><a href="../../Commands/BaseCommand.html#theme-instance_method" title="Brut::CLI::Commands::BaseCommand#theme (method)">#theme</a></span></p>
 
 
   <div id="instance_method_details" class="method_details_list">
@@ -673,6 +696,60 @@ Runs all non end-to-end tests for the app, or runs a subset of non-end-to-end te
 </div>
     
       <div class="method_details ">
+  <h3 class="signature " id="rebuild_db-instance_method">
+  
+    #<strong>rebuild_db</strong>(before_or_after:)  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/brut/cli/apps/test.rb', line 59</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_rebuild_db'>rebuild_db</span><span class='lparen'>(</span><span class='label'>before_or_after:</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_option'>option</span><span class='comma'>,</span> <span class='id identifier rubyid_default'>default</span><span class='comma'>,</span> <span class='id identifier rubyid_verb'>verb</span> <span class='op'>=</span> <span class='kw'>if</span> <span class='id identifier rubyid_before_or_after'>before_or_after</span> <span class='op'>==</span> <span class='symbol'>:before</span>
+                      <span class='lbracket'>[</span> <span class='symbol'>:rebuild?</span><span class='comma'>,</span> <span class='symbol'>:rebuild_by_default?</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Rebuilding</span><span class='tstring_end'>&quot;</span></span> <span class='rbracket'>]</span>
+                    <span class='kw'>elsif</span> <span class='id identifier rubyid_before_or_after'>before_or_after</span> <span class='op'>==</span> <span class='symbol'>:after</span>
+                      <span class='lbracket'>[</span> <span class='symbol'>:rebuild_after?</span><span class='comma'>,</span> <span class='symbol'>:rebuild_after_by_default?</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Re-rebuilding</span><span class='tstring_end'>&quot;</span></span> <span class='rbracket'>]</span>
+                    <span class='kw'>else</span>
+                      <span class='id identifier rubyid_bug!'>bug!</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>before_or_after must be :before or :after</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+                    <span class='kw'>end</span>
+  <span class='kw'>if</span> <span class='id identifier rubyid_options'>options</span><span class='period'>.</span><span class='id identifier rubyid_send'>send</span><span class='lparen'>(</span><span class='id identifier rubyid_option'>option</span><span class='comma'>,</span> <span class='label'>default:</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_send'>send</span><span class='lparen'>(</span><span class='id identifier rubyid_default'>default</span><span class='rparen'>)</span><span class='rparen'>)</span>
+    <span class='id identifier rubyid_puts'>puts</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_verb'>verb</span><span class='embexpr_end'>}</span><span class='tstring_content'> testing datbase</span><span class='tstring_end'>&quot;</span></span>
+    <span class='const'>Bundler</span><span class='period'>.</span><span class='id identifier rubyid_with_unbundled_env'>with_unbundled_env</span> <span class='kw'>do</span>
+      <span class='id identifier rubyid_system!'>system!</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>brut db rebuild --env=test</span><span class='tstring_end'>&quot;</span></span>
+    <span class='kw'>end</span>
+  <span class='kw'>end</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
   <h3 class="signature " id="rspec_cli_args-instance_method">
   
     #<strong>rspec_cli_args</strong>  &#x21d2; <tt>Object</tt> 
@@ -768,35 +845,15 @@ Runs all non end-to-end tests for the app, or runs a subset of non-end-to-end te
 54
 55
 56
-57
-58
-59
-60
-61
-62
-63
-64
-65
-66
-67</pre>
+57</pre>
     </td>
     <td>
       <pre class="code"><span class="info file"># File 'lib/brut/cli/apps/test.rb', line 52</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_run'>run</span>
-  <span class='kw'>if</span> <span class='id identifier rubyid_options'>options</span><span class='period'>.</span><span class='id identifier rubyid_rebuild?'>rebuild?</span><span class='lparen'>(</span><span class='label'>default:</span> <span class='id identifier rubyid_rebuild_by_default?'>rebuild_by_default?</span><span class='rparen'>)</span>
-    <span class='id identifier rubyid_puts'>puts</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Rebuilding test database schema</span><span class='tstring_end'>&quot;</span></span>
-    <span class='const'>Bundler</span><span class='period'>.</span><span class='id identifier rubyid_with_unbundled_env'>with_unbundled_env</span> <span class='kw'>do</span>
-      <span class='id identifier rubyid_system!'>system!</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>brut db rebuild --env=test</span><span class='tstring_end'>&quot;</span></span>
-    <span class='kw'>end</span>
-  <span class='kw'>end</span>
+  <span class='id identifier rubyid_rebuild_db'>rebuild_db</span><span class='lparen'>(</span><span class='label'>before_or_after:</span> <span class='symbol'>:before</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_run_tests'>run_tests</span>
-  <span class='kw'>if</span> <span class='id identifier rubyid_options'>options</span><span class='period'>.</span><span class='id identifier rubyid_rebuild_after?'>rebuild_after?</span><span class='lparen'>(</span><span class='label'>default:</span> <span class='id identifier rubyid_rebuild_after_by_default?'>rebuild_after_by_default?</span><span class='rparen'>)</span>
-    <span class='id identifier rubyid_puts'>puts</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Re-Rebuilding test database schema</span><span class='tstring_end'>&quot;</span></span>
-    <span class='const'>Bundler</span><span class='period'>.</span><span class='id identifier rubyid_with_unbundled_env'>with_unbundled_env</span> <span class='kw'>do</span>
-      <span class='id identifier rubyid_system!'>system!</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>brut db rebuild --env=test</span><span class='tstring_end'>&quot;</span></span>
-    <span class='kw'>end</span>
-  <span class='kw'>end</span>
+  <span class='id identifier rubyid_rebuild_db'>rebuild_db</span><span class='lparen'>(</span><span class='label'>before_or_after:</span> <span class='symbol'>:after</span><span class='rparen'>)</span>
   <span class='int'>0</span>
 <span class='kw'>end</span></pre>
     </td>
@@ -809,7 +866,7 @@ Runs all non end-to-end tests for the app, or runs a subset of non-end-to-end te
 </div>
 
       <div id="footer">
-  Generated on Thu May  7 20:30:55 2026 by
+  Generated on Sun May 31 19:55:05 2026 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.37 (ruby-3.4.8).
 </div>

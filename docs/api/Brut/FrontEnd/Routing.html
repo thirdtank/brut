@@ -323,6 +323,29 @@
         <li class="public ">
   <span class="summary_signature">
     
+      <a href="#register_webhook-instance_method" title="#register_webhook (instance method)">#<strong>register_webhook</strong>(path, method:)  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
       <a href="#reload-instance_method" title="#reload (instance method)">#<strong>reload</strong>  &#x21d2; Object </a>
     
 
@@ -495,14 +518,14 @@
       <pre class="lines">
 
 
-130
-131
-132
-133
-134</pre>
+152
+153
+154
+155
+156</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/brut/front_end/routing.rb', line 130</span>
+      <pre class="code"><span class="info file"># File 'lib/brut/front_end/routing.rb', line 152</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_inspect'>inspect</span>
   <span class='ivar'>@routes</span><span class='period'>.</span><span class='id identifier rubyid_map'>map</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_route'>route</span><span class='op'>|</span>
@@ -529,13 +552,13 @@
       <pre class="lines">
 
 
-120
-121
-122
-123</pre>
+142
+143
+144
+145</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/brut/front_end/routing.rb', line 120</span>
+      <pre class="code"><span class="info file"># File 'lib/brut/front_end/routing.rb', line 142</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_path'>path</span><span class='lparen'>(</span><span class='id identifier rubyid_handler_class'>handler_class</span><span class='comma'>,</span> <span class='label'>with_method:</span> <span class='symbol'>:any</span><span class='comma'>,</span> <span class='op'>**</span><span class='id identifier rubyid_rest'>rest</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_route'>route</span> <span class='op'>=</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_route_for'>route_for</span><span class='lparen'>(</span><span class='id identifier rubyid_handler_class'>handler_class</span><span class='comma'>,</span> <span class='label'>with_method:</span><span class='rparen'>)</span>
@@ -755,6 +778,72 @@
 </div>
     
       <div class="method_details ">
+  <h3 class="signature " id="register_webhook-instance_method">
+  
+    #<strong>register_webhook</strong>(path, method:)  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/brut/front_end/routing.rb', line 100</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_register_webhook'>register_webhook</span><span class='lparen'>(</span><span class='id identifier rubyid_path'>path</span><span class='comma'>,</span> <span class='label'>method:</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_path'>path</span> <span class='op'>=</span> <span class='id identifier rubyid_path'>path</span><span class='period'>.</span><span class='id identifier rubyid_gsub'>gsub</span><span class='lparen'>(</span><span class='tstring'><span class='regexp_beg'>/</span><span class='tstring_content'>^\/</span><span class='regexp_end'>/</span></span><span class='comma'>,</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_full_path'>full_path</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='const'><span class='object_link'><a href="../../Brut.html" title="Brut (module)">Brut</a></span></span><span class='period'>.</span><span class='id identifier rubyid_container'><span class='object_link'><a href="../../Brut.html#container-class_method" title="Brut.container (method)">container</a></span></span><span class='period'>.</span><span class='id identifier rubyid_webhook_url_path_prefix'>webhook_url_path_prefix</span><span class='embexpr_end'>}</span><span class='tstring_content'>/</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_path'>path</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span>
+
+  <span class='kw'>if</span> <span class='id identifier rubyid_full_path'>full_path</span> <span class='op'>=~</span> <span class='tstring'><span class='regexp_beg'>/</span><span class='tstring_content'>^</span><span class='embexpr_beg'>#{</span><span class='const'>Regexp</span><span class='period'>.</span><span class='id identifier rubyid_escape'>escape</span><span class='lparen'>(</span><span class='const'><span class='object_link'><a href="../../Brut.html" title="Brut (module)">Brut</a></span></span><span class='period'>.</span><span class='id identifier rubyid_container'><span class='object_link'><a href="../../Brut.html#container-class_method" title="Brut.container (method)">container</a></span></span><span class='period'>.</span><span class='id identifier rubyid_webhook_url_path_prefix'>webhook_url_path_prefix</span><span class='rparen'>)</span><span class='embexpr_end'>}</span><span class='embexpr_beg'>#{</span><span class='const'>Regexp</span><span class='period'>.</span><span class='id identifier rubyid_escape'>escape</span><span class='lparen'>(</span><span class='const'><span class='object_link'><a href="../../Brut.html" title="Brut (module)">Brut</a></span></span><span class='period'>.</span><span class='id identifier rubyid_container'><span class='object_link'><a href="../../Brut.html#container-class_method" title="Brut.container (method)">container</a></span></span><span class='period'>.</span><span class='id identifier rubyid_webhook_url_path_prefix'>webhook_url_path_prefix</span><span class='rparen'>)</span><span class='embexpr_end'>}</span><span class='regexp_end'>/</span></span>
+    <span class='id identifier rubyid_raise'>raise</span> <span class='const'>ArgumentError</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>webhook &#39;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_path'>path</span><span class='embexpr_end'>}</span><span class='tstring_content'>&#39; should not start with </span><span class='embexpr_beg'>#{</span><span class='const'><span class='object_link'><a href="../../Brut.html" title="Brut (module)">Brut</a></span></span><span class='period'>.</span><span class='id identifier rubyid_container'><span class='object_link'><a href="../../Brut.html#container-class_method" title="Brut.container (method)">container</a></span></span><span class='period'>.</span><span class='id identifier rubyid_webhook_url_path_prefix'>webhook_url_path_prefix</span><span class='embexpr_end'>}</span><span class='tstring_content'> - Brut will add that for you</span><span class='tstring_end'>&quot;</span></span>
+  <span class='kw'>end</span>
+
+  <span class='id identifier rubyid_route'>route</span> <span class='op'>=</span> <span class='kw'>begin</span>
+            <span class='const'><span class='object_link'><a href="Routing/Route.html" title="Brut::FrontEnd::Routing::Route (class)">Route</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="Routing/Route.html#initialize-instance_method" title="Brut::FrontEnd::Routing::Route#initialize (method)">new</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_method'>method</span><span class='comma'>,</span> <span class='id identifier rubyid_full_path'>full_path</span><span class='rparen'>)</span>
+          <span class='kw'>rescue</span> <span class='const'><span class='object_link'><a href="../../Brut.html" title="Brut (module)">Brut</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../Framework.html" title="Brut::Framework (module)">Framework</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../Framework/Errors.html" title="Brut::Framework::Errors (module)">Errors</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../Framework/Errors/NoClassForPath.html" title="Brut::Framework::Errors::NoClassForPath (class)">NoClassForPath</a></span></span> <span class='op'>=&gt;</span> <span class='id identifier rubyid_ex'>ex</span>
+            <span class='kw'>if</span> <span class='const'><span class='object_link'><a href="../../Brut.html" title="Brut (module)">Brut</a></span></span><span class='period'>.</span><span class='id identifier rubyid_container'><span class='object_link'><a href="../../Brut.html#container-class_method" title="Brut.container (method)">container</a></span></span><span class='period'>.</span><span class='id identifier rubyid_project_env'>project_env</span><span class='period'>.</span><span class='id identifier rubyid_development?'>development?</span>
+              <span class='const'><span class='object_link'><a href="Routing/MissingPath.html" title="Brut::FrontEnd::Routing::MissingPath (class)">MissingPath</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="Routing/MissingPath.html#initialize-instance_method" title="Brut::FrontEnd::Routing::MissingPath#initialize (method)">new</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_method'>method</span><span class='comma'>,</span><span class='id identifier rubyid_full_path'>full_path</span><span class='comma'>,</span><span class='id identifier rubyid_ex'>ex</span><span class='rparen'>)</span>
+            <span class='kw'>else</span>
+              <span class='id identifier rubyid_raise'>raise</span> <span class='id identifier rubyid_ex'>ex</span>
+            <span class='kw'>end</span>
+          <span class='kw'>end</span>
+  <span class='ivar'>@routes</span> <span class='op'>&lt;&lt;</span> <span class='id identifier rubyid_route'>route</span>
+  <span class='id identifier rubyid_add_routing_method'>add_routing_method</span><span class='lparen'>(</span><span class='id identifier rubyid_route'>route</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_route'>route</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
   <h3 class="signature " id="reload-instance_method">
   
     #<strong>reload</strong>  &#x21d2; <tt>Object</tt> 
@@ -833,28 +922,28 @@
       <pre class="lines">
 
 
-100
-101
-102
-103
-104
-105
-106
-107
-108
-109
-110
-111
-112
-113
-114
-115
-116
-117
-118</pre>
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/brut/front_end/routing.rb', line 100</span>
+      <pre class="code"><span class="info file"># File 'lib/brut/front_end/routing.rb', line 122</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_route'>route</span><span class='lparen'>(</span><span class='id identifier rubyid_handler_class'>handler_class</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_route'>route</span> <span class='op'>=</span> <span class='ivar'>@routes</span><span class='period'>.</span><span class='id identifier rubyid_detect'>detect</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_route'>route</span><span class='op'>|</span>
@@ -895,13 +984,13 @@
       <pre class="lines">
 
 
-125
-126
-127
-128</pre>
+147
+148
+149
+150</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/brut/front_end/routing.rb', line 125</span>
+      <pre class="code"><span class="info file"># File 'lib/brut/front_end/routing.rb', line 147</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_url'>url</span><span class='lparen'>(</span><span class='id identifier rubyid_handler_class'>handler_class</span><span class='comma'>,</span> <span class='label'>with_method:</span> <span class='symbol'>:any</span><span class='comma'>,</span> <span class='op'>**</span><span class='id identifier rubyid_rest'>rest</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_route'>route</span> <span class='op'>=</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_route_for'>route_for</span><span class='lparen'>(</span><span class='id identifier rubyid_handler_class'>handler_class</span><span class='comma'>,</span> <span class='label'>with_method:</span><span class='rparen'>)</span>
@@ -917,7 +1006,7 @@
 </div>
 
       <div id="footer">
-  Generated on Thu May  7 20:30:56 2026 by
+  Generated on Sun May 31 19:55:06 2026 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.37 (ruby-3.4.8).
 </div>

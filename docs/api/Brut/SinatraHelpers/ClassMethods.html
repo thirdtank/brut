@@ -190,6 +190,29 @@
 </li>
 
       
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#webhook-instance_method" title="#webhook (instance method)">#<strong>webhook</strong>(relative_path, method: :post)  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>Define a webhook, where another server will post data to your app.</p>
+</div></span>
+  
+</li>
+
+      
     </ul>
   
 
@@ -239,7 +262,7 @@ to make sure there is no form defined.</p>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_action'>action</span><span class='lparen'>(</span><span class='id identifier rubyid_path'>path</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_route'>route</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../../Brut.html" title="Brut (module)">Brut</a></span></span><span class='period'>.</span><span class='id identifier rubyid_container'><span class='object_link'><a href="../../Brut.html#container-class_method" title="Brut.container (method)">container</a></span></span><span class='period'>.</span><span class='id identifier rubyid_routing'>routing</span><span class='period'>.</span><span class='id identifier rubyid_register_handler_only'>register_handler_only</span><span class='lparen'>(</span><span class='id identifier rubyid_path'>path</span><span class='rparen'>)</span>
-  <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_define_handled_route'>define_handled_route</span><span class='lparen'>(</span><span class='id identifier rubyid_route'>route</span><span class='comma'>,</span> <span class='label'>type:</span> <span class='symbol'>:action</span><span class='rparen'>)</span>
+  <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_define_handled_route'>define_handled_route</span><span class='lparen'>(</span><span class='id identifier rubyid_route'>route</span><span class='rparen'>)</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -307,7 +330,7 @@ the previous part with <code>With</code>, thus <code>WidgetsWithId</code> is cre
 
 <span class='kw'>def</span> <span class='id identifier rubyid_form'>form</span><span class='lparen'>(</span><span class='id identifier rubyid_path'>path</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_route'>route</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../../Brut.html" title="Brut (module)">Brut</a></span></span><span class='period'>.</span><span class='id identifier rubyid_container'><span class='object_link'><a href="../../Brut.html#container-class_method" title="Brut.container (method)">container</a></span></span><span class='period'>.</span><span class='id identifier rubyid_routing'>routing</span><span class='period'>.</span><span class='id identifier rubyid_register_form'>register_form</span><span class='lparen'>(</span><span class='id identifier rubyid_path'>path</span><span class='rparen'>)</span>
-  <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_define_handled_route'>define_handled_route</span><span class='lparen'>(</span><span class='id identifier rubyid_route'>route</span><span class='comma'>,</span> <span class='label'>type:</span> <span class='symbol'>:form</span><span class='rparen'>)</span>
+  <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_define_handled_route'>define_handled_route</span><span class='lparen'>(</span><span class='id identifier rubyid_route'>route</span><span class='rparen'>)</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -512,7 +535,58 @@ require responding to GET even though they aren't rendering pages nor considered
 
 <span class='kw'>def</span> <span class='id identifier rubyid_path'>path</span><span class='lparen'>(</span><span class='id identifier rubyid_path'>path</span><span class='comma'>,</span> <span class='label'>method:</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_route'>route</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../../Brut.html" title="Brut (module)">Brut</a></span></span><span class='period'>.</span><span class='id identifier rubyid_container'><span class='object_link'><a href="../../Brut.html#container-class_method" title="Brut.container (method)">container</a></span></span><span class='period'>.</span><span class='id identifier rubyid_routing'>routing</span><span class='period'>.</span><span class='id identifier rubyid_register_path'>register_path</span><span class='lparen'>(</span><span class='id identifier rubyid_path'>path</span><span class='comma'>,</span> <span class='label'>method:</span> <span class='const'><span class='object_link'><a href="../../Brut.html" title="Brut (module)">Brut</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../FrontEnd.html" title="Brut::FrontEnd (module)">FrontEnd</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../FrontEnd/HttpMethod.html" title="Brut::FrontEnd::HttpMethod (class)">HttpMethod</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="../FrontEnd/HttpMethod.html#initialize-instance_method" title="Brut::FrontEnd::HttpMethod#initialize (method)">new</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_method'>method</span><span class='rparen'>)</span><span class='rparen'>)</span>
-  <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_define_handled_route'>define_handled_route</span><span class='lparen'>(</span><span class='id identifier rubyid_route'>route</span><span class='comma'>,</span><span class='label'>type:</span> <span class='symbol'>:generic</span><span class='rparen'>)</span>
+  <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_define_handled_route'>define_handled_route</span><span class='lparen'>(</span><span class='id identifier rubyid_route'>route</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="webhook-instance_method">
+  
+    #<strong>webhook</strong>(relative_path, method: :post)  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>Define a webhook, where another server will post data to your app.
+This method services two purposes beyond using <code>path</code> or <code>action</code>:</p>
+
+<ol>
+<li>It nests <code>relative_path</code> under <code>/webhooks</code> as a convention for
+where all webhooks should go.</li>
+<li>That convention will be used to skip CSRF protection for a POST
+made to this endpoint, since you would not want that for a webhook.</li>
+</ol>
+
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+159
+160
+161
+162</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/brut/sinatra_helpers.rb', line 159</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_webhook'>webhook</span><span class='lparen'>(</span><span class='id identifier rubyid_relative_path'>relative_path</span><span class='comma'>,</span> <span class='label'>method:</span> <span class='symbol'>:post</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_route'>route</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../../Brut.html" title="Brut (module)">Brut</a></span></span><span class='period'>.</span><span class='id identifier rubyid_container'><span class='object_link'><a href="../../Brut.html#container-class_method" title="Brut.container (method)">container</a></span></span><span class='period'>.</span><span class='id identifier rubyid_routing'>routing</span><span class='period'>.</span><span class='id identifier rubyid_register_webhook'>register_webhook</span><span class='lparen'>(</span><span class='id identifier rubyid_relative_path'>relative_path</span><span class='comma'>,</span> <span class='label'>method:</span> <span class='const'><span class='object_link'><a href="../../Brut.html" title="Brut (module)">Brut</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../FrontEnd.html" title="Brut::FrontEnd (module)">FrontEnd</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../FrontEnd/HttpMethod.html" title="Brut::FrontEnd::HttpMethod (class)">HttpMethod</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="../FrontEnd/HttpMethod.html#initialize-instance_method" title="Brut::FrontEnd::HttpMethod#initialize (method)">new</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_method'>method</span><span class='rparen'>)</span><span class='rparen'>)</span>
+  <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_define_handled_route'>define_handled_route</span><span class='lparen'>(</span><span class='id identifier rubyid_route'>route</span><span class='rparen'>)</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -524,7 +598,7 @@ require responding to GET even though they aren't rendering pages nor considered
 </div>
 
       <div id="footer">
-  Generated on Thu May  7 20:30:54 2026 by
+  Generated on Sun May 31 19:55:05 2026 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.37 (ruby-3.4.8).
 </div>

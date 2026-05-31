@@ -219,7 +219,12 @@
 29
 30
 31
-32</pre>
+32
+33
+34
+35
+36
+37</pre>
     </td>
     <td>
       <pre class="code"><span class="info file"># File 'lib/brut/cli/apps/new/add_segment.rb', line 6</span>
@@ -246,6 +251,11 @@
                <span class='rparen'>)</span>
              <span class='kw'>elsif</span> <span class='ivar'>@add_segment_options</span><span class='period'>.</span><span class='id identifier rubyid_segment_name'>segment_name</span> <span class='op'>==</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>heroku</span><span class='tstring_end'>&quot;</span></span>
                <span class='const'><span class='object_link'><a href="../../../../Brut.html" title="Brut (module)">Brut</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../../../CLI.html" title="Brut::CLI (module)">CLI</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../../Apps.html" title="Brut::CLI::Apps (module)">Apps</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../New.html" title="Brut::CLI::Apps::New (module)">New</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Segments.html" title="Brut::CLI::Apps::New::Segments (module)">Segments</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Segments/Heroku.html" title="Brut::CLI::Apps::New::Segments::Heroku (class)">Heroku</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="Segments/Heroku.html#initialize-instance_method" title="Brut::CLI::Apps::New::Segments::Heroku#initialize (method)">new</a></span></span><span class='lparen'>(</span>
+                 <span class='label'>project_root:</span> <span class='id identifier rubyid_add_segment_options'>add_segment_options</span><span class='period'>.</span><span class='id identifier rubyid_project_root'>project_root</span><span class='comma'>,</span>
+                 <span class='label'>templates_dir:</span>
+               <span class='rparen'>)</span>
+             <span class='kw'>elsif</span> <span class='ivar'>@add_segment_options</span><span class='period'>.</span><span class='id identifier rubyid_segment_name'>segment_name</span> <span class='op'>==</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>docker-deploy</span><span class='tstring_end'>&quot;</span></span>
+               <span class='const'><span class='object_link'><a href="../../../../Brut.html" title="Brut (module)">Brut</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../../../CLI.html" title="Brut::CLI (module)">CLI</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../../Apps.html" title="Brut::CLI::Apps (module)">Apps</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../New.html" title="Brut::CLI::Apps::New (module)">New</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Segments.html" title="Brut::CLI::Apps::New::Segments (module)">Segments</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Segments/DockerDeploy.html" title="Brut::CLI::Apps::New::Segments::DockerDeploy (class)">DockerDeploy</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="Segments/DockerDeploy.html#initialize-instance_method" title="Brut::CLI::Apps::New::Segments::DockerDeploy#initialize (method)">new</a></span></span><span class='lparen'>(</span>
                  <span class='label'>project_root:</span> <span class='id identifier rubyid_add_segment_options'>add_segment_options</span><span class='period'>.</span><span class='id identifier rubyid_project_root'>project_root</span><span class='comma'>,</span>
                  <span class='label'>templates_dir:</span>
                <span class='rparen'>)</span>
@@ -278,12 +288,12 @@
       <pre class="lines">
 
 
-34
-35
-36</pre>
+39
+40
+41</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/brut/cli/apps/new/add_segment.rb', line 34</span>
+      <pre class="code"><span class="info file"># File 'lib/brut/cli/apps/new/add_segment.rb', line 39</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_add!'>add!</span>
   <span class='ivar'>@segment</span><span class='period'>.</span><span class='id identifier rubyid_add!'>add!</span>
@@ -298,7 +308,7 @@
 </div>
 
       <div id="footer">
-  Generated on Thu May  7 20:30:56 2026 by
+  Generated on Sun May 31 19:55:07 2026 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.37 (ruby-3.4.8).
 </div>

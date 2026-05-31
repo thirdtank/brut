@@ -101,9 +101,12 @@
 
 <h2>Overview</h2><div class="docstring">
   <div class="discussion">
-    <p>Base for custom logic around CSRF protection.  Brut configures <code>Rack::Protection::AuthenticityToken</code> for all requests, and
-this happens early in the request.  The idea is that no real POST should be missing a CSRF token.  That said, there are times
-when it must be skipped, such as for webhooks.  In that case, you can extend this class and configure it via
+    <p>Stores logic around what POST requests should require CSRF protection.
+Brut ideally wants <em>all</em> POST requests to require CSRF protection, however
+sometimes this is not convienient, notably webhooks.  This class includes
+that logic.</p>
+
+<p>You may specify your own implementation via
 <code>Brut.container.override("csrf_protector", YourCustomCsrfProtector.new)</code> in your <code>App</code> class' initializer.</p>
 
 
@@ -117,7 +120,8 @@ when it must be skipped, such as for webhooks.  In that case, you can extend thi
       
       <pre class="example code"><code>class CsrfProtector &lt; Brut::FrontEnd::CsrfProtector
   def allowed?(env)
-    !!env[&quot;PATH_INFO&quot;].to_s.match?(/^\/webhooks\//)
+    super(env) ||
+      !!env[&quot;PATH_INFO&quot;].to_s.match?(/^\/api\//)
   end
 end
 # Then, in app.rb
@@ -193,7 +197,7 @@ class App &lt; Brut::Framework::App
   
 </h3><div class="docstring">
   <div class="discussion">
-    <p>Return true if the request should be allowed without a CSRF token. This implementation returns false.</p>
+    <p>Return true if the request should be allowed without a CSRF token. This implementation allows webhooks and paths that Brut owns explicitly</p>
 
 
   </div>
@@ -220,15 +224,15 @@ class App &lt; Brut::Framework::App
       <pre class="lines">
 
 
-27
-28
-29</pre>
+31
+32
+33</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/brut/front_end/csrf_protector.rb', line 27</span>
+      <pre class="code"><span class="info file"># File 'lib/brut/front_end/csrf_protector.rb', line 31</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_allowed?'>allowed?</span><span class='lparen'>(</span><span class='id identifier rubyid_env'>env</span><span class='rparen'>)</span>
-  <span class='kw'>false</span>
+  <span class='id identifier rubyid_env'>env</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>brut.webhook</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span>  <span class='op'>||</span> <span class='id identifier rubyid_env'>env</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>brut.owned_path</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span> 
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -240,7 +244,7 @@ class App &lt; Brut::Framework::App
 </div>
 
       <div id="footer">
-  Generated on Thu May  7 20:30:56 2026 by
+  Generated on Sun May 31 19:55:07 2026 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.37 (ruby-3.4.8).
 </div>

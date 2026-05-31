@@ -1390,6 +1390,10 @@ progress {
  * @scale opacity-percent
  */
 
+.o-0 {
+  opacity: 0%;
+}
+
 .o-10 {
   opacity: 10%;
 }
@@ -4101,6 +4105,13 @@ progress {
    background-color: var(--white-ish);
  }
 
+/* Transparent.
+  */
+
+.bg-transparent {
+   background-color: transparent;
+ }
+
 /* Border colors.  For red, orange, yellow, green, blue, purple, and gray, there are 
  * nine steps in the scale, from 100 being darkest to 900 being lightest.  Black and white have only
  * two steps: pure black/white and slightly off black/white.  The colors and shades are shown in the table below.
@@ -5168,6 +5179,13 @@ progress {
    border-color: var(--white-ish);
  }
 
+/* Transparent.
+  */
+
+.bc-transparent {
+   border-color: transparent;
+ }
+
 /* Dimensions, namely width and height. These are all using an 8-step scale with 1 being
  * the smallest width and 8 the largest.  These scales use the {property-scale:widths-heights} scale, which, by default, is
  * double the respective value from {property-scale:spacing}.  This should result in harmonious designs that align on a
@@ -5466,6 +5484,10 @@ progress {
 /* Numeric/fixed minimum widths
  * @scale min-width
  */
+
+.minw-0 {
+  min-width: 0;
+}
 
 .minw-1 {
   min-width: var(--wh-1);
@@ -5920,6 +5942,14 @@ progress {
 
 .flex-row {
   flex-direction: row;
+}
+
+.flex-column-reverse {
+  flex-direction: column-reverse;
+}
+
+.flex-row-reverse {
+  flex-direction: row-reverse;
 }
 
 .flex-wrap {
@@ -8787,6 +8817,10 @@ progress {
    background-color: var(--white-ish);
  }
 
+.hover-bg-transparent:hover {
+   background-color: transparent;
+ }
+
 .hover-bg-none:hover {
   background-repeat: no-repeat;
 }
@@ -8960,6 +8994,10 @@ progress {
 
 .cursor-not-allowed-ns {
   cursor: not-allowed;
+}
+
+.o-0-ns {
+  opacity: 0%;
 }
 
 .o-10-ns {
@@ -10109,6 +10147,10 @@ progress {
    background-color: var(--white-ish);
  }
 
+.bg-transparent-ns {
+   background-color: transparent;
+ }
+
 .bc-red-100-ns {
    border-color: var(--red-100);
  }
@@ -10377,6 +10419,10 @@ progress {
    border-color: var(--white-ish);
  }
 
+.bc-transparent-ns {
+   border-color: transparent;
+ }
+
 .w-1-ns {
   width: var(--wh-1);
 }
@@ -10635,6 +10681,10 @@ progress {
 
 .mw-100vw-ns {
   max-width: 100vw;
+}
+
+.minw-0-ns {
+  min-width: 0;
 }
 
 .minw-1-ns {
@@ -11047,6 +11097,14 @@ progress {
 
 .flex-row-ns {
   flex-direction: row;
+}
+
+.flex-column-reverse-ns {
+  flex-direction: column-reverse;
+}
+
+.flex-row-reverse-ns {
+  flex-direction: row-reverse;
 }
 
 .flex-wrap-ns {
@@ -13288,6 +13346,10 @@ progress {
    background-color: var(--white-ish);
  }
 
+.hover-bg-transparent-ns:hover {
+   background-color: transparent;
+ }
+
 .hover-bg-none-ns:hover {
   background-repeat: no-repeat;
 }
@@ -13461,6 +13523,10 @@ progress {
 
 .cursor-not-allowed-m {
   cursor: not-allowed;
+}
+
+.o-0-m {
+  opacity: 0%;
 }
 
 .o-10-m {
@@ -14610,6 +14676,10 @@ progress {
    background-color: var(--white-ish);
  }
 
+.bg-transparent-m {
+   background-color: transparent;
+ }
+
 .bc-red-100-m {
    border-color: var(--red-100);
  }
@@ -14878,6 +14948,10 @@ progress {
    border-color: var(--white-ish);
  }
 
+.bc-transparent-m {
+   border-color: transparent;
+ }
+
 .w-1-m {
   width: var(--wh-1);
 }
@@ -15136,6 +15210,10 @@ progress {
 
 .mw-100vw-m {
   max-width: 100vw;
+}
+
+.minw-0-m {
+  min-width: 0;
 }
 
 .minw-1-m {
@@ -15548,6 +15626,14 @@ progress {
 
 .flex-row-m {
   flex-direction: row;
+}
+
+.flex-column-reverse-m {
+  flex-direction: column-reverse;
+}
+
+.flex-row-reverse-m {
+  flex-direction: row-reverse;
 }
 
 .flex-wrap-m {
@@ -17789,6 +17875,10 @@ progress {
    background-color: var(--white-ish);
  }
 
+.hover-bg-transparent-m:hover {
+   background-color: transparent;
+ }
+
 .hover-bg-none-m:hover {
   background-repeat: no-repeat;
 }
@@ -17962,6 +18052,10 @@ progress {
 
 .cursor-not-allowed-l {
   cursor: not-allowed;
+}
+
+.o-0-l {
+  opacity: 0%;
 }
 
 .o-10-l {
@@ -19111,6 +19205,10 @@ progress {
    background-color: var(--white-ish);
  }
 
+.bg-transparent-l {
+   background-color: transparent;
+ }
+
 .bc-red-100-l {
    border-color: var(--red-100);
  }
@@ -19379,6 +19477,10 @@ progress {
    border-color: var(--white-ish);
  }
 
+.bc-transparent-l {
+   border-color: transparent;
+ }
+
 .w-1-l {
   width: var(--wh-1);
 }
@@ -19637,6 +19739,10 @@ progress {
 
 .mw-100vw-l {
   max-width: 100vw;
+}
+
+.minw-0-l {
+  min-width: 0;
 }
 
 .minw-1-l {
@@ -20049,6 +20155,14 @@ progress {
 
 .flex-row-l {
   flex-direction: row;
+}
+
+.flex-column-reverse-l {
+  flex-direction: column-reverse;
+}
+
+.flex-row-reverse-l {
+  flex-direction: row-reverse;
 }
 
 .flex-wrap-l {
@@ -22288,6 +22402,10 @@ progress {
 
 .hover-bg-white-ish-l:hover {
    background-color: var(--white-ish);
+ }
+
+.hover-bg-transparent-l:hover {
+   background-color: transparent;
  }
 
 .hover-bg-none-l:hover {
