@@ -8,6 +8,7 @@ main() {
 
   log "Checking that Git is clean"
   require_git_clean
+  require_npm_login
   log "Checking that versions of all artifacts match"
   detect_gem_version
   require_versions_match
@@ -25,6 +26,16 @@ main() {
 
 log() {
   echo "[ bin/publish ] ${*}"
+}
+
+require_npm_login() {
+  if npm whoami; then
+    log "You are logged into NPM properly"
+  else
+    log "You must set up NPM via:"
+    log "  npm login"
+    exit 1
+  fi
 }
 
 usage() {
