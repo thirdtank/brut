@@ -106,13 +106,7 @@ class Brut::CLI::ParsedCommandLine
     @argv    = remaining_argv
     @options = Brut::CLI::Options.new(options)
     if !@options.log_level?
-      if @options.verbose? || @options.debug?
-        @options[:'log-level'] = "debug"
-      elsif @options.quiet?
-        @options[:'log-level'] = "error"
-      else
-        @options[:'log-level'] = "info"
-      end
+      @options[:'log-level'] = "info"
     end
     if !@options[:'log-file']
       log_file_path = if env["XDG_STATE_HOME"]
@@ -127,9 +121,6 @@ class Brut::CLI::ParsedCommandLine
       end
     else
       @options[:'log-file'] = Pathname(@options[:'log-file'])
-    end
-    if @options[:'log-stdout'].nil?
-      @options[:'log-stdout'] = @options.verbose? || @options.debug?
     end
   rescue => ex
     @command = if env["BRUT_DEBUG"] == "true"
@@ -152,8 +143,6 @@ private
               "Project environment, e.g. test, development, production. Default depends on the command")
       opts.on("--log-level=LOG_LEVEL", [ "debug", "info", "warn", "error", "fatal" ],
               "Log level, which should be debug, info, warn, error, or fatal. Defaults to error")
-      opts.on("--debug", "--verbose", "Set log level to debug, and show log messages on stdout")
-      opts.on("--quiet", "Set log level to error")
       opts.on("--log-file=FILE",
               "Path to a file where log messages are written. Defaults to $XDG_CACHE_HOME/brut/logs/#{app_name}.log")
       opts.on("--[no-]log-stdout", "Log messages to stdout in addition to the log file")

@@ -156,22 +156,6 @@ RSpec.describe Brut::CLI::ParsedCommandLine do
             parsed_command_line = described_class.new(app_command:, argv: ["--log-stdout"], env: {})
             expect(parsed_command_line.options.log_stdout?).to eq(true)
           end
-          it "is true if --verbose is specified" do
-            parsed_command_line = described_class.new(app_command:, argv: ["--verbose"], env: {})
-            expect(parsed_command_line.options.log_stdout?).to eq(true)
-          end
-          it "is true if --debug is specified" do
-            parsed_command_line = described_class.new(app_command:, argv: ["--debug"], env: {})
-            expect(parsed_command_line.options.log_stdout?).to eq(true)
-          end
-          it "is false if --verbose is specified, but --no-log-stdout is set" do
-            parsed_command_line = described_class.new(app_command:, argv: ["--no-log-stdout", "--verbose"], env: {})
-            expect(parsed_command_line.options.log_stdout?).to eq(false)
-          end
-          it "is false if --debug is specified, but --no-log-stdout is set" do
-            parsed_command_line = described_class.new(app_command:, argv: ["--no-log-stdout", "--debug"], env: {})
-            expect(parsed_command_line.options.log_stdout?).to eq(false)
-          end
         end
         describe "log file" do
           context "--log-file is set" do
@@ -218,39 +202,10 @@ RSpec.describe Brut::CLI::ParsedCommandLine do
             parsed_command_line = described_class.new(app_command:, argv: [], env: {})
             expect(parsed_command_line.options.log_level).to eq("info")
           end
-          it "--quiet sets log level to error" do
-            parsed_command_line = described_class.new(app_command:, argv: ["--quiet"], env: {})
-            expect(parsed_command_line.options.log_level).to eq("error")
-          end
-          it "--debug sets log level to debug" do
-            parsed_command_line = described_class.new(app_command:, argv: ["--debug"], env: {})
-            expect(parsed_command_line.options.log_level).to eq("debug")
-          end
-          it "--verbose sets log level to debug" do
-            parsed_command_line = described_class.new(app_command:, argv: ["--verbose"], env: {})
-            expect(parsed_command_line.options.log_level).to eq("debug")
-          end
-          context "using --log-level" do
-            it "sets the log level if specified on command line" do
-              argv = ["--log-level", "info" ]
-              parsed_command_line = described_class.new(app_command:, argv:, env: {})
-              expect(parsed_command_line.options.log_level).to eq("info")
-            end
-            it "supercedes --verbose" do
-              argv = ["--log-level", "info", "--verbose" ]
-              parsed_command_line = described_class.new(app_command:, argv:, env: {})
-              expect(parsed_command_line.options.log_level).to eq("info")
-            end
-            it "supercedes --debug" do
-              argv = ["--log-level", "info", "--debug" ]
-              parsed_command_line = described_class.new(app_command:, argv:, env: {})
-              expect(parsed_command_line.options.log_level).to eq("info")
-            end
-            it "supercedes --quiet" do
-              argv = ["--log-level", "info", "--quiet" ]
-              parsed_command_line = described_class.new(app_command:, argv:, env: {})
-              expect(parsed_command_line.options.log_level).to eq("info")
-            end
+          it "sets the log level if specified on command line" do
+            argv = ["--log-level", "info" ]
+            parsed_command_line = described_class.new(app_command:, argv:, env: {})
+            expect(parsed_command_line.options.log_level).to eq("info")
           end
           it "outputs an error if the value is not a valid log level" do
             argv = ["--log-level", "foobar" ]

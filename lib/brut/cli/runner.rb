@@ -77,17 +77,13 @@ class Brut::CLI::Runner
 private
 
   def load_unix_environment!(env, parsed_command_line)
-    if env["RACK_ENV"]
-      if parsed_command_line.project_environment
-        @stderr.puts "RACK_ENV is set in the environment, which supercedes the command line, --env ignored"
-      end
-    else
-      env["RACK_ENV"] = if parsed_command_line.project_environment
-                          parsed_command_line.project_environment.to_s
-                        else
-                          parsed_command_line.command.default_rack_env
-                        end
-    end
+    env["RACK_ENV"] = if parsed_command_line.project_environment
+                        parsed_command_line.project_environment.to_s
+                      elsif env["RACK_ENV"]
+                        env["RACK_ENV"]
+                      else
+                        parsed_command_line.command.default_rack_env
+                      end
 
     rack_env = RichString.from_string(env["RACK_ENV"])
 
@@ -135,9 +131,9 @@ private
     if env["RACK_ENV"]
       log_level = env["LOG_LEVEL"]
 
-      if !parsed_command_line.options.verbose? && !parsed_command_line.options.debug?
-        env["LOG_LEVEL"] = "warn"
-      end
+      # Prevent lots of stuff from logging just
+      # because it was required
+      env["LOG_LEVEL"] = "warn"
 
       require "#{@project_root}/app/bootstrap"
       bootstrap = Bootstrap.new
@@ -147,6 +143,7 @@ private
         bootstrap.configure_only!
       end
 
+      # restore the log level
       env["LOG_LEVEL"] = log_level
     end
   end
