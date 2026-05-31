@@ -2,10 +2,6 @@
 # You own and maintain this file.  It is `require`d by brut deploy docker
 class AppDeployConfig < Brut::CLI::Apps::Deploy::Heroku::DeployConfig
 
-  # Can return a Docker platform is your deployment platform is not
-  # linux/amd64. Note that --platform will override this value.
-  def platform = nil
-
   # Return an array of ProcessDescription instances, that you can
   # create with the `process_description` method.
   #
