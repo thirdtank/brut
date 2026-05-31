@@ -1,5 +1,18 @@
 # Brut CHANGELOG
 
+## v0.21.2 - May 31, 2026
+
+* Overhaul of `brut deploy`.  Docs are updated, but briefly:
+  - `brut deploy heroku` manages a Heroku container-based deploy. This was previously available in a few ways, and works the same way as before.  `brut new segement heroku` will set it up. Do this even if you have previously set it up
+  - `brut deploy docker` will build and push docker images that you can pull down for a generic deployment. Brut will not actually deploy these images beyond pushing to  registry. Use `brut new segement docker-deploy` to set this up.
+  - `brut deploy docker_compose generate` will manage a `docker-compose.yml` file you can use to deploy.  This works for me but should be considered experiemental. You should only use this if you know what you are doing.
+* Explicit support for Webhooks.k Docs are updated, but briefly:
+  - `webhook "/sendgrid"` create the route `/webhooks/sendgrid` that is handled by `Webhooks::SendgridHandler`.
+  - Webhooks are excluded from CSRF protection.
+* Changes CLIs so that the default rack environment is "development". This avoids a class of confusing errors.
+* `brut test run` and `brut test e2e` didn't properly rebuild the database after completion, which led to problems.
+* `current_trace_id` is available from `Brut.container.instrumentation` to get the trace ID. Useful for logging.
+
 ## v0.20.2 - May 7, 2026
 
 * Fixed bug in `brut test e2e` that prevented test server from starting
