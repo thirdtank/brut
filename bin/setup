@@ -145,12 +145,7 @@ def setup(update_gems:,setup_credentials:)
       end
     end
 
-    log "Checking for NPM credentials"
-    if !_system "npm whoami"
-      log "NPM credentials are out of date"
-      log "Run npm login, follow the instructions, then re-run this script"
-      exit 1
-    end
+    # Not checking NPM credentials as they can't really be saved
 
     docker_credentials_source = credentials_dir / "dockerhub.credentials"
     docker_credentials_preamble = [
