@@ -580,7 +580,7 @@ RSpec.describe Brut::CLI::Apps::Deploy, cli_command: true do
               ],
               "restart" => "unless-stopped",
             },
-          }
+          },
         }
         File.open(docker_compose_path.to_s, "w") do |file|
           file.puts YAML.dump(docker_compose_contents)

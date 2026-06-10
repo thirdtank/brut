@@ -36,7 +36,7 @@ class Brut::CLI::Apps::Deploy::DeployConfig
   # Generally, do not override this since it configures your
   # web process.  Override {#additional_processes} instead.
   def processes = [
-    process_description("web", ["bundle", "exec", "bin/run"])
+    process_description("web", ["bundle", "exec", "bin/run"]),
   ] + (additional_processes || [])
 
   private def process_description(name,cmd)

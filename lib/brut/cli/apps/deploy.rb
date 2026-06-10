@@ -83,7 +83,7 @@ class Brut::CLI::Apps::Deploy < Brut::CLI::Commands::BaseCommand
       def registry_hostname = "registry.heroku.com"
 
       def processes = super + [
-        process_description("release", "bin/release")
+        process_description("release", "bin/release"),
       ]
 
       def each_dockerfile(&block)
@@ -214,7 +214,7 @@ class Brut::CLI::Apps::Deploy < Brut::CLI::Commands::BaseCommand
                 wrong[process_description] ||= {}
                 wrong[process_description][:image] = {
                   expected: expected_image_name,
-                  actual: image
+                  actual: image,
                 }
                 failed = true
               end
@@ -222,7 +222,7 @@ class Brut::CLI::Apps::Deploy < Brut::CLI::Commands::BaseCommand
                 wrong[process_description] ||= {}
                 wrong[process_description][:command] = {
                   expected: process_description.cmd,
-                  actual: cmd
+                  actual: cmd,
                 }
                 failed = true
               end
