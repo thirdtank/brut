@@ -1,5 +1,9 @@
 # Brut CHANGELOG
 
+## v0.20.0 - June 14, 2026
+
+* Now requires Ruby 4.0
+
 ## v0.21.2 - May 31, 2026
 
 * Overhaul of `brut deploy`.  Docs are updated, but briefly:

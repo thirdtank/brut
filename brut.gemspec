@@ -75,7 +75,7 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "pg"
   spec.add_development_dependency "rake"
   spec.add_development_dependency "rdiscount"
-  spec.add_development_dependency "rdoc"
+  spec.add_development_dependency "rdoc", "~> 7.0.4" # version required because Ruby 4 forces an older version of rdoc and using latest causes massive warnings
   spec.add_development_dependency "rubocop"
   spec.add_development_dependency "rubocop-disable_syntax"
   spec.add_development_dependency "rspec", "~> 3.0"
