@@ -9,11 +9,11 @@
 
 # This uses a base image where Ruby is already installed. This saves
 # us from having to install Ruby ourselves.  Change this whenever you update
-# Ruby. Note that by convention, "3.4" will be whatever the latest point
-# release of Ruby 3.4 is. If you don't want that, specify an exact Ruby version here.
+# Ruby. Note that by convention, "4.0" will be whatever the latest point
+# release of Ruby 4.0 is. If you don't want that, specify an exact Ruby version here.
 # Note that this value is intended to be in sync with the tag of the image
 # found in dx/docker-compose.env
-FROM ruby:3.4
+FROM ruby:4.0
 
 # This attempts to make RUN directives fail when UNIX pipelines are involved
 SHELL [ "/bin/bash", "-o", "pipefail", "-c" ]

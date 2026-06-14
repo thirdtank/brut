@@ -18,8 +18,8 @@
 # and running a container locally.  You'll need all infrastructure available
 # but it can be done to test things before you deploy. If you need to.
 
-# Use Ruby 3.4 as a base.
-FROM docker.io/library/ruby:3.4 AS base
+# Use Ruby 4.0 as a base.
+FROM docker.io/library/ruby:4.0 AS base
 
 # bin/deploy will inject this value so that your app's GIT SHA1
 # is in the environment in production, thus allowing you to be more
