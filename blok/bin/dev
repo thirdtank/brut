@@ -1,0 +1,1 @@
+npx http-server generated-docs -p 8086 -c-1

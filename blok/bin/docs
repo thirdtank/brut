@@ -1,0 +1,34 @@
+#!/usr/bin/env bash
+
+set -e
+
+SCRIPT_DIR=$( cd -- "$( dirname -- "${0}" )" > /dev/null 2>&1 && pwd )
+ROOT_DIR=$(realpath "$SCRIPT_DIR/..")
+
+usage() {
+  echo "Usage: $0"
+  echo
+  echo "    Build CSS docs into the brutrb.com location"
+  echo
+}
+
+for arg in "$@"; do
+  if [ "${arg}" = "-h" ] || [ "${arg}" = "--help" ] || [ "${arg}" = "help" ]; then
+    usage
+    exit 0
+  fi
+done
+
+echo "[ bin/docs ] Building brut.css and docs"
+node src/js/build.js \
+  --media-query-config       config/media-queries-all.css \
+  --pseudo-class-config      config/pseudo-classes-all.css \
+  --input                    src/css/index.css \
+  --output                   src/docs/brut.max.css \
+  --docs-dir                 ../brutrb.com/public/brut-css \
+  --path-to-brut-css-root    /brut-css \
+  --docs-template-source-dir src/docs
+
+npx postcss --config config src/docs/brut.max.css -o src/docs/brut.css
+rm src/docs/brut.max.css
+

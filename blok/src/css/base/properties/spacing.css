@@ -1,0 +1,177 @@
+/* 
+ * Spacing properties.  These are used as the basis of widths, heights, margins, paddings, etc.
+ * There are eight steps in the scale, 1 being the smallest, and 8 being the largest.  They should
+ * provide an adequate number of possible values for spacings such that you can quickly audit them
+ * to figure out what you need.
+ *
+ * Spacings are based on rems, so that they are consistent across the entire document.
+ *
+ * @category spacings
+ */
+
+/*
+ * Basic spaces used for margins and paddings.
+ *
+ * @scale spacing
+ */
+@property --sp-1 {
+  syntax: "<length>";
+  inherits: true;
+  initial-value: 0.25rem;
+}
+@property --sp-2 {
+  syntax: "<length>";
+  inherits: true;
+  initial-value: 0.5rem;
+}
+@property --sp-3 {
+  syntax: "<length>";
+  inherits: true;
+  initial-value: 1rem;
+}
+@property --sp-4 {
+  syntax: "<length>";
+  inherits: true;
+  initial-value: 2rem;
+}
+@property --sp-5 {
+  syntax: "<length>";
+  inherits: true;
+  initial-value: 4rem;
+}
+@property --sp-6 {
+  syntax: "<length>";
+  inherits: true;
+  initial-value: 8rem;
+}
+@property --sp-7 {
+  syntax: "<length>";
+  inherits: true;
+  initial-value: 12rem;
+}
+@property --sp-8 {
+  syntax: "<length>";
+  inherits: true;
+  initial-value: 16rem;
+}
+
+/* Spacing for widths and heights.  Generally, widths and heights need more pronounced options
+ * than margins and paddings.  Thus, the fourth step of the width scale is much larger than the fourth
+ * step of the spacing scale.  The values here are double their respective spacing values.
+ *
+ * @scale widths-heights
+ */
+@property --size-1 {
+  syntax: "<length>";
+  inherits: true;
+  initial-value: 0.5rem;
+}
+@property --size-2 {
+  syntax: "<length>";
+  inherits: true;
+  initial-value: 1rem;
+}
+@property --size-3 {
+  syntax: "<length>";
+  inherits: true;
+  initial-value: 2rem;
+}
+@property --size-4 {
+  syntax: "<length>";
+  inherits: true;
+  initial-value: 4rem;
+}
+@property --size-5 {
+  syntax: "<length>";
+  inherits: true;
+  initial-value: 8rem;
+}
+@property --size-6 {
+  syntax: "<length>";
+  inherits: true;
+  initial-value: 16rem;
+}
+@property --size-7 {
+  syntax: "<length>";
+  inherits: true;
+  initial-value: 24rem;
+}
+@property --size-8 {
+  syntax: "<length>";
+  inherits: true;
+  initial-value: 32rem;
+}
+/*
+ * Border widths.  This is a five-step scale, with 1 being the smallest and 5 being the largest.  
+ * These should provide adequate options for borders.  These don't use the
+ * {property-scale:spacing} scales mostly for aesthetic reasons.
+ *
+ * @scale border-widths
+ */
+/** Smallest border width */
+@property --bw-1 {
+  syntax: "<length>";
+  inherits: true;
+  initial-value: 0.125rem;
+}
+/** Second smallest border width */
+@property --bw-2 {
+  syntax: "<length>";
+  inherits: true;
+  initial-value: 0.25rem;
+}
+/** Middle border width */
+@property --bw-3 {
+  syntax: "<length>";
+  inherits: true;
+  initial-value: 0.5rem;
+}
+/** Second largest border width */
+@property --bw-4 {
+  syntax: "<length>";
+  inherits: true;
+  initial-value: 1rem;
+}
+/** Largest border width */
+@property --bw-5 {
+  syntax: "<length>";
+  inherits: true;
+  initial-value: 2rem;
+}
+/*
+ * Border Radiuses.  This is a five-step scale, with 1 being the smallest and 5 being the largest.  
+ * These should provide adequate options for borders.  These don't use the
+ * {property-scale:spacing} scales mostly for aesthetic reasons.
+ *
+ * @scale border-radiuses
+ */
+/** Smallest border radius */
+@property --br-1 {
+  syntax: "<length>";
+  inherits: true;
+  initial-value: 0.125rem;
+}
+/** Second smallest border radius */
+@property --br-2 {
+  syntax: "<length>";
+  inherits: true;
+  initial-value: 0.25rem;
+}
+/** Middle border radius */
+@property --br-3 {
+  syntax: "<length>";
+  inherits: true;
+  initial-value: 0.5rem;
+}
+/** Second largest border radius */
+@property --br-4 {
+  syntax: "<length>";
+  inherits: true;
+  initial-value: 1rem;
+}
+/** Largest border radius */
+@property --br-5 {
+  syntax: "<length>";
+  inherits: true;
+  initial-value: 2rem;
+}

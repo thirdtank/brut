@@ -1,0 +1,28 @@
+.BLOCK {
+/* List styles
+ *
+ * @category lists
+ */
+
+/* List style types 
+ *
+ * @group list-style-type
+ */
+.lst-none {
+  list-style-type: none;
+}
+.lst-initial {
+  list-style-type: initial;
+}
+
+/* List style position
+ *
+ * @group list-style-position
+ */
+.lsp-inside {
+  list-style-position: inside;
+}
+.lsp-outside {
+  list-style-position: outside;
+}
+}

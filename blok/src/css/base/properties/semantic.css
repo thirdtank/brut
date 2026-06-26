@@ -1,0 +1,56 @@
+
+/* Semantic properties, used when not designing custom components.
+ * @category semantic
+ */
+
+/* Colors
+ * @group semantic-colors
+ */
+/* Text color */
+@property --color-text {
+	syntax: "<color>";
+	inherits: true;
+	initial-value: #1a1a1b;
+}
+
+/* Link color */
+@property --color-link {
+	syntax: "<color>";
+	inherits: true;
+	initial-value: #0069d5;
+}
+
+/* Link color when active*/
+@property --color-link-active {
+	syntax: "<color>";
+	inherits: true;
+	initial-value: #690000;
+}
+
+/* hr/divider color */
+@property --color-hr {
+	syntax: "<color>";
+	inherits: true;
+	initial-value: #d7d7d9;
+}
+
+/* Spacing
+ * @group semantic-spacing
+ */
+/* table cell default horizontal padding */
+@property --ph-td {
+	syntax: "<length>";
+	inherits: true;
+	initial-value: 1rem;
+}
+
+/* table cell default vertical padding */
+@property --pv-td {
+	syntax: "<length>";
+	inherits: true;
+	initial-value: 0.5rem;
+}
+
+:root {
+  --border-width-hr:   0.625rem;
+}

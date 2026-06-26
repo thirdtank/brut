@@ -1,0 +1,722 @@
+/*
+ * Color palette.  BLOK provides 12 colors plus gray at 11 shades each.
+ *
+ * Colors are available as `--XXX` where `XXX` can be read as a darkness level, with 50 being near white and 950 being near black.  The shades between 50 and 950 are 100, 200, 300, 400, 500, 600, 700, 800, and 900.
+ *
+ * @category colors
+ */
+@property --gray-50 {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: oklch(0.99 0 255);
+}
+@property --gray-100 {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: oklch(0.97 0 255);
+}
+@property --gray-200 {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: oklch(0.9 0 255);
+}
+@property --gray-300 {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: oklch(0.81 0 255);
+}
+@property --gray-400 {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: oklch(0.71 0 255);
+}
+@property --gray-500 {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: oklch(0.6 0 255);
+}
+@property --gray-600 {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: oklch(0.5 0 255);
+}
+@property --gray-700 {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: oklch(0.4 0 255);
+}
+@property --gray-800 {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: oklch(0.29 0 255);
+}
+@property --gray-900 {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: oklch(0.18 0 255);
+}
+@property --gray-950 {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: oklch(0.08 0 255);
+}
+@property --red-50 {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: oklch(0.99 0.03 20);
+}
+@property --red-100 {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: oklch(0.97 0.08 20);
+}
+@property --red-200 {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: oklch(0.9 0.126 20);
+}
+@property --red-300 {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: oklch(0.81 0.165 20);
+}
+@property --red-400 {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: oklch(0.71 0.191 20);
+}
+@property --red-500 {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: oklch(0.6 0.2 20);
+}
+@property --red-600 {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: oklch(0.5 0.191 20);
+}
+@property --red-700 {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: oklch(0.4 0.165 20);
+}
+@property --red-800 {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: oklch(0.29 0.126 20);
+}
+@property --red-900 {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: oklch(0.18 0.08 20);
+}
+@property --red-950 {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: oklch(0.08 0.03 20);
+}
+@property --orange-50 {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: oklch(0.99 0.032 50);
+}
+@property --orange-100 {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: oklch(0.97 0.084 50);
+}
+@property --orange-200 {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: oklch(0.9 0.132 50);
+}
+@property --orange-300 {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: oklch(0.81 0.173 50);
+}
+@property --orange-400 {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: oklch(0.71 0.2 50);
+}
+@property --orange-500 {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: oklch(0.6 0.21 50);
+}
+@property --orange-600 {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: oklch(0.5 0.2 50);
+}
+@property --orange-700 {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: oklch(0.4 0.173 50);
+}
+@property --orange-800 {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: oklch(0.29 0.132 50);
+}
+@property --orange-900 {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: oklch(0.18 0.084 50);
+}
+@property --orange-950 {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: oklch(0.08 0.032 50);
+}
+@property --amber-50 {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: oklch(0.99 0.027 75);
+}
+@property --amber-100 {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: oklch(0.97 0.072 75);
+}
+@property --amber-200 {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: oklch(0.9 0.113 75);
+}
+@property --amber-300 {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: oklch(0.81 0.148 75);
+}
+@property --amber-400 {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: oklch(0.71 0.172 75);
+}
+@property --amber-500 {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: oklch(0.6 0.18 75);
+}
+@property --amber-600 {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: oklch(0.5 0.172 75);
+}
+@property --amber-700 {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: oklch(0.4 0.148 75);
+}
+@property --amber-800 {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: oklch(0.29 0.113 75);
+}
+@property --amber-900 {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: oklch(0.18 0.072 75);
+}
+@property --amber-950 {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: oklch(0.08 0.027 75);
+}
+@property --yellow-50 {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: oklch(0.99 0.041 100);
+}
+@property --yellow-100 {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: oklch(0.97 0.108 100);
+}
+@property --yellow-200 {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: oklch(0.9 0.17 100);
+}
+@property --yellow-300 {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: oklch(0.81 0.223 100);
+}
+@property --yellow-400 {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: oklch(0.71 0.258 100);
+}
+@property --yellow-500 {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: oklch(0.6 0.27 100);
+}
+@property --yellow-600 {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: oklch(0.5 0.258 100);
+}
+@property --yellow-700 {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: oklch(0.4 0.223 100);
+}
+@property --yellow-800 {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: oklch(0.29 0.17 100);
+}
+@property --yellow-900 {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: oklch(0.18 0.108 100);
+}
+@property --yellow-950 {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: oklch(0.08 0.041 100);
+}
+@property --lime-50 {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: oklch(0.99 0.022 135);
+}
+@property --lime-100 {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: oklch(0.97 0.06 135);
+}
+@property --lime-200 {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: oklch(0.9 0.094 135);
+}
+@property --lime-300 {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: oklch(0.81 0.124 135);
+}
+@property --lime-400 {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: oklch(0.71 0.143 135);
+}
+@property --lime-500 {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: oklch(0.6 0.15 135);
+}
+@property --lime-600 {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: oklch(0.5 0.143 135);
+}
+@property --lime-700 {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: oklch(0.4 0.124 135);
+}
+@property --lime-800 {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: oklch(0.29 0.094 135);
+}
+@property --lime-900 {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: oklch(0.18 0.06 135);
+}
+@property --lime-950 {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: oklch(0.08 0.022 135);
+}
+@property --green-50 {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: oklch(0.99 0.026 160);
+}
+@property --green-100 {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: oklch(0.97 0.068 160);
+}
+@property --green-200 {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: oklch(0.9 0.107 160);
+}
+@property --green-300 {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: oklch(0.81 0.14 160);
+}
+@property --green-400 {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: oklch(0.71 0.162 160);
+}
+@property --green-500 {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: oklch(0.6 0.17 160);
+}
+@property --green-600 {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: oklch(0.5 0.162 160);
+}
+@property --green-700 {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: oklch(0.4 0.14 160);
+}
+@property --green-800 {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: oklch(0.29 0.107 160);
+}
+@property --green-900 {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: oklch(0.18 0.068 160);
+}
+@property --green-950 {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: oklch(0.08 0.026 160);
+}
+@property --teal-50 {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: oklch(0.99 0.019 190);
+}
+@property --teal-100 {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: oklch(0.97 0.052 190);
+}
+@property --teal-200 {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: oklch(0.9 0.082 190);
+}
+@property --teal-300 {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: oklch(0.81 0.107 190);
+}
+@property --teal-400 {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: oklch(0.71 0.124 190);
+}
+@property --teal-500 {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: oklch(0.6 0.13 190);
+}
+@property --teal-600 {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: oklch(0.5 0.124 190);
+}
+@property --teal-700 {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: oklch(0.4 0.107 190);
+}
+@property --teal-800 {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: oklch(0.29 0.082 190);
+}
+@property --teal-900 {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: oklch(0.18 0.052 190);
+}
+@property --teal-950 {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: oklch(0.08 0.019 190);
+}
+@property --cyan-50 {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: oklch(0.99 0.027 215);
+}
+@property --cyan-100 {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: oklch(0.97 0.072 215);
+}
+@property --cyan-200 {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: oklch(0.9 0.113 215);
+}
+@property --cyan-300 {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: oklch(0.81 0.148 215);
+}
+@property --cyan-400 {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: oklch(0.71 0.172 215);
+}
+@property --cyan-500 {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: oklch(0.6 0.18 215);
+}
+@property --cyan-600 {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: oklch(0.5 0.172 215);
+}
+@property --cyan-700 {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: oklch(0.4 0.148 215);
+}
+@property --cyan-800 {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: oklch(0.29 0.113 215);
+}
+@property --cyan-900 {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: oklch(0.18 0.072 215);
+}
+@property --cyan-950 {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: oklch(0.08 0.027 215);
+}
+@property --blue-50 {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: oklch(0.99 0.028 255);
+}
+@property --blue-100 {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: oklch(0.97 0.076 255);
+}
+@property --blue-200 {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: oklch(0.9 0.12 255);
+}
+@property --blue-300 {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: oklch(0.81 0.157 255);
+}
+@property --blue-400 {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: oklch(0.71 0.181 255);
+}
+@property --blue-500 {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: oklch(0.6 0.19 255);
+}
+@property --blue-600 {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: oklch(0.5 0.181 255);
+}
+@property --blue-700 {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: oklch(0.4 0.157 255);
+}
+@property --blue-800 {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: oklch(0.29 0.12 255);
+}
+@property --blue-900 {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: oklch(0.18 0.076 255);
+}
+@property --blue-950 {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: oklch(0.08 0.028 255);
+}
+@property --indigo-50 {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: oklch(0.99 0.018 280);
+}
+@property --indigo-100 {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: oklch(0.97 0.048 280);
+}
+@property --indigo-200 {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: oklch(0.9 0.076 280);
+}
+@property --indigo-300 {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: oklch(0.81 0.099 280);
+}
+@property --indigo-400 {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: oklch(0.71 0.115 280);
+}
+@property --indigo-500 {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: oklch(0.6 0.12 280);
+}
+@property --indigo-600 {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: oklch(0.5 0.115 280);
+}
+@property --indigo-700 {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: oklch(0.4 0.099 280);
+}
+@property --indigo-800 {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: oklch(0.29 0.076 280);
+}
+@property --indigo-900 {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: oklch(0.18 0.048 280);
+}
+@property --indigo-950 {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: oklch(0.08 0.018 280);
+}
+@property --purple-50 {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: oklch(0.99 0.028 305);
+}
+@property --purple-100 {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: oklch(0.97 0.076 305);
+}
+@property --purple-200 {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: oklch(0.9 0.12 305);
+}
+@property --purple-300 {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: oklch(0.81 0.157 305);
+}
+@property --purple-400 {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: oklch(0.71 0.181 305);
+}
+@property --purple-500 {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: oklch(0.6 0.19 305);
+}
+@property --purple-600 {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: oklch(0.5 0.181 305);
+}
+@property --purple-700 {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: oklch(0.4 0.157 305);
+}
+@property --purple-800 {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: oklch(0.29 0.12 305);
+}
+@property --purple-900 {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: oklch(0.18 0.076 305);
+}
+@property --purple-950 {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: oklch(0.08 0.028 305);
+}
+@property --pink-50 {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: oklch(0.99 0.03 340);
+}
+@property --pink-100 {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: oklch(0.97 0.08 340);
+}
+@property --pink-200 {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: oklch(0.9 0.126 340);
+}
+@property --pink-300 {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: oklch(0.81 0.165 340);
+}
+@property --pink-400 {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: oklch(0.71 0.191 340);
+}
+@property --pink-500 {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: oklch(0.6 0.2 340);
+}
+@property --pink-600 {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: oklch(0.5 0.191 340);
+}
+@property --pink-700 {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: oklch(0.4 0.165 340);
+}
+@property --pink-800 {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: oklch(0.29 0.126 340);
+}
+@property --pink-900 {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: oklch(0.18 0.08 340);
+}
+@property --pink-950 {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: oklch(0.08 0.03 340);
+}

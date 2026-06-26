@@ -1,0 +1,178 @@
+/*
+ * Appearance-related values such as animations, focus, and shadows.
+ *
+ * @category appearance
+ */
+/** Shadow Geometry for all box shadows.
+ * @group shadows
+ */
+/* Shadow color */
+@property --shadow-color    {
+  syntax: "<color>";
+  inherits: false;
+  initial-value: rgb(135, 135, 135);
+}
+/* Shadow offset X */
+@property --shadow-x {
+  syntax: "<length>";
+  inherits: false;
+  initial-value: 1px;
+}
+/* Shadow offset Y */
+@property --shadow-y {
+  syntax: "<length>";
+  inherits: false;
+  initial-value: 1px;
+}
+/* Shadow spread */
+@property --shadow-spread   {
+  syntax: "<length>";
+  inherits: false;
+  initial-value: 0px;
+}
+
+/* Shadow blurs for different "heights" of the shadow, with 1 being the lowest and 6 being the highest.
+ * @scale shadow-blur
+ */
+/* Lowest shadow height */
+@property --shadow-blur-1   {
+  syntax: "<length>";
+  inherits: false;
+  initial-value: 4px;
+}
+/* Second lowest shadow height */
+@property --shadow-blur-2   {
+  syntax: "<length>";
+  inherits: false;
+  initial-value: 10.64px;
+}
+/* Third lowest shadow height */
+@property --shadow-blur-3   {
+  syntax: "<length>";
+  inherits: false;
+  initial-value: 15.022px;
+}
+/* Third highest shadow height */
+@property --shadow-blur-4   {
+  syntax: "<length>";
+  inherits: false;
+  initial-value: 22.297px;
+}
+/* Second highest shadow height */
+@property --shadow-blur-5   {
+  syntax: "<length>";
+  inherits: false;
+  initial-value: 34.373px;
+}
+/* Highest shadow height */
+@property --shadow-blur-6   {
+  syntax: "<length>";
+  inherits: false;
+  initial-value: 54.419px;
+}
+
+/* Shadow blurs for different "depths" of an inset shadow, with 1 being the shallowest and 6 being the
+ * deepest.
+ * @scale inset-shadow-blur
+ */
+/* Shallowest inset shadow blur */
+@property --inset-shadow-blur-1   {
+  syntax: "<length>";
+  inherits: false;
+  initial-value: 4px;
+}
+/* Second shallowest inset shadow blur */
+@property --inset-shadow-blur-2   {
+  syntax: "<length>";
+  inherits: false;
+  initial-value: 5.52px;
+}
+/* Third shallowest inset shadow blur */
+@property --inset-shadow-blur-3   {
+  syntax: "<length>";
+  inherits: false;
+  initial-value: 8.19px;
+}
+/* Third deepest inset shadow blur */
+@property --inset-shadow-blur-4   {
+  syntax: "<length>";
+  inherits: false;
+  initial-value: 12.903px;
+}
+/* Second deepest inset shadow blur */
+@property --inset-shadow-blur-5   {
+  syntax: "<length>";
+  inherits: false;
+  initial-value: 21.190px;
+}
+/* Deepest inset shadow blur */
+@property --inset-shadow-blur-6   {
+  syntax: "<length>";
+  inherits: false;
+  initial-value: 35.774px;
+}
+
+
+/* Shadow spreads for different "depths" of an inset shadow, with 1 being the shallowest and 6 being the
+ * deepest.
+ * @scale inset-shadow-spread
+ */
+/* Shallowest inset shadow spread */
+@property --inset-shadow-spread-1   {
+  syntax: "<length>";
+  inherits: false;
+  initial-value: -1px;
+}
+/* Second shallowest inset shadow spread */
+@property --inset-shadow-spread-2   {
+  syntax: "<length>";
+  inherits: false;
+  initial-value: -1.043px;
+}
+/* Third shallowest inset shadow spread */
+@property --inset-shadow-spread-3   {
+  syntax: "<length>";
+  inherits: false;
+  initial-value: -1.193px;
+}
+/* Third deepest inset shadow spread */
+@property --inset-shadow-spread-4   {
+  syntax: "<length>";
+  inherits: false;
+  initial-value: -1.485px;
+}
+/* Second deepest inset shadow spread */
+@property --inset-shadow-spread-5   {
+  syntax: "<length>";
+  inherits: false;
+  initial-value: -1.986px;
+}
+/* Deepest inset shadow spread */
+@property --inset-shadow-spread-6   {
+  syntax: "<length>";
+  inherits: false;
+  initial-value: -2.802px;
+}
+
+/* Focus Visible/Focus Ring.
+ *
+ * @group focus-visible
+ */
+/* Width of the ring to draw around focused element */
+@property --focus-visible-width {
+  syntax: "<length>";
+  inherits: false;
+  initial-value: 2px;
+}
+/* Color of the ring to draw around focused element */
+@property --focus-visible-color {
+  syntax: "<color>";
+  inherits: false;
+  initial-value: #0000aa;
+}
+/* Offset of the ring to draw around focused element */
+@property --focus-visible-offset {
+  syntax: "<length>";
+  inherits: false;
+  initial-value: 2px;
+}

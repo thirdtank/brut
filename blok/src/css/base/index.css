@@ -1,0 +1,96 @@
+@import "properties/index.css";
+@layer blok-base {
+html {
+  color-scheme: light dark;
+}
+body.BLOK {
+  color: var(--color-text);
+  font-family: var(--ff-sans);
+  font-size: var(--fs-1);
+  line-height: var(--lh-copy);
+}
+.BLOK {
+
+h1 {
+  font-size: var(--fs-7);
+  font-weight: 700;
+}
+h2 {
+  font-size: var(--fs-6);
+  font-weight: 700;
+}
+h3 {
+  font-size: var(--fs-5);
+  font-weight: 700;
+}
+h4 {
+  font-size: var(--fs-4);
+  font-weight: 700;
+}
+h5 {
+  font-size: var(--fs-3);
+  font-weight: 700;
+}
+h6 {
+  font-size: var(--fs-2);
+  font-weight: 900;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  text-wrap: balance;
+}
+
+small {
+  font-size: 90%;
+}
+
+code, kbd, samp, pre {
+  font-family: var(--ff-mono);
+}
+
+pre {
+  overflow-x: auto;
+}
+
+a {
+  color: var(--color-link);
+  text-decoration-color: var(--color-link);
+}
+
+a:visited {
+  color: var(--color-link);
+}
+a:active {
+  color: var(--color-link-active);
+}
+
+hr {
+  border: 0;
+  border-top: var(--border-width-hr) solid var(--color-hr);
+  margin-block: var(--blok-space-4);
+}
+
+img, svg, video {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+th, td {
+  padding-left: var(--ph-td);
+  padding-right: var(--ph-td);
+  padding-top: var(--pv-td);
+  padding-bottom: var(--pv-td);
+}
+
+table {
+  border-collapse: collapse;
+}
+
+:focus-visible {
+  outline: var(--focus-visible-width) solid var(--focus-visible-color);
+  outline-offset: var(--focus-visible-offset);
+}
+}
+
+}

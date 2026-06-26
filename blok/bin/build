@@ -1,0 +1,29 @@
+#!/usr/bin/env bash
+set -e
+
+SCRIPT_DIR=$( cd -- "$( dirname -- "${0}" )" > /dev/null 2>&1 && pwd )
+ROOT_DIR=$(realpath "$SCRIPT_DIR/..")
+
+usage() {
+  echo "Usage: $0"
+  echo
+  echo "    Build CSS for distribution"
+  echo
+}
+
+for arg in "$@"; do
+  if [ "${arg}" = "-h" ] || [ "${arg}" = "--help" ] || [ "${arg}" = "help" ]; then
+    usage
+    exit 0
+  fi
+done
+
+echo "[ bin/build ] Building blok.css"
+node src/js/build.js \
+  -i src/css/index.css \
+  -o dist/blok.max.css \
+
+echo "[ bin/build ] Removing comments and minifying blok.css"
+npx postcss --verbose --config config dist/blok.max.css -o dist/blok.css
+#rm dist/blok.max.css
+

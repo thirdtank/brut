@@ -31,6 +31,7 @@
 /brut-js/node_modules
 /brut-js/docs/node_modules
 /brut-css/node_modules
+/blok/node_modules
 # Configured location for npm install -g
 /.npm-global
 
@@ -38,6 +39,8 @@
 /brut-js/specs/public/js
 # This is a staging area for the distributions of the .css files
 /brut-css/dist
+# This is a staging area for the distributions of the .css files
+/blok/dist
 # This is where the CSS lives temporarily while docs are being built
 /brut-css/src/docs/brut.css
 
