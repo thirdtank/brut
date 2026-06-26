@@ -123,7 +123,7 @@ def setup(update_gems:,setup_credentials:)
     end
     log "Your ssh key looks good"
 
-    gem_credentials_dest = Pathname("/") / "home" / "appuser" / ".gem" / "credentials"
+    gem_credentials_dest = Pathname("/") / "home" / "appuser" / ".local" / "share" / "gem" / "credentials"
     if gem_credentials_dest.exist?
       log "Gem credentials look good"
     else
