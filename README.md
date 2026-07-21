@@ -1,6 +1,7 @@
 # Brut - The Raw, Simple, Powerful, Standards-Based Web Framework
 
 [![Ruby Users Forum](https://img.shields.io/discourse/topics?server=https%3A%2F%2Fwww.rubyforum.org&style=flat&logo=discourse&label=Ruby%20Users%20Forum)](https://www.rubyforum.org/tag/brut/62)
+
 Brut is a way to make web apps with Ruby, captializing on the knowledge you have—HTTP, HTML, CSS, JavaScript, SQL—without requiring
 *too* much extra stuff to learn.
 
