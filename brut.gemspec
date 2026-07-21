@@ -26,6 +26,7 @@ Gem::Specification.new do |spec|
     spec.metadata["changelog_uri"] = "https://github.com/thirdtank/brut/blob/main/CHANGELOG.md"
     spec.metadata["documentation_uri"] = "https://brutrb.com/"
     spec.metadata["rubygems_mfa_required"] = "true"
+    spec.metadata["mailing_list_uri"]   = "https://www.rubyforum.org/tag/brut/62"
   else
     raise "RubyGems 2.0 or newer is required to protect against public gem pushes."
   end
