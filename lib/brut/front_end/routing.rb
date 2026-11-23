@@ -23,7 +23,7 @@ class Brut::FrontEnd::Routing
       elsif route.class == MissingPage || route.class == MissingHandler || route.class == MissingForm
         route.class.new(route.path_template,route.exception)
       elsif route.class == MissingPath
-        route.class.new(route.method,route.path_template,route.exception)
+        route.class.new(route.http_method,route.path_template,route.exception)
       else
         route.class.new(route.path_template)
       end
@@ -38,85 +38,30 @@ class Brut::FrontEnd::Routing
   end
 
   def register_page(path)
-    route = begin
-              PageRoute.new(path)
-            rescue Brut::Framework::Errors::NoClassForPath => ex
-              if Brut.container.project_env.development?
-                MissingPage.new(path,ex)
-              else
-                raise ex
-              end
-            end
-    @routes << route
-    add_routing_method(route)
-    route
+    register_route(path, route_class: PageRoute, missing_class: MissingPage)
   end
 
   def register_form(path)
-    route = begin
-              FormRoute.new(path)
-            rescue Brut::Framework::Errors::NoClassForPath => ex
-              if Brut.container.project_env.development?
-                MissingForm.new(path,ex)
-              else
-                raise ex
-              end
-            end
-    @routes << route
-    add_routing_method(route)
-    route
+    register_route(path, route_class: FormRoute, missing_class: MissingForm)
   end
 
   def register_handler_only(path)
-    route = begin
-              FormHandlerRoute.new(path)
-            rescue Brut::Framework::Errors::NoClassForPath => ex
-              if Brut.container.project_env.development?
-                MissingHandler.new(path,ex)
-              else
-                raise ex
-              end
-            end
-    @routes << route
-    add_routing_method(route)
-    route
+    register_route(path, route_class: FormHandlerRoute, missing_class: MissingHandler)
   end
 
   def register_path(path, method:)
-    route = begin
-              Route.new(method, path)
-            rescue Brut::Framework::Errors::NoClassForPath => ex
-              if Brut.container.project_env.development?
-                MissingPath.new(method,path,ex)
-              else
-                raise ex
-              end
-            end
-    @routes << route
-    add_routing_method(route)
-    route
+    register_route(path, method:)
   end
 
   def register_webhook(path, method:)
     path = path.gsub(/^\//,"")
-    full_path = "#{Brut.container.webhook_url_path_prefix}/#{path}"
+    webhook_url_path_prefix = Brut.container.webhook_url_path_prefix
+    full_path = "#{webhook_url_path_prefix}/#{path}"
 
-    if full_path =~ /^#{Regexp.escape(Brut.container.webhook_url_path_prefix)}#{Regexp.escape(Brut.container.webhook_url_path_prefix)}/
+    if full_path =~ /^#{Regexp.escape(webhook_url_path_prefix)}#{Regexp.escape(webhook_url_path_prefix)}/
       raise ArgumentError, "webhook '#{path}' should not start with #{Brut.container.webhook_url_path_prefix} - Brut will add that for you"
     end
-
-    route = begin
-              Route.new(method, full_path)
-            rescue Brut::Framework::Errors::NoClassForPath => ex
-              if Brut.container.project_env.development?
-                MissingPath.new(method,full_path,ex)
-              else
-                raise ex
-              end
-            end
-    @routes << route
-    add_routing_method(route)
-    route
+    register_route(full_path, method:)
   end
 
   def route(handler_class)
@@ -167,8 +112,25 @@ private
                                  false
                                end
     if !route_allowed_for_method
-      raise ArgumentError,"The route for '#{handler_class}' (#{route.path}) is not supported by HTTP method '#{with_method}'"
+      raise ArgumentError,"The route for '#{handler_class}' (#{route.path_template}) is not supported by HTTP method '#{with_method}'"
     end
+    route
+  end
+
+  def register_route(path, method: nil, route_class: Route, missing_class: MissingPath)
+    route_args = [ method, path ].compact
+    route = begin
+              route_class.new(*route_args)
+            rescue Brut::Framework::Errors::NoClassForPath => ex
+              missing_args = [ method, path, ex ].compact
+              if Brut.container.project_env.development?
+                missing_class.new(*missing_args)
+              else
+                raise ex
+              end
+            end
+    @routes << route
+    add_routing_method(route)
     route
   end
 
@@ -218,19 +180,25 @@ private
     def path(**query_string_params)
       anchor = query_string_params.delete(:anchor) || query_string_params.delete("anchor")
       path = @path_template.split(/\//).map { |path_part|
-        if path_part =~ /^:(.+)$/
-          param_name = $1.to_sym
-          if !query_string_params.key?(param_name)
-            raise Brut::Framework::Errors::MissingParameter.new(
-              param_name,
-              params_received: query_string_params.keys,
-              context: ":#{param_name} was used as a path parameter for #{@handler_class} (path '#{@path_template}')"
-            )
-          end
-          query_string_params.delete(param_name)
-        else
-          path_part
+        path_segment = if path_part =~ /^:(.+)$/
+                         param_name = $1.to_sym
+                         if !query_string_params.key?(param_name)
+                           raise Brut::Framework::Errors::MissingParameter.new(
+                             param_name,
+                             params_received: query_string_params.keys,
+                             context: ":#{param_name} was used as a path parameter for #{@handler_class} (path '#{@path_template}')"
+                           )
+                         end
+                         query_string_params.delete(param_name).to_s
+                       else
+                         path_part
+                       end
+        if path_segment =~ /\//
+          raise ArgumentError, "#{path_segment} contains a slash, which is not allowed"
+        elsif path_segment == "." || path_segment == ".."
+          raise ArgumentError, "#{path_segment} may not be . or .."
         end
+        URI.encode_uri_component(path_segment)
       }
       joined_path = path.join("/")
       if joined_path == ""
@@ -267,9 +235,17 @@ private
         "Attempting to get the full URL for route #{self.path_template}, #{request_context_note}, and Brut.container.fallback_host was not set.  You must set this value if you expect to generate complete URLs outside of an HTTP request")
     end
 
-    def ==(other)
-      self.method == other.method && self.path == other.path
+    def hash
+      self.http_method.hash + self.path_template.hash
     end
+
+    def eql?(other)
+      self.class == other.class               &&
+        self.http_method == other.http_method &&
+        self.path_template == other.path_template
+    end
+
+    def ==(other) = eql?(other)
 
   private
 
