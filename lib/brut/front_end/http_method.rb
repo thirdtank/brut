@@ -24,7 +24,9 @@ class Brut::FrontEnd::HttpMethod
   alias to_str to_s
 
   # @return [true|false] True if the other object is the same class as this and has the same string representation
-  def ==(other)
+  def ==(other) = eql?(other)
+  def hash = @method.hash
+  def eql?(other)
     self.class.name == other.class.name && self.to_s == other.to_s
   end
 
