@@ -95,13 +95,21 @@ class Brut::FrontEnd::Form
   # @param [Integer] index the index of the input, when using arrays.
   # @return [Brut::FrontEnd::Forms::Input]
   def input(input_name, index: nil)
-    index ||= 0
     inputs = self.inputs(input_name)
-    input = inputs[index]
+    input = inputs[index || 0]
     if input.nil?
       input_definition = self.class.input_definitions.fetch(input_name.to_s)
       input = input_definition.make_input(value:"", index:)
       inputs[index] = input
+    end
+    if input.array?
+      if index.nil?
+        raise ArgumentError, "#{input_name} is an array input, but index was omitted or nil. You must pass an actual index when creating inputs"
+      end
+    else
+      if !index.nil? && index != 0
+        raise ArgumentError, "#{input_name} is not an array input, but #{index} was passed as an index - this isn't allowed. Omit this or pass nil/0"
+      end
     end
     input
   end

@@ -8,11 +8,13 @@ class Brut::FrontEnd::Components::Inputs::TextareaTag < Brut::FrontEnd::Componen
   # @param [Integer] index if this input is part of an array, this is the index into that array. This is used to get the input's value.
   # @param [Hash] html_attributes any additional HTML attributes to include on the `<textarea>` element.
   def initialize(form:, input_name:, index: nil, **html_attributes)
-    html_attributes = html_attributes.map { |key,value| [ key.to_sym, value ] }.to_h
-    default_html_attributes = {}
-
-    index ||= 0
     input = form.input(input_name, index:)
+    if input.class.name != "Brut::FrontEnd::Forms::Input"
+      raise ArgumentError, "#{self.class} can only be used with `input` elements, not #{input.class.name} form elements"
+    end
+
+    default_html_attributes = {}
+    html_attributes = html_attributes.map { |key,value| [ key.to_sym, value ] }.to_h
 
     default_html_attributes[:required] = input.required
     default_html_attributes[:name]     = if input.array?

@@ -4,7 +4,7 @@ class Brut::FrontEnd::Components::Inputs::InputTag < Brut::FrontEnd::Components:
 
   # Creates the appropriate input for the given {Brut::FrontEnd::Form} and input name.
   #
-  # @param [Brut::FrontEnd::Form} form The form that is being rendered. This method will consult this class to understand the requirements on this input so its HTML is generated correctly.
+  # @param [Brut::FrontEnd::Form] form The form that is being rendered. This method will consult this class to understand the requirements on this input so its HTML is generated correctly.
   # @param [String] input_name the name of the input, which should be a member of `form`
   # @param [Integer] index if this input is part of an array, this is the index into that array. This is used to get the input's value.
   # @param [Hash] html_attributes any additional HTML attributes to include on the `<input>` element.
@@ -35,17 +35,17 @@ class Brut::FrontEnd::Components::Inputs::InputTag < Brut::FrontEnd::Components:
       default_html_attributes[:min] = input.min
     end
     if input.minlength
-      default_html_attributes[:minlength] = input.minlength end
+      default_html_attributes[:minlength] = input.minlength
+    end
     if input.step
       default_html_attributes[:step] = input.step
     end
-    value = input.value
 
     if input.type == "checkbox"
-      default_html_attributes[:value] = (index || true).to_s
-      default_html_attributes[:checked] = value == "true"
+      default_html_attributes[:value] = input.array? ? index.to_s : "true"
+      default_html_attributes[:checked] = input.value == "true"
     else
-      default_html_attributes[:value] = value.nil? ? nil : value.to_s
+      default_html_attributes[:value] = input.value
     end
     if !form.new? && !input.valid?
       default_html_attributes["data-invalid"] = true
