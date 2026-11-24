@@ -46,6 +46,8 @@ class Brut::FrontEnd::Page < Brut::FrontEnd::Component
         uri
       in Brut::FrontEnd::HttpStatus => http_status
         http_status
+      in Brut::FrontEnd::GenericResponse => generic_response
+        generic_response
       else
         Brut.container.instrumentation.span(self.class.name + "#handle") do |span|
           self.call
