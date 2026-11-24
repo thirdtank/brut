@@ -464,6 +464,19 @@ class Brut::Framework::Config
       end
 
       c.store(
+        "secure_cookies?",
+        :boolean,
+        "If true, cookies are marked secure: true",
+        allow_app_override: true
+      ) do |project_env|
+        if project_env.production?
+          ENV["SECURE_COOKIES"] != "false"
+        else
+          false
+        end
+      end
+
+      c.store(
         "webhook_url_path_prefix",
         String,
         "The root url path under which Webhooks are placed.",

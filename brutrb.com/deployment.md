@@ -11,12 +11,20 @@ That said, Brut currently provides explicit support for two methods of deploymen
 
 ### General Design of Deployment
 
-Brut attempts to consolidate all production deployment configuration in `deploy/deploy_config.rb`,
-     which is expected to define the class `AppDeployConfig`, which is expected to extend `Brut::CLI::Apps::Deploy::DeployConfig`.  Brut will create an instance of this class and use it to understand production aspects of your deployment.  No YAML.
+Brut attempts to consolidate all production deployment configuration in `deploy/deploy_config.rb`, which is expected to define the class `AppDeployConfig`, which is expected to extend `Brut::CLI::Apps::Deploy::DeployConfig`.  Brut will create an instance of this class and use it to understand production aspects of your deployment.  No YAML.
 
 At its most basic, in production you will need to know what long-running processes to run. By default, you'd run a web process, but you may also run Sidekiq or other services that need access to your app's source code.
 
-The most full-featured method currently supported is Heroku, using containers.
+You will need to set the following environment variables unless you have overridden some of Brut's
+default configuration:
+
+
+* `RACK_ENV` - Set to "production"
+* `DATABASE_URL` - Set to the URL to your database.
+* `LOG_LEVEL` - If set, should be `error`, `warning`, `info`, or `debug`. `debug` is the default.
+* `PERMITTED_HOSTS` - Comma-delimited list of IPs or Hostnames this app is permitted to respond on. **This must be set in production**. Brut does not allow you to deploy with any host permitted.
+
+The most full-featured method of deployment currently supported is Heroku, using containers.
 
 
 ### Heroku Container-based Deployment

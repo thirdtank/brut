@@ -15,9 +15,7 @@ of your app:
 
 ### Encrypted Sessions
 
-Brut uses the `Rack::Session::Cookie` middleware to manage cookies.  They are encrypted with the value of
-the environment variable `SESSION_SECRET`.  This prevents both the website visitor and other websites from
-examining the contents of the cookie.
+Brut uses the `Rack::Session::Cookie` middleware to manage cookies.  They are encrypted with the value of the environment variable `SESSION_SECRET`.  This prevents both the website visitor and other websites from examining the contents of the cookie.  Cookies are not secure in dev/test and default to secure in production (meaning they are only sent over SSL).  This can be changed by setting `SECURE_COOKIES` to `"false"` in production (not recommended).
 
 This means that if Brut places data in there, it can rely on it being safe when fetched later.
 

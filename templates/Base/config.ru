@@ -3,6 +3,7 @@ bootstrap = Bootstrap.new.bootstrap!
 
 app = Rack::Builder.app do
   use Rack::Session::Cookie,
+    secure: Brut.container.secure_cookies?,
     key: "rack.session",
     path: "/",
     expire_after: 31_536_000,

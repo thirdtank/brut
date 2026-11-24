@@ -35,6 +35,14 @@ RSpec.describe Brut::Framework::Config do
     ENV["PERMITTED_HOSTS"] = old_value
   end
 
+  def with_secure_cookies_env(value)
+    old_value = ENV["SECURE_COOKIES"]
+    ENV["SECURE_COOKIES"] = value
+    yield
+  ensure
+    ENV["SECURE_COOKIES"] = old_value
+  end
+
   describe "semantic_logger_appenders" do
     it "configures colorized stdout and a development log file in development" do
       configure_for("development")
@@ -137,6 +145,40 @@ RSpec.describe Brut::Framework::Config do
         configure_for("production")
 
         expect(container.production_permitted_hosts).to eq([])
+      end
+    end
+  end
+
+  describe "secure_cookies?" do
+    it "defaults to false in development" do
+      with_secure_cookies_env(nil) do
+        configure_for("development")
+
+        expect(container.secure_cookies?).to eq(false)
+      end
+    end
+
+    it "defaults to false in test" do
+      with_secure_cookies_env(nil) do
+        configure_for("test")
+
+        expect(container.secure_cookies?).to eq(false)
+      end
+    end
+
+    it "defaults to true in production" do
+      with_secure_cookies_env(nil) do
+        configure_for("production")
+
+        expect(container.secure_cookies?).to eq(true)
+      end
+    end
+
+    it "can be disabled in production via SECURE_COOKIES" do
+      with_secure_cookies_env("false") do
+        configure_for("production")
+
+        expect(container.secure_cookies?).to eq(false)
       end
     end
   end

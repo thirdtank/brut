@@ -193,8 +193,7 @@ your app way easier to manage.
 
 _Last Updated May 7, 2025_
 
-The session is based on [`Rack::Session`](https://github.com/rack/rack-session), which is configured explicitly
-in your app's `config.ru`. (TBD: WHY?)
+The session is based on [`Rack::Session`](https://github.com/rack/rack-session), which is configured explicitly in your app's `config.ru`. (TBD: WHY?)
 
 The session object itself is created on demand for any route hook that needs it.
 Since `Brut::FrontEnd::RouteHooks::SetupRequestContext` requires the session, the

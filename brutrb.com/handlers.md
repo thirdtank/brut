@@ -23,7 +23,7 @@ called by Brut and your tests, is `handle!`**, however you implement `handle`, w
 |Instance of a page or component | That page or component's HTML is generated and returned.  This is not a redirect, but more like `render :new` in a Rails controller |
 |`Brut::FrontEnd::HttpStatus` | This HTTP status is returned with no body. Use `http_status` from `Brut::FrontEnd::HandlingResults` (included in all handlers) to create an instance from a number |
 | `URI` | Redirect to the URI.  Use `redirect_to` from `Brut::FrontEnd::HandlingResults` (included in all handlers) to generate a URI from a page class and parameters |
-| Two element array with *element 0* being a `Brut::FrontEnd::HttpStatus`, and *element 1* being a page or component instance | Generates the page or component's HTML, but sets the given status instead of 200. Useful for Ajax responses where the HTTP status affects client-side behavior |
+| Two element array with *element 0* being a page or component instance and *element 1* being a `Brut::FrontEnd::HttpStatus` | Generates the page or component's HTML, but sets the given status instead of 200. Useful for Ajax responses where the HTTP status affects client-side behavior |
 | `Brut::FrontEnd::Download` | Download a file |
 | `Brut::FrontEnd::GenericResponse` | wrap any Rack response |
 
