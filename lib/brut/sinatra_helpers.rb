@@ -95,6 +95,8 @@ module Brut::SinatraHelpers
             redirect to(uri.to_s)
           in Brut::FrontEnd::HttpStatus => http_status
             http_status.to_i
+          in Brut::FrontEnd::GenericResponse => generic_response
+            generic_response.to_ary
           else
             result
           end
@@ -209,6 +211,10 @@ module Brut::SinatraHelpers
 
           result = handler.handle!
           span.add_prefixed_attributes("brut", result_class: result.class)
+
+          if result.kind_of?(Brut::FrontEnd::Page)
+            result = result.handle!
+          end
 
           case result
           in URI => uri
