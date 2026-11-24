@@ -23,7 +23,7 @@ class Brut::FrontEnd::RouteHooks::CSPNoInlineStylesOrScripts < Brut::FrontEnd::R
       reporting_directives = "report-to csp_reporting;report-uri #{csp_reporting_path}"
 
       response.headers["Content-Security-Policy-Report-Only"] = header_value + ";" + reporting_directives
-      response.headers["Reporting-Endpoints"]                 = "csp_reporting='#{csp_reporting_path}'"
+      response.headers["Reporting-Endpoints"]                 = "csp_reporting=\"#{csp_reporting_path}\""
 
       continue
     end
