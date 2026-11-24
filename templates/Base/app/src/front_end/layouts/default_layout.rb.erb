@@ -34,6 +34,11 @@ class DefaultLayout < Brut::FrontEnd::Layout
         # Does not generate anything in production.
         PageIdentifier(page)
 
+      end
+      # Adds the page's name as a class name. You can use this for
+      # CSS if needed.
+      body(class: page.page_name) do
+
         # Brut::FrontEnd::Components::I18nTranslations, which includes
         # translations starting with cv.cs for use with client-side
         # constraint violation messaging.
@@ -54,14 +59,12 @@ class DefaultLayout < Brut::FrontEnd::Layout
             Brut::FrontEnd::Components::LocaleDetection
           )
         )
-      end
-      # Adds the page's name as a class name. You can use this for
-      # CSS if needed.
-      body(class: page.page_name) do
+
         # Render the <brut-tracing> element, which will send
         # OpenTelemetry traces back to the server to be joined up with
         # the server's traces.
         brut_tracing url: "/__brut/instrumentation", show_warnings: true
+
         yield # Contents of the page are inserted here
       end
     end
