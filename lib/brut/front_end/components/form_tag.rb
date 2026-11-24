@@ -27,7 +27,7 @@ class Brut::FrontEnd::Components::FormTag < Brut::FrontEnd::Component
   # attribute can be constructed properly.
   # @param html_attributes [Hash] any additional attributes for the `<form>` tag
   # @option html_attributes [Class|Brut::FrontEnd::Form] :for the form object or class representing this HTML form *or* the class of a handler the form should submit to. If you pass this, you may not pass the HTML attributes `:action` or `:method`. Both will be derived from this object.
-  # @option html_attributes [String] «any-other-key» attributes to set on the `<form>` tag
+  # @option html_attributes [String] «any-other-key» attributes to set on the `<form>` tag. Note that if `enctype` is present as a key, that value will be used. If it's set and `nil` `enctype` will not be set on the form tag. If `enctype` is *not* a key in `html_attributes`, it will be set to multipart/form-data for POST forms.
   # @yield No parameters given. This is expected to return additional markup to appear inside the `<form>` element.
   def initialize(route_params: {}, **html_attributes)
     form_class = html_attributes.delete(:for) # Cannot be a keyword arg, since for is a reserved word
@@ -56,6 +56,10 @@ class Brut::FrontEnd::Components::FormTag < Brut::FrontEnd::Component
 
     @include_csrf_token = http_method.post?
     @csrf_token_omit_reasoning = http_method.get? ? "because this form's action is a GET" : nil
+
+    if !html_attributes.key?(:enctype) && http_method.post?
+      html_attributes[:enctype] = "multipart/form-data"
+    end
     @attributes = html_attributes.merge(method: http_method)
   end
 

@@ -26,7 +26,6 @@ RSpec.describe Brut::SinatraHelpers do
       )
     )
 
-    # XXX
     rack_env = {
       "rack.session" => {},
     }
@@ -38,14 +37,15 @@ RSpec.describe Brut::SinatraHelpers do
       body:"",
       host: URI("http://example.com")
     )
-    allow(request_context).to receive(:as_constructor_args) do |_klass, request_params: {}, route: nil, form: nil|
-      form.nil? ? {} : { form: }
-    end
-    allow(Brut::FrontEnd::RequestContext).to receive(:current).and_return(request_context)
+    Thread.current.thread_variable_set(:request_context,request_context)
 
     stub_const("PageProbeLayout", Class.new(Brut::FrontEnd::Layout) do
       def view_template = main(id: "page-probe-layout") { yield }
     end)
+  end
+
+  after do
+    Thread.current.thread_variable_set(:request_context, nil)
   end
 
   let(:sinatra_app) {
