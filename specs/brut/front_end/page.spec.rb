@@ -12,6 +12,9 @@ RSpec.describe Brut::FrontEnd::Page do
     stub_const("PageSpecLayout", Class.new(Brut::FrontEnd::Layout) {
       def view_template = div(id: "page-spec-layout") { yield }
     })
+    stub_const("FancyPageLayout", Class.new(Brut::FrontEnd::Layout) {
+      def view_template = section(id: "fancy-page-layout") { yield }
+    })
   end
 
   def parse(html) = Nokogiri::HTML5(html)
@@ -141,9 +144,6 @@ RSpec.describe Brut::FrontEnd::Page do
     end
 
     it "camelizes multi-word layout names to locate the layout class" do
-      stub_const("FancyPageLayout", Class.new(Brut::FrontEnd::Layout) {
-        def view_template = section(id: "fancy-page-layout") { yield }
-      })
       page_class = stub_const("PageSpecPage", Class.new(Brut::FrontEnd::Page) {
 
         def layout        = "fancy_page"
@@ -157,9 +157,6 @@ RSpec.describe Brut::FrontEnd::Page do
     end
 
     it "allows an instance of page to change its layout hased on state" do
-      stub_const("FancyPageLayout", Class.new(Brut::FrontEnd::Layout) {
-        def view_template = section(id: "fancy-page-layout") { yield }
-      })
       page_class = stub_const("PageSpecPage", Class.new(Brut::FrontEnd::Page) {
         def initialize(fancy:)
           @fancy = fancy
