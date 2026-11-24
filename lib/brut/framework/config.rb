@@ -6,11 +6,18 @@ require "pathname"
 # reference for what is configured by default by Brut.
 class Brut::Framework::Config
 
+  # @param [Brut::Framework::Container] container the container that this class
+  #        configures.  By default, and anywhere outside of a test, it should be
+  #        the singleton container `Brut.container`.
+  def initialize(container: Brut.container)
+    @container = container
+  end
+
   # Configures all defaults.  In general, this attempts to be lazy in
   # setting things up, so calling this should not attempt to make a
   # connection to your database.
   def configure!
-    Brut.container do |c|
+    @container.tap do |c|
       # Brut Stuff that should not be changed
 
       c.store_ensured_path(
@@ -403,7 +410,7 @@ class Brut::Framework::Config
         allow_nil: true,
       )
 
-      Brut.container.store(
+      c.store(
         "fallback_host",
         URI,
         "Hostname to use in situations where the request is not available",
@@ -421,14 +428,29 @@ class Brut::Framework::Config
         allow_nil: true
       )
 
+      c.store(
+        "production_permitted_hosts",
+        Array,
+        "Hostnames or IPAddr objects this app will respond to in production. Defaults to ENV['PERMITTED_HOSTS'], treated as a comma-delimited list. This value is required in production.",
+        allow_app_override: true,
+        allow_nil: true,
+      ) do
+        ENV["PERMITTED_HOSTS"].to_s.split(",").map(&:strip).select { it.length > 0 }
+      end
 
       c.store(
         "permitted_hosts",
         Array,
         "An array of hostnames or IPAddr objects representing which hosts this app will respond to",
-      ) do |local_hostname,project_env|
+      ) do |local_hostname,project_env,production_permitted_hosts|
         if project_env.production?
-          []
+          if production_permitted_hosts.nil? || production_permitted_hosts.empty?
+            raise Brut::Framework::Errors::MissingConfiguration.new(
+              :production_permitted_hosts,
+              "This app is running in production, but has not value for `production_permitted_hosts`. This is required and allowing any hostname is not allowed"
+            )
+          end
+          production_permitted_hosts
         else
           [
             local_hostname,
