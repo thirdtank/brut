@@ -269,6 +269,19 @@ RSpec.describe Brut::FrontEnd::Routing do
 
       expect(routing.inspect.lines.length).to eq(1)
     end
+
+    # brutrb.com/routes.md documents `path` as supporting arbitrary HTTP
+    # methods and shows a `method: :put` example, but Route#initialize rejects
+    # anything other than GET and POST.
+    it "registers a route for a method other than GET or POST" do
+      routing = described_class.new
+      route   = routing.register_path("/test-paths", method: :put)
+
+      expect(route.path_template).to eq("/test-paths")
+      expect(route.http_method.to_sym).to eq(:put)
+      expect(route.handler_class).to eq(TestPathsHandler)
+      expect(routing.for(path: "/test-paths", method: :put)).to be(route)
+    end
   end
 
   describe "#register_webhook" do

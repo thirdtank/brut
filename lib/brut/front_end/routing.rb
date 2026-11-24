@@ -156,9 +156,6 @@ private
 
     def initialize(method,path_template)
       http_method = Brut::FrontEnd::HttpMethod.new(method)
-      if ![:get, :post].include?(http_method.to_sym)
-        raise ArgumentError,"Only GET and POST are supported. '#{method}' is not"
-      end
       if path_template !~ /^\//
         raise ArgumentError,"Routes must start with a slash: '#{path_template}'"
       end
