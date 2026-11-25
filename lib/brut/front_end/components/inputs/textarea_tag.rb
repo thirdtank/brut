@@ -27,7 +27,7 @@ class Brut::FrontEnd::Components::Inputs::TextareaTag < Brut::FrontEnd::Componen
         defaults["data-invalid"] = true
         input.validity_state.each do |constraint,violated|
           if violated
-            default_html_attributes["data-#{constraint}"] = true
+            defaults["data-#{constraint}"] = true
           end
         end
       end

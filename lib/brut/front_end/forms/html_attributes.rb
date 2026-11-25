@@ -21,7 +21,7 @@ class Brut::FrontEnd::Forms::HtmlAttributes
       name: input.array? ? "#{input.name}[]" : input.name,
     })
 
-    error_messages = forbidden_attributes.map { |attribute, explanation|
+    error_messages = normalize_keys(forbidden_attributes).map { |attribute, explanation|
       if @html_attributes.key?(attribute)
         explanation
       else
@@ -40,6 +40,7 @@ class Brut::FrontEnd::Forms::HtmlAttributes
     default_html_attributes = {}
     block.(default_html_attributes)
     @html_attributes = normalize_keys(default_html_attributes).merge(@html_attributes)
+    self
   end
 
   def to_h = @html_attributes

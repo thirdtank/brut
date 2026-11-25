@@ -171,16 +171,24 @@ RSpec.describe Brut::FrontEnd::Components::Inputs::SelectTagWithOptions do
   end
 
   describe "matching values" do
-    it "selects the option whose value based on the string value of the options' value_attribute's value" do
+    it "renders an option's value as the String it uses to match, and selects it" do
+      id_class = Struct.new(:numeric, :metadata) do 
+        def to_s = self.numeric.to_s
+      end
       option_class = Struct.new(:id, :name)
       options = [
-        option_class.new(1, "One"),
-        option_class.new(2, "Two"),
+        option_class.new(
+          id: id_class.new(
+            numeric: 42,
+            metadata: {},
+          ),
+          name: "The Option",
+        ),
       ]
       form_class = Class.new(Brut::FrontEnd::Form) { select :size }
-      form = form_class.new(params: { size: 1 })
+      form = form_class.new(params: { size: 42 })
 
-      rendered_options = options_from(
+      option = options_from(
         described_class.new(
           form:,
           input_name: :size,
@@ -188,10 +196,10 @@ RSpec.describe Brut::FrontEnd::Components::Inputs::SelectTagWithOptions do
           value_attribute: :id,
           option_text_attribute: :name
         ).call
-      )
+      ).first
 
-      expect(rendered_options[0].key?("selected")).to eq(true)
-      expect(rendered_options[1].key?("selected")).to eq(false)
+      expect(option["value"]).to         eq("42")
+      expect(option.key?("selected")).to eq(true)
     end
 
     it "raises when the form's value does not match any option" do

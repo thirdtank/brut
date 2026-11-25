@@ -58,45 +58,45 @@ class Brut::FrontEnd::Components::Inputs::SelectTagWithOptions < Brut::FrontEnd:
 
     value = input.value
 
-    @options                = options
-    @include_blank          = IncludeBlank.from_param(include_blank)
-    @value_attribute        = value_attribute
-    @option_text_attribute  = option_text_attribute
+    @options = options.map {  |object|
+      Option.new(object:,
+                 value_attribute:,
+                 text_attribute: option_text_attribute)
+    }
+
+    @blank_option = BlankOption.from_param(include_blank)
 
     if value.nil? || value.to_s.strip == ""
       @selected_value = nil # explicitly nothing is selected
     else
-      option = options.detect { |option|
-        option_value = RichString.new(option.send(@value_attribute)).to_s_or_nil
-        value == option_value
+      option = @options.detect { |option|
+        value == option.value
       }
       if option.nil?
-        if @include_blank && value == @include_blank.value
-          @selected_value = @include_blank.value
+        if @blank_option && value == @blank_option.value
+          @selected_value = @blank_option.value
         else
-        raise ArgumentError, "selected_value #{value}/#{value.class} was not the value for #{value_attribute} on any of the options: #{options.map { |option| option.send(value_attribute) }.join(', ')}"
+          raise SelectedValueNotFound.new(value:, value_attribute:, options:)
         end
       else
-        @selected_value = option.send(@value_attribute)
+        @selected_value = option.value
       end
     end
   end
 
   def view_template
     select(**@html_attributes) {
-      if @include_blank
-        option(**@include_blank.option_attributes) {
-          @include_blank.text_content
+      if @blank_option
+        option(**@blank_option.option_attributes) {
+          @blank_option.text
         }
       end
       @options.each do |option|
-        value = option.send(@value_attribute)
-        option_attributes = { value: value }
-        if value == @selected_value
-          option_attributes[:selected] = true
-        end
-        option(**option_attributes) {
-          option.send(@option_text_attribute)
+        option(
+          **option.option_attributes,
+          selected: option.value == @selected_value
+        ) {
+          option.text
         }
       end
     }
@@ -104,8 +104,27 @@ class Brut::FrontEnd::Components::Inputs::SelectTagWithOptions < Brut::FrontEnd:
 private
 
   # @!visibility private
-  class IncludeBlank
-    attr_reader :text_content, :value
+  class Option
+    attr_reader :value, :text
+    def initialize(object:,value_attribute:,text_attribute:)
+      @value = object.send(value_attribute).then { |raw_value|
+        RichString.new(raw_value).to_s_or_nil
+      }
+      @text = object.send(text_attribute).to_s
+    end
+    def option_attributes
+      if self.value
+        {
+          value: self.value,
+        }
+      else 
+        {}
+      end
+    end
+  end
+
+  # @!visibility private
+  class BlankOption < Option
     def self.from_param(include_blank)
       if !include_blank
         return nil
@@ -115,11 +134,11 @@ private
     end
     def initialize(include_blank)
       if include_blank == true
-        @text_content = ""
+        @text = ""
         @value = nil
       elsif include_blank.kind_of?(Hash)
         if include_blank.key?(:value) && include_blank.key?(:text_content)
-          @text_content = include_blank[:text_content]
+          @text = include_blank[:text_content]
           @value = include_blank[:value].nil? ? nil : include_blank[:value].to_s
         else
           raise ArgumentError, "when include_blank: is a Hash, it must include both :value and :text_content as keys. Got: #{include_blank.keys.join(", ")}"
@@ -129,14 +148,17 @@ private
       end
     end
 
-    def option_attributes
-      if @value
-        {
-          value: @value,
-        }
-      else 
-        {}
-      end
+  end
+
+  # @!visibility private
+  class SelectedValueNotFound < ArgumentError
+    def initialize(value:, value_attribute:, options:)
+      options_found = options.map {
+        v = it.send(value_attribute)
+        [ v, v.class.name ].join("/")
+      }
+      super("selected_value #{value}/#{value.class} was not the value for #{value_attribute} on any of the options: #{options_found.join(", ")}")
     end
   end
 end
+
