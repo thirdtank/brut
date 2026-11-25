@@ -70,7 +70,7 @@ RSpec.describe Brut::FrontEnd::Components::Inputs::ButtonTag do
 
       expect {
         described_class.new(form:, input_name: :name).call { "Save" }
-      }.to raise_error(ArgumentError, /can only be used with `button` elements/)
+      }.to raise_error(Brut::FrontEnd::Components::Inputs::InvalidInputClassForFormInput)
     end
 
     it "raises when a non-array input is given a non-zero index, but allows index 0" do

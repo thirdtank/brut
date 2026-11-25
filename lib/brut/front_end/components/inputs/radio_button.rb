@@ -13,33 +13,33 @@ class Brut::FrontEnd::Components::Inputs::RadioButton < Brut::FrontEnd::Componen
   # against this value to determine if this `<input>` will have the `checked` attribute.
   # @param [Hash] html_attributes any additional HTML attributes to include on the `<input>` element.
   def initialize(form:, input_name:, value:, html_attributes: {})
-    input = form.input(input_name)
-    default_html_attributes = {}
-    html_attributes = html_attributes.map { |key,value| [ key.to_sym, value ] }.to_h
+    value = value.nil? ? nil : value.to_s
+    input = form_input(form:, input_name:, index: nil, 
+                       clazz: Brut::FrontEnd::Forms::RadioButtonGroupInput)
+    @html_attributes = Brut::FrontEnd::Forms::HtmlAttributes.new(
+      input:,
+      initial_attributes: html_attributes
+    ).with_defaults do |defaults|
 
-    default_html_attributes[:required] = input.required
-    default_html_attributes[:type]     = "radio"
-    default_html_attributes[:name]     = if input.array?
-                                            "#{input.name}[]"
-                                          else
-                                            input.name
-                                          end
-    default_html_attributes[:value]    = value
+      defaults[:required] = input.required
+      defaults[:type]     = "radio"
+      defaults[:value]    = value
 
-    selected_value = input.value
 
-    if selected_value == value
-      default_html_attributes[:checked] = true
-    end
+      selected_value = input.value
 
-    if !form.new? && !input.valid?
-      default_html_attributes["data-invalid"] = true
-      input.validity_state.each do |constraint,violated|
-        if violated
-          default_html_attributes["data-#{constraint}"] = true
+      if selected_value == value
+        defaults[:checked] = true
+      end
+
+      if !form.new? && !input.valid?
+        defaults["data-invalid"] = true
+        input.validity_state.each do |constraint,violated|
+          if violated
+            defaults["data-#{constraint}"] = true
+          end
         end
       end
     end
-    @attributes = default_html_attributes.merge(html_attributes)
   end
 end

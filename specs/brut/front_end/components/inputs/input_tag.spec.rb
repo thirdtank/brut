@@ -173,7 +173,7 @@ RSpec.describe Brut::FrontEnd::Components::Inputs::InputTag do
 
       expect {
         described_class.new(form:, input_name: :color).call
-      }.to raise_error(ArgumentError, /can only be used with `input` elements/)
+      }.to raise_error(Brut::FrontEnd::Components::Inputs::InvalidInputClassForFormInput)
     end
 
     it "raises when a non-array input is given a non-zero index, but allows index 0" do

@@ -56,7 +56,7 @@ RSpec.describe Brut::FrontEnd::Components::Inputs::TextareaTag do
       expect(textarea["minlength"]).to eq("2")
     end
 
-    it "merges extra HTML attributes last, allowing them to override generated ones" do
+    it "merges extra HTML attributes last, allowing them to override some of the generated ones" do
       form_class = Class.new(Brut::FrontEnd::Form) { input :bio }
       form = form_class.new(params: { bio: "Hello" })
 
@@ -64,14 +64,13 @@ RSpec.describe Brut::FrontEnd::Components::Inputs::TextareaTag do
         described_class.new(
           form:,
           input_name: :bio,
-          name: "override",
+          name: "override-not-allowed",
           rows: 5,
           cols: 40,
           class: "big"
         ).call
       )
 
-      expect(textarea["name"]).to  eq("override")
       expect(textarea["rows"]).to  eq("5")
       expect(textarea["cols"]).to  eq("40")
       expect(textarea["class"]).to eq("big")
@@ -116,7 +115,7 @@ RSpec.describe Brut::FrontEnd::Components::Inputs::TextareaTag do
 
       expect {
         described_class.new(form:, input_name: :color).call
-      }.to raise_error(ArgumentError, /can only be used with `input` elements/)
+      }.to raise_error(Brut::FrontEnd::Components::Inputs::InvalidInputClassForFormInput)
     end
 
     it "raises when a non-array input is given a non-zero index, but allows index 0" do

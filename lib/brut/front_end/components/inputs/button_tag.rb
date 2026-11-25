@@ -17,26 +17,20 @@ class Brut::FrontEnd::Components::Inputs::ButtonTag < Brut::FrontEnd::Components
   #               the form (as per the HTML spec).  Also note that the various
   #               `form*` attributes *will* take effect and work as desired.
   def initialize(form:, input_name:, index: nil, **html_attributes)
-    input = form.input(input_name, index:)
-    if input.class.name != "Brut::FrontEnd::Forms::Button"
-      raise ArgumentError, "#{self.class} can only be used with `button` elements, not #{input.class.name} form elements"
+    input = form_input(form:, input_name:, index:, 
+                       clazz: Brut::FrontEnd::Forms::Button)
+
+    @html_attributes = Brut::FrontEnd::Forms::HtmlAttributes.new(
+      input:,
+      initial_attributes: html_attributes
+    ).with_defaults do |defaults|
+      value = RichString.from_string(input.value)
+      defaults[:value] = (value || "true").to_s
     end
-    default_html_attributes = {}
-    html_attributes = html_attributes.map { |key,value| [ key.to_sym, value ] }.to_h
-
-    default_html_attributes[:name] = if input.array?
-                                       "#{input.name}[]"
-                                     else
-                                       input.name
-                                     end
-    value = RichString.from_string(input.value)
-    default_html_attributes[:value] = (value || "true").to_s
-
-    @attributes = default_html_attributes.merge(html_attributes)
   end
 
   def view_template
-    button(**@attributes) do
+    button(**@html_attributes) do
       yield
     end
   end

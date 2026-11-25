@@ -34,47 +34,51 @@ class Brut::FrontEnd::Components::Inputs::SelectTagWithOptions < Brut::FrontEnd:
                  option_text_attribute:,
                  index: nil,
                  html_attributes: {})
-    html_attributes = html_attributes.map { |key,value| [ key.to_sym, value ] }.to_h
-    default_html_attributes = {}
-    index ||= 0
-    input = form.input(input_name, index:)
-    default_html_attributes[:required] = input.required
-    if !form.new? && !input.valid?
-      default_html_attributes["data-invalid"] = true
-      input.validity_state.each do |constraint,violated|
-        if violated
-          default_html_attributes["data-#{constraint}"] = true
+    input = form_input(form:, input_name:, index:, 
+                       clazz: Brut::FrontEnd::Forms::SelectInput)
+
+    @html_attributes = Brut::FrontEnd::Forms::HtmlAttributes.new(
+      input:,
+      initial_attributes: html_attributes,
+      forbidden_attributes: {
+        multiple: "Multi-selects are not supported by Brut",
+      }
+    ).with_defaults do |defaults|
+
+      defaults[:required] = input.required
+      if !form.new? && !input.valid?
+        defaults["data-invalid"] = true
+        input.validity_state.each do |constraint,violated|
+          if violated
+            defaults["data-#{constraint}"] = true
+          end
         end
       end
     end
-    name = if input.array?
-             "#{input.name}[]"
-           else
-             input.name
-           end
 
-    input_value = input.value
+    value = input.value
 
     @options                = options
     @include_blank          = IncludeBlank.from_param(include_blank)
     @value_attribute        = value_attribute
     @option_text_attribute  = option_text_attribute
-    @html_attributes        = default_html_attributes.merge(html_attributes)
-    @html_attributes[:name] = name
 
-    if input_value.nil? || input_value.to_s.strip == ""
+    if value.nil? || value.to_s.strip == ""
       @selected_value = nil # explicitly nothing is selected
     else
-      if input_value.kind_of?(Array)
-        raise "WTF: #{name}" # XXX?
-      end
       option = options.detect { |option|
-        input_value == option.send(@value_attribute)
+        option_value = RichString.new(option.send(@value_attribute)).to_s_or_nil
+        value == option_value
       }
       if option.nil?
-        raise ArgumentError, "selected_value #{input_value}/#{input_value.class} was not the value for #{value_attribute} on any of the options: #{options.map { |option| option.send(value_attribute) }.join(', ')}"
+        if @include_blank && value == @include_blank.value
+          @selected_value = @include_blank.value
+        else
+        raise ArgumentError, "selected_value #{value}/#{value.class} was not the value for #{value_attribute} on any of the options: #{options.map { |option| option.send(value_attribute) }.join(', ')}"
+        end
+      else
+        @selected_value = option.send(@value_attribute)
       end
-      @selected_value = option.send(@value_attribute)
     end
   end
 
@@ -85,7 +89,7 @@ class Brut::FrontEnd::Components::Inputs::SelectTagWithOptions < Brut::FrontEnd:
           @include_blank.text_content
         }
       end
-      options = @options.each do |option|
+      @options.each do |option|
         value = option.send(@value_attribute)
         option_attributes = { value: value }
         if value == @selected_value
@@ -101,7 +105,7 @@ private
 
   # @!visibility private
   class IncludeBlank
-    attr_reader :text_content, :option_attributes
+    attr_reader :text_content, :value
     def self.from_param(include_blank)
       if !include_blank
         return nil
@@ -112,16 +116,26 @@ private
     def initialize(include_blank)
       if include_blank == true
         @text_content = ""
-        @option_attributes = {}
+        @value = nil
       elsif include_blank.kind_of?(Hash)
         if include_blank.key?(:value) && include_blank.key?(:text_content)
           @text_content = include_blank[:text_content]
-          @option_attributes = { value: include_blank[:value] }
+          @value = include_blank[:value].nil? ? nil : include_blank[:value].to_s
         else
           raise ArgumentError, "when include_blank: is a Hash, it must include both :value and :text_content as keys. Got: #{include_blank.keys.join(", ")}"
         end
       else
         raise ArgumentError,"include_blank: was a #{include_blank.class}. It should be true, false, nil, or a Hash"
+      end
+    end
+
+    def option_attributes
+      if @value
+        {
+          value: @value,
+        }
+      else 
+        {}
       end
     end
   end

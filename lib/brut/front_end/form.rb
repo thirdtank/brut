@@ -2,17 +2,18 @@ require "forwardable"
 
 # Holds classes used in form processing
 module Brut::FrontEnd::Forms
+  autoload(:Button, "brut/front_end/forms/button")
+  autoload(:ButtonInputDefinition, "brut/front_end/forms/button_input_definition")
+  autoload(:ConstraintViolation, "brut/front_end/forms/constraint_violation")
+  autoload(:HtmlAttributes, "brut/front_end/forms/html_attributes")
+  autoload(:Input, "brut/front_end/forms/input")
   autoload(:InputDeclarations, "brut/front_end/forms/input_declarations")
   autoload(:InputDefinition, "brut/front_end/forms/input_definition")
-  autoload(:SelectInputDefinition, "brut/front_end/forms/select_input_definition")
-  autoload(:ButtonInputDefinition, "brut/front_end/forms/button_input_definition")
-  autoload(:RadioButtonGroupInputDefinition, "brut/front_end/forms/radio_button_group_input_definition")
-  autoload(:ConstraintViolation, "brut/front_end/forms/constraint_violation")
-  autoload(:ValidityState, "brut/front_end/forms/validity_state")
-  autoload(:Input, "brut/front_end/forms/input")
-  autoload(:Button, "brut/front_end/forms/button")
-  autoload(:SelectInput, "brut/front_end/forms/select_input")
   autoload(:RadioButtonGroupInput, "brut/front_end/forms/radio_button_group_input")
+  autoload(:RadioButtonGroupInputDefinition, "brut/front_end/forms/radio_button_group_input_definition")
+  autoload(:SelectInput, "brut/front_end/forms/select_input")
+  autoload(:SelectInputDefinition, "brut/front_end/forms/select_input_definition")
+  autoload(:ValidityState, "brut/front_end/forms/validity_state")
 end
 
 # Base class for forms you create to process an HTML form. Generally, your form subclasses will only declare their inputs using
