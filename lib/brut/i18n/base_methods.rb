@@ -214,7 +214,7 @@ module Brut::I18n::BaseMethods
     t_direct(keys_to_check,**interpolated_values, key_given: key)
   rescue I18n::MissingInterpolationArgument => ex
     if ex.key.to_s == "block"
-      raise ArgumentError,"One of the keys #{key.join(", ")} contained a %{block} interpolation value: '#{ex.string}'. This means you must yield a block to `t`"
+      raise ArgumentError,"One of the keys #{key} contained a %{block} interpolation value: '#{ex.string}'. This means you must yield a block to `t`"
     else
       raise
     end
@@ -238,7 +238,13 @@ module Brut::I18n::BaseMethods
   # @option interpolated_values [Numeric] count Special interpolation to control pluralization.
   # @option interpolated_values [String|Symbol] key_given If included, this is not used for interpolation, but
   #                                             will be used in error messages to represent the key
-  #                                             given to `t`.
+  #                                             given to `t`. Note that the values are generally
+  #                                             HTML-escaped using the `to_s` of whatever the value is.
+  #                                             Exceptions are the special `count:` key as well
+  #                                             as anything Phlex has already escaped
+  #                                             (as indicated by it being a `Phlex::SGML::SafeValue`).
+  #                                             This means that if you use something that has
+  #                                             already been HTML-escaped, it will be escaped again.
   #
   # @raise [I18n::MissingTranslation] if no translation is found
   # @raise [I18n::MissingInterpolationArgument] if interpolation arguments are missing, or if the key
@@ -250,10 +256,17 @@ module Brut::I18n::BaseMethods
       field: this_field_value,
     }
     escaped_interpolated_values = interpolated_values.map { |key,value|
-      if value.kind_of?(String)
-        [ key, html_escape(value) ]
-      else
+      safe_to_not_escape = if key.to_sym == :count
+                             true
+                           elsif value.kind_of?(Phlex::SGML::SafeValue)
+                             true
+                           else
+                             false
+                           end
+      if safe_to_not_escape
         [ key, value ]
+      else
+        [ key, html_escape(value.to_s) ]
       end
     }.to_h
     result = ::I18n.t(keys.first, default: keys[1..-1],raise: true, **default_interpolated_values.merge(escaped_interpolated_values))

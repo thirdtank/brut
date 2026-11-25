@@ -26,15 +26,16 @@ class Brut::BackEnd::Validators::FormValidator
   # @param [String|Symbol] input_name name of the input of the form
   # @param [Hash] options options describing the validation to perform.
   def self.validate(input_name,options)
-    @@validations ||= {}
-    @@validations[input_name] = options
+    @validations ||= {}
+    @validations[input_name] = options
   end
+
 
   # Validate the given form, calling {Brut::FrontEnd::Form#server_side_constraint_violation} on each validate failure found.
   #
   # @param [Brut::FrontEnd::Form] form the form to validate
   def validate(form)
-    @@validations.each do |attribute,options|
+    self.class.validations.each do |attribute,options|
       value = form.send(attribute)
       options.each do |option, option_value|
         case option
@@ -57,6 +58,12 @@ class Brut::BackEnd::Validators::FormValidator
         end
       end
     end
+  end
+
+private
+
+  def self.validations
+    @validations || {}
   end
 
 end
