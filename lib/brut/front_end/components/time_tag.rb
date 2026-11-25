@@ -34,12 +34,18 @@ class Brut::FrontEnd::Components::TimeTag < Brut::FrontEnd::Component
                    clock
                  end
 
+    @display_value = if @date_only
+                       @timestamp
+                     else
+                       @clock.in_time_zone(@timestamp)
+                     end
+
     formats = [ format ]
-    use_no_year = skip_year_if_same && @timestamp.year == Time.now.year
+    use_no_year = skip_year_if_same && @display_value.year == @clock.now.year
     use_no_dow  = if skip_dow_if_not_this_week
-                    $seven_days_ago = (Date.today - 7).to_time
-                    $timestamp      = @timestamp.to_time
-                    $timestamp < $seven_days_ago
+                    seven_days_ago = (@clock.today - 7).to_time
+                    timestamp      = @timestamp.to_time
+                    timestamp < seven_days_ago
                   else
                     false
                   end
@@ -77,19 +83,13 @@ class Brut::FrontEnd::Components::TimeTag < Brut::FrontEnd::Component
   end
 
   def view_template
-    adjusted_value = if @date_only
-                       @timestamp
-                     else
-                       @clock.in_time_zone(@timestamp)
-                     end
-
-    datetime_attribute = ::I18n.l(adjusted_value,format: @attribute_format)
+    datetime_attribute = ::I18n.l(@display_value,format: @attribute_format)
 
     time(class: @class_attribute, datetime: datetime_attribute) do
       if block_given?
         yield
       else
-        ::I18n.l(adjusted_value,format: @format)
+        ::I18n.l(@display_value,format: @format)
       end
     end
   end
