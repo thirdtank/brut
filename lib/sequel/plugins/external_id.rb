@@ -25,40 +25,34 @@ module Sequel
     #    widget.external_id # => mywg_43792834f9c3a7
     module ExternalId
       # @!visibility private
-      def self.apply(model,*args,&block)
-        @global_prefix = (args.first || {})[:global_prefix]
+      def self.configure(model, opts = {})
+        model.instance_exec do
+          @external_id_global_prefix = opts[:global_prefix]
+        end
       end
-      def self.global_prefix = @global_prefix
+
 
       module ClassMethods
         # @!visibility private
-        def global_prefix = Sequel::Plugins::ExternalId.global_prefix
+        def global_prefix = @external_id_global_prefix
+
         # Called inside a model's body to indicate that this model has an `external_id` that this plugin should manage and what
         # prefix should be used.  Calling this will also alter {InstanceMethods#to_s} to include this id in the string representation.
         #
         # @param prefix [String] a short string identfying the type of this model. It will be prepended to your external_id.
         def has_external_id(prefix)
-          global_prefix = find_global_prefix
           @external_id_prefix = RichString.new("#{global_prefix}#{prefix}").to_s_or_nil
         end
 
         # @!visibility private
         def external_id_prefix = @external_id_prefix
 
-        # @!visibility private
-        def find_global_prefix(receiver=self)
-          if receiver.respond_to?(:global_prefix)
-            if receiver.global_prefix.nil?
-              receiver.ancestors.select { |ancestor| ancestor != receiver }.map { |ancestor|
-                self.find_global_prefix(ancestor)
-              }.compact.first
-            else
-              receiver.global_prefix
-            end
-          else
-            nil
-          end
-        end
+        Plugins.inherited_instance_variables(
+          self,
+          :@external_id_global_prefix => nil,
+          :@external_id_prefix => nil,
+        )
+
       end
 
       module InstanceMethods
