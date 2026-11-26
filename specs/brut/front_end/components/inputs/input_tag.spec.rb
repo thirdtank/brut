@@ -88,6 +88,114 @@ RSpec.describe Brut::FrontEnd::Components::Inputs::InputTag do
     end
   end
 
+  describe "constraint validation attributes" do
+    it "does not mark a new form's required input as invalid" do
+      form_class = Class.new(Brut::FrontEnd::Form) { input :name }
+      form = form_class.new
+
+      input = input_from(described_class.new(form:, input_name: :name).call)
+
+      expect(input.key?("aria-invalid")).to eq(false)
+      expect(input.key?("aria-errormessage")).to eq(false)
+    end
+
+    it "marks an invalid input in a non-new form and associates it with error messages" do
+      form_class = Class.new(Brut::FrontEnd::Form) { input :name }
+      form = form_class.new(params: { name: "" })
+
+      input = input_from(described_class.new(form:, input_name: :name).call)
+
+      expect(input["aria-invalid"]).to eq("true")
+      expect(input["aria-errormessage"]).not_to eq(nil)
+      expect(input["aria-errormessage"]).to match(/\S/)
+    end
+
+    it "does not mark a valid input in a non-new form as invalid" do
+      form_class = Class.new(Brut::FrontEnd::Form) { input :name }
+      form = form_class.new(params: { name: "Dave" })
+
+      input = input_from(described_class.new(form:, input_name: :name).call)
+
+      expect(input.key?("aria-invalid")).to eq(false)
+      expect(input.key?("aria-errormessage")).to eq(false)
+    end
+
+    it "a new form that somehow has a server-side violation should not show as invalid" do
+      form_class = Class.new(Brut::FrontEnd::Form) { input :name, required: false }
+      form = form_class.new
+      form.server_side_constraint_violation(input_name: :name, key: :taken)
+
+      input = input_from(described_class.new(form:, input_name: :name).call)
+
+      expect(form.input(:name).validity_state).not_to have_constraint_violation(:valueMissing)
+      expect(input.key?("aria-invalid")).to eq(false)
+    end
+
+    it "marks an invalid array input and associates it with error messages" do
+      form_class = Class.new(Brut::FrontEnd::Form) do
+        input :items, array: true
+      end
+      form = form_class.new(params: { items: ["", "ok"] })
+
+      input = input_from(described_class.new(form:, input_name: :items, index: 0).call)
+
+      expect(input["name"]).to eq("items[]")
+      expect(input["aria-invalid"]).to eq("true")
+      expect(input["aria-errormessage"]).not_to eq(nil)
+      expect(input["aria-errormessage"]).to match(/\S/)
+    end
+
+    it "omits the per-constraint data attributes" do
+      form_class = Class.new(Brut::FrontEnd::Form) do
+        input :code, minlength: 5, pattern: "^[0-9]+$"
+      end
+      form = form_class.new(params: { code: "abc" })
+
+      input = input_from(described_class.new(form:, input_name: :code).call)
+
+      expect(input["aria-invalid"]).to eq("true")
+    end
+  end
+
+  describe "#invalid?" do
+    it "is true when the input is rendered invalid" do
+      form_class = Class.new(Brut::FrontEnd::Form) { input :name }
+      form = form_class.new(params: { name: "" })
+      component = described_class.new(form:, input_name: :name)
+      component.call
+
+      expect(component.invalid?).to eq(true)
+    end
+
+    it "is false for a required input in a new form" do
+      form_class = Class.new(Brut::FrontEnd::Form) { input :name }
+      form = form_class.new
+      component = described_class.new(form:, input_name: :name)
+      component.call
+
+      expect(component.invalid?).to eq(false)
+    end
+
+    it "is false for a new form with a server-side violation" do
+      form_class = Class.new(Brut::FrontEnd::Form) { input :name, required: false }
+      form = form_class.new
+      form.server_side_constraint_violation(input_name: :name, key: :taken)
+      component = described_class.new(form:, input_name: :name)
+      component.call
+
+      expect(component.invalid?).to eq(false)
+    end
+
+    it "is false for a valid input in a non-new form" do
+      form_class = Class.new(Brut::FrontEnd::Form) { input :name }
+      form = form_class.new(params: { name: "Dave" })
+      component = described_class.new(form:, input_name: :name)
+      component.call
+
+      expect(component.invalid?).to eq(false)
+    end
+  end
+
   describe "checkboxes" do
     it "generates value='true', no checked, and no required when unchecked" do
       form_class = Class.new(Brut::FrontEnd::Form) { input :terms, type: "checkbox" }

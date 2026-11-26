@@ -81,6 +81,104 @@ RSpec.describe Brut::FrontEnd::Components::Inputs::TextareaTag do
     end
   end
 
+  describe "constraint validation attributes" do
+    it "does not mark a new form's required textarea as invalid" do
+      form_class = Class.new(Brut::FrontEnd::Form) { input :bio }
+      form = form_class.new
+
+      textarea = textarea_from(described_class.new(form:, input_name: :bio).call)
+
+      expect(textarea.key?("aria-invalid")).to eq(false)
+      expect(textarea.key?("aria-errormessage")).to eq(false)
+    end
+
+    it "marks an invalid textarea in a non-new form and associates it with error messages" do
+      form_class = Class.new(Brut::FrontEnd::Form) { input :bio }
+      form = form_class.new(params: { bio: "" })
+
+      textarea = textarea_from(described_class.new(form:, input_name: :bio).call)
+
+      expect(textarea["aria-invalid"]).to eq("true")
+      expect(textarea["aria-errormessage"]).not_to eq(nil)
+      expect(textarea["aria-errormessage"]).to match(/\S/)
+    end
+
+    it "does not mark a valid textarea in a non-new form as invalid" do
+      form_class = Class.new(Brut::FrontEnd::Form) { input :bio }
+      form = form_class.new(params: { bio: "Hello" })
+
+      textarea = textarea_from(described_class.new(form:, input_name: :bio).call)
+
+      expect(textarea.key?("aria-invalid")).to eq(false)
+      expect(textarea.key?("aria-errormessage")).to eq(false)
+    end
+
+    it "does not mark a textarea with a server-side violation invalid on a new form" do
+      form_class = Class.new(Brut::FrontEnd::Form) { input :bio, required: false }
+      form = form_class.new
+      form.server_side_constraint_violation(input_name: :bio, key: :taken)
+
+      textarea = textarea_from(described_class.new(form:, input_name: :bio).call)
+
+      expect(form.input(:bio).validity_state).not_to have_constraint_violation(:valueMissing)
+      expect(textarea.key?("aria-invalid")).to eq(false)
+      expect(textarea.key?("aria-errormessage")).to eq(false)
+    end
+
+    it "marks an invalid array textarea and associates it with error messages" do
+      form_class = Class.new(Brut::FrontEnd::Form) do
+        input :bio, array: true
+      end
+      form = form_class.new(params: { bio: ["", "ok"] })
+
+      textarea = textarea_from(described_class.new(form:, input_name: :bio, index: 0).call)
+
+      expect(textarea["name"]).to eq("bio[]")
+      expect(textarea["aria-invalid"]).to eq("true")
+      expect(textarea["aria-errormessage"]).not_to eq(nil)
+      expect(textarea["aria-errormessage"]).to match(/\S/)
+    end
+  end
+
+  describe "#invalid?" do
+    it "is true when the textarea is rendered invalid" do
+      form_class = Class.new(Brut::FrontEnd::Form) { input :bio }
+      form = form_class.new(params: { bio: "" })
+      component = described_class.new(form:, input_name: :bio)
+      component.call
+
+      expect(component.invalid?).to eq(true)
+    end
+
+    it "is false for a required textarea in a new form" do
+      form_class = Class.new(Brut::FrontEnd::Form) { input :bio }
+      form = form_class.new
+      component = described_class.new(form:, input_name: :bio)
+      component.call
+
+      expect(component.invalid?).to eq(false)
+    end
+
+    it "is false for a new form with a server-side violation" do
+      form_class = Class.new(Brut::FrontEnd::Form) { input :bio, required: false }
+      form = form_class.new
+      form.server_side_constraint_violation(input_name: :bio, key: :taken)
+      component = described_class.new(form:, input_name: :bio)
+      component.call
+
+      expect(component.invalid?).to eq(false)
+    end
+
+    it "is false for a valid textarea in a non-new form" do
+      form_class = Class.new(Brut::FrontEnd::Form) { input :bio }
+      form = form_class.new(params: { bio: "Hello" })
+      component = described_class.new(form:, input_name: :bio)
+      component.call
+
+      expect(component.invalid?).to eq(false)
+    end
+  end
+
   describe "array inputs" do
     it "uses the [] suffix in the name and generates the value at the given index" do
       form_class = Class.new(Brut::FrontEnd::Form) { input :bio, array: true }

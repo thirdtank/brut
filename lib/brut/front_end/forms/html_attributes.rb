@@ -43,6 +43,8 @@ class Brut::FrontEnd::Forms::HtmlAttributes
     self
   end
 
+  def [](key) = @html_attributes[normalize_key(key)]
+
   def to_h = @html_attributes
   alias_method :to_hash, :to_h  
 
@@ -51,10 +53,12 @@ private
   def normalize_keys(hash)
     hash.map { |key,value|
       [
-        key.to_s.downcase.to_sym,
+        normalize_key(key),
         value,
       ]
     }.to_h
   end
+
+  def normalize_key(key) = key.to_s.downcase.to_sym
 
 end

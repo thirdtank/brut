@@ -33,12 +33,8 @@ class Brut::FrontEnd::Components::Inputs::RadioButton < Brut::FrontEnd::Componen
       end
 
       if !form.new? && !input.valid?
-        defaults["data-invalid"] = true
-        input.validity_state.each do |constraint,violated|
-          if violated
-            defaults["data-#{constraint}"] = true
-          end
-        end
+        defaults["aria-invalid"] = "true"
+        defaults["aria-errormessage"] = SecureRandom.uuid
       end
     end
   end

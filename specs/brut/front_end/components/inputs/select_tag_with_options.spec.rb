@@ -16,6 +16,25 @@ RSpec.describe Brut::FrontEnd::Components::Inputs::SelectTagWithOptions do
   def select_from(html) = Nokogiri::HTML5(html).at_css("select")
   def options_from(html) = Nokogiri::HTML5(html).css("select option")
 
+  def select_options
+    option_class = Struct.new(:value, :text)
+    [
+      option_class.new("small", "Small"),
+      option_class.new("large", "Large"),
+    ]
+  end
+
+  def select_component(form:, index: nil)
+    described_class.new(
+      form:,
+      input_name: :size,
+      options: select_options,
+      value_attribute: :value,
+      option_text_attribute: :text,
+      index:,
+    )
+  end
+
   describe "generating HTML" do
     it "generates the select's name and required, plus options with their values and text, selecting the matching option" do
       option_class = Struct.new(:value, :text)
@@ -170,6 +189,143 @@ RSpec.describe Brut::FrontEnd::Components::Inputs::SelectTagWithOptions do
           html_attributes: { multiple: true }
         ).call
       }.to raise_error(ArgumentError,/not supported/)
+    end
+  end
+
+  describe "constraint validation attributes" do
+    it "does not mark a new form's required select as invalid" do
+      form_class = Class.new(Brut::FrontEnd::Form) { select :size }
+      form = form_class.new
+
+      select = select_from(
+        described_class.new(
+          form:,
+          input_name: :size,
+          options: select_options,
+          value_attribute: :value,
+          option_text_attribute: :text
+        ).call
+      )
+
+      expect(select.key?("aria-invalid")).to eq(false)
+      expect(select.key?("aria-errormessage")).to eq(false)
+    end
+
+    it "marks an invalid select in a non-new form and associates it with error messages" do
+      form_class = Class.new(Brut::FrontEnd::Form) { select :size }
+      form = form_class.new(params: { size: "" })
+
+      select = select_from(
+        described_class.new(
+          form:,
+          input_name: :size,
+          options: select_options,
+          value_attribute: :value,
+          option_text_attribute: :text
+        ).call
+      )
+
+      expect(select["aria-invalid"]).to eq("true")
+      expect(select["aria-errormessage"]).not_to eq(nil)
+      expect(select["aria-errormessage"]).to match(/\S/)
+    end
+
+    it "does not mark a valid select in a non-new form as invalid" do
+      form_class = Class.new(Brut::FrontEnd::Form) { select :size }
+      form = form_class.new(params: { size: "small" })
+
+      select = select_from(
+        described_class.new(
+          form:,
+          input_name: :size,
+          options: select_options,
+          value_attribute: :value,
+          option_text_attribute: :text
+        ).call
+      )
+
+      expect(select.key?("aria-invalid")).to eq(false)
+      expect(select.key?("aria-errormessage")).to eq(false)
+    end
+
+    it "does not mark a select with a server-side violation invalid on a new form" do
+      form_class = Class.new(Brut::FrontEnd::Form) { select :size, required: false }
+      form = form_class.new
+      form.server_side_constraint_violation(input_name: :size, key: :not_available)
+
+      select = select_from(
+        described_class.new(
+          form:,
+          input_name: :size,
+          options: select_options,
+          value_attribute: :value,
+          option_text_attribute: :text
+        ).call
+      )
+
+      expect(form.input(:size).validity_state).not_to have_constraint_violation(:valueMissing)
+      expect(select.key?("aria-invalid")).to eq(false)
+      expect(select.key?("aria-errormessage")).to eq(false)
+    end
+
+    it "marks an invalid array select and associates it with error messages" do
+      form_class = Class.new(Brut::FrontEnd::Form) { select :size, array: true }
+      form = form_class.new(params: { size: ["", "small"] })
+
+      select = select_from(
+        described_class.new(
+          form:,
+          input_name: :size,
+          options: select_options,
+          value_attribute: :value,
+          option_text_attribute: :text,
+          index: 0
+        ).call
+      )
+
+      expect(select["name"]).to eq("size[]")
+      expect(select["aria-invalid"]).to eq("true")
+      expect(select["aria-errormessage"]).not_to eq(nil)
+      expect(select["aria-errormessage"]).to match(/\S/)
+    end
+  end
+
+  describe "#invalid?" do
+    it "is true when the select is rendered invalid" do
+      form_class = Class.new(Brut::FrontEnd::Form) { select :size }
+      form = form_class.new(params: { size: "" })
+      component = select_component(form:)
+      component.call
+
+      expect(component.invalid?).to eq(true)
+    end
+
+    it "is false for a required select in a new form" do
+      form_class = Class.new(Brut::FrontEnd::Form) { select :size }
+      form = form_class.new
+      component = select_component(form:)
+      component.call
+
+      expect(component.invalid?).to eq(false)
+    end
+
+    it "is false for a new form with a server-side violation" do
+      form_class = Class.new(Brut::FrontEnd::Form) { select :size, required: false }
+      form = form_class.new
+      form.server_side_constraint_violation(input_name: :size, key: :not_available)
+      component = select_component(form:)
+      component.call
+
+      expect(component.invalid?).to eq(false)
+    end
+
+    it "is false for a valid select in a non-new form" do
+      form_class = Class.new(Brut::FrontEnd::Form) { select :size }
+      form = form_class.new(params: { size: "small" })
+      component = select_component(form:)
+      component.call
+
+      expect(component.invalid?).to eq(false)
     end
   end
 

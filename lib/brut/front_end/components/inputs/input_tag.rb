@@ -1,6 +1,5 @@
 # Generates an HTML `<input>` field based on a form input.
 class Brut::FrontEnd::Components::Inputs::InputTag < Brut::FrontEnd::Components::Input
-  def invalid? = @html_attributes["data-invalid"] == true
 
   # Creates the appropriate input for the given {Brut::FrontEnd::Form} and input name.
   #
@@ -43,10 +42,8 @@ class Brut::FrontEnd::Components::Inputs::InputTag < Brut::FrontEnd::Components:
         defaults[:value] = input.value
       end
       if !form.new? && !input.valid?
-        defaults["data-invalid"] = true
-        input.validity_state.each do |constraint|
-          defaults["data-#{constraint}"] = true
-        end
+        defaults["aria-invalid"] = "true"
+        defaults["aria-errormessage"] = SecureRandom.uuid # XXX
       end
     end
   end

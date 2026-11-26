@@ -24,18 +24,12 @@ class Brut::FrontEnd::Components::Inputs::TextareaTag < Brut::FrontEnd::Componen
         defaults[:minlength] = input.minlength
       end
       if !form.new? && !input.valid?
-        defaults["data-invalid"] = true
-        input.validity_state.each do |constraint,violated|
-          if violated
-            defaults["data-#{constraint}"] = true
-          end
-        end
+        defaults["aria-invalid"] = "true"
+        defaults["aria-errormessage"] = SecureRandom.uuid # XXX
       end
     end
     @value = input.value
   end
-
-  def invalid? = @html_attributes["data-invalid"] == true
 
   def view_template
     textarea(**@html_attributes) {

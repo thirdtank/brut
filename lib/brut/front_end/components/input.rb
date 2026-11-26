@@ -14,6 +14,9 @@ module Brut::FrontEnd::Components
   # Base class for all inputs
   class Input < Brut::FrontEnd::Component
 
+    # True if this input is considered invalid/has constraint violations
+    def invalid? = @html_attributes["aria-invalid"] == "true"
+
   private
 
     def form_input(form:, input_name:, index:, clazz:)
