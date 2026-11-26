@@ -5,9 +5,10 @@ require "rack-protection"
 RSpec.describe Brut::FrontEnd::RouteHooks::SetupRequestContext do
   before do
     instrumentation = double(record_exception: nil)
-    allow(Brut).to receive(:container).and_return(
-      double(instrumentation:, flash_class: Brut::FrontEnd::Flash)
-    )
+    container = Brut::Framework::Container.new
+    container.store("instrumentation", Object, "Instrumentation", instrumentation)
+    container.store("flash_class", Class, "Flash class", Brut::FrontEnd::Flash)
+    allow(Brut).to receive(:container).and_return(container)
   end
 
   after do

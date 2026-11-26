@@ -29,12 +29,11 @@ RSpec.describe Brut::FrontEnd::Components::FormTag do
 
     allow(instrumentation).to receive(:span) { |_name, &block| block.call(span) }
 
-    allow(Brut).to receive(:container).and_return(
-      double(
-        instrumentation: ,
-        project_env: ,
-        routing:)
-    )
+    container = Brut::Framework::Container.new
+    container.store("instrumentation", Object, "Instrumentation", instrumentation)
+    container.store("project_env", Brut::Framework::ProjectEnvironment, "Project environment", project_env)
+    container.store("routing", Brut::FrontEnd::Routing, "Routing", routing)
+    allow(Brut).to receive(:container).and_return(container)
 
     Thread.current.thread_variable_set(:request_context, request_context)
   end

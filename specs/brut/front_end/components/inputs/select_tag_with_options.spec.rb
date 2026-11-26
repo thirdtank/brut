@@ -7,7 +7,10 @@ RSpec.describe Brut::FrontEnd::Components::Inputs::SelectTagWithOptions do
     span = double(add_prefixed_attributes: nil)
     instrumentation = double
     allow(instrumentation).to receive(:span) { |_name, &block| block.call(span) }
-    allow(Brut).to receive(:container).and_return(double(instrumentation: instrumentation))
+
+    container = Brut::Framework::Container.new
+    container.store("instrumentation", Object, "Instrumentation", instrumentation)
+    allow(Brut).to receive(:container).and_return(container)
   end
 
   def select_from(html) = Nokogiri::HTML5(html).at_css("select")

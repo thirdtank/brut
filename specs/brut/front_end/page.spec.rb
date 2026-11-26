@@ -7,7 +7,10 @@ RSpec.describe Brut::FrontEnd::Page do
     instrumentation = double
     allow(instrumentation).to receive(:span) { |_name, &block| block.call(span) }
     allow(instrumentation).to receive(:add_prefixed_attributes)
-    allow(Brut).to receive(:container).and_return(double(instrumentation: instrumentation))
+
+    container = Brut::Framework::Container.new
+    container.store("instrumentation", Object, "Instrumentation", instrumentation)
+    allow(Brut).to receive(:container).and_return(container)
 
     stub_const("PageSpecLayout", Class.new(Brut::FrontEnd::Layout) {
       def view_template = div(id: "page-spec-layout") { yield }

@@ -18,6 +18,12 @@ module Webhooks
 end
 
 RSpec.describe Brut::FrontEnd::Routing do
+  let(:test_container) { Brut::Framework::Container.new }
+
+  before do
+    allow(Brut).to receive(:container).and_return(test_container)
+  end
+
   let(:routing) do
     described_class.new.tap do |r|
       r.register_path("/test-widgets", method: :get)
@@ -178,9 +184,7 @@ RSpec.describe Brut::FrontEnd::Routing do
     end
 
     def use_container_with_fallback_host(fallback_host)
-      container = Brut::Framework::Container.new
-      container.store("fallback_host", URI, "", fallback_host, allow_nil: true)
-      allow(Brut).to receive(:container).and_return(container)
+      test_container.store("fallback_host", URI, "", fallback_host, allow_nil: true)
     end
 
     it "returns an absolute URL for the route, using the fallback host" do
@@ -317,10 +321,11 @@ RSpec.describe Brut::FrontEnd::Routing do
   end
 
   describe "#register_webhook" do
+    before do
+      test_container.store("webhook_url_path_prefix", String, "", "/webhooks")
+    end
+
     it "registers a POST route under the webhook path prefix and returns it" do
-      container = Brut::Framework::Container.new
-      container.store("webhook_url_path_prefix", String, "", "/webhooks")
-      allow(Brut).to receive(:container).and_return(container)
       routing = described_class.new
 
       route = routing.register_webhook("test-hooks", method: :post)
@@ -333,9 +338,6 @@ RSpec.describe Brut::FrontEnd::Routing do
     end
 
     it "does not register a second route for the same path and method" do
-      container = Brut::Framework::Container.new
-      container.store("webhook_url_path_prefix", String, "", "/webhooks")
-      allow(Brut).to receive(:container).and_return(container)
       routing = described_class.new
 
       routing.register_webhook("test-hooks", method: :post)
@@ -345,9 +347,6 @@ RSpec.describe Brut::FrontEnd::Routing do
     end
 
     it "raises when the path already starts with the webhook path prefix" do
-      container = Brut::Framework::Container.new
-      container.store("webhook_url_path_prefix", String, "", "/webhooks")
-      allow(Brut).to receive(:container).and_return(container)
       routing = described_class.new
 
       expect { routing.register_webhook("/webhooks/test-hooks", method: :post) }.to raise_error(ArgumentError)
@@ -378,9 +377,7 @@ RSpec.describe Brut::FrontEnd::Routing do
           expect(new_class.equal?(old_class)).to eq(false)
           expect(new_class.respond_to?(:routing)).to eq(false)
 
-          container = Brut::Framework::Container.new
-          container.store("routing", Brut::FrontEnd::Routing, "", routing)
-          allow(Brut).to receive(:container).and_return(container)
+          test_container.store("routing", Brut::FrontEnd::Routing, "", routing)
 
           routing.reload
 
@@ -424,9 +421,7 @@ RSpec.describe Brut::FrontEnd::Routing do
     end
 
     it "reloads a route whose handler could not be found" do
-      container = Brut::Framework::Container.new
-      container.store("project_env", Brut::Framework::ProjectEnvironment, "", Brut::Framework::ProjectEnvironment.new("development"))
-      allow(Brut).to receive(:container).and_return(container)
+      test_container.store("project_env", Brut::Framework::ProjectEnvironment, "", Brut::Framework::ProjectEnvironment.new("development"))
 
       routing = described_class.new
       routing.register_path("/missing-paths", method: :get)

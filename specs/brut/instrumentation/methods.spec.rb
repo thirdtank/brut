@@ -1,12 +1,16 @@
 require "spec_helper"
 
 RSpec.describe Brut::Instrumentation::Methods do
+  let(:test_container) { Brut::Framework::Container.new }
+
+  before do
+    allow(Brut).to receive(:container).and_return(test_container)
+  end
+
   describe "#instrument" do
     it "instruments only those methods specified" do
-      mock_container = double("Brut::Framework::Container")
       instrumentation = instance_double(Brut::Instrumentation::OpenTelemetry)
-      allow(Brut).to receive(:container).and_return(mock_container)
-      allow(mock_container).to receive(:instrumentation).and_return(instrumentation)
+      test_container.store("instrumentation", Object, "Instrumentation", instrumentation)
       allow(instrumentation).to receive(:span).and_yield(double("span that should not be used"))
 
       class_to_instrument = Class.new do
@@ -61,10 +65,8 @@ RSpec.describe Brut::Instrumentation::Methods do
       )
     end
     it "works when called on a method definition" do
-      mock_container = double("Brut::Framework::Container")
       instrumentation = instance_double(Brut::Instrumentation::OpenTelemetry)
-      allow(Brut).to receive(:container).and_return(mock_container)
-      allow(mock_container).to receive(:instrumentation).and_return(instrumentation)
+      test_container.store("instrumentation", Object, "Instrumentation", instrumentation)
       allow(instrumentation).to receive(:span).and_yield(double("span that should not be used"))
 
       class_to_instrument = Class.new do
@@ -156,10 +158,8 @@ RSpec.describe Brut::Instrumentation::Methods do
   end
   describe "#instrument_all" do
     it "instruments all methods" do
-      mock_container = double("Brut::Framework::Container")
       instrumentation = instance_double(Brut::Instrumentation::OpenTelemetry)
-      allow(Brut).to receive(:container).and_return(mock_container)
-      allow(mock_container).to receive(:instrumentation).and_return(instrumentation)
+      test_container.store("instrumentation", Object, "Instrumentation", instrumentation)
       allow(instrumentation).to receive(:span).and_yield(double("span that should not be used"))
 
       class_to_instrument = Class.new do
@@ -217,10 +217,8 @@ RSpec.describe Brut::Instrumentation::Methods do
       )
     end
     it "instruments all methods defined after it is called" do
-      mock_container = double("Brut::Framework::Container")
       instrumentation = instance_double(Brut::Instrumentation::OpenTelemetry)
-      allow(Brut).to receive(:container).and_return(mock_container)
-      allow(mock_container).to receive(:instrumentation).and_return(instrumentation)
+      test_container.store("instrumentation", Object, "Instrumentation", instrumentation)
       allow(instrumentation).to receive(:span).and_yield(double("span that should not be used"))
 
       class_to_instrument = Class.new do
@@ -279,10 +277,8 @@ RSpec.describe Brut::Instrumentation::Methods do
   end
   describe "#instrument_public" do
     it "instruments only public methods" do
-      mock_container = double("Brut::Framework::Container")
       instrumentation = instance_double(Brut::Instrumentation::OpenTelemetry)
-      allow(Brut).to receive(:container).and_return(mock_container)
-      allow(mock_container).to receive(:instrumentation).and_return(instrumentation)
+      test_container.store("instrumentation", Object, "Instrumentation", instrumentation)
       allow(instrumentation).to receive(:span).and_yield(double("span that should not be used"))
 
       class_to_instrument = Class.new do
@@ -338,10 +334,8 @@ RSpec.describe Brut::Instrumentation::Methods do
       )
     end
     it "instruments only public methods defined after it is called" do
-      mock_container = double("Brut::Framework::Container")
       instrumentation = instance_double(Brut::Instrumentation::OpenTelemetry)
-      allow(Brut).to receive(:container).and_return(mock_container)
-      allow(mock_container).to receive(:instrumentation).and_return(instrumentation)
+      test_container.store("instrumentation", Object, "Instrumentation", instrumentation)
       allow(instrumentation).to receive(:span).and_yield(double("span that should not be used"))
 
       class_to_instrument = Class.new do

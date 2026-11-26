@@ -73,7 +73,10 @@ RSpec.describe Brut::FrontEnd::Components::TimeTag do
     span = double(add_prefixed_attributes: nil)
     instrumentation = double
     allow(instrumentation).to receive(:span) { |_name, &block| block.call(span) }
-    allow(Brut).to receive(:container).and_return(double(instrumentation: instrumentation))
+
+    container = Brut::Framework::Container.new
+    container.store("instrumentation", Object, "Instrumentation", instrumentation)
+    allow(Brut).to receive(:container).and_return(container)
 
     Thread.current.thread_variable_set(:request_context, request_context)
   end

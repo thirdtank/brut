@@ -15,16 +15,14 @@ RSpec.describe Brut::SinatraHelpers do
     allow(instrumentation).to receive(:add_event)
     allow(instrumentation).to receive(:add_attributes)
 
-    allow(Brut).to receive(:container).and_return(
-      double(
-        public_root_dir: "/tmp",
-        permitted_hosts: [],
-        routing: Brut::FrontEnd::Routing.new,
-        instrumentation: instrumentation,
-        webhook_url_path_prefix: "/webhooks",
-        project_env: Brut::Framework::ProjectEnvironment.new("test")
-      )
-    )
+    container = Brut::Framework::Container.new
+    container.store("public_root_dir", String, "Public root directory", "/tmp")
+    container.store("permitted_hosts", Array, "Permitted hosts", [])
+    container.store("routing", Brut::FrontEnd::Routing, "Routing", Brut::FrontEnd::Routing.new)
+    container.store("instrumentation", Object, "Instrumentation", instrumentation)
+    container.store("webhook_url_path_prefix", String, "Webhook path prefix", "/webhooks")
+    container.store("project_env", Brut::Framework::ProjectEnvironment, "Project environment", Brut::Framework::ProjectEnvironment.new("test"))
+    allow(Brut).to receive(:container).and_return(container)
 
     rack_env = {
       "rack.session" => {},
