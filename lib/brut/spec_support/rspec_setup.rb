@@ -92,7 +92,7 @@ class Brut::SpecSupport::RSpecSetup
     @config.include Playwright::Test::Matchers, e2e: true
 
     @config.around do |example|
-
+      begin
       needs_request_context = example.metadata[:component] ||
                               example.metadata[:handler]   ||
                               example.metadata[:page]
@@ -114,7 +114,7 @@ class Brut::SpecSupport::RSpecSetup
           xhr: false,
           host: URI("https://example.com")
         )
-        Thread.current.thread_variable_set(:request_context, request_context)
+        Brut::FrontEnd::RequestContext.current = request_context
         example.example_group.let(:request_context) { request_context }
       end
       if example.metadata[:component]
@@ -158,6 +158,9 @@ class Brut::SpecSupport::RSpecSetup
           raise Sequel::Rollback
         end
       end
+    ensure
+      Brut::FrontEnd::RequestContext.clear_current!
+    end
     end
     if @monkey_patch_summary_notification
       monkey_patch_summary_notification!

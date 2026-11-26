@@ -5,6 +5,6 @@ class Brut::FrontEnd::Middlewares::ClearRequestContext < Brut::FrontEnd::Middlew
   def call(env)
     @app.call(env)
   ensure
-    Thread.current.thread_variable_set(:request_context,nil)
+    Brut::FrontEnd::RequestContext.clear_current!
   end
 end

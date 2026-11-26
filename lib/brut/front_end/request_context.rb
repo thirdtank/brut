@@ -9,8 +9,19 @@
 # when Brut creates an instance of the class.
 class Brut::FrontEnd::RequestContext
 
+  def self.current=(request_context)
+    Thread.current.thread_variable_set(
+      :request_context,
+      request_context
+    )
+  end
+
   def self.current
     Thread.current.thread_variable_get(:request_context)
+  end
+
+  def self.clear_current!
+    Thread.current.thread_variable_set(:request_context,nil)
   end
 
   # Create an instance of klass injected with the request context.
