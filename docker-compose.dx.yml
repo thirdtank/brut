@@ -15,6 +15,10 @@ services:
       - type: bind
         source: "/var/run/docker.sock"
         target: "/var/run/docker.sock"
+      - type: bind
+        source: ${PWD}/dx/state/.pi/
+        target: /home/appuser/.pi
+        consistency: "consistent"
     command: /home/appuser/show-help-in-app-container-then-wait.sh
     working_dir: ${PWD}
     environment:
@@ -23,4 +27,6 @@ services:
     ports:
       - "8086:8086"
       - "8087:8087"
+      - "127.0.0.1:8088:8192"
+
 

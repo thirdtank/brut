@@ -40,6 +40,9 @@ RUN apt-get install -y vim && \
 # Install NodeJS
 COPY --from=node:22-slim /usr/local /usr/local
 
+# From https://pi.dev/docs/latest
+RUN npm install -g --ignore-scripts @earendil-works/pi-coding-agent && npm install -g @agegr/pi-web@latest
+
 
 # Setup a non-root user
 

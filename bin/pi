@@ -1,0 +1,54 @@
+#!/usr/bin/env bash
+# frozen_string_literal: true
+
+set -euo pipefail
+
+if ! command -v pi > /dev/null 2>&1; then
+  echo "[ bin/pi ] pi is not installed here - this must run inside the Docker container"
+  exit 1
+fi
+
+pi_web_url="http://127.0.0.1:8192"
+
+pi_web_is_running() {
+  curl -sS -m 1 -o /dev/null "${pi_web_url}/" > /dev/null 2>&1
+}
+
+start_pi_web() {
+  if pi_web_is_running; then
+    echo "[ bin/pi ] pi-web is already running - open ${pi_web_url}"
+    return
+  fi
+  echo "[ bin/pi ] Starting pi-web in the background - open ${pi_web_url}"
+  setsid pi-web --no-open --port 8192 --hostname 0.0.0.0 > /tmp/pi-web.log 2>&1 < /dev/null &
+  pi_web_pid=$!
+  cleanup_pi_web() {
+    if kill -- "-${pi_web_pid}" > /dev/null 2>&1; then
+      echo "[ bin/pi ] Stopped pi-web"
+    fi
+  }
+  trap cleanup_pi_web EXIT
+  for _ in 1 2 3; do
+    if pi_web_is_running; then
+      return
+    fi
+    if ! kill -0 "${pi_web_pid}" 2> /dev/null; then
+      echo "[ bin/pi ] pi-web failed to start - see /tmp/pi-web.log"
+      return
+    fi
+    sleep 1
+  done
+}
+
+if [ "${1:-}" == "web" ]; then
+  shift
+  if pi_web_is_running; then
+    echo "[ bin/pi ] pi-web is already running at ${pi_web_url} - not starting a second one"
+    exit 1
+  fi
+  echo "[ bin/pi ] Starting pi-web on port 8192 (open http://127.0.0.1:8192)"
+  exec pi-web --host 0.0.0.0 "${@}"
+fi
+
+start_pi_web
+pi "${@}"
