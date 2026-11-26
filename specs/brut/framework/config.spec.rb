@@ -43,6 +43,17 @@ RSpec.describe Brut::Framework::Config do
     ENV["SECURE_COOKIES"] = old_value
   end
 
+  def with_sequel_env(database_url:, max_connections:)
+    old_database_url = ENV["DATABASE_URL"]
+    old_max_connections = ENV["SEQUEL_MAX_CONNECTIONS"]
+    ENV["DATABASE_URL"] = database_url
+    ENV["SEQUEL_MAX_CONNECTIONS"] = max_connections
+    yield
+  ensure
+    ENV["DATABASE_URL"] = old_database_url
+    ENV["SEQUEL_MAX_CONNECTIONS"] = old_max_connections
+  end
+
   describe "semantic_logger_appenders" do
     it "configures colorized stdout and a development log file in development" do
       configure_for("development")
@@ -179,6 +190,37 @@ RSpec.describe Brut::Framework::Config do
         configure_for("production")
 
         expect(container.secure_cookies?).to eq(false)
+      end
+    end
+  end
+
+  describe "sequel_db_handle" do
+    it "uses SEQUEL_MAX_CONNECTIONS for the connection pool size" do
+      database_url = "postgres://example.test/widgets"
+      with_sequel_env(database_url: database_url, max_connections: "17") do
+        configure_for("test")
+        allow(Sequel).to receive(:connect).and_return(double("Sequel database"))
+
+        container.sequel_db_handle
+
+        expect(Sequel).to have_received(:connect).with(
+          database_url,
+          max_connections: 17,
+        )
+      end
+    end
+    it "defaults to 5" do
+      database_url = "postgres://example.test/widgets"
+      with_sequel_env(database_url: database_url, max_connections: nil) do
+        configure_for("test")
+        allow(Sequel).to receive(:connect).and_return(double("Sequel database"))
+
+        container.sequel_db_handle
+
+        expect(Sequel).to have_received(:connect).with(
+          database_url,
+          max_connections: 5,
+        )
       end
     end
   end

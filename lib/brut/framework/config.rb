@@ -78,13 +78,21 @@ class Brut::Framework::Config
       end
 
       c.store(
+        "sequel_max_connections",
+        Integer,
+        "Value for max_connections when creating Sequel database handle",
+      ) do
+        ENV.fetch("SEQUEL_MAX_CONNECTIONS","5").to_i
+      end
+
+      c.store(
         "sequel_db_handle",
         Object,
         "Handle to the database",
-      ) do |database_url|
+      ) do |database_url,sequel_max_connections|
         Sequel.connect(
           database_url,
-          test: true, #XXX
+          max_connections: sequel_max_connections,
         )
       end
 

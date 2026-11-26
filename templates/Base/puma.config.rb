@@ -18,6 +18,10 @@ threads_count = Integer(ENV["PUMA_MAX_THREADS"] || 5)
 # above.
 threads threads_count, threads_count
 
+# Set max_connections for Sequel based on Puma's thread
+# count as a standard default, allowing it to be overridden
+ENV["SEQUEL_MAX_CONNECTIONS"] ||= threads_count
+
 # Indicate that the app should be loaded before any
 # forking or thread creation. Despite the bang,
 # this doesn't actually do anything - it just sets configuration
