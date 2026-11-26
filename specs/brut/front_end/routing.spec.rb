@@ -173,12 +173,44 @@ RSpec.describe Brut::FrontEnd::Routing do
   end
 
   describe "#url" do
-    it "returns an absolute URL for the route, using the fallback host" do
+    before do
+      allow(Brut::FrontEnd::RequestContext).to receive(:current).and_return(nil)
+    end
+
+    def use_container_with_fallback_host(fallback_host)
       container = Brut::Framework::Container.new
-      container.store("fallback_host", URI, "", URI("https://example.com"))
+      container.store("fallback_host", URI, "", fallback_host, allow_nil: true)
       allow(Brut).to receive(:container).and_return(container)
+    end
+
+    it "returns an absolute URL for the route, using the fallback host" do
+      use_container_with_fallback_host(URI("https://example.com"))
 
       expect(routing.url(TestWidgetsWithIdHandler, with_method: :get, id: "42", page: "2").to_s).to eq("https://example.com/test-widgets/42?page=2")
+    end
+
+    it "raises MissingConfiguration naming fallback_host when it was not set" do
+      use_container_with_fallback_host(nil)
+
+      expect {
+        routing.url(TestWidgetsWithIdHandler, with_method: :get, id: "42")
+      }.to raise_error(Brut::Framework::Errors::MissingConfiguration, /fallback_host/)
+    end
+
+    it "does not report an invalid path segment as a missing fallback_host" do
+      use_container_with_fallback_host(URI("https://example.com"))
+
+      expect {
+        routing.url(TestWidgetsWithIdHandler, with_method: :get, id: "a/b")
+      }.to raise_error(ArgumentError, /contains a slash/)
+    end
+
+    it "lets URI::InvalidURIError from building the path propagate" do
+      use_container_with_fallback_host(URI("https://example.com"))
+      route = routing.route(TestWidgetsWithIdHandler)
+      allow(route).to receive(:path).and_raise(URI::InvalidURIError, "bad URI")
+
+      expect { route.url(id: "42") }.to raise_error(URI::InvalidURIError)
     end
   end
 

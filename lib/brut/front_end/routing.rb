@@ -220,16 +220,17 @@ private
                request_context[:host]
              end
       host ||= Brut.container.fallback_host
+      if host.nil?
+        request_context_note = if request_context
+                                 "the RequestContext did not contain request.host, which is unusual"
+                               else
+                                 "the RequestContext was not available (likely due to calling `full_routing` outside an HTTP request)"
+                               end
+        raise Brut::Framework::Errors::MissingConfiguration.new(
+          :fallback_host,
+          "Attempting to get the full URL for route #{self.path_template}, #{request_context_note}, and Brut.container.fallback_host was not set.  You must set this value if you expect to generate complete URLs outside of an HTTP request")
+      end
       host.merge(path)
-    rescue ArgumentError => ex
-      request_context_note = if request_context
-                               "the RequestContext did not contain request.host, which is unusual"
-                             else
-                               "the RequestContext was not available (likely due to calling `full_routing` outside an HTTP request)"
-                             end
-      raise Brut::Framework::Errors::MissingConfiguration(
-        :fallback_host,
-        "Attempting to get the full URL for route #{self.path_template}, #{request_context_note}, and Brut.container.fallback_host was not set.  You must set this value if you expect to generate complete URLs outside of an HTTP request")
     end
 
     def hash
