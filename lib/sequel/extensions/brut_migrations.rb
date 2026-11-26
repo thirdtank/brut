@@ -18,10 +18,9 @@ module Sequel
       def create_table(*args)
         super
 
-
-        if args.last.is_a?(Hash)
-          name = args.first
-          if name != "schema_migrations" && name != "schema_info"
+        name = args.first
+        if name != "schema_migrations" && name != "schema_info"
+          if args.last.is_a?(Hash)
             if args.last[:comment]
               run %{
                 comment on table #{name} is #{literal args.last[:comment]}
@@ -32,6 +31,8 @@ module Sequel
             if args.last[:external_id]
               add_column name, :external_id, :citext, unique: true
             end
+          else
+            raise ArgumentError, "Table #{name} must have a comment"
           end
         end
       end
@@ -80,33 +81,33 @@ module Sequel
     end
   end
 end
+class ::Sequel::Schema::CreateTableGenerator
+  def key(fields)
+    index fields, unique: true
+  end
+end
+class ::Sequel::Schema::AlterTableGenerator
+  def add_column_with_additions(name, type, opts={})
+    if !opts.key?(:null)
+      opts[:null] = false
+    end
+    add_column_base(name,type,opts)
+  end
+  alias_method :add_column_base, :add_column
+  alias_method :add_column, :add_column_with_additions
+
+  def add_foreign_key_with_additions(name, table, opts={})
+    if !opts.key?(:index)
+      opts[:index] = true
+    end
+    if !opts.key?(:null)
+      opts[:null] = false
+    end
+    add_foreign_key_base(name, table, opts)
+  end
+  alias_method :add_foreign_key_base, :add_foreign_key
+  alias_method :add_foreign_key, :add_foreign_key_with_additions
+end
 Sequel::Database.register_extension(:brut_migrations) do |db|
   db.extend Sequel::Extensions::BrutMigrations
-  class ::Sequel::Schema::CreateTableGenerator
-    def key(fields)
-      index fields, unique: true
-    end
-  end
-  class ::Sequel::Schema::AlterTableGenerator
-    def add_column_with_additions(name, type, opts={})
-      if !opts.key?(:null)
-        opts[:null] = false
-      end
-      add_column_base(name,type,opts)
-    end
-    alias_method :add_column_base, :add_column
-    alias_method :add_column, :add_column_with_additions
-
-    def add_foreign_key_with_additions(name, table, opts={})
-      if !opts.key?(:index)
-        opts[:index] = true
-      end
-      if !opts.key?(:null)
-        opts[:null] = false
-      end
-      add_foreign_key_base(name, table, opts)
-    end
-    alias_method :add_foreign_key_base, :add_foreign_key
-    alias_method :add_foreign_key, :add_foreign_key_with_additions
-  end
 end
