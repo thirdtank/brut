@@ -23,24 +23,24 @@ The entirety of Brut's codebase could be grouped into three parts:
 
 ### Library Code Should Be Written By a Person
 
-We want the library code written by a person, i.e. it should have level 1 AI assistance: none.  As of this writing—June 17, 2025—all library code was written by a person.
+We want the library code written by a person, i.e. it should have level 1 AI assistance: none.  As of this writing—Nov 26, 2026—all library code was written by a person.
 
 If some code is level 2—non-creative assistance—that is probably fine.
 
 ### Tests Should Not Be Totally Written by AI
 
-As of this writing—June 17, 2025—the library has no automated tests.  The `adrs.cloud` app serves as the
-test suite.
+As of this writing—Nov 26, 2026—the library has some automated tests with the `adrs.cloud` app serves as a more complete test suite.
 
-That said, as tests are developed, they must never be written entirely by an AI without human review (level 4).  Our preference is that all tests comply with level 1 or level 2, however we are open to creative assistance for tests as might be provided by a tool like Cursor.
+The tests that are here are a mixture of tests written by a person and tests written by an AI but
+*reviewed* by a person.  To be specific, AI-written tests were at my request and then reviewed by me, often edited after the fact.  My goal is to have tests that I could understand and change, using the AI to essentially backfill tests that didn't exist at all.
 
-In any case, the author of a test should understand it and the maintainers must be able to understand and
-modify all tests without the use of AI tools.
+This is fine - tests must never be written entirely by an AI without human review (level 4).
+
+In any case, the author of a test should understand it and the maintainers must be able to understand and modify all tests without the use of AI tools.
 
 ### Management Tools Should Not Be Totally Written by AI
 
-Like tests, management tools must be comprehensible by a person and the creator of the code must
-understand it.  That said, some of the tools were created with level 3 AI assistance, and we expect these
+Like tests, management tools must be comprehensible by a person and the creator of the code must understand it.  That said, some of the tools were created with level 3 AI assistance, and we expect these
 tools may continue to be created this way.
 
 Nevertheless, this code must be reviewed and understood by a person.
@@ -60,9 +60,7 @@ As such, these are all Level 1.
 
 ## AI Information about Brut Should Be Viewed with Skepticism
 
-* **Answers from an LLM about Brut are likely incorrect.** LLMs will certainly not
+* **LLMs with access to Brut's source code tend to give reasonable answers**.  You should treat these
+answers with some skepticism as they will be based only on Brut's code.
+* **Answers from an LLM about Brut without source access are likely incorrect.** LLMs will certainly not
 have been trained on information about Brut, since it is new.
-* **Code Completions of Brut Code are suspect.** I have observed that e.g. GitHub
-CoPilot is capable for properly completing Brut code if there is enough context, but
-it is not capable of, say, creating a component from scratch. **Review all Code
-Completions Carefully**.
