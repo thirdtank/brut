@@ -238,6 +238,7 @@ class Brut::Framework::MCP
           },
         ],
       ],
+      [ Brut::FrontEnd::Middlewares::ClearRequestContext ],
     ]
     if Brut.container.auto_reload_classes?
       default_middlewares << Brut::FrontEnd::Middlewares::ReloadApp

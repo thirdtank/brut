@@ -23,6 +23,7 @@ class Brut::FrontEnd::RouteHooks::LocaleDetection < Brut::FrontEnd::RouteHook
       ::I18n.locale = best_locale
     else
       Brut.container.instrumentation.add_attributes(prefix: "brut.locale-detection", best_locale: false)
+      ::I18n.locale = I18n.default_locale
     end
     continue
   end
