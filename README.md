@@ -94,3 +94,9 @@ Each repo must conform to the *Workspace Protocol*, which are scripts in `bin/` 
 
 The primary `bin` scripts at the root work for both BrutRB, the web framework, and recurse into the other directories to perform their
 actions as well.
+
+## NOTE on AI
+
+Just because there is an `AGENT.md` does not mean Brut is vibe-coded.  Please read that file plus Brut's
+AI policy.  My intention is that Brut's deployed code is written by people. Tests can be written by AI
+as long as they are understandable by people and understood by their author.
