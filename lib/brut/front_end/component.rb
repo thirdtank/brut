@@ -49,18 +49,18 @@ class Brut::FrontEnd::Component < Phlex::HTML
   include Brut::Framework::Errors
   include Brut::I18n::ForHTML
 
+  register_element :blok_i18n_translation
+  register_element :blok_cv
+  register_element :blok_cv_messages
+
   register_element :brut_confirm_submit
   register_element :brut_confirmation_dialog
-  register_element :brut_cv
   register_element :brut_ajax_submit
   register_element :brut_autosubmit
   register_element :brut_confirm_submit
   register_element :brut_confirmation_dialog
-  register_element :brut_cv
-  register_element :brut_cv_messages
   register_element :brut_copy_to_clipboard
   register_element :brut_form
-  register_element :brut_i18n_translation
   register_element :brut_locale_detection
   register_element :brut_message
   register_element :brut_tabs

@@ -1,5 +1,5 @@
-# Produces `<brut-i18n-translation>` entries for the given values. This is used for client-side constraint violation messaging with
-# JavaScript.  The `<brut-constraint-violation-message>` tag uses these keys to produce messages on the client.
+# Produces `<blok-i18n-translation>` entries for the given values. This is used for client-side constraint violation messaging with
+# JavaScript.  The `<blok-constraint-violation-message>` tag uses these keys to produce messages on the client.
 #
 # The default layout included in new Brut apps includes this:
 #
@@ -10,14 +10,14 @@
 # At runtime, this will produce this:
 #
 # ```html
-# <brut-i18n-translation
+# <blok-i18n-translation
 #   key="cv.cs.badInput"
 #   value="%{field} is the wrong type of data">
-# </brut-i18n-translation>
-# <brut-i18n-translation
+# </blok-i18n-translation>
+# <blok-i18n-translation
 #   key="cv.cs.patternMismatch"
 #   value="%{field} isn't in the right format">
-# </brut-i18n-translation>
+# </blok-i18n-translation>
 # <!-- etc -->
 # ```
 #
@@ -54,10 +54,10 @@ class Brut::FrontEnd::Components::I18nTranslations < Brut::FrontEnd::Component
       }
       if !Brut.container.project_env.production?
         attributes[:show_warnings] = true
-        attributes[:id] = "brut-18n-#{key}"
+        attributes[:id] = "blok-18n-#{key}"
       end
 
-      brut_i18n_translation(**attributes)
+      blok_i18n_translation(**attributes)
 
     end
   end
