@@ -24,7 +24,6 @@ module Brut::FrontEnd::Components
   autoload(:I18nTranslations,"brut/front_end/components/i18n_translations")
   autoload(:TimeTag,"brut/front_end/components/time_tag")
   autoload(:PageIdentifier,"brut/front_end/components/page_identifier")
-  autoload(:LocaleDetection,"brut/front_end/components/locale_detection")
   autoload(:ConstraintViolations,"brut/front_end/components/constraint_violations")
   autoload(:Traceparent,"brut/front_end/components/traceparent")
 
@@ -64,10 +63,7 @@ class Brut::FrontEnd::Component < Phlex::HTML
   register_element :brut_confirmation_dialog
   register_element :brut_ajax_submit
   register_element :brut_autosubmit
-  register_element :brut_confirm_submit
-  register_element :brut_confirmation_dialog
   register_element :brut_copy_to_clipboard
-  register_element :brut_locale_detection
   register_element :brut_message
   register_element :brut_tracing
 

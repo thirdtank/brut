@@ -23,8 +23,13 @@ module Brut::I18n::BaseMethods
   RTL_SCRIPTS = %w[Adlm Arab Hebr Mand Nkoo Rohg Samr Syrc Thaa Yezi].freeze
 
 
+  # Return true if the current locale is an RTL language/script.
+  # 
+  # @return [true|false] if the script of the locale is one of a hard-coded list, returns
+  #         true, otherwise returns true if the language is one of another hard-coded list,
+  #         otherwise returns false.  If locale is unknown, returns false.
   def locale_rtl?
-    tag = I18n::Locale::Tag::Rfc4646.tag(I18n.locale)
+    tag = ::I18n::Locale::Tag::Rfc4646.tag(I18n.locale)
     if tag&.script
       RTL_SCRIPTS.include?(tag.script)
     else

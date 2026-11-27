@@ -212,6 +212,24 @@ RSpec.describe "request lifecycle" do
     expect(response.body).to eq("en")
   end
 
+  it "ignores an Accept-Language tag that is not valid syntax" do
+    response = request("/__probe/locale", accept_language: "fr_CA")
+
+    expect(response.body).to eq("en")
+  end
+
+  it "ignores a wildcard that has a quality value" do
+    response = request("/__probe/locale", accept_language: "*;q=0.9, en-US;q=0.5")
+
+    expect(response.body).to eq("en")
+  end
+
+  it "ignores an invalid Accept-Language entry but uses the valid ones" do
+    response = request("/__probe/locale", accept_language: "garbage();q=0.9, fr;q=0.5")
+
+    expect(response.body).to eq("fr")
+  end
+
   it "matches a language tag regardless of case" do
     response = request("/__probe/locale", accept_language: "FR")
 

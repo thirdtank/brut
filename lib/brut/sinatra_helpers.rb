@@ -6,7 +6,6 @@ module Brut::SinatraHelpers
     sinatra_app.set :logging, false
     sinatra_app.set :public_folder, Brut.container.public_root_dir
     sinatra_app.path("/__brut/csp-reporting",method: :post)
-    sinatra_app.path("/__brut/locale_detection",method: :post)
     sinatra_app.path("/__brut/instrumentation",method: :get)
     sinatra_app.set :host_authorization, permitted_hosts: Brut.container.permitted_hosts
     sinatra_app.set :show_exceptions, false

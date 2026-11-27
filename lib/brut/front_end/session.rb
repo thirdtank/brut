@@ -24,7 +24,7 @@ class Brut::FrontEnd::Session
     self[:__brut_http_accept_language] = http_accept_language.for_session
   end
 
-  # Get the timezone as reported by the browser, or nil if there isn't one or the browser sent and invalid value
+  # Get the timezone as reported by the browser, or nil if there isn't one
   #
   # @return [TZInfo::Timezone|nil]
   def timezone_from_browser
@@ -40,7 +40,8 @@ class Brut::FrontEnd::Session
     end
   end
 
-  # Set the timezone as reported by the browser.
+  # Set the timezone as reported by the browser. If the new value is invalid, the previous value
+  # is maintained.
   #
   # @param timezone [TZInfo::Timezone|String] The timezone, or name of a timezone suitable for use with `TZInfo::Timezone`.
   def timezone_from_browser=(timezone)

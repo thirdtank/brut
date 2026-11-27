@@ -14,10 +14,6 @@ RSpec.describe Brut::FrontEnd::Layouts::Default do
     def page_title = "Default Layout Test"
   end
 
-  class DefaultLayoutTestLocaleDetection < Brut::FrontEnd::Component
-    def view_template; end
-  end
-
   before do
     span = double(add_prefixed_attributes: nil)
     instrumentation = double(add_attributes: nil, add_prefixed_attributes: nil, record_exception: nil)
@@ -28,9 +24,6 @@ RSpec.describe Brut::FrontEnd::Layouts::Default do
     container.store("project_env", Object, "Project environment", double(production?: false))
     container.store("asset_path_resolver", Object, "Asset path resolver", double(resolve: "/assets/hashed"))
     allow(Brut).to receive(:container).and_return(container)
-
-    # The locale detection element is being removed; stub it so this test can render the rest of the layout.
-    stub_const("Brut::FrontEnd::Components::LocaleDetection", DefaultLayoutTestLocaleDetection)
 
     @original_available_locales = ::I18n.available_locales.dup
     @original_locale = ::I18n.locale

@@ -6,7 +6,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 // This is duplicated from Brut's LocaleDetection RouteHook and
 // must match that value for this to work
-const TIMEZONE_COOKIE = "brut.timezone"
+const TIMEZONE_COOKIE_NAME = "brut.timezone"
 
 function setTimezoneCookie() {
   if (typeof Intl === "undefined") {
@@ -16,9 +16,8 @@ function setTimezoneCookie() {
   if (!timezone) {
     return
   }
-  const current = document.cookie.split("; ").find((cookie) => cookie.startsWith(`${TIMEZONE_COOKIE}=`))
   const secure = location.protocol === "https:" ? "; Secure" : ""
-  document.cookie = `${TIMEZONE_COOKIE}=${timezone}; path=/; max-age=31536000; SameSite=Lax${secure}`
+  document.cookie = `${TIMEZONE_COOKIE_NAME}=${timezone}; path=/; max-age=31536000; SameSite=Lax${secure}`
 }
 
 setTimezoneCookie()

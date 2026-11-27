@@ -1,13 +1,19 @@
 # Detects the user's locale from the `Accept-Language` header and, if one of the locales has been set up in this app, configured
-# Ruby's `I18n` to use it.  This will also store the value in the session via {Brut::FrontEnd::Session#http_accept_language=}.
+# Ruby's `I18n` to use it.  This will also store the value in the session via {Brut::FrontEnd::Session#http_accept_language=}.  It further sets up the sessions time zone based on a cookie set from 
+# `index.js`
 #
 # @see https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Accept-Language
 class Brut::FrontEnd::RouteHooks::LocaleDetection < Brut::FrontEnd::RouteHook
+
+  TIMEZONE_COOKIE_NAME = "brut.timezone"
+
   def before(session:,env:,request:)
-    session.timezone_from_browser = request.cookies["brut.timezone"]
-    session.http_accept_language = Brut::I18n::HTTPAcceptLanguage.from_header(env["HTTP_ACCEPT_LANGUAGE"])
+    session.timezone_from_browser = request.cookies[TIMEZONE_COOKIE_NAME]
+    http_accept_language = Brut::I18n::HTTPAcceptLanguage.from_header(env["HTTP_ACCEPT_LANGUAGE"])
+
+    session.http_accept_language = http_accept_language
     best_locale = nil
-    session.http_accept_language.weighted_locales.each do |weighted_locale|
+    http_accept_language.weighted_locales.each do |weighted_locale|
       if ::I18n.available_locales.include?(weighted_locale.locale.to_sym)
         best_locale = weighted_locale.locale.to_sym
         break

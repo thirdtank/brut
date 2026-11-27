@@ -64,7 +64,6 @@ module Brut::FrontEnd
   # Namespace for handlers provided by Brut
   module Handlers
     autoload(:CspReportingHandler,"brut/front_end/handlers/csp_reporting_handler")
-    autoload(:LocaleDetectionHandler,"brut/front_end/handlers/locale_detection_handler")
     autoload(:MissingHandler,"brut/front_end/handlers/missing_handler")
     autoload(:InstrumentationHandler,"brut/front_end/handlers/instrumentation_handler")
   end

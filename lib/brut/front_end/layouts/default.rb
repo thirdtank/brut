@@ -55,14 +55,6 @@ class Brut::FrontEnd::Layouts::Default < Brut::FrontEnd::Layout
         # the OpenTelemetry traceparent in a <meta> attribute for use
         # by the <brut-tracing> element.
         Traceparent()
-        # Brut::FrontEnd::Components::LocaleDetection, which
-        # will send the browser's locale and timezone back to the server to
-        # help with locale determination.
-        render(
-          Brut::FrontEnd::RequestContext.inject(
-            Brut::FrontEnd::Components::LocaleDetection
-          )
-        )
 
         # Render the <brut-tracing> element, which will send
         # OpenTelemetry traces back to the server to be joined up with
