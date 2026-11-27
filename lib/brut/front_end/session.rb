@@ -47,7 +47,16 @@ class Brut::FrontEnd::Session
     if timezone.kind_of?(TZInfo::Timezone)
       timezone = timezone.name
     end
-    self[:__brut_timezone_from_browser] = timezone
+    canonical_timezone_name = begin
+                                if timezone.kind_of?(TZInfo::Timezone)
+                                  timezone.name
+                                else
+                                  TZInfo::Timezone.get(timezone).name
+                                end
+                              rescue TZInfo::InvalidTimezoneIdentifier
+                                nil
+                              end
+    self[:__brut_timezone_from_browser] = canonical_timezone_name
   end
 
   # Set the session timezone, regardless of what the browser reports.

@@ -31,6 +31,10 @@ class Brut::I18n::HTTPAcceptLanguage
   def self.from_session(session_value)
     values = session_value.to_s.split(/,/).map { |value|
       locale,q = value.split(/;/)
+      locale = if locale
+                 lang,region = locale.split(/-/)
+                 lang.downcase + (region ? "-#{region.upcase}" : "")
+               end
       WeightedLocale.new(locale:,q:)
     }
     if values.any?

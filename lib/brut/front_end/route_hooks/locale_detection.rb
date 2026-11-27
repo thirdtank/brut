@@ -3,11 +3,9 @@
 #
 # @see https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Accept-Language
 class Brut::FrontEnd::RouteHooks::LocaleDetection < Brut::FrontEnd::RouteHook
-  def before(session:,env:)
-    http_accept_language = Brut::I18n::HTTPAcceptLanguage.from_header(env["HTTP_ACCEPT_LANGUAGE"])
-    if !session.http_accept_language.known?
-      session.http_accept_language = http_accept_language
-    end
+  def before(session:,env:,request:)
+    session.timezone_from_browser = request.cookies["brut.timezone"]
+    session.http_accept_language = Brut::I18n::HTTPAcceptLanguage.from_header(env["HTTP_ACCEPT_LANGUAGE"])
     best_locale = nil
     session.http_accept_language.weighted_locales.each do |weighted_locale|
       if ::I18n.available_locales.include?(weighted_locale.locale.to_sym)
@@ -25,6 +23,20 @@ class Brut::FrontEnd::RouteHooks::LocaleDetection < Brut::FrontEnd::RouteHook
       Brut.container.instrumentation.add_attributes(prefix: "brut.locale-detection", best_locale: false)
       ::I18n.locale = I18n.default_locale
     end
+    continue
+  end
+  def after(response:)
+    vary = response.headers["Vary"]
+    if !vary.kind_of?(Array)
+      vary = vary.to_s.split(/,/)
+    end
+    vary = vary.map(&:downcase)
+    if vary != [ "*" ]
+      vary << "cookie"
+      vary << "accept-language"
+    end
+    response.headers["Vary"] = vary.uniq.join(",")
+    response.headers["Content-Language"] = ::I18n.locale.to_s
     continue
   end
 end

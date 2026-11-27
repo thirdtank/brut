@@ -31,9 +31,10 @@ Brut uses RSpec but only part of RSpec.
 
 ### Not Allowed
 
-* Shared contexts
-* Shared examples
-* predicate matchers (just call the methods directly in the test)
+* NO Shared contexts
+* NO Shared examples
+* NO predicate matchers, even `be_nil` and `be_empty` (just call the methods directly in the test)
+* Test for "truthy" or "falsey" - test for the actual values
 
 ### Strongly Avoid
 
@@ -44,4 +45,8 @@ Brut uses RSpec but only part of RSpec.
 * Running the code in a let or before and then having a ton of single-line assertions. Just make one
   test with all the assertions.
 
-
+### Confidence Checks
+  
+The use of `confidence_check` is *not* for testing. It's for asserting that any test setup or other
+invariants unrelated to the test hold. It should not be needed often, and any test that is just a
+confidence check is wrong.

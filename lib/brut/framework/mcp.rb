@@ -267,6 +267,7 @@ class Brut::Framework::MCP
       Brut::FrontEnd::RouteHooks::AgeFlash,
       Brut.container.csp_class,
       Brut.container.csp_reporting_class,
+      Brut::FrontEnd::RouteHooks::LocaleDetection,
     ].compact + @app.class.after
 
     [
