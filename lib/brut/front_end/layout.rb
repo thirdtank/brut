@@ -1,3 +1,8 @@
+# Namespace for layouts provided by Brut.
+module Brut::FrontEnd::Layouts
+  autoload(:Default, "brut/front_end/layouts/default")
+end
+
 # A layout is common HTML that surrounds different pages. For example, it would hold your 
 # DOCTYPE, `<head>`, and possibly any common `<body>` elements that every page needs. 
 #

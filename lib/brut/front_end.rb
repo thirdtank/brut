@@ -22,6 +22,7 @@ module Brut::FrontEnd
   autoload(:HttpStatus, "brut/front_end/http_status")
   autoload(:InlineSvgLocator, "brut/front_end/inline_svg_locator")
   autoload(:Layout, "brut/front_end/layout")
+  autoload(:Layouts, "brut/front_end/layout")
   autoload(:Middleware, "brut/front_end/middleware")
   autoload(:Middlewares, "brut/front_end/middleware")
   autoload(:Page, "brut/front_end/page")

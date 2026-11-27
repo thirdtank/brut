@@ -19,6 +19,19 @@
 # implement them or that a submodule being used does.  All submodules provided by Brut provide implementations,
 # so this information is only relevant if you are using this module directly.
 module Brut::I18n::BaseMethods
+  RTL_LANGUAGES = %w[ar arc ckb dv fa he khw ks ps sd syr ug ur yi].freeze
+  RTL_SCRIPTS = %w[Adlm Arab Hebr Mand Nkoo Rohg Samr Syrc Thaa Yezi].freeze
+
+
+  def locale_rtl?
+    tag = I18n::Locale::Tag::Rfc4646.tag(I18n.locale)
+    if tag&.script
+      RTL_SCRIPTS.include?(tag.script)
+    else
+      RTL_LANGUAGES.include?(tag&.language)
+    end
+  end
+
 
   # Access a translation and insert interpolated elemens as needed. This will use the provided key to determine
   # the actual full key to the translation, as described below. See {Brut::I18n::ForHTML#t} for details
