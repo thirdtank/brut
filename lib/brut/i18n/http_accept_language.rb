@@ -4,22 +4,30 @@
 # by Brut to make a guess as to which Locale a browser is reporting.
 class Brut::I18n::HTTPAcceptLanguage
   # A locale with the weight (value for q=) it was given in the Accept-Language header
-  WeightedLocale = Data.define(:locale, :q) do
+  WeightedLocale = Data.define(:raw_locale, :q) do
+    # The RFC 4646 "tag" for this locale, or nil if it's not valid
+    # @return [I18n::Locale::Tag::Rfc4646|nil] tag based on the raw_locale, or nil if it's not valid.
+    def tag = I18n::Locale::Tag::Rfc4646.tag(self.raw_locale)
+
+    # The locale or nil if raw_locale was not valid
+    # @return [String|nil] String containing the full locale e.g. en-GB or nil if raw_locale was invalid.
+    def locale = self.tag&.to_s
+
     # Returns the primary locale for whatever locale
     # this is holding.  For example, the primary locale 
     # of "en-US" is "en".
-    def primary_locale = self.locale.gsub(/\-.*$/,"")
+    def primary_locale = self.tag&.language
 
     # True if this locale is a primary locale
-    def primary? = self.primary_locale == self.locale
+    def primary? = self.primary_locale == self.tag&.to_s
 
     # Return a new WeightedLocale that is the primary locale.
     def primary_only
-      self.class.new(locale: self.primary_locale, q: self.q)
+      self.class.new(raw_locale: self.primary_locale, q: self.q)
     end
 
     def ==(other)
-      self.locale == other.locale
+      self.tag == other.tag
     end
   end
 
@@ -30,12 +38,8 @@ class Brut::I18n::HTTPAcceptLanguage
   #         is blank, #{Brut::I18n::HTTPAcceptLanguage::AlwaysEnglish} is returned.
   def self.from_session(session_value)
     values = session_value.to_s.split(/,/).map { |value|
-      locale,q = value.split(/;/)
-      locale = if locale
-                 lang,region = locale.split(/-/)
-                 lang.downcase + (region ? "-#{region.upcase}" : "")
-               end
-      WeightedLocale.new(locale:,q:)
+      raw_locale,q = value.split(/;/)
+      WeightedLocale.new(raw_locale:,q:)
     }
     if values.any?
       self.new(values)
@@ -62,7 +66,7 @@ class Brut::I18n::HTTPAcceptLanguage
     if value == ""
       AlwaysEnglish.new
     else
-      self.new([ WeightedLocale.new(locale: value, q: 1) ])
+      self.new([ WeightedLocale.new(raw_locale: value, q: 1) ])
     end
   end
 
@@ -76,8 +80,8 @@ class Brut::I18n::HTTPAcceptLanguage
       AlwaysEnglish.new
     else
       values = header_value.split(/,/).map(&:strip).map { |language|
-        locale,q = language.split(/;\s*q\s*=\s*/,2)
-        WeightedLocale.new(locale: locale,q: q.nil? ? 1 : q.to_f)
+        raw_locale,q = language.split(/;\s*q\s*=\s*/,2)
+        WeightedLocale.new(raw_locale: ,q: q.nil? ? 1 : q.to_f)
       }
       if values.any?
         self.new(values)
@@ -111,7 +115,7 @@ class Brut::I18n::HTTPAcceptLanguage
   # to replace this with a known value later on.
   class AlwaysEnglish < Brut::I18n::HTTPAcceptLanguage
     def initialize
-      super([ WeightedLocale.new(locale: "en", q: 1) ])
+      super([ WeightedLocale.new(raw_locale: "en", q: 1) ])
     end
     def known? = false
   end

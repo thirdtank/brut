@@ -67,6 +67,14 @@ RSpec.describe "request lifecycle" do
       headers["Vary"] = "accept-language, Cookie"
       "ok"
     end
+    @sinatra_app_class.get("/__probe/vary-star-mixed") do
+      headers["Vary"] = "Cookie, *"
+      "ok"
+    end
+    @sinatra_app_class.get("/__probe/vary-array-comma") do
+      headers["Vary"] = ["Cookie, Accept-Encoding"]
+      "ok"
+    end
     @sinatra_app_class.get("/__probe/raise") do
       if Brut::FrontEnd::RequestContext.current.nil?
         raise "RequestContext was not set before the route ran"
@@ -105,6 +113,10 @@ RSpec.describe "request lifecycle" do
       map(&:downcase).
       reject(&:empty?).
       sort
+  end
+
+  def vary_tokens(response)
+    Array(response.headers["Vary"]).flat_map { |value| value.to_s.split(",") }
   end
 
   it "provides a RequestContext during a request" do
@@ -238,5 +250,35 @@ RSpec.describe "request lifecycle" do
 
     accept_language_values = normalized_vary_values(response).select { |value| value.downcase == "accept-language" }
     expect(accept_language_values.size).to eq(1)
+  end
+
+  it "emits Vary tokens without surrounding whitespace" do
+    response = request("/__probe/vary-multiple", accept_language: "fr")
+    tokens = vary_tokens(response)
+
+    expect(tokens.reject { |token| token == token.strip }).to eq([])
+  end
+
+  it "leaves Vary untouched when * appears alongside other tokens" do
+    response = request("/__probe/vary-star-mixed", accept_language: "fr")
+
+    expect(vary_tokens(response)).to eq(["*", "cookie"])
+  end
+
+  it "splits comma-separated values inside an array element" do
+    response = request("/__probe/vary-array-comma", accept_language: "fr")
+    tokens = vary_tokens(response)
+
+    expect(tokens.length).to eq(3)
+    expect(tokens).to include("cookie")
+    expect(tokens).to include("accept-encoding")
+    expect(tokens).to include("accept-language")
+  end
+
+  it "does not append a duplicate cookie token when Vary already names the cookie" do
+    response = request("/__probe/vary", accept_language: "fr")
+    tokens = vary_tokens(response)
+
+    expect(tokens.map(&:downcase).select { |token| token == "cookie" }.size).to eq(1)
   end
 end

@@ -16,20 +16,16 @@ RSpec.describe Brut::FrontEnd::Session do
     ENV["TZ"] = @original_tz
   end
 
-  def new_session(rack_session = {})
-    described_class.new(rack_session:)
-  end
+  subject(:session) { described_class.new(rack_session: {}) }
 
   describe "#http_accept_language" do
     it "defaults to AlwaysEnglish when nothing is stored" do
-      session = new_session
 
       expect(session.http_accept_language).to be_a(Brut::I18n::HTTPAcceptLanguage::AlwaysEnglish)
       expect(session.http_accept_language.for_session).to eq("en;1")
     end
 
     it "returns the value that was assigned" do
-      session = new_session
       session.http_accept_language = Brut::I18n::HTTPAcceptLanguage.from_header("fr;q=0.5")
 
       expect(session.http_accept_language.weighted_locales.map(&:locale)).to eq(["fr"])
@@ -37,7 +33,6 @@ RSpec.describe Brut::FrontEnd::Session do
     end
 
     it "replaces a previously stored value" do
-      session = new_session
       session.http_accept_language = Brut::I18n::HTTPAcceptLanguage.from_header("fr")
       session.http_accept_language = Brut::I18n::HTTPAcceptLanguage.from_header("en")
 
@@ -45,7 +40,6 @@ RSpec.describe Brut::FrontEnd::Session do
     end
 
     it "replaces a previously stored value when assigned AlwaysEnglish" do
-      session = new_session
       session.http_accept_language = Brut::I18n::HTTPAcceptLanguage.from_header("fr")
       session.http_accept_language = Brut::I18n::HTTPAcceptLanguage.from_session(nil)
 
@@ -55,33 +49,37 @@ RSpec.describe Brut::FrontEnd::Session do
 
   describe "#timezone_from_browser" do
     it "returns nil when nothing is stored" do
-      expect(new_session.timezone_from_browser).to eq(nil)
+      expect(session.timezone_from_browser).to eq(nil)
     end
 
     it "returns the time zone that was assigned as a string" do
-      session = new_session
       session.timezone_from_browser = "America/New_York"
 
       expect(session.timezone_from_browser.name).to eq("America/New_York")
     end
 
     it "returns the time zone that was assigned as a TZInfo::Timezone" do
-      session = new_session
       session.timezone_from_browser = TZInfo::Timezone.get("Europe/Paris")
 
       expect(session.timezone_from_browser.name).to eq("Europe/Paris")
     end
 
-    it "does not store an invalid time zone" do
-      session = new_session
+    it "does not store an invalid time zone's name" do
+      rack_session = {}
+      session = described_class.new(rack_session:)
       session.timezone_from_browser = "America/Nowhere"
 
-      expect(session[:__brut_timezone_from_browser]).to eq(nil)
-      expect(session.timezone_from_browser).to eq(nil)
+      expect(rack_session["__brut_timezone_from_browser"]).to eq(nil)
+    end
+
+    it "keeps a previously stored time zone when assigned an invalid one" do
+      session.timezone_from_browser = "America/New_York"
+      session.timezone_from_browser = "America/Nowhere"
+
+      expect(session.timezone_from_browser.name).to eq("America/New_York")
     end
 
     it "returns nil and records an exception when the stored value is invalid" do
-      session = new_session
       session[:__brut_timezone_from_browser] = "America/Nowhere"
 
       expect(session.timezone_from_browser).to eq(nil)
@@ -91,7 +89,6 @@ RSpec.describe Brut::FrontEnd::Session do
 
   describe "#timezone" do
     it "prefers the explicit override" do
-      session = new_session
       session.timezone_from_browser = "America/New_York"
       session.timezone = "Europe/Paris"
 
@@ -99,7 +96,6 @@ RSpec.describe Brut::FrontEnd::Session do
     end
 
     it "falls back to the browser's time zone when the override is cleared" do
-      session = new_session
       session.timezone_from_browser = "America/New_York"
       session.timezone = "Europe/Paris"
       session.timezone = nil
@@ -108,7 +104,6 @@ RSpec.describe Brut::FrontEnd::Session do
     end
 
     it "accepts the override as a TZInfo::Timezone" do
-      session = new_session
       session.timezone = TZInfo::Timezone.get("Europe/Paris")
 
       expect(session.timezone.name).to eq("Europe/Paris")
@@ -116,7 +111,6 @@ RSpec.describe Brut::FrontEnd::Session do
 
     it "prefers the browser's time zone over ENV[\"TZ\"]" do
       ENV["TZ"] = "Asia/Tokyo"
-      session = new_session
       session.timezone_from_browser = "America/New_York"
 
       expect(session.timezone.name).to eq("America/New_York")
@@ -125,15 +119,14 @@ RSpec.describe Brut::FrontEnd::Session do
     it "uses ENV[\"TZ\"] when nothing else is available" do
       ENV["TZ"] = "Asia/Tokyo"
 
-      expect(new_session.timezone.name).to eq("Asia/Tokyo")
+      expect(session.timezone.name).to eq("Asia/Tokyo")
     end
 
     it "falls back to UTC when nothing else is available" do
-      expect(new_session.timezone.name).to eq("UTC")
+      expect(session.timezone.name).to eq("UTC")
     end
 
     it "falls back to the browser's time zone when the override is invalid" do
-      session = new_session
       session.timezone_from_browser = "America/New_York"
       session.timezone = "America/Nowhere"
 
@@ -144,14 +137,13 @@ RSpec.describe Brut::FrontEnd::Session do
     it "falls back to UTC when ENV[\"TZ\"] is invalid" do
       ENV["TZ"] = "America/Nowhere"
 
-      expect(new_session.timezone.name).to eq("UTC")
+      expect(session.timezone.name).to eq("UTC")
       expect(@instrumentation).to have_received(:record_exception)
     end
   end
 
   describe "hash access" do
     it "coerces keys to strings" do
-      session = new_session
       session[:widget_id] = "42"
 
       expect(session["widget_id"]).to eq("42")
@@ -159,7 +151,6 @@ RSpec.describe Brut::FrontEnd::Session do
     end
 
     it "deletes a value" do
-      session = new_session
       session[:widget_id] = "42"
       session.delete(:widget_id)
 
@@ -169,11 +160,10 @@ RSpec.describe Brut::FrontEnd::Session do
 
   describe "flash" do
     it "returns an empty flash when nothing is stored" do
-      expect(new_session.flash.to_h).to eq(Brut::FrontEnd::Flash.new.to_h)
+      expect(session.flash.to_h).to eq(Brut::FrontEnd::Flash.new.to_h)
     end
 
     it "returns the flash that was assigned" do
-      session = new_session
       session.flash = Brut::FrontEnd::Flash.new(age: 1, messages: { notice: "example.notice" })
 
       expect(session.flash.to_h).to eq(age: 1, messages: { notice: "example.notice" })

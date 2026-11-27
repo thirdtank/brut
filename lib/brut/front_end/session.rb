@@ -44,9 +44,7 @@ class Brut::FrontEnd::Session
   #
   # @param timezone [TZInfo::Timezone|String] The timezone, or name of a timezone suitable for use with `TZInfo::Timezone`.
   def timezone_from_browser=(timezone)
-    if timezone.kind_of?(TZInfo::Timezone)
-      timezone = timezone.name
-    end
+    existing_timezone_from_browser = self[:__brut_timezone_from_browser]
     canonical_timezone_name = begin
                                 if timezone.kind_of?(TZInfo::Timezone)
                                   timezone.name
@@ -56,7 +54,7 @@ class Brut::FrontEnd::Session
                               rescue TZInfo::InvalidTimezoneIdentifier
                                 nil
                               end
-    self[:__brut_timezone_from_browser] = canonical_timezone_name
+    self[:__brut_timezone_from_browser] = canonical_timezone_name || existing_timezone_from_browser
   end
 
   # Set the session timezone, regardless of what the browser reports.

@@ -92,6 +92,24 @@ RSpec.describe Brut::FrontEnd::RouteHooks::LocaleDetection do
 
       expect(session.timezone.name).to eq("Europe/Paris")
     end
+
+    it "keeps the session's time zone when there is no cookie" do
+      session, = new_session
+      session.timezone_from_browser = "America/New_York"
+
+      call_hook(session:)
+
+      expect(session.timezone.name).to eq("America/New_York")
+    end
+
+    it "keeps the session's time zone when the cookie is invalid" do
+      session, = new_session
+      session.timezone_from_browser = "America/New_York"
+
+      call_hook(session:, cookie: "brut.timezone=America/Nowhere")
+
+      expect(session.timezone.name).to eq("America/New_York")
+    end
   end
 
   describe "the Accept-Language header" do

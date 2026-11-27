@@ -26,17 +26,32 @@ class Brut::FrontEnd::RouteHooks::LocaleDetection < Brut::FrontEnd::RouteHook
     continue
   end
   def after(response:)
-    vary = response.headers["Vary"]
-    if !vary.kind_of?(Array)
-      vary = vary.to_s.split(/,/)
-    end
-    vary = vary.map(&:downcase)
-    if vary != [ "*" ]
-      vary << "cookie"
-      vary << "accept-language"
-    end
-    response.headers["Vary"] = vary.uniq.join(",")
+    vary = VaryHeader.new(response.headers["Vary"])
+    vary << "cookie"
+    vary << "accept-language"
+    response.headers["Vary"] = vary.to_s
     response.headers["Content-Language"] = ::I18n.locale.to_s
     continue
+  end
+
+private
+
+  class VaryHeader
+    def initialize(initial_header_value)
+      @values = Set.new
+      Array(initial_header_value).map { it.split(/,/) }.flatten(1).each do |value|
+        self.<< value
+      end
+    end
+
+    def <<(value)
+      if !@values.include?("*")
+        @values.add(value.downcase.strip)
+      end
+    end
+
+    def to_s
+      @values.to_a.reject(&:empty?).uniq.sort.join(",")
+    end
   end
 end

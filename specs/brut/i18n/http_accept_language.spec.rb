@@ -30,6 +30,18 @@ RSpec.describe Brut::I18n::HTTPAcceptLanguage do
       expect(weighted_locale.primary_locale).to eq("fr")
     end
 
+    it "canonicalizes the language to lowercase" do
+      parsed = described_class.from_header("FR")
+
+      expect(parsed.weighted_locales.map(&:locale)).to eq(["fr"])
+    end
+
+    it "canonicalizes the language to lowercase and the region to uppercase" do
+      parsed = described_class.from_header("FR-ca")
+
+      expect(parsed.weighted_locales.map(&:locale)).to eq(["fr-CA"])
+    end
+
     it "returns AlwaysEnglish when the header is missing" do
       expect(described_class.from_header(nil)).to be_a(described_class::AlwaysEnglish)
     end
