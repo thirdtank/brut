@@ -52,7 +52,14 @@ class Brut::FrontEnd::Component < Phlex::HTML
   register_element :blok_i18n_translation
   register_element :blok_cv
   register_element :blok_cv_messages
+  register_element :blok_button_group
+  register_element :blok_form
+  register_element :blok_message
+  register_element :blok_notification
+  register_element :blok_range_value
+  register_element :blok_tabs
 
+  # TODO: These need to be migrated or removed
   register_element :brut_confirm_submit
   register_element :brut_confirmation_dialog
   register_element :brut_ajax_submit
@@ -60,10 +67,8 @@ class Brut::FrontEnd::Component < Phlex::HTML
   register_element :brut_confirm_submit
   register_element :brut_confirmation_dialog
   register_element :brut_copy_to_clipboard
-  register_element :brut_form
   register_element :brut_locale_detection
   register_element :brut_message
-  register_element :brut_tabs
   register_element :brut_tracing
 
   # Module for the various "free methods" available to all components.

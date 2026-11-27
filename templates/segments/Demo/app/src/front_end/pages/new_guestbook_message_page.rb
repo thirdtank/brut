@@ -14,7 +14,7 @@ class NewGuestbookMessagePage < AppPage
     div(class: "flex flex-column items-center ff-sans") do
       render global_component(FlashComponent)
       div(class: "w-50 mv-5") do
-        brut_form(class: "w-100") do
+        blok_form(class: "w-100") do
           FormTag(for: @form, class: "flex flex-column gap-3 items-end") do
             h1(class: "ff-sans ma-0 lh-title f-5 self-start flex items-center gap-3") do
               img(src: "/static/images/icon.png", class: "w-5")
