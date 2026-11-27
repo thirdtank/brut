@@ -67,8 +67,9 @@ class Brut::CLI::Terminal
 
 private
 
+  FALLBACK_WINSIZE = [ 24, 80 ]
   def winsize
-    @winsize ||= IO.console.winsize
+    @winsize ||= IO.console&.winsize || FALLBACK_WINSIZE
   end
 
 end
